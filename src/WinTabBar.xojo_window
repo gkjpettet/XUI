@@ -15,7 +15,7 @@ Begin DesktopWindow WinTabBar
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   ""
+   MenuBar         =   583317503
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -23,13 +23,99 @@ Begin DesktopWindow WinTabBar
    Title           =   "TabBar Testing"
    Type            =   0
    Visible         =   True
-   Width           =   600
+   Width           =   1000
+   Begin XUITabBar TabBar
+      AllowAutoDeactivate=   True
+      AllowDragReordering=   False
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Count           =   0
+      Enabled         =   True
+      HasAnchoredFirstTab=   False
+      HasLeftBorder   =   False
+      HasRightBorder  =   False
+      Height          =   28
+      Index           =   -2147483648
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      MinimumTabWidth =   200.0
+      Scope           =   0
+      SelectedTabIndex=   0
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Transparent     =   True
+      Visible         =   True
+      Width           =   1000
+   End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag Event
+		Sub MenuBarSelected()
+		  If TabBar.Count > 0 Then
+		    FileCloseTab.Enabled = True
+		  Else
+		    FileCloseTab.Enabled = False
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileCloseTab() As Boolean Handles FileCloseTab.Action
+			// Close the currently selected tab.
+			If TabBar.SelectedTabIndex <> - 1 Then
+			TabBar.RemoveTabAt(TabBar.SelectedTabIndex)
+			End If
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 #tag EndWindowCode
 
+#tag Events TabBar
+	#tag Event
+		Sub Opening()
+		  Var style As New XUITabBarStyle
+		  style.TabBorderColor = Color.FromString("&h00C8C8C8")
+		  
+		  style.ActiveTabBackgroundColor = Color.White
+		  style.ActiveTabBorderColor = Color.FromString("&h0040BB9C")
+		  style.ActiveTabCloseColor = Color.Yellow
+		  style.ActiveTabTextColor = Color.FromString("&h002B2C2C")
+		  
+		  style.InactiveTabBackgroundColor = Color.FromString("&h00ECECEC")
+		  style.InactiveTabCloseColor = Color.Yellow
+		  style.InactiveTabTextColor = Color.FromString("&h002B2C2C")
+		  
+		  style.DisabledTabBackgroundColor = Color.Gray
+		  style.DisabledTabTextColor = Color.FromString("&h002B2C2C")
+		  
+		  Me.Style = style
+		  
+		  Me.AppendTab("Tab 1")
+		  Me.AppendTab("Tab 2")
+		  Me.AppendTab("Tab 3")
+		  Me.AppendTab("Tab 4")
+		  
+		  Me.SelectTabAtIndex(1)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="Name"

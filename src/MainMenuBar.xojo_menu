@@ -17,6 +17,17 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin DesktopMenuItem FileCloseTab
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Close Tab"
+         ShortcutKey = "W"
+         Shortcut = "Cmd+W"
+         MenuModifier = True
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
    End
    Begin DesktopMenuItem EditMenu
       SpecialMenu = 0
