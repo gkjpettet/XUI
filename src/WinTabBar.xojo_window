@@ -94,7 +94,8 @@ End
 		  style.TabBorderColor = Color.FromString("&h00C8C8C8")
 		  
 		  style.ActiveTabBackgroundColor = Color.White
-		  style.ActiveTabBorderColor = Color.FromString("&h0040BB9C")
+		  style.ActiveTabBorderColor = Color.Purple
+		  style.ActiveTabHasThickTopBorder = True
 		  style.ActiveTabCloseColor = Color.Yellow
 		  style.ActiveTabTextColor = Color.FromString("&h002B2C2C")
 		  
@@ -111,6 +112,8 @@ End
 		  Me.AppendTab("Tab 2")
 		  Me.AppendTab("Tab 3")
 		  Me.AppendTab("Tab 4")
+		  Me.AppendTab("Tab 5")
+		  Me.AppendTab("Tab 6")
 		  
 		  Me.SelectTabAtIndex(1)
 		End Sub

@@ -48,7 +48,7 @@ Protected Class XUITabBarItem
 		    If style.ActiveTabHasTopBorder Then
 		      // Active top border.
 		      If style.ActiveTabHasThickTopBorder Then
-		        g.FillRectangle(0, 0, targetWidth, 2)
+		        g.FillRectangle(x, 0, targetWidth, 2)
 		      Else
 		        g.DrawLine(x, 0, x + targetWidth, 0)
 		      End If
