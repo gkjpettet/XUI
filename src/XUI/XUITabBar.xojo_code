@@ -2,6 +2,60 @@
 Protected Class XUITabBar
 Inherits DesktopCanvas
 	#tag Event
+		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  mMouseDownTicks = System.Ticks
+		  
+		  // At the exact moment the mouse is clicked we aren't dragging yet.
+		  mDragging = False
+		  
+		  // Cache the x, y coords that this mouse down event occurs at.
+		  mLastMouseDownX = x
+		  mLastMouseDownY = y
+		  
+		  // Right click?
+		  mLastClickWasContextual = IsContextualClick
+		  
+		  // Nothing else to do if there are no tabs.
+		  If mTabs.Count = 0 Then Return True
+		  
+		  If Not mLastClickWasContextual Then
+		    // Get the index of the tab under the mouse.
+		    Var index As Integer = TabIndexAtX(x)
+		    If index < 0 Or index > mTabs.LastIndex Then
+		      // No tab under the mouse.
+		      Return True
+		    End If
+		    
+		    Var tab As XUITabBarItem = mTabs(index)
+		    
+		    // If the tab is enabled then select it.
+		    If tab.Enabled Then SelectTabAtIndex(index)
+		  End If
+		  
+		  // Permit the `MouseUp` event to fire.
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseUp(x As Integer, y As Integer)
+		  If mDragging Then
+		    // Must have finished dragging.
+		    mDragging = False
+		    Return
+		  End If
+		  
+		  // If this event was triggered by a right click then bail as right clicks should get handled in 
+		  /// the `ConstructContextualMenu` event.
+		  If mLastClickWasContextual Then
+		    RaiseEvent DidContextualClick(x, y)
+		    Return
+		  End If
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Function MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer) As Boolean
 		  If deltaX <> 0 Then
 		    // deltaX reported by Xojo is very small. Beef it up a little.
@@ -107,6 +161,40 @@ Inherits DesktopCanvas
 		  
 		  Self.Style = New XUITabBarStyle
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 4D6F766573207468652073656C65637465642074616220746F207468652074616220746F20746865206C656674206F66207468652063757272656E746C792073656C6563746564207461622E
+		Sub PageLeft()
+		  /// Moves the selected tab to the tab to the left of the currently selected tab.
+		  
+		  If mTabs.Count <= 1 Then Return
+		  If mSelectedTabIndex = -1 Then Return
+		  
+		  If mSelectedTabIndex = 0 Then
+		    mSelectedTabIndex = mTabs.LastIndex
+		  Else
+		    mSelectedTabIndex = mSelectedTabIndex - 1
+		  End If
+		  
+		  Redraw
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 4D6F766573207468652073656C65637465642074616220746F207468652074616220746F20746865207269676874206F66207468652063757272656E746C792073656C6563746564207461622E
+		Sub PageRight()
+		  /// Moves the selected tab to the tab to the right of the currently selected tab.
+		  
+		  If mTabs.Count <= 1 Then Return
+		  If mSelectedTabIndex = -1 Then Return
+		  
+		  If mSelectedTabIndex = mTabs.LastIndex Then
+		    mSelectedTabIndex = 0
+		  Else
+		    mSelectedTabIndex = mSelectedTabIndex + 1
+		  End If
+		  
+		  Redraw
 		End Sub
 	#tag EndMethod
 
@@ -252,9 +340,34 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520696E646578206F662074686520746162206174206D6F75736520706F736974696F6E20607860206F72202D312069662074686572652069736E2774206F6E652E
+		Private Function TabIndexAtX(x As Double) As Integer
+		  /// Returns the index of the tab at mouse position `x` or -1 if there isn't one.
+		  ///
+		  /// `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
+		  /// scrolling of the tab bar.
+		  
+		  // Adjust for scrolling.
+		  x = x + ScrollPosX
+		  
+		  // Sanity checks.
+		  If mTabs.Count = 0 Then Return -1
+		  If x < 0 Then Return -1
+		  If mBuffer = Nil Then Return -1
+		  If x > mBuffer.Width Then Return -1
+		  
+		  Return Floor(x / mWidestTab)
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0, Description = 412074616220776173206A75737420616464656420746F2074686520746162206261722061742060696E646578602E
 		Event DidAddTab(tab As XUITabBarItem, index As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B65642920696E736964652074686520746162206261722061742074686520706173736564206C6F63616C20636F6F7264696E617465732E
+		Event DidContextualClick(x As Integer, y As Integer)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 412074616220686173206A757374206265656E2072656D6F7665642066726F6D2074686520746162206261722E
@@ -295,8 +408,28 @@ Inherits DesktopCanvas
 		Private mBuffer As Picture
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F7573652069732063757272656E746C79206472616767696E672E
+		Private mDragging As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 546865206D696E756D756D2077696474682061207461622077696C6C2062652E
 		MinimumTabWidth As Double = 250
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F75736520636C69636B2074686174206A757374206F6363757272656420696E2074686520604D6F757365446F776E60206576656E7420776173206120636F6E7465787475616C20636C69636B2E
+		Private mLastClickWasContextual As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865205820636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
+		Private mLastMouseDownX As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
+		Private mLastMouseDownY As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865207469636B73207768656E20746865206C617374204D6F757365446F776E206576656E74206F636375727265642E
+		Private mMouseDownTicks As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 547275652069662074686520746162206E6565647320726564726177696E672E
