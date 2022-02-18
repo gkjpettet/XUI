@@ -137,15 +137,18 @@ End
 		  style.ActiveTabBackgroundColor = Color.White
 		  style.ActiveTabBorderColor = Color.Purple
 		  style.ActiveTabHasThickTopBorder = True
-		  style.ActiveTabCloseColor = Color.Yellow
+		  style.ActiveTabCloseColor = Color.Brown
 		  style.ActiveTabTextColor = Color.FromString("&h002B2C2C")
 		  
 		  style.InactiveTabBackgroundColor = Color.FromString("&h00ECECEC")
-		  style.InactiveTabCloseColor = Color.Yellow
+		  style.InactiveTabCloseColor = Color.Brown
 		  style.InactiveTabTextColor = Color.FromString("&h002B2C2C")
 		  
 		  style.DisabledTabBackgroundColor = Color.Gray
 		  style.DisabledTabTextColor = Color.FromString("&h002B2C2C")
+		  
+		  style.HoverTabBackgroundColor = Color.Yellow
+		  style.HoverTabTextColor = Color.Blue
 		  
 		  Me.Style = style
 		  
@@ -166,8 +169,6 @@ End
 #tag Events InfoTimer
 	#tag Event
 		Sub Action()
-		  Info.Text = "Selected index: " + TabBar.SelectedTabIndex.ToString + _
-		  ", drag index: " + TabBar.mDragIndex.ToString
 		  
 		End Sub
 	#tag EndEvent

@@ -16,7 +16,7 @@ Protected Class XUITabBarItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 447261777320746869732074616220746F20606760207374617274696E672061742060786020776974682061207769647468206F6620607461726765745769647468602E
-		Function Draw(g As Graphics, x As Integer, active As Boolean, targetWidth As Double) As Integer
+		Function Draw(g As Graphics, x As Integer, active As Boolean, hoveredOver As Boolean, targetWidth As Double) As Integer
 		  /// Draws this tab to `g` starting at `x` with a width of `targetWidth`.
 		  
 		  Var style As XUITabBarStyle = Owner.Style
@@ -27,7 +27,7 @@ Protected Class XUITabBarItem
 		  Var startX As Integer = x
 		  
 		  // Background colour.
-		  SetGraphicsBackgroundColor(g, active)
+		  SetGraphicsBackgroundColor(g, active, hoveredOver)
 		  g.FillRectangle(x, 0, targetWidth, g.Height)
 		  
 		  // ==================================================
@@ -78,14 +78,13 @@ Protected Class XUITabBarItem
 		  // ==================================================
 		  // Close icon.
 		  // ==================================================
-		  If Enabled And Closable Then
-		    SetGraphicsCloseIconColor(g, active)
-		    g.FillRectangle(x, midY - (CLOSE_HEIGHT/2), CLOSE_WIDTH, CLOSE_HEIGHT)
+		  If Enabled And Closable And hoveredOver Then
+		    DrawCloseIcon(x, g, active)
 		    x = x + CLOSE_WIDTH + CLOSE_PADDING
 		  End If
 		  
 		  // Compute the width of the icon and caption area.
-		  SetGraphicsFontProperties(g, active)
+		  SetGraphicsFontProperties(g, active, hoveredOver)
 		  Var iconCaptionW As Double
 		  If Icon <> Nil Then
 		    iconCaptionW = Icon.Graphics.Width + ICON_PADDING + g.TextWidth(Caption)
@@ -99,6 +98,7 @@ Protected Class XUITabBarItem
 		  // ==================================================
 		  // Icon.
 		  // ==================================================
+		  #Pragma Warning "TODO: Properly handle drawing tab icons"
 		  If Icon <> Nil Then
 		    g.DrawPicture(Icon, x, midY - (Icon.Graphics.Height/2))
 		    x = x + Icon.Graphics.Width + ICON_PADDING
@@ -118,8 +118,24 @@ Protected Class XUITabBarItem
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 44726177732074686520636C6F73652069636F6E20666F72206120746162206174206078602E
+		Private Sub DrawCloseIcon(x As Integer, g As Graphics, active As Boolean)
+		  /// Draws the close icon for a tab at `x`.
+		  
+		  SetGraphicsCloseIconColor(g, active)
+		  
+		  g.PenSize = 2
+		  
+		  Var midY As Double = g.Height / 2
+		  
+		  g.DrawLine(x, midY - 3, x + 6, midY + 3)
+		  g.DrawLine(x, midY + 3, x + 6, midY - 3)
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 5365747320746865206261636B67726F756E642064726177696E6720636F6C6F7572206F662060676020746F2074686F736520726571756972656420666F722074686973207461622E
-		Private Sub SetGraphicsBackgroundColor(g As Graphics, active As Boolean)
+		Private Sub SetGraphicsBackgroundColor(g As Graphics, active As Boolean, hoveredOver As Boolean)
 		  /// Sets the background drawing colour of `g` to those required for this tab.
 		  
 		  Var style As XUITabBarStyle = Owner.Style
@@ -130,6 +146,10 @@ Protected Class XUITabBarItem
 		  ElseIf Self.Enabled = False Then
 		    // Disabled tab.
 		    g.DrawingColor = style.DisabledTabBackgroundColor
+		    
+		  ElseIf hoveredOver Then
+		    g.DrawingColor = style.HoverTabBackgroundColor
+		    
 		  Else
 		    // Inactive tab.
 		    g.DrawingColor = style.InactiveTabBackgroundColor
@@ -153,7 +173,7 @@ Protected Class XUITabBarItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 536574732074686520666F6E742070726F70657274696573206F662060676020746F2074686F736520726571756972656420666F722074686973207461622E
-		Private Sub SetGraphicsFontProperties(g As Graphics, active As Boolean)
+		Private Sub SetGraphicsFontProperties(g As Graphics, active As Boolean, hoveredOver As Boolean)
 		  /// Sets the font properties of `g` to those required for this tab.
 		  
 		  Var style As XUITabBarStyle = Owner.Style
@@ -171,6 +191,12 @@ Protected Class XUITabBarItem
 		    g.Bold = style.DisabledTabTextBold
 		    g.Italic = style.DisabledTabTextItalic
 		    g.DrawingColor = style.DisabledTabTextColor
+		    
+		  ElseIf hoveredOver Then
+		    g.Bold = style.HoverTabTextBold
+		    g.Italic = style.HoverTabTextItalic
+		    g.DrawingColor = style.HoverTabTextColor
+		    
 		  Else
 		    // Inactive tab.
 		    g.Bold = style.InactiveTabTextBold
@@ -190,7 +216,7 @@ Protected Class XUITabBarItem
 		  
 		  g.SaveState
 		  
-		  SetGraphicsFontProperties(g, active)
+		  SetGraphicsFontProperties(g, active, False)
 		  
 		  Var w As Double = g.TextWidth(Caption)
 		  

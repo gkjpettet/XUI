@@ -52,6 +52,8 @@ Inherits DesktopCanvas
 		      
 		      If Not ValidTabIndex(mMouseDownIndex) Then Return
 		      
+		      mMouseOverIndex = -1
+		      
 		      If Not mDragging Then
 		        // Have just started dragging. Compute the offset from the selected tab's left edge that the
 		        // mouse is currently at.
@@ -79,6 +81,25 @@ Inherits DesktopCanvas
 		    End If
 		    
 		  End If
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseExit()
+		  mMouseOverIndex = -1
+		  
+		  Redraw
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseMove(x As Integer, y As Integer)
+		  #Pragma Unused y
+		  
+		  mMouseOverIndex = TabIndexAtX(x)
+		  
+		  Redraw
+		  
 		End Sub
 	#tag EndEvent
 
@@ -270,6 +291,8 @@ Inherits DesktopCanvas
 		Private Sub RebuildBuffer()
 		  /// Rebuilds the entire buffer by drawing all visible content to it.
 		  
+		  #Pragma Warning "TODO: Support drawing a right menu"
+		  
 		  ComputeBufferWidthAndWidestTab
 		  
 		  // Create a new HiDPI aware back buffer picture.
@@ -289,7 +312,7 @@ Inherits DesktopCanvas
 		  For i As Integer = 0 To mTabs.LastIndex
 		    Var tab As XUITabBarItem = mTabs(i)
 		    If i <> mSelectedTabIndex Then
-		      x = tab.Draw(g, x, False, mWidestTab)
+		      x = tab.Draw(g, x, False, i = mMouseOverIndex, mWidestTab)
 		    Else
 		      selectedTabX = x
 		      x = x + mWidestTab
@@ -299,9 +322,9 @@ Inherits DesktopCanvas
 		  // Draw the selected tab.
 		  If mSelectedTabIndex <> -1 Then
 		    If mDragging Then
-		      Call mTabs(mSelectedTabIndex).Draw(g, mDragX - mDragXLeftEdgeOffset, True, mWidestTab)
+		      Call mTabs(mSelectedTabIndex).Draw(g, mDragX - mDragXLeftEdgeOffset, True, False, mWidestTab)
 		    Else
-		      Call mTabs(mSelectedTabIndex).Draw(g, selectedTabX, True, mWidestTab)
+		      Call mTabs(mSelectedTabIndex).Draw(g, selectedTabX, True, mSelectedTabIndex = mMouseOverIndex, mWidestTab)
 		    End If
 		  End If
 		  
@@ -494,6 +517,15 @@ Inherits DesktopCanvas
 		HasRightBorder As Boolean = False
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746865206D6F75736520697320686F766572696E67206F7665722061207461622E
+		#tag Getter
+			Get
+			  Return mMouseOverIndex <> -1
+			End Get
+		#tag EndGetter
+		IsHoveringOverTab As Boolean
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21, Description = 41207069637475726520636F6E7461696E696E67207468652066756C6C20776964746820746162206261722E
 		Private mBuffer As Picture
 	#tag EndProperty
@@ -502,8 +534,8 @@ Inherits DesktopCanvas
 		Private mDragging As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 5768656E206472616767696E672061207461622C20746869732069732074686520696E646578206265696E67206472616767656420746F2E
-		mDragIndex As Integer = -1
+	#tag Property, Flags = &h21, Description = 5768656E206472616767696E672061207461622C20746869732069732074686520696E646578206265696E67206472616767656420746F2E
+		Private mDragIndex As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5468652060786020636F6F7264696E61746520696E20746865206C61737420604D6F7573654472616760206576656E742E
@@ -536,6 +568,10 @@ Inherits DesktopCanvas
 
 	#tag Property, Flags = &h21, Description = 546865207469636B73207768656E20746865206C617374204D6F757365446F776E206576656E74206F636375727265642E
 		Private mMouseDownTicks As Double
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520696E646578206F662074686520746162207468617420746865206D6F7573652069732063757272656E746C79206F766572206F7220602D3160206966206E6F74206F766572206F6E652E
+		Private mMouseOverIndex As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 547275652069662074686520746162206E6565647320726564726177696E672E
@@ -875,11 +911,11 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="mDragIndex"
+			Name="IsHoveringOverTab"
 			Visible=false
 			Group="Behavior"
-			InitialValue="-1"
-			Type="Integer"
+			InitialValue=""
+			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

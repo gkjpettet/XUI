@@ -72,7 +72,23 @@ Protected Class XUITabBarStyle
 		HorizontallPadding As Integer = 10
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865206261636B67726F756E64206F662074686520746162206265696E6720686F7665726564206F7665722E
+		HoverTabBackgroundColor As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520746162206265696E6720686F7665726564206F7665722073686F756C6420626520626F6C642E
+		HoverTabTextBold As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865207465787420696E2074686520746162206265696E6720686F7665726564206F7665722E
+		HoverTabTextColor As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520746162206265696E6720686F7665726564206F7665722073686F756C64206265206974616C69632E
+		HoverTabTextItalic As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F6620696E61637469766520746162732E
 		InactiveTabBackgroundColor As Color
 	#tag EndProperty
 
@@ -84,7 +100,7 @@ Protected Class XUITabBarStyle
 		InactiveTabTextBold As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 546865207465787420636F6C6F757220666F7220696E61637469766520746162732E
 		InactiveTabTextColor As Color
 	#tag EndProperty
 
@@ -248,7 +264,7 @@ Protected Class XUITabBarStyle
 			Group="Behavior"
 			InitialValue="System"
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FontSize"
@@ -312,6 +328,54 @@ Protected Class XUITabBarStyle
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ActiveTabHasThickTopBorder"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ActiveTabHasThickBottomBorder"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HoverTabBackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HoverTabTextBold"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HoverTabTextColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HoverTabTextItalic"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
