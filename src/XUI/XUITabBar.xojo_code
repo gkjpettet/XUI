@@ -11,6 +11,7 @@ Inherits DesktopCanvas
 		  // Cache the x, y coords that this mouse down event occurs at.
 		  mLastMouseDownX = x
 		  mLastMouseDownY = y
+		  mMouseDownIndex = TabIndexAtX(x)
 		  
 		  // Right click?
 		  mLastClickWasContextual = IsContextualClick
@@ -39,10 +40,56 @@ Inherits DesktopCanvas
 	#tag EndEvent
 
 	#tag Event
+		Sub MouseDrag(x As Integer, y As Integer)
+		  If Not AllowDragReordering Then Return
+		  
+		  If System.Ticks - mMouseDownTicks > DRAG_THRESHOLD_TICKS Then
+		    
+		    mMouseDownTicks = System.Ticks
+		    
+		    If Abs(x - mLastMouseDownX) > DRAG_THRESHOLD_DISTANCE Or _
+		      Abs(y - mLastMouseDownY) > DRAG_THRESHOLD_DISTANCE Then
+		      
+		      If Not ValidTabIndex(mMouseDownIndex) Then Return
+		      
+		      If Not mDragging Then
+		        // Have just started dragging. Compute the offset from the selected tab's left edge that the
+		        // mouse is currently at.
+		        mDragXLeftEdgeOffset = (x - mSelectedTabIndex * mWidestTab)
+		      End If
+		      
+		      mDragging = True
+		      mDragX = x
+		      mDragIndex = TabIndexAtX(x)
+		      
+		      If x > Self.Width - DRAG_SCROLL_THRESHOLD Then
+		        ScrollPosX = ScrollPosX + DRAG_SCROLL_THRESHOLD
+		      ElseIf x < DRAG_SCROLL_THRESHOLD Then
+		        ScrollPosX = ScrollPosX - DRAG_SCROLL_THRESHOLD
+		      End If
+		      
+		      If mDragIndex <> mSelectedTabIndex Then
+		        SwapTabs(mSelectedTabIndex, mDragIndex, False)
+		        mSelectedTabIndex = mDragIndex
+		        Redraw
+		      Else
+		        Redraw
+		      End If
+		      
+		    End If
+		    
+		  End If
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub MouseUp(x As Integer, y As Integer)
 		  If mDragging Then
 		    // Must have finished dragging.
 		    mDragging = False
+		    mDragX = 0
+		    mDragIndex = -1
+		    Redraw
 		    Return
 		  End If
 		  
@@ -57,6 +104,10 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Function MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer) As Boolean
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  #Pragma Unused deltaY
+		  
 		  If deltaX <> 0 Then
 		    // deltaX reported by Xojo is very small. Beef it up a little.
 		    deltaX = deltaX * 5
@@ -234,7 +285,6 @@ Inherits DesktopCanvas
 		    g.AntiAliased = False
 		  #EndIf
 		  
-		  // Draw all tabs to the buffer except for the active one.
 		  Var x, selectedTabX As Integer = 0
 		  For i As Integer = 0 To mTabs.LastIndex
 		    Var tab As XUITabBarItem = mTabs(i)
@@ -248,8 +298,13 @@ Inherits DesktopCanvas
 		  
 		  // Draw the selected tab.
 		  If mSelectedTabIndex <> -1 Then
-		    Call mTabs(mSelectedTabIndex).Draw(g, selectedTabX, True, mWidestTab)
+		    If mDragging Then
+		      Call mTabs(mSelectedTabIndex).Draw(g, mDragX - mDragXLeftEdgeOffset, True, mWidestTab)
+		    Else
+		      Call mTabs(mSelectedTabIndex).Draw(g, selectedTabX, True, mWidestTab)
+		    End If
 		  End If
+		  
 		End Sub
 	#tag EndMethod
 
@@ -340,6 +395,23 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub SwapTabs(index1 As Integer, index2 As Integer, shouldRedraw As Boolean = True)
+		  /// Swaps the tabs at the passed indices and redraws the tab bar.
+		  
+		  If mTabs.Count = 0. Then Return
+		  
+		  If index1 < 0 Or index1 > mTabs.LastIndex Then Return
+		  If index2 < 0 Or index2 > mTabs.LastIndex Then Return
+		  
+		  Var tab2 As XUITabBarItem = mTabs(index2)
+		  mTabs(index2) = mTabs(Index1)
+		  mTabs(Index1) = tab2
+		  
+		  If shouldRedraw Then Redraw
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52657475726E732074686520696E646578206F662074686520746162206174206D6F75736520706F736974696F6E20607860206F72202D312069662074686572652069736E2774206F6E652E
 		Private Function TabIndexAtX(x As Double) As Integer
 		  /// Returns the index of the tab at mouse position `x` or -1 if there isn't one.
@@ -356,7 +428,25 @@ Inherits DesktopCanvas
 		  If mBuffer = Nil Then Return -1
 		  If x > mBuffer.Width Then Return -1
 		  
-		  Return Floor(x / mWidestTab)
+		  Var index As Integer = Floor(x / mWidestTab)
+		  
+		  If index < 0 Then
+		    Return -1
+		  Else
+		    Return MathsKit.Clamp(index, 0, mTabs.LastIndex)
+		  End If
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662060696E6465786020697320612076616C69642074616220696E6465782E
+		Private Function ValidTabIndex(index As Integer) As Boolean
+		  /// Returns True if `index` is a valid tab index.
+		  
+		  If index < 0 Then Return False
+		  If mTabs.Count = 0 Then Return False
+		  If index > mTabs.LastIndex Then Return False
+		  
+		  Return True
 		  
 		End Function
 	#tag EndMethod
@@ -380,7 +470,7 @@ Inherits DesktopCanvas
 
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746162732063616E2062652072656F726465726564206279206472616767696E67207769746820746865206D6F7573652E
-		AllowDragReordering As Boolean
+		AllowDragReordering As Boolean = True
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F66206974656D7320696E2074686520746162206261722E
@@ -412,6 +502,18 @@ Inherits DesktopCanvas
 		Private mDragging As Boolean = False
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 5768656E206472616767696E672061207461622C20746869732069732074686520696E646578206265696E67206472616767656420746F2E
+		mDragIndex As Integer = -1
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652060786020636F6F7264696E61746520696E20746865206C61737420604D6F7573654472616760206576656E742E
+		Private mDragX As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C732066726F6D20746865206C6566742065646765206F66207468652063757272656E746C7920647261676765642074616220746865206D6F75736520637572736F7220776173207768656E206472616767696E6720626567616E2E
+		Private mDragXLeftEdgeOffset As Integer = 0
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 546865206D696E756D756D2077696474682061207461622077696C6C2062652E
 		MinimumTabWidth As Double = 250
 	#tag EndProperty
@@ -426,6 +528,10 @@ Inherits DesktopCanvas
 
 	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
 		Private mLastMouseDownY As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520696E646578206F66207468652074616220756E64657220746865206D6F75736520647572696E6720746865206C617374204D6F757365446F776E206576656E742E
+		Private mMouseDownIndex As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 546865207469636B73207768656E20746865206C617374204D6F757365446F776E206576656E74206F636375727265642E
@@ -515,6 +621,16 @@ Inherits DesktopCanvas
 		#tag EndSetter
 		Style As XUITabBarStyle
 	#tag EndComputedProperty
+
+
+	#tag Constant, Name = DRAG_SCROLL_THRESHOLD, Type = Double, Dynamic = False, Default = \"40", Scope = Private, Description = 546865206E756D626572206F6620706978656C732066726F6D207468652065646765207768656E206472616767696E6720746865206D6F757365206E6565647320746F2062652077697468696E20746F207363726F6C6C2074686520746162206261722E
+	#tag EndConstant
+
+	#tag Constant, Name = DRAG_THRESHOLD_DISTANCE, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320646966666572656E6365206265747765656E207468652063757272656E74206D6F75736520706F736974696F6E20616E6420746865206C61737420746F207472696767657220612064726167206F7065726174696F6E2E
+	#tag EndConstant
+
+	#tag Constant, Name = DRAG_THRESHOLD_TICKS, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F66207469636B732074686174206D757374206861766520656C6170736564206265747765656E20746865206C6173742064726167206F7065726174696F6E20746F207472696767657220616E6F7468657220647261672E
+	#tag EndConstant
 
 
 	#tag ViewBehavior
@@ -696,9 +812,9 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowDragReordering"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="True"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -755,6 +871,14 @@ Inherits DesktopCanvas
 			Visible=false
 			Group="Position"
 			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="mDragIndex"
+			Visible=false
+			Group="Behavior"
+			InitialValue="-1"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

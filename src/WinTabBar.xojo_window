@@ -56,6 +56,47 @@ Begin DesktopWindow WinTabBar
       Visible         =   True
       Width           =   1000
    End
+   Begin DesktopLabel Info
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Untitled"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   360
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   960
+   End
+   Begin Timer InfoTimer
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   False
+      Period          =   250
+      RunMode         =   2
+      Scope           =   2
+      TabPanelIndex   =   0
+   End
 End
 #tag EndDesktopWindow
 
@@ -116,6 +157,18 @@ End
 		  Me.AppendTab("Tab 6")
 		  
 		  Me.SelectTabAtIndex(1)
+		  
+		  #Pragma Warning "BUG: Not being set elsewhere correctly?"
+		  Me.AllowDragReordering = True
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events InfoTimer
+	#tag Event
+		Sub Action()
+		  Info.Text = "Selected index: " + TabBar.SelectedTabIndex.ToString + _
+		  ", drag index: " + TabBar.mDragIndex.ToString
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

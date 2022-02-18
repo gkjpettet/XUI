@@ -19,8 +19,6 @@ Protected Class XUITabBarItem
 		Function Draw(g As Graphics, x As Integer, active As Boolean, targetWidth As Double) As Integer
 		  /// Draws this tab to `g` starting at `x` with a width of `targetWidth`.
 		  
-		  #Pragma Warning "TODO"
-		  
 		  Var style As XUITabBarStyle = Owner.Style
 		  
 		  g.SaveState
