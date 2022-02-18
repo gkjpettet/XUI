@@ -9,10 +9,6 @@ Protected Class XUITabBarStyle
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		ActiveTabCloseColor As Color
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		ActiveTabHasBottomBorder As Boolean
 	#tag EndProperty
 
@@ -76,6 +72,10 @@ Protected Class XUITabBarStyle
 		HoverTabBackgroundColor As Color
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F72206F662074686520636C6F73652069636F6E207768656E20686F7665726564206F7665722E
+		HoverTabCloseColor As Color
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520746162206265696E6720686F7665726564206F7665722073686F756C6420626520626F6C642E
 		HoverTabTextBold As Boolean = False
 	#tag EndProperty
@@ -92,10 +92,6 @@ Protected Class XUITabBarStyle
 		InactiveTabBackgroundColor As Color
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		InactiveTabCloseColor As Color
-	#tag EndProperty
-
 	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520696E616374697665207461622073686F756C6420626520626F6C642E
 		InactiveTabTextBold As Boolean = False
 	#tag EndProperty
@@ -110,6 +106,10 @@ Protected Class XUITabBarStyle
 
 	#tag Property, Flags = &h0
 		TabBorderColor As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F72206F662074686520636C6F73652069636F6E207768656E206E6F7420686F7665726564206F7665722E
+		TabCloseColor As Color
 	#tag EndProperty
 
 
@@ -196,22 +196,6 @@ Protected Class XUITabBarStyle
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DisabledTabTextColor"
-			Visible=false
-			Group="Behavior"
-			InitialValue="&c000000"
-			Type="Color"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ActiveTabCloseColor"
-			Visible=false
-			Group="Behavior"
-			InitialValue="&c000000"
-			Type="Color"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="InactiveTabCloseColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
@@ -376,6 +360,14 @@ Protected Class XUITabBarStyle
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HoverTabCloseColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

@@ -87,6 +87,8 @@ Inherits DesktopCanvas
 	#tag Event
 		Sub MouseExit()
 		  mMouseOverIndex = -1
+		  mMouseMoveX = -1
+		  mMouseMoveY = -1
 		  
 		  Redraw
 		End Sub
@@ -94,9 +96,9 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub MouseMove(x As Integer, y As Integer)
-		  #Pragma Unused y
-		  
 		  mMouseOverIndex = TabIndexAtX(x)
+		  mMouseMoveX = x
+		  mMouseMoveY = y
 		  
 		  Redraw
 		  
@@ -118,6 +120,12 @@ Inherits DesktopCanvas
 		  /// the `ConstructContextualMenu` event.
 		  If mLastClickWasContextual Then
 		    RaiseEvent DidContextualClick(x, y)
+		    Return
+		  End If
+		  
+		  // Close this tab?
+		  If OverCloseIconAtIndex(mMouseOverIndex) Then
+		    RemoveTabAt(mMouseOverIndex)
 		    Return
 		  End If
 		End Sub
@@ -236,6 +244,38 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function OverCloseIconAtIndex(index As Integer) As Boolean
+		  /// True if the mouse is over the close icon of the tab at `index`.
+		  
+		  // Sanity checks.
+		  If mTabs.Count = 0 Then Return False
+		  If index < 0 Or index > mTabs.LastIndex Then Return False
+		  If mMouseMoveX = -1 Or mMouseMoveY = -1 Then Return False
+		  If Not mTabs(index).Closable Then Return False
+		  
+		  // Compute the x coord of the left edge of this tab.
+		  Var leftEdgeTab As Integer = (mWidestTab * index)
+		  
+		  // Compute the left edge of the close icon.
+		  Var leftEdgeClose As Integer = leftEdgeTab + XUITabBarItem.CLOSE_PADDING
+		  
+		  // Var compute the top edge of the close icon. -1 is a fudge.
+		  Var topEdgeClose As Integer = (Self.Height / 2) - (XUITabBarItem.CLOSE_HEIGHT / 2) - 1
+		  
+		  // We know where the mouse was during the last mouse move but we need to account for any scrolling.
+		  Var x As Integer = mMouseMoveX + ScrollPosX
+		  
+		  // The +2 values are just fudges.
+		  If x >= leftEdgeClose And x < leftEdgeClose + XUITabBarItem.CLOSE_WIDTH + 2 And _
+		    mMouseMoveY >= topEdgeClose And mMouseMoveY <= topEdgeClose + XUITabBarItem.CLOSE_HEIGHT + 2 Then
+		    Return True
+		  End If
+		  
+		  Return False
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 4D6F766573207468652073656C65637465642074616220746F207468652074616220746F20746865206C656674206F66207468652063757272656E746C792073656C6563746564207461622E
 		Sub PageLeft()
 		  /// Moves the selected tab to the tab to the left of the currently selected tab.
@@ -312,7 +352,7 @@ Inherits DesktopCanvas
 		  For i As Integer = 0 To mTabs.LastIndex
 		    Var tab As XUITabBarItem = mTabs(i)
 		    If i <> mSelectedTabIndex Then
-		      x = tab.Draw(g, x, False, i = mMouseOverIndex, mWidestTab)
+		      x = tab.Draw(g, x, False, i = mMouseOverIndex, OverCloseIconAtIndex(i), mWidestTab)
 		    Else
 		      selectedTabX = x
 		      x = x + mWidestTab
@@ -322,9 +362,10 @@ Inherits DesktopCanvas
 		  // Draw the selected tab.
 		  If mSelectedTabIndex <> -1 Then
 		    If mDragging Then
-		      Call mTabs(mSelectedTabIndex).Draw(g, mDragX - mDragXLeftEdgeOffset, True, False, mWidestTab)
+		      Call mTabs(mSelectedTabIndex).Draw(g, mDragX - mDragXLeftEdgeOffset, True, False, False, mWidestTab)
 		    Else
-		      Call mTabs(mSelectedTabIndex).Draw(g, selectedTabX, True, mSelectedTabIndex = mMouseOverIndex, mWidestTab)
+		      Call mTabs(mSelectedTabIndex).Draw(g, selectedTabX, True, _
+		      mSelectedTabIndex = mMouseOverIndex, OverCloseIconAtIndex(mSelectedTabIndex), mWidestTab)
 		    End If
 		  End If
 		  
@@ -363,11 +404,11 @@ Inherits DesktopCanvas
 		  mTabs.RemoveAt(index)
 		  
 		  // Handle selection.
-		  If mSelectedTabIndex = index Then
-		    // We just removed the selected tab. Select the tab to the left of this.
-		    mSelectedTabIndex = index - 1
-		  ElseIf index < mSelectedTabIndex Then
-		    // We removed a tab to the left of the currently selected tab. Adjust.
+		  If mTabs.Count = 0 Then
+		    mSelectedTabIndex = -1
+		  ElseIf mSelectedTabIndex > mTabs.LastIndex Then
+		    mSelectedTabIndex = mTabs.LastIndex
+		  ElseIf mSelectedTabIndex > 0 Then
 		    mSelectedTabIndex = mSelectedTabIndex - 1
 		  End If
 		  
@@ -568,6 +609,14 @@ Inherits DesktopCanvas
 
 	#tag Property, Flags = &h21, Description = 546865207469636B73207768656E20746865206C617374204D6F757365446F776E206576656E74206F636375727265642E
 		Private mMouseDownTicks As Double
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865205820636F6F7264696E61746520647572696E6720746865206C61737420604D6F7573654D6F7665282960206576656E742E
+		Private mMouseMoveX As Integer = -1
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E61746520647572696E6720746865206C61737420604D6F7573654D6F7665282960206576656E742E
+		Private mMouseMoveY As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520696E646578206F662074686520746162207468617420746865206D6F7573652069732063757272656E746C79206F766572206F7220602D3160206966206E6F74206F766572206F6E652E

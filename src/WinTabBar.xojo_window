@@ -137,11 +137,9 @@ End
 		  style.ActiveTabBackgroundColor = Color.White
 		  style.ActiveTabBorderColor = Color.Purple
 		  style.ActiveTabHasThickTopBorder = True
-		  style.ActiveTabCloseColor = Color.Brown
 		  style.ActiveTabTextColor = Color.FromString("&h002B2C2C")
 		  
 		  style.InactiveTabBackgroundColor = Color.FromString("&h00ECECEC")
-		  style.InactiveTabCloseColor = Color.Brown
 		  style.InactiveTabTextColor = Color.FromString("&h002B2C2C")
 		  
 		  style.DisabledTabBackgroundColor = Color.Gray
@@ -149,6 +147,9 @@ End
 		  
 		  style.HoverTabBackgroundColor = Color.Yellow
 		  style.HoverTabTextColor = Color.Blue
+		  
+		  style.TabCloseColor = Color.Brown
+		  style.HoverTabCloseColor = Color.Red
 		  
 		  Me.Style = style
 		  

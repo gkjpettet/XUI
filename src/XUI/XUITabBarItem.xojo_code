@@ -16,7 +16,7 @@ Protected Class XUITabBarItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 447261777320746869732074616220746F20606760207374617274696E672061742060786020776974682061207769647468206F6620607461726765745769647468602E
-		Function Draw(g As Graphics, x As Integer, active As Boolean, hoveredOver As Boolean, targetWidth As Double) As Integer
+		Function Draw(g As Graphics, x As Integer, active As Boolean, hoveringOverTab As Boolean, hoveringOverCloseIcon As Boolean, targetWidth As Double) As Integer
 		  /// Draws this tab to `g` starting at `x` with a width of `targetWidth`.
 		  
 		  Var style As XUITabBarStyle = Owner.Style
@@ -27,7 +27,7 @@ Protected Class XUITabBarItem
 		  Var startX As Integer = x
 		  
 		  // Background colour.
-		  SetGraphicsBackgroundColor(g, active, hoveredOver)
+		  SetGraphicsBackgroundColor(g, active, hoveringOverTab)
 		  g.FillRectangle(x, 0, targetWidth, g.Height)
 		  
 		  // ==================================================
@@ -78,13 +78,13 @@ Protected Class XUITabBarItem
 		  // ==================================================
 		  // Close icon.
 		  // ==================================================
-		  If Enabled And Closable And hoveredOver Then
-		    DrawCloseIcon(x, g, active)
+		  If Enabled And Closable And hoveringOverTab Then
+		    DrawCloseIcon(x, g, hoveringOverCloseIcon)
 		    x = x + CLOSE_WIDTH + CLOSE_PADDING
 		  End If
 		  
 		  // Compute the width of the icon and caption area.
-		  SetGraphicsFontProperties(g, active, hoveredOver)
+		  SetGraphicsFontProperties(g, active, hoveringOverTab)
 		  Var iconCaptionW As Double
 		  If Icon <> Nil Then
 		    iconCaptionW = Icon.Graphics.Width + ICON_PADDING + g.TextWidth(Caption)
@@ -119,17 +119,17 @@ Protected Class XUITabBarItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44726177732074686520636C6F73652069636F6E20666F72206120746162206174206078602E
-		Private Sub DrawCloseIcon(x As Integer, g As Graphics, active As Boolean)
+		Private Sub DrawCloseIcon(x As Integer, g As Graphics, hoveringOverCloseIcon As Boolean)
 		  /// Draws the close icon for a tab at `x`.
 		  
-		  SetGraphicsCloseIconColor(g, active)
+		  SetGraphicsCloseIconColor(g, hoveringOverCloseIcon)
 		  
 		  g.PenSize = 2
 		  
 		  Var midY As Double = g.Height / 2
 		  
-		  g.DrawLine(x, midY - 3, x + 6, midY + 3)
-		  g.DrawLine(x, midY + 3, x + 6, midY - 3)
+		  g.DrawLine(x, midY - (CLOSE_HEIGHT/2), x + CLOSE_WIDTH, midY + (CLOSE_HEIGHT/2))
+		  g.DrawLine(x, midY + (CLOSE_HEIGHT/2), x + CLOSE_WIDTH, midY - (CLOSE_HEIGHT/2))
 		  
 		End Sub
 	#tag EndMethod
@@ -158,17 +158,17 @@ Protected Class XUITabBarItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 53657473207468652064726177696E6720636F6C6F7572206F662060676020746F2074686F736520726571756972656420666F72207468697320746162277320636C6F73652069636F6E2E
-		Private Sub SetGraphicsCloseIconColor(g As Graphics, active As Boolean)
+		Private Sub SetGraphicsCloseIconColor(g As Graphics, hoveringOverCloseIcon As Boolean)
 		  /// Sets the drawing colour of `g` to those required for this tab's close icon.
 		  
 		  Var style As XUITabBarStyle = Owner.Style
 		  
-		  If active Then
-		    g.DrawingColor = style.ActiveTabCloseColor
+		  If hoveringOverCloseIcon Then
+		    g.DrawingColor = style.HoverTabCloseColor
 		  Else
-		    // Inactive tab.
-		    g.DrawingColor = style.InactiveTabCloseColor
+		    g.DrawingColor = style.TabCloseColor
 		  End If
+		  
 		End Sub
 	#tag EndMethod
 
@@ -282,13 +282,13 @@ Protected Class XUITabBarItem
 	#tag EndProperty
 
 
-	#tag Constant, Name = CLOSE_HEIGHT, Type = Double, Dynamic = False, Default = \"12", Scope = Public, Description = 54686520686569676874206F662074686520636C6F73652069636F6E2E
+	#tag Constant, Name = CLOSE_HEIGHT, Type = Double, Dynamic = False, Default = \"6", Scope = Public, Description = 54686520686569676874206F662074686520636C6F73652069636F6E2E
 	#tag EndConstant
 
 	#tag Constant, Name = CLOSE_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Public, Description = 546865206D696E696D756D206E756D626572206F6620706978656C73206265747765656E207468652072696768742065646765206F662074686520636C6F73652069636F6E20616E6420746865206C6566742065646765206F66207468652069636F6E2F63617074696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = CLOSE_WIDTH, Type = Double, Dynamic = False, Default = \"12", Scope = Public, Description = 546865207769647468206F662074686520636C6F73652069636F6E2E
+	#tag Constant, Name = CLOSE_WIDTH, Type = Double, Dynamic = False, Default = \"6", Scope = Public, Description = 546865207769647468206F662074686520636C6F73652069636F6E2E
 	#tag EndConstant
 
 	#tag Constant, Name = ICON_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Public, Description = 546865206E756D626572206F6620706978656C73206265747765656E207468652072696768742073696465206F66207468652069636F6E20616E64207468652063617074696F6E2E
