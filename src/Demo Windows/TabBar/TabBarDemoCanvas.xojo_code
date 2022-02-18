@@ -3,6 +3,8 @@ Protected Class TabBarDemoCanvas
 Inherits DesktopCanvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
+		  #Pragma Unused areas
+		  
 		  g.DrawingColor = Self.BackgroundColor
 		  g.FillRectangle(0, 0, Me.Width, Me.Height)
 		End Sub
@@ -216,7 +218,7 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="mBackgroundColor"
+			Name="BackgroundColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"

@@ -368,7 +368,7 @@ End
 		  style.ActiveTabHasTopBorder = False
 		  style.ActiveTabHasBottomBorder = True
 		  style.ActiveTabHasThickBottomBorder = False
-		  style.ActiveTabTextColor = Color.FromString("&h004D4D4E")
+		  style.ActiveTabTextColor = Color.FromString("&h002D2E2E")
 		  
 		  // Inactive tabs are grey.
 		  style.InactiveTabBackgroundColor = Color.FromString("&h00F2F2F2")
@@ -400,7 +400,7 @@ End
 #tag Events TabBar
 	#tag Event
 		Sub Opening()
-		  Me.AppendTab("Tab 1")
+		  Me.AppendTab("Xojo Forum", favicon_xojo)
 		  Me.AppendTab("Tab 2")
 		  Me.AppendTab("Tab 3")
 		  Me.AppendTab("Tab 4")
@@ -461,6 +461,8 @@ End
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
 		  /// Set the style of the tab bar to the style stored as this row's tag.
+		  
+		  #Pragma Unused item
 		  
 		  Var style As XUITabBarStyle = Me.RowTagAt(Me.SelectedRowIndex)
 		  

@@ -87,7 +87,7 @@ Protected Class XUITabBarItem
 		  SetGraphicsFontProperties(g, active, hoveringOverTab)
 		  Var iconCaptionW As Double
 		  If Icon <> Nil Then
-		    iconCaptionW = Icon.Graphics.Width + ICON_PADDING + g.TextWidth(Caption)
+		    iconCaptionW = Icon.Width + ICON_PADDING + g.TextWidth(Caption)
 		  Else
 		    iconCaptionW = g.TextWidth(Caption)
 		  End If
@@ -98,10 +98,9 @@ Protected Class XUITabBarItem
 		  // ==================================================
 		  // Icon.
 		  // ==================================================
-		  #Pragma Warning "TODO: Properly handle drawing tab icons"
 		  If Icon <> Nil Then
-		    g.DrawPicture(Icon, x, midY - (Icon.Graphics.Height/2))
-		    x = x + Icon.Graphics.Width + ICON_PADDING
+		    g.DrawPicture(Icon, x, midY - (Icon.Height/2))
+		    x = x + Icon.Width + ICON_PADDING
 		  End If
 		  
 		  // ==================================================
@@ -222,7 +221,7 @@ Protected Class XUITabBarItem
 		  
 		  If Closable Then w = w + CLOSE_WIDTH + CLOSE_PADDING
 		  
-		  If Icon <> Nil Then w = w + Icon.Graphics.Width + ICON_PADDING
+		  If Icon <> Nil Then w = w + Icon.Width + ICON_PADDING
 		  
 		  w = w + (style.HorizontallPadding * 2)
 		  
