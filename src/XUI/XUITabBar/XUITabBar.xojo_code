@@ -870,14 +870,6 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Backdrop"
-			Visible=true
-			Group="Appearance"
-			InitialValue=""
-			Type="Picture"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Enabled"
 			Visible=true
 			Group="Appearance"
@@ -897,7 +889,7 @@ Inherits DesktopCanvas
 			Name="AllowFocusRing"
 			Visible=true
 			Group="Appearance"
-			InitialValue="True"
+			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -919,9 +911,9 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowTabs"
-			Visible=true
+			Visible=false
 			Group="Behavior"
-			InitialValue="False"
+			InitialValue=""
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -943,9 +935,9 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasAnchoredFirstTab"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -959,7 +951,7 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasLeftBorder"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
@@ -967,7 +959,7 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasRightBorder"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
@@ -995,6 +987,14 @@ Inherits DesktopCanvas
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Backdrop"
+			Visible=false
+			Group="Appearance"
+			InitialValue=""
+			Type="Picture"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
