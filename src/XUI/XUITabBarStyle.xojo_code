@@ -104,12 +104,20 @@ Protected Class XUITabBarStyle
 		InactiveTabTextItalic As Boolean = False
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 416E206F7074696F6E616C206E616D6520666F722074686973207374796C652E
+		Name As String
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		TabBorderColor As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F72206F662074686520636C6F73652069636F6E207768656E206E6F7420686F7665726564206F7665722E
 		TabCloseColor As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 4F7074696F6E616C206172626974726172792064617461206173736F63696174656420776974682074686973207374796C652E
+		Tag As Variant
 	#tag EndProperty
 
 
@@ -364,6 +372,14 @@ Protected Class XUITabBarStyle
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HoverTabCloseColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabCloseColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
