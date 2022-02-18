@@ -54,9 +54,11 @@ Inherits DesktopCanvas
 		      
 		      mMouseOverIndex = -1
 		      
+		      Var startedDragging As Boolean = False
 		      If Not mDragging Then
 		        // Have just started dragging. Compute the offset from the selected tab's left edge that the
 		        // mouse is currently at.
+		        startedDragging = True
 		        mDragXLeftEdgeOffset = (x - mSelectedTabIndex * mWidestTab)
 		      End If
 		      
@@ -76,6 +78,10 @@ Inherits DesktopCanvas
 		        Redraw
 		      Else
 		        Redraw
+		      End If
+		      
+		      If startedDragging And mSelectedTabIndex <> -1 Then
+		        RaiseEvent DidStartDragging(mTabs(mSelectedTabIndex), mSelectedTabIndex)
 		      End If
 		      
 		    End If
@@ -116,6 +122,7 @@ Inherits DesktopCanvas
 		    mDragX = 0
 		    mDragIndex = -1
 		    Redraw
+		    If mSelectedTabIndex <> -1 Then RaiseEvent DidFinishDragging(mTabs(mSelectedTabIndex), mSelectedTabIndex)
 		    Return
 		  End If
 		  
@@ -165,6 +172,12 @@ Inherits DesktopCanvas
 		  g.DrawPicture(mBuffer, -ScrollPosX, 0)
 		  
 		  RaiseEvent Paint(g)
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub ScaleFactorChanged()
+		  Redraw
 		End Sub
 	#tag EndEvent
 
@@ -525,12 +538,20 @@ Inherits DesktopCanvas
 		Event DidContextualClick(x As Integer, y As Integer)
 	#tag EndHook
 
+	#tag Hook, Flags = &h0, Description = 5468652075736572206A7573742066696E6973686564206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
+		Event DidFinishDragging(tab As XUITabBarItem, index As Integer)
+	#tag EndHook
+
 	#tag Hook, Flags = &h0, Description = 412074616220686173206A757374206265656E2072656D6F7665642066726F6D2074686520746162206261722E
 		Event DidRemoveTab(tab As XUITabBarItem)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 54686520746162206174207468652073706563696669656420696E64657820776173206A7573742073656C65637465642E
 		Event DidSelectTab(tab As XUITabBarItem, index As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 5468652075736572206A75737420626567616E206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
+		Event DidStartDragging(tab As XUITabBarItem, index As Integer)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 546865206D6F75736520686173206A757374206578697465642074686520636F6E74726F6C2E

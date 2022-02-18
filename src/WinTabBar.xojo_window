@@ -10,7 +10,7 @@ Begin DesktopWindow WinTabBar
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   586
+   Height          =   636
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -57,7 +57,7 @@ Begin DesktopWindow WinTabBar
       Visible         =   True
       Width           =   1000
    End
-   Begin DesktopListBox Messages
+   Begin DesktopListBox MessagesListbox
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
       AllowExpandableRows=   False
@@ -80,7 +80,7 @@ Begin DesktopWindow WinTabBar
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   167
+      Height          =   283
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -97,7 +97,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   399
+      Top             =   333
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -111,7 +111,7 @@ Begin DesktopWindow WinTabBar
       AllowTabs       =   False
       Backdrop        =   0
       Enabled         =   True
-      Height          =   351
+      Height          =   261
       Index           =   -2147483648
       Left            =   0
       LockBottom      =   True
@@ -128,6 +128,68 @@ Begin DesktopWindow WinTabBar
       Transparent     =   True
       Visible         =   True
       Width           =   1000
+   End
+   Begin DesktopPopupMenu PopupTheme
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   772
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   2
+      SelectedRowIndex=   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   301
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   208
+   End
+   Begin DesktopLabel LabelTheme
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   660
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Theme:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   301
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
    End
 End
 #tag EndDesktopWindow
@@ -156,6 +218,15 @@ End
 			
 		End Function
 	#tag EndMenuHandler
+
+
+	#tag Method, Flags = &h21, Description = 4563686F7320606D6573736167656020746F20746865206D65737361676573206C697374626F782E
+		Private Sub Echo(message As String)
+		  /// Echos `message` to the messages listbox.
+		  
+		  MessagesListbox.AddRow(message)
+		End Sub
+	#tag EndMethod
 
 
 #tag EndWindowCode
@@ -194,6 +265,36 @@ End
 		  
 		  Me.SelectTabAtIndex(1)
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 412074616220776173206A75737420616464656420746F2074686520746162206261722061742060696E646578602E
+		Sub DidAddTab(tab As XUITabBarItem, index As Integer)
+		  Echo("Added tab with caption `" + tab.Caption + "` at index " + index.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B65642920696E736964652074686520746162206261722061742074686520706173736564206C6F63616C20636F6F7264696E617465732E
+		Sub DidContextualClick(x As Integer, y As Integer)
+		  Echo("Contextual clicked at " + x.ToString + ", " + y.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 412074616220686173206A757374206265656E2072656D6F7665642066726F6D2074686520746162206261722E
+		Sub DidRemoveTab(tab As XUITabBarItem)
+		  Echo("Removed tab with caption `" + tab.Caption + "`")
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 54686520746162206174207468652073706563696669656420696E64657820776173206A7573742073656C65637465642E
+		Sub DidSelectTab(tab As XUITabBarItem, index As Integer)
+		  Echo("Selected tab with caption `" + tab.Caption + "` at index " + index.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 5468652075736572206A75737420626567616E206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
+		Sub DidStartDragging(tab As XUITabBarItem, index As Integer)
+		  Echo("Began dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 5468652075736572206A7573742066696E6973686564206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
+		Sub DidFinishDragging(tab As XUITabBarItem, index As Integer)
+		  Echo("Finished dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
