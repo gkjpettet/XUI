@@ -10,7 +10,7 @@ Begin DesktopWindow WinTabBar
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   400
+   Height          =   586
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -26,7 +26,7 @@ Begin DesktopWindow WinTabBar
    Width           =   1000
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
-      AllowDragReordering=   False
+      AllowDragReordering=   True
       AllowFocus      =   False
       AllowFocusRing  =   True
       AllowTabs       =   False
@@ -38,6 +38,7 @@ Begin DesktopWindow WinTabBar
       HasRightBorder  =   False
       Height          =   28
       Index           =   -2147483648
+      IsHoveringOverTab=   False
       Left            =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -56,15 +57,32 @@ Begin DesktopWindow WinTabBar
       Visible         =   True
       Width           =   1000
    End
-   Begin DesktopLabel Info
+   Begin DesktopListBox Messages
       AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   False
+      AllowResizableColumns=   False
+      AllowRowDragging=   False
+      AllowRowReordering=   False
       Bold            =   False
+      ColumnCount     =   1
+      ColumnWidths    =   ""
+      DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   20
+      GridLineStyle   =   0
+      HasBorder       =   True
+      HasHeader       =   False
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      HeadingIndex    =   -1
+      Height          =   167
       Index           =   -2147483648
+      InitialValue    =   ""
       Italic          =   False
       Left            =   20
       LockBottom      =   True
@@ -72,30 +90,44 @@ Begin DesktopWindow WinTabBar
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
+      RequiresSelection=   False
+      RowSelectionType=   0
+      Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Untitled"
-      TextAlignment   =   0
-      TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   360
+      Top             =   399
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   960
+      _ScrollWidth    =   -1
    End
-   Begin Timer InfoTimer
+   Begin DesktopCanvas Canvas1
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
       Enabled         =   True
+      Height          =   351
       Index           =   -2147483648
+      Left            =   0
+      LockBottom      =   True
       LockedInPosition=   False
-      Period          =   250
-      RunMode         =   2
-      Scope           =   2
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   28
+      Transparent     =   True
+      Visible         =   True
+      Width           =   1000
    End
 End
 #tag EndDesktopWindow
@@ -145,11 +177,11 @@ End
 		  style.DisabledTabBackgroundColor = Color.Gray
 		  style.DisabledTabTextColor = Color.FromString("&h002B2C2C")
 		  
-		  style.HoverTabBackgroundColor = Color.Yellow
-		  style.HoverTabTextColor = Color.Blue
+		  style.HoverTabBackgroundColor = Color.FromString("&h00ECECEC")
+		  style.HoverTabTextColor = Color.FromString("&h002B2C2C")
 		  
-		  style.TabCloseColor = Color.Brown
-		  style.HoverTabCloseColor = Color.Red
+		  style.TabCloseColor = Color.FromString("&h006D7070")
+		  style.HoverTabCloseColor = Color.FromString("&h002B2C2C")
 		  
 		  Me.Style = style
 		  
@@ -161,15 +193,6 @@ End
 		  Me.AppendTab("Tab 6")
 		  
 		  Me.SelectTabAtIndex(1)
-		  
-		  #Pragma Warning "BUG: Not being set elsewhere correctly?"
-		  Me.AllowDragReordering = True
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events InfoTimer
-	#tag Event
-		Sub Action()
 		  
 		End Sub
 	#tag EndEvent

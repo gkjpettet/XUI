@@ -91,6 +91,8 @@ Inherits DesktopCanvas
 		  mMouseMoveY = -1
 		  
 		  Redraw
+		  
+		  RaiseEvent MouseExit
 		End Sub
 	#tag EndEvent
 
@@ -102,6 +104,7 @@ Inherits DesktopCanvas
 		  
 		  Redraw
 		  
+		  RaiseEvent MouseMove(x, y)
 		End Sub
 	#tag EndEvent
 
@@ -133,10 +136,6 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Function MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer) As Boolean
-		  #Pragma Unused x
-		  #Pragma Unused y
-		  #Pragma Unused deltaY
-		  
 		  If deltaX <> 0 Then
 		    // deltaX reported by Xojo is very small. Beef it up a little.
 		    deltaX = deltaX * 5
@@ -144,6 +143,7 @@ Inherits DesktopCanvas
 		    Redraw
 		  End If
 		  
+		  RaiseEvent MouseWheel(x, y, deltaX, deltaY)
 		End Function
 	#tag EndEvent
 
@@ -164,6 +164,7 @@ Inherits DesktopCanvas
 		  // Draw the back buffer to the screen.
 		  g.DrawPicture(mBuffer, -ScrollPosX, 0)
 		  
+		  RaiseEvent Paint(g)
 		End Sub
 	#tag EndEvent
 
@@ -532,6 +533,22 @@ Inherits DesktopCanvas
 		Event DidSelectTab(tab As XUITabBarItem, index As Integer)
 	#tag EndHook
 
+	#tag Hook, Flags = &h0, Description = 546865206D6F75736520686173206A757374206578697465642074686520636F6E74726F6C2E
+		Event MouseExit()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865206D6F75736520686173206A757374206D6F7665642077697468696E2074686520636F6E74726F6C2E
+		Event MouseMove(x As Integer, y As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865206D6F757365207363726F6C6C20776865656C2068617320747269676765726564206F7665722074686520636F6E74726F6C2E
+		Event MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 54686520636F6E74726F6C20686173206A7573742072657061696E7465642E
+		Event Paint(g As Graphics)
+	#tag EndHook
+
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746162732063616E2062652072656F726465726564206279206472616767696E67207769746820746865206D6F7573652E
 		AllowDragReordering As Boolean = True
@@ -763,7 +780,7 @@ Inherits DesktopCanvas
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="200"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -771,7 +788,7 @@ Inherits DesktopCanvas
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="28"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -952,19 +969,19 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TabPanelIndex"
-			Visible=false
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="IsHoveringOverTab"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabPanelIndex"
+			Visible=false
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
