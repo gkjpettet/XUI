@@ -173,11 +173,6 @@ Inherits DesktopCanvas
 		Sub Paint(g As Graphics, areas() As Rect)
 		  #Pragma Unused areas
 		  
-		  #If TargetWindows
-		    // Anti-aliasing needs to be off on Windows.
-		    g.AntiAliased = False
-		  #EndIf
-		  
 		  If mNeedsRedrawing Or mBuffer = Nil Or _
 		    mBuffer.Graphics.Width < g.Width Or mBuffer.Graphics.Height < g.Height Then
 		    RebuildBuffer
@@ -430,11 +425,6 @@ Inherits DesktopCanvas
 		  
 		  // Grab a reference to the buffer's graphics context.
 		  Var g As Graphics = mBuffer.Graphics
-		  
-		  #If TargetWindows
-		    // Anti-aliasing needs to be off on Windows.
-		    g.AntiAliased = False
-		  #EndIf
 		  
 		  Var x, selectedTabX As Integer = 0
 		  For i As Integer = 0 To mTabs.LastIndex
