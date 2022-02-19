@@ -12,14 +12,19 @@ Inherits DesktopCanvas
 		  mLastMouseDownX = x
 		  mLastMouseDownY = y
 		  mMouseDownIndex = TabIndexAtX(x)
+		  mMouseOverMenuButton = OverMenuButton(x)
 		  
 		  // Right click?
 		  mLastClickWasContextual = IsContextualClick
+		  If mLastClickWasContextual Then Return True
 		  
 		  // Nothing else to do if there are no tabs.
 		  If mTabs.Count = 0 Then Return True
 		  
-		  If Not mLastClickWasContextual Then
+		  If mMouseOverMenuButton And HasMenuButton Then
+		    // Have clicked on the menu button. This will be handled in `MouseUp()`.
+		    Return True
+		  Else
 		    // Get the index of the tab under the mouse.
 		    Var index As Integer = TabIndexAtX(x)
 		    If index < 0 Or index > mTabs.LastIndex Then
@@ -93,6 +98,7 @@ Inherits DesktopCanvas
 	#tag Event
 		Sub MouseExit()
 		  mMouseOverIndex = -1
+		  mMouseOverMenuButton = False
 		  mMouseMoveX = -1
 		  mMouseMoveY = -1
 		  
@@ -105,6 +111,10 @@ Inherits DesktopCanvas
 	#tag Event
 		Sub MouseMove(x As Integer, y As Integer)
 		  mMouseOverIndex = TabIndexAtX(x)
+		  
+		  mMouseOverMenuButton = OverMenuButton(x)
+		  If mMouseOverMenuButton And HasMenuButton Then mMouseOverIndex = -1
+		  
 		  mMouseMoveX = x
 		  mMouseMoveY = y
 		  
@@ -138,6 +148,11 @@ Inherits DesktopCanvas
 		    RemoveTabAt(mMouseOverIndex)
 		    Return
 		  End If
+		  
+		  // Clicked the menu button?
+		  If HasMenuButton And mMouseOverMenuButton Then
+		    RaiseEvent PressedMenuButton
+		  End If
 		End Sub
 	#tag EndEvent
 
@@ -170,6 +185,9 @@ Inherits DesktopCanvas
 		  
 		  // Draw the back buffer to the screen.
 		  g.DrawPicture(mBuffer, -ScrollPosX, 0)
+		  
+		  // Draw the optional menu button.
+		  If HasMenuButton Then DrawMenuButton(g, Me.Width - MenuButtonWidth)
 		  
 		  RaiseEvent Paint(g)
 		End Sub
@@ -237,8 +255,8 @@ Inherits DesktopCanvas
 		    If tmp > mWidestTab Then mWidestTab = tmp
 		  Next i
 		  
-		  If (mTabs.Count * mWidestTab) < Self.Width Then
-		    mWidestTab = Self.Width / mTabs.Count
+		  If (mTabs.Count * mWidestTab) < Self.AvailableTabSpace Then
+		    mWidestTab = Self.AvailableTabSpace / mTabs.Count
 		  End If
 		  
 		  w = w + (mTabs.Count * mWidestTab)
@@ -255,6 +273,53 @@ Inherits DesktopCanvas
 		  
 		  Self.Style = New XUITabBarStyle
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 447261777320746865206D656E7520627574746F6E206174206078602E
+		Private Sub DrawMenuButton(g As Graphics, x As Integer)
+		  /// Draws the menu button at `x`.
+		  ///
+		  /// Assumes the tab bar should have a menu button.
+		  
+		  // Background.
+		  g.DrawingColor = If(mMouseOverMenuButton, Style.MenuButtonHoverBackgroundColor, _
+		  Style.MenuButtonBackgroundColor)
+		  g.FillRectangle(x, 0, MenuButtonWidth, g.Height)
+		  
+		  // Border.
+		  g.DrawingColor = Style.MenuButtonBorderColor
+		  g.PenSize = 1
+		  g.DrawRectangle(x, 0, MenuButtonWidth, g.Height)
+		  
+		  // Icon.
+		  Var icon As Picture
+		  If mMouseOverMenuButton Then
+		    If mMenuButtonHoverIcon = Nil Then
+		      icon = mMenuButtonIcon
+		    Else
+		      icon = mMenuButtonHoverIcon
+		    End If
+		  Else
+		    icon = mMenuButtonIcon
+		  End If
+		  
+		  If icon <> Nil Then
+		    Var iconX As Double = x + (MenuButtonWidth / 2) - (icon.Width / 2)
+		    Var iconY As Double = (g.Height / 2) - (icon.Height / 2)
+		    g.DrawPicture(icon, iconX, iconY)
+		  Else
+		    // Draw a `+`.
+		    g.DrawingColor = If(mMouseOverMenuButton, Style.MenuButtonHoverColor, Style.MenuButtonColor)
+		    Const PLUS_WIDTH = 10
+		    Const PLUS_HEIGHT = 10
+		    g.PenSize = 1
+		    Var plusLeft As Double = x + (MenuButtonWidth / 2) - (PLUS_WIDTH / 2)
+		    Var midY As Double = g.Height / 2
+		    Var plusTop As Double = midY - (PLUS_HEIGHT / 2)
+		    g.DrawLine(plusLeft, midY, plusLeft + PLUS_WIDTH, midY)
+		    g.DrawLine(x + midY, plusTop, x + midY, plusTop + PLUS_HEIGHT)
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -287,6 +352,17 @@ Inherits DesktopCanvas
 		  End If
 		  
 		  Return False
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620607860206973206F76657220746865206D656E7520627574746F6E2E
+		Private Function OverMenuButton(x As Integer) As Boolean
+		  /// Returns True if `x` is over the menu button.
+		  
+		  If Not HasMenuButton Then Return False
+		  
+		  Return x >= Self.Width - MenuButtonWidth
+		  
 		End Function
 	#tag EndMethod
 
@@ -344,8 +420,6 @@ Inherits DesktopCanvas
 	#tag Method, Flags = &h21, Description = 52656275696C64732074686520656E74697265206275666665722062792064726177696E6720616C6C2076697369626C6520636F6E74656E7420746F2069742E
 		Private Sub RebuildBuffer()
 		  /// Rebuilds the entire buffer by drawing all visible content to it.
-		  
-		  #Pragma Warning "TODO: Support drawing a right menu"
 		  
 		  ComputeBufferWidthAndWidestTab
 		  
@@ -570,10 +644,24 @@ Inherits DesktopCanvas
 		Event Paint(g As Graphics)
 	#tag EndHook
 
+	#tag Hook, Flags = &h0, Description = 546865207573657220686173206A757374206A757374207072657373656420746865206D656E7520627574746F6E2E
+		Event PressedMenuButton()
+	#tag EndHook
+
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746162732063616E2062652072656F726465726564206279206472616767696E67207769746820746865206D6F7573652E
 		AllowDragReordering As Boolean = True
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h21, Description = 54686520776964746820617661696C61626C6520746F2072656E64657220746162732C20666163746F72696E6720696E207468652070726573656E6365206F7220616273656E6365206F6620746865206F7074696F6E616C206D656E7520627574746F6E2E
+		#tag Getter
+			Get
+			  Return Self.Width - If(HasMenuButton, MenuButtonWidth, 0)
+			  
+			End Get
+		#tag EndGetter
+		Private AvailableTabSpace As Double
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F66206974656D7320696E2074686520746162206261722E
 		#tag Getter
@@ -591,6 +679,21 @@ Inherits DesktopCanvas
 	#tag Property, Flags = &h0, Description = 547275652069662074686520746162206261722073686F756C6420647261772061206C65667420626F72646572206F6E20746865206C6566742D6D6F7374207461622E
 		HasLeftBorder As Boolean = False
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E2061206D656E7520627574746F6E2077696C6C20626520647261776E20746F20746865207269676874206F662074686520746162206261722E
+		#tag Getter
+			Get
+			  Return mHasMenuButton
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasMenuButton = value
+			  Redraw
+			End Set
+		#tag EndSetter
+		HasMenuButton As Boolean
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 547275652069662074686520746162206261722073686F756C642064726177206120726967687420626F72646572206F6E207468652072696768742D6D6F7374207461622E
 		HasRightBorder As Boolean = False
@@ -625,6 +728,56 @@ Inherits DesktopCanvas
 		Private mDragXLeftEdgeOffset As Integer = 0
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 546865206F7074696F6E616C2069636F6E20666F7220746865206D656E7520627574746F6E207768656E20686F7665726564206F7665722E
+		#tag Getter
+			Get
+			  Return mMenuButtonHoverIcon
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mMenuButtonHoverIcon = value
+			  Redraw
+			End Set
+		#tag EndSetter
+		MenuButtonHoverIcon As Picture
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 546865206F7074696F6E616C2069636F6E20666F7220746865206D656E7520627574746F6E2E
+		#tag Getter
+			Get
+			  Return mMenuButtonIcon
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mMenuButtonIcon = value
+			  Redraw
+			End Set
+		#tag EndSetter
+		MenuButtonIcon As Picture
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 546865207769647468206F6620746865206F7074696F6E616C206D656E7520627574746F6E2E
+		#tag Getter
+			Get
+			  Return mMenuButtonWidth
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mMenuButtonWidth = value
+			  
+			  Redraw
+			End Set
+		#tag EndSetter
+		MenuButtonWidth As Integer
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E2061206D656E7520627574746F6E2077696C6C20626520647261776E20746F20746865207269676874206F662074686520746162206261722E
+		Private mHasMenuButton As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 546865206D696E756D756D2077696474682061207461622077696C6C2062652E
 		MinimumTabWidth As Double = 250
 	#tag EndProperty
@@ -639,6 +792,18 @@ Inherits DesktopCanvas
 
 	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
 		Private mLastMouseDownY As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865206F7074696F6E616C2069636F6E20666F7220746865206D656E7520627574746F6E207768656E20686F7665726564206F7665722E
+		Private mMenuButtonHoverIcon As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865206F7074696F6E616C2069636F6E20666F7220746865206D656E7520627574746F6E2E
+		Private mMenuButtonIcon As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865207769647468206F6620746865206F7074696F6E616C206D656E7520627574746F6E2E
+		Private mMenuButtonWidth As Integer = 32
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520696E646578206F66207468652074616220756E64657220746865206D6F75736520647572696E6720746865206C617374204D6F757365446F776E206576656E742E
@@ -659,6 +824,10 @@ Inherits DesktopCanvas
 
 	#tag Property, Flags = &h21, Description = 54686520696E646578206F662074686520746162207468617420746865206D6F7573652069732063757272656E746C79206F766572206F7220602D3160206966206E6F74206F766572206F6E652E
 		Private mMouseOverIndex As Integer = -1
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 43616368656420636F6D7075746174696F6E206F6660204F7665724D656E75427574746F6E6020636F6D707574656420696E20604D6F7573654D6F76652829602E
+		Private mMouseOverMenuButton As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 547275652069662074686520746162206E6565647320726564726177696E672E
@@ -910,14 +1079,6 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AllowTabs"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Transparent"
 			Visible=true
 			Group="Behavior"
@@ -990,6 +1151,30 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="HasMenuButton"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MenuButtonWidth"
+			Visible=true
+			Group="Behavior"
+			InitialValue="28"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowTabs"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Backdrop"
 			Visible=false
 			Group="Appearance"
@@ -1003,6 +1188,22 @@ Inherits DesktopCanvas
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MenuButtonIcon"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MenuButtonHoverIcon"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Picture"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

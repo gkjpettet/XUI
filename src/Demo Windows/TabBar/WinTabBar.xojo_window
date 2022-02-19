@@ -35,6 +35,7 @@ Begin DesktopWindow WinTabBar
       Enabled         =   True
       HasAnchoredFirstTab=   False
       HasLeftBorder   =   False
+      HasMenuButton   =   False
       HasRightBorder  =   False
       Height          =   28
       Index           =   -2147483648
@@ -45,6 +46,9 @@ Begin DesktopWindow WinTabBar
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      MenuButtonHoverIcon=   0
+      MenuButtonIcon  =   0
+      MenuButtonWidth =   28
       MinimumTabWidth =   200.0
       Scope           =   0
       SelectedTabIndex=   0
@@ -236,6 +240,8 @@ End
 		  
 		  Var style As New XUITabBarStyle
 		  
+		  style.Name = "Nova Dark"
+		  
 		  // Light grey borders.
 		  style.TabBorderColor = Color.FromString("&h00454647")
 		  
@@ -276,6 +282,8 @@ End
 		  /// Creates a tab bar style that mimics Panic's Nova's tab bar in light mode.
 		  
 		  Var style As New XUITabBarStyle
+		  
+		  style.Name = "Nova Light"
 		  
 		  // Light grey borders.
 		  style.TabBorderColor = Color.FromString("&h00C8C8C8")
@@ -318,6 +326,8 @@ End
 		  
 		  Var style As New XUITabBarStyle
 		  
+		  style.Name = "Safari Dark"
+		  
 		  // Grey borders.
 		  style.TabBorderColor = Color.FromString("&h00242525")
 		  
@@ -358,6 +368,8 @@ End
 		  /// Creates a tab bar style that mimics Safari's tab bar in light mode.
 		  
 		  Var style As New XUITabBarStyle
+		  
+		  style.Name = "Safari Light"
 		  
 		  // Light grey borders.
 		  style.TabBorderColor = Color.FromString("&h00E0E0E0")
@@ -400,7 +412,7 @@ End
 #tag Events TabBar
 	#tag Event
 		Sub Opening()
-		  Me.AppendTab("Xojo Forum", favicon_xojo)
+		  Me.AppendTab("Tab 1")
 		  Me.AppendTab("Tab 2")
 		  Me.AppendTab("Tab 3")
 		  Me.AppendTab("Tab 4")
@@ -439,6 +451,11 @@ End
 	#tag Event , Description = 5468652075736572206A7573742066696E6973686564206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
 		Sub DidFinishDragging(tab As XUITabBarItem, index As Integer)
 		  Echo("Finished dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 546865207573657220686173206A757374206A757374207072657373656420746865206D656E7520627574746F6E2E
+		Sub PressedMenuButton()
+		  Echo("Pressed the menu button")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
