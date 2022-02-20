@@ -20,7 +20,7 @@ Begin DesktopWindow WinTabBar
    MinimumHeight   =   64
    MinimumWidth    =   64
    Resizeable      =   True
-   Title           =   "TabBar Testing"
+   Title           =   "TabBar Demo"
    Type            =   0
    Visible         =   True
    Width           =   1000
