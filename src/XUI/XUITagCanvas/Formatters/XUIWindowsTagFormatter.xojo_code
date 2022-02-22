@@ -17,7 +17,7 @@ Implements XUITagFormatter
 		  ///
 		  /// Part of the XUITagFormatter interface.
 		  
-		  #Pragma Warning "TODO"
+		  #Pragma Warning "TODO: Style like the Windows tokenizing text field control"
 		  
 		  g.SaveState
 		  g.FontSize = Owner.Style.FontSize

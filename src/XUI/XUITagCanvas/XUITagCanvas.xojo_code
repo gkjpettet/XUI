@@ -310,32 +310,6 @@ Inherits DesktopTextInputCanvas
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 54686520312D6261736564206C696E65206E756D626572206F6620746865206C6173742076697369626C65206C696E652E
-		Private Function LastVisibleLineNumber() As Integer
-		  /// The 1-based line number of the last visible line. 
-		  ///
-		  /// The line may be only partially visible.
-		  
-		  Var i As Integer = mFirstVisibleLine + MaxVisibleLines(LineHeight)
-		  Return Min(i, mLines.Count)
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B6C696E655D2069732066756C6C792076697369626C65206F6E207468652063616E7661732E
-		Private Function LineFullyVisible(line As XUITagCanvasLine) As Boolean
-		  /// Returns True if `line` is fully visible on the canvas.
-		  
-		  If line.Number < FirstVisibleLine Then Return False
-		  
-		  If line.Number > (FirstVisibleLine + MaxVisibleLines(LineHeight) - 1) Then
-		    Return False
-		  End If
-		  
-		  Return True
-		  
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0, Description = 546865206865696768742028696E20706978656C7329206F662061206C696E652E
 		Function LineHeight() As Double
 		  /// The height (in pixels) of a line.
@@ -410,8 +384,6 @@ Inherits DesktopTextInputCanvas
 		Private Sub RebuildBuffer()
 		  /// Rebuilds the entire buffer by drawing all visible content to it.
 		  
-		  #Pragma Warning "TODO"
-		  
 		  ComputeBufferWidth
 		  
 		  // Create a new HiDPI aware buffer picture.
@@ -472,8 +444,6 @@ Inherits DesktopTextInputCanvas
 	#tag Method, Flags = &h21, Description = 5363726F6C6C73207468652063616E76617320286966206E65636573736172792920746F207468652063617265742E20526566726573686573207468652063616E7661732E
 		Private Sub ScrollToCaret()
 		  /// Scrolls the canvas (if necessary) to the caret. Refreshes the canvas.
-		  
-		  Var cachedMaxVisible As Integer = MaxVisibleLines(mLineHeight)
 		  
 		  // ===============================
 		  // HORIZONTAL SCROLLING
@@ -598,38 +568,9 @@ Inherits DesktopTextInputCanvas
 		CurrentLine As XUITagCanvasLine
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F6620746865206C696E652076697369626C652061742074686520746F70206F66207468652063616E7661732E20416C746572656420627920766572746963616C207363726F6C6C696E672E
-		#tag Getter
-			Get
-			  Return mFirstVisibleLine
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  mFirstVisibleLine = MathsKit.Clamp(value, 1, mLines.Count)
-			  
-			  Refresh
-			  
-			End Set
-		#tag EndSetter
-		FirstVisibleLine As Integer
-	#tag EndComputedProperty
-
 	#tag Property, Flags = &h0, Description = 54686520666F726D617474657220746F2075736520746F206472617720746865207461677320696E207468652063616E7661732E
 		Formatter As XUITagFormatter
 	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h21, Description = 546865206C696E65206E756D626572206F6620746865206C617374202A66756C6C792A2076697369626C65206C696E652E
-		#tag Getter
-			Get
-			  // Find the lowest-most fully visible line.
-			  Var i As Integer = mFirstVisibleLine + MaxVisibleLines(LineHeight) - 1
-			  Return Min(i, mLines.Count)
-			End Get
-		#tag EndGetter
-		Private LastFullyVisibleLineNumber As Integer
-	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21, Description = 5468652062756666657220776520647261772074686520636F6E74656E747320746F20616E64207468656E20626C697420746F207468652073637265656E2065616368206672616D652E
 		Private mBuffer As Picture
@@ -645,10 +586,6 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865206043757272656E744C696E656020636F6D70757465642070726F70657274792E
 		Private mCurrentLine As XUITagCanvasLine
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060466972737456697369626C654C696E656020636F6D70757465642070726F70657274792E
-		Private mFirstVisibleLine As Integer = 1
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060486173466F6375736020636F6D70757465642070726F70657274792E
@@ -1116,14 +1053,6 @@ Inherits DesktopTextInputCanvas
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="FirstVisibleLine"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
