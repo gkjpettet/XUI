@@ -68,7 +68,6 @@ Implements XUITagRenderer
 		  tag.Bounds = New Rect(x, y, tagW, tagH)
 		  
 		  // Assign the dingus bounds to the passed tag.
-		  #Pragma Warning "TODO"
 		  tag.DingusBounds = New Rect(dingusX, dingusTopLeftY, dingusWidth, dingusHeight)
 		  
 		  Return tagW + TagHorizontalPadding

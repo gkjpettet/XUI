@@ -126,9 +126,23 @@ Inherits DesktopTextInputCanvas
 
 	#tag Event
 		Sub MouseUp(x As Integer, y As Integer)
+		  // Have we clicked a tag or tag dingus?
 		  Var tag As XUITag = TagAtXY(x, y)
 		  If tag <> Nil Then
-		    ClickedTag(tag, mLastClickWasContextual)
+		    // Clicked a tag. Did we click its dingus?
+		    If tag.HasDingus Then
+		      If Not mLastClickWasContextual And tag.DingusBounds.Contains(x + ScrollPosX, y + ScrollPosY) Then
+		        // Left-clicked the dingus. Remove this tag.
+		        RemoveTagInstance(tag)
+		        RemovedTag(tag, True)
+		      Else
+		        // Just clicked the tag, not the dingus.
+		        ClickedTag(tag, mLastClickWasContextual)
+		      End If
+		    Else
+		      // Just clicked the tag.
+		      ClickedTag(tag, mLastClickWasContextual)
+		    End If
 		  End If
 		  
 		End Sub
@@ -282,8 +296,26 @@ Inherits DesktopTextInputCanvas
 		    mCurrentLine.UnparsedText = _
 		    mCurrentLine.UnparsedText.LeftCharacters(mCurrentLine.UnparsedText.CharacterCount - 1)
 		    
-		  ElseIf mCurrentLine.Tags.Count > 0 Then
-		    Call mCurrentLine.Tags.Pop
+		  ElseIf mCurrentLine.Tags.Count = 1 Then
+		    If mCurrentLine.Number > 1 Then
+		      // Need to remove this line.
+		      Var indexToRemove As Integer = mCurrentLine.Number - 1
+		      Var tag As XUITag = mCurrentLine.Tags.Pop
+		      mCurrentLine = mLines(indexToRemove - 1)
+		      mLines.RemoveAt(indexToRemove)
+		      // Adjust the line numbers.
+		      For i As Integer = 0 To mLines.LastIndex
+		        mLines(i).Number = i + 1
+		      Next i
+		      RemovedTag(tag, False)
+		    Else
+		      // Removed the only tag from the first line.
+		      RemovedTag(mCurrentLine.Tags.Pop, False)
+		    End If
+		    
+		  ElseIf mCurrentLine.Tags.Count > 1 Then
+		    RemovedTag(mCurrentLine.Tags.Pop, False)
+		    
 		  End If
 		  
 		  Refresh
@@ -445,6 +477,35 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52656D6F7665732060746167602066726F6D20746865207461672063616E7661732E20526566726573686573207468652063616E7661732062757420646F6573206E6F7420726169736520746865206052656D6F76656454616760206576656E742E
+		Sub RemoveTagInstance(tag As XUITag)
+		  /// Removes `tag` from the tag canvas. Refreshes the canvas but does not raise the `RemovedTag` event.
+		  
+		  For i As Integer = 0 To mLines.LastIndex
+		    Var line As XUITagCanvasLine = mLines(i)
+		    For j As Integer = 0 To line.Tags.LastIndex
+		      If line.Tags(j) = tag Then
+		        line.Tags.RemoveAt(j)
+		        // Edge case: Removed all content from a line. This will need to be removed unless it's the only line.
+		        // We also need to set the current line to the one above.
+		        If line.Tags.Count = 0 And line.UnparsedText.Length = 0 And line.Number <> 1 Then
+		          mCurrentLine = mLines(i - 1)
+		          mLines.RemoveAt(i)
+		          // Adjust the line numbers.
+		          For k As Integer = 0 To mLines.LastIndex
+		            mLines(k).Number = k + 1
+		          Next k
+		        End If
+		        Exit
+		      End If
+		    Next j
+		  Next i
+		  
+		  Refresh
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 5363726F6C6C73207468652063616E76617320646F776E20606C696E6573546F5363726F6C6C60206C696E65732E
 		Private Sub ScrollDown(linesToScroll As Integer)
 		  /// Scrolls the canvas down `linesToScroll` lines.  Refreshes the canvas.
@@ -561,6 +622,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Hook, Flags = &h0, Description = 412074616720686173206265656E20636C69636B65642E
 		Event ClickedTag(tag As XUITag, isContextualClick As Boolean)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
+		Event RemovedTag(tag As XUITag, viaDingus As Boolean)
 	#tag EndHook
 
 
