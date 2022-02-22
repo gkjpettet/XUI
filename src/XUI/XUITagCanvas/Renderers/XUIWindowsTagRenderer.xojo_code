@@ -8,69 +8,6 @@ Implements XUITagRenderer
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 4372656174657320616E642072657475726E73206120746167207374796C6564206C696B6520746865207461677320696E2057696E646F77277320546F6B656E697A696E67546578744669656C6420636F6E74726F6C2E
-		Function CreateTag(tagData As XUITagData, g As Graphics) As XUITag
-		  /// Creates and returns a tag styled like the tags in Window's TokenizingTextField control.
-		  ///
-		  /// `g` is the tag canvas' graphics context that the tag will be drawn to. It is required to compute the
-		  /// width of the tag and ensure the correct scale factor.
-		  ///
-		  /// Part of the XUITagFormatter interface.
-		  
-		  #Pragma Warning "TODO: Style like the Windows tokenizing text field control"
-		  
-		  // Compute the width of the title. Only temporarily alter the passed in graphics context.
-		  g.SaveState
-		  g.FontSize = Owner.Style.FontSize
-		  g.FontName = Owner.Style.FontName
-		  Var titleWidth As Double = g.TextWidth(tagData.Title)
-		  
-		  // Compute the tag height and cache (as we use it more than once).
-		  Var tagH As Double = TagHeight(g)
-		  
-		  // Compute the width (and height as they're the same) of the close icon (dingus).
-		  Var dingusWidth, dingusHeight As Double = (0.8 * tagH) / g.ScaleX
-		  
-		  // Compute the total width of the tag.
-		  Var tagWidth As Double = (mTitlePadding * 2) + titleWidth + _
-		  mDingusLeftPadding + mDingusRightPadding + dingusWidth
-		  
-		  // Create the blank tag image.
-		  Var p As Picture = Owner.Window.BitmapForCaching(tagWidth, tagH)
-		  
-		  // Tag background.
-		  p.Graphics.DrawingColor = Owner.Style.TagBackgroundColor
-		  p.Graphics.FillRoundRectangle(0, 0, p.Graphics.Width, p.Graphics.Height, 2, 2)
-		  
-		  // Draw the title.
-		  p.Graphics.FontName = Owner.Style.FontName
-		  p.Graphics.FontSize = Owner.Style.FontSize
-		  Var titleBaseline As Double = p.Graphics.FontAscent + (p.Graphics.Height - p.Graphics.TextHeight) / 2
-		  p.Graphics.DrawingColor = Owner.Style.TagTextColor
-		  p.Graphics.DrawText(tagData.Title, mTitlePadding, titleBaseline)
-		  
-		  // These tags have a clickable close icon as their dingus.
-		  p.Graphics.DrawingColor = Owner.Style.DingusColor
-		  p.Graphics.PenSize = 1
-		  Var dingusX As Double = mTitlePadding + titleWidth + mDingusLeftPadding
-		  Var dingusTopLeftY As Integer = (p.Graphics.Height / 2) - (dingusHeight / 2)
-		  Var dingusBottomRightY As Integer = (p.Graphics.Height / 2) + (dingusHeight / 2)
-		  p.Graphics.DrawLine(dingusX, dingusTopLeftY, dingusX + dingusWidth, dingusBottomRightY)
-		  p.Graphics.DrawLine(dingusX, dingusTopLeftY + dingusHeight, dingusX + dingusWidth, dingusTopLeftY)
-		  
-		  Var tag As New XUITag
-		  tag.Image = p
-		  tag.Title = tagData.Title
-		  tag.Data = tagData.Data
-		  
-		  g.RestoreState
-		  
-		  Return tag
-		  
-		  
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0, Description = 52657475726E7320746865206F776E696E67207461672063616E7661732E
 		Function Owner() As XUITagCanvas
 		  /// Returns the owning tag canvas.
@@ -86,10 +23,56 @@ Implements XUITagRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub Render(tag As XUITag, g As Graphics, x As Integer, y As Integer)
+	#tag Method, Flags = &h0, Description = 52656E6465727320607461676020746F206067602061742060782C2079602E2052657475726E7320746865207820636F6F7264696E6174652061742074686520666172207269676874206F66207468652072656E6465726564207461672E
+		Function Render(tag As XUITag, g As Graphics, x As Integer, y As Integer) As Double
+		  /// Renders `tag` to `g` at `x, y`. Returns the x coordinate at the far right of the rendered tag.
+		  ///
+		  /// Part of the XUITagFormatter interface.
 		  
-		End Sub
+		  // Adjust y to account for this renderer's suggested vertical padding.
+		  y = y + TagVerticalPadding
+		  
+		  // Compute the width of the title.
+		  g.FontSize = Owner.Style.FontSize
+		  g.FontName = Owner.Style.FontName
+		  Var titleWidth As Double = g.TextWidth(tag.Title)
+		  
+		  // Compute the tag height and cache (as we use it more than once).
+		  Var tagH As Double = TagHeight(g)
+		  
+		  // Compute the width (and height as they're the same) of the close icon (dingus).
+		  Var dingusWidth, dingusHeight As Double = (0.8 * tagH) / 2
+		  
+		  // Compute the total width of the tag and cache it.
+		  Var tagW As Double = TagWidth(tag, g)
+		  
+		  // Tag background.
+		  g.DrawingColor = Owner.Style.TagBackgroundColor
+		  g.FillRoundRectangle(x, y, tagW, tagH, 2, 2)
+		  
+		  // Draw the title.
+		  Var titleBaseline As Double = y + (g.FontAscent + (tagH - g.TextHeight) / 2)
+		  g.DrawingColor = Owner.Style.TagTextColor
+		  g.DrawText(tag.Title, x + mTitlePadding, titleBaseline)
+		  
+		  // These tags have a clickable close icon as their dingus.
+		  g.DrawingColor = Owner.Style.DingusColor
+		  g.PenSize = 1
+		  Var dingusX As Double = x + mTitlePadding + titleWidth + mDingusLeftPadding
+		  Var dingusTopLeftY As Integer = y + (tagH / 2) - (dingusHeight / 2)
+		  Var dingusBottomRightY As Integer = y + (tagH / 2) + (dingusHeight / 2)
+		  g.DrawLine(dingusX, dingusTopLeftY, dingusX + dingusWidth, dingusBottomRightY)
+		  g.DrawLine(dingusX, dingusTopLeftY + dingusHeight, dingusX + dingusWidth, dingusTopLeftY)
+		  
+		  // Assign the tag's absolute bounds.
+		  tag.Bounds = New Rect(x, y, tagW, tagH)
+		  
+		  // Assign the dingus bounds to the passed tag.
+		  #Pragma Warning "TODO"
+		  tag.DingusBounds = New Rect(dingusX, dingusTopLeftY, dingusWidth, dingusHeight)
+		  
+		  Return tagW + TagHorizontalPadding
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52657475726E732074686520686569676874206F66206120746167206261736564206F6E20746865206F776E657227732063757272656E74207374796C652E
@@ -127,6 +110,26 @@ Implements XUITagRenderer
 		  /// The suggested number of pixels to pad above and below tags in the tag canvas.
 		  
 		  Return 2
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 436F6D70757465732074686520746F74616C207769647468206F6620607461676020696620647261776E20746F207468652073706563696669656420677261706869637320636F6E74657874206067602E
+		Function TagWidth(tag As XUITag, g As Graphics) As Double
+		  /// Computes the total width of `tag` if drawn to the specified graphics context `g`.
+		  
+		  // Compute the width of the title.
+		  g.SaveState
+		  g.FontSize = Owner.Style.FontSize
+		  g.FontName = Owner.Style.FontName
+		  Var titleWidth As Double = g.TextWidth(tag.Title)
+		  g.RestoreState
+		  
+		  // Compute the width of the dingus.
+		  Var dingusWidth As Double = (0.8 * TagHeight(g)) / 2
+		  
+		  // Return the total width.
+		  Return (mTitlePadding * 2) + titleWidth + _
+		  mDingusLeftPadding + mDingusRightPadding + dingusWidth
 		End Function
 	#tag EndMethod
 

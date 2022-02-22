@@ -109,6 +109,32 @@ Inherits DesktopTextInputCanvas
 	#tag EndEvent
 
 	#tag Event
+		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  // Give the canvas the focus.
+		  Me.SetFocus
+		  
+		  // Right click?
+		  mLastClickWasContextual = IsContextualClick
+		  
+		  // Permit the `MouseUp` event to fire.
+		  Return True
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseUp(x As Integer, y As Integer)
+		  Var tag As XUITag = TagAtXY(x, y)
+		  If tag <> Nil Then
+		    ClickedTag(tag, mLastClickWasContextual)
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Function MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer) As Boolean
 		  /// The mouse has wheeled.
 		  ///
@@ -351,11 +377,11 @@ Inherits DesktopTextInputCanvas
 		  /// Attempts to parse the unparsed text on the current line into a tag. Returns False if unable.
 		  /// Refreshes the canvas if successful.
 		  
-		  Var tagData As XUITagData = Self.Parselet.Parse(mCurrentLine.UnparsedText)
+		  Var tag As XUITag = Self.Parselet.Parse(mCurrentLine.UnparsedText)
 		  
-		  If tagData = Nil Then Return False
+		  If tag = Nil Then Return False
 		  
-		  mCurrentLine.Tags.Add(Self.TagRenderer.CreateTag(tagData, mBuffer.Graphics))
+		  mCurrentLine.Tags.Add(tag)
 		  
 		  mCurrentLine.UnparsedText = ""
 		  
@@ -493,6 +519,30 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520746167206174206028782C20792960206F72204E696C2069662074686572652069736E2774206F6E652E
+		Function TagAtXY(x As Integer, y As Integer) As XUITag
+		  /// Returns the tag at `(x, y)` or Nil if there isn't one.
+		  
+		  // Sanity checks.
+		  If mBuffer = Nil Then Return Nil
+		  If x < 0 Or x > mBuffer.Graphics.Width Or y < 0 Or y > mBuffer.Graphics.Height Then Return Nil
+		  
+		  // Adjust for scrolling.
+		  x = x + ScrollPosX
+		  y = y + ScrollPosY
+		  
+		  // Compute the line the mouse is over.
+		  Var lineNum As Integer = Floor(y / LineHeight) + 1
+		  If lineNum < 1 Or lineNum > mLines.Count Then Return Nil
+		  
+		  For Each tag As XUITag In mLines(lineNum - 1).Tags
+		    If tag.Bounds <> Nil And tag.Bounds.Contains(x, y) Then Return tag
+		  Next tag
+		  
+		  Return Nil
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 436F6D70757465732028427952656629207468652063616E76617320782C207920636F6F7264696E61746573206174207468652063757272656E7420636172657420706F736974696F6E2E
 		Private Sub XYAtCaretPos(ByRef x As Double, ByRef y As Double)
 		  /// Computes (ByRef) the canvas x, y coordinates at the current caret position.
@@ -507,6 +557,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Hook, Flags = &h0, Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
 		Event AutocompleteOptionsForPrefix(prefix As String) As XUITagAutocompleteOption()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 412074616720686173206265656E20636C69636B65642E
+		Event ClickedTag(tag As XUITag, isContextualClick As Boolean)
 	#tag EndHook
 
 
@@ -597,6 +651,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060486173466F6375736020636F6D70757465642070726F70657274792E
 		Private mHasFocus As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F75736520636C69636B2074686174206A757374206F6363757272656420696E2074686520604D6F757365446F776E60206576656E7420776173206120636F6E7465787475616C20636C69636B2E
+		Private mLastClickWasContextual As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 496E7465726E616C206361636865206F66207468652063757272656E74206C696E65206865696768742E
