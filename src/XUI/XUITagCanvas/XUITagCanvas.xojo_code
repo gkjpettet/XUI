@@ -112,15 +112,15 @@ Inherits DesktopTextInputCanvas
 		Function MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer) As Boolean
 		  /// The mouse has wheeled.
 		  ///
-		  /// [x] is the X coord relative to the control that has received the event.
-		  /// [y] is the Y coord relative to the control that has received the event.
-		  /// [deltaX] is the number of horizontal scroll lines moved.
-		  /// [deltaY] is the number of vertical scroll lines moved.
+		  /// `x` is the X coord relative to the control that has received the event.
+		  /// `y` is the Y coord relative to the control that has received the event.
+		  /// `deltaX` is the number of horizontal scroll lines moved.
+		  /// `deltaY` is the number of vertical scroll lines moved.
 		  ///
 		  /// Returns True to prevent propagating the event further.
 		  ///
-		  /// [deltaX] is positive when the user scrolls right and negative when scrolling left. 
-		  /// [deltaY] is positive when the user scrolls down and negative when scrolling up.
+		  /// `deltaX` is positive when the user scrolls right and negative when scrolling left. 
+		  /// `deltaY` is positive when the user scrolls down and negative when scrolling up.
 		  
 		  #Pragma Unused X
 		  #Pragma Unused Y
@@ -174,9 +174,9 @@ Inherits DesktopTextInputCanvas
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21, Description = 546F67676C657320746865207669736962696C697479206F66207468652063617265742E2043616C6C6564206279205B6D4361726574426C696E6B65722E416374696F6E5D2E
+	#tag Method, Flags = &h21, Description = 546F67676C657320746865207669736962696C697479206F66207468652063617265742E2043616C6C656420627920606D4361726574426C696E6B65722E416374696F6E602E
 		Private Sub CaretBlinkerAction(caretBlinker As Timer)
-		  /// Toggles the visibility of the caret. Called by [mCaretBlinker.Action].
+		  /// Toggles the visibility of the caret. Called by `mCaretBlinker.Action`.
 		  
 		  #Pragma Unused caretBlinker
 		  
@@ -277,7 +277,7 @@ Inherits DesktopTextInputCanvas
 		Sub InsertCharacter(char As String, range As TextRange = Nil)
 		  /// Inserts a single character at the current caret position.
 		  ///
-		  /// Assumes [char] is only one character.
+		  /// Assumes `char` is only one character.
 		  
 		  If IsTrigger(char) And Parse Then
 		    Return
