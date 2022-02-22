@@ -1,34 +1,42 @@
-#tag Interface
-Protected Interface XUITag
-	#tag Method, Flags = &h0, Description = 416E79206172626974726172792064617461206173736F636961746564207769746820746869732074616720286D6179206265204E696C292E
-		Function Data() As Variant
-		  
-		End Function
-	#tag EndMethod
+#tag Class
+Protected Class XUITag
+	#tag Property, Flags = &h0, Description = 4F7074696F6E616C206172626974726172792064617461206173736F63696174656420776974682074686973207461672E
+		Data As Variant
+	#tag EndProperty
 
-	#tag Method, Flags = &h0, Description = 54686520686569676874206F6620746865207461672E
-		Function Height() As Double
-		  
-		End Function
-	#tag EndMethod
+	#tag ComputedProperty, Flags = &h0, Description = 54686973207461672773206865696768742E
+		#tag Getter
+			Get
+			  If Self.Image <> Nil Then
+			    Return Self.Image.Graphics.Height
+			  Else
+			    Return 0
+			  End If
+			End Get
+		#tag EndGetter
+		Height As Integer
+	#tag EndComputedProperty
 
-	#tag Method, Flags = &h0, Description = 54686520312D6261736564206C696E65206E756D6265722074686973207461672061707065617273206F6E2E
-		Function LineNumber() As Integer
-		  
-		End Function
-	#tag EndMethod
+	#tag Property, Flags = &h0, Description = 54686973207461672773207069637475726520726570726573656E746174696F6E2E
+		Image As Picture
+	#tag EndProperty
 
-	#tag Method, Flags = &h0, Description = 54686520737472696E6720636F6E74656E7473206F662074686973207461672E
-		Function ToString() As String
-		  
-		End Function
-	#tag EndMethod
+	#tag Property, Flags = &h0, Description = 54686973207461672773207469746C652E
+		Title As String
+	#tag EndProperty
 
-	#tag Method, Flags = &h0, Description = 546865207769647468206F662074686973207461672E
-		Function Width() As Double
-		  
-		End Function
-	#tag EndMethod
+	#tag ComputedProperty, Flags = &h0, Description = 546869732074616727732077696474682E
+		#tag Getter
+			Get
+			  If Self.Image <> Nil Then
+			    Return Self.Image.Graphics.Width
+			  Else
+			    Return 0
+			  End If
+			End Get
+		#tag EndGetter
+		Width As Integer
+	#tag EndComputedProperty
 
 
 	#tag ViewBehavior
@@ -72,6 +80,14 @@ Protected Interface XUITag
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Title"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
 	#tag EndViewBehavior
-End Interface
-#tag EndInterface
+End Class
+#tag EndClass

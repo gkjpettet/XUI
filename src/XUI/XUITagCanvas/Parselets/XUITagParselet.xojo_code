@@ -1,5 +1,19 @@
-#tag Class
-Protected Class XUITagAutocompleteOption
+#tag Interface
+Protected Interface XUITagParselet
+	#tag Method, Flags = &h0, Description = 5061727365732060736020696E746F20746167206461746120696620706F737369626C652E2049662061207461672063616E6E6F7420626520666F726D6564207468656E204E696C2069732072657475726E65642E
+		Function Parse(s As String) As XUITagData
+		  
+		End Function
+	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Parslets are responsible for parsing text into data that can be used to form a tag. 
+		Tags vary in their appearance but all require the same information to construct (a title +/- arbitrary data).
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"
@@ -42,5 +56,5 @@ Protected Class XUITagAutocompleteOption
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
-End Class
-#tag EndClass
+End Interface
+#tag EndInterface

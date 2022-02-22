@@ -11,8 +11,37 @@ Inherits DesktopTextInputCanvas
 		  Case CmdCancelOperation
 		    HandleEscKey
 		    
+		  Case CmdDeleteBackward
+		    HandleDeleteBackwards
+		    
 		  Case CmdInsertTab
-		    If ParseOnTab And CurrentLine.UnparsedText.Length > 0 Then Parse
+		    InsertCharacter(&u09)
+		    
+		    // ================
+		    // MOVEMENT
+		    // ================
+		  Case CmdMoveLeft, CmdMoveToBeginningOfLine
+		    // Scroll all the way to the left.
+		    ScrollPosX = 0
+		    
+		  Case CmdMoveRight, CmdMoveToEndOfLine
+		    // Scroll all the way to the right.
+		    ScrollToCaret
+		    
+		  Case CmdMoveUp
+		    ScrollUp(1)
+		    
+		  Case CmdMoveDown
+		    ScrollDown(1)
+		    
+		  Case CmdMoveToBeginningOfDocument
+		    mCurrentLine = mLines(0)
+		    Refresh
+		    
+		  Case CmdMoveToEndOfDocument
+		    mCurrentLine = mLines(mLines.LastIndex)
+		    Refresh
+		    
 		  End Select
 		End Function
 	#tag EndEvent
@@ -45,17 +74,7 @@ Inherits DesktopTextInputCanvas
 		Sub InsertText(text As String, range As TextRange)
 		  // Inserts a single character.
 		  
-		  #Pragma Warning "TODO"
-		  
-		  If ParseOnComma And text = "," Then
-		    Parse
-		    
-		  ElseIf mTriggers.IndexOf(text) <> -1 Then
-		    Parse
-		    
-		  Else
-		    InsertCharacter(text, range)
-		  End If
+		  InsertCharacter(text, range)
 		End Sub
 	#tag EndEvent
 
@@ -87,16 +106,52 @@ Inherits DesktopTextInputCanvas
 	#tag EndEvent
 
 	#tag Event
+		Function MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer) As Boolean
+		  /// The mouse has wheeled.
+		  ///
+		  /// [x] is the X coord relative to the control that has received the event.
+		  /// [y] is the Y coord relative to the control that has received the event.
+		  /// [deltaX] is the number of horizontal scroll lines moved.
+		  /// [deltaY] is the number of vertical scroll lines moved.
+		  ///
+		  /// Returns True to prevent propagating the event further.
+		  ///
+		  /// [deltaX] is positive when the user scrolls right and negative when scrolling left. 
+		  /// [deltaY] is positive when the user scrolls down and negative when scrolling up.
+		  
+		  #Pragma Unused X
+		  #Pragma Unused Y
+		  
+		  // =================================
+		  // HORIZONTAL SCROLLING
+		  // =================================
+		  If deltaX <> 0 Then
+		    // deltaX reported by Xojo is very small. Beef it up a little.
+		    deltaX = deltaX * 5
+		    ScrollPosX = ScrollPosX + deltaX
+		  End If
+		  
+		  // =================================
+		  // VERTICAL SCROLLING
+		  // =================================
+		  ScrollPosY = ScrollPosY + (deltaY)
+		  
+		  // Prevent the event propagating further.
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+
+	#tag Event
 		Sub Paint(g As Graphics, areas() As Xojo.Rect)
 		  #Pragma Unused areas
 		  
 		  RebuildBuffer
 		  
-		  If Multiline Then
-		    g.DrawPicture(mBuffer, -ScrollPosX, 0)
-		  Else
-		    g.DrawPicture(mBuffer, 0, -ScrollPosY)
-		  End If
+		  g.DrawingColor = Style.BackgroundColor
+		  g.FillRectangle(0, 0, g.Width, g.Height)
+		  
+		  g.DrawPicture(mBuffer, -ScrollPosX, -ScrollPosY)
 		  
 		End Sub
 	#tag EndEvent
@@ -150,9 +205,7 @@ Inherits DesktopTextInputCanvas
 		  End If
 		  
 		  // Compute the width of the buffer.
-		  #Pragma Warning "TODO: Actually compute the width of the text and tags."
-		  Var w As Double = Self.Width
-		  
+		  Var w As Double = CurrentLineWidth + LEFT_SCROLL_PADDING
 		  mRequiredBufferWidth = Max(w, Self.Width)
 		  
 		End Sub
@@ -170,12 +223,44 @@ Inherits DesktopTextInputCanvas
 		  AddHandler mCaretBlinker.Action, AddressOf CaretBlinkerAction
 		  
 		  // Always start with a single line.
-		  mLines.Add(New XUITagCanvasLine(1))
+		  mLines.Add(New XUITagCanvasLine(Self, 1))
+		  mCurrentLine = mLines(0)
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 48616E646C657320616E20457363206B6579207072657373206174207468652063757272656E7420636172657420706F736974696F6E2E
-		Sub HandleEscKey(shouldInvalidate As Boolean = True)
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520746F74616C207769647468206F66207468652063757272656E74206C696E652028696E636C7564696E672069747320636F6E74656E747320616E6420616C6C2070616464696E67292E
+		Private Function CurrentLineWidth() As Double
+		  /// Returns the total width of the current line (including its contents and all padding).
+		  
+		  If mBuffer <> Nil Then
+		    Return mCurrentLine.ContentsWidth(mBuffer.Graphics) + LEFT_PADDING
+		  Else
+		    // Edge case: The buffer has not yet been created.
+		    Var tmp As Picture = Window.BitmapForCaching(10, 10)
+		    Return mCurrentLine.ContentsWidth(tmp.Graphics) + LEFT_PADDING
+		  End If
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 44656C657465732074686520636861726163746572206F722074616720696D6D6564696174656C7920696E2066726F6E74206F66207468652063617265742E
+		Private Sub HandleDeleteBackwards()
+		  /// Deletes the character or tag immediately in front of the caret.
+		  
+		  If mCurrentLine.UnparsedText.CharacterCount > 0 Then
+		    mCurrentLine.UnparsedText = _
+		    mCurrentLine.UnparsedText.LeftCharacters(mCurrentLine.UnparsedText.CharacterCount - 1)
+		    
+		  ElseIf mCurrentLine.Tags.Count > 0 Then
+		    Call mCurrentLine.Tags.Pop
+		  End If
+		  
+		  Refresh
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 48616E646C657320616E20457363206B6579207072657373206174207468652063757272656E7420636172657420706F736974696F6E2E
+		Private Sub HandleEscKey(shouldInvalidate As Boolean = True)
 		  /// Handles an Esc key press at the current caret position.
 		  
 		  #Pragma Warning "TODO"
@@ -188,87 +273,254 @@ Inherits DesktopTextInputCanvas
 		  ///
 		  /// Assumes [char] is only one character.
 		  
+		  If IsTrigger(char) And Parse Then
+		    Return
+		  End If
+		  
 		  If range <> Nil And TargetMacOS Then
 		    // The user has pressed and held down a character and has selected a special character from the 
 		    // popup to insert. Replace the character before the caret with `char`.
-		    #Pragma Warning "TODO"
-		  Else
-		    // Insert the character at the current caret position.
-		    #Pragma Warning "TODO"
+		    HandleDeleteBackwards
 		  End If
 		  
-		  Refresh
+		  mCurrentLine.Append(char)
+		  
+		  #Pragma Warning "TODO: Autocomplete"
+		  
+		  ScrollToCaret
+		  
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 547275652069662060636861726020697320612074726967676572206368617261637465722E
+		Private Function IsTrigger(char As String) As Boolean
+		  /// True if `char` is a trigger character.
+		  
+		  If char = &u0A And ParseOnReturn Then Return True
+		  If char = &u09 And ParseOnTab Then Return True
+		  If char = "," And ParseOnComma Then Return True
+		  
+		  For Each trigger As String In mTriggers
+		    If char = trigger Then Return True
+		  Next trigger
+		  
+		  Return False
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 54686520312D6261736564206C696E65206E756D626572206F6620746865206C6173742076697369626C65206C696E652E
+		Private Function LastVisibleLineNumber() As Integer
+		  /// The 1-based line number of the last visible line. 
+		  ///
+		  /// The line may be only partially visible.
+		  
+		  Var i As Integer = mFirstVisibleLine + MaxVisibleLines(LineHeight)
+		  Return Min(i, mLines.Count)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B6C696E655D2069732066756C6C792076697369626C65206F6E207468652063616E7661732E
+		Private Function LineFullyVisible(line As XUITagCanvasLine) As Boolean
+		  /// Returns True if `line` is fully visible on the canvas.
+		  
+		  If line.Number < FirstVisibleLine Then Return False
+		  
+		  If line.Number > (FirstVisibleLine + MaxVisibleLines(LineHeight) - 1) Then
+		    Return False
+		  End If
+		  
+		  Return True
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 546865206865696768742028696E20706978656C7329206F662061206C696E652E
 		Function LineHeight() As Double
 		  /// The height (in pixels) of a line.
 		  
-		  #Pragma Warning "TODO"
-		  Return 20
+		  If mBuffer <> Nil Then
+		    Return Self.Formatter.TagHeight(mBuffer.Graphics) + (2 * TagVerticalPadding)
+		  Else
+		    // Edge case: The buffer has not yet been created.
+		    Var tmp As Picture = Window.BitmapForCaching(10, 10)
+		    Return Self.Formatter.TagHeight(tmp.Graphics) + (2 * TagVerticalPadding)
+		  End If
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5061696E747320746865206361726574206174207468652063757272656E7420636172657420706F736974696F6E2E
+	#tag Method, Flags = &h21, Description = 546865206D6178696D756D206E756D626572206F66206C696E65732074686174206172652076697369626C6520696E207468652063616E7661732E
+		Private Function MaxVisibleLines(lineHeight As Double) As Integer
+		  /// The maximum number of lines that are visible in the canvas. 
+		  ///
+		  /// Will never be more than the maximum number of lines in existence.
+		  
+		  Return Min(Me.Height / lineHeight, mLines.Count)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5061696E7473207468652063617265742061742074686520656E64206F66207468652063757272656E74206C696E652E
 		Private Sub PaintCaret(g As Graphics)
-		  /// Paints the caret at the current caret position.
+		  /// Paints the caret at the end of the current line.
 		  
+		  // Compute the x, y coordinates at the passed caret position.
+		  Var x, y As Double = 0
+		  XYAtCaretPos(x, y)
+		  
+		  y = y + TagVerticalPadding
+		  
+		  g.DrawingColor = Style.CaretColor
+		  g.DrawLine(x, y, x, y + (mLineHeight - (2 * TagVerticalPadding)))
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 417474656D70747320746F20706172736520606D546578746020696E746F2061207461672E
-		Private Sub Parse()
-		  /// Attempts to parse `mText` into a tag.
+	#tag Method, Flags = &h21, Description = 417474656D70747320746F2070617273652074686520756E7061727365642074657874206F6E207468652063757272656E74206C696E6520696E746F2061207461672E2052657475726E732046616C736520696620756E61626C652E20526566726573686573207468652063616E766173206966207375636365737366756C2E
+		Private Function Parse() As Boolean
+		  /// Attempts to parse the unparsed text on the current line into a tag. Returns False if unable.
+		  /// Refreshes the canvas if successful.
 		  
-		  #Pragma Warning "TODO"
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 52656275696C64732074686520656E74697265206261636B206275666665722062792064726177696E6720616C6C2076697369626C6520636F6E74656E7420746F2069742E
-		Private Sub RebuildBuffer()
-		  /// Rebuilds the entire buffer by drawing all visible content to it.
+		  Var tagData As XUITagData = Self.Parselet.Parse(mCurrentLine.UnparsedText)
 		  
-		  If Multiline Then
-		    RebuildMultilineBuffer
-		  Else
-		    RebuildSingleLineBuffer
+		  If tagData = Nil Then Return False
+		  
+		  mCurrentLine.Tags.Add(Self.Formatter.CreateTag(tagData, mBuffer.Graphics))
+		  
+		  mCurrentLine.UnparsedText = ""
+		  
+		  // If the tag just added makes the current line longer than the visible width we need to add another line.
+		  If CurrentLineWidth > Self.Width Then
+		    Var line As New XUITagCanvasLine(Self, mCurrentLine.Number + 1)
+		    line.Tags.Add(mCurrentLine.Tags.Pop)
+		    mLines.Add(line)
+		    mCurrentLine = mLines(mLines.LastIndex)
 		  End If
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 52656275696C6473207468652062756666657220666F722061206D756C74696C696E652063616E7661732E
-		Private Sub RebuildMultiLineBuffer()
-		  /// Rebuilds the buffer for a multiline canvas.
 		  
-		  #Pragma Warning "TODO"
-		End Sub
+		  ScrollToCaret
+		  
+		  Return True
+		  
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52656275696C6473207468652062756666657220666F7220612073696E676C65206C696E652063616E7661732E
-		Private Sub RebuildSingleLineBuffer()
-		  /// Rebuilds the buffer for a single line canvas.
+		Private Sub RebuildBuffer()
+		  /// Rebuilds the entire buffer by drawing all visible content to it.
 		  
 		  #Pragma Warning "TODO"
 		  
 		  ComputeBufferWidth
 		  
 		  // Create a new HiDPI aware buffer picture.
-		  mBuffer = Window.BitmapForCaching(mRequiredBufferWidth, Height)
+		  Var bufferH As Double
+		  If Multiline Then
+		    bufferH = Max(LineHeight * mLines.Count, Self.Height)
+		  Else
+		    bufferH = LineHeight
+		  End If
+		  mBuffer = Window.BitmapForCaching(mRequiredBufferWidth, bufferH)
 		  
 		  // Grab a reference to the buffer's graphics context.
 		  Var g As Graphics = mBuffer.Graphics
 		  
+		  If Style = Nil Then Return
+		  
 		  // Background.
-		  g.DrawingColor = Color.White
+		  g.DrawingColor = Style.BackgroundColor
 		  g.FillRectangle(0, 0, g.Width, g.Height)
+		  
+		  // Cache the current line height as it's computed.
+		  mLineHeight = LineHeight
+		  
+		  // Iterate over the visible lines and draw every line.
+		  Var lineStartY As Double = TOP_PADDING
+		  For Each line As XUITagCanvasLine In mLines
+		    line.Draw(g, LEFT_PADDING, lineStartY, mLineHeight)
+		    lineStartY = lineStartY + mLineHeight
+		  Next line
 		  
 		  // Draw the caret.
 		  If mCaretVisible Then
-		    #Pragma Warning "TODO: Paint the caret"
+		    PaintCaret(g)
 		  End If
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5363726F6C6C73207468652063616E76617320646F776E20606C696E6573546F5363726F6C6C60206C696E65732E
+		Private Sub ScrollDown(linesToScroll As Integer)
+		  /// Scrolls the canvas down `linesToScroll` lines.  Refreshes the canvas.
+		  
+		  // Vertical scrolling only occurs in multiline tag canvas controls.
+		  If Not Multiline Then Return
+		  
+		  // Cache the number of visible lines as it's computed.
+		  Var linesVisible As Integer = MaxVisibleLines(LineHeight)
+		  
+		  // The maximum number of lines we can ever scroll down is the number of 
+		  // lines that are visible on the screen. However, we will never scroll past the last line.
+		  linesToScroll = MathsKit.Clamp(linesToScroll, 0, linesVisible)
+		  
+		  ScrollPosY = ScrollPosY + (linesToScroll * LineHeight)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5363726F6C6C73207468652063616E76617320286966206E65636573736172792920746F207468652063617265742E20526566726573686573207468652063616E7661732E
+		Private Sub ScrollToCaret()
+		  /// Scrolls the canvas (if necessary) to the caret. Refreshes the canvas.
+		  
+		  Var cachedMaxVisible As Integer = MaxVisibleLines(mLineHeight)
+		  
+		  // ===============================
+		  // HORIZONTAL SCROLLING
+		  // ===============================
+		  // Get the X coord of the caret.
+		  Var x As Integer = CaretXCoordinate
+		  If mCurrentLine.Tags.Count = 0 And mCurrentLine.UnparsedText.Length = 0 Then
+		    ScrollPosX = 0
+		    
+		  ElseIf x - mScrollPosX + RIGHT_SCROLL_PADDING > Self.Width Then
+		    // Scroll right.
+		    Var widthDiff As Double = mRequiredBufferWidth - Self.Width
+		    ScrollPosX = MathsKit.Clamp(mScrollPosX + x - Self.Width + RIGHT_SCROLL_PADDING, 0, widthDiff)
+		    
+		  ElseIf x < mScrollPosX Then
+		    // Scroll left.
+		    ScrollPosX = Max(x - LEFT_SCROLL_PADDING, 0)
+		    
+		  ElseIf mScrollPosX > mRequiredBufferWidth - Me.Width Then
+		    ScrollPosX = Max(x - LEFT_SCROLL_PADDING, 0)
+		  End If
+		  
+		  // ===============================
+		  // VERTICAL SCROLLING
+		  // ===============================
+		  ScrollPosY = mBuffer.Graphics.Height
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5363726F6C6C73207468652063616E76617320757020606C696E6573546F5363726F6C6C60206C696E65732E20526566726573686573207468652063616E7661732E
+		Private Sub ScrollUp(linesToScroll As Integer)
+		  /// Scrolls the canvas up `linesToScroll` lines. Refreshes the canvas.
+		  
+		  // Vertical scrolling only occurs in multiline tag canvas controls.
+		  If Not Multiline Then Return
+		  
+		  // Cache the number of visible lines as it's computed.
+		  Var linesVisible As Integer = MaxVisibleLines(LineHeight)
+		  
+		  // The maximum number of lines we can ever scroll up is the number of lines 
+		  // that are visible on the screen. However, we will never scroll past the first line.
+		  linesToScroll = MathsKit.Clamp(linesToScroll, 0, linesVisible)
+		  
+		  ScrollPosY = ScrollPosY - (linesToScroll * LineHeight)
+		  
 		  
 		End Sub
 	#tag EndMethod
@@ -277,11 +529,9 @@ Inherits DesktopTextInputCanvas
 		Private Sub XYAtCaretPos(ByRef x As Double, ByRef y As Double)
 		  /// Computes (ByRef) the canvas x, y coordinates at the current caret position.
 		  
-		  // X
-		  #Pragma Warning "TODO: Compute width of the line to the caret position (x)"
+		  x = mCurrentLine.ContentsWidth(mBuffer.Graphics) + LEFT_PADDING
 		  
-		  // Y
-		  y = (CaretLineNumber - FirstVisibleLine) * LineHeight
+		  y = (CaretLineNumber - 1) * LineHeight
 		  
 		End Sub
 	#tag EndMethod
@@ -291,6 +541,10 @@ Inherits DesktopTextInputCanvas
 		Event AutocompleteOptionsForPrefix(prefix As String) As XUITagAutocompleteOption()
 	#tag EndHook
 
+
+	#tag Property, Flags = &h0, Description = 49662054727565207468656E207468652063616E7661732077696C6C20766572746963616C6C79207363726F6C6C2066617374657220696620746865206D6F75736520776865656C206973206D6F766564206661737465722E
+		AllowInertialScrolling As Boolean = True
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 54686520696E74657276616C2028696E206D7329206265747765656E20636172657420626C696E6B732E
 		#tag Getter
@@ -317,6 +571,15 @@ Inherits DesktopTextInputCanvas
 			End Get
 		#tag EndGetter
 		CaretLineNumber As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 546865206162736F6C757465205820636F6F7264696E617465206F6620746865206361726574206174206974732063757272656E7420706F736974696F6E2028636F6D707574656420616E6420657870656E73697665292E
+		#tag Getter
+			Get
+			  Return mCurrentLine.ContentsWidth(mBuffer.Graphics) + LEFT_PADDING
+			End Get
+		#tag EndGetter
+		CaretXCoordinate As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206C696E652074686174207468652063617265742069732063757272656E746C79206F6E2E
@@ -353,16 +616,27 @@ Inherits DesktopTextInputCanvas
 		FirstVisibleLine As Integer
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 54686520666F726D617474657220746F2075736520746F206472617720746865207461677320696E207468652063616E7661732E
+		Formatter As XUITagFormatter
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h21, Description = 546865206C696E65206E756D626572206F6620746865206C617374202A66756C6C792A2076697369626C65206C696E652E
+		#tag Getter
+			Get
+			  // Find the lowest-most fully visible line.
+			  Var i As Integer = mFirstVisibleLine + MaxVisibleLines(LineHeight) - 1
+			  Return Min(i, mLines.Count)
+			End Get
+		#tag EndGetter
+		Private LastFullyVisibleLineNumber As Integer
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21, Description = 5468652062756666657220776520647261772074686520636F6E74656E747320746F20616E64207468656E20626C697420746F207468652073637265656E2065616368206672616D652E
 		Private mBuffer As Picture
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5468652074696D657220726573706F6E7369626C6520666F7220626C696E6B696E67207468652063617265742E
 		Private mCaretBlinker As Timer
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 302D626173656420696E646578206F66207468652063617265742E20456163682074616720636F756E747320617320686176696E672061206C656E677468206F66206F6E6520666F722074686520707572706F736573206F662064657465726D696E696E672074686520636172657420706F736974696F6E2E
-		Private mCaretPos As Integer = 0
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54727565206966207468652063617265742068617320626C696E6B65642076697369626C652C2046616C7365206966206E6F742E
@@ -379,6 +653,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060486173466F6375736020636F6D70757465642070726F70657274792E
 		Private mHasFocus As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 496E7465726E616C206361636865206F66207468652063757272656E74206C696E65206865696768742E
+		Private mLineHeight As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206C696E657320696E20746869732063616E7661732E
@@ -401,12 +679,20 @@ Inherits DesktopTextInputCanvas
 		Private mScrollPosY As Integer = 0
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 54686520636F6C6F7572207374796C6520746F2075736520666F7220746865207461672063616E76617320616E6420746167732E
+		Private mStyle As XUITagCanvasStyle
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 4164646974696F6E616C206368617261637465727320746861742074726967676572207461672070617273696E672E205365742077697468207468652060506172736554726967676572736020636F6D70757465642070726F70657274792E
 		Private mTriggers() As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E20746167732077696C6C207772617020746F206E6577206C696E65732E
 		Multiline As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 5468652070617273656C657420746F2075736520746F207061727365207465787420656E746572656420696E20746865207461672063616E7661732E
+		Parselet As XUITagParselet
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E2074686520636F6D6D61206B6579207472696767657273207468652070617273696E67206F6620616E7920636F6E746967756F75732074657874206E6F7420796574207061727365642061732061207461672E
@@ -434,7 +720,7 @@ Inherits DesktopTextInputCanvas
 			  
 			  For Each trigger As String In tmp
 			    
-			    If trigger.Length <> 1 Then
+			    If trigger.CharacterCount <> 1 Then
 			      Raise New InvalidArgumentException("Parse triggers must be exactly one character in length.")
 			    End If
 			    
@@ -471,7 +757,7 @@ Inherits DesktopTextInputCanvas
 		ReadOnly As Boolean
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E
+	#tag ComputedProperty, Flags = &h0, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E20526566726573686573207468652063616E7661732E
 		#tag Getter
 			Get
 			  Return mScrollPosX
@@ -487,7 +773,7 @@ Inherits DesktopTextInputCanvas
 			  If mBuffer = Nil Then
 			    maxScrollPosX = 0
 			  Else
-			    maxScrollPosX = Max(mBuffer.Width - Self.Width, 0)
+			    maxScrollPosX = Max(mBuffer.Graphics.Width - Self.Width, 0)
 			  End If
 			  
 			  // Set the value of ScrollPosX, not exceeding the maximum value.
@@ -497,10 +783,10 @@ Inherits DesktopTextInputCanvas
 			  
 			End Set
 		#tag EndSetter
-		Private ScrollPosX As Integer
+		ScrollPosX As Integer
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h21, Description = 54686520766572746963616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720646F776E2E
+	#tag ComputedProperty, Flags = &h21, Description = 54686520766572746963616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720646F776E2E20526566726573686573207468652063616E7661732E
 		#tag Getter
 			Get
 			  Return mScrollPosY
@@ -516,7 +802,7 @@ Inherits DesktopTextInputCanvas
 			  If mBuffer = Nil Then
 			    maxScrollPosY = 0
 			  Else
-			    maxScrollPosY = Max(mBuffer.Height - Self.Height, 0)
+			    maxScrollPosY = Max(mBuffer.Graphics.Height - Self.Height, 0)
 			  End If
 			  
 			  // Set the value of ScrollPosY, not exceeding the maximum value.
@@ -529,11 +815,49 @@ Inherits DesktopTextInputCanvas
 		Private ScrollPosY As Integer
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6C6F7572207374796C6520746F2075736520666F7220746865207461672063616E76617320616E6420746167732E
+		#tag Getter
+			Get
+			  Return mStyle
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mStyle = value
+			  Refresh
+			End Set
+		#tag EndSetter
+		Style As XUITagCanvasStyle
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C65667420616E64207269676874206F662065616368207461672E
+		TagHorizontalPadding As Integer = 5
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F772065616368207461672E
+		TagVerticalPadding As Integer = 5
+	#tag EndProperty
+
+
+	#tag Constant, Name = LEFT_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420636F6E74656E742066726F6D20746865206C6566742065646765206F66207468652063616E7661732E
+	#tag EndConstant
+
+	#tag Constant, Name = LEFT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"50", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F20706164206C656674207768656E207363726F6C6C696E67206C65667477617264732E
+	#tag EndConstant
+
+	#tag Constant, Name = RIGHT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 467564676520666163746F7220666F722070616464696E6720746865207269676874206F66206C696E6573207768656E20686F72697A6F6E74616C207363726F6C6C696E672E
+	#tag EndConstant
+
+	#tag Constant, Name = TOP_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061642074686520746F70206F6620746865206669727374206C696E652E
+	#tag EndConstant
 
 	#tag Constant, Name = TYPING_SPEED_TICKS, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865206E756D626572206F66207469636B73206265747765656E206B65797374726F6B657320746F207374696C6C20626520636F6E73696465726564206173206163746976656C7920747970696E672E
 	#tag EndConstant
 
 	#tag Constant, Name = UNDO_EVENT_BLOCK_SECONDS, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 546865206E756D626572206F66207365636F6E64732077697468696E20776869636820756E646F61626C6520616374696F6E2077696C6C2062652067726F7570656420746F67657468657220617320612073696E676C6520756E646F61626C6520616374696F6E2E
+	#tag EndConstant
+
+	#tag Constant, Name = VSCROLL_SENSITIVITY, Type = Double, Dynamic = False, Default = \"2.5", Scope = Private, Description = 486967686572206E756D626572203D206D6F7265206C696E6573207363726F6C6C6564207768656E20717569636B6C79207363726F6C6C696E6720766572746963616C6C792E2056616C756573206265747765656E2031202D203320776F726B2077656C6C2E
 	#tag EndConstant
 
 
@@ -747,7 +1071,7 @@ Inherits DesktopTextInputCanvas
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="FirstVisibleLine"
+			Name="CaretLineNumber"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
@@ -755,7 +1079,47 @@ Inherits DesktopTextInputCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="CaretLineNumber"
+			Name="TagVerticalPadding"
+			Visible=false
+			Group="Behavior"
+			InitialValue="5"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TagHorizontalPadding"
+			Visible=false
+			Group="Behavior"
+			InitialValue="5"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CaretXCoordinate"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ScrollPosX"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowInertialScrolling"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FirstVisibleLine"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

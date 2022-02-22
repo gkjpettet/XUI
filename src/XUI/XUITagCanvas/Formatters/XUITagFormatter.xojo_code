@@ -1,5 +1,30 @@
-#tag Class
-Protected Class XUITagAutocompleteOption
+#tag Interface
+Protected Interface XUITagFormatter
+	#tag Method, Flags = &h0, Description = 4372656174657320616E642072657475726E732061206E6577207461672077697468207468652073706563696669656420646174612E
+		Function CreateTag(tagData As XUITagData, g As Graphics) As XUITag
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Owner() As XUITagCanvas
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520686569676874206F662061207461672E
+		Function TagHeight(g As Graphics) As Integer
+		  
+		End Function
+	#tag EndMethod
+
+
+	#tag Note, Name = About
+		s are responsible for drawing tags.
+		Tag formatter
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"
@@ -42,5 +67,5 @@ Protected Class XUITagAutocompleteOption
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
-End Class
-#tag EndClass
+End Interface
+#tag EndInterface
