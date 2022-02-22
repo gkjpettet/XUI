@@ -355,7 +355,7 @@ Inherits DesktopTextInputCanvas
 		  
 		  If tagData = Nil Then Return False
 		  
-		  mCurrentLine.Tags.Add(Self.Formatter.CreateTag(tagData, mBuffer.Graphics))
+		  mCurrentLine.Tags.Add(Self.TagRenderer.CreateTag(tagData, mBuffer.Graphics))
 		  
 		  mCurrentLine.UnparsedText = ""
 		  
@@ -562,21 +562,17 @@ Inherits DesktopTextInputCanvas
 		CurrentLine As XUITagCanvasLine
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0, Description = 54686520666F726D617474657220746F2075736520746F206472617720746865207461677320696E207468652063616E7661732E
-		Formatter As XUITagFormatter
-	#tag EndProperty
-
 	#tag ComputedProperty, Flags = &h0, Description = 546865206865696768742028696E20706978656C7329206F662061206C696E652E
 		#tag Getter
 			Get
 			  /// The height (in pixels) of a line.
 			  
 			  If mBuffer <> Nil Then
-			    Return Self.Formatter.TagHeight(mBuffer.Graphics) + (2 * TagVerticalPadding)
+			    Return TagRenderer.TagHeight(mBuffer.Graphics) + (2 * TagVerticalPadding)
 			  Else
 			    // Edge case: The buffer has not yet been created.
 			    Var tmp As Picture = Window.BitmapForCaching(10, 10)
-			    Return Self.Formatter.TagHeight(tmp.Graphics) + (2 * TagVerticalPadding)
+			    Return TagRenderer.TagHeight(tmp.Graphics) + (2 * TagVerticalPadding)
 			  End If
 			End Get
 		#tag EndGetter
@@ -795,6 +791,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C65667420616E64207269676874206F662065616368207461672E
 		TagHorizontalPadding As Integer = 5
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520666F726D617474657220746F2075736520746F206472617720746865207461677320696E207468652063616E7661732E
+		TagRenderer As XUITagRenderer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F772065616368207461672E

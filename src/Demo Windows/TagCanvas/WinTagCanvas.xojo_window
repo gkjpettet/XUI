@@ -74,7 +74,7 @@ End
 		  style.CaretColor = Color.Black
 		  
 		  Me.Style = style
-		  Me.Formatter = New XUIWindowsTagFormatter(Me)
+		  Me.TagRenderer = New XUIWindowsTagRenderer(Me)
 		  Me.Parselet = New XUIDefaultTagParselet
 		End Sub
 	#tag EndEvent
