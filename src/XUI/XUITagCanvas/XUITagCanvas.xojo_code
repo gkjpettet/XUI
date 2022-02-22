@@ -338,10 +338,10 @@ Inherits DesktopTextInputCanvas
 		  Var x, y As Double = 0
 		  XYAtCaretPos(x, y)
 		  
-		  y = y + TagVerticalPadding
+		  y = y + TagRenderer.TagVerticalPadding
 		  
 		  g.DrawingColor = Style.CaretColor
-		  g.DrawLine(x, y, x, y + (mLineHeight - (2 * TagVerticalPadding)))
+		  g.DrawLine(x, y, x, y + (mLineHeight - (2 * TagRenderer.TagVerticalPadding)))
 		  
 		End Sub
 	#tag EndMethod
@@ -386,9 +386,9 @@ Inherits DesktopTextInputCanvas
 		  // Create a new HiDPI aware buffer picture.
 		  Var bufferH As Double
 		  If Multiline Then
-		    bufferH = Max(PaddingTop + (LineHeight * mLines.Count) + PaddingBottom, Self.Height)
+		    bufferH = Max((LineHeight * mLines.Count) + (2 * TagRenderer.TagVerticalPadding), Self.Height)
 		  Else
-		    bufferH = PaddingTop + LineHeight + PaddingBottom
+		    bufferH = LineHeight + (2 * TagRenderer.TagVerticalPadding)
 		  End If
 		  mBuffer = Window.BitmapForCaching(mRequiredBufferWidth, bufferH)
 		  
@@ -405,7 +405,7 @@ Inherits DesktopTextInputCanvas
 		  mLineHeight = LineHeight
 		  
 		  // Iterate over the visible lines and draw every line.
-		  Var lineStartY As Double = PaddingTop
+		  Var lineStartY As Double = TagRenderer.TagVerticalPadding
 		  For Each line As XUITagCanvasLine In mLines
 		    line.Draw(g, LEFT_PADDING, lineStartY, mLineHeight)
 		    lineStartY = lineStartY + mLineHeight
@@ -568,11 +568,11 @@ Inherits DesktopTextInputCanvas
 			  /// The height (in pixels) of a line.
 			  
 			  If mBuffer <> Nil Then
-			    Return TagRenderer.TagHeight(mBuffer.Graphics) + (2 * TagVerticalPadding)
+			    Return TagRenderer.TagHeight(mBuffer.Graphics) + (2 * TagRenderer.TagVerticalPadding)
 			  Else
 			    // Edge case: The buffer has not yet been created.
 			    Var tmp As Picture = Window.BitmapForCaching(10, 10)
-			    Return TagRenderer.TagHeight(tmp.Graphics) + (2 * TagVerticalPadding)
+			    Return TagRenderer.TagHeight(tmp.Graphics) + (2 * TagRenderer.TagVerticalPadding)
 			  End If
 			End Get
 		#tag EndGetter
@@ -633,14 +633,6 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E20746167732077696C6C207772617020746F206E6577206C696E65732E
 		Multiline As Boolean = False
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642062656C6F7720746865206C6F77657374206C696E652E
-		PaddingBottom As Integer = 2
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F766520746865206669727374206C696E652E
-		PaddingTop As Integer = 2
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 5468652070617273656C657420746F2075736520746F207061727365207465787420656E746572656420696E20746865207461672063616E7661732E
@@ -720,8 +712,6 @@ Inherits DesktopTextInputCanvas
 			Set
 			  /// Update how much the canvas is horizontally scrolled.
 			  
-			  #Pragma Warning "BUG: Horizontal scrolling is not working"
-			  
 			  // Compute the maximum allowed X scroll position.
 			  Var maxScrollPosX As Integer
 			  If mBuffer = Nil Then
@@ -789,16 +779,8 @@ Inherits DesktopTextInputCanvas
 		Style As XUITagCanvasStyle
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C65667420616E64207269676874206F662065616368207461672E
-		TagHorizontalPadding As Integer = 5
-	#tag EndProperty
-
 	#tag Property, Flags = &h0, Description = 54686520666F726D617474657220746F2075736520746F206472617720746865207461677320696E207468652063616E7661732E
 		TagRenderer As XUITagRenderer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F772065616368207461672E
-		TagVerticalPadding As Integer = 5
 	#tag EndProperty
 
 
@@ -1031,42 +1013,10 @@ Inherits DesktopTextInputCanvas
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TagVerticalPadding"
-			Visible=false
-			Group="Behavior"
-			InitialValue="5"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TagHorizontalPadding"
-			Visible=false
-			Group="Behavior"
-			InitialValue="5"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="LineHeight"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="PaddingTop"
-			Visible=false
-			Group="Behavior"
-			InitialValue="2"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="PaddingBottom"
-			Visible=false
-			Group="Behavior"
-			InitialValue="2"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

@@ -28,7 +28,7 @@ Begin DesktopWindow WinTagCanvas
       AutoDeactivate  =   True
       CaretBlinkPeriod=   500
       Enabled         =   True
-      Height          =   37
+      Height          =   103
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   20
@@ -38,9 +38,7 @@ Begin DesktopWindow WinTagCanvas
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Multiline       =   False
-      PaddingBottom   =   2
-      PaddingTop      =   2
+      Multiline       =   True
       ParseOnComma    =   True
       ParseOnReturn   =   True
       ParseOnTab      =   True
@@ -50,8 +48,6 @@ Begin DesktopWindow WinTagCanvas
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      TagHorizontalPadding=   5
-      TagVerticalPadding=   5
       Tooltip         =   ""
       Top             =   20
       Visible         =   True
@@ -68,7 +64,7 @@ End
 		Sub Opening()
 		  Var style As New XUITagCanvasStyle
 		  style.BackgroundColor = Color.White
-		  style.TagBackgroundColor = Color.Gray
+		  style.TagBackgroundColor = Color.FromString("&h00F2F2F2")
 		  style.TagBorderColor = Color.Black
 		  style.TagTextColor = Color.Black
 		  style.CaretColor = Color.Black

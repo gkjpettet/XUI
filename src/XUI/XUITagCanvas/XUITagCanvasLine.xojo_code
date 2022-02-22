@@ -30,7 +30,7 @@ Protected Class XUITagCanvasLine
 		  
 		  // Compute the width of any leading tags.
 		  For Each tag As XUITag In Tags
-		    w = w + tag.Width + Owner.TagHorizontalPadding
+		    w = w + tag.Width + Owner.TagRenderer.TagHorizontalPadding
 		  Next tag
 		  
 		  // If there's no unparsed text then we're done.
@@ -71,8 +71,8 @@ Protected Class XUITagCanvasLine
 		    g.AntiAliased = False
 		  #EndIf
 		  For Each tag As XUITag In Tags
-		    g.DrawPicture(tag.Image, x, topLeftY + Owner.TagVerticalPadding)
-		    x = x + tag.Width + Owner.TagHorizontalPadding
+		    g.DrawPicture(tag.Image, x, topLeftY + Owner.TagRenderer.TagVerticalPadding)
+		    x = x + tag.Width + Owner.TagRenderer.TagHorizontalPadding
 		  Next tag
 		  #If TargetWindows
 		    g.AntiAliased = True
@@ -169,7 +169,7 @@ Protected Class XUITagCanvasLine
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Number"

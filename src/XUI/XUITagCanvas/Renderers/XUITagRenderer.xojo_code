@@ -18,6 +18,18 @@ Protected Interface XUITagRenderer
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54686520737567676573746564206E756D626572206F6620706978656C7320746F20706164206569746865722073696465206F66207461677320696E20746865207461672063616E7661732E
+		Function TagHorizontalPadding() As Integer
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 54686520737567676573746564206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F77207461677320696E20746865207461672063616E7661732E
+		Function TagVerticalPadding() As Integer
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		Responsible for rendering tag data into a visible tag.

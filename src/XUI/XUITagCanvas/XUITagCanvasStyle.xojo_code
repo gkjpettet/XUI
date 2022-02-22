@@ -8,6 +8,10 @@ Protected Class XUITagCanvasStyle
 		CaretColor As Color
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66206F7074696F6E616C207461672064696E67757365732E
+		DingusColor As Color
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620756E70617273656420746578742E
 		FontColor As Color
 	#tag EndProperty
@@ -78,8 +82,64 @@ Protected Class XUITagCanvasStyle
 			Name="TagBackgroundColor"
 			Visible=false
 			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CaretColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FontColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FontName"
+			Visible=false
+			Group="Behavior"
 			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FontSize"
+			Visible=false
+			Group="Behavior"
+			InitialValue="12"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TagBorderColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TagTextColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

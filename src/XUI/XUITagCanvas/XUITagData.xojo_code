@@ -64,8 +64,8 @@ Protected Class XUITagData
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Integer"
-			EditorType=""
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

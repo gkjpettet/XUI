@@ -4,6 +4,20 @@ Protected Class XUITag
 		Data As Variant
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 496620746869732074616720686173206120636C69636B61626C652064696E6775732028652E672E20636C6F73652069636F6E2C20646973636C6F7375726520747269616E676C6529207468656E207468657365206172652069747320626F756E64732C2072656C617469766520746F2074686520746F70206C65667420636F726E6572206F662074686520746167277320696D6167652E
+		DingusBounds As Rect
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746869732069636F6E20686173206120636C69636B61626C652064696E6775732028652E672E206120636C6F73652069636F6E2C20646973636C6F7375726520747269616E676C652C20657463292E
+		#tag Getter
+			Get
+			  Return DingusBounds <> Nil
+			  
+			End Get
+		#tag EndGetter
+		HasDingus As Boolean
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 54686973207461672773206865696768742E
 		#tag Getter
 			Get
@@ -85,7 +99,39 @@ Protected Class XUITag
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Height"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Image"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Width"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasDingus"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
