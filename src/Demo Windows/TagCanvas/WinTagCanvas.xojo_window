@@ -101,6 +101,12 @@ End
 		  style.TagTextColor = Color.Black
 		  style.CaretColor = Color.Black
 		  
+		  #If TargetWindows
+		    style.FontSize = 14
+		  #Else
+		    style.FontSize = 0
+		  #EndIf
+		  
 		  Me.Style = style
 		  Me.TagRenderer = New XUIWindowsTagRenderer(Me)
 		  Me.Parselet = New XUIDefaultTagParselet

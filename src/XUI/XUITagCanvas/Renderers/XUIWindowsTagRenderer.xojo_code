@@ -29,6 +29,11 @@ Implements XUITagRenderer
 		  ///
 		  /// Part of the XUITagFormatter interface.
 		  
+		  // Ensure that anti-aliasing is enabled on Windows.
+		  #If TargetWindows
+		    g.AntiAliased = True
+		  #EndIf
+		  
 		  // Adjust y to account for this renderer's suggested vertical padding.
 		  y = y + TagVerticalPadding
 		  
