@@ -7,6 +7,8 @@ Implements XUITagParselet
 		  ///
 		  /// Part of the XUITagParselet interface.
 		  
+		  If s = "" Then Return Nil
+		  
 		  Return New XUITagData(s, Nil)
 		End Function
 	#tag EndMethod

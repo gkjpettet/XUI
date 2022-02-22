@@ -14,6 +14,9 @@ Inherits DesktopTextInputCanvas
 		  Case CmdDeleteBackward
 		    HandleDeleteBackwards
 		    
+		  Case CmdInsertNewline
+		    InsertCharacter(&u0A)
+		    
 		  Case CmdInsertTab
 		    InsertCharacter(&u09)
 		    
@@ -134,7 +137,10 @@ Inherits DesktopTextInputCanvas
 		  // =================================
 		  // VERTICAL SCROLLING
 		  // =================================
-		  ScrollPosY = ScrollPosY + (deltaY)
+		  If Multiline Then
+		    // Only allow vertical scrolling in multiline canvas'.
+		    ScrollPosY = ScrollPosY + (deltaY)
+		  End If
 		  
 		  // Prevent the event propagating further.
 		  Return True
@@ -277,6 +283,9 @@ Inherits DesktopTextInputCanvas
 		    Return
 		  End If
 		  
+		  // Ignore newlines when parsing is not to occur on newlines. Tags shouldn't contain them.
+		  If char = &u0A Then Return
+		  
 		  If range <> Nil And TargetMacOS Then
 		    // The user has pressed and held down a character and has selected a special character from the 
 		    // popup to insert. Replace the character before the caret with `char`.
@@ -307,20 +316,6 @@ Inherits DesktopTextInputCanvas
 		  
 		  Return False
 		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0, Description = 546865206865696768742028696E20706978656C7329206F662061206C696E652E
-		Function LineHeight() As Double
-		  /// The height (in pixels) of a line.
-		  
-		  If mBuffer <> Nil Then
-		    Return Self.Formatter.TagHeight(mBuffer.Graphics) + (2 * TagVerticalPadding)
-		  Else
-		    // Edge case: The buffer has not yet been created.
-		    Var tmp As Picture = Window.BitmapForCaching(10, 10)
-		    Return Self.Formatter.TagHeight(tmp.Graphics) + (2 * TagVerticalPadding)
-		  End If
 		End Function
 	#tag EndMethod
 
@@ -364,12 +359,14 @@ Inherits DesktopTextInputCanvas
 		  
 		  mCurrentLine.UnparsedText = ""
 		  
-		  // If the tag just added makes the current line longer than the visible width we need to add another line.
-		  If CurrentLineWidth > Self.Width Then
-		    Var line As New XUITagCanvasLine(Self, mCurrentLine.Number + 1)
-		    line.Tags.Add(mCurrentLine.Tags.Pop)
-		    mLines.Add(line)
-		    mCurrentLine = mLines(mLines.LastIndex)
+		  If Multiline Then
+		    // If the tag just added makes the current line longer than the visible width we need to add another line.
+		    If CurrentLineWidth > Self.Width Then
+		      Var line As New XUITagCanvasLine(Self, mCurrentLine.Number + 1)
+		      line.Tags.Add(mCurrentLine.Tags.Pop)
+		      mLines.Add(line)
+		      mCurrentLine = mLines(mLines.LastIndex)
+		    End If
 		  End If
 		  
 		  ScrollToCaret
@@ -389,9 +386,9 @@ Inherits DesktopTextInputCanvas
 		  // Create a new HiDPI aware buffer picture.
 		  Var bufferH As Double
 		  If Multiline Then
-		    bufferH = Max(LineHeight * mLines.Count, Self.Height)
+		    bufferH = Max(PaddingTop + (LineHeight * mLines.Count) + PaddingBottom, Self.Height)
 		  Else
-		    bufferH = LineHeight
+		    bufferH = PaddingTop + LineHeight + PaddingBottom
 		  End If
 		  mBuffer = Window.BitmapForCaching(mRequiredBufferWidth, bufferH)
 		  
@@ -408,7 +405,7 @@ Inherits DesktopTextInputCanvas
 		  mLineHeight = LineHeight
 		  
 		  // Iterate over the visible lines and draw every line.
-		  Var lineStartY As Double = TOP_PADDING
+		  Var lineStartY As Double = PaddingTop
 		  For Each line As XUITagCanvasLine In mLines
 		    line.Draw(g, LEFT_PADDING, lineStartY, mLineHeight)
 		    lineStartY = lineStartY + mLineHeight
@@ -451,6 +448,7 @@ Inherits DesktopTextInputCanvas
 		  // Get the X coord of the caret.
 		  Var x As Integer = CaretXCoordinate
 		  If mCurrentLine.Tags.Count = 0 And mCurrentLine.UnparsedText.Length = 0 Then
+		    // Start of the line.
 		    ScrollPosX = 0
 		    
 		  ElseIf x - mScrollPosX + RIGHT_SCROLL_PADDING > Self.Width Then
@@ -512,10 +510,6 @@ Inherits DesktopTextInputCanvas
 	#tag EndHook
 
 
-	#tag Property, Flags = &h0, Description = 49662054727565207468656E207468652063616E7661732077696C6C20766572746963616C6C79207363726F6C6C2066617374657220696620746865206D6F75736520776865656C206973206D6F766564206661737465722E
-		AllowInertialScrolling As Boolean = True
-	#tag EndProperty
-
 	#tag ComputedProperty, Flags = &h0, Description = 54686520696E74657276616C2028696E206D7329206265747765656E20636172657420626C696E6B732E
 		#tag Getter
 			Get
@@ -534,22 +528,22 @@ Inherits DesktopTextInputCanvas
 		CaretBlinkPeriod As Integer
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F6620746865206C696E65207468652063617265742069732063757272656E746C79206F6E2E
+	#tag ComputedProperty, Flags = &h21, Description = 546865206E756D626572206F6620746865206C696E65207468652063617265742069732063757272656E746C79206F6E2E
 		#tag Getter
 			Get
 			  Return mCurrentLine.Number
 			End Get
 		#tag EndGetter
-		CaretLineNumber As Integer
+		Private CaretLineNumber As Integer
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865206162736F6C757465205820636F6F7264696E617465206F6620746865206361726574206174206974732063757272656E7420706F736974696F6E2028636F6D707574656420616E6420657870656E73697665292E
+	#tag ComputedProperty, Flags = &h21, Description = 546865206162736F6C757465205820636F6F7264696E617465206F6620746865206361726574206174206974732063757272656E7420706F736974696F6E2028636F6D707574656420616E6420657870656E73697665292E
 		#tag Getter
 			Get
 			  Return mCurrentLine.ContentsWidth(mBuffer.Graphics) + LEFT_PADDING
 			End Get
 		#tag EndGetter
-		CaretXCoordinate As Integer
+		Private CaretXCoordinate As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206C696E652074686174207468652063617265742069732063757272656E746C79206F6E2E
@@ -571,6 +565,23 @@ Inherits DesktopTextInputCanvas
 	#tag Property, Flags = &h0, Description = 54686520666F726D617474657220746F2075736520746F206472617720746865207461677320696E207468652063616E7661732E
 		Formatter As XUITagFormatter
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 546865206865696768742028696E20706978656C7329206F662061206C696E652E
+		#tag Getter
+			Get
+			  /// The height (in pixels) of a line.
+			  
+			  If mBuffer <> Nil Then
+			    Return Self.Formatter.TagHeight(mBuffer.Graphics) + (2 * TagVerticalPadding)
+			  Else
+			    // Edge case: The buffer has not yet been created.
+			    Var tmp As Picture = Window.BitmapForCaching(10, 10)
+			    Return Self.Formatter.TagHeight(tmp.Graphics) + (2 * TagVerticalPadding)
+			  End If
+			End Get
+		#tag EndGetter
+		LineHeight As Integer
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21, Description = 5468652062756666657220776520647261772074686520636F6E74656E747320746F20616E64207468656E20626C697420746F207468652073637265656E2065616368206672616D652E
 		Private mBuffer As Picture
@@ -596,8 +607,8 @@ Inherits DesktopTextInputCanvas
 		Private mLineHeight As Double
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 546865206C696E657320696E20746869732063616E7661732E
-		mLines() As XUITagCanvasLine
+	#tag Property, Flags = &h21, Description = 546865206C696E657320696E20746869732063616E7661732E
+		Private mLines() As XUITagCanvasLine
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E672073746F726520666F72207468652060526561644F6E6C796020636F6D70757465642070726F70657274792E
@@ -626,6 +637,14 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E20746167732077696C6C207772617020746F206E6577206C696E65732E
 		Multiline As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642062656C6F7720746865206C6F77657374206C696E652E
+		PaddingBottom As Integer = 2
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F766520746865206669727374206C696E652E
+		PaddingTop As Integer = 2
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 5468652070617273656C657420746F2075736520746F207061727365207465787420656E746572656420696E20746865207461672063616E7661732E
@@ -694,7 +713,7 @@ Inherits DesktopTextInputCanvas
 		ReadOnly As Boolean
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E20526566726573686573207468652063616E7661732E
+	#tag ComputedProperty, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E20526566726573686573207468652063616E7661732E
 		#tag Getter
 			Get
 			  Return mScrollPosX
@@ -704,6 +723,8 @@ Inherits DesktopTextInputCanvas
 		#tag Setter
 			Set
 			  /// Update how much the canvas is horizontally scrolled.
+			  
+			  #Pragma Warning "BUG: Horizontal scrolling is not working"
 			  
 			  // Compute the maximum allowed X scroll position.
 			  Var maxScrollPosX As Integer
@@ -720,7 +741,7 @@ Inherits DesktopTextInputCanvas
 			  
 			End Set
 		#tag EndSetter
-		ScrollPosX As Integer
+		Private ScrollPosX As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h21, Description = 54686520766572746963616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720646F776E2E20526566726573686573207468652063616E7661732E
@@ -738,6 +759,11 @@ Inherits DesktopTextInputCanvas
 			  Var maxScrollPosY As Integer
 			  If mBuffer = Nil Then
 			    maxScrollPosY = 0
+			    
+			  ElseIf Not Multiline Then
+			    // Vertical scrolling isdisallowed in single line mode.
+			    maxScrollPosY = 0
+			    
 			  Else
 			    maxScrollPosY = Max(mBuffer.Graphics.Height - Self.Height, 0)
 			  End If
@@ -783,9 +809,6 @@ Inherits DesktopTextInputCanvas
 	#tag EndConstant
 
 	#tag Constant, Name = RIGHT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 467564676520666163746F7220666F722070616464696E6720746865207269676874206F66206C696E6573207768656E20686F72697A6F6E74616C207363726F6C6C696E672E
-	#tag EndConstant
-
-	#tag Constant, Name = TOP_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061642074686520746F70206F6620746865206669727374206C696E652E
 	#tag EndConstant
 
 	#tag Constant, Name = TYPING_SPEED_TICKS, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865206E756D626572206F66207469636B73206265747765656E206B65797374726F6B657320746F207374696C6C20626520636F6E73696465726564206173206163746976656C7920747970696E672E
@@ -977,7 +1000,7 @@ Inherits DesktopTextInputCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ParseOnReturn"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -985,7 +1008,7 @@ Inherits DesktopTextInputCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ParseOnTab"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -993,7 +1016,7 @@ Inherits DesktopTextInputCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ParseOnComma"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -1001,19 +1024,11 @@ Inherits DesktopTextInputCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ParseTriggers"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="CaretLineNumber"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TagVerticalPadding"
@@ -1032,7 +1047,7 @@ Inherits DesktopTextInputCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="CaretXCoordinate"
+			Name="LineHeight"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
@@ -1040,19 +1055,19 @@ Inherits DesktopTextInputCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ScrollPosX"
+			Name="PaddingTop"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="2"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AllowInertialScrolling"
+			Name="PaddingBottom"
 			Visible=false
 			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
+			InitialValue="2"
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
