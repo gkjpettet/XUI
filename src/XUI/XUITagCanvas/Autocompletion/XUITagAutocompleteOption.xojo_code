@@ -1,20 +1,28 @@
 #tag Class
-Protected Class XUITagData
-	#tag Method, Flags = &h0
-		Sub Constructor(title As String, data As Variant = Nil)
-		  Self.Title = title
-		  Self.Data = data
+Protected Class XUITagAutocompleteOption
+	#tag Method, Flags = &h0, Description = 52657475726E73206120636C6F6E65206F662074686973206F7074696F6E2E204E6F746520746861742060546167446174612E44617461602077696C6C206F6E6C79206265207368616C6C6F7720636C6F6E65642E
+		Function Clone() As XUITagAutocompleteOption
+		  /// Returns a clone of this option. Note that `TagData.Data` will only be shallow cloned.
 		  
+		  Return New XUITagAutocompleteOption(Self.Value, Self.TagData)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(value As String, tagData As XUITagData)
+		  Self.Value = value
+		  Self.TagData = tagData
 		End Sub
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h0, Description = 4F7074696F6E616C2061726269747261727920646174612E
-		Data As Variant
+	#tag Property, Flags = &h0, Description = 546865206461746120726571756972656420746F206372656174652061207461672E
+		TagData As XUITagData
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 546865207461672773207469746C652E
-		Title As String
+	#tag Property, Flags = &h0, Description = 54686520737472696E672076697369626C6520746F20746865207573657220696E20746865206175746F636F6D706C6574696F6E206C6973742E
+		Value As String
 	#tag EndProperty
 
 
@@ -60,7 +68,7 @@ Protected Class XUITagData
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Title"
+			Name="Value"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

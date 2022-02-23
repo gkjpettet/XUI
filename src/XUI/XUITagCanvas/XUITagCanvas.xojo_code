@@ -206,6 +206,12 @@ Inherits DesktopTextInputCanvas
 		  
 		  g.DrawPicture(mBuffer, -ScrollPosX, -ScrollPosY)
 		  
+		  If mAutocompletePopupVisible Then
+		    #Pragma Warning "TODO: Draw the autocomplete popup."
+		  Else
+		    #Pragma Warning "TODO: Hide the autocomplete popup."
+		  End If
+		  
 		End Sub
 	#tag EndEvent
 
@@ -275,9 +281,46 @@ Inherits DesktopTextInputCanvas
 		  mCaretBlinker.Period = CaretBlinkPeriod
 		  AddHandler mCaretBlinker.Action, AddressOf CaretBlinkerAction
 		  
+		  mAutocompleteData = Nil
+		  
 		  // Always start with a single line.
 		  mLines.Add(New XUITagCanvasLine(Self, 1))
 		  mCurrentLine = mLines(0)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5265717565737473206175746F636F6D706C657465206461746120666F722074686520776F726420696D6D6564696174656C7920696E2066726F6E74206F66207468652063617265742E
+		Private Sub FetchAutocompleteData()
+		  /// Requests autocomplete data for the unparsed text immediately in front of the caret.
+		  
+		  // Clear out any existing autocomplete data.
+		  mAutocompleteData = New XUITagAutocompleteData
+		  
+		  // Quick exit if autocompletion disabled.
+		  If Not AllowAutocomplete Then Return
+		  
+		  // Get the prefix. This will just be the unparsed text on the current line.
+		  // We'll make sure it's above the threshold for triggering autocompletion.
+		  Var prefix As String = mCurrentLine.UnparsedText
+		  
+		  // Is the prefix long enough to trigger autocompletion?
+		  If prefix.Length < MinimumAutocompletionLength Then Return
+		  
+		  // Now we know the prefix, request the autocompletion data.
+		  mAutocompleteData = AutocompleteDataForPrefix(prefix)
+		  
+		  If mAutoCompleteData = Nil Or mAutocompleteData.Options.Count = 0 Then
+		    // Since there are no more available autocomplete suggestions, we'll clear
+		    // the suggestions popup if it's visible.
+		    mAutocompleteData = Nil
+		    mAutocompletePopupVisible = False
+		  Else
+		    // Make sure that the autocomplete data has the correct prefix assigned.
+		    mAutocompleteData.Prefix = prefix
+		    // Flag that the suggestions popup shoule be rendered.
+		    mAutocompletePopupVisible = True
+		  End If
+		  
 		End Sub
 	#tag EndMethod
 
@@ -345,10 +388,10 @@ Inherits DesktopTextInputCanvas
 		  
 		  mCurrentLine.Append(char)
 		  
-		  #Pragma Warning "TODO: Autocomplete"
+		  // Fetch autocomplete suggestions.
+		  FetchAutocompleteData
 		  
 		  ScrollToCaret
-		  
 		  
 		End Sub
 	#tag EndMethod
@@ -678,7 +721,7 @@ Inherits DesktopTextInputCanvas
 
 
 	#tag Hook, Flags = &h0, Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
-		Event AutocompleteOptionsForPrefix(prefix As String) As XUITagAutocompleteOption()
+		Event AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
 	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 412074616720686173206265656E20636C69636B65642E
@@ -689,6 +732,10 @@ Inherits DesktopTextInputCanvas
 		Event RemovedTag(tag As XUITag, viaDingus As Boolean)
 	#tag EndHook
 
+
+	#tag Property, Flags = &h0, Description = 5472756520696620746865207461672063616E76617320737570706F727473206175746F636F6D706C6574652E
+		AllowAutocomplete As Boolean = True
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 54686520696E74657276616C2028696E206D7329206265747765656E20636172657420626C696E6B732E
 		#tag Getter
@@ -759,6 +806,14 @@ Inherits DesktopTextInputCanvas
 		LineHeight As Integer
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h21, Description = 546865206175746F636F6D706C657465206F7074696F6E7320666F722074686520756E70617273656420746578742E204D6179206265204E696C2E
+		Private mAutocompleteData As XUITagAutocompleteData
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E20746865206175746F636F6D706C6574696F6E20706F7075702073686F756C642062652072656E64657265642E
+		Private mAutocompletePopupVisible As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 5468652062756666657220776520647261772074686520636F6E74656E747320746F20616E64207468656E20626C697420746F207468652073637265656E2065616368206672616D652E
 		Private mBuffer As Picture
 	#tag EndProperty
@@ -779,6 +834,21 @@ Inherits DesktopTextInputCanvas
 		Private mHasFocus As Boolean
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 546865206D696E696D756D206E756D626572206F662063686172616374657273207265717569726564206265666F7265206175746F636F6D706C6574696F6E206973206F6666657265642E204D757374206265203E3D20322E
+		#tag Getter
+			Get
+			  Return mMinimumAutocompletionLength
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mMinimumAutocompletionLength = Max(value, 2)
+			  
+			End Set
+		#tag EndSetter
+		MinimumAutocompletionLength As Integer
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F75736520636C69636B2074686174206A757374206F6363757272656420696E2074686520604D6F757365446F776E60206576656E7420776173206120636F6E7465787475616C20636C69636B2E
 		Private mLastClickWasContextual As Boolean = False
 	#tag EndProperty
@@ -797,6 +867,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h21, Description = 546865206C696E657320696E20746869732063616E7661732E
 		Private mLines() As XUITagCanvasLine
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865206D696E696D756D206E756D626572206F662063686172616374657273207265717569726564206265666F7265206175746F636F6D706C6574696F6E206973206F6666657265642E204261636B732074686520604D696E696D756D4175746F636F6D706C6574696F6E4C656E6774686020636F6D70757465642070726F70657274792E
+		Private mMinimumAutocompletionLength As Integer = 2
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E672073746F726520666F72207468652060526561644F6E6C796020636F6D70757465642070726F70657274792E
@@ -1206,6 +1280,22 @@ Inherits DesktopTextInputCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LineHeight"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowAutocomplete"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MinimumAutocompletionLength"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
