@@ -192,6 +192,13 @@ Inherits DesktopTextInputCanvas
 		Sub Paint(g As Graphics, areas() As Xojo.Rect)
 		  #Pragma Unused areas
 		  
+		  // Has the canvas dimension changed? In which case we need to update the layout.
+		  If mLastPaintWidth <> Self.Width Or mLastPaintHeight <> Self.Height Then
+		    UpdateLayout
+		  End If
+		  mLastPaintWidth = Self.Width
+		  mLastPaintHeight = Self.Height
+		  
 		  RebuildBuffer
 		  
 		  g.DrawingColor = Style.BackgroundColor
@@ -251,7 +258,7 @@ Inherits DesktopTextInputCanvas
 		  End If
 		  
 		  // Compute the width of the buffer.
-		  Var w As Double = CurrentLineWidth + LEFT_SCROLL_PADDING
+		  Var w As Double = LineWidth(mCurrentLine) + LEFT_SCROLL_PADDING
 		  mRequiredBufferWidth = Max(w, Self.Width)
 		  
 		End Sub
@@ -272,20 +279,6 @@ Inherits DesktopTextInputCanvas
 		  mLines.Add(New XUITagCanvasLine(Self, 1))
 		  mCurrentLine = mLines(0)
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 52657475726E732074686520746F74616C207769647468206F66207468652063757272656E74206C696E652028696E636C7564696E672069747320636F6E74656E747320616E6420616C6C2070616464696E67292E
-		Private Function CurrentLineWidth() As Double
-		  /// Returns the total width of the current line (including its contents and all padding).
-		  
-		  If mBuffer <> Nil Then
-		    Return mCurrentLine.ContentsWidth(mBuffer.Graphics) + LEFT_PADDING
-		  Else
-		    // Edge case: The buffer has not yet been created.
-		    Var tmp As Picture = Window.BitmapForCaching(10, 10)
-		    Return mCurrentLine.ContentsWidth(tmp.Graphics) + LEFT_PADDING
-		  End If
-		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44656C657465732074686520636861726163746572206F722074616720696D6D6564696174656C7920696E2066726F6E74206F66207468652063617265742E
@@ -337,6 +330,8 @@ Inherits DesktopTextInputCanvas
 		  ///
 		  /// Assumes `char` is only one character.
 		  
+		  #Pragma Warning "TODO: Handle inserting multiple characters at once"
+		  
 		  If IsTrigger(char) And Parse Then
 		    Return
 		  End If
@@ -373,6 +368,21 @@ Inherits DesktopTextInputCanvas
 		  Next trigger
 		  
 		  Return False
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520746F74616C207769647468206F662074686520737065636966696564206C696E652028696E636C7564696E672069747320636F6E74656E747320616E6420616C6C2070616464696E67292E
+		Private Function LineWidth(line As XUITagCanvasLine) As Double
+		  /// Returns the total width of the specified line (including its contents and all padding).
+		  
+		  If mBuffer <> Nil Then
+		    Return line.ContentsWidth(mBuffer.Graphics) + LEFT_PADDING
+		  Else
+		    // Edge case: The buffer has not yet been created.
+		    Var tmp As Picture = Window.BitmapForCaching(10, 10)
+		    Return line.ContentsWidth(tmp.Graphics) + LEFT_PADDING
+		  End If
 		  
 		End Function
 	#tag EndMethod
@@ -419,7 +429,7 @@ Inherits DesktopTextInputCanvas
 		  
 		  If Multiline Then
 		    // If the tag just added makes the current line longer than the visible width we need to add another line.
-		    If CurrentLineWidth > Self.Width Then
+		    If LineWidth(mCurrentLine) > Self.Width Then
 		      Var line As New XUITagCanvasLine(Self, mCurrentLine.Number + 1)
 		      line.Tags.Add(mCurrentLine.Tags.Pop)
 		      mLines.Add(line)
@@ -596,6 +606,7 @@ Inherits DesktopTextInputCanvas
 		  Var lineNum As Integer = Floor(y / LineHeight) + 1
 		  If lineNum < 1 Or lineNum > mLines.Count Then Return Nil
 		  
+		  // Test against each tag on the line the mouse is over.
 		  For Each tag As XUITag In mLines(lineNum - 1).Tags
 		    If tag.Bounds <> Nil And tag.Bounds.Contains(x, y) Then Return tag
 		  Next tag
@@ -604,12 +615,41 @@ Inherits DesktopTextInputCanvas
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54686973206D6574686F6420666F726365732061206465657020726564726177206F6620616C6C20746167732C2072652D636F6D707574696E6720746865206C696E6520746865792073686F756C64206265206F6E2E20457870656E73697665206275742073686F756C642062652063616C6C6564206966207468652063616E76617320697320726573697A65642E
-		Sub UpdateLayout()
-		  /// This method forces a deep redraw of all tags, re-computing the line they should be on. 
-		  /// Expensive but should be called if the canvas is resized.
+	#tag Method, Flags = &h21, Description = 54686973206D6574686F6420666F726365732061206465657020726564726177206F6620616C6C20746167732C2072652D636F6D707574696E6720746865206C696E6520746865792073686F756C64206265206F6E2E20446F6573206E6F742072656672657368207468652063616E7661732E
+		Private Sub UpdateLayout()
+		  /// This method forces a deep redraw of all tags, re-computing the line they should be on.
+		  /// Does not refresh the canvas.
+		  ///
+		  /// Expensive but is called whenever the canvas is resized.
 		  
-		  #Pragma Warning "TODO"
+		  If Not Multiline Then Return
+		  
+		  // Gather up the tags.
+		  Var tags() As XUITag
+		  For Each line As XUITagCanvasLine In mLines
+		    For Each tag As XUITag In line.Tags
+		      tags.Add(tag)
+		    Next tag
+		  Next line
+		  
+		  // Cache any unparsed text.
+		  Var unparsedText As String = mCurrentLine.UnparsedText
+		  
+		  // Rebuild.
+		  mLines.RemoveAll
+		  mLines.Add(New XUITagCanvasLine(Self, 1))
+		  mCurrentLine = mLines(0)
+		  For Each tag as XUITag In tags
+		    mCurrentLine.Tags.Add(tag)
+		    If LineWidth(mCurrentLine) > Self.Width Then
+		      Var line As New XUITagCanvasLine(Self, mCurrentLine.Number + 1)
+		      line.Tags.Add(mCurrentLine.Tags.Pop)
+		      mLines.Add(line)
+		      mCurrentLine = mLines(mLines.LastIndex)
+		    End If
+		  Next tag
+		  
+		  mCurrentLine.UnparsedText = unparsedText
 		  
 		End Sub
 	#tag EndMethod
@@ -730,6 +770,14 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F75736520636C69636B2074686174206A757374206F6363757272656420696E2074686520604D6F757365446F776E60206576656E7420776173206120636F6E7465787475616C20636C69636B2E
 		Private mLastClickWasContextual As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520686569676874206F66207468652063616E7661732061742074686520626567696E6E696E67206F6620746865206C61737420605061696E7460206576656E742E
+		Private mLastPaintHeight As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865207769647468206F66207468652063616E7661732061742074686520626567696E6E696E67206F6620746865206C61737420605061696E7460206576656E742E
+		Private mLastPaintWidth As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 496E7465726E616C206361636865206F66207468652063757272656E74206C696E65206865696768742E
