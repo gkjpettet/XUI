@@ -15,7 +15,7 @@ Begin DesktopWindow WinTagCanvas
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   ""
+   MenuBar         =   819644415
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -89,6 +89,24 @@ End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag MenuHandler
+		Function EditPaste() As Boolean Handles EditPaste.Action
+			// Pastes the contents of the clipboard into the tag canvas.
+			
+			// Get the clipboard text (replacing any line endings with UNIX ones).
+			Var c As New Clipboard
+			Var s As String = c.Text.ReplaceLineEndings(&u0A)
+			c.Close
+			
+			// Insert the text.
+			If s.CharacterCount > 0 Then TagCanvas.InsertString(s)
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 #tag EndWindowCode
 
 #tag Events TagCanvas

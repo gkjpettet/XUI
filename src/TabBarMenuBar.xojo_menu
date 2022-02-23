@@ -1,5 +1,5 @@
 #tag Menu
-Begin Menu MainMenuBar
+Begin Menu TabBarMenuBar
    Begin DesktopMenuItem FileMenu
       SpecialMenu = 0
       Index = -2147483648

@@ -330,8 +330,6 @@ Inherits DesktopTextInputCanvas
 		  ///
 		  /// Assumes `char` is only one character.
 		  
-		  #Pragma Warning "TODO: Handle inserting multiple characters at once"
-		  
 		  If IsTrigger(char) And Parse Then
 		    Return
 		  End If
@@ -351,6 +349,19 @@ Inherits DesktopTextInputCanvas
 		  
 		  ScrollToCaret
 		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 496E73657274732074657874206F6620617262697472617279206C656E677468206174207468652063757272656E7420636172657420706F736974696F6E2E
+		Sub InsertString(s As String)
+		  /// Inserts text of arbitrary length at the current caret position.
+		  
+		  Var chars() As String = s.CharacterArray
+		  
+		  For Each char As String In chars
+		    InsertCharacter(char)
+		  Next char
 		  
 		End Sub
 	#tag EndMethod
