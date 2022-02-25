@@ -188,8 +188,6 @@ End
 		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
 		  Var data As XUITagAutocompleteData = AutocompleteEngine.DataForPrefix(prefix)
 		  
-		  If data.Options.Count > 0 Then Break
-		  
 		  Return data
 		End Function
 	#tag EndEvent

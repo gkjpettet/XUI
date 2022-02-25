@@ -189,6 +189,14 @@ Inherits DesktopTextInputCanvas
 	#tag EndEvent
 
 	#tag Event
+		Sub Opening()
+		  Self.Window.AddControl(mAutocompletePopup)
+		  
+		  RaiseEvent Opening
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Paint(g As Graphics, areas() As Xojo.Rect)
 		  #Pragma Unused areas
 		  
@@ -206,10 +214,10 @@ Inherits DesktopTextInputCanvas
 		  
 		  g.DrawPicture(mBuffer, -ScrollPosX, -ScrollPosY)
 		  
-		  If mAutocompletePopupVisible Then
-		    #Pragma Warning "TODO: Draw the autocomplete popup."
+		  If AutocompleteData <> Nil And Not mSuppressAutocompletePopup Then
+		    ShowAutocompletePopup
 		  Else
-		    #Pragma Warning "TODO: Hide the autocomplete popup."
+		    HideAutocompletePopup
 		  End If
 		  
 		End Sub
@@ -281,7 +289,9 @@ Inherits DesktopTextInputCanvas
 		  mCaretBlinker.Period = CaretBlinkPeriod
 		  AddHandler mCaretBlinker.Action, AddressOf CaretBlinkerAction
 		  
-		  mAutocompleteData = Nil
+		  AutocompleteData = Nil
+		  mAutocompletePopup = New XUITagCanvasAutocompletePopup(Self)
+		  mAutocompletePopup.Visible = False
 		  
 		  // Always start with a single line.
 		  mLines.Add(New XUITagCanvasLine(Self, 1))
@@ -294,7 +304,7 @@ Inherits DesktopTextInputCanvas
 		  /// Requests autocomplete data for the unparsed text immediately in front of the caret.
 		  
 		  // Clear out any existing autocomplete data.
-		  mAutocompleteData = New XUITagAutocompleteData
+		  AutocompleteData = Nil
 		  
 		  // Quick exit if autocompletion disabled.
 		  If Not AllowAutocomplete Then Return
@@ -307,18 +317,13 @@ Inherits DesktopTextInputCanvas
 		  If prefix.Length < MinimumAutocompletionLength Then Return
 		  
 		  // Now we know the prefix, request the autocompletion data.
-		  mAutocompleteData = AutocompleteDataForPrefix(prefix)
+		  AutocompleteData = AutocompleteDataForPrefix(prefix)
 		  
-		  If mAutoCompleteData = Nil Or mAutocompleteData.Options.Count = 0 Then
-		    // Since there are no more available autocomplete suggestions, we'll clear
-		    // the suggestions popup if it's visible.
-		    mAutocompleteData = Nil
-		    mAutocompletePopupVisible = False
+		  If AutoCompleteData <> Nil And AutocompleteData.Options.Count = 0 Then
+		    AutocompleteData = Nil
 		  Else
 		    // Make sure that the autocomplete data has the correct prefix assigned.
-		    mAutocompleteData.Prefix = prefix
-		    // Flag that the suggestions popup shoule be rendered.
-		    mAutocompletePopupVisible = True
+		    AutocompleteData.Prefix = prefix
 		  End If
 		  
 		End Sub
@@ -351,8 +356,11 @@ Inherits DesktopTextInputCanvas
 		    
 		  ElseIf mCurrentLine.Tags.Count > 1 Then
 		    RemovedTag(mCurrentLine.Tags.Pop, False)
-		    
 		  End If
+		  
+		  FetchAutocompleteData
+		  
+		  mSuppressAutocompletePopup = False
 		  
 		  Refresh
 		  
@@ -362,8 +370,19 @@ Inherits DesktopTextInputCanvas
 	#tag Method, Flags = &h21, Description = 48616E646C657320616E20457363206B6579207072657373206174207468652063757272656E7420636172657420706F736974696F6E2E
 		Private Sub HandleEscKey(shouldInvalidate As Boolean = True)
 		  /// Handles an Esc key press at the current caret position.
+		  /// Always cancels autocomplete.
 		  
-		  #Pragma Warning "TODO"
+		  mSuppressAutocompletePopup = True
+		  
+		  HideAutocompletePopup
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 486964657320746865206175746F636F6D706C65746520706F7075702E
+		Private Sub HideAutocompletePopup()
+		  /// Hides the autocomplete popup.
+		  
+		  mAutocompletePopup.Visible = False
 		End Sub
 	#tag EndMethod
 
@@ -390,6 +409,8 @@ Inherits DesktopTextInputCanvas
 		  
 		  // Fetch autocomplete suggestions.
 		  FetchAutocompleteData
+		  
+		  mSuppressAutocompletePopup = False
 		  
 		  ScrollToCaret
 		  
@@ -488,8 +509,12 @@ Inherits DesktopTextInputCanvas
 		      line.Tags.Add(mCurrentLine.Tags.Pop)
 		      mLines.Add(line)
 		      mCurrentLine = mLines(mLines.LastIndex)
+		      // Scroll to the start of the line.
+		      ScrollPosX = 0
 		    End If
 		  End If
+		  
+		  FetchAutocompleteData
 		  
 		  ScrollToCaret
 		  
@@ -644,6 +669,47 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub SelectAll()
+		  #Pragma Warning "TODO: Select all text"
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 53686F777320746865206175746F636F6D706C65746520706F7075702061742074686520636172657420706F736974696F6E2E
+		Private Sub ShowAutocompletePopup()
+		  /// Shows the autocomplete popup at the caret position.
+		  
+		  // Get the (x, y) coordinates of the top left aspect of the caret, relative to the tag canvas.
+		  Var x, y As Double = 0
+		  XYAtCaretPos(x, y)
+		  
+		  // Compute the maximum height available to the popup. This is the number of pixels between the bottom
+		  // of the caret and the bottom of the screen.
+		  Var maxPopupHeight As Double = Self.Window.Display.AvailableHeight - y - Self.Window.Top
+		  
+		  // Tell the popup to update itself using this tag canvas' public autocomplete data.
+		  mAutocompletePopup.Update(maxPopupHeight)
+		  
+		  // ==================
+		  // Popup x coordinate
+		  // ==================
+		  If x + mAutocompletePopup.Width + POPUP_PADDING > (Self.Width + ScrollPosX) Then
+		    x = Self.Width - POPUP_PADDING - mAutocompletePopup.Width
+		  End If
+		  x = x + Self.Left
+		  
+		  // ==================
+		  // Popup y coordinate
+		  // ==================
+		  // Position the popup beneath the caret.
+		  y = y + mLineHeight + Self.Top - ScrollPosY
+		  
+		  mAutocompletePopup.Left = x
+		  mAutocompletePopup.Top = y
+		  mAutocompletePopup.Visible = True
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E732074686520746167206174206028782C20792960206F72204E696C2069662074686572652069736E2774206F6E652E
 		Function TagAtXY(x As Integer, y As Integer) As XUITag
 		  /// Returns the tag at `(x, y)` or Nil if there isn't one.
@@ -728,6 +794,10 @@ Inherits DesktopTextInputCanvas
 		Event ClickedTag(tag As XUITag, isContextualClick As Boolean)
 	#tag EndHook
 
+	#tag Hook, Flags = &h0
+		Event Opening()
+	#tag EndHook
+
 	#tag Hook, Flags = &h0, Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
 		Event RemovedTag(tag As XUITag, viaDingus As Boolean)
 	#tag EndHook
@@ -735,6 +805,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746865207461672063616E76617320737570706F727473206175746F636F6D706C6574652E
 		AllowAutocomplete As Boolean = True
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206175746F636F6D706C657465206F7074696F6E7320666F722074686520756E70617273656420746578742E204D6179206265204E696C2E
+		AutocompleteData As XUITagAutocompleteData
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 54686520696E74657276616C2028696E206D7329206265747765656E20636172657420626C696E6B732E
@@ -806,12 +880,8 @@ Inherits DesktopTextInputCanvas
 		LineHeight As Integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21, Description = 546865206175746F636F6D706C657465206F7074696F6E7320666F722074686520756E70617273656420746578742E204D6179206265204E696C2E
-		Private mAutocompleteData As XUITagAutocompleteData
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 49662054727565207468656E20746865206175746F636F6D706C6574696F6E20706F7075702073686F756C642062652072656E64657265642E
-		Private mAutocompletePopupVisible As Boolean = False
+	#tag Property, Flags = &h21, Description = 54686973207461672063616E76617327206175746F636F6D706C65746520706F70757020636F6E74726F6C2E
+		Private mAutocompletePopup As XUITagCanvasAutocompletePopup
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5468652062756666657220776520647261772074686520636F6E74656E747320746F20616E64207468656E20626C697420746F207468652073637265656E2065616368206672616D652E
@@ -891,6 +961,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h21, Description = 54686520636F6C6F7572207374796C6520746F2075736520666F7220746865207461672063616E76617320616E6420746167732E
 		Private mStyle As XUITagCanvasStyle
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E20746865206175746F636F6D706C65746520706F7075702069732073757070726573736564206576656E206966207468657265206973206175746F636F6D706C657465206461746120617661696C61626C652E20536574206166746572207468652075736572206861732063616E63656C6C6564206175746F636F6D706C6574652E
+		Private mSuppressAutocompletePopup As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4164646974696F6E616C206368617261637465727320746861742074726967676572207461672070617273696E672E205365742077697468207468652060506172736554726967676572736020636F6D70757465642070726F70657274792E
@@ -1054,6 +1128,9 @@ Inherits DesktopTextInputCanvas
 	#tag EndConstant
 
 	#tag Constant, Name = LEFT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"50", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F20706164206C656674207768656E207363726F6C6C696E67206C65667477617264732E
+	#tag EndConstant
+
+	#tag Constant, Name = POPUP_PADDING, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865206E756D626572206F6620706978656C73206265747765656E20746865206175746F636F6D706C65746520706F70757020616E64207468652065646765206F66207468652063616E7661732E
 	#tag EndConstant
 
 	#tag Constant, Name = RIGHT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 467564676520666163746F7220666F722070616464696E6720746865207269676874206F66206C696E6573207768656E20686F72697A6F6E74616C207363726F6C6C696E672E
