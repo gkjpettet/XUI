@@ -1,6 +1,50 @@
 #tag Class
-Protected Class XUIWindowsTagRenderer
-Implements XUITagRenderer
+Protected Class XUITagCanvasWindowsRenderer
+Implements XUITagCanvasRenderer
+	#tag Method, Flags = &h0, Description = 54686520737567676573746564206E756D626572206F6620706978656C7320746F2070616420746F20746865206C65667420616E64207269676874206F66206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+		Function AutocompleteHorizontalPadding() As Integer
+		  /// The suggested number of pixels to pad to the left and right of autocomplete options in 
+		  /// the autocomplete popup.
+		  ///
+		  /// Part of the XUITagCanvasRenderer interface.
+		  
+		  Return 10
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520686569676874206F6620616E206175746F636F6D706C657465206F7074696F6E20696E20746865206175746F636F6D706C65746520706F707570206261736564206F6E20746865206F776E657227732063757272656E74207374796C652E
+		Function AutocompleteOptionHeight(g As Graphics) As Integer
+		  /// Returns the height of an autocomplete option in the autocomplete popup based on the 
+		  /// owner's current style.
+		  ///
+		  /// `g` is the graphics context that the option would be drawn to if it was being drawn.
+		  ///
+		  /// Part of the XUITagCanvasRenderer interface.
+		  
+		  g.SaveState
+		  
+		  g.FontSize = Owner.Style.FontSize
+		  g.FontName = Owner.Style.FontName
+		  
+		  Var h As Double = g.TextHeight + (2 * mVerticalPadding)
+		  
+		  g.RestoreState
+		  
+		  Return h
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 54686520737567676573746564206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F77206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+		Function AutocompleteVerticalPadding() As Integer
+		  /// The suggested number of pixels to pad above and below autocomplete options in the autocomplete popup.
+		  ///
+		  /// Part of the XUITagCanvasRenderer interface.
+		  
+		  Return 2
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Constructor(owner As XUITagCanvas)
 		  mOwner = New WeakRef(owner)
@@ -85,7 +129,7 @@ Implements XUITagRenderer
 		  ///
 		  /// `g` is the graphics context that the tag would be drawn to if it was being drawn.
 		  ///
-		  /// Part of the XUITagFormatter interface.
+		  /// Part of the XUITagCanvasRenderer interface.
 		  
 		  g.SaveState
 		  

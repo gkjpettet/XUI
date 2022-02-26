@@ -7,10 +7,34 @@ Inherits DesktopTextInputCanvas
 		  ///
 		  /// `command` is a string constant telling us which command we need to handle.
 		  
+		  // =========================================
+		  // SUGGESTIONS POPUP
+		  // =========================================
+		  If mAutocompletePopup.Visible Then
+		    #Pragma Warning "TODO: Handle scrolling the popup when using the up/down arrow keys"
+		    Select Case command
+		    Case CmdMoveDown
+		      mAutocompletePopup.SelectedIndex = mAutocompletePopup.SelectedIndex + 1
+		      Refresh
+		      Return True
+		      
+		    Case CmdMoveUp
+		      mAutocompletePopup.SelectedIndex = mAutocompletePopup.SelectedIndex - 1
+		      Refresh
+		      Return True
+		      
+		    Case CmdInsertTab, CmdInsertNewline
+		      AcceptCurrentAutocompleteOption
+		      Return True
+		      
+		    Else
+		      HideAutocompletePopup
+		      mSuppressAutocompletePopup = True
+		      Refresh
+		    End Select
+		  End If
+		  
 		  Select Case command
-		  Case CmdCancelOperation
-		    HandleEscKey
-		    
 		  Case CmdDeleteBackward
 		    HandleDeleteBackwards
 		    
@@ -235,6 +259,39 @@ Inherits DesktopTextInputCanvas
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h21, Description = 41636365707473207468652063757272656E746C792073656C65637465642073756767657374696F6E20696E207468652073756767657374696F6E7320706F7075702E
+		Private Sub AcceptCurrentAutocompleteOption()
+		  /// Accepts the currently selected option in the autocomplete popup.
+		  
+		  // Sanity checks.
+		  If Not mAutocompletePopup.Visible Then Return
+		  If AutoCompleteData = Nil Then Return
+		  If mAutocompletePopup.SelectedIndex < 0 Or _
+		    mAutocompletePopup.SelectedIndex > AutoCompleteData.Options.LastIndex Then
+		    Return
+		  End If
+		  
+		  // Get the value of the suggestion to insert.
+		  Var value As String = _
+		  AutoCompleteData.Options(mAutocompletePopup.SelectedIndex).Value
+		  
+		  // Replace the unparsed text with the value
+		  mCurrentLine.UnparsedText = ""
+		  
+		  ' // We need to remove the prefix that's already been typed from the value.
+		  ' value = value.Replace(AutoCompleteData.Prefix, "")
+		  
+		  InsertString(value)
+		  
+		  Call Parse
+		  
+		  mSuppressAutocompletePopup = True
+		  HideAutocompletePopup
+		  
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 546F67676C657320746865207669736962696C697479206F66207468652063617265742E2043616C6C656420627920606D4361726574426C696E6B65722E416374696F6E602E
 		Private Sub CaretBlinkerAction(caretBlinker As Timer)
 		  /// Toggles the visibility of the caret. Called by `mCaretBlinker.Action`.
@@ -367,17 +424,6 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 48616E646C657320616E20457363206B6579207072657373206174207468652063757272656E7420636172657420706F736974696F6E2E
-		Private Sub HandleEscKey(shouldInvalidate As Boolean = True)
-		  /// Handles an Esc key press at the current caret position.
-		  /// Always cancels autocomplete.
-		  
-		  mSuppressAutocompletePopup = True
-		  
-		  HideAutocompletePopup
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21, Description = 486964657320746865206175746F636F6D706C65746520706F7075702E
 		Private Sub HideAutocompletePopup()
 		  /// Hides the autocomplete popup.
@@ -481,10 +527,10 @@ Inherits DesktopTextInputCanvas
 		  Var x, y As Double = 0
 		  XYAtCaretPos(x, y)
 		  
-		  y = y + TagRenderer.TagVerticalPadding
+		  y = y + Renderer.TagVerticalPadding
 		  
 		  g.DrawingColor = Style.CaretColor
-		  g.DrawLine(x, y, x, y + (mLineHeight - (2 * TagRenderer.TagVerticalPadding)))
+		  g.DrawLine(x, y, x, y + (mLineHeight - (2 * Renderer.TagVerticalPadding)))
 		  
 		End Sub
 	#tag EndMethod
@@ -533,9 +579,9 @@ Inherits DesktopTextInputCanvas
 		  // Create a new HiDPI aware buffer picture.
 		  Var bufferH As Double
 		  If Multiline Then
-		    bufferH = Max((LineHeight * mLines.Count) + (2 * TagRenderer.TagVerticalPadding), Self.Height)
+		    bufferH = Max((LineHeight * mLines.Count) + (2 * Renderer.TagVerticalPadding), Self.Height)
 		  Else
-		    bufferH = LineHeight + (2 * TagRenderer.TagVerticalPadding)
+		    bufferH = LineHeight + (2 * Renderer.TagVerticalPadding)
 		  End If
 		  mBuffer = Window.BitmapForCaching(mRequiredBufferWidth, bufferH)
 		  
@@ -552,7 +598,7 @@ Inherits DesktopTextInputCanvas
 		  mLineHeight = LineHeight
 		  
 		  // Iterate over the visible lines and draw every line.
-		  Var lineStartY As Double = TagRenderer.TagVerticalPadding
+		  Var lineStartY As Double = Renderer.TagVerticalPadding
 		  For Each line As XUITagCanvasLine In mLines
 		    line.Draw(g, LEFT_PADDING, lineStartY, mLineHeight)
 		    lineStartY = lineStartY + mLineHeight
@@ -679,16 +725,22 @@ Inherits DesktopTextInputCanvas
 		Private Sub ShowAutocompletePopup()
 		  /// Shows the autocomplete popup at the caret position.
 		  
+		  #Pragma Warning "BUG: Computing incorrect height and/or y coordinate"
+		  ' Cannot draw outside the bounds of the containing window.
+		  
 		  // Get the (x, y) coordinates of the top left aspect of the caret, relative to the tag canvas.
 		  Var x, y As Double = 0
 		  XYAtCaretPos(x, y)
 		  
 		  // Compute the maximum height available to the popup. This is the number of pixels between the bottom
 		  // of the caret and the bottom of the screen.
-		  Var maxPopupHeight As Double = Self.Window.Display.AvailableHeight - y - Self.Window.Top
+		  Var maxPopupHeight As Integer = Self.Window.Display.AvailableHeight - y - Self.Window.Top
+		  
+		  // Compute the maximum width for the popup.
+		  Var maxPopupWidth As Integer = Self.Width
 		  
 		  // Tell the popup to update itself using this tag canvas' public autocomplete data.
-		  mAutocompletePopup.Update(maxPopupHeight)
+		  mAutocompletePopup.Update(maxPopupWidth, maxPopupHeight)
 		  
 		  // ==================
 		  // Popup x coordinate
@@ -869,11 +921,11 @@ Inherits DesktopTextInputCanvas
 			  /// The height (in pixels) of a line.
 			  
 			  If mBuffer <> Nil Then
-			    Return TagRenderer.TagHeight(mBuffer.Graphics) + (2 * TagRenderer.TagVerticalPadding)
+			    Return Renderer.TagHeight(mBuffer.Graphics) + (2 * Renderer.TagVerticalPadding)
 			  Else
 			    // Edge case: The buffer has not yet been created.
 			    Var tmp As Picture = Window.BitmapForCaching(10, 10)
-			    Return TagRenderer.TagHeight(tmp.Graphics) + (2 * TagRenderer.TagVerticalPadding)
+			    Return Renderer.TagHeight(tmp.Graphics) + (2 * Renderer.TagVerticalPadding)
 			  End If
 			End Get
 		#tag EndGetter
@@ -1041,6 +1093,10 @@ Inherits DesktopTextInputCanvas
 		ReadOnly As Boolean
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 54686520666F726D617474657220746F2075736520746F206472617720746865207461677320696E207468652063616E7661732E
+		Renderer As XUITagCanvasRenderer
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E20526566726573686573207468652063616E7661732E
 		#tag Getter
 			Get
@@ -1118,10 +1174,6 @@ Inherits DesktopTextInputCanvas
 		#tag EndSetter
 		Style As XUITagCanvasStyle
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h0, Description = 54686520666F726D617474657220746F2075736520746F206472617720746865207461677320696E207468652063616E7661732E
-		TagRenderer As XUITagRenderer
-	#tag EndProperty
 
 
 	#tag Constant, Name = LEFT_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420636F6E74656E742066726F6D20746865206C6566742065646765206F66207468652063616E7661732E

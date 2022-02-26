@@ -137,6 +137,19 @@ End
 		  AutocompleteEngine.AddOption("Steve Rogers", New XUITagData("Captain America"))
 		  AutocompleteEngine.AddOption("Tony Stark", New XUITagData("Iron Man"))
 		  
+		  
+		  
+		  AutocompleteEngine.AddOption("Na1", New XUITagData("Na1"))
+		  AutocompleteEngine.AddOption("Na2", New XUITagData("Na2"))
+		  AutocompleteEngine.AddOption("Na3", New XUITagData("Na3"))
+		  AutocompleteEngine.AddOption("Na4", New XUITagData("Na4"))
+		  AutocompleteEngine.AddOption("Na5", New XUITagData("Na5"))
+		  AutocompleteEngine.AddOption("Na6", New XUITagData("Na6"))
+		  AutocompleteEngine.AddOption("Na7", New XUITagData("Na7"))
+		  AutocompleteEngine.AddOption("Na8", New XUITagData("Na8"))
+		  AutocompleteEngine.AddOption("Na9", New XUITagData("Na9"))
+		  AutocompleteEngine.AddOption("Na10", New XUITagData("Na9"))
+		  AutocompleteEngine.AddOption("Na11", New XUITagData("Na9"))
 		End Sub
 	#tag EndMethod
 
@@ -151,12 +164,19 @@ End
 #tag Events TagCanvas
 	#tag Event
 		Sub Opening()
+		  // Create a style to colour the tag canvas.
 		  Var style As New XUITagCanvasStyle
 		  style.BackgroundColor = Color.White
 		  style.TagBackgroundColor = Color.FromString("&h00F2F2F2")
 		  style.TagBorderColor = Color.Black
 		  style.TagTextColor = Color.Black
 		  style.CaretColor = Color.Black
+		  style.AutocompletePopupBackgroundColor = Color.FromString("&h00E6E6E6")
+		  style.HasAutocompletePopupBorder = True
+		  style.AutocompletePopupBorderColor = Color.Black
+		  style.SelectedAutocompleteOptionBackgroundColor = Color.FromString("&h00D3D3D3")
+		  style.SelectedAutocompleteOptionColor = Color.Black
+		  style.AutocompleteOptionColour = Color.Black
 		  
 		  #If TargetWindows
 		    style.FontSize = 14
@@ -165,8 +185,13 @@ End
 		  #EndIf
 		  
 		  Me.Style = style
-		  Me.TagRenderer = New XUIWindowsTagRenderer(Me)
+		  
+		  // Assign the "Windows" style tag renderer.
+		  Me.Renderer = New XUITagCanvasWindowsRenderer(Me)
+		  
+		  // Assign our simple parselet.
 		  Me.Parselet = New XUIDefaultTagParselet
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616720686173206265656E20636C69636B65642E
@@ -186,9 +211,8 @@ End
 	#tag EndEvent
 	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
 		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
-		  Var data As XUITagAutocompleteData = AutocompleteEngine.DataForPrefix(prefix)
+		  Return AutocompleteEngine.DataForPrefix(prefix)
 		  
-		  Return data
 		End Function
 	#tag EndEvent
 #tag EndEvents
