@@ -215,6 +215,11 @@ End
 		  
 		End Function
 	#tag EndEvent
+	#tag Event , Description = 416464656420607461676020746F20746865207461672063616E7661732E
+		Sub AddedTag(tag As XUITag)
+		  Info.Text = "Added tag """ + tag.Title + """"
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty

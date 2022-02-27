@@ -2,6 +2,27 @@
 Protected Class XUITagCanvasAutocompletePopup
 Inherits DesktopTextInputCanvas
 	#tag Event
+		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  Return True
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseUp(x As Integer, y As Integer)
+		  /// Determine the index of the suggestion clicked.
+		  
+		  #Pragma Unused x
+		  
+		  SelectedIndex = Floor((y + ScrollPosY) / (LineHeight + Owner.Renderer.AutocompleteVerticalPadding))
+		  
+		  Owner.AcceptCurrentAutocompleteOption
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Function MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer) As Boolean
 		  /// The mouse has wheeled.
 		  ///
@@ -17,6 +38,7 @@ Inherits DesktopTextInputCanvas
 		  
 		  #Pragma Unused X
 		  #Pragma Unused Y
+		  #Pragma Unused deltaX
 		  
 		  ScrollPosY = ScrollPosY + (deltaY)
 		  
@@ -30,12 +52,16 @@ Inherits DesktopTextInputCanvas
 		Sub Paint(g As Graphics, areas() As Xojo.Rect)
 		  #Pragma Unused areas
 		  
-		  #Pragma Warning "TODO"
-		  
 		  If Owner.AutocompleteData = Nil Then Return
-		  If mBuffer = Nil Then RebuildBuffer(Self.Width, Self.Height)
+		  If mBuffer = Nil Then RebuildBuffer(Self.Width)
 		  
 		  g.DrawPicture(mBuffer, 0, -ScrollPosY)
+		  
+		  // Border.
+		  If Owner.Style.HasAutocompletePopupBorder Then
+		    g.DrawingColor = Owner.Style.AutocompletePopupBorderColor
+		    g.DrawRectangle(0, 0, g.Width, g.Height)
+		  End If
 		End Sub
 	#tag EndEvent
 
@@ -50,7 +76,7 @@ Inherits DesktopTextInputCanvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52656275696C64732074686520656E74697265206275666665722062792064726177696E6720616C6C2076697369626C6520636F6E74656E7420746F2069742E
-		Private Sub RebuildBuffer(maxWidth As Integer, maxHeight As Integer)
+		Private Sub RebuildBuffer(maxWidth As Integer)
 		  /// Rebuilds the entire buffer by drawing all visible content to it.
 		  
 		  // We need a temporary graphics context to get the width of the longest option.
@@ -60,13 +86,13 @@ Inherits DesktopTextInputCanvas
 		  
 		  // Compute the required width of the buffer.
 		  Var longestOptionW As Double = tmpPic.Graphics.TextWidth(Owner.AutocompleteData.LongestOptionValue)
-		  Var bufferW As Double = longestOptionW + (2 * Owner.Renderer.AutocompleteHorizontalPadding)
+		  Var bufferW As Double = Min(longestOptionW + (2 * Owner.Renderer.AutocompleteHorizontalPadding), maxWidth)
 		  
 		  Var lineH As Double = LineHeight
 		  
 		  // Compute the required height of the buffer.
-		  Var bufferH As Integer = Max((lineH * Owner.AutocompleteData.Options.Count) + _
-		  (2 * Owner.Renderer.AutocompleteVerticalPadding), maxHeight)
+		  Var bufferH As Integer = (lineH * Owner.AutocompleteData.Options.Count) + _
+		  (Owner.AutocompleteData.Options.Count * Owner.Renderer.AutocompleteVerticalPadding)
 		  
 		  // Create a new HiDPI aware buffer picture.
 		  mBuffer = Window.BitmapForCaching(bufferW, bufferH)
@@ -88,14 +114,13 @@ Inherits DesktopTextInputCanvas
 		  If Owner.AutocompleteData.Options.Count = 1 Then SelectedIndex = 0
 		  
 		  // Draw the options.
-		  Var y As Double = Owner.Renderer.AutocompleteVerticalPadding // Top of the option currently being drawn.
 		  Var textH As Double = g.TextHeight
 		  Var x As Double = Owner.Renderer.AutocompleteHorizontalPadding
 		  Var optionBaseline As Double = g.FontAscent + ((lineH - textH) / 2)
+		  Var y As Double = Owner.Renderer.AutocompleteVerticalPadding
 		  Var iMax As Integer = Owner.AutocompleteData.Options.LastIndex
 		  For i As Integer = 0 To iMax
 		    Var option As XUITagAutocompleteOption = Owner.AutocompleteData.Options(i)
-		    
 		    If i = SelectedIndex Then
 		      // Draw the selection background.
 		      g.DrawingColor = style.SelectedAutocompleteOptionBackgroundColor
@@ -113,11 +138,26 @@ Inherits DesktopTextInputCanvas
 		    y = y + lineH + Owner.Renderer.AutocompleteVerticalPadding
 		  Next i
 		  
-		  // Border.
-		  If style.HasAutocompletePopupBorder Then
-		    g.DrawingColor = style.AutocompletePopupBorderColor
-		    g.DrawRectangle(0, 0, g.Width, g.Height)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5363726F6C6C732074686520706F70757020746F2077686F6C6C7920646973706C6179207468652073656C656374656420696E646578206966206974206973206E6F7420616C72656164792E20526566726573686573207468652063616E7661732E
+		Private Sub ScrollToSelectedIndex()
+		  /// Scrolls the popup to wholly display the selected index if it is not already.
+		  /// Refreshes the canvas.
+		  ///
+		  /// Assumes `SelectedIndex` is valid.
+		  
+		  If SelectedIndex = -1 Then
+		    ScrollPosY = 0
+		    Return
 		  End If
+		  
+		  If (SelectedIndex * LineHeight) < ScrollPosY Or _
+		    (SelectedIndex * LineHeight) > Self.Height Then
+		    ScrollPosY = SelectedIndex * LineHeight
+		  End If
+		  
 		End Sub
 	#tag EndMethod
 
@@ -128,9 +168,7 @@ Inherits DesktopTextInputCanvas
 		  /// `maxwidth` is the maximum permissable width of the popup.
 		  /// `maxHeight` is the maximum permissable height of the popup.
 		  
-		  #Pragma Warning "TODO"
-		  
-		  RebuildBuffer(maxWidth, maxHeight)
+		  RebuildBuffer(maxWidth)
 		  
 		  Self.Width = Min(mBuffer.Graphics.Width, maxWidth)
 		  Self.Height = Min(mBuffer.Graphics.Height, maxHeight)
@@ -143,16 +181,14 @@ Inherits DesktopTextInputCanvas
 	#tag ComputedProperty, Flags = &h0, Description = 546865206865696768742028696E20706978656C7329206F662061206C696E652E
 		#tag Getter
 			Get
-			  /// The height (in pixels) of a line.
+			  /// The height (in pixels) of a line including excluding padding between lines.
 			  
 			  If mBuffer <> Nil Then
-			    Return Owner.Renderer.AutocompleteOptionHeight(mBuffer.Graphics) + _
-			    (2 * Owner.Renderer.AutocompleteVerticalPadding)
+			    Return Owner.Renderer.AutocompleteOptionHeight(mBuffer.Graphics)
 			  Else
 			    // Edge case: The buffer has not yet been created.
 			    Var tmp As Picture = Window.BitmapForCaching(10, 10)
-			    Return Owner.Renderer.AutocompleteOptionHeight(tmp.Graphics) + _
-			    (2 * Owner.Renderer.AutocompleteVerticalPadding)
+			    Return Owner.Renderer.AutocompleteOptionHeight(tmp.Graphics)
 			  End If
 			End Get
 		#tag EndGetter
@@ -227,8 +263,17 @@ Inherits DesktopTextInputCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
+			  If Owner.AutocompleteData = Nil Or Owner.AutocompleteData.Options.Count = 0 Then
+			    value = -1
+			  Else
+			    value = MathsKit.Clamp(value, 0, Owner.AutocompleteData.Options.LastIndex)
+			  End If
+			  
 			  mSelectedIndex = value
-			  Refresh
+			  
+			  // Scroll if the selected option is not wholly visible.
+			  ScrollToSelectedIndex
+			  
 			End Set
 		#tag EndSetter
 		SelectedIndex As Integer

@@ -11,7 +11,6 @@ Inherits DesktopTextInputCanvas
 		  // SUGGESTIONS POPUP
 		  // =========================================
 		  If mAutocompletePopup.Visible Then
-		    #Pragma Warning "TODO: Handle scrolling the popup when using the up/down arrow keys"
 		    Select Case command
 		    Case CmdMoveDown
 		      mAutocompletePopup.SelectedIndex = mAutocompletePopup.SelectedIndex + 1
@@ -259,8 +258,8 @@ Inherits DesktopTextInputCanvas
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21, Description = 41636365707473207468652063757272656E746C792073656C65637465642073756767657374696F6E20696E207468652073756767657374696F6E7320706F7075702E
-		Private Sub AcceptCurrentAutocompleteOption()
+	#tag Method, Flags = &h0, Description = 41636365707473207468652063757272656E746C792073656C65637465642073756767657374696F6E20696E207468652073756767657374696F6E7320706F7075702E
+		Sub AcceptCurrentAutocompleteOption()
 		  /// Accepts the currently selected option in the autocomplete popup.
 		  
 		  // Sanity checks.
@@ -278,9 +277,6 @@ Inherits DesktopTextInputCanvas
 		  // Replace the unparsed text with the value
 		  mCurrentLine.UnparsedText = ""
 		  
-		  ' // We need to remove the prefix that's already been typed from the value.
-		  ' value = value.Replace(AutoCompleteData.Prefix, "")
-		  
 		  InsertString(value)
 		  
 		  Call Parse
@@ -289,6 +285,34 @@ Inherits DesktopTextInputCanvas
 		  HideAutocompletePopup
 		  
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 4164647320607461676020746F2074686520656E64206F66207468652063757272656E74206C696E652C20636C656172696E6720616E7920756E70617273656420746578742E20526566726573686573207468652063616E7661732E
+		Sub AddTag(tag As XUITag)
+		  /// Adds `tag` to the end of the current line, clearing any unparsed text. Refreshes the canvas.
+		  
+		  mCurrentLine.Tags.Add(tag)
+		  
+		  mCurrentLine.UnparsedText = ""
+		  
+		  If Multiline Then
+		    // If the tag just added makes the current line longer than the visible width we need to add another line.
+		    If LineWidth(mCurrentLine) > Self.Width Then
+		      Var line As New XUITagCanvasLine(Self, mCurrentLine.Number + 1)
+		      line.Tags.Add(mCurrentLine.Tags.Pop)
+		      mLines.Add(line)
+		      mCurrentLine = mLines(mLines.LastIndex)
+		      // Scroll to the start of the line.
+		      ScrollPosX = 0
+		    End If
+		  End If
+		  
+		  FetchAutocompleteData
+		  
+		  ScrollToCaret
+		  
+		  AddedTag(tag)
 		End Sub
 	#tag EndMethod
 
@@ -304,6 +328,20 @@ Inherits DesktopTextInputCanvas
 		  Refresh
 		  
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 436C656172732074686520636F6E74656E7473206F6620746865207461672063616E7661732E
+		Sub Clear()
+		  /// Clears the contents of the tag canvas.
+		  
+		  AutocompleteData = Nil
+		  mAutocompletePopup.Visible = False
+		  
+		  // Always start with a single line.
+		  mLines.RemoveAll
+		  mLines.Add(New XUITagCanvasLine(Self, 1))
+		  mCurrentLine = mLines(0)
 		End Sub
 	#tag EndMethod
 
@@ -424,11 +462,23 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 48616E646C657320746865207072657373696E67206F662074686520457363206B65792E
+		Private Sub HandleEscKey()
+		  /// Handles the pressing of the Esc key.
+		  
+		  HideAutocompletePopup
+		  mSuppressAutocompletePopup = True
+		  Refresh
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 486964657320746865206175746F636F6D706C65746520706F7075702E
 		Private Sub HideAutocompletePopup()
 		  /// Hides the autocomplete popup.
 		  
 		  mAutocompletePopup.Visible = False
+		  mAutocompletePopup.ScrollPosY = 0
+		  Self.SetFocus
 		End Sub
 	#tag EndMethod
 
@@ -544,28 +594,9 @@ Inherits DesktopTextInputCanvas
 		  
 		  If tag = Nil Then Return False
 		  
-		  mCurrentLine.Tags.Add(tag)
-		  
-		  mCurrentLine.UnparsedText = ""
-		  
-		  If Multiline Then
-		    // If the tag just added makes the current line longer than the visible width we need to add another line.
-		    If LineWidth(mCurrentLine) > Self.Width Then
-		      Var line As New XUITagCanvasLine(Self, mCurrentLine.Number + 1)
-		      line.Tags.Add(mCurrentLine.Tags.Pop)
-		      mLines.Add(line)
-		      mCurrentLine = mLines(mLines.LastIndex)
-		      // Scroll to the start of the line.
-		      ScrollPosX = 0
-		    End If
-		  End If
-		  
-		  FetchAutocompleteData
-		  
-		  ScrollToCaret
+		  AddTag(tag)
 		  
 		  Return True
-		  
 		  
 		End Function
 	#tag EndMethod
@@ -715,26 +746,31 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub SelectAll()
-		  #Pragma Warning "TODO: Select all text"
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21, Description = 53686F777320746865206175746F636F6D706C65746520706F7075702061742074686520636172657420706F736974696F6E2E
 		Private Sub ShowAutocompletePopup()
 		  /// Shows the autocomplete popup at the caret position.
-		  
-		  #Pragma Warning "BUG: Computing incorrect height and/or y coordinate"
-		  ' Cannot draw outside the bounds of the containing window.
 		  
 		  // Get the (x, y) coordinates of the top left aspect of the caret, relative to the tag canvas.
 		  Var x, y As Double = 0
 		  XYAtCaretPos(x, y)
 		  
-		  // Compute the maximum height available to the popup. This is the number of pixels between the bottom
-		  // of the caret and the bottom of the screen.
-		  Var maxPopupHeight As Integer = Self.Window.Display.AvailableHeight - y - Self.Window.Top
+		  // Compute the maximum height available for the popup. Usually we'll want to display the popup beneath
+		  // the caret but if the available height is too small we'll display it above the caret.
+		  Var availableHeightBelow As Integer = Self.Window.Height - Self.Height - Self.Top - y
+		  Var availableHeightAbove As Integer = Self.Top + y - Renderer.TagVerticalPadding
+		  Var minOptionsToShow As Integer = If(AutocompleteData.Options.Count = 1, 1, 2)
+		  Var displayBelowCaret As Boolean = True
+		  Var maxPopupHeight As Integer
+		  If availableHeightBelow < availableHeightAbove Then
+		    If availableHeightBelow < mAutocompletePopup.LineHeight * minOptionsToShow Then
+		      maxPopupHeight = availableHeightAbove
+		      displayBelowCaret = False
+		    Else
+		      maxPopupHeight = availableHeightBelow
+		    End If
+		  Else
+		    maxPopupHeight = availableHeightBelow
+		  End If
 		  
 		  // Compute the maximum width for the popup.
 		  Var maxPopupWidth As Integer = Self.Width
@@ -753,8 +789,13 @@ Inherits DesktopTextInputCanvas
 		  // ==================
 		  // Popup y coordinate
 		  // ==================
-		  // Position the popup beneath the caret.
-		  y = y + mLineHeight + Self.Top - ScrollPosY
+		  If displayBelowCaret Then
+		    // Position the popup beneath the caret.
+		    y = y + mLineHeight + Self.Top - ScrollPosY
+		  Else
+		    // We need to draw above the caret.
+		    y = y - mAutocompletePopup.Height + Self.Top - ScrollPosY
+		  End If
 		  
 		  mAutocompletePopup.Left = x
 		  mAutocompletePopup.Top = y
@@ -826,9 +867,10 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6D70757465732028427952656629207468652063616E76617320782C207920636F6F7264696E61746573206174207468652063757272656E7420636172657420706F736974696F6E2E
+	#tag Method, Flags = &h21, Description = 436F6D70757465732028427952656629207468652063616E76617320782C207920636F6F7264696E61746573206174207468652063757272656E7420636172657420706F736974696F6E2E206079602069732074686520746F70206F66207468652063617265742E
 		Private Sub XYAtCaretPos(ByRef x As Double, ByRef y As Double)
-		  /// Computes (ByRef) the canvas x, y coordinates at the current caret position.
+		  /// Computes (ByRef) the canvas x, y coordinates at the current caret position. 
+		  /// `y` is the top of the caret.
 		  
 		  x = mCurrentLine.ContentsWidth(mBuffer.Graphics) + LEFT_PADDING
 		  
@@ -837,6 +879,10 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
+
+	#tag Hook, Flags = &h0, Description = 416464656420607461676020746F20746865207461672063616E7661732E
+		Event AddedTag(tag As XUITag)
+	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
 		Event AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
@@ -1143,7 +1189,7 @@ Inherits DesktopTextInputCanvas
 			    maxScrollPosY = 0
 			    
 			  ElseIf Not Multiline Then
-			    // Vertical scrolling isdisallowed in single line mode.
+			    // Vertical scrolling is disallowed in single line mode.
 			    maxScrollPosY = 0
 			    
 			  Else
