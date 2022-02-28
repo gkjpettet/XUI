@@ -16,7 +16,8 @@ Inherits DesktopTextInputCanvas
 		  
 		  #Pragma Unused x
 		  
-		  SelectedIndex = Floor((y + ScrollPosY) / (LineHeight + Owner.Renderer.AutocompleteVerticalPadding))
+		  SelectedIndex = Floor((y + ScrollPosY) / _
+		  (Owner.Renderer.AutocompleteOptionHeight + Owner.Renderer.AutocompleteVerticalPadding))
 		  
 		  Owner.AcceptCurrentAutocompleteOption
 		End Sub
@@ -53,14 +54,19 @@ Inherits DesktopTextInputCanvas
 		  #Pragma Unused areas
 		  
 		  If Owner.AutocompleteData = Nil Then Return
-		  If mBuffer = Nil Then RebuildBuffer(Self.Width)
+		  If mBuffer = Nil Then mBuffer = Owner.Renderer.ImageForAutocompletePopup(Self.Width, SelectedIndex)
 		  
 		  g.DrawPicture(mBuffer, 0, -ScrollPosY)
 		  
 		  // Border.
 		  If Owner.Style.HasAutocompletePopupBorder Then
 		    g.DrawingColor = Owner.Style.AutocompletePopupBorderColor
-		    g.DrawRectangle(0, 0, g.Width, g.Height)
+		    If Owner.Renderer.AutocompletePopupBorderRadius = 0 Then
+		      g.DrawRectangle(0, 0, g.Width, g.Height)
+		    Else
+		      g.DrawRoundRectangle(0, 0, g.Width, g.Height, _
+		      Owner.Renderer.AutocompletePopupBorderRadius, Owner.Renderer.AutocompletePopupBorderRadius)
+		    End If
 		  End If
 		End Sub
 	#tag EndEvent
@@ -72,72 +78,6 @@ Inherits DesktopTextInputCanvas
 		  Super.Constructor
 		  
 		  mOwner = New WeakRef(owner)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 52656275696C64732074686520656E74697265206275666665722062792064726177696E6720616C6C2076697369626C6520636F6E74656E7420746F2069742E
-		Private Sub RebuildBuffer(maxWidth As Integer)
-		  /// Rebuilds the entire buffer by drawing all visible content to it.
-		  
-		  // We need a temporary graphics context to get the width of the longest option.
-		  Var tmpPic As Picture = Window.BitmapForCaching(1, 1)
-		  tmpPic.Graphics.FontName = Owner.Style.FontName
-		  tmpPic.Graphics.FontSize = Owner.Style.FontSize
-		  
-		  // Compute the required width of the buffer.
-		  Var longestOptionW As Double = tmpPic.Graphics.TextWidth(Owner.AutocompleteData.LongestOptionValue)
-		  Var bufferW As Double = Min(longestOptionW + (2 * Owner.Renderer.AutocompleteHorizontalPadding), maxWidth)
-		  
-		  Var lineH As Double = LineHeight
-		  
-		  // Compute the required height of the buffer.
-		  Var bufferH As Integer = (lineH * Owner.AutocompleteData.Options.Count) + _
-		  (Owner.AutocompleteData.Options.Count * Owner.Renderer.AutocompleteVerticalPadding)
-		  
-		  // Create a new HiDPI aware buffer picture.
-		  mBuffer = Window.BitmapForCaching(bufferW, bufferH)
-		  
-		  // Grab a reference to the buffer's graphics context.
-		  Var g As Graphics = mBuffer.Graphics
-		  
-		  // For bevity grab a reference to the style to use.
-		  Var style As XUITagCanvasStyle = Owner.Style
-		  
-		  // Background.
-		  g.DrawingColor = style.AutocompletePopupBackgroundColor
-		  g.FillRectangle(0, 0, g.Width, g.Height)
-		  
-		  g.FontName = Owner.Style.FontName
-		  g.FontSize = Owner.Style.FontSize
-		  
-		  // If there's only one option, make sure it's selected.
-		  If Owner.AutocompleteData.Options.Count = 1 Then SelectedIndex = 0
-		  
-		  // Draw the options.
-		  Var textH As Double = g.TextHeight
-		  Var x As Double = Owner.Renderer.AutocompleteHorizontalPadding
-		  Var optionBaseline As Double = g.FontAscent + ((lineH - textH) / 2)
-		  Var y As Double = Owner.Renderer.AutocompleteVerticalPadding
-		  Var iMax As Integer = Owner.AutocompleteData.Options.LastIndex
-		  For i As Integer = 0 To iMax
-		    Var option As XUITagAutocompleteOption = Owner.AutocompleteData.Options(i)
-		    If i = SelectedIndex Then
-		      // Draw the selection background.
-		      g.DrawingColor = style.SelectedAutocompleteOptionBackgroundColor
-		      g.FillRectangle(0, y, g.Width, lineH)
-		    End If
-		    
-		    // Draw the option value.
-		    If i = SelectedIndex Then
-		      g.DrawingColor = style.SelectedAutocompleteOptionColor
-		    Else
-		      g.DrawingColor = style.AutocompleteOptionColour
-		    End If
-		    g.DrawText(option.Value, x, y + optionBaseline)
-		    
-		    y = y + lineH + Owner.Renderer.AutocompleteVerticalPadding
-		  Next i
-		  
 		End Sub
 	#tag EndMethod
 
@@ -153,9 +93,9 @@ Inherits DesktopTextInputCanvas
 		    Return
 		  End If
 		  
-		  If (SelectedIndex * LineHeight) < ScrollPosY Or _
-		    (SelectedIndex * LineHeight) > Self.Height Then
-		    ScrollPosY = SelectedIndex * LineHeight
+		  Var lineH As Integer = Owner.Renderer.AutocompleteOptionHeight
+		  If (SelectedIndex * lineH) < ScrollPosY Or (SelectedIndex * lineH) > Self.Height Then
+		    ScrollPosY = SelectedIndex * lineH
 		  End If
 		  
 		End Sub
@@ -168,7 +108,7 @@ Inherits DesktopTextInputCanvas
 		  /// `maxwidth` is the maximum permissable width of the popup.
 		  /// `maxHeight` is the maximum permissable height of the popup.
 		  
-		  RebuildBuffer(maxWidth)
+		  mBuffer = Owner.Renderer.ImageForAutocompletePopup(maxWidth, SelectedIndex)
 		  
 		  Self.Width = Min(mBuffer.Graphics.Width, maxWidth)
 		  Self.Height = Min(mBuffer.Graphics.Height, maxHeight)
@@ -177,23 +117,6 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
-
-	#tag ComputedProperty, Flags = &h0, Description = 546865206865696768742028696E20706978656C7329206F662061206C696E652E
-		#tag Getter
-			Get
-			  /// The height (in pixels) of a line including excluding padding between lines.
-			  
-			  If mBuffer <> Nil Then
-			    Return Owner.Renderer.AutocompleteOptionHeight(mBuffer.Graphics)
-			  Else
-			    // Edge case: The buffer has not yet been created.
-			    Var tmp As Picture = Window.BitmapForCaching(10, 10)
-			    Return Owner.Renderer.AutocompleteOptionHeight(tmp.Graphics)
-			  End If
-			End Get
-		#tag EndGetter
-		LineHeight As Integer
-	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		Private mBuffer As Picture
@@ -432,14 +355,6 @@ Inherits DesktopTextInputCanvas
 			InitialValue="True"
 			Type="Boolean"
 			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LineHeight"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SelectedIndex"

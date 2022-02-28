@@ -1,7 +1,7 @@
 #tag Class
-Protected Class XUITagCanvasWindowsRenderer
+Protected Class XUITagCanvasMacOSRenderer
 Implements XUITagCanvasRenderer
-	#tag Method, Flags = &h0, Description = 54686520737567676573746564206E756D626572206F6620706978656C7320746F2070616420746F20746865206C65667420616E64207269676874206F66206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+	#tag Method, Flags = &h0
 		Function AutocompleteHorizontalPadding() As Integer
 		  /// The suggested number of pixels to pad to the left and right of autocomplete options in 
 		  /// the autocomplete popup.
@@ -12,7 +12,7 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520686569676874206F6620616E206175746F636F6D706C657465206F7074696F6E20696E20746865206175746F636F6D706C65746520706F707570206261736564206F6E20746865206F776E657227732063757272656E74207374796C652E
+	#tag Method, Flags = &h0
 		Function AutocompleteOptionHeight() As Integer
 		  /// Returns the height of an autocomplete option in the autocomplete popup based on the 
 		  /// owner's current style.
@@ -35,11 +35,11 @@ Implements XUITagCanvasRenderer
 		Function AutocompletePopupBorderRadius() As Integer
 		  /// The border radius of the autocomplete popup.
 		  
-		  Return 0
+		  Return 10
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54686520737567676573746564206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F77206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+	#tag Method, Flags = &h0
 		Function AutocompleteVerticalPadding() As Integer
 		  /// The suggested number of pixels to pad above and below autocomplete options in the autocomplete popup.
 		  ///
@@ -69,7 +69,8 @@ Implements XUITagCanvasRenderer
 		  
 		  // Compute the required width of the buffer.
 		  Var longestOptionW As Double = tmpPic.Graphics.TextWidth(Owner.AutocompleteData.LongestOptionValue)
-		  Var bufferW As Double = Min(longestOptionW + (2 * Owner.Renderer.AutocompleteHorizontalPadding), maxWidth)
+		  Var bufferW As Double = Min(longestOptionW + (2 * Owner.Renderer.AutocompleteHorizontalPadding) + _
+		  (2 * SELECTED_OPTION_H_PADDING), maxWidth)
 		  
 		  Var lineH As Double = AutocompleteOptionHeight
 		  
@@ -88,7 +89,8 @@ Implements XUITagCanvasRenderer
 		  
 		  // Background.
 		  g.DrawingColor = style.AutocompletePopupBackgroundColor
-		  g.FillRectangle(0, 0, g.Width, g.Height)
+		  g.FillRoundRectangle(0, 0, g.Width, g.Height, _
+		  AutocompletePopupBorderRadius, AutocompletePopupBorderRadius)
 		  
 		  g.FontName = Owner.Style.FontName
 		  g.FontSize = Owner.Style.FontSize
@@ -105,19 +107,21 @@ Implements XUITagCanvasRenderer
 		  Var iMax As Integer = Owner.AutocompleteData.Options.LastIndex
 		  For i As Integer = 0 To iMax
 		    Var option As XUITagAutocompleteOption = Owner.AutocompleteData.Options(i)
-		    If i = SelectedIndex Then
+		    If i = selectedIndex Then
 		      // Draw the selection background.
 		      g.DrawingColor = style.SelectedAutocompleteOptionBackgroundColor
-		      g.FillRectangle(0, y, g.Width, lineH)
+		      g.FillRoundRectangle(SELECTED_OPTION_H_PADDING, y, _
+		      g.Width - (2 * SELECTED_OPTION_H_PADDING), lineH, _
+		      SELECTED_OPTION_BORDER_RADIUS, SELECTED_OPTION_BORDER_RADIUS)
 		    End If
 		    
 		    // Draw the option value.
-		    If i = selectedIndex Then
+		    If i = SelectedIndex Then
 		      g.DrawingColor = style.SelectedAutocompleteOptionColor
 		    Else
 		      g.DrawingColor = style.AutocompleteOptionColour
 		    End If
-		    g.DrawText(option.Value, x, y + optionBaseline)
+		    g.DrawText(option.Value, x + SELECTED_OPTION_H_PADDING, y + optionBaseline)
 		    
 		    y = y + lineH + Owner.Renderer.AutocompleteVerticalPadding
 		  Next i
@@ -126,7 +130,7 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206F776E696E67207461672063616E7661732E
+	#tag Method, Flags = &h0
 		Function Owner() As XUITagCanvas
 		  /// Returns the owning tag canvas.
 		  ///
@@ -141,7 +145,7 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52656E6465727320607461676020746F206067602061742060782C2079602E2052657475726E7320746865207820636F6F7264696E6174652061742074686520666172207269676874206F66207468652072656E6465726564207461672E
+	#tag Method, Flags = &h0
 		Function Render(tag As XUITag, g As Graphics, x As Integer, y As Integer) As Double
 		  /// Renders `tag` to `g` at `x, y`. Returns the x coordinate at the far right of the rendered tag.
 		  ///
@@ -163,8 +167,9 @@ Implements XUITagCanvasRenderer
 		  // Compute the tag height and cache (as we use it more than once).
 		  Var tagH As Double = TagHeight(g)
 		  
-		  // Compute the width (and height as they're the same) of the close icon (dingus).
-		  Var dingusWidth, dingusHeight As Double = (0.8 * tagH) / 2
+		  // Compute the width and height of the drop down icon (dingus).
+		  Var dingusWidth As Double = (0.7 * tagH) / 2
+		  Var dingusHeight As Double = dingusWidth / 2
 		  
 		  // Compute the total width of the tag and cache it.
 		  Var tagW As Double = TagWidth(tag, g)
@@ -178,26 +183,26 @@ Implements XUITagCanvasRenderer
 		  g.DrawingColor = Owner.Style.TagTextColor
 		  g.DrawText(tag.Title, x + mTitlePadding, titleBaseline)
 		  
-		  // These tags have a clickable close icon as their dingus.
+		  // These tags have a clickable drop down inverted caret icon as their dingus.
 		  g.DrawingColor = Owner.Style.DingusColor
 		  g.PenSize = 1
 		  Var dingusX As Double = x + mTitlePadding + titleWidth + mDingusLeftPadding
-		  Var dingusTopLeftY As Integer = y + (tagH / 2) - (dingusHeight / 2)
-		  Var dingusBottomRightY As Integer = y + (tagH / 2) + (dingusHeight / 2)
-		  g.DrawLine(dingusX, dingusTopLeftY, dingusX + dingusWidth, dingusBottomRightY)
-		  g.DrawLine(dingusX, dingusTopLeftY + dingusHeight, dingusX + dingusWidth, dingusTopLeftY)
+		  Var dingusTopY As Double = y + (tagH / 2) - (dingusHeight / 2)
+		  Var dingusBottomY As Double = y + (tagH / 2) + (dingusHeight / 2)
+		  g.DrawLine(dingusX, dingusTopY, dingusX + (dingusWidth / 2), dingusBottomY)
+		  g.DrawLine(dingusX + (dingusWidth / 2), dingusBottomY, dingusX + dingusWidth, dingusTopY)
 		  
 		  // Assign the tag's absolute bounds.
 		  tag.Bounds = New Rect(x, y, tagW, tagH)
 		  
 		  // Assign the dingus bounds to the passed tag.
-		  tag.DingusBounds = New Rect(dingusX, dingusTopLeftY, dingusWidth, dingusHeight)
+		  tag.DingusBounds = New Rect(dingusX, dingusTopY, dingusWidth, dingusHeight)
 		  
 		  Return tagW + TagHorizontalPadding
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520686569676874206F66206120746167206261736564206F6E20746865206F776E657227732063757272656E74207374796C652E
+	#tag Method, Flags = &h0
 		Function TagHeight(g As Graphics) As Integer
 		  /// Returns the height of a tag based on the owner's current style.
 		  ///
@@ -219,7 +224,7 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54686520737567676573746564206E756D626572206F6620706978656C7320746F20706164206569746865722073696465206F66207461677320696E20746865207461672063616E7661732E
+	#tag Method, Flags = &h0
 		Function TagHorizontalPadding() As Integer
 		  /// The suggested number of pixels to pad either side of tags in the tag canvas.
 		  
@@ -227,7 +232,7 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54686520737567676573746564206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F77207461677320696E20746865207461672063616E7661732E
+	#tag Method, Flags = &h0
 		Function TagVerticalPadding() As Integer
 		  /// The suggested number of pixels to pad above and below tags in the tag canvas.
 		  
@@ -235,7 +240,7 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 436F6D70757465732074686520746F74616C207769647468206F6620607461676020696620647261776E20746F207468652073706563696669656420677261706869637320636F6E74657874206067602E
+	#tag Method, Flags = &h0
 		Function TagWidth(tag As XUITag, g As Graphics) As Double
 		  /// Computes the total width of `tag` if drawn to the specified graphics context `g`.
 		  
@@ -256,12 +261,12 @@ Implements XUITagCanvasRenderer
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C656674206F662074686520636C6F73652069636F6E2E
-		Private mDingusLeftPadding As Integer = 8
+	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C656674206F66207468652064726F7020646F776E2069636F6E2E
+		Private mDingusLeftPadding As Integer = 4
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865207269676874206F662074686520636C6F73652069636F6E2E
-		Private mDingusRightPadding As Integer = 2
+	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865207269676874206F66207468652064726F7020646F776E2069636F6E2E
+		Private mDingusRightPadding As Integer = 0
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F20746865206F776E696E67207461672063616E7661732E
@@ -273,8 +278,15 @@ Implements XUITagCanvasRenderer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F7720746865207461672773207469746C652E
-		Private mVerticalPadding As Integer = 5
+		Private mVerticalPadding As Integer = 3
 	#tag EndProperty
+
+
+	#tag Constant, Name = SELECTED_OPTION_BORDER_RADIUS, Type = Double, Dynamic = False, Default = \"7", Scope = Private, Description = 54686520626F726465722072616469757320666F7220746865206261636B67726F756E64206F66207468652063757272656E746C792073656C6563746564206175746F636F6D706C657465206F7074696F6E20696E2074686520706F7075702E
+	#tag EndConstant
+
+	#tag Constant, Name = SELECTED_OPTION_H_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C65667420616E64207269676874206F6620612073656C6563746564206175746F636F6D706C657465206F7074696F6E20696E2074686520706F7075702E20
+	#tag EndConstant
 
 
 	#tag ViewBehavior

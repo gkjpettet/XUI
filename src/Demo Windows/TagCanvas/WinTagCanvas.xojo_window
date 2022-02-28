@@ -153,24 +153,42 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function MacOSTagStyle() As XUITagCanvasStyle
+		  Var style As New XUITagCanvasStyle
+		  style.BackgroundColor = Color.White
+		  style.TagBackgroundColor = Color.FromString("&h00C2D6FD")
+		  style.TagBorderColor = Color.FromString("&h00C2D6FD")
+		  style.TagTextColor = Color.Black
+		  style.CaretColor = Color.Black
+		  style.DingusColor = Color.Black
+		  
+		  style.AutocompletePopupBackgroundColor = Color.FromString("&h00ECECEC")
+		  style.HasAutocompletePopupBorder = True
+		  style.AutocompletePopupBorderColor = Color.FromString("&h00B8B9B9")
+		  style.SelectedAutocompleteOptionBackgroundColor = Color.FromString("&h001043C7")
+		  style.SelectedAutocompleteOptionColor = Color.White
+		  style.AutocompleteOptionColour = Color.Black
+		  
+		  #If TargetWindows
+		    style.FontSize = 14
+		  #Else
+		    style.FontSize = 0
+		  #EndIf
+		  
+		  Return style
+		End Function
+	#tag EndMethod
 
-	#tag Property, Flags = &h0, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F7220746865207461672063616E7661732E
-		AutocompleteEngine As TagCanvasDemoAutocompleteEngine
-	#tag EndProperty
-
-
-#tag EndWindowCode
-
-#tag Events TagCanvas
-	#tag Event
-		Sub Opening()
-		  // Create a style to colour the tag canvas.
+	#tag Method, Flags = &h21
+		Private Function WindowsTagStyle() As XUITagCanvasStyle
 		  Var style As New XUITagCanvasStyle
 		  style.BackgroundColor = Color.White
 		  style.TagBackgroundColor = Color.FromString("&h00F2F2F2")
 		  style.TagBorderColor = Color.Black
 		  style.TagTextColor = Color.Black
 		  style.CaretColor = Color.Black
+		  style.DingusColor = Color.Black
 		  style.AutocompletePopupBackgroundColor = Color.FromString("&h00E6E6E6")
 		  style.HasAutocompletePopupBorder = True
 		  style.AutocompletePopupBorderColor = Color.Black
@@ -184,10 +202,28 @@ End
 		    style.FontSize = 0
 		  #EndIf
 		  
-		  Me.Style = style
+		  Return style
+		End Function
+	#tag EndMethod
+
+
+	#tag Property, Flags = &h0, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F7220746865207461672063616E7661732E
+		AutocompleteEngine As TagCanvasDemoAutocompleteEngine
+	#tag EndProperty
+
+
+#tag EndWindowCode
+
+#tag Events TagCanvas
+	#tag Event
+		Sub Opening()
+		  // Create a style to colour the tag canvas.
 		  
-		  // Assign the "Windows" style tag renderer.
-		  Me.Renderer = New XUITagCanvasWindowsRenderer(Me)
+		  // Assign macOS colours to the canvas.
+		  Me.Style = MacOSTagStyle
+		  
+		  // Assign the "macOS" style tag renderer.
+		  Me.Renderer = New XUITagCanvasMacOSRenderer(Me)
 		  
 		  // Assign our simple parselet.
 		  Me.Parselet = New XUIDefaultTagParselet

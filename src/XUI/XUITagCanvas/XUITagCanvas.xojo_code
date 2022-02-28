@@ -478,6 +478,7 @@ Inherits DesktopTextInputCanvas
 		  
 		  mAutocompletePopup.Visible = False
 		  mAutocompletePopup.ScrollPosY = 0
+		  mAutocompletePopup.SelectedIndex = 0
 		  Self.SetFocus
 		End Sub
 	#tag EndMethod
@@ -762,7 +763,7 @@ Inherits DesktopTextInputCanvas
 		  Var displayBelowCaret As Boolean = True
 		  Var maxPopupHeight As Integer
 		  If availableHeightBelow < availableHeightAbove Then
-		    If availableHeightBelow < mAutocompletePopup.LineHeight * minOptionsToShow Then
+		    If availableHeightBelow < Renderer.AutocompleteOptionHeight * minOptionsToShow Then
 		      maxPopupHeight = availableHeightAbove
 		      displayBelowCaret = False
 		    Else
@@ -799,6 +800,7 @@ Inherits DesktopTextInputCanvas
 		  
 		  mAutocompletePopup.Left = x
 		  mAutocompletePopup.Top = y
+		  If mAutocompletePopup.SelectedIndex = -1 Then mAutocompletePopup.SelectedIndex = 0
 		  mAutocompletePopup.Visible = True
 		End Sub
 	#tag EndMethod
