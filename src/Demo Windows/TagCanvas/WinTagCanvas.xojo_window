@@ -263,15 +263,23 @@ End
 
 	#tag MenuHandler
 		Function EditPaste() As Boolean Handles EditPaste.Action
-			// Pastes the contents of the clipboard into the tag canvas.
+			// Pastes the contents of the clipboard into the tag canvas currently in focus.
 			
 			// Get the clipboard text (replacing any line endings with UNIX ones).
 			Var c As New Clipboard
 			Var s As String = c.Text.ReplaceLineEndings(&u0A)
 			c.Close
 			
+			If s.CharacterCount = 0 Then Return True
+			
 			// Insert the text.
-			If s.CharacterCount > 0 Then FictionalCharacters.InsertString(s)
+			If FictionalCharacters.HasFocus Then
+			FictionalCharacters.InsertString(s)
+			ElseIf CountryCodes.HasFocus Then
+			CountryCodes.InsertString(s)
+			ElseIf EmailAddresses.HasFocus Then
+			EmailAddresses.InsertString(s)
+			End If
 			
 			Return True
 			

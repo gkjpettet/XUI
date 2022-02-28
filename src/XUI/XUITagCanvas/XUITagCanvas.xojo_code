@@ -970,6 +970,15 @@ Inherits DesktopTextInputCanvas
 		CurrentLine As XUITagCanvasLine
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 52657475726E7320547275652069662074686973207461672063616E7661732063757272656E746C79206861732074686520666F6375732E
+		#tag Getter
+			Get
+			  Return mHasFocus
+			End Get
+		#tag EndGetter
+		HasFocus As Boolean
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 546865206865696768742028696E20706978656C7329206F662061206C696E652E
 		#tag Getter
 			Get
