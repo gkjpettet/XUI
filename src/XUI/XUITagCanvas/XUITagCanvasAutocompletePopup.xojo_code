@@ -16,8 +16,8 @@ Inherits DesktopTextInputCanvas
 		  
 		  #Pragma Unused x
 		  
-		  SelectedIndex = Floor((y + ScrollPosY) / _
-		  (Owner.Renderer.AutocompleteOptionHeight + Owner.Renderer.AutocompleteVerticalPadding))
+		  SelectedIndex = Floor((y + ScrollPosY + Owner.Renderer.AutocompleteVerticalPadding) / _
+		  (Owner.Renderer.AutocompleteOptionHeight + Owner.Renderer.AutocompleteOptionVerticalPadding))
 		  
 		  Owner.AcceptCurrentAutocompleteOption
 		End Sub

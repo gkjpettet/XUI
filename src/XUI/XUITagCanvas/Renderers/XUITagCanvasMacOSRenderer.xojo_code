@@ -31,6 +31,16 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function AutocompleteOptionVerticalPadding() As Integer
+		  /// The suggested number of pixels to pad above and below autocomplete options in the autocomplete popup.
+		  ///
+		  /// Part of the XUITagCanvasRenderer interface.
+		  
+		  Return 2
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 54686520626F7264657220726164697573206F6620746865206175746F636F6D706C65746520706F7075702E
 		Function AutocompletePopupBorderRadius() As Integer
 		  /// The border radius of the autocomplete popup.
@@ -39,13 +49,12 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F76652074686520666972737420616E642062656C6F7720746865206C617374206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
 		Function AutocompleteVerticalPadding() As Integer
-		  /// The suggested number of pixels to pad above and below autocomplete options in the autocomplete popup.
-		  ///
-		  /// Part of the XUITagCanvasRenderer interface.
+		  /// The number of pixels to pad above the first and below the last 
+		  /// autocomplete options in the autocomplete popup.
 		  
-		  Return 2
+		  Return 5
 		End Function
 	#tag EndMethod
 
@@ -69,14 +78,15 @@ Implements XUITagCanvasRenderer
 		  
 		  // Compute the required width of the buffer.
 		  Var longestOptionW As Double = tmpPic.Graphics.TextWidth(Owner.AutocompleteData.LongestOptionValue)
-		  Var bufferW As Double = Min(longestOptionW + (2 * Owner.Renderer.AutocompleteHorizontalPadding) + _
+		  Var bufferW As Double = Min(longestOptionW + (2 * AutocompleteHorizontalPadding) + _
 		  (2 * SELECTED_OPTION_H_PADDING), maxWidth)
 		  
 		  Var lineH As Double = AutocompleteOptionHeight
 		  
 		  // Compute the required height of the buffer.
 		  Var bufferH As Integer = (lineH * Owner.AutocompleteData.Options.Count) + _
-		  (Owner.AutocompleteData.Options.Count * Owner.Renderer.AutocompleteVerticalPadding)
+		  (Owner.AutocompleteData.Options.Count * AutocompleteOptionVerticalPadding) + _
+		  (2 * AutocompleteVerticalPadding)
 		  
 		  // Create a new HiDPI aware buffer picture.
 		  buffer = Owner.Window.BitmapForCaching(bufferW, bufferH)
@@ -101,9 +111,9 @@ Implements XUITagCanvasRenderer
 		  
 		  // Draw the options.
 		  Var textH As Double = g.TextHeight
-		  Var x As Double = Owner.Renderer.AutocompleteHorizontalPadding
+		  Var x As Double = AutocompleteHorizontalPadding
 		  Var optionBaseline As Double = g.FontAscent + ((lineH - textH) / 2)
-		  Var y As Double = Owner.Renderer.AutocompleteVerticalPadding
+		  Var y As Double = AutocompleteVerticalPadding + AutocompleteOptionVerticalPadding
 		  Var iMax As Integer = Owner.AutocompleteData.Options.LastIndex
 		  For i As Integer = 0 To iMax
 		    Var option As XUITagAutocompleteOption = Owner.AutocompleteData.Options(i)
@@ -123,7 +133,7 @@ Implements XUITagCanvasRenderer
 		    End If
 		    g.DrawText(option.Value, x + SELECTED_OPTION_H_PADDING, y + optionBaseline)
 		    
-		    y = y + lineH + Owner.Renderer.AutocompleteVerticalPadding
+		    y = y + lineH + AutocompleteOptionVerticalPadding
 		  Next i
 		  
 		  Return buffer
