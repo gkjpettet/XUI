@@ -419,7 +419,8 @@ Inherits DesktopTextInputCanvas
 		  
 		  If AutoCompleteData <> Nil And AutocompleteData.Options.Count = 0 Then
 		    AutocompleteData = Nil
-		  Else
+		    
+		  ElseIf AutocompleteData <> Nil Then
 		    // Make sure that the autocomplete data has the correct prefix assigned.
 		    AutocompleteData.Prefix = prefix
 		  End If

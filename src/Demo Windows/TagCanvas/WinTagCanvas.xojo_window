@@ -184,6 +184,70 @@ Begin DesktopWindow WinTagCanvas
       Visible         =   True
       Width           =   566
    End
+   Begin DesktopLabel Label3
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Multiline Email Addresses"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   260
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   199
+   End
+   Begin XUITagCanvas EmailAddresses
+      AllowAutocomplete=   True
+      AutoDeactivate  =   True
+      CaretBlinkPeriod=   500
+      Enabled         =   True
+      Height          =   126
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   20
+      LineHeight      =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      MinimumAutocompletionLength=   2
+      Multiline       =   True
+      ParseOnComma    =   True
+      ParseOnReturn   =   True
+      ParseOnTab      =   True
+      ParseTriggers   =   ""
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TagsHaveDingus  =   True
+      Tooltip         =   ""
+      Top             =   292
+      Visible         =   True
+      Width           =   566
+   End
 End
 #tag EndDesktopWindow
 
@@ -370,6 +434,50 @@ End
 		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
 		  Return CountryCodesAutocompleteEngine.DataForPrefix(prefix)
 		  
+		End Function
+	#tag EndEvent
+	#tag Event , Description = 416464656420607461676020746F20746865207461672063616E7661732E
+		Sub AddedTag(tag As XUITag)
+		  Info.Text = "Added tag """ + tag.Title + """"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events EmailAddresses
+	#tag Event
+		Sub Opening()
+		  // Create a style to colour the tag canvas.
+		  
+		  // Assign the colour scheme.
+		  Me.Style = XUITagCanvasStyle.MacOS
+		  
+		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
+		  Me.Renderer = New XUITagCanvasMacOSRenderer(Me)
+		  
+		  // Assign our email parselet.
+		  Me.Parselet = New XUIEmailTagParselet
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 412074616720686173206265656E20636C69636B65642E
+		Sub ClickedTag(tag As XUITag, isContextualClick As Boolean)
+		  If isContextualClick Then
+		    Info.Text = "Right clicked tag """ + tag.Title + """"
+		  Else
+		    Info.Text = "Left clicked tag """ + tag.Title + """"
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
+		Sub RemovedTag(tag As XUITag, viaDingus As Boolean)
+		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaDingus, " via the dingus", "")
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
+		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
+		  // In this example we won't offer any autocompletion options.
+		  
+		  Return Nil
 		End Function
 	#tag EndEvent
 	#tag Event , Description = 416464656420607461676020746F20746865207461672063616E7661732E

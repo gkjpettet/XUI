@@ -37,6 +37,7 @@ Class=XUITagData;XUI/XUITagCanvas/XUITagData.xojo_code;&h0000000035AEE7FF;&h0000
 Interface=XUITagParselet;XUI/XUITagCanvas/Parselets/XUITagParselet.xojo_code;&h0000000009DAEFFF;&h0000000058E1A7FF;false
 Interface=XUITagCanvasRenderer;XUI/XUITagCanvas/Renderers/XUITagCanvasRenderer.xojo_code;&h000000001CCF4FFF;&h0000000045A3F7FF;false
 Class=XUIDefaultTagParselet;XUI/XUITagCanvas/Parselets/XUIDefaultTagParselet.xojo_code;&h0000000016D367FF;&h0000000058E1A7FF;false
+Class=XUIEmailTagParselet;XUI/XUITagCanvas/Parselets/XUIEmailTagParselet.xojo_code;&h0000000057D30FFF;&h0000000058E1A7FF;false
 Class=XUITagCanvasWindowsRenderer;XUI/XUITagCanvas/Renderers/XUITagCanvasWindowsRenderer.xojo_code;&h000000001C7017FF;&h0000000045A3F7FF;false
 Module=StringKit;../../StringKit/StringKit.xojo_xml_code;&h0000000005BC4FFF;&h00000000247627FF;false
 Class=XUITagAutocompleteData;XUI/XUITagCanvas/Autocompletion/XUITagAutocompleteData.xojo_code;&h000000007E0A67FF;&h000000000923B7FF;false
