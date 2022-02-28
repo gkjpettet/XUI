@@ -156,7 +156,7 @@ Implements XUITagCanvasRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Render(tag As XUITag, g As Graphics, x As Integer, y As Integer) As Double
+		Function Render(tag As XUITag, g As Graphics, x As Integer, y As Integer, hasDingus As Boolean) As Double
 		  /// Renders `tag` to `g` at `x, y`. Returns the x coordinate at the far right of the rendered tag.
 		  ///
 		  /// Part of the XUITagFormatter interface.
@@ -178,8 +178,11 @@ Implements XUITagCanvasRenderer
 		  Var tagH As Double = TagHeight(g)
 		  
 		  // Compute the width and height of the drop down icon (dingus).
-		  Var dingusWidth As Double = (0.7 * tagH) / 2
-		  Var dingusHeight As Double = dingusWidth / 2
+		  Var dingusWidth, dingusHeight As Double = 0
+		  If hasDingus Then
+		    dingusWidth = (0.7 * tagH) / 2
+		    dingusHeight = dingusWidth / 2
+		  End If
 		  
 		  // Compute the total width of the tag and cache it.
 		  Var tagW As Double = TagWidth(tag, g)
@@ -193,20 +196,27 @@ Implements XUITagCanvasRenderer
 		  g.DrawingColor = Owner.Style.TagTextColor
 		  g.DrawText(tag.Title, x + mTitlePadding, titleBaseline)
 		  
-		  // These tags have a clickable drop down inverted caret icon as their dingus.
-		  g.DrawingColor = Owner.Style.DingusColor
-		  g.PenSize = 1
-		  Var dingusX As Double = x + mTitlePadding + titleWidth + mDingusLeftPadding
-		  Var dingusTopY As Double = y + (tagH / 2) - (dingusHeight / 2)
-		  Var dingusBottomY As Double = y + (tagH / 2) + (dingusHeight / 2)
-		  g.DrawLine(dingusX, dingusTopY, dingusX + (dingusWidth / 2), dingusBottomY)
-		  g.DrawLine(dingusX + (dingusWidth / 2), dingusBottomY, dingusX + dingusWidth, dingusTopY)
+		  Var dingusX, dingusTopY As Double = 0
+		  If hasDingus Then
+		    // These tags have a clickable drop down inverted caret icon as their dingus.
+		    g.DrawingColor = Owner.Style.DingusColor
+		    g.PenSize = 1
+		    dingusX = x + mTitlePadding + titleWidth + mDingusLeftPadding
+		    dingusTopY = y + (tagH / 2) - (dingusHeight / 2)
+		    Var dingusBottomY As Double = y + (tagH / 2) + (dingusHeight / 2)
+		    g.DrawLine(dingusX, dingusTopY, dingusX + (dingusWidth / 2), dingusBottomY)
+		    g.DrawLine(dingusX + (dingusWidth / 2), dingusBottomY, dingusX + dingusWidth, dingusTopY)
+		  End If
 		  
 		  // Assign the tag's absolute bounds.
 		  tag.Bounds = New Rect(x, y, tagW, tagH)
 		  
 		  // Assign the dingus bounds to the passed tag.
-		  tag.DingusBounds = New Rect(dingusX, dingusTopY, dingusWidth, dingusHeight)
+		  If hasDingus Then
+		    tag.DingusBounds = New Rect(dingusX, dingusTopY, dingusWidth, dingusHeight)
+		  Else
+		    tag.DingusBounds = Nil
+		  End If
 		  
 		  Return tagW + TagHorizontalPadding
 		End Function
@@ -261,12 +271,16 @@ Implements XUITagCanvasRenderer
 		  Var titleWidth As Double = g.TextWidth(tag.Title)
 		  g.RestoreState
 		  
-		  // Compute the width of the dingus.
-		  Var dingusWidth As Double = (0.8 * TagHeight(g)) / 2
+		  // Compute the width of the dingus and any padding.
+		  Var dingusWidth As Double = 0
+		  Var dingusPadding As Integer = 0
+		  If Owner.TagsHaveDingus Then
+		    dingusWidth = (0.8 * TagHeight(g)) / 2
+		    dingusPadding = mDingusLeftPadding + mDingusRightPadding
+		  End If
 		  
 		  // Return the total width.
-		  Return (mTitlePadding * 2) + titleWidth + _
-		  mDingusLeftPadding + mDingusRightPadding + dingusWidth
+		  Return (mTitlePadding * 2) + titleWidth + dingusPadding + dingusWidth
 		End Function
 	#tag EndMethod
 

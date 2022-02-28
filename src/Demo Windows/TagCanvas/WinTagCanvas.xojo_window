@@ -39,7 +39,7 @@ Begin DesktopWindow WinTagCanvas
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      MinimumAutocompletionLength=   0
+      MinimumAutocompletionLength=   2
       Multiline       =   True
       ParseOnComma    =   True
       ParseOnReturn   =   True
@@ -50,6 +50,7 @@ Begin DesktopWindow WinTagCanvas
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      TagsHaveDingus  =   True
       Tooltip         =   ""
       Top             =   20
       Visible         =   True
@@ -221,9 +222,11 @@ End
 		  
 		  // Assign macOS colours to the canvas.
 		  Me.Style = MacOSTagStyle
+		  'Me.Style = WindowsTagStyle
 		  
 		  // Assign the "macOS" style tag renderer.
 		  Me.Renderer = New XUITagCanvasMacOSRenderer(Me)
+		  'Me.Renderer = New XUITagCanvasWindowsRenderer(Me)
 		  
 		  // Assign our simple parselet.
 		  Me.Parselet = New XUIDefaultTagParselet

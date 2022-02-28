@@ -1223,6 +1223,10 @@ Inherits DesktopTextInputCanvas
 		Style As XUITagCanvasStyle
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 49662054727565207468656E20746167732077696C6C20626520647261776E2077697468206120636C69636B61626C652064696E6775732E
+		TagsHaveDingus As Boolean = True
+	#tag EndProperty
+
 
 	#tag Constant, Name = LEFT_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420636F6E74656E742066726F6D20746865206C6566742065646765206F66207468652063616E7661732E
 	#tag EndConstant
@@ -1465,7 +1469,7 @@ Inherits DesktopTextInputCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowAutocomplete"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -1473,10 +1477,18 @@ Inherits DesktopTextInputCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MinimumAutocompletionLength"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="2"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TagsHaveDingus"
+			Visible=true
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

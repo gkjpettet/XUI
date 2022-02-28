@@ -72,7 +72,7 @@ Protected Class XUITagCanvasLine
 		    g.AntiAliased = False
 		  #EndIf
 		  For Each tag As XUITag In Tags
-		    x = x + Owner.Renderer.Render(tag, g, x, topLeftY)
+		    x = x + Owner.Renderer.Render(tag, g, x, topLeftY, Owner.TagsHaveDingus)
 		  Next tag
 		  #If TargetWindows
 		    g.AntiAliased = True
