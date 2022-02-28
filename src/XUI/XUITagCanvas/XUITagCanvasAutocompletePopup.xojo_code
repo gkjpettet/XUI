@@ -54,7 +54,7 @@ Inherits DesktopTextInputCanvas
 		  #Pragma Unused areas
 		  
 		  If Owner.AutocompleteData = Nil Then Return
-		  If mBuffer = Nil Then mBuffer = Owner.Renderer.ImageForAutocompletePopup(Self.Width, SelectedIndex)
+		  If mBuffer = Nil Then mBuffer = Owner.Renderer.RenderAutocompletePopup(Self.Width, SelectedIndex)
 		  
 		  g.DrawPicture(mBuffer, 0, -ScrollPosY)
 		  
@@ -108,7 +108,7 @@ Inherits DesktopTextInputCanvas
 		  /// `maxwidth` is the maximum permissable width of the popup.
 		  /// `maxHeight` is the maximum permissable height of the popup.
 		  
-		  mBuffer = Owner.Renderer.ImageForAutocompletePopup(maxWidth, SelectedIndex)
+		  mBuffer = Owner.Renderer.RenderAutocompletePopup(maxWidth, SelectedIndex)
 		  
 		  Self.Width = Min(mBuffer.Graphics.Width, maxWidth)
 		  Self.Height = Min(mBuffer.Graphics.Height, maxHeight)

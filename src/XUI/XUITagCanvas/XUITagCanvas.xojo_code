@@ -1211,6 +1211,8 @@ Inherits DesktopTextInputCanvas
 	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6C6F7572207374796C6520746F2075736520666F7220746865207461672063616E76617320616E6420746167732E
 		#tag Getter
 			Get
+			  If mStyle = Nil Then mStyle = New XUITagCanvasStyle
+			  
 			  Return mStyle
 			End Get
 		#tag EndGetter

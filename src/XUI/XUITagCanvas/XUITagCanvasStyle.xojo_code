@@ -1,5 +1,66 @@
 #tag Class
 Protected Class XUITagCanvasStyle
+	#tag Method, Flags = &h0, Description = 52657475726E732061206E6577207374796C6520776974682074686520636F6C6F75727320666F72206D61634F53207374796C6520746167732E
+		Shared Function MacOS() As XUITagCanvasStyle
+		  /// Returns a new style with the colours for macOS style tags.
+		  
+		  Var style As New XUITagCanvasStyle
+		  
+		  style.BackgroundColor = Color.White
+		  style.TagBackgroundColor = Color.FromString("&h00C2D6FD")
+		  style.TagBorderColor = Color.FromString("&h00C2D6FD")
+		  style.TagTextColor = Color.Black
+		  style.CaretColor = Color.Black
+		  style.DingusColor = Color.Black
+		  
+		  style.AutocompletePopupBackgroundColor = Color.FromString("&h00ECECEC")
+		  style.HasAutocompletePopupBorder = True
+		  style.AutocompletePopupBorderColor = Color.FromString("&h00B8B9B9")
+		  style.SelectedAutocompleteOptionBackgroundColor = Color.FromString("&h001043C7")
+		  style.SelectedAutocompleteOptionColor = Color.White
+		  style.AutocompleteOptionColour = Color.Black
+		  
+		  #If TargetWindows
+		    style.FontSize = 14
+		  #Else
+		    style.FontSize = 0
+		  #EndIf
+		  
+		  Return style
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E732061206E6577207374796C6520776974682074686520636F6C6F75727320666F722057696E646F7773207374796C6520746167732E
+		Shared Function Windows() As XUITagCanvasStyle
+		  /// Returns a new style with the colours for Windows style tags.
+		  
+		  Var style As New XUITagCanvasStyle
+		  
+		  style.BackgroundColor = Color.White
+		  style.TagBackgroundColor = Color.FromString("&h00F2F2F2")
+		  style.TagBorderColor = Color.Black
+		  style.TagTextColor = Color.Black
+		  style.CaretColor = Color.Black
+		  style.DingusColor = Color.Black
+		  
+		  style.AutocompletePopupBackgroundColor = Color.FromString("&h00E6E6E6")
+		  style.HasAutocompletePopupBorder = True
+		  style.AutocompletePopupBorderColor = Color.Black
+		  style.SelectedAutocompleteOptionBackgroundColor = Color.FromString("&h00D3D3D3")
+		  style.SelectedAutocompleteOptionColor = Color.Black
+		  style.AutocompleteOptionColour = Color.Black
+		  
+		  #If TargetWindows
+		    style.FontSize = 14
+		  #Else
+		    style.FontSize = 0
+		  #EndIf
+		  
+		  Return style
+		End Function
+	#tag EndMethod
+
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652074657874206F6620756E73656C6563746564206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
 		AutocompleteOptionColour As Color
 	#tag EndProperty

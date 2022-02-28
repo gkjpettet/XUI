@@ -64,9 +64,24 @@ Implements XUITagCanvasRenderer
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320616E20696D616765206F6620616C6C206175746F636F6D706C657465206F7074696F6E7320666F722072656E646572696E6720746F20746865206175746F636F6D706C65746520706F7075702E
-		Function ImageForAutocompletePopup(maxWidth As Integer, selectedIndex As Integer) As Picture
-		  /// Rebuilds the entire buffer by drawing all visible content to it.
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206F776E696E67207461672063616E7661732E
+		Function Owner() As XUITagCanvas
+		  /// Returns the owning tag canvas.
+		  ///
+		  /// Part of the `XUITagFormatter` interface.
+		  
+		  If mOwner = Nil Or mOwner.Value = Nil Then
+		    Return Nil
+		  Else
+		    Return XUITagCanvas(mOwner.Value)
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52656E6465727320616E642072657475726E732061207069637475726520666F72207468652063616E766173206175746F636F6D706C65746520706F7075702E
+		Function RenderAutocompletePopup(maxWidth As Integer, selectedIndex As Integer) As Picture
+		  /// Renders and returns a picture for the canvas autocomplete popup.
 		  
 		  Var buffer As Picture
 		  
@@ -134,23 +149,8 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206F776E696E67207461672063616E7661732E
-		Function Owner() As XUITagCanvas
-		  /// Returns the owning tag canvas.
-		  ///
-		  /// Part of the `XUITagFormatter` interface.
-		  
-		  If mOwner = Nil Or mOwner.Value = Nil Then
-		    Return Nil
-		  Else
-		    Return XUITagCanvas(mOwner.Value)
-		  End If
-		  
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0, Description = 52656E6465727320607461676020746F206067602061742060782C2079602E2052657475726E7320746865207820636F6F7264696E6174652061742074686520666172207269676874206F66207468652072656E6465726564207461672E
-		Function Render(tag As XUITag, g As Graphics, x As Integer, y As Integer, hasDingus As Boolean) As Double
+		Function RenderTag(tag As XUITag, g As Graphics, x As Integer, y As Integer, hasDingus As Boolean) As Double
 		  /// Renders `tag` to `g` at `x, y`. Returns the x coordinate at the far right of the rendered tag.
 		  ///
 		  /// Part of the XUITagFormatter interface.
