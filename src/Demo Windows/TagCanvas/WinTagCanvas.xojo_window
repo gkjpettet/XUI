@@ -10,7 +10,7 @@ Begin DesktopWindow WinTagCanvas
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   400
+   Height          =   544
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -23,8 +23,8 @@ Begin DesktopWindow WinTagCanvas
    Title           =   "TagCanvas Demo"
    Type            =   0
    Visible         =   True
-   Width           =   600
-   Begin XUITagCanvas TagCanvas
+   Width           =   606
+   Begin XUITagCanvas FictionalCharacters
       AllowAutocomplete=   True
       AutoDeactivate  =   True
       CaretBlinkPeriod=   500
@@ -52,11 +52,43 @@ Begin DesktopWindow WinTagCanvas
       TabStop         =   True
       TagsHaveDingus  =   True
       Tooltip         =   ""
-      Top             =   20
+      Top             =   44
       Visible         =   True
-      Width           =   560
+      Width           =   566
    End
    Begin DesktopLabel Info
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   504
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   566
+   End
+   Begin DesktopLabel Label1
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -70,23 +102,87 @@ Begin DesktopWindow WinTagCanvas
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       Multiline       =   False
-      Scope           =   0
+      Scope           =   2
       Selectable      =   False
-      TabIndex        =   1
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "Multiline Fictional Characters"
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   360
+      Top             =   12
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   560
+      Width           =   199
+   End
+   Begin DesktopLabel Label2
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Single Line Country Codes"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   182
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   199
+   End
+   Begin XUITagCanvas CountryCodes
+      AllowAutocomplete=   True
+      AutoDeactivate  =   True
+      CaretBlinkPeriod=   500
+      Enabled         =   True
+      Height          =   34
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   20
+      LineHeight      =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      MinimumAutocompletionLength=   2
+      Multiline       =   False
+      ParseOnComma    =   True
+      ParseOnReturn   =   True
+      ParseOnTab      =   True
+      ParseTriggers   =   ""
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TagsHaveDingus  =   True
+      Tooltip         =   ""
+      Top             =   214
+      Visible         =   True
+      Width           =   566
    End
 End
 #tag EndDesktopWindow
@@ -96,6 +192,7 @@ End
 		Sub Opening()
 		  InitialiseFictionalCharactersAutocompleteEngine
 		  
+		  InitialiseCountryCodesAutocompleteEngine
 		End Sub
 	#tag EndEvent
 
@@ -110,7 +207,7 @@ End
 			c.Close
 			
 			// Insert the text.
-			If s.CharacterCount > 0 Then TagCanvas.InsertString(s)
+			If s.CharacterCount > 0 Then FictionalCharacters.InsertString(s)
 			
 			Return True
 			
@@ -118,48 +215,84 @@ End
 	#tag EndMenuHandler
 
 
-	#tag Method, Flags = &h21, Description = 496E697469616C6973657320746865206261736963206175746F636F6D706C6574696F6E20656E67696E6520776974682066696374696F6E616C20636861726163746572206E616D65732E
+	#tag Method, Flags = &h0, Description = 496E697469616C697365732061206261736963206175746F636F6D706C6574696F6E20656E67696E65207769746820636F756E74727920636F6465732E
+		Sub InitialiseCountryCodesAutocompleteEngine()
+		  /// Initialises a basic autocompletion engine with country codes.
+		  ///
+		  /// Typing the country's name in the tag field will create a tag whose title is their country code.
+		  
+		  Self.CountryCodesAutocompleteEngine = New TagCanvasDemoAutocompleteEngine(False)
+		  
+		  CountryCodesAutocompleteEngine.AddOption("Australia", New XUITagData("AU"))
+		  CountryCodesAutocompleteEngine.AddOption("Belgium", New XUITagData("BE"))
+		  CountryCodesAutocompleteEngine.AddOption("Brazil", New XUITagData("BR"))
+		  CountryCodesAutocompleteEngine.AddOption("Canada", New XUITagData("CA"))
+		  CountryCodesAutocompleteEngine.AddOption("Denark", New XUITagData("DK"))
+		  CountryCodesAutocompleteEngine.AddOption("Finland", New XUITagData("FI"))
+		  CountryCodesAutocompleteEngine.AddOption("France", New XUITagData("FR"))
+		  CountryCodesAutocompleteEngine.AddOption("Germany", New XUITagData("DE"))
+		  CountryCodesAutocompleteEngine.AddOption("Greece", New XUITagData("GR"))
+		  CountryCodesAutocompleteEngine.AddOption("Guernsey", New XUITagData("GG"))
+		  CountryCodesAutocompleteEngine.AddOption("Hong Kong", New XUITagData("HK"))
+		  CountryCodesAutocompleteEngine.AddOption("India", New XUITagData("IN"))
+		  CountryCodesAutocompleteEngine.AddOption("Italy", New XUITagData("IT"))
+		  CountryCodesAutocompleteEngine.AddOption("Mexico", New XUITagData("MX"))
+		  CountryCodesAutocompleteEngine.AddOption("New Zealand", New XUITagData("NZ"))
+		  CountryCodesAutocompleteEngine.AddOption("Norway", New XUITagData("NO"))
+		  CountryCodesAutocompleteEngine.AddOption("South Africa", New XUITagData("ZA"))
+		  CountryCodesAutocompleteEngine.AddOption("Spain", New XUITagData("ES"))
+		  CountryCodesAutocompleteEngine.AddOption("United Kingdom", New XUITagData("GB"))
+		  CountryCodesAutocompleteEngine.AddOption("United States of America", New XUITagData("US"))
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 496E697469616C697365732061206261736963206175746F636F6D706C6574696F6E20656E67696E6520776974682066696374696F6E616C20636861726163746572206E616D65732E
 		Private Sub InitialiseFictionalCharactersAutocompleteEngine()
-		  /// Initialises the basic autocompletion engine with fictional character names.
+		  /// Initialises a basic autocompletion engine with fictional character names.
 		  ///
 		  /// Typing the character's alter ego in the tag field will create a tag whose title is their 
 		  /// superhero name.
 		  
-		  Self.AutocompleteEngine = New TagCanvasDemoAutocompleteEngine(False)
+		  Self.FictionalCharacterAutocompleteEngine = New TagCanvasDemoAutocompleteEngine(False)
 		  
-		  AutocompleteEngine.AddOption("Bruce Banner", New XUITagData("Hulk"))
-		  AutocompleteEngine.AddOption("Bruce Wayne", New XUITagData("Batman"))
-		  AutocompleteEngine.AddOption("Bucky Barnes", New XUITagData("Winter Soldier"))
-		  AutocompleteEngine.AddOption("Carol Danvers", New XUITagData("Captain Marvel"))
-		  AutocompleteEngine.AddOption("Clint Barton", New XUITagData("Hawkeye"))
-		  AutocompleteEngine.AddOption("Diana Prince", New XUITagData("Wonder Woman"))
-		  AutocompleteEngine.AddOption("Flint Marko", New XUITagData("Sandman"))
-		  AutocompleteEngine.AddOption("James Howlett", New XUITagData("Wolverine"))
-		  AutocompleteEngine.AddOption("James Rhodes", New XUITagData("War Machine"))
-		  AutocompleteEngine.AddOption("Max Dillon", New XUITagData("Electro"))
-		  AutocompleteEngine.AddOption("Nadia Pym", New XUITagData("Wasp"))
-		  AutocompleteEngine.AddOption("Natasha Romanoff", New XUITagData("Black Widow"))
-		  AutocompleteEngine.AddOption("Norman Osborn", New XUITagData("Green Goblin"))
-		  AutocompleteEngine.AddOption("Otto  Octavius", New XUITagData("Dr Octopus"))
-		  AutocompleteEngine.AddOption("Peter Parker", New XUITagData("Spider-Man"))
-		  AutocompleteEngine.AddOption("Peter Quill", New XUITagData("Star-Lord"))
-		  AutocompleteEngine.AddOption("Scott Lang", New XUITagData("Ant-Man"))
-		  AutocompleteEngine.AddOption("Stephen Strange", New XUITagData("Dr Strange"))
-		  AutocompleteEngine.AddOption("Steve Rogers", New XUITagData("Captain America"))
-		  AutocompleteEngine.AddOption("Tony Stark", New XUITagData("Iron Man"))
-		  AutocompleteEngine.AddOption("Wade Wilson", New XUITagData("Deadpool"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Bruce Banner", New XUITagData("Hulk"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Bruce Wayne", New XUITagData("Batman"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Bucky Barnes", New XUITagData("Winter Soldier"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Carol Danvers", New XUITagData("Captain Marvel"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Clint Barton", New XUITagData("Hawkeye"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Diana Prince", New XUITagData("Wonder Woman"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Flint Marko", New XUITagData("Sandman"))
+		  FictionalCharacterAutocompleteEngine.AddOption("James Howlett", New XUITagData("Wolverine"))
+		  FictionalCharacterAutocompleteEngine.AddOption("James Rhodes", New XUITagData("War Machine"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Max Dillon", New XUITagData("Electro"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Nadia Pym", New XUITagData("Wasp"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Natasha Romanoff", New XUITagData("Black Widow"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Norman Osborn", New XUITagData("Green Goblin"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Otto  Octavius", New XUITagData("Dr Octopus"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Peter Parker", New XUITagData("Spider-Man"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Peter Quill", New XUITagData("Star-Lord"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Scott Lang", New XUITagData("Ant-Man"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Stephen Strange", New XUITagData("Dr Strange"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Steve Rogers", New XUITagData("Captain America"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Tony Stark", New XUITagData("Iron Man"))
+		  FictionalCharacterAutocompleteEngine.AddOption("Wade Wilson", New XUITagData("Deadpool"))
 		End Sub
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h0, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F7220746865207461672063616E7661732E
-		AutocompleteEngine As TagCanvasDemoAutocompleteEngine
+	#tag Property, Flags = &h0, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F7220636F756E74727920636F6465732E
+		CountryCodesAutocompleteEngine As TagCanvasDemoAutocompleteEngine
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F722066696374696F6E616C20636861726163746572206E616D65732E
+		FictionalCharacterAutocompleteEngine As TagCanvasDemoAutocompleteEngine
 	#tag EndProperty
 
 
 #tag EndWindowCode
 
-#tag Events TagCanvas
+#tag Events FictionalCharacters
 	#tag Event
 		Sub Opening()
 		  // Create a style to colour the tag canvas.
@@ -192,7 +325,50 @@ End
 	#tag EndEvent
 	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
 		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
-		  Return AutocompleteEngine.DataForPrefix(prefix)
+		  Return FictionalCharacterAutocompleteEngine.DataForPrefix(prefix)
+		  
+		End Function
+	#tag EndEvent
+	#tag Event , Description = 416464656420607461676020746F20746865207461672063616E7661732E
+		Sub AddedTag(tag As XUITag)
+		  Info.Text = "Added tag """ + tag.Title + """"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CountryCodes
+	#tag Event
+		Sub Opening()
+		  // Create a style to colour the tag canvas.
+		  
+		  // Assign the colour scheme.
+		  Me.Style = XUITagCanvasStyle.Windows
+		  
+		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
+		  Me.Renderer = New XUITagCanvasWindowsRenderer(Me)
+		  
+		  // Assign our simple parselet.
+		  Me.Parselet = New XUIDefaultTagParselet
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 412074616720686173206265656E20636C69636B65642E
+		Sub ClickedTag(tag As XUITag, isContextualClick As Boolean)
+		  If isContextualClick Then
+		    Info.Text = "Right clicked tag """ + tag.Title + """"
+		  Else
+		    Info.Text = "Left clicked tag """ + tag.Title + """"
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
+		Sub RemovedTag(tag As XUITag, viaDingus As Boolean)
+		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaDingus, " via the dingus", "")
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
+		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
+		  Return CountryCodesAutocompleteEngine.DataForPrefix(prefix)
 		  
 		End Function
 	#tag EndEvent

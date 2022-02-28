@@ -19,7 +19,12 @@ Implements XUITagCanvasRenderer
 		  ///
 		  /// Part of the XUITagCanvasRenderer interface.
 		  
-		  Var tmp As Picture = Owner.Window.BitmapForCaching(10, 10)
+		  Var tmp As Picture
+		  If Owner.Window = Nil Then
+		    tmp = New Picture(10, 10)
+		  Else
+		    tmp = Owner.Window.BitmapForCaching(10, 10)
+		  End If
 		  
 		  tmp.Graphics.FontSize = Owner.Style.FontSize
 		  tmp.Graphics.FontName = Owner.Style.FontName
@@ -87,7 +92,12 @@ Implements XUITagCanvasRenderer
 		  Var buffer As Picture
 		  
 		  // We need a temporary graphics context to get the width of the longest option.
-		  Var tmpPic As Picture = Owner.Window.BitmapForCaching(1, 1)
+		  Var tmpPic As Picture
+		  If Owner.Window = Nil Then
+		    tmpPic = New Picture(10, 10)
+		  Else
+		    tmpPic = Owner.Window.BitmapForCaching(1, 1)
+		  End If
 		  tmpPic.Graphics.FontName = Owner.Style.FontName
 		  tmpPic.Graphics.FontSize = Owner.Style.FontSize
 		  

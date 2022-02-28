@@ -76,11 +76,15 @@ Inherits DesktopTextInputCanvas
 		Sub FocusLost()
 		  /// The canvas just lost the focus.
 		  
-		  mHasFocus = False
-		  
 		  // No need to blink the caret.
 		  mCaretBlinker.RunMode = Timer.RunModes.Off
+		  mCaretVisible = False
 		  
+		  HideAutocompletePopup(False)
+		  
+		  Refresh
+		  
+		  mHasFocus = False
 		End Sub
 	#tag EndEvent
 
@@ -238,9 +242,9 @@ Inherits DesktopTextInputCanvas
 		  g.DrawPicture(mBuffer, -ScrollPosX, -ScrollPosY)
 		  
 		  If AutocompleteData <> Nil And Not mSuppressAutocompletePopup Then
-		    ShowAutocompletePopup
+		    If mHasFocus Then ShowAutocompletePopup
 		  Else
-		    HideAutocompletePopup
+		    HideAutocompletePopup(mHasFocus)
 		  End If
 		  
 		End Sub
@@ -263,7 +267,6 @@ Inherits DesktopTextInputCanvas
 		  /// Accepts the currently selected option in the autocomplete popup.
 		  
 		  // Sanity checks.
-		  If Not mAutocompletePopup.Visible Then Return
 		  If AutoCompleteData = Nil Then Return
 		  If mAutocompletePopup.SelectedIndex < 0 Or _
 		    mAutocompletePopup.SelectedIndex > AutoCompleteData.Options.LastIndex Then
@@ -473,13 +476,14 @@ Inherits DesktopTextInputCanvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 486964657320746865206175746F636F6D706C65746520706F7075702E
-		Private Sub HideAutocompletePopup()
+		Private Sub HideAutocompletePopup(shouldSetFocus As Boolean = True)
 		  /// Hides the autocomplete popup.
 		  
 		  mAutocompletePopup.Visible = False
 		  mAutocompletePopup.ScrollPosY = 0
 		  mAutocompletePopup.SelectedIndex = 0
-		  Self.SetFocus
+		  
+		  If shouldSetFocus Then Self.SetFocus
 		End Sub
 	#tag EndMethod
 
@@ -573,6 +577,8 @@ Inherits DesktopTextInputCanvas
 	#tag Method, Flags = &h21, Description = 5061696E7473207468652063617265742061742074686520656E64206F66207468652063757272656E74206C696E652E
 		Private Sub PaintCaret(g As Graphics)
 		  /// Paints the caret at the end of the current line.
+		  
+		  If Not mHasFocus Then Return
 		  
 		  // Compute the x, y coordinates at the passed caret position.
 		  Var x, y As Double = 0

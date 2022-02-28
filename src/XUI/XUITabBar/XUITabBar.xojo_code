@@ -228,7 +228,7 @@ Inherits DesktopCanvas
 		  Var g As Graphics
 		  Var p As Picture
 		  If mBuffer = Nil Then
-		    // Edge case: The canvas is embedded in a DesktopContainer  that is not
+		    // Edge case: The canvas is embedded in a DesktopContainer that is not
 		    // yet embedded in a window. In this scenario, `Window` is Nil.
 		    If Self.Window <> Nil Then
 		      p = Self.Window.BitmapForCaching(10, 10)
