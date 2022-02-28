@@ -485,6 +485,8 @@ End
 		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
 		  // In this example we won't offer any autocompletion options.
 		  
+		  #Pragma Unused prefix
+		  
 		  Return Nil
 		End Function
 	#tag EndEvent

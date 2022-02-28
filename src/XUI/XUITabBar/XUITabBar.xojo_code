@@ -575,7 +575,7 @@ Inherits DesktopCanvas
 		  If index < 0 Then
 		    Return -1
 		  Else
-		    Return MathsKit.Clamp(index, 0, mTabs.LastIndex)
+		    Return XUIMaths.Clamp(index, 0, mTabs.LastIndex)
 		  End If
 		End Function
 	#tag EndMethod
@@ -863,7 +863,7 @@ Inherits DesktopCanvas
 			  Var maxScrollPosX As Integer = Max(mRequiredBufferWidth - Self.Width, 0)
 			  
 			  // Set the value of ScrollPosX, not exceeding the maximum value.
-			  mScrollPosX = MathsKit.Clamp(value, 0, maxScrollPosX)
+			  mScrollPosX = XUIMaths.Clamp(value, 0, maxScrollPosX)
 			  
 			  Redraw
 			End Set
