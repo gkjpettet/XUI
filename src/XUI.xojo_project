@@ -49,6 +49,7 @@ Folder=Utilities;XUI/Utilities;&h000000004E966FFF;&h00000000569647FF;false
 Class=XUIStopWatch;XUI/Utilities/XUIStopWatch.xojo_code;&h0000000060BE97FF;&h000000004E966FFF;false
 Class=XUIDictionary;XUI/Required/XUIDictionary/XUIDictionary.xojo_code;&h0000000027F6E7FF;&h00000000694F37FF;false
 Class=XUIDictionaryIterator;XUI/Required/XUIDictionary/XUIDictionaryIterator.xojo_code;&h000000007431D7FF;&h00000000694F37FF;false
+Class=XUITextLine;XUI/Required/XUITextLine.xojo_code;&h000000007F00C7FF;&h0000000049AEC7FF;false
 DefaultWindow=WinTagCanvas
 MajorVersion=1
 MinorVersion=0
