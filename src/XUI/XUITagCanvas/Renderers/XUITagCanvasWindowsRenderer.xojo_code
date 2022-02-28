@@ -279,6 +279,12 @@ Implements XUITagCanvasRenderer
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Renders tags and the autocomplete popup in a way that mimics the `TokenizingTextBox` control on Windows.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C656674206F662074686520636C6F73652069636F6E2E
 		Private mDingusLeftPadding As Integer = 8
 	#tag EndProperty

@@ -94,7 +94,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  InitialiseAutocomplete
+		  InitialiseFictionalCharactersAutocompleteEngine
 		  
 		End Sub
 	#tag EndEvent
@@ -118,39 +118,36 @@ End
 	#tag EndMenuHandler
 
 
-	#tag Method, Flags = &h21
-		Private Sub InitialiseAutocomplete()
-		  // Initialises our basic demo autocompletion engine.
+	#tag Method, Flags = &h21, Description = 496E697469616C6973657320746865206261736963206175746F636F6D706C6574696F6E20656E67696E6520776974682066696374696F6E616C20636861726163746572206E616D65732E
+		Private Sub InitialiseFictionalCharactersAutocompleteEngine()
+		  /// Initialises the basic autocompletion engine with fictional character names.
+		  ///
+		  /// Typing the character's alter ego in the tag field will create a tag whose title is their 
+		  /// superhero name.
 		  
 		  Self.AutocompleteEngine = New TagCanvasDemoAutocompleteEngine(False)
 		  
 		  AutocompleteEngine.AddOption("Bruce Banner", New XUITagData("Hulk"))
+		  AutocompleteEngine.AddOption("Bruce Wayne", New XUITagData("Batman"))
 		  AutocompleteEngine.AddOption("Bucky Barnes", New XUITagData("Winter Soldier"))
 		  AutocompleteEngine.AddOption("Carol Danvers", New XUITagData("Captain Marvel"))
 		  AutocompleteEngine.AddOption("Clint Barton", New XUITagData("Hawkeye"))
+		  AutocompleteEngine.AddOption("Diana Prince", New XUITagData("Wonder Woman"))
+		  AutocompleteEngine.AddOption("Flint Marko", New XUITagData("Sandman"))
+		  AutocompleteEngine.AddOption("James Howlett", New XUITagData("Wolverine"))
 		  AutocompleteEngine.AddOption("James Rhodes", New XUITagData("War Machine"))
+		  AutocompleteEngine.AddOption("Max Dillon", New XUITagData("Electro"))
 		  AutocompleteEngine.AddOption("Nadia Pym", New XUITagData("Wasp"))
 		  AutocompleteEngine.AddOption("Natasha Romanoff", New XUITagData("Black Widow"))
+		  AutocompleteEngine.AddOption("Norman Osborn", New XUITagData("Green Goblin"))
+		  AutocompleteEngine.AddOption("Otto  Octavius", New XUITagData("Dr Octopus"))
 		  AutocompleteEngine.AddOption("Peter Parker", New XUITagData("Spider-Man"))
 		  AutocompleteEngine.AddOption("Peter Quill", New XUITagData("Star-Lord"))
 		  AutocompleteEngine.AddOption("Scott Lang", New XUITagData("Ant-Man"))
 		  AutocompleteEngine.AddOption("Stephen Strange", New XUITagData("Dr Strange"))
 		  AutocompleteEngine.AddOption("Steve Rogers", New XUITagData("Captain America"))
 		  AutocompleteEngine.AddOption("Tony Stark", New XUITagData("Iron Man"))
-		  
-		  
-		  
-		  AutocompleteEngine.AddOption("Na1", New XUITagData("Na1"))
-		  AutocompleteEngine.AddOption("Na2", New XUITagData("Na2"))
-		  AutocompleteEngine.AddOption("Na3", New XUITagData("Na3"))
-		  AutocompleteEngine.AddOption("Na4", New XUITagData("Na4"))
-		  AutocompleteEngine.AddOption("Na5", New XUITagData("Na5"))
-		  AutocompleteEngine.AddOption("Na6", New XUITagData("Na6"))
-		  AutocompleteEngine.AddOption("Na7", New XUITagData("Na7"))
-		  AutocompleteEngine.AddOption("Na8", New XUITagData("Na8"))
-		  AutocompleteEngine.AddOption("Na9", New XUITagData("Na9"))
-		  AutocompleteEngine.AddOption("Na10", New XUITagData("Na9"))
-		  AutocompleteEngine.AddOption("Na11", New XUITagData("Na9"))
+		  AutocompleteEngine.AddOption("Wade Wilson", New XUITagData("Deadpool"))
 		End Sub
 	#tag EndMethod
 

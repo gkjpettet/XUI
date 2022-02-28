@@ -285,6 +285,14 @@ Implements XUITagCanvasRenderer
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Renders tags and the autocomplete popup in a way that mimics tags on macOS. Examples on macOS include
+		Mail.app.
+		
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C656674206F66207468652064726F7020646F776E2069636F6E2E
 		Private mDingusLeftPadding As Integer = 4
 	#tag EndProperty

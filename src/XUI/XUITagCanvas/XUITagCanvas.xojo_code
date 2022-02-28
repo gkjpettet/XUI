@@ -272,7 +272,7 @@ Inherits DesktopTextInputCanvas
 		  
 		  // Get the value of the suggestion to insert.
 		  Var value As String = _
-		  AutoCompleteData.Options(mAutocompletePopup.SelectedIndex).Value
+		  AutoCompleteData.Options(mAutocompletePopup.SelectedIndex).TagData.Title
 		  
 		  // Replace the unparsed text with the value
 		  mCurrentLine.UnparsedText = ""
