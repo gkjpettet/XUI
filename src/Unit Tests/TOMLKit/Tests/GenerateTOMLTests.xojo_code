@@ -90,19 +90,6 @@ Inherits TOMLKitTestGroupBase
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub DateTest()
-		  Var d As Dictionary
-		  Var toml As String
-		  
-		  d = New Dictionary
-		  d.Value( "a" ) = New Date( 2021, 4, 5, 1, 2, 3, -5.5 )
-		  toml = GenerateTOML(d)
-		  Assert.AreSame("a = 2021-04-05T01:02:03-05:30" + EndOfLine, toml)
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub DateTimeTest()
 		  Var d As Dictionary
 		  Var toml As String

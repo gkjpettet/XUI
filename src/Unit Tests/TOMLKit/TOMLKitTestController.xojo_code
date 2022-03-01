@@ -11,7 +11,7 @@ Inherits TestController
 		  group = New ParseTOMLTests( Self, "Parse TOML" )
 		  group = New ParseBadTOMLTests( Self, "Parse Bad TOML" )
 		  group = New LongTOMLTests( Self, "Long TOML Tests" )
-		  group.IncludeGroup = False
+		  'group.IncludeGroup = False
 		  group = New TOMLKitTests( Self, "TOMLKit" )
 		  
 		End Sub

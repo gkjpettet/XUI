@@ -247,7 +247,7 @@ Protected Class XUICETheme
 		  ///
 		  /// Assumes that `d` has already been validated using `AssertValidThemeDictionary`.
 		  
-		  #Pragma Warning "TODO"
+		  #Pragma Warning "TODO: Finish implementing"
 		  
 		  Var theme As New XUICETheme
 		  

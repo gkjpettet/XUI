@@ -190,21 +190,9 @@ Private Class TKGenerator
 		      result.Add(EncodeValue( item ))
 		    Next
 		    
-		  Case Variant.TypeDate
-		    Var arr() As Date = value
-		    For Each item As Date In arr
-		      result.Add(EncodeValue( item ))
-		    Next
-		    
 		  Case Variant.TypeDateTime
 		    Var arr() As DateTime = value
 		    For Each item As DateTime In arr
-		      result.Add(EncodeValue( item ))
-		    Next
-		    
-		  Case Variant.TypeInteger
-		    Var arr() As Integer = value
-		    For Each item As Integer In arr
 		      result.Add(EncodeValue( item ))
 		    Next
 		    
@@ -226,48 +214,6 @@ Private Class TKGenerator
 		  End Select
 		  
 		  Return result()
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function EncodeDate(dt As Date) As String
-		  #If Not DebugBuild Then
-		    #Pragma BackgroundTasks False
-		    #Pragma BoundsChecking False
-		    #Pragma NilObjectChecking False
-		    #Pragma StackOverflowChecking False
-		  #EndIf
-		  
-		  Var dateString As String = dt.SQLDateTime.Replace( kSpace, "T" )
-		  Var gmt As Double = dt.GMTOffset
-		  
-		  If gmt = 0.0 Then
-		    dateString = dateString + "Z"
-		    
-		  Else
-		    
-		    If gmt > 0.0 Then
-		      dateString = dateString + "+"
-		    Else
-		      dateString = dateString + "-"
-		    End If
-		    
-		    gmt = Abs( gmt )
-		    
-		    Var hours As Integer = gmt
-		    Var fraction As Double = gmt - hours
-		    Var minutes As Integer = fraction * 60.0
-		    If minutes = 60 Then
-		      hours = hours + 1
-		      minutes = 0
-		    End If
-		    
-		    dateString = dateString + hours.ToString( "00" ) + ":" + minutes.ToString( "00" )
-		    
-		  End If
-		  
-		  Return dateString
 		  
 		End Function
 	#tag EndMethod
@@ -484,7 +430,7 @@ Private Class TKGenerator
 		      Var s As String = t
 		      value = ToBasicString( s )
 		      
-		    Case Variant.TypeInteger, Variant.TypeInt32, Variant.TypeInt64
+		    Case Variant.TypeInt32, Variant.TypeInt64
 		      value = EncodeInteger( value.IntegerValue )
 		      
 		    Case Variant.TypeDouble, Variant.TypeSingle
@@ -492,9 +438,6 @@ Private Class TKGenerator
 		      
 		    Case Variant.TypeBoolean
 		      value = If( value.BooleanValue, kTrue, kFalse )
-		      
-		    Case Variant.TypeDate
-		      value = EncodeDate( value )
 		      
 		    Case Variant.TypeDateTime
 		      value = EncodeDateTime( value )

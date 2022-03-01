@@ -288,7 +288,7 @@ Inherits TOMLKitTestGroupBase
 	#tag Method, Flags = &h21
 		Private Function ToBestType(v As Variant) As Variant
 		  Select Case v.Type
-		  Case Variant.TypeInt32, Variant.TypeInt64, Variant.TypeInteger
+		  Case Variant.TypeInt32, Variant.TypeInt64
 		    Var i As Integer = v
 		    v = i
 		    
