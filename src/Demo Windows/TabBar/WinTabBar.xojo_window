@@ -22,7 +22,7 @@ Begin DesktopWindow WinTabBar
    Resizeable      =   True
    Title           =   "TabBar Demo"
    Type            =   0
-   Visible         =   True
+   Visible         =   False
    Width           =   1000
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True

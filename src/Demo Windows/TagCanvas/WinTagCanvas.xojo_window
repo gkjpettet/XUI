@@ -22,7 +22,7 @@ Begin DesktopWindow WinTagCanvas
    Resizeable      =   True
    Title           =   "TagCanvas Demo"
    Type            =   0
-   Visible         =   True
+   Visible         =   False
    Width           =   606
    Begin XUITagCanvas FictionalCharacters
       AllowAutocomplete=   True

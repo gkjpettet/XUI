@@ -1,7 +1,6 @@
 # Tailored for the following languages:
 # - Markdown
 # - Wren
-# - XOOL
 
 [meta]
 name = "Demo Light"
@@ -207,27 +206,3 @@ color = "&h00DD7831"
 ##############################################################################
 [tokens.interpolation]
 color = "&h00179293"
-
-##############################################################################
-# XOOL-SPECIFIC TOKENS
-##############################################################################
-[tokens.colorPrefix]
-color = "&h00000000"
-
-[tokens.colorAlpha]
-color = "&h00000000"
-
-[tokens.colorRed]
-color = "&h00B11700"
-
-[tokens.colorGreen]
-color = "&h0000AB00"
-
-[tokens.colorBlue]
-color = "&h00001FAF"
-
-[tokens.datetime]
-color = "&h006C36A9"
-
-[tokens.nil]
-color = "&h006C36A9"

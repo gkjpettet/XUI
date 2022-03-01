@@ -22,7 +22,7 @@ Begin DesktopWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   True
+   Visible         =   False
    Width           =   1290
    Begin XUICodeEditor Editor
       AllowInertialScrolling=   True

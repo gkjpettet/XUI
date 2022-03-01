@@ -1,14 +1,117 @@
 #tag Class
 Protected Class WelcomeListBox
 Inherits DesktopListBox
-	#tag Method, Flags = &h0, Description = 4164647320612064656D6F20746F20746865206C697374626F782E
-		Sub AddDemo(controlName As String, description As String, demoWindow As DesktopWindow)
-		  /// Adds a demo to the listbox.
+	#tag Event
+		Sub DoublePressed()
+		  Var row As Integer = Me.RowFromXY(mLastClickX, mLastClickY)
 		  
-		  #Pragma Warning "TODO"
+		  If row < 0 Or row >= Me.RowCount Then Return
 		  
+		  Var product As WelcomeListBoxItem = Me.RowTagAt(row)
+		  product.DemoWindow.Center
+		  product.DemoWindow.Show
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  mLastClickX = x
+		  mLastClickY = y
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Function PaintCellText(g as Graphics, row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
+		  #Pragma Unused column
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  Const FUDGE = 4
+		  
+		  // Get the product for this row.
+		  Var product As WelcomeListBoxItem = Self.RowTagAt(row)
+		  
+		  g.FontSize = PRODUCT_NAME_FONT_SIZE
+		  Var nameH As Double = g.TextHeight
+		  Var nameW As Double = g.TextWidth(product.Name)
+		  
+		  g.FontSize = PRODUCT_DESCRIPTION_FONT_SIZE
+		  Var descriptionH As Double = g.TextHeight
+		  Var descriptionW As Double = g.TextWidth(product.Description)
+		  
+		  Var nameY As Double = (g.Height / 2) - (nameH / 2) + FUDGE
+		  Var descriptionY As Double = (g.Height / 2) + descriptionH
+		  
+		  // Product name.
+		  g.FontSize = PRODUCT_NAME_FONT_SIZE
+		  If Self.SelectedRowIndex = row Then
+		    g.DrawingColor = PRODUCT_NAME_COLOR_SELECTED
+		  Else
+		    g.DrawingColor = PRODUCT_NAME_COLOR
+		  End If
+		  g.DrawText(product.Name, (g.Width / 2) - (nameW / 2), nameY)
+		  
+		  // Description.
+		  g.FontSize = PRODUCT_DESCRIPTION_FONT_SIZE
+		  If Self.SelectedRowIndex = row Then
+		    g.DrawingColor = PRODUCT_DESCRIPTION_COLOR_SELECTED
+		  Else
+		    g.DrawingColor = PRODUCT_DESCRIPTION_COLOR
+		  End If
+		  g.DrawText(product.Description, (g.Width / 2) - (descriptionW / 2), descriptionY)
+		  
+		  Return True
+		End Function
+	#tag EndEvent
+
+
+	#tag Method, Flags = &h0, Description = 4164647320612070726F647563742064656D6F20746F20746865206C697374626F782E
+		Sub AddProduct(productName As String, description As String, demoWindow As DesktopWindow)
+		  /// Adds a product demo to the listbox.
+		  ///
+		  /// The product name is column 0. The product item is stored as a row tag.
+		  
+		  Var product As New WelcomeListBoxItem(productName, description, demoWindow)
+		  
+		  Self.AddRow(product.Name)
+		  Self.RowTagAt(Self.LastAddedRowIndex) = product
+		  
+		  // Sort the listbox alphabetically by column 0 (the product name).
+		  Self.SortingColumn = 0
+		  Self.ColumnSortDirectionAt(0) = DesktopListBox.SortDirections.Ascending
+		  Self.Sort
+		  
+		  Self.SelectedRowIndex = -1
 		End Sub
 	#tag EndMethod
+
+
+	#tag Property, Flags = &h21, Description = 546865205820636F6F7264696E6174652066726F6D20746865206C617374204D6F757365446F776E206576656E742E
+		Private mLastClickX As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E6174652066726F6D20746865206C617374204D6F757365446F776E206576656E742E
+		Private mLastClickY As Integer = 0
+	#tag EndProperty
+
+
+	#tag Constant, Name = PRODUCT_DESCRIPTION_COLOR, Type = Color, Dynamic = False, Default = \"&c797979", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PRODUCT_DESCRIPTION_COLOR_SELECTED, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PRODUCT_DESCRIPTION_FONT_SIZE, Type = Double, Dynamic = False, Default = \"0", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PRODUCT_NAME_COLOR, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PRODUCT_NAME_COLOR_SELECTED, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PRODUCT_NAME_FONT_SIZE, Type = Double, Dynamic = False, Default = \"15", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior
@@ -109,35 +212,11 @@ Inherits DesktopListBox
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TabPanelIndex"
-			Visible=false
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="TabStop"
 			Visible=true
 			Group="Position"
 			InitialValue="True"
 			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="_ScrollOffset"
-			Visible=false
-			Group="Appearance"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="_ScrollWidth"
-			Visible=false
-			Group="Appearance"
-			InitialValue="-1"
-			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -176,7 +255,7 @@ Inherits DesktopListBox
 			Name="DefaultRowHeight"
 			Visible=true
 			Group="Appearance"
-			InitialValue="-1"
+			InitialValue="40"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -283,61 +362,6 @@ Inherits DesktopListBox
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Bold"
-			Visible=true
-			Group="Font"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Italic"
-			Visible=true
-			Group="Font"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="FontName"
-			Visible=true
-			Group="Font"
-			InitialValue="System"
-			Type="String"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="FontSize"
-			Visible=true
-			Group="Font"
-			InitialValue="0"
-			Type="Single"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="FontUnit"
-			Visible=true
-			Group="Font"
-			InitialValue="0"
-			Type="FontUnits"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - Default"
-				"1 - Pixel"
-				"2 - Point"
-				"3 - Inch"
-				"4 - Millimeter"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Underline"
-			Visible=true
-			Group="Font"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="AllowAutoHideScrollbars"
 			Visible=true
 			Group="Behavior"
@@ -396,6 +420,85 @@ Inherits DesktopListBox
 				"0 - Single"
 				"1 - Multiple"
 			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Bold"
+			Visible=true
+			Group="Font"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Italic"
+			Visible=true
+			Group="Font"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FontName"
+			Visible=true
+			Group="Font"
+			InitialValue="System"
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FontSize"
+			Visible=true
+			Group="Font"
+			InitialValue="0"
+			Type="Single"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FontUnit"
+			Visible=true
+			Group="Font"
+			InitialValue="0"
+			Type="FontUnits"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Default"
+				"1 - Pixel"
+				"2 - Point"
+				"3 - Inch"
+				"4 - Millimeter"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Underline"
+			Visible=true
+			Group="Font"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabPanelIndex"
+			Visible=false
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="_ScrollOffset"
+			Visible=false
+			Group="Appearance"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="_ScrollWidth"
+			Visible=false
+			Group="Appearance"
+			InitialValue="-1"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

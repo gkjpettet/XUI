@@ -117,6 +117,13 @@ Protected Class XUICETheme
 		      Return
 		    End If
 		    
+		  Case TYPE_BOOLEAN
+		    If value.Type <> Variant.TypeBoolean Then
+		      Raise New InvalidArgumentException("`" + path + "` is not a boolean.")
+		    Else
+		      Return
+		    End If
+		    
 		  Case TYPE_COLOR
 		    #Pragma BreakOnExceptions False
 		    Try
@@ -181,22 +188,22 @@ Protected Class XUICETheme
 		  /// Asserts that `d` contains the required properties for a valid theme. 
 		  /// Raises an `InvalidArgumentException` if not.
 		  
-		  // =================
+		  // ======================
 		  // META DICTIONARY
-		  // =================
+		  // ======================
 		  // Required.
 		  AssertPathType(d, "meta", TYPE_DICTIONARY)
 		  AssertPathType(d, "meta.name", TYPE_STRING)
 		  AssertPathType(d, "meta.version", TYPE_STRING)
 		  AssertPathType(d, "meta.author", TYPE_STRING)
+		  Var meta As Dictionary = d.Value("meta")
 		  
 		  // Optional.
-		  Var meta As Dictionary = d.Value("meta")
 		  If meta.HasKey("description") Then AssertPathType(d, "meta.description", TYPE_STRING)
 		  
-		  // =================
+		  // ======================
 		  // EDITOR DICTIONARY
-		  // =================
+		  // ======================
 		  // Required properties.
 		  AssertPathType(d, "editor", TYPE_DICTIONARY)
 		  AssertPathType(d, "editor.backgroundColor", TYPE_COLOR)
@@ -215,9 +222,24 @@ Protected Class XUICETheme
 		    AssertPathType(d, "editor.unmatchedBlockLineColor", TYPE_COLOR)
 		  End If
 		  
-		  // =================
+		  // ======================
+		  // DELIMITERS DICTIONARY
+		  // ======================
+		  // The delimiters dictionary is optional.
+		  If d.HasKey("delimiters") Then
+		    AssertPathType(d, "delimiters", TYPE_DICTIONARY)
+		    Var delim As Dictionary = d.Value("delimiters")
+		    If delim.HasKey("hasBorderColor") Then AssertPathType(d, "delimiters.hasBorderColor", TYPE_BOOLEAN)
+		    If delim.HasKey("borderColor") Then AssertPathType(d, "delimiters.borderColor", TYPE_COLOR)
+		    If delim.HasKey("hasFillColor") Then AssertPathType(d, "delimiters.hasFillColor", TYPE_BOOLEAN)
+		    If delim.HasKey("fillColor") Then AssertPathType(d, "delimiters.fillColor", TYPE_COLOR)
+		    If delim.HasKey("hasUnderlineColor") Then AssertPathType(d, "delimiters.hasUnderlineColor", TYPE_BOOLEAN)
+		    If delim.HasKey("underlineColor") Then AssertPathType(d, "delimiters.underlineColor", TYPE_COLOR)
+		  End If
+		  
+		  // ======================
 		  // TOKENS DICTIONARY
-		  // =================
+		  // ======================
 		  // Required properties.
 		  AssertPathType(d, "tokens", TYPE_DICTIONARY)
 		  AssertPathType(d, "tokens.default", TYPE_DICTIONARY)
@@ -246,8 +268,6 @@ Protected Class XUICETheme
 		  /// Returns a theme constructed from a validated theme dictionary `d`.
 		  ///
 		  /// Assumes that `d` has already been validated using `AssertValidThemeDictionary`.
-		  
-		  #Pragma Warning "TODO: Finish implementing"
 		  
 		  Var theme As New XUICETheme
 		  
@@ -282,6 +302,20 @@ Protected Class XUICETheme
 		  editor.Lookup("currentLineHighlightColor", DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR)
 		  theme.UnmatchedBlockLineColor = _
 		  editor.Lookup("unmatchedBlockLineColor", DEFAULT_UNMATCHED_BLOCK_LINE_COLOR)
+		  
+		  // =================
+		  // DELIMITERS
+		  // =================
+		  // The delimiters dictionary is optional.
+		  If d.HasKey("delimiters") Then
+		    Var delim As Dictionary = d.Value("delimiters")
+		    If delim.HasKey("hasBorderColor") Then theme.DelimitersHaveBorder = delim.Value("hasBorderColor")
+		    If delim.HasKey("borderColor") Then theme.DelimitersBorderColor = delim.Value("borderColor")
+		    If delim.HasKey("hasFillColor") Then theme.DelimitersHaveFillColor = delim.Value("hasFillColor")
+		    If delim.HasKey("fillColor") Then theme.DelimitersFillColor = delim.Value("fillColor")
+		    If delim.HasKey("hasUnderlineColor") Then theme.DelimitersHaveUnderline = delim.Value("hasUnderlineColor")
+		    If delim.HasKey("underlineColor") Then theme.DelimitersUnderlineColor = delim.Value("underlineColor")
+		  End If
 		  
 		  // =================
 		  // TOKENS
@@ -451,6 +485,9 @@ Protected Class XUICETheme
 	#tag EndConstant
 
 	#tag Constant, Name = TYPE_ARRAY, Type = String, Dynamic = False, Default = \"array", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_BOOLEAN, Type = String, Dynamic = False, Default = \"boolean", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = TYPE_COLOR, Type = String, Dynamic = False, Default = \"color", Scope = Private
