@@ -1,0 +1,233 @@
+# Tailored for the following languages:
+# - Markdown
+# - Wren
+# - XOOL
+
+[meta]
+name = "Demo Light"
+version = "1.0.0"
+author = "Garry Pettet"
+description = "A demo light theme for the XUICodeEditor."
+
+[editor]
+backgroundColor = "&h00FAFAFA"
+blockLineColor = "&h00D5D5D5"
+caretColor = "&h00000000"
+currentLineHighlightColor = "&h00E8F2FF"
+currentLineNumberColor = "&h00919191"
+lineNumberColor = "&h00919191"
+selectionColor = "&h00A4CDFF"
+unmatchedBlockLineColor = "&h00CC1400"
+
+[delimiters]
+hasBorderColor = true
+borderColor = "&h00CCCCCC"
+hasFillColor = false
+hasUnderlineColor = true
+underlineColor = "&h00CCCCCC"
+
+##############################################################################
+# GENERIC TOKENS
+##############################################################################
+[tokens.boolean]
+color = "&h006C36A9"
+
+[tokens.comment]
+color = "&h005D6C79"
+italic = true
+
+[tokens.default]
+color = "&h00000000"
+
+[tokens.error]
+color = "&h00CC1400"
+
+[tokens.escape]
+color = "&h00179293"
+
+[tokens.identifier]
+color = "&h00326D74"
+
+[tokens.keyword]
+color = "&h009B2393"
+
+[tokens.number]
+color = "&h001C00CF"
+
+[tokens.operator]
+color = "&h00000000"
+
+[tokens.string]
+color = "&h00267507"
+
+##############################################################################
+# MARKDOWN-SPECIFIC TOKENS
+##############################################################################
+[tokens.ATXDelimiterLevel1]
+color = "&h00004C99"
+bold = true
+
+[tokens.ATXDelimiterLevel2]
+color = "&h00004C99"
+bold = true
+
+[tokens.ATXDelimiterLevel3]
+color = "&h00004C99"
+bold = false
+
+[tokens.ATXDelimiterLevel4]
+color = "&h00004C99"
+bold = false
+
+[tokens.ATXDelimiterLevel5]
+color = "&h00004C99"
+bold = false
+
+[tokens.ATXDelimiterLevel6]
+color = "&h00004C99"
+bold = false
+
+[tokens.ATXLevel1]
+color = "&h00004C99"
+bold = true
+
+[tokens.ATXLevel2]
+color = "&h00004C99"
+bold = true
+
+[tokens.ATXLevel3]
+color = "&h00004C99"
+bold = false
+
+[tokens.ATXLevel4]
+color = "&h00004C99"
+bold = false
+
+[tokens.ATXLevel5]
+color = "&h00004C99"
+bold = false
+
+[tokens.ATXLevel6]
+color = "&h00004C99"
+bold = false
+
+[tokens.blockQuoteDelimiter]
+color = "&h00000000"
+hasBackgroundColor = true
+backgroundColor = "&h00CCCCCC"
+
+[tokens.codespan]
+color = "&h00000000"
+hasBackgroundColor = true
+backgroundColor = "&h00CCCCCC"
+
+[tokens.codespanDelimiter]
+color = "&h00000000"
+hasBackgroundColor = true
+backgroundColor = "&h00CCCCCC"
+
+[tokens.codeline]
+color = "&h00000000"
+
+[tokens.emphasis] # Inline emphasis text.
+color = "&h00DD7831"
+italic = true
+
+[tokens.emphasisDelimiter] # `*` and `_` delimiters.
+color = "&h00DD7831"
+italic = true
+
+[tokens.fenceDelimiter] # ``` and ~~~
+color = "&h00000000"
+hasBackgroundColor = true
+backgroundColor = "&h00CCCCCC"
+
+[tokens.infostring]
+color = "&h00000000"
+hasBackgroundColor = true
+backgroundColor = "&h00CCCCCC"
+
+[tokens.inlineHTML]
+color = "&h000079B8"
+
+[tokens.inlineLinkLabel] # E.g: `![linkLabel]` and `[linkLabel]`.
+color = "&h000079B8"
+
+[tokens.linkDestination] # For both inline and reference link destinations.
+color = "&h008539AB"
+
+[tokens.linkDestinationDelimiter] # The `()` around inline link destinations.
+color = "&h00000000"
+
+[tokens.linkLabelDelimiter] # The `[]` around link labels.
+color = "&h00000000"
+
+[tokens.linkTitle]
+color = "&h006B60AA"
+
+[tokens.linkTitleDelimiter] # The delimiters (e.g: `"`) around link titles.
+color = "&h00000000"
+
+[tokens.listMarker]
+color = "&h00034E9A"
+
+[tokens.setextUnderlineLevel1]
+color = "&h00004C99"
+bold = true
+
+[tokens.setextUnderlineLevel2]
+color = "&h00004C99"
+bold = true
+
+[tokens.setextLevel1]
+color = "&h00004C99"
+bold = false
+
+[tokens.setextLevel2]
+color = "&h00004C99"
+bold = false
+
+[tokens.strong] # Inline strong emphasis text.
+color = "&h003A8E3B"
+bold = true
+
+[tokens.strongAndEmphasis] # Inline strong and emphasised text (e.g: `**_Hello_**`)
+color = "&h003A8E3B"
+bold = true
+
+[tokens.strongDelimiter] # `**` and `__` delimiters.
+color = "&h003A8E3B"
+bold = true
+
+[tokens.thematicBreak]
+color = "&h00DD7831"
+
+##############################################################################
+# WREN-SPECIFIC TOKENS
+##############################################################################
+[tokens.interpolation]
+color = "&h00179293"
+
+##############################################################################
+# XOOL-SPECIFIC TOKENS
+##############################################################################
+[tokens.colorPrefix]
+color = "&h00000000"
+
+[tokens.colorAlpha]
+color = "&h00000000"
+
+[tokens.colorRed]
+color = "&h00B11700"
+
+[tokens.colorGreen]
+color = "&h0000AB00"
+
+[tokens.colorBlue]
+color = "&h00001FAF"
+
+[tokens.datetime]
+color = "&h006C36A9"
+
+[tokens.nil]
+color = "&h006C36A9"
