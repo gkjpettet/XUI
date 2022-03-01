@@ -61,8 +61,6 @@ Protected Class MKInlineScanner
 		  Var labelData As New MarkdownKit.MKLinkLabel
 		  labelData.Length = linkTextChars.Count
 		  labelData.Value = linkTextChars.ToString
-		  
-		  #Pragma Warning "TODO: We should make these MKValueBlocks instead of characters"
 		  labelData.Characters = linkTextChars
 		  
 		  data.EndPosition = containerEndPos
@@ -98,8 +96,6 @@ Protected Class MKInlineScanner
 		  Var linkTextData As New MarkdownKit.MKLinkLabel
 		  linkTextData.Length = chars.Count
 		  linkTextData.Value = chars.ToString
-		  
-		  #Pragma Warning "TODO: We should make these MKValueBlocks instead of characters"
 		  linkTextData.Characters = chars
 		  
 		  // Get the reference destination and title from the document's reference map.
