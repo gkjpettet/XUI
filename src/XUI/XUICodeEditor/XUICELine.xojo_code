@@ -839,6 +839,13 @@ Inherits XUITextLine
 		  // Get the characters from the start of this line up to the computed offset.
 		  Var chars As String = CharactersFromColumn(0, caretPos - Start)
 		  
+		  #Pragma Warning "BUG: TextWidth wrong on Win/Linux if there are bold fonts"
+		  ' I think we need to iterate over every token up to the caret and determine the width of each.
+		  ' Not sure why this is OK on macOS as in theory it shouldn't work on any platform!
+		  ' Need to investigate the performance hit of iterating the tokens.
+		  ' Might be more efficient to store the X coordinate of the start of each token when the line
+		  ' is drawn since it's computed at that point anyway.
+		  
 		  // Compute the width of this string.
 		  Return g.TextWidth(chars)
 		  
