@@ -284,6 +284,8 @@ End
 		  Me.LineNumberFontSize = 12
 		  
 		  Editor.ContentType = XUICodeEditor.ContentTypes.SourceCode
+		  
+		  Editor.AutocompleteCombo = XUICodeEditor.AutocompleteCombos.CtrlSpace
 		End Sub
 	#tag EndEvent
 #tag EndEvents

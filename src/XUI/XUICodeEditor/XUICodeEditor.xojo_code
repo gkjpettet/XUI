@@ -147,7 +147,18 @@ Inherits NSScrollViewCanvas
 		    // MISC
 		    // =========================================
 		  Case CmdInsertTab
-		    Insert(TabToSpaces, CaretPosition, True)
+		    If AutocompleteCombo = AutocompleteCombos.Tab Then
+		      // The tab key is set to trigger autocomplete.
+		      HandleAutocompleteKeyPress
+		    Else
+		      Insert(TabToSpaces, CaretPosition, True)
+		    End If
+		    
+		  Case "noop:"
+		    If Keyboard.AsyncControlKey And Keyboard.AsyncKeyDown(&h31) Then
+		      // Ctrl+Space pressed.
+		      HandleCtrlSpace
+		    End If
 		    
 		  End Select
 		  
@@ -214,7 +225,14 @@ Inherits NSScrollViewCanvas
 		  // Track that the user is typing.
 		  mLastKeyDownTicks = System.Ticks
 		  
-		  InsertCharacter(text, True, range)
+		  // Edge case: The user has pressed CtrlSpace on Windows/Linux. The `InsertText` event fires
+		  // before the `KeyDown` event so if Ctrl is being held down at this point we need to *not* insert
+		  // the space character.
+		  #If TargetWindows Or TargetLinux
+		    If Keyboard.AsyncControlKey And Text = " " Then Return
+		  #EndIf
+		  
+		  InsertCharacter(Text, True, range)
 		End Sub
 	#tag EndEvent
 
@@ -243,6 +261,14 @@ Inherits NSScrollViewCanvas
 		    End If
 		  #EndIf
 		  
+		  // Catch Ctrl-Space key on Windows & Linux.
+		  // This is handled on macOS within `DoCommand` as "noop:"
+		  #If TargetWindows Or TargetLinux
+		    If Keyboard.AsyncControlKey And Keyboard.AsyncKeyDown(&h31) Then
+		      HandleCtrlSpace
+		      Return True
+		    End If
+		  #EndIf
 		End Function
 	#tag EndEvent
 
@@ -939,6 +965,14 @@ Inherits NSScrollViewCanvas
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 5265717565737473206175746F636F6D706C657465206461746120666F722074686520776F726420696D6D6564696174656C7920696E2066726F6E74206F66207468652063617265742E
+		Private Sub FetchAutocompleteData()
+		  /// Requests autocomplete data for the word immediately in front of the caret.
+		  
+		  #Pragma Warning "TODO"
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub ForceRedraw()
 		  /// Immediately redraws the canvas.
@@ -1001,6 +1035,27 @@ Inherits NSScrollViewCanvas
 		  Return doubleClickTime
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 48616E646C657320746865207072657373696E67206F6620746865206175746F636F6D706C657465206B65792E
+		Private Sub HandleAutocompleteKeyPress()
+		  /// Handles the pressing of the autocomplete key.
+		  
+		  #Pragma Warning "TODO"
+		  
+		  Break
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub HandleCtrlSpace()
+		  // Handle the pressing of the Ctrl+Space key combination.
+		  
+		  If AutocompleteCombo = AutocompleteCombos.CtrlSpace Then
+		    HandleAutocompleteKeyPress
+		  End If
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 48616E646C6573206120646F75626C6520636C69636B206F6363757272696E67206174207468652070617373656420782C2079206D6F75736520636F6F7264696E617465732E
@@ -2826,6 +2881,10 @@ Inherits NSScrollViewCanvas
 		AllowInertialScrolling As Boolean = True
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		AutocompleteCombo As XUICodeEditor.AutocompleteCombos = XUICodeEditor.AutocompleteCombos.Tab
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 54686520656469746F722773206261636B67726F756E6420636F6C6F75722E
 		#tag Getter
 			Get
@@ -2911,6 +2970,8 @@ Inherits NSScrollViewCanvas
 			  // Store the new position.
 			  mCaretPosition = value
 			  
+			  // Fetch autocomplete suggestions.
+			  FetchAutocompleteData
 			  
 			End Set
 		#tag EndSetter
@@ -3579,6 +3640,11 @@ Inherits NSScrollViewCanvas
 	#tag EndConstant
 
 
+	#tag Enum, Name = AutocompleteCombos, Type = Integer, Flags = &h0, Description = 5468652061636365707461626C65206B657920636F6D62696E6174696F6E7320666F722074726967676572696E67206175746F636F6D706C6574696F6E2E
+		CtrlSpace
+		Tab
+	#tag EndEnum
+
 	#tag Enum, Name = CaretTypes, Type = Integer, Flags = &h0, Description = 54686520646966666572656E74207479706573206F66206361726574207468652063616E76617320737570706F7274732E
 		Block
 		  Underscore
@@ -4050,6 +4116,18 @@ Inherits NSScrollViewCanvas
 				"0 - All"
 				"1 - SingleLine"
 				"2 - VisibleLines"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompleteCombo"
+			Visible=false
+			Group="Behavior"
+			InitialValue="XUICodeEditor.AutocompleteCombos.Tab"
+			Type="XUICodeEditor.AutocompleteCombos"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - CtrlSpace"
+				"1 - Tab"
 			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
