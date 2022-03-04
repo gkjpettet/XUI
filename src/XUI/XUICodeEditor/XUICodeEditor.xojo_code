@@ -447,6 +447,7 @@ Inherits NSScrollViewCanvas
 		  /// Never called on macOS (handled instead within `NSScrollViewBoundsChanged`).
 		  
 		  #Pragma Warning "TODO: Buggy on Windows/Linux. VScroll height seems wrong when there are many lines"
+		  #Pragma Warning "REFACTOR: Why don't we draw the scroll bars on the canvas instead?"
 		  
 		  #Pragma Unused X
 		  #Pragma Unused Y

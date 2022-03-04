@@ -1,16 +1,16 @@
 #tag DesktopWindow
-Begin DesktopWindow WinWelcome
+Begin DesktopWindow WinSourceList
    Backdrop        =   0
-   BackgroundColor =   &cFFFFFF
+   BackgroundColor =   &cFFD47900
    Composite       =   False
    DefaultLocation =   2
    FullScreen      =   False
-   HasBackgroundColor=   False
+   HasBackgroundColor=   True
    HasCloseButton  =   True
    HasFullScreenButton=   False
-   HasMaximizeButton=   False
+   HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   400
+   Height          =   460
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -19,109 +19,15 @@ Begin DesktopWindow WinWelcome
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
-   Resizeable      =   False
-   Title           =   "XUI Welcome"
+   Resizeable      =   True
+   Title           =   "SourceList Demo"
    Type            =   0
-   Visible         =   True
-   Width           =   656
-   Begin DesktopLabel Label1
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   61
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   32
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   True
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "XUI is a collection of beautiful user interface controls, helper methods and utilities for your apps. Double click a product in the list below to see a demo of it in action."
-      TextAlignment   =   2
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   20
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   591
-   End
-   Begin WelcomeListBox Products
-      AllowAutoDeactivate=   True
-      AllowAutoHideScrollbars=   True
-      AllowExpandableRows=   False
-      AllowFocusRing  =   False
-      AllowResizableColumns=   False
-      AllowRowDragging=   False
-      AllowRowReordering=   False
-      Bold            =   False
-      ColumnCount     =   1
-      ColumnWidths    =   ""
-      DefaultRowHeight=   56
-      DropIndicatorVisible=   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      GridLineStyle   =   0
-      HasBorder       =   True
-      HasHeader       =   False
-      HasHorizontalScrollbar=   False
-      HasVerticalScrollbar=   True
-      HeadingIndex    =   -1
-      Height          =   287
-      Index           =   -2147483648
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   32
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      RequiresSelection=   False
-      RowSelectionType=   0
-      Scope           =   0
-      TabIndex        =   1
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   93
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   591
-      _ScrollOffset   =   0
-      _ScrollWidth    =   -1
-   End
+   Visible         =   False
+   Width           =   834
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Opening()
-		  // Centre this window on its display.
-		  Self.Center
-		  
-		  // Add our XUI products.
-		  Products.AddProduct("XUITabBar", "A customisable tab bar control.", WinTabBar)
-		  Products.AddProduct("XUITagCanvas", "An editable canvas that parses text into tags and supports autocompletion.", WinTagCanvas)
-		  Products.AddProduct("XUICodeEditor", "Full featured code editor supporting themes, custom formatters and autocompletion.", WinCodeEditor)
-		  Products.AddProduct("XUISourceList", "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
-		End Sub
-	#tag EndEvent
-
-
 #tag EndWindowCode
 
 #tag ViewBehavior

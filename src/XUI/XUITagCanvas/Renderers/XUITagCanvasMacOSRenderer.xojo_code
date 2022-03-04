@@ -49,6 +49,8 @@ Implements XUITagCanvasRenderer
 	#tag Method, Flags = &h0, Description = 54686520626F7264657220726164697573206F6620746865206175746F636F6D706C65746520706F7075702E
 		Function AutocompletePopupBorderRadius() As Integer
 		  /// The border radius of the autocomplete popup.
+		  ///
+		  /// Part of the `XUITagCanvasRenderer` interface.
 		  
 		  Return 10
 		End Function
@@ -58,6 +60,8 @@ Implements XUITagCanvasRenderer
 		Function AutocompleteVerticalPadding() As Integer
 		  /// The number of pixels to pad above the first and below the last 
 		  /// autocomplete options in the autocomplete popup.
+		  ///
+		  /// Part of the `XUITagCanvasRenderer` interface.
 		  
 		  Return 5
 		End Function
@@ -74,7 +78,7 @@ Implements XUITagCanvasRenderer
 		Function Owner() As XUITagCanvas
 		  /// Returns the owning tag canvas.
 		  ///
-		  /// Part of the `XUITagFormatter` interface.
+		  /// Part of the `XUITagCanvasRenderer` interface.
 		  
 		  If mOwner = Nil Or mOwner.Value = Nil Then
 		    Return Nil
@@ -88,6 +92,8 @@ Implements XUITagCanvasRenderer
 	#tag Method, Flags = &h0, Description = 52656E6465727320616E642072657475726E732061207069637475726520666F72207468652063616E766173206175746F636F6D706C65746520706F7075702E
 		Function RenderAutocompletePopup(maxWidth As Integer, selectedIndex As Integer) As Picture
 		  /// Renders and returns a picture for the canvas autocomplete popup.
+		  ///
+		  /// Part of the `XUITagCanvasRenderer` interface.
 		  
 		  Var buffer As Picture
 		  
@@ -169,7 +175,7 @@ Implements XUITagCanvasRenderer
 		Function RenderTag(tag As XUITag, g As Graphics, x As Integer, y As Integer, hasDingus As Boolean) As Double
 		  /// Renders `tag` to `g` at `x, y`. Returns the x coordinate at the far right of the rendered tag.
 		  ///
-		  /// Part of the XUITagFormatter interface.
+		  /// Part of the `XUITagCanvasRenderer` interface.
 		  
 		  // Ensure that anti-aliasing is enabled on Windows.
 		  #If TargetWindows
@@ -257,6 +263,8 @@ Implements XUITagCanvasRenderer
 	#tag Method, Flags = &h0
 		Function TagHorizontalPadding() As Integer
 		  /// The suggested number of pixels to pad either side of tags in the tag canvas.
+		  ///
+		  /// Part of the `XUITagCanvasRenderer` interface.
 		  
 		  Return 3
 		End Function
@@ -265,6 +273,8 @@ Implements XUITagCanvasRenderer
 	#tag Method, Flags = &h0
 		Function TagVerticalPadding() As Integer
 		  /// The suggested number of pixels to pad above and below tags in the tag canvas.
+		  ///
+		  /// Part of the `XUITagCanvasRenderer` interface.
 		  
 		  Return 2
 		End Function
@@ -273,6 +283,8 @@ Implements XUITagCanvasRenderer
 	#tag Method, Flags = &h0
 		Function TagWidth(tag As XUITag, g As Graphics) As Double
 		  /// Computes the total width of `tag` if drawn to the specified graphics context `g`.
+		  ///
+		  /// Part of the `XUITagCanvasRenderer` interface.
 		  
 		  // Compute the width of the title.
 		  g.SaveState
