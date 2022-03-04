@@ -1,5 +1,21 @@
-#tag Class
-Protected Class XUISourceListItem
+#tag Module
+Protected Module AppKit
+	#tag Structure, Name = CGPoint, Flags = &h0
+		X As CGFloat
+		Y As CGFloat
+	#tag EndStructure
+
+	#tag Structure, Name = CGRect, Flags = &h0
+		Origin As CGPoint
+		RectSize As CGSize
+	#tag EndStructure
+
+	#tag Structure, Name = CGSize, Flags = &h0
+		Width As CGFloat
+		Height As CGFloat
+	#tag EndStructure
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"
@@ -42,5 +58,5 @@ Protected Class XUISourceListItem
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
-End Class
-#tag EndClass
+End Module
+#tag EndModule
