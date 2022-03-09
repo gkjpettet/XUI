@@ -24,6 +24,12 @@ Protected Interface XUISourceListRenderer
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54686520686569676874206F66206120726F7720696E2074686520736F75726365206C6973742E
+		Function RowHeight() As Integer
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag ViewBehavior
 		#tag ViewProperty

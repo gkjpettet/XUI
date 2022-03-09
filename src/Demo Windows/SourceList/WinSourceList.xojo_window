@@ -59,6 +59,23 @@ End
 #tag WindowCode
 #tag EndWindowCode
 
+#tag Events SourceList
+	#tag Event
+		Sub Opening()
+		  SourceList.Renderer = New XUISourceListMacOSRenderer(SourceList)
+		  SourceList.Style = XUISourceListStyle.MacOS
+		  
+		  Var favourites As XUISourceListItem = New XUISourceListItem("Favourites")
+		  favourites.AddChild(New XUISourceListItem("garry"), False)
+		  favourites.AddChild(New XUISourceListItem("Applications"), False)
+		  
+		  favourites.SetExpanded
+		  
+		  SourceList.AddSection(favourites)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="Name"

@@ -69,6 +69,14 @@ Implements XUISourceListRenderer
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54686520686569676874206F66206120726F7720696E2074686520736F75726365206C6973742E
+		Function RowHeight() As Integer
+		  /// The height of a row in the source list.
+		  
+		  Return 30
+		End Function
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520736F75726365206C697374207468617420746869732072656E6465726572206F70657261746573206F6E2E
 		Private mOwner As WeakRef
@@ -113,14 +121,6 @@ Implements XUISourceListRenderer
 			Visible=true
 			Group="Position"
 			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="mOwner"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
