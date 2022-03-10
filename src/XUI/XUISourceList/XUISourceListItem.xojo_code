@@ -12,6 +12,9 @@ Protected Class XUISourceListItem
 		  // Ensure that we are the item's parent.
 		  item.SetParent(Self, False)
 		  
+		  // Our owner is our child's owner too.
+		  item.Owner = Self.Owner
+		  
 		  mChildren.Add(item)
 		  
 		  If Owner <> Nil And shouldRebuild Then Owner.Rebuild
@@ -30,6 +33,9 @@ Protected Class XUISourceListItem
 		  
 		  // Ensure we are the item's parent.
 		  item.SetParent(Self, False)
+		  
+		  // Our owner is our child's owner too.
+		  item.Owner = Self.Owner
 		  
 		  // Try to add it.
 		  #Pragma BreakOnExceptions False
@@ -84,6 +90,17 @@ Protected Class XUISourceListItem
 		  /// Sets this item as collapsed. By default it rebuilds the entire source list.
 		  
 		  mExpanded = False
+		  
+		  If Owner <> Nil And shouldRebuild Then Owner.Rebuild
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 5365747320776865746865722074686973206974656D20697320657870616E6461626C65206F72206E6F742E2042792064656661756C742069742072656275696C64732074686520656E7469726520736F75726365206C6973742E
+		Sub SetExpandable(value As Boolean, shouldRebuild As Boolean = True)
+		  /// Sets whether this item is expandable or not. By default it rebuilds the entire source list.
+		  
+		  mExpandable = value
 		  
 		  If Owner <> Nil And shouldRebuild Then Owner.Rebuild
 		  
@@ -148,6 +165,19 @@ Protected Class XUISourceListItem
 		Depth As Integer
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 5468652068697420626F756E647320666F7220746865206974656D277320646973636C6F73757265207769646765742E204C6F63616C20746F2074686520736F75726365206C69737420636F6E74726F6C2E204D6179206265204E696C2E
+		DisclosureBounds As Rect
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D20697320616C6C6F77656420746F20626520657870616E6465642E
+		#tag Getter
+			Get
+			  Return mExpandable
+			End Get
+		#tag EndGetter
+		Expandable As Boolean
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D20697320657870616E6465642E
 		#tag Getter
 			Get
@@ -155,6 +185,15 @@ Protected Class XUISourceListItem
 			End Get
 		#tag EndGetter
 		Expanded As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 547275652069662074686973206974656D27732069636F6E206973206E6F74204E696C2E
+		#tag Getter
+			Get
+			  Return Icon <> Nil
+			End Get
+		#tag EndGetter
+		HasIcon As Boolean
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 54686973206974656D27732069636F6E2E204D6179206F72206D6179206E6F742062652076697369626C6520646570656E64696E67206F6E207468652072656E646572657220757365642E
@@ -176,6 +215,10 @@ Protected Class XUISourceListItem
 		Private mChildren() As XUISourceListItem
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 547275652069662074686973206974656D20697320616C6C6F77656420746F20626520657870616E6465642E
+		Private mExpandable As Boolean = True
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 547275652069662074686973206974656D20697320657870616E6465642E
 		Private mExpanded As Boolean = False
 	#tag EndProperty
@@ -191,10 +234,14 @@ Protected Class XUISourceListItem
 	#tag ComputedProperty, Flags = &h0, Description = 546865206F776E696E6720736F75726365206C6973742E204D6179206265204E696C20696620746865206974656D2077617320637265617465642070726F6772616D6D61746963616C6C792E
 		#tag Getter
 			Get
-			  If mOwner = Nil Or mOwner.Value = Nil Then
-			    Return Nil
+			  If Self.IsSection Then
+			    If mOwner = Nil Or mOwner.Value = Nil Then
+			      Return Nil
+			    Else
+			      Return XUISourceList(mOwner.Value)
+			    End If
 			  Else
-			    Return XUISourceList(mOwner.Value)
+			    Return Section.Owner
 			  End If
 			  
 			End Get
@@ -210,6 +257,24 @@ Protected Class XUISourceListItem
 			End Set
 		#tag EndSetter
 		Owner As XUISourceList
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686973206974656D27732073656374696F6E206F72204E696C20696620746865206974656D20697320612073656374696F6E2E
+		#tag Getter
+			Get
+			  If IsSection Then Return Nil
+			  
+			  // Find this item's section.
+			  Var tmp As XUISourceListItem = Self
+			  While tmp.GetParent <> Nil
+			    tmp = tmp.GetParent
+			  Wend
+			  
+			  Return tmp
+			  
+			End Get
+		#tag EndGetter
+		Section As XUISourceListItem
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 546865206974656D2773207469746C652E

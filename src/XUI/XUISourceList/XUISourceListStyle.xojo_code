@@ -6,12 +6,21 @@ Protected Class XUISourceListStyle
 		  
 		  Var style As New XUISourceListStyle
 		  
+		  // General
 		  style.BackgroundColor = New ColorGroup(Color.FromString("&h00F6F6F6"), Color.FromString("&h00383838"))
-		  style.ItemColor = New ColorGroup(Color.FromString("&h00474747"), Color.FromString("&h00EAEBEB"))
-		  style.SectionColor = New ColorGroup(Color.FromString("&h00B6B6B6"), Color.FromString("&h00797979"))
 		  style.SelectedColor = New ColorGroup(Color.FromString("&h00DDDDDD"), Color.FromString("&h00515151"))
 		  
+		  // Items.
+		  style.ItemColor = New ColorGroup(Color.FromString("&h00474747"), Color.FromString("&h00EAEBEB"))
+		  style.DisclosureWidgetColor = New ColorGroup(Color.FromString("&h00767877"), Color.FromString("&h00B3B4B4"))
+		  
+		  // Sections.
+		  style.SectionColor = New ColorGroup(Color.FromString("&h00B6B6B6"), Color.FromString("&h00797979"))
+		  style.SectionDisclosureWidgetColor = _
+		  New ColorGroup(Color.FromString("&h00BABABA"), Color.FromString("&h00707070"))
+		  
 		  Return style
+		  
 		End Function
 	#tag EndMethod
 
@@ -20,12 +29,20 @@ Protected Class XUISourceListStyle
 		BackgroundColor As ColorGroup
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220726567756C6172206974656D20286E6F742073656374696F6E2920646973636C6F7375726520776964676574732E
+		DisclosureWidgetColor As ColorGroup
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7220746F2075736520666F72206974656D207469746C6520746578742E
 		ItemColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F722073656374696F6E207469746C65732E
 		SectionColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F722073656374696F6E20646973636C6F7375726520776964676574732E
+		SectionDisclosureWidgetColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F662073656C6563746564206974656D732E
@@ -79,7 +96,7 @@ Protected Class XUISourceListStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -87,7 +104,23 @@ Protected Class XUISourceListStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ItemColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SelectedColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

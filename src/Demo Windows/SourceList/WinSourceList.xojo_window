@@ -5,7 +5,7 @@ Begin DesktopWindow WinSourceList
    Composite       =   False
    DefaultLocation =   2
    FullScreen      =   False
-   HasBackgroundColor=   True
+   HasBackgroundColor=   False
    HasCloseButton  =   True
    HasFullScreenButton=   False
    HasMaximizeButton=   True
@@ -24,7 +24,7 @@ Begin DesktopWindow WinSourceList
    Type            =   0
    Visible         =   False
    Width           =   834
-   Begin XUISourceList SourceList
+   Begin XUISourceList FinderSourceList
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   False
@@ -35,6 +35,7 @@ Begin DesktopWindow WinSourceList
       Enabled         =   True
       HasBackgroundColor=   False
       Height          =   502
+      Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -51,28 +52,154 @@ Begin DesktopWindow WinSourceList
       Top             =   0
       Transparent     =   True
       Visible         =   True
-      Width           =   280
+      Width           =   230
+   End
+   Begin XUISourceList MailSourceList
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   True
+      Backdrop        =   0
+      BackgroundColor =   &cFFFFFF
+      Composited      =   False
+      Enabled         =   True
+      HasBackgroundColor=   False
+      Height          =   502
+      Hierarchical    =   True
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   604
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Transparent     =   True
+      Visible         =   True
+      Width           =   230
+   End
+   Begin DesktopLabel Info
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   242
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Untitled"
+      TextAlignment   =   2
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   460
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   350
    End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
-#tag EndWindowCode
-
-#tag Events SourceList
 	#tag Event
 		Sub Opening()
-		  SourceList.Renderer = New XUISourceListMacOSRenderer(SourceList)
-		  SourceList.Style = XUISourceListStyle.MacOS
+		  InitialiseFinderSourceList
+		  InitialiseMailSourceList
+		End Sub
+	#tag EndEvent
+
+
+	#tag Method, Flags = &h21, Description = 496E697469616C69736573206F75722046696E6465722D7374796C6520736F75726365206C6973742E
+		Private Sub InitialiseFinderSourceList()
+		  /// Initialises our Finder-style source list.
 		  
+		  FinderSourceList.Renderer = New XUISourceListMacOSRenderer(FinderSourceList)
+		  FinderSourceList.Style = XUISourceListStyle.MacOS
+		  
+		  // Favourites section.
 		  Var favourites As XUISourceListItem = New XUISourceListItem("Favourites")
-		  favourites.AddChild(New XUISourceListItem("garry"), False)
-		  favourites.AddChild(New XUISourceListItem("Applications"), False)
+		  favourites.AddChild(New XUISourceListItem("garry", IconSourceListHome), False)
+		  favourites.AddChild(New XUISourceListItem("Recents", IconSourceListRecent), False)
+		  favourites.SetExpanded(False)
+		  FinderSourceList.AddSection(favourites)
 		  
-		  favourites.SetExpanded
+		  // iCloud section.
+		  Var iCloud As XUISourceListItem = New XUISourceListItem("iCloud")
+		  iCloud.AddChild(New XUISourceListItem("iCloud Drive", IconSourceListICloud), False)
+		  iCloud.AddChild(New XUISourceListItem("Documents", IconSourceListDocuments), False)
+		  iCloud.AddChild(New XUISourceListItem("Desktop", IconSourceListDesktop), False)
+		  iCloud.SetCollapsed(False)
+		  FinderSourceList.AddSection(iCloud)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 496E697469616C69736573206F7572204D61696C2E6170702D7374796C6520736F75726365206C6973742E
+		Private Sub InitialiseMailSourceList()
+		  /// Initialises our Mail.app-style source list.
 		  
-		  SourceList.AddSection(favourites)
+		  MailSourceList.Renderer = New XUISourceListMacOSRenderer(MailSourceList)
+		  MailSourceList.Style = XUISourceListStyle.MacOS
 		  
+		  // ==================
+		  // FAVOURITES SECTION
+		  // ==================
+		  Var favourites As XUISourceListItem = New XUISourceListItem("Favourites")
+		  
+		  // Inbox.
+		  favourites.AddChild(New XUISourceListItem("Inbox", IconSourceListInbox), False)
+		  
+		  // VIPs.
+		  Var vips As New XUISourceListItem("VIPs", IconSourceListVIPs)
+		  vips.AddChild(New XUISourceListItem("Peter Parker", IconSourceListVIPs), False)
+		  vips.AddChild(New XUISourceListItem("Tony Stark", IconSourceListVIPs), False)
+		  favourites.AddChild(vips, False)
+		  vips.SetExpanded(False)
+		  
+		  // Flagged.
+		  Var flagged As New XUISourceListItem("Flagged", IconSourceListFlagged)
+		  flagged.AddChild(New XUISourceListItem("Orange", IconSourceListFlagOrange), False)
+		  flagged.AddChild(New XUISourceListItem("Red", IconSourceListFlagRed), False)
+		  flagged.AddChild(New XUISourceListItem("Purple", IconSourceListFlagPurple), False)
+		  favourites.AddChild(flagged, False)
+		  flagged.SetExpanded(False)
+		  
+		  // Expand the favourites section.
+		  favourites.SetExpanded(False)
+		  
+		  // Add the favourites section to the source list.
+		  MailSourceList.AddSection(favourites)
+		  
+		End Sub
+	#tag EndMethod
+
+
+#tag EndWindowCode
+
+#tag Events FinderSourceList
+#tag EndEvents
+#tag Events MailSourceList
+	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320636C69636B65642E205820616E64205920617265206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2028302C302069732074686520746F70206C65667420636F726E6572206F662074686520726F77292E
+		Sub ItemClicked(item As XUISourceListItem, x As Integer, y As Integer)
+		  Info.Text = "X: " + x.ToString + ", Y: " + y.ToString
 		End Sub
 	#tag EndEvent
 #tag EndEvents

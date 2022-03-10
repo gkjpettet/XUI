@@ -128,14 +128,14 @@ End
 		  
 		  SourceList.AddRow("")
 		  
-		  If item.Expanded Then ExpandRow(SourceList.LastAddedRowIndex)
+		  If item.Expanded Then ExpandRow_(SourceList.LastAddedRowIndex)
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 457870616E64732060726F776020696E20746865206C697374626F782E
-		Private Sub ExpandRow(row As Integer)
-		  /// Expands `row` in the listbox.
+	#tag Method, Flags = &h21, Description = 496E7465726E616C206D6574686F64732E2041637475616C6C7920657870616E64732060726F776020696E20746865206C697374626F782E2043616C6C6564206279206052656275696C6428296020616E642060416464546F536F757263654C6973742829602E
+		Private Sub ExpandRow_(row As Integer)
+		  /// Internal methods. Actually expands `row` in the listbox. Called by `Rebuild()` and `AddToSourceList()`.
 		  
 		  // Get the item at the requested row.
 		  Var item As XUISourceListItem = ItemAtRowIndex(row)
@@ -216,7 +216,6 @@ End
 		  // Check the parent's children.
 		  Var childLimit As Integer = parent.ChildCount - 1
 		  For i As Integer = 0 To childLimit
-		    current = current + 1
 		    ItemAtRowIndex_(parent.ChildAtIndex(i), current, target, result)
 		    If current = target Then Return
 		  Next i
@@ -238,7 +237,7 @@ End
 		    
 		    SourceList.AddRow("")
 		    
-		    If section.Expanded Then ExpandRow(SourceList.LastAddedRowIndex)
+		    If section.Expanded Then ExpandRow_(SourceList.LastAddedRowIndex)
 		    
 		  Next section
 		End Sub
@@ -279,10 +278,34 @@ End
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0, Description = 54686520757365722068617320636F6C6C617073656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
+		Event CollapsedItem(item As XUISourceListItem)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 54686520757365722068617320657870616E64656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
+		Event ExpandedItem(item As XUISourceListItem)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320636C69636B65642E205820616E64205920617265206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2028302C302069732074686520746F70206C65667420636F726E6572206F662074686520726F77292E
+		Event ItemClicked(item As XUISourceListItem, x As Integer, y As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865206D6F75736520686173206D6F7665642077697468696E2074686520736F75726365206C6973742E205820616E64205920617265206C6F63616C20746F2074686520736F75726365206C69737420636F6E74726F6C2E
+		Event MouseDidMove(x As Integer, y As Integer)
+	#tag EndHook
+
 	#tag Hook, Flags = &h0
 		Event Opening()
 	#tag EndHook
 
+
+	#tag Property, Flags = &h0, Description = 49662046616C7365207468656E206F6E6C792073656374696F6E732064726177207468656972206368696C6472656E2E204974656D7320646F206E6F742E205468697320616C6C6F777320666F7220737562746C652076697375616C20646966666572656E636573206C696B65207365656E206265747765656E20746865206D61634F532046696E64657220616E64204D61696C20617070732E
+		Hierarchical As Boolean = True
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520726F7720756E64657220746865206D6F75736520637572736F722E205570646174656420696E2074686520604D6F7573654D6F766560206576656E742E2057696C6C20626520602D3160206966207468657265206973206E6F2076616C696420726F7720756E64657220746865206D6F7573652E
+		Private mMouseMoveRow As Integer = -1
+	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5468652072656E646572657220746F2075736520746F20647261772074686520726F777320696E2074686520736F75726365206C6973742E
 		Private mRenderer As XUISourceListRenderer
@@ -340,22 +363,74 @@ End
 		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
 		  If Renderer = Nil Then Return True
 		  
-		  // If the row does not exist, just render the background.
+		  // Render the background.
+		  Renderer.RenderBackground(g, row)
+		  
+		  // If the row does not exist then we're done.
 		  If row < 0 Or row > Me.LastRowIndex Or (row = 0 And Me.RowCount = 0) Then
-		    Renderer.RenderBackground(g, row)
 		    Return True
 		  End If
 		  
+		  'if row = 3 then Break
 		  Var item As XUISourceListItem = ItemAtRowIndex(row)
 		  If item = Nil Then
 		    // Shouldn't happen...
 		    Break
 		  Else
-		    Renderer.RenderItem(item, g)
+		    Renderer.RenderItem(item, g, mMouseMoveRow = row, row = Me.SelectedRowIndex)
 		  End If
 		  
 		  Return True
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseMove(x As Integer, y As Integer)
+		  // Compute and store the row under the mouse.
+		  
+		  mMouseMoveRow = Me.RowFromXY(x, y)
+		  
+		  SourceList.Refresh
+		  
+		  RaiseEvent MouseDidMove(x, y)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CellPressed(row As Integer, column As Integer, x As Integer, y As Integer) As Boolean
+		  // Get the item clicked.
+		  Var item As XUISourceListItem = ItemAtRowIndex(row)
+		  If item = Nil Then Return True
+		  
+		  // Did we click the disclosure widget?
+		  If item.Expandable And item.DisclosureBounds <> Nil And item.DisclosureBounds.Contains(x, y) Then
+		    If item.Expanded Then
+		      item.SetCollapsed(True)
+		      CollapsedItem(item)
+		    Else
+		      item.SetExpanded(True)
+		      ExpandedItem(item)
+		    End If
+		    ItemClicked(item, x, y)
+		    Return True
+		  End If
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  mMouseMoveRow = -1
+		  Me.Refresh
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Me.AllowExpandableRows = False
+		  Me.AllowFocusRing = False
+		  Me.AllowRowDragging = True
+		  Me.AllowRowReordering = True
+		  Me.RowSelectionType = DesktopListBox.RowSelectionTypes.Single
+		  
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
@@ -397,14 +472,6 @@ End
 		Group="Size"
 		InitialValue="300"
 		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="InitialParent"
-		Visible=false
-		Group="Position"
-		InitialValue=""
-		Type="String"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
@@ -458,14 +525,6 @@ End
 	#tag ViewProperty
 		Name="TabIndex"
 		Visible=true
-		Group="Position"
-		InitialValue="0"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="TabPanelIndex"
-		Visible=false
 		Group="Position"
 		InitialValue="0"
 		Type="Integer"
@@ -568,11 +627,35 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="Hierarchical"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Composited"
 		Visible=true
 		Group="Windows Behavior"
 		InitialValue="False"
 		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="InitialParent"
+		Visible=false
+		Group="Position"
+		InitialValue=""
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TabPanelIndex"
+		Visible=false
+		Group="Position"
+		InitialValue="0"
+		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
