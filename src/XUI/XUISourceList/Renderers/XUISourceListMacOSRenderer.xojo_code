@@ -12,6 +12,18 @@ Implements XUISourceListRenderer
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520696E64656E7420776964746820746F207573652E20446570656E6473206F6E2077686574686572206F72206E6F742074686520736F75726365206C6973742069732068696572617263686963616C2E
+		Private Function IndentWidth() As Integer
+		  /// Returns the indent width to use. Depends on whether or not the source list is hierarchical.
+		  
+		  If Owner.Hierarchical Then
+		    Return INDENT_WIDTH_HIERARCHICAL
+		  Else
+		    Return INDENT_WIDTH_NON_HIERARCHICAL
+		  End If
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 54686520736F75726365206C697374207468617420746869732072656E6465726572206F70657261746573206F6E2E
 		Function Owner() As XUISourceList
 		  /// The source list that this renderer operates on.
@@ -66,7 +78,7 @@ Implements XUISourceListRenderer
 		  End If
 		  
 		  // Since item's can be indented, compute the left X coordinate that its content starts at.
-		  Var disclosureX As Double = (Max(item.Depth - 1, 0) * INDENT_WIDTH) + CONTENT_HORIZ_PADDING + _
+		  Var disclosureX As Double = (Max(item.Depth - 1, 0) * IndentWidth) + CONTENT_HORIZ_PADDING + _
 		  DISCLOSURE_LEFT_PADDING
 		  
 		  // =================
@@ -102,7 +114,7 @@ Implements XUISourceListRenderer
 		    iconX = disclosureX + DISCLOSURE_MAX_WIDTH + ICON_LEFT_PADDING
 		  Else
 		    item.DisclosureBounds = Nil
-		    iconX = (item.Depth * INDENT_WIDTH) + CONTENT_HORIZ_PADDING
+		    iconX = (item.Depth * IndentWidth) + CONTENT_HORIZ_PADDING
 		  End If
 		  
 		  // =================
@@ -216,7 +228,10 @@ Implements XUISourceListRenderer
 	#tag Constant, Name = ICON_LEFT_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206C6566742073696465206F6620616E206974656D27732069636F6E2066726F6D206120646973636C6F73757265207769646765742E
 	#tag EndConstant
 
-	#tag Constant, Name = INDENT_WIDTH, Type = Double, Dynamic = False, Default = \"8", Scope = Private, Description = 546865206E756D626572206F6620706978656C73206F6620696E64656E746174696F6E2065616368206C6576656C206F66206465707468206164647320746F207468652058206F66667365742E
+	#tag Constant, Name = INDENT_WIDTH_HIERARCHICAL, Type = Double, Dynamic = False, Default = \"14", Scope = Private, Description = 546865206E756D626572206F6620706978656C73206F6620696E64656E746174696F6E2065616368206C6576656C206F66206465707468206164647320746F207468652058206F66667365742E
+	#tag EndConstant
+
+	#tag Constant, Name = INDENT_WIDTH_NON_HIERARCHICAL, Type = Double, Dynamic = False, Default = \"8", Scope = Private, Description = 546865206E756D626572206F6620706978656C73206F6620696E64656E746174696F6E2065616368206C6576656C206F66206465707468206164647320746F207468652058206F66667365742E
 	#tag EndConstant
 
 	#tag Constant, Name = SECTION_LEFT_PADDING, Type = Double, Dynamic = False, Default = \"3", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206C656674206F66207468652073656374696F6E207469746C6520696E2066726F6D2074686520636F6E74656E7420617265612E

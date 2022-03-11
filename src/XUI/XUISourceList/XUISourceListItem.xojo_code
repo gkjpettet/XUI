@@ -64,9 +64,10 @@ Protected Class XUISourceListItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(title As String, icon As Picture = Nil, data As Variant = Nil)
+		Sub Constructor(title As String, icon As Picture = Nil, value As Integer = 0, data As Variant = Nil)
 		  Self.Title = title
 		  Self.Icon = icon
+		  Self.Value = value
 		  Self.Data = data
 		  
 		End Sub
@@ -134,6 +135,21 @@ Protected Class XUISourceListItem
 		End Sub
 	#tag EndMethod
 
+
+	#tag ComputedProperty, Flags = &h0, Description = 5468652073756D206F662074686973206974656D27732056616C756520616E6420616C6C206F6620697473206368696C6472656E27732056616C75652070726F706572746965732E
+		#tag Getter
+			Get
+			  Var total As Integer = Value
+			  For Each child As XUISourceListItem In mChildren
+			    total = total + child.BadgeValue
+			  Next child
+			  
+			  Return total
+			  
+			End Get
+		#tag EndGetter
+		BadgeValue As Integer
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F66206368696C6472656E2074686973206974656D206861732E
 		#tag Getter
@@ -281,6 +297,10 @@ Protected Class XUISourceListItem
 		Title As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 4F7074696F6E616C20696E74656765722076616C7565206173736F63696174656420776974682074686973206974656D2E204E6F746520746861742060426164676556616C756560206973207468652073756D206F662074686973206974656D2773206056616C75656020706C757320746865206056616C756560206F6620616C6C206368696C6472656E2E
+		Value As Integer = 0
+	#tag EndProperty
+
 
 	#tag ViewBehavior
 		#tag ViewProperty
@@ -361,6 +381,30 @@ Protected Class XUISourceListItem
 			Group="Behavior"
 			InitialValue=""
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Expandable"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Expanded"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasIcon"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

@@ -84,38 +84,6 @@ Begin DesktopWindow WinSourceList
       Visible         =   True
       Width           =   230
    End
-   Begin DesktopLabel Info
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   242
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Untitled"
-      TextAlignment   =   2
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   460
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   350
-   End
 End
 #tag EndDesktopWindow
 
@@ -136,19 +104,36 @@ End
 		  FinderSourceList.Style = XUISourceListStyle.MacOS
 		  
 		  // Favourites section.
-		  Var favourites As XUISourceListItem = New XUISourceListItem("Favourites")
+		  Var favourites As New XUISourceListItem("Favourites")
 		  favourites.AddChild(New XUISourceListItem("garry", IconSourceListHome), False)
 		  favourites.AddChild(New XUISourceListItem("Recents", IconSourceListRecent), False)
 		  favourites.SetExpanded(False)
 		  FinderSourceList.AddSection(favourites)
 		  
 		  // iCloud section.
-		  Var iCloud As XUISourceListItem = New XUISourceListItem("iCloud")
+		  Var iCloud As New XUISourceListItem("iCloud")
 		  iCloud.AddChild(New XUISourceListItem("iCloud Drive", IconSourceListICloud), False)
 		  iCloud.AddChild(New XUISourceListItem("Documents", IconSourceListDocuments), False)
 		  iCloud.AddChild(New XUISourceListItem("Desktop", IconSourceListDesktop), False)
-		  iCloud.SetCollapsed(False)
+		  iCloud.AddChild(New XUISourceListItem("Shared", IconSourceListShared), False)
+		  iCloud.SetExpanded(False)
 		  FinderSourceList.AddSection(iCloud)
+		  
+		  // Locations section.
+		  Var locations As New XUISourceListItem("Locations")
+		  locations.AddChild(New XUISourceListItem("Synology", IconSourceListComputer), False)
+		  locations.AddChild(New XUISourceListItem("Network", IconSourceListNetwork), False)
+		  locations.SetExpanded(False)
+		  FinderSourceList.AddSection(locations)
+		  
+		  // Tags section.
+		  Var tags As New XUISourceListItem("Tags")
+		  tags.AddChild(New XUISourceListItem("Red", IconSourceListTagRed), False)
+		  tags.AddChild(New XUISourceListItem("Orange", IconSourceListTagOrange), False)
+		  tags.AddChild(New XUISourceListItem("All Tags...", IconSourceListAllTags), False)
+		  tags.SetExpanded(False)
+		  FinderSourceList.AddSection(tags)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -159,10 +144,10 @@ End
 		  MailSourceList.Renderer = New XUISourceListMacOSRenderer(MailSourceList)
 		  MailSourceList.Style = XUISourceListStyle.MacOS
 		  
-		  // ==================
+		  // =======================
 		  // FAVOURITES SECTION
-		  // ==================
-		  Var favourites As XUISourceListItem = New XUISourceListItem("Favourites")
+		  // =======================
+		  Var favourites As New XUISourceListItem("Favourites")
 		  
 		  // Inbox.
 		  favourites.AddChild(New XUISourceListItem("Inbox", IconSourceListInbox), False)
@@ -176,11 +161,18 @@ End
 		  
 		  // Flagged.
 		  Var flagged As New XUISourceListItem("Flagged", IconSourceListFlagged)
-		  flagged.AddChild(New XUISourceListItem("Orange", IconSourceListFlagOrange), False)
-		  flagged.AddChild(New XUISourceListItem("Red", IconSourceListFlagRed), False)
-		  flagged.AddChild(New XUISourceListItem("Purple", IconSourceListFlagPurple), False)
+		  flagged.AddChild(New XUISourceListItem("Orange", IconSourceListFlagOrange, 1), False)
+		  flagged.AddChild(New XUISourceListItem("Red", IconSourceListFlagRed, 4), False)
+		  flagged.AddChild(New XUISourceListItem("Purple", IconSourceListFlagPurple, 9), False)
 		  favourites.AddChild(flagged, False)
 		  flagged.SetExpanded(False)
+		  
+		  // Drafts.
+		  Var drafts As New XUISourceListItem("Drafts", IconSourceListDocuments, 1)
+		  favourites.AddChild(drafts, False)
+		  
+		  // Sent.
+		  favourites.AddChild(New XUISourceListItem("Sent", IconSourceListSent), False)
 		  
 		  // Expand the favourites section.
 		  favourites.SetExpanded(False)
@@ -188,21 +180,20 @@ End
 		  // Add the favourites section to the source list.
 		  MailSourceList.AddSection(favourites)
 		  
+		  // =======================
+		  // SMART MAILBOXES SECTION
+		  // =======================
+		  Var smart As New XUISourceListItem("Smart Mailboxes")
+		  smart.AddChild(New XUISourceListItem("Today", IconSourceListSmart), False)
+		  smart.SetExpanded(False)
+		  MailSourceList.AddSection(smart)
+		  
 		End Sub
 	#tag EndMethod
 
 
 #tag EndWindowCode
 
-#tag Events FinderSourceList
-#tag EndEvents
-#tag Events MailSourceList
-	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320636C69636B65642E205820616E64205920617265206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2028302C302069732074686520746F70206C65667420636F726E6572206F662074686520726F77292E
-		Sub ItemClicked(item As XUISourceListItem, x As Integer, y As Integer)
-		  Info.Text = "X: " + x.ToString + ", Y: " + y.ToString
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="Name"
