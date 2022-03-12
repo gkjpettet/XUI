@@ -12,6 +12,24 @@ Implements XUISourceListRenderer
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 44726177732061206261646765206174206078602C20607960206F662077696474682060776020616E6420686569676874206068602E
+		Private Sub DrawBadge(g As Graphics, badgeValue As Integer, x As Double, y As Double, w As Double, h As Double)
+		  /// Draws a badge at `x`, `y` of width `w` and height `h`.
+		  ///
+		  /// Assumes the font name and size have been previously set.
+		  
+		  // Rounded rect.
+		  g.DrawingColor = Owner.Style.BadgeColor
+		  g.FillRoundRectangle(x, y, w, h, 14, 14)
+		  
+		  // Value.
+		  g.DrawingColor = Owner.Style.BadgeValueColor
+		  Var baseline As Double = y + (g.FontAscent + (h - g.TextHeight)/2) - 1 // -1 is a fudge
+		  g.DrawText(badgeValue.ToString, x + (w / 2) - (g.TextWidth(badgeValue.ToString) / 2), baseline)
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52657475726E732074686520696E64656E7420776964746820746F207573652E20446570656E6473206F6E2077686574686572206F72206E6F742074686520736F75726365206C6973742069732068696572617263686963616C2E
 		Private Function IndentWidth() As Integer
 		  /// Returns the indent width to use. Depends on whether or not the source list is hierarchical.
@@ -58,8 +76,6 @@ Implements XUISourceListRenderer
 		  /// Renders `item` to the passed graphics context. The context is the entire row the item occupies.
 		  ///
 		  /// Part of the `XUISourceListRenderer` interface.
-		  
-		  #Pragma Warning "TODO"
 		  
 		  // Render sections differently.
 		  If item.IsSection Then
@@ -139,6 +155,15 @@ Implements XUISourceListRenderer
 		  g.DrawingColor = style.ItemColor
 		  g.DrawText(item.Title, titleX, titleBaseline)
 		  
+		  // =================
+		  // WIDGET
+		  // =================
+		  #Pragma Warning "TODO"
+		  
+		  // =================
+		  // BADGE VALUE
+		  // =================
+		  #Pragma Warning "TODO"
 		End Sub
 	#tag EndMethod
 
@@ -245,7 +270,31 @@ Implements XUISourceListRenderer
 		  // =================
 		  // BADGE VALUE
 		  // =================
-		  #Pragma Warning "TODO"
+		  Var badgeValue As Integer = section.BadgeValue // Cached as it's expensive.
+		  If Not section.Expanded And section.ShowBadge And badgeValue > 0 Then
+		    // Get the width of the badge value.
+		    Var badgeW As Double = g.TextWidth(badgeValue.ToString) + (2 * BADGE_HORIZ_PADDING)
+		    Var badgeH As Double = g.TextHeight + (2 * BADGE_VERT_PADDING)
+		    Var badgeY As Double = g.Height - SECTION_BADGE_OFFSET_FROM_BOTTOM - badgeH
+		    Var badgeX As Double // Varies depending on the presence of other widgets.
+		    If hoveringOverRow Then
+		      // There should be a disclosure widget +/- a widget.
+		      If section.WidgetBounds <> Nil Then
+		        // We draw the badge immediately to the left of the widget.
+		        badgeX = section.WidgetBounds.Left - SECTION_WIDGET_LEFT_PADDING - badgeW
+		      ElseIf section.DisclosureBounds <> Nil Then
+		        // Draw the badge immediately to the left of the disclosure widget.
+		        badgeX = section.DisclosureBounds.Left - SECTION_WIDGET_LEFT_PADDING - badgeW
+		      Else
+		        // No other widgets. 
+		        badgeX = g.Width - CONTENT_HORIZ_PADDING - badgeW
+		      End If
+		    Else
+		      // There are no other widgets to the right of the title, only the badge.
+		      badgeX = g.Width - CONTENT_HORIZ_PADDING - badgeW
+		    End If
+		    DrawBadge(g, badgeValue, badgeX, badgeY, badgeW, badgeH)
+		  End If
 		  
 		End Sub
 	#tag EndMethod
@@ -263,6 +312,12 @@ Implements XUISourceListRenderer
 		Private mOwner As WeakRef
 	#tag EndProperty
 
+
+	#tag Constant, Name = BADGE_HORIZ_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865207468652062616467652076616C756520696E7465726E616C6C79206C65667420616E642072696768742066726F6D2074686520737572726F756E64696E6720726F756E64656420726563742E
+	#tag EndConstant
+
+	#tag Constant, Name = BADGE_VERT_PADDING, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865207468652062616467652076616C756520696E7465726E616C6C792061626F766520616E642062656C6F772066726F6D2074686520737572726F756E64696E6720726F756E64656420726563742E
+	#tag EndConstant
 
 	#tag Constant, Name = CONTENT_HORIZ_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061642074686520636F6E74656E74206F66206120726F772066726F6D20697473206C65667420616E642072696768742065646765732E20
 	#tag EndConstant
@@ -306,10 +361,16 @@ Implements XUISourceListRenderer
 	#tag Constant, Name = RIGHT_DISCLOSURE_WIDTH, Type = Double, Dynamic = False, Default = \"6", Scope = Private, Description = 54686520776964746820696E20706978656C73206F6620746865207269676874776172647320666163696E6720646973636C6F73757265207769646765742E
 	#tag EndConstant
 
+	#tag Constant, Name = SECTION_BADGE_OFFSET_FROM_BOTTOM, Type = Double, Dynamic = False, Default = \"4", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F206F66667365742074686520626F74746F6D206261646765732066726F6D2074686520626F74746F6D2065646765206F662073656374696F6E20726F77732E
+	#tag EndConstant
+
 	#tag Constant, Name = SECTION_LEFT_PADDING, Type = Double, Dynamic = False, Default = \"3", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206C656674206F66207468652073656374696F6E207469746C6520696E2066726F6D2074686520636F6E74656E7420617265612E
 	#tag EndConstant
 
 	#tag Constant, Name = SECTION_WIDGET_DIAMETER, Type = Double, Dynamic = False, Default = \"13", Scope = Private, Description = 546865206469616D65746572206F66207468652073656374696F6E2077696467657420636972636C652E
+	#tag EndConstant
+
+	#tag Constant, Name = SECTION_WIDGET_LEFT_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206C6566742065646765206F66207468652062616467652E
 	#tag EndConstant
 
 	#tag Constant, Name = SECTION_WIDGET_OFFSET_FROM_BOTTOM, Type = Double, Dynamic = False, Default = \"8", Scope = Private, Description = 546865206E756D626572206F6620706978656C732074686520626F74746F6D206F66207468652073656374696F6E20776964676574206973206F66667365742066726F6D2074686520626F74746F6D2065646765206F662074686520726F772E

@@ -19,8 +19,15 @@ Protected Class XUISourceListStyle
 		  style.SectionDisclosureWidgetColor = _
 		  New ColorGroup(Color.FromString("&h00BABABA"), Color.FromString("&h00707070"))
 		  
+		  // Widget.
 		  style.WidgetColor = _
 		  New ColorGroup(Color.FromString("&h00BABABA"), Color.FromString("&h00707070"))
+		  
+		  // Badges.
+		  style.BadgeColor = _
+		  New ColorGroup(Color.FromString("&h00E9E9E9"), Color.FromString("&h004C4C4C"))
+		  style.BadgeValueColor = _
+		  New ColorGroup(Color.FromString("&h007D7D7D"), Color.FromString("&h00ADADAD"))
 		  
 		  Return style
 		  
@@ -30,6 +37,14 @@ Protected Class XUISourceListStyle
 
 	#tag Property, Flags = &h0, Description = 54686520736F75726365206C697374206261636B67726F756E6420636F6C6F75722E
 		BackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206261646765206261636B67726F756E6420636F6C6F722E
+		BadgeColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F662074686520626164676527732076616C75652E
+		BadgeValueColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220726567756C6172206974656D20286E6F742073656374696F6E2920646973636C6F7375726520776964676574732E
