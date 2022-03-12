@@ -23,7 +23,7 @@ Begin DesktopWindow WinSourceList
    Title           =   "SourceList Demo"
    Type            =   0
    Visible         =   False
-   Width           =   834
+   Width           =   960
    Begin XUISourceList FinderSourceList
       AllowAutoDeactivate=   True
       AllowFocus      =   False
@@ -68,7 +68,7 @@ Begin DesktopWindow WinSourceList
       Hierarchical    =   True
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   604
+      Left            =   730
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -83,6 +83,38 @@ Begin DesktopWindow WinSourceList
       Transparent     =   True
       Visible         =   True
       Width           =   230
+   End
+   Begin DesktopLabel Info
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   40
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   242
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Events will appear here."
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   449
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   476
    End
 End
 #tag EndDesktopWindow
@@ -177,6 +209,9 @@ End
 		  // Expand the favourites section.
 		  favourites.SetExpanded(False)
 		  
+		  // The favourites section should have a widget.
+		  favourites.HasWidget = True
+		  
 		  // Add the favourites section to the source list.
 		  MailSourceList.AddSection(favourites)
 		  
@@ -186,6 +221,11 @@ End
 		  Var smart As New XUISourceListItem("Smart Mailboxes")
 		  smart.AddChild(New XUISourceListItem("Today", IconSourceListSmart), False)
 		  smart.SetExpanded(False)
+		  
+		  // The smart mailboxes section should have a widget.
+		  smart.HasWidget = True
+		  
+		  // Add the smart mailboxes section to the source list.
 		  MailSourceList.AddSection(smart)
 		  
 		End Sub
@@ -194,6 +234,56 @@ End
 
 #tag EndWindowCode
 
+#tag Events FinderSourceList
+	#tag Event , Description = 54686520757365722068617320636C69636B6564206F6E20616E206974656D2773207769646765742E
+		Sub ClickedItemWidget(item As XUISourceListItem)
+		  Info.Text = "Clicked """ + item.Title + """ widget"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 54686520757365722068617320636F6C6C617073656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
+		Sub CollapsedItem(item As XUISourceListItem)
+		  Info.Text = "Collapsed """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 54686520757365722068617320657870616E64656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
+		Sub ExpandedItem(item As XUISourceListItem)
+		  Info.Text = "Expanded """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320636C69636B65642E205820616E64205920617265206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2028302C302069732074686520746F70206C65667420636F726E6572206F662074686520726F77292E
+		Sub ItemClicked(item As XUISourceListItem, x As Integer, y As Integer)
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  Info.Text = "Clicked """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MailSourceList
+	#tag Event , Description = 54686520757365722068617320636C69636B6564206F6E20616E206974656D2773207769646765742E
+		Sub ClickedItemWidget(item As XUISourceListItem)
+		  Info.Text = "Clicked """ + item.Title + """ widget"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 54686520757365722068617320636F6C6C617073656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
+		Sub CollapsedItem(item As XUISourceListItem)
+		  Info.Text = "Collapsed """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 54686520757365722068617320657870616E64656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
+		Sub ExpandedItem(item As XUISourceListItem)
+		  Info.Text = "Expanded """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320636C69636B65642E205820616E64205920617265206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2028302C302069732074686520746F70206C65667420636F726E6572206F662074686520726F77292E
+		Sub ItemClicked(item As XUISourceListItem, x As Integer, y As Integer)
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  Info.Text = "Clicked """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="Name"

@@ -19,6 +19,9 @@ Protected Class XUISourceListStyle
 		  style.SectionDisclosureWidgetColor = _
 		  New ColorGroup(Color.FromString("&h00BABABA"), Color.FromString("&h00707070"))
 		  
+		  style.WidgetColor = _
+		  New ColorGroup(Color.FromString("&h00BABABA"), Color.FromString("&h00707070"))
+		  
 		  Return style
 		  
 		End Function
@@ -47,6 +50,10 @@ Protected Class XUISourceListStyle
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F662073656C6563746564206974656D732E
 		SelectedColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7220746F2075736520666F7220647261776E206974656D20776964676574732E2054686973206973206F7074696F6E616C6C79207573656420627920736F6D652072656E6465726572732E
+		WidgetColor As ColorGroup
 	#tag EndProperty
 
 
@@ -117,6 +124,22 @@ Protected Class XUISourceListStyle
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SelectedColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DisclosureWidgetColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SectionDisclosureWidgetColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

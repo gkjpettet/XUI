@@ -278,6 +278,10 @@ End
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0, Description = 54686520757365722068617320636C69636B6564206F6E20616E206974656D2773207769646765742E
+		Event ClickedItemWidget(item As XUISourceListItem)
+	#tag EndHook
+
 	#tag Hook, Flags = &h0, Description = 54686520757365722068617320636F6C6C617073656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
 		Event CollapsedItem(item As XUISourceListItem)
 	#tag EndHook
@@ -361,6 +365,8 @@ End
 #tag Events SourceList
 	#tag Event
 		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
+		  #Pragma Unused column
+		  
 		  If Renderer = Nil Then Return True
 		  
 		  // Render the background.
@@ -371,10 +377,10 @@ End
 		    Return True
 		  End If
 		  
-		  'if row = 3 then Break
 		  Var item As XUISourceListItem = ItemAtRowIndex(row)
 		  If item = Nil Then
 		    // Shouldn't happen...
+		    #Pragma Warning "TODO: Remove this break when tested"
 		    Break
 		  Else
 		    Renderer.RenderItem(item, g, mMouseMoveRow = row, row = Me.SelectedRowIndex)
@@ -396,6 +402,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Function CellPressed(row As Integer, column As Integer, x As Integer, y As Integer) As Boolean
+		  #Pragma Unused column
+		  
 		  // Get the item clicked.
 		  Var item As XUISourceListItem = ItemAtRowIndex(row)
 		  If item = Nil Then Return True
@@ -404,14 +412,23 @@ End
 		  If item.Expandable And item.DisclosureBounds <> Nil And item.DisclosureBounds.Contains(x, y) Then
 		    If item.Expanded Then
 		      item.SetCollapsed(True)
-		      CollapsedItem(item)
+		      RaiseEvent CollapsedItem(item)
+		      Return True
 		    Else
 		      item.SetExpanded(True)
-		      ExpandedItem(item)
+		      RaiseEvent ExpandedItem(item)
+		      Return True
 		    End If
-		    ItemClicked(item, x, y)
+		  End If
+		  
+		  // Did we click the widget?
+		  If item.HasWidget And item.WidgetBounds <> Nil And item.WidgetBounds.Contains(x, y) Then
+		    RaiseEvent ClickedItemWidget(item)
 		    Return True
 		  End If
+		  
+		  RaiseEvent ItemClicked(item, x, y)
+		  Return True
 		  
 		End Function
 	#tag EndEvent
