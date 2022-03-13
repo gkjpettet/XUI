@@ -156,14 +156,22 @@ Implements XUISourceListRenderer
 		  g.DrawText(item.Title, titleX, titleBaseline)
 		  
 		  // =================
+		  // BADGE VALUE
+		  // =================
+		  Var badgeValue As Integer = item.BadgeValue // Cached as it's expensive.
+		  If badgeValue > 0 And Not item.Expanded Then
+		    Var badgeW As Double = Max(g.TextWidth(badgeValue.ToString) + (2 * BADGE_HORIZ_PADDING), BADGE_MIN_WIDTH)
+		    Var badgeH As Double = g.TextHeight + (2 * BADGE_VERT_PADDING)
+		    Var badgeY As Double = (g.Height / 2) - (badgeH / 2)
+		    Var badgeX As Double = g.Width - CONTENT_HORIZ_PADDING - badgeW - BADGE_HORIZ_PADDING
+		    DrawBadge(g, badgeValue, badgeX, badgeY, badgeW, badgeH)
+		  End If
+		  
+		  // =================
 		  // WIDGET
 		  // =================
 		  #Pragma Warning "TODO"
 		  
-		  // =================
-		  // BADGE VALUE
-		  // =================
-		  #Pragma Warning "TODO"
 		End Sub
 	#tag EndMethod
 
@@ -272,8 +280,7 @@ Implements XUISourceListRenderer
 		  // =================
 		  Var badgeValue As Integer = section.BadgeValue // Cached as it's expensive.
 		  If Not section.Expanded And section.ShowBadge And badgeValue > 0 Then
-		    // Get the width of the badge value.
-		    Var badgeW As Double = g.TextWidth(badgeValue.ToString) + (2 * BADGE_HORIZ_PADDING)
+		    Var badgeW As Double = Max(g.TextWidth(badgeValue.ToString) + (2 * BADGE_HORIZ_PADDING), BADGE_MIN_WIDTH)
 		    Var badgeH As Double = g.TextHeight + (2 * BADGE_VERT_PADDING)
 		    Var badgeY As Double = g.Height - SECTION_BADGE_OFFSET_FROM_BOTTOM - badgeH
 		    Var badgeX As Double // Varies depending on the presence of other widgets.
@@ -314,6 +321,9 @@ Implements XUISourceListRenderer
 
 
 	#tag Constant, Name = BADGE_HORIZ_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865207468652062616467652076616C756520696E7465726E616C6C79206C65667420616E642072696768742066726F6D2074686520737572726F756E64696E6720726F756E64656420726563742E
+	#tag EndConstant
+
+	#tag Constant, Name = BADGE_MIN_WIDTH, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865206D696D696D756D207769647468206F6620612062616467652E
 	#tag EndConstant
 
 	#tag Constant, Name = BADGE_VERT_PADDING, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865207468652062616467652076616C756520696E7465726E616C6C792061626F766520616E642062656C6F772066726F6D2074686520737572726F756E64696E6720726F756E64656420726563742E

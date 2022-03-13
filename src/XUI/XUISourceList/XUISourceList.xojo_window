@@ -240,6 +240,7 @@ End
 		    If section.Expanded Then ExpandRow_(SourceList.LastAddedRowIndex)
 		    
 		  Next section
+		  
 		End Sub
 	#tag EndMethod
 
@@ -319,6 +320,10 @@ End
 		Private mSections() As XUISourceListItem
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 5468652063757272656E746C792073656C6563746564206974656D20696E2074686520736F75726365206C6973742E204E696C206966207468657265206973206E6F7468696E672073656C65637465642E
+		Private mSelectedItem As XUISourceListItem
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 54686520636F6C6F7572207374796C6520746F2075736520666F722074686520736F75726365206C6973742E
 		Private mStyle As XUISourceListStyle
 	#tag EndProperty
@@ -383,7 +388,7 @@ End
 		    #Pragma Warning "TODO: Remove this break when tested"
 		    Break
 		  Else
-		    Renderer.RenderItem(item, g, mMouseMoveRow = row, row = Me.SelectedRowIndex)
+		    Renderer.RenderItem(item, g, mMouseMoveRow = row, mSelectedItem = item)
 		  End If
 		  
 		  Return True
@@ -406,7 +411,10 @@ End
 		  
 		  // Get the item clicked.
 		  Var item As XUISourceListItem = ItemAtRowIndex(row)
-		  If item = Nil Then Return True
+		  If item = Nil Then
+		    mSelectedItem = Nil
+		    Return True
+		  End If
 		  
 		  // Did we click the disclosure widget?
 		  If item.Expandable And item.DisclosureBounds <> Nil And item.DisclosureBounds.Contains(x, y) Then
@@ -427,7 +435,10 @@ End
 		    Return True
 		  End If
 		  
+		  // Clicked an actual item.
+		  mSelectedItem = item
 		  RaiseEvent ItemClicked(item, x, y)
+		  Refresh
 		  Return True
 		  
 		End Function
