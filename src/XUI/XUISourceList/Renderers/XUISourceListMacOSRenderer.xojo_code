@@ -115,8 +115,8 @@ Implements XUISourceListRenderer
 		        Var bottomY As Double = topY + 5 // 5 is the widget's height.
 		        g.DrawLine(disclosureX, topY, bottomX, bottomY)
 		        g.DrawLine(bottomX, bottomY, rightX, topY)
-		        // Set the bounds for the disclosure widget.
-		        item.DisclosureBounds = New Rect(disclosureX, topY, rightX - disclosureX, bottomY - topY)
+		        // Set the bounds for the disclosure widget. +1 is a fudge.
+		        item.DisclosureBounds = New Rect(disclosureX, topY, rightX - disclosureX + 1, bottomY - topY + 1)
 		      Else
 		        // Draw rightward-facing arrow.
 		        Var topY As Double = (g.Height / 2) - 5 // -5 is half the widget's height.
@@ -125,8 +125,8 @@ Implements XUISourceListRenderer
 		        Var bottomY As Double = topY + 10 // 10 is the widget height.
 		        g.DrawLine(disclosureX, topY, rightX, rightY)
 		        g.DrawLine(rightX, rightY, disclosureX, bottomY)
-		        // Set the bounds for the disclosure widget.
-		        item.DisclosureBounds = New Rect(disclosureX, topY, rightX - disclosureX, bottomY - topY)
+		        // Set the bounds for the disclosure widget. +1 is a fudge.
+		        item.DisclosureBounds = New Rect(disclosureX, topY, rightX - disclosureX + 1, bottomY - topY + 1)
 		      End If
 		    End If
 		    iconX = disclosureX + DISCLOSURE_MAX_WIDTH + ICON_LEFT_PADDING
