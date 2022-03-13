@@ -159,8 +159,11 @@ Implements XUISourceListRenderer
 		  // BADGE VALUE
 		  // =================
 		  Var badgeValue As Integer = item.BadgeValue // Cached as it's expensive.
+		  Var hasBadge As Boolean = False
+		  Var badgeW As Double = 0
 		  If badgeValue > 0 And Not item.Expanded Then
-		    Var badgeW As Double = Max(g.TextWidth(badgeValue.ToString) + (2 * BADGE_HORIZ_PADDING), BADGE_MIN_WIDTH)
+		    hasBadge = True
+		    badgeW = Max(g.TextWidth(badgeValue.ToString) + (2 * BADGE_HORIZ_PADDING), BADGE_MIN_WIDTH)
 		    Var badgeH As Double = g.TextHeight + (2 * BADGE_VERT_PADDING)
 		    Var badgeY As Double = (g.Height / 2) - (badgeH / 2)
 		    Var badgeX As Double = g.Width - CONTENT_HORIZ_PADDING - badgeW - BADGE_HORIZ_PADDING
@@ -170,7 +173,15 @@ Implements XUISourceListRenderer
 		  // =================
 		  // WIDGET
 		  // =================
-		  #Pragma Warning "TODO"
+		  If item.HasWidget And item.WidgetIcon <> Nil Then
+		    Var widgetX As Double = g.Width - CONTENT_HORIZ_PADDING - badgeW - BADGE_HORIZ_PADDING - item.WidgetIcon.Width - _
+		    If(badgeW = 0, 0, BADGE_LEFT_PADDING)
+		    Var widgetY As Double = (g.Height / 2) - (item.WidgetIcon.Height / 2)
+		    g.DrawPicture(item.WidgetIcon, widgetX, widgetY)
+		    item.WidgetBounds = New Rect(widgetX, widgetY, item.WidgetIcon.Width, item.WidgetIcon.Height)
+		  Else
+		    item.WidgetBounds = Nil
+		  End If
 		  
 		End Sub
 	#tag EndMethod
@@ -321,6 +332,9 @@ Implements XUISourceListRenderer
 
 
 	#tag Constant, Name = BADGE_HORIZ_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865207468652062616467652076616C756520696E7465726E616C6C79206C65667420616E642072696768742066726F6D2074686520737572726F756E64696E6720726F756E64656420726563742E
+	#tag EndConstant
+
+	#tag Constant, Name = BADGE_LEFT_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206C6566742065646765206F66207468652062616467652E
 	#tag EndConstant
 
 	#tag Constant, Name = BADGE_MIN_WIDTH, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865206D696D696D756D207769647468206F6620612062616467652E
