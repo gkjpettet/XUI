@@ -28,6 +28,7 @@ Begin DesktopWindow WinSourceList
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   False
+      AllowMultipleSelection=   True
       AllowTabs       =   True
       Backdrop        =   0
       BackgroundColor =   &cFFFFFF
@@ -44,6 +45,10 @@ Begin DesktopWindow WinSourceList
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+      mLastMouseDownRow=   -1
+      mLastMouseDragRow=   -1
+      mLastMouseDragX =   -1
+      mLastMouseDragY =   -1
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -58,6 +63,7 @@ Begin DesktopWindow WinSourceList
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   False
+      AllowMultipleSelection=   True
       AllowTabs       =   True
       Backdrop        =   0
       BackgroundColor =   &cFFFFFF
@@ -74,6 +80,10 @@ Begin DesktopWindow WinSourceList
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
+      mLastMouseDownRow=   -1
+      mLastMouseDragRow=   -1
+      mLastMouseDragX =   -1
+      mLastMouseDragY =   -1
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -91,7 +101,7 @@ Begin DesktopWindow WinSourceList
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   40
+      Height          =   246
       Index           =   -2147483648
       Italic          =   False
       Left            =   242
@@ -100,8 +110,8 @@ Begin DesktopWindow WinSourceList
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      Multiline       =   False
-      Scope           =   2
+      Multiline       =   True
+      Scope           =   0
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -110,7 +120,7 @@ Begin DesktopWindow WinSourceList
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   449
+      Top             =   243
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -185,14 +195,14 @@ End
 		  favourites.AddChild(New XUISourceListItem("Inbox", IconSourceListInbox), False)
 		  
 		  // VIPs.
-		  Var vips As New XUISourceListItem("VIPs", IconSourceListVIPs)
+		  Var vips As New XUISourceListItem("VIPs", IconSourceListVIPs, 0, Nil, True)
 		  vips.AddChild(New XUISourceListItem("Peter Parker", IconSourceListVIPs), False)
 		  vips.AddChild(New XUISourceListItem("Tony Stark", IconSourceListVIPs), False)
 		  favourites.AddChild(vips, False)
 		  vips.SetExpanded(False)
 		  
 		  // Flagged.
-		  Var flagged As New XUISourceListItem("Flagged", IconSourceListFlagged)
+		  Var flagged As New XUISourceListItem("Flagged", IconSourceListFlagged, 0, Nil, True)
 		  flagged.AddChild(New XUISourceListItem("Orange", IconSourceListFlagOrange, 1), False)
 		  flagged.AddChild(New XUISourceListItem("Red", IconSourceListFlagRed, 4), False)
 		  flagged.AddChild(New XUISourceListItem("Purple", IconSourceListFlagPurple, 9), False)
@@ -250,12 +260,20 @@ End
 		  Info.Text = "Expanded """ + item.Title + """"
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320636C69636B65642E205820616E64205920617265206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2028302C302069732074686520746F70206C65667420636F726E6572206F662074686520726F77292E
-		Sub ItemClicked(item As XUISourceListItem, x As Integer, y As Integer)
+	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C697374207761732073656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
+		Sub ItemSelected(item As XUISourceListItem, x As Integer, y As Integer)
 		  #Pragma Unused x
 		  #Pragma Unused y
 		  
-		  Info.Text = "Clicked """ + item.Title + """"
+		  Info.Text = "Selected """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320756E73656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
+		Sub ItemUnselected(item As XUISourceListItem, x As Integer, y As Integer)
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  Info.Text = "Unselected """ + item.Title + """"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -275,12 +293,20 @@ End
 		  Info.Text = "Expanded """ + item.Title + """"
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320636C69636B65642E205820616E64205920617265206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2028302C302069732074686520746F70206C65667420636F726E6572206F662074686520726F77292E
-		Sub ItemClicked(item As XUISourceListItem, x As Integer, y As Integer)
+	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C697374207761732073656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
+		Sub ItemSelected(item As XUISourceListItem, x As Integer, y As Integer)
 		  #Pragma Unused x
 		  #Pragma Unused y
 		  
-		  Info.Text = "Clicked """ + item.Title + """"
+		  Info.Text = "Selected """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320756E73656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
+		Sub ItemUnselected(item As XUISourceListItem, x As Integer, y As Integer)
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  Info.Text = "Unselected """ + item.Title + """"
 		End Sub
 	#tag EndEvent
 #tag EndEvents

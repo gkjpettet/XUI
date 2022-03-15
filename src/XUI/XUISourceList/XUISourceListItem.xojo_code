@@ -64,12 +64,12 @@ Protected Class XUISourceListItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(title As String, icon As Picture = Nil, value As Integer = 0, data As Variant = Nil)
+		Sub Constructor(title As String, icon As Picture = Nil, value As Integer = 0, data As Variant = Nil, canAcceptChildren As Boolean = False)
 		  Self.Title = title
 		  Self.Icon = icon
 		  Self.Value = value
 		  Self.Data = data
-		  
+		  Self.CanAcceptChildren = canAcceptChildren
 		End Sub
 	#tag EndMethod
 
@@ -84,6 +84,39 @@ Protected Class XUISourceListItem
 		  End If
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520302D626173656420696E64657820696E2074686973206974656D206F6620606368696C646020696E2069747320746F70206C6576656C206368696C6472656E206F72202D312069662074686973206974656D20646F6573206E6F7420636F6E7461696E20606368696C64602E
+		Function IndexOfChild(child As XUISourceListItem) As Integer
+		  /// Returns the 0-based index in this item of `child` in its top level children or -1 if this item does not contain `child`.
+		  
+		  If child = Nil Then Return -1
+		  
+		  Var limit As Integer = mChildren.LastIndex
+		  For i As Integer = 0 To limit
+		    If mChildren(i) = child Then Return i
+		  Next i
+		  
+		  Return -1
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52656D6F76657320606368696C64602066726F6D2074686973206974656D277320746F702D6C6576656C206368696C6472656E202869662070726573656E74292E2042792064656661756C7420746869732077696C6C207472696767657220612066756C6C2072656275696C64206F662074686520736F75726365206C6973742E
+		Sub RemoveChild(child As XUISourceListItem, shouldRebuild As Boolean = True)
+		  /// Removes `child` from this item's top-level children (if present).
+		  /// By default this will trigger a full rebuild of the source list.
+		  
+		  If child = Nil Then
+		    Raise New InvalidArgumentException("Cannot remove a Nil child.")
+		  End If
+		  
+		  Var index As Integer = mChildren.IndexOf(child)
+		  If index <> -1 Then mChildren.RemoveAt(index)
+		  
+		  If Owner <> Nil And shouldRebuild Then Owner.Rebuild
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 536574732074686973206974656D20617320636F6C6C61707365642E2042792064656661756C742069742072656275696C64732074686520656E7469726520736F75726365206C6973742E
@@ -150,6 +183,10 @@ Protected Class XUISourceListItem
 		#tag EndGetter
 		BadgeValue As Integer
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0, Description = 49662054727565207468656E2074686973206974656D2063616E20616363657074206368696C6420726F77732064726F70706564206F6E2069742E
+		CanAcceptChildren As Boolean = False
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F66206368696C6472656E2074686973206974656D206861732E
 		#tag Getter

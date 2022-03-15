@@ -19,7 +19,7 @@ Protected Interface XUISourceListRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52656E6465727320606974656D6020746F207468652070617373656420677261706869637320636F6E746578742E2054686520636F6E746578742069732074686520656E7469726520726F7720746865206974656D206F636375706965732E
-		Sub RenderItem(item As XUISourceListItem, g As Graphics, hoveringOverRow As Boolean, isSelected As Boolean)
+		Sub RenderItem(item As XUISourceListItem, g As Graphics, hoveringOverRow As Boolean, isSelected As Boolean, draggingOverRow As Boolean)
 		  
 		End Sub
 	#tag EndMethod
