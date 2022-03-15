@@ -407,6 +407,7 @@ End
 		    newParent.AddChildAt(index, item, False)
 		  End If
 		  
+		  RaiseEvent MovedItem(item, oldParent, newParent)
 		End Sub
 	#tag EndMethod
 
@@ -501,6 +502,10 @@ End
 		Event MouseDidMove(x As Integer, y As Integer)
 	#tag EndHook
 
+	#tag Hook, Flags = &h0, Description = 43616C6C6564207768656E20606974656D6020686173206265656E206D6F7665642066726F6D20606F6C64506172656E746020746F20606E6577506172656E74602E204F6363757273207768656E20746865726520686173206265656E206120647261672072656F72646572696E672E
+		Event MovedItem(item As XUISourceListItem, oldParent As XUISourceListItem, newParent As XUISourceListItem)
+	#tag EndHook
+
 	#tag Hook, Flags = &h0
 		Event Opening()
 	#tag EndHook
@@ -532,12 +537,12 @@ End
 		Hierarchical As Boolean = True
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 547275652069662074686520757365206973206163746976656C79206472616767696E67206120726F772E
-		mIsDraggingRow As Boolean = False
+	#tag Property, Flags = &h21, Description = 547275652069662074686520757365206973206163746976656C79206472616767696E67206120726F772E
+		Private mIsDraggingRow As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 54686520726F7720756E64657220746865206D6F75736520647572696E6720746865206C617374204D6F757365446F776E206576656E742E204D6179206265202D312E
-		mLastMouseDownRow As Integer = -1
+	#tag Property, Flags = &h21, Description = 54686520726F7720756E64657220746865206D6F75736520647572696E6720746865206C617374204D6F757365446F776E206576656E742E204D6179206265202D312E
+		Private mLastMouseDownRow As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 546865205820636F6F7264696E61746520696E20746865206C617374204D6F757365446F776E206576656E742E
@@ -548,16 +553,16 @@ End
 		Private mLastMouseDownY As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 5468652076616C7565206F6620606D4C6173744D6F757365446F776E526F776020647572696E6720746865206C61737420604D6F7573654472616760206576656E742E
-		mLastMouseDragRow As Integer = -1
+	#tag Property, Flags = &h21, Description = 5468652076616C7565206F6620606D4C6173744D6F757365446F776E526F776020647572696E6720746865206C61737420604D6F7573654472616760206576656E742E
+		Private mLastMouseDragRow As Integer = -1
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 546865206C6F63616C20582076616C75652064657465726D696E656420696E20604472616754696D65722E416374696F6E602E
-		mLastMouseDragX As Integer = -1
+	#tag Property, Flags = &h21, Description = 546865206C6F63616C20582076616C75652064657465726D696E656420696E20604472616754696D65722E416374696F6E602E
+		Private mLastMouseDragX As Integer = -1
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 546865206C6F63616C20582076616C75652064657465726D696E656420696E20604472616754696D65722E416374696F6E602E
-		mLastMouseDragY As Integer = -1
+	#tag Property, Flags = &h21, Description = 546865206C6F63616C20582076616C75652064657465726D696E656420696E20604472616754696D65722E416374696F6E602E
+		Private mLastMouseDragY As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520726F7720756E64657220746865206D6F75736520637572736F722E205570646174656420696E2074686520604D6F7573654D6F766560206576656E742E2057696C6C20626520602D3160206966207468657265206973206E6F2076616C696420726F7720756E64657220746865206D6F7573652E
@@ -628,14 +633,6 @@ End
 		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
 		  #Pragma Unused column
 		  
-		  WinSourceList.Info.Text = "mIsDraggingRow:" + If(mIsDraggingRow, "true", "false") + EndOfLine + _
-		  "mLastMouseDownRow:" + mLastMouseDownRow.ToString + EndOfLine + _
-		  "mLastMouseDragRow:" + mLastMouseDragRow.ToString + EndOfLine + _
-		  "mLastMouseDragX:" + mLastMouseDragX.ToString + " , mLastMouseDragY:" + mLastMouseDragY.ToString + EndOfLine
-		  If IsDraggingOverRow(row) Then
-		    WinSourceList.Info.Text = WinSourceList.Info.Text + "dragging over row:" + row.ToString
-		  End If
-		  
 		  If Renderer = Nil Then Return True
 		  
 		  // Render the background.
@@ -647,11 +644,7 @@ End
 		  End If
 		  
 		  Var item As XUISourceListItem = ItemAtRowIndex(row)
-		  If item = Nil Then
-		    // Shouldn't happen...
-		    #Pragma Warning "TODO: Remove this break when tested"
-		    Break
-		  Else
+		  If item <> Nil Then
 		    Renderer.RenderItem(item, g, mMouseMoveRow = row, mSelectedItems.IndexOf(item) <> -1, IsDraggingOverRow(row))
 		  End If
 		  
@@ -663,6 +656,15 @@ End
 		  // Compute and store the row under the mouse.
 		  
 		  mMouseMoveRow = Me.RowFromXY(x, y)
+		  
+		  // Kill our drag timer if the mouse isn't depressed.
+		  If Not System.MouseDown Then
+		    mLastMouseDragX = -1
+		    mLastMouseDragY = -1
+		    mIsDraggingRow = False
+		    mLastMouseDragRow = -1
+		    DragTimer.Enabled = False
+		  End If
 		  
 		  SourceList.Refresh
 		  
@@ -741,7 +743,9 @@ End
 		Sub MouseExit()
 		  // Stop the drag timer.
 		  mLastMouseDragX = -1
-		  mLastMouseDragy = -1
+		  mLastMouseDragY = -1
+		  mIsDraggingRow = False
+		  mLastMouseDragRow = -1
 		  DragTimer.Enabled = False
 		  
 		  mMouseMoveRow = -1
@@ -769,7 +773,9 @@ End
 		  
 		  // Stop the drag timer.
 		  mLastMouseDragX = -1
-		  mLastMouseDragy = -1
+		  mLastMouseDragY = -1
+		  mIsDraggingRow = False
+		  mLastMouseDragRow = -1
 		  DragTimer.Enabled = False
 		  
 		  // We must have let go of the mouse button at this point so we can't be dragging a row any longer.
@@ -822,6 +828,7 @@ End
 		    
 		    // Make sure the dropItem is expanded to show the moved items.
 		    If Not dropItem.Expanded Then dropItem.SetExpanded(True)
+		    
 		    Return True
 		  End If
 		  
@@ -917,6 +924,7 @@ End
 		  // Begins firing when MouseDown occurs and stops at the start of the following events:
 		  // - DragReorderRows
 		  // - MouseExit
+		  // - MouseMove (if the mouse is no longer depressed).
 		  // Simply updates the local X, Y coordinates of the mouse in the source list.
 		  // The above events reset mLastMouseDragX and mLastMouseDragY to -1.
 		  
@@ -1183,46 +1191,6 @@ End
 		Visible=false
 		Group="Position"
 		InitialValue="0"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="mIsDraggingRow"
-		Visible=false
-		Group="Behavior"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="mLastMouseDownRow"
-		Visible=false
-		Group="Behavior"
-		InitialValue="-1"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="mLastMouseDragRow"
-		Visible=false
-		Group="Behavior"
-		InitialValue="-1"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="mLastMouseDragX"
-		Visible=false
-		Group="Behavior"
-		InitialValue="-1"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="mLastMouseDragY"
-		Visible=false
-		Group="Behavior"
-		InitialValue="-1"
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty

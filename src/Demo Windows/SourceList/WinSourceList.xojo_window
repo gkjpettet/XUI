@@ -45,10 +45,6 @@ Begin DesktopWindow WinSourceList
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      mLastMouseDownRow=   -1
-      mLastMouseDragRow=   -1
-      mLastMouseDragX =   -1
-      mLastMouseDragY =   -1
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -80,10 +76,6 @@ Begin DesktopWindow WinSourceList
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      mLastMouseDownRow=   -1
-      mLastMouseDragRow=   -1
-      mLastMouseDragX =   -1
-      mLastMouseDragY =   -1
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -101,7 +93,7 @@ Begin DesktopWindow WinSourceList
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   246
+      Height          =   20
       Index           =   -2147483648
       Italic          =   False
       Left            =   242
@@ -110,7 +102,7 @@ Begin DesktopWindow WinSourceList
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      Multiline       =   True
+      Multiline       =   False
       Scope           =   0
       Selectable      =   False
       TabIndex        =   2
@@ -120,7 +112,7 @@ Begin DesktopWindow WinSourceList
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   243
+      Top             =   459
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -276,6 +268,12 @@ End
 		  Info.Text = "Unselected """ + item.Title + """"
 		End Sub
 	#tag EndEvent
+	#tag Event , Description = 43616C6C6564207768656E20606974656D6020686173206265656E206D6F7665642066726F6D20606F6C64506172656E746020746F20606E6577506172656E74602E204F6363757273207768656E20746865726520686173206265656E206120647261672072656F72646572696E672E
+		Sub MovedItem(item As XUISourceListItem, oldParent As XUISourceListItem, newParent As XUISourceListItem)
+		  Info.Text = "Moved item """ + item.Title + """ from """ + If(oldParent = Nil, "Nil", oldParent.Title) + """ to """ + _
+		  If(newParent = Nil, "Nil", newParent.Title) + """"
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events MailSourceList
 	#tag Event , Description = 54686520757365722068617320636C69636B6564206F6E20616E206974656D2773207769646765742E
@@ -307,6 +305,12 @@ End
 		  #Pragma Unused y
 		  
 		  Info.Text = "Unselected """ + item.Title + """"
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 43616C6C6564207768656E20606974656D6020686173206265656E206D6F7665642066726F6D20606F6C64506172656E746020746F20606E6577506172656E74602E204F6363757273207768656E20746865726520686173206265656E206120647261672072656F72646572696E672E
+		Sub MovedItem(item As XUISourceListItem, oldParent As XUISourceListItem, newParent As XUISourceListItem)
+		  Info.Text = "Moved item """ + item.Title + """ from """ + If(oldParent = Nil, "Nil", oldParent.Title) + """ to """ + _
+		  If(newParent = Nil, "Nil", newParent.Title) + """"
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -8,7 +8,8 @@ Protected Class XUISourceListStyle
 		  
 		  // General
 		  style.BackgroundColor = New ColorGroup(Color.FromString("&h00F6F6F6"), Color.FromString("&h00383838"))
-		  style.SelectedColor = New ColorGroup(Color.FromString("&h00DDDDDD"), Color.FromString("&h00515151"))
+		  style.SelectedBackgroundColor = New ColorGroup(Color.FromString("&h00DDDDDD"), Color.FromString("&h00515151"))
+		  style.SelectedColor = New ColorGroup(Color.FromString("&h00474747"), Color.FromString("&h00EAEBEB"))
 		  
 		  // Items.
 		  style.ItemColor = New ColorGroup(Color.FromString("&h00474747"), Color.FromString("&h00EAEBEB"))
@@ -28,6 +29,11 @@ Protected Class XUISourceListStyle
 		  New ColorGroup(Color.FromString("&h00E9E9E9"), Color.FromString("&h004C4C4C"))
 		  style.BadgeValueColor = _
 		  New ColorGroup(Color.FromString("&h007D7D7D"), Color.FromString("&h00ADADAD"))
+		  
+		  // Drop targets.
+		  style.DropTargetBackgroundColor = _
+		  New ColorGroup(Color.FromString("&h002456DA"), Color.FromString("&h002454C5"))
+		  style.DropTargetColor = New ColorGroup(Color.FromString("&h00474747"), Color.FromString("&h00EAEBEB"))
 		  
 		  Return style
 		  
@@ -51,6 +57,14 @@ Protected Class XUISourceListStyle
 		DisclosureWidgetColor As ColorGroup
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F757220666F72206974656D73207768656E20746865792061726520612076616C69642064726F70207461726765742E
+		DropTargetBackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865207465787420636F6C6F757220666F72206974656D73207768656E20746865792061726520612076616C69642064726F70207461726765742E
+		DropTargetColor As ColorGroup
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7220746F2075736520666F72206974656D207469746C6520746578742E
 		ItemColor As ColorGroup
 	#tag EndProperty
@@ -64,6 +78,10 @@ Protected Class XUISourceListStyle
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F662073656C6563746564206974656D732E
+		SelectedBackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865207465787420636F6C6F7572206F662073656C6563746564206974656D732E
 		SelectedColor As ColorGroup
 	#tag EndProperty
 
@@ -138,7 +156,7 @@ Protected Class XUISourceListStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="SelectedColor"
+			Name="SelectedBackgroundColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

@@ -89,12 +89,12 @@ Implements XUISourceListRenderer
 		  // ========================
 		  // SELECTED OR DROP TARGET?
 		  // ========================
-		  If draggingOverRow and item.CanAcceptChildren Then
-		    g.DrawingColor = Color.Red
+		  If draggingOverRow And item.CanAcceptChildren Then
+		    g.DrawingColor = style.DropTargetBackgroundColor
 		    g.FillRoundRectangle(CONTENT_HORIZ_PADDING, CONTENT_VERT_PADDING, _
 		    g.Width - (2 * CONTENT_HORIZ_PADDING), g.Height - (2 * CONTENT_VERT_PADDING), 10, 10)
 		  ElseIf isSelected Then
-		    g.DrawingColor = style.SelectedColor
+		    g.DrawingColor = style.SelectedBackgroundColor
 		    g.FillRoundRectangle(CONTENT_HORIZ_PADDING, CONTENT_VERT_PADDING, _
 		    g.Width - (2 * CONTENT_HORIZ_PADDING), g.Height - (2 * CONTENT_VERT_PADDING), 10, 10)
 		  End If
@@ -156,7 +156,13 @@ Implements XUISourceListRenderer
 		  g.FontSize = 13
 		  g.Bold = False
 		  Var titleBaseline As Double = (g.FontAscent + (g.Height - g.TextHeight)/2)
-		  g.DrawingColor = style.ItemColor
+		  If draggingOverRow And item.CanAcceptChildren Then
+		    g.DrawingColor = style.DropTargetColor
+		  ElseIf isSelected Then
+		    g.DrawingColor = style.SelectedColor
+		  Else
+		    g.DrawingColor = style.ItemColor
+		  End If
 		  g.DrawText(item.Title, titleX, titleBaseline)
 		  
 		  // =================
