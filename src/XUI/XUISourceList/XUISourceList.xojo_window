@@ -477,6 +477,18 @@ End
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 53746F7073204472616754696D657220616E64206D61726B73207468617420776520617265206E6F206C6F6E676572206472616767696E672E
+		Private Sub StoppedDragging()
+		  /// Stops DragTimer and marks that we are no longer dragging.
+		  
+		  mLastMouseDragX = -1
+		  mLastMouseDragY = -1
+		  mIsDraggingRow = False
+		  mLastMouseDragRow = -1
+		  DragTimer.Enabled = False
+		End Sub
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0, Description = 54686520757365722068617320636C69636B6564206F6E20616E206974656D2773207769646765742E
 		Event ClickedItemWidget(item As XUISourceListItem)
@@ -658,13 +670,7 @@ End
 		  mMouseMoveRow = Me.RowFromXY(x, y)
 		  
 		  // Kill our drag timer if the mouse isn't depressed.
-		  If Not System.MouseDown Then
-		    mLastMouseDragX = -1
-		    mLastMouseDragY = -1
-		    mIsDraggingRow = False
-		    mLastMouseDragRow = -1
-		    DragTimer.Enabled = False
-		  End If
+		  If Not System.MouseDown Then StoppedDragging
 		  
 		  SourceList.Refresh
 		  
@@ -704,6 +710,7 @@ End
 		  
 		  // Did we click the disclosure widget?
 		  If item.Expandable And item.DisclosureBounds <> Nil And item.DisclosureBounds.Contains(x, y) Then
+		    StoppedDragging
 		    If item.Expanded Then
 		      item.SetCollapsed(True)
 		      RaiseEvent CollapsedItem(item)
@@ -717,6 +724,7 @@ End
 		  
 		  // Did we click the widget?
 		  If item.HasWidget And item.WidgetBounds <> Nil And item.WidgetBounds.Contains(x, y) Then
+		    StoppedDragging
 		    RaiseEvent ClickedItemWidget(item)
 		    Return True
 		  End If
@@ -741,13 +749,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseExit()
-		  // Stop the drag timer.
-		  mLastMouseDragX = -1
-		  mLastMouseDragY = -1
-		  mIsDraggingRow = False
-		  mLastMouseDragRow = -1
-		  DragTimer.Enabled = False
-		  
+		  StoppedDragging
 		  mMouseMoveRow = -1
 		  Me.Refresh
 		  
@@ -771,12 +773,7 @@ End
 		  
 		  #Pragma Warning "TODO: Do we need to account for x coordinate (i.e. indent level)"
 		  
-		  // Stop the drag timer.
-		  mLastMouseDragX = -1
-		  mLastMouseDragY = -1
-		  mIsDraggingRow = False
-		  mLastMouseDragRow = -1
-		  DragTimer.Enabled = False
+		  StoppedDragging
 		  
 		  // We must have let go of the mouse button at this point so we can't be dragging a row any longer.
 		  mIsDraggingRow = False
