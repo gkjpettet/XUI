@@ -45,18 +45,18 @@ Inherits DesktopListBox
 		  // Product name.
 		  g.FontSize = PRODUCT_NAME_FONT_SIZE
 		  If Self.SelectedRowIndex = row Then
-		    g.DrawingColor = PRODUCT_NAME_COLOR_SELECTED
+		    g.DrawingColor = mProductNameSelectedColor
 		  Else
-		    g.DrawingColor = PRODUCT_NAME_COLOR
+		    g.DrawingColor = mProductNameColor
 		  End If
 		  g.DrawText(product.Name, (g.Width / 2) - (nameW / 2), nameY)
 		  
 		  // Description.
 		  g.FontSize = PRODUCT_DESCRIPTION_FONT_SIZE
 		  If Self.SelectedRowIndex = row Then
-		    g.DrawingColor = PRODUCT_DESCRIPTION_COLOR_SELECTED
+		    g.DrawingColor = mProductDescriptionSelectedColor
 		  Else
-		    g.DrawingColor = PRODUCT_DESCRIPTION_COLOR
+		    g.DrawingColor = mProductDescriptionColor
 		  End If
 		  g.DrawText(product.Description, (g.Width / 2) - (descriptionW / 2), descriptionY)
 		  
@@ -94,20 +94,56 @@ Inherits DesktopListBox
 		Private mLastClickY As Integer = 0
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  Static cg As New ColorGroup(Color.FromString("&h00797979"), Color.FromString("&h00797979"))
+			  
+			  Return cg
+			  
+			End Get
+		#tag EndGetter
+		Private mProductDescriptionColor As ColorGroup
+	#tag EndComputedProperty
 
-	#tag Constant, Name = PRODUCT_DESCRIPTION_COLOR, Type = Color, Dynamic = False, Default = \"&c797979", Scope = Private
-	#tag EndConstant
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  Static cg As New ColorGroup(Color.White, Color.White)
+			  
+			  Return cg
+			  
+			End Get
+		#tag EndGetter
+		Private mProductDescriptionSelectedColor As ColorGroup
+	#tag EndComputedProperty
 
-	#tag Constant, Name = PRODUCT_DESCRIPTION_COLOR_SELECTED, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private
-	#tag EndConstant
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  Static cg As New ColorGroup(Color.Black, Color.White)
+			  
+			  Return cg
+			  
+			End Get
+		#tag EndGetter
+		Private mProductNameColor As ColorGroup
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  Static cg As New ColorGroup(Color.White, Color.White)
+			  
+			  Return cg
+			  
+			End Get
+		#tag EndGetter
+		Private mProductNameSelectedColor As ColorGroup
+	#tag EndComputedProperty
+
 
 	#tag Constant, Name = PRODUCT_DESCRIPTION_FONT_SIZE, Type = Double, Dynamic = False, Default = \"0", Scope = Private
-	#tag EndConstant
-
-	#tag Constant, Name = PRODUCT_NAME_COLOR, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private
-	#tag EndConstant
-
-	#tag Constant, Name = PRODUCT_NAME_COLOR_SELECTED, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = PRODUCT_NAME_FONT_SIZE, Type = Double, Dynamic = False, Default = \"15", Scope = Private

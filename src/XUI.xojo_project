@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2021.031
+RBProjectVersion=2022.01
 MinIDEVersion=20210300
 OrigIDEVersion=20210301
 Class=App;App.xojo_code;&h000000007F52B7FF;&h0000000000000000;false
@@ -185,7 +185,7 @@ MultiImage=IconSourceListTagOrange;Demo Windows/SourceList/Images/IconSourceList
 MultiImage=IconSourceListTagRed;Demo Windows/SourceList/Images/IconSourceListTagRed.xojo_image;&h000000004C8AA7FF;&h000000007BF4BFFF;false
 MultiImage=IconSourceListAllTags;Demo Windows/SourceList/Images/IconSourceListAllTags.xojo_image;&h000000002910FFFF;&h000000007BF4BFFF;false
 MultiImage=IconSourceListSmart;Demo Windows/SourceList/Images/IconSourceListSmart.xojo_image;&h00000000687F2FFF;&h000000007BF4BFFF;false
-DefaultWindow=WinSourceList
+DefaultWindow=WinWelcome
 MajorVersion=1
 MinorVersion=0
 SubVersion=0
