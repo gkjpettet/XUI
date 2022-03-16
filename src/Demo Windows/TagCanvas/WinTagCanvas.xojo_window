@@ -52,7 +52,7 @@ Begin DesktopWindow WinTagCanvas
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      TagsHaveDingus  =   True
+      TagsHaveWidget  =   True
       Tooltip         =   ""
       Top             =   44
       Visible         =   True
@@ -182,7 +182,7 @@ Begin DesktopWindow WinTagCanvas
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      TagsHaveDingus  =   True
+      TagsHaveWidget  =   True
       Tooltip         =   ""
       Top             =   214
       Visible         =   True
@@ -248,7 +248,7 @@ Begin DesktopWindow WinTagCanvas
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      TagsHaveDingus  =   True
+      TagsHaveWidget  =   True
       Tooltip         =   ""
       Top             =   292
       Visible         =   True
@@ -376,7 +376,7 @@ End
 		  // Create a style to colour the tag canvas.
 		  
 		  // Assign the colour scheme.
-		  Me.Style = XUITagCanvasStyle.MacOS
+		  Me.Style = XUITagCanvasStyle.Monterey
 		  
 		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
 		  Me.Renderer = New XUITagCanvasMacOSRenderer(Me)
@@ -462,7 +462,7 @@ End
 		  // Create a style to colour the tag canvas.
 		  
 		  // Assign the colour scheme.
-		  Me.Style = XUITagCanvasStyle.MacOS
+		  Me.Style = XUITagCanvasStyle.Monterey
 		  
 		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
 		  Me.Renderer = New XUITagCanvasMacOSRenderer(Me)

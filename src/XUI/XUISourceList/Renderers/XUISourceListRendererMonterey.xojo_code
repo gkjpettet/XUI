@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUISourceListMacOSRenderer
+Protected Class XUISourceListRendererMonterey
 Implements XUISourceListRenderer
 	#tag Method, Flags = &h0
 		Sub Constructor(owner As XUISourceList)
@@ -334,6 +334,12 @@ Implements XUISourceListRenderer
 		  Return 30
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Renders a source list in the same manner as in Monterey (macOS 12).
+		s
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520736F75726365206C697374207468617420746869732072656E6465726572206F70657261746573206F6E2E

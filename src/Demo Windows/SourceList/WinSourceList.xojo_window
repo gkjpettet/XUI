@@ -134,8 +134,8 @@ End
 		Private Sub InitialiseFinderSourceList()
 		  /// Initialises our Finder-style source list.
 		  
-		  FinderSourceList.Renderer = New XUISourceListMacOSRenderer(FinderSourceList)
-		  FinderSourceList.Style = XUISourceListStyle.MacOS
+		  FinderSourceList.Renderer = New XUISourceListRendererMonterey(FinderSourceList)
+		  FinderSourceList.Style = XUISourceListStyle.Monterey
 		  
 		  // Favourites section.
 		  Var favourites As New XUISourceListItem("Favourites")
@@ -175,8 +175,8 @@ End
 		Private Sub InitialiseMailSourceList()
 		  /// Initialises our Mail.app-style source list.
 		  
-		  MailSourceList.Renderer = New XUISourceListMacOSRenderer(MailSourceList)
-		  MailSourceList.Style = XUISourceListStyle.MacOS
+		  MailSourceList.Renderer = New XUISourceListRendererMonterey(MailSourceList)
+		  MailSourceList.Style = XUISourceListStyle.Monterey
 		  
 		  // =======================
 		  // FAVOURITES SECTION

@@ -1,8 +1,8 @@
 #tag Class
 Protected Class XUISourceListStyle
-	#tag Method, Flags = &h0, Description = 52657475726E732061206E6577207374796C6520776974682074686520636F6C6F75727320666F72206D61634F53207374796C6520736F75726365206C697374732E
-		Shared Function MacOS() As XUISourceListStyle
-		  /// Returns a new style with the colours for macOS style source lists.
+	#tag Method, Flags = &h0, Description = 52657475726E732061206E6577207374796C6520776974682074686520636F6C6F75727320666F72206D61634F53204D6F6E74657265792773207374796C6520736F75726365206C697374732E
+		Shared Function Monterey() As XUISourceListStyle
+		  /// Returns a new style with the colours for macOS Monterey's style source lists.
 		  
 		  Var style As New XUISourceListStyle
 		  
@@ -173,6 +173,54 @@ Protected Class XUISourceListStyle
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SectionDisclosureWidgetColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BadgeColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BadgeValueColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DropTargetBackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DropTargetColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SelectedColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WidgetColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

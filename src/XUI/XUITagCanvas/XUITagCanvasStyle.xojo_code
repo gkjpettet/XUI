@@ -1,35 +1,35 @@
 #tag Class
 Protected Class XUITagCanvasStyle
-	#tag Method, Flags = &h0, Description = 52657475726E732061206E6577207374796C6520776974682074686520636F6C6F75727320666F72206D61634F53207374796C6520746167732E
-		Shared Function MacOS() As XUITagCanvasStyle
-		  /// Returns a new style with the colours for macOS style tags.
-		  
-		  #Pragma Warning "TODO: Add dark mode colours"
+	#tag Method, Flags = &h0, Description = 52657475726E732061206E6577207374796C6520776974682074686520636F6C6F75727320666F72206D61634F53204D6F6E7465726579207374796C6520746167732E
+		Shared Function Monterey() As XUITagCanvasStyle
+		  /// Returns a new style with the colours for macOS Monterey style tags.
 		  
 		  Var style As New XUITagCanvasStyle
 		  
-		  style.BackgroundColor = New ColorGroup(Color.White, Color.FromString("&h001D1D1D"))
-		  style.BorderColor = New ColorGroup(Color.FromString("&h00E5E4E4"), Color.FromString("&h00353435"))
-		  
-		  style.FontColor = New ColorGroup(Color.Black, Color.White)
-		  style.TagBackgroundColor = New ColorGroup(Color.FromString("&h00C2D6FD"))
-		  style.TagBorderColor = New ColorGroup(Color.FromString("&h00C2D6FD"))
-		  style.TagTextColor = New ColorGroup(Color.Black)
-		  style.CaretColor = New ColorGroup(Color.Black, Color.White)
-		  style.WidgetColor = New ColorGroup(Color.Black)
-		  
-		  style.AutocompletePopupBackgroundColor = New ColorGroup(Color.FromString("&h00ECECEC"))
+		  // Autocomplete.
 		  style.HasAutocompletePopupBorder = True
-		  style.AutocompletePopupBorderColor = New ColorGroup(Color.FromString("&h00B8B9B9"))
+		  style.AutocompleteOptionColor = New ColorGroup(Color.Black, Color.White)
+		  style.AutocompletePopupBackgroundColor = New ColorGroup(Color.FromString("&h00ECECEC"), Color.FromString("&h00323233"))
+		  style.AutocompletePopupBorderColor = New ColorGroup(Color.FromString("&h00B8B9B9"), Color.Black)
 		  style.SelectedAutocompleteOptionBackgroundColor = New ColorGroup(Color.FromString("&h001043C7"))
 		  style.SelectedAutocompleteOptionColor = New ColorGroup(Color.White)
-		  style.AutocompleteOptionColor = New ColorGroup(Color.Black)
 		  
+		  // General.
+		  style.BackgroundColor = New ColorGroup(Color.White, Color.FromString("&h001D1D1D"))
+		  style.BorderColor = New ColorGroup(Color.FromString("&h00E5E4E4"), Color.FromString("&h00353435"))
+		  style.CaretColor = New ColorGroup(Color.Black, Color.White)
+		  style.TagBackgroundColor = New ColorGroup(Color.FromString("&h00C2D6FD"), Color.FromString("&h00273C5F"))
+		  style.TagBorderColor = New ColorGroup(Color.FromString("&h00C2D6FD"), Color.FromString("&h00273C5F"))
+		  style.TagTextColor = New ColorGroup(Color.Black, Color.White)
+		  style.WidgetColor = New ColorGroup(Color.Black, Color.White)
+		  
+		  // Font.
 		  #If TargetWindows
 		    style.FontSize = 14
 		  #Else
 		    style.FontSize = 0
 		  #EndIf
+		  style.FontColor = New ColorGroup(Color.Black, Color.White)
 		  
 		  Return style
 		End Function
@@ -182,7 +182,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -190,7 +190,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -198,7 +198,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -206,7 +206,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -230,7 +230,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -238,7 +238,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -246,7 +246,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -254,7 +254,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -270,7 +270,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -278,7 +278,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -286,7 +286,7 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -294,7 +294,15 @@ Protected Class XUITagCanvasStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BorderColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
