@@ -236,10 +236,18 @@ Inherits DesktopTextInputCanvas
 		  
 		  RebuildBuffer
 		  
+		  // Draw the background.
 		  g.DrawingColor = Style.BackgroundColor
 		  g.FillRectangle(0, 0, g.Width, g.Height)
 		  
+		  // Draw the buffer.
 		  g.DrawPicture(mBuffer, -ScrollPosX, -ScrollPosY)
+		  
+		  // Draw the canvas border.
+		  If HasBorder Then
+		    g.DrawingColor = Style.BorderColor
+		    g.DrawRectangle(0, 0, g.Width, g.Height)
+		  End If
 		  
 		  If AutocompleteData <> Nil And Not mSuppressAutocompletePopup Then
 		    If mHasFocus Then ShowAutocompletePopup
@@ -970,6 +978,21 @@ Inherits DesktopTextInputCanvas
 		CurrentLine As XUITagCanvasLine
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 54727565206966206120626F726465722073686F756C6420626520647261776E2061726F756E642074686520636F6E74726F6C2E
+		#tag Getter
+			Get
+			  Return mHasBorder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasBorder = value
+			  Refresh
+			End Set
+		#tag EndSetter
+		HasBorder As Boolean
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 52657475726E7320547275652069662074686973207461672063616E7661732063757272656E746C79206861732074686520666F6375732E
 		#tag Getter
 			Get
@@ -1014,6 +1037,10 @@ Inherits DesktopTextInputCanvas
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865206043757272656E744C696E656020636F6D70757465642070726F70657274792E
 		Private mCurrentLine As XUITagCanvasLine
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54727565206966206120626F726465722073686F756C6420626520647261776E2061726F756E642074686520636F6E74726F6C2E
+		Private mHasBorder As Boolean = True
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060486173466F6375736020636F6D70757465642070726F70657274792E
@@ -1514,6 +1541,14 @@ Inherits DesktopTextInputCanvas
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasBorder"
+			Visible=true
+			Group="Behavior"
+			InitialValue="True"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty

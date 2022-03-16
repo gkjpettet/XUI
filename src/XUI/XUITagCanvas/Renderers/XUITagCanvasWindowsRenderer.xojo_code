@@ -155,7 +155,7 @@ Implements XUITagCanvasRenderer
 		    If i = selectedIndex Then
 		      g.DrawingColor = style.SelectedAutocompleteOptionColor
 		    Else
-		      g.DrawingColor = style.AutocompleteOptionColour
+		      g.DrawingColor = style.AutocompleteOptionColor
 		    End If
 		    g.DrawText(option.Value, x, y + optionBaseline)
 		    

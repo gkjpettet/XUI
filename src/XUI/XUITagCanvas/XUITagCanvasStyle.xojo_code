@@ -4,21 +4,26 @@ Protected Class XUITagCanvasStyle
 		Shared Function MacOS() As XUITagCanvasStyle
 		  /// Returns a new style with the colours for macOS style tags.
 		  
+		  #Pragma Warning "TODO: Add dark mode colours"
+		  
 		  Var style As New XUITagCanvasStyle
 		  
-		  style.BackgroundColor = Color.White
-		  style.TagBackgroundColor = Color.FromString("&h00C2D6FD")
-		  style.TagBorderColor = Color.FromString("&h00C2D6FD")
-		  style.TagTextColor = Color.Black
-		  style.CaretColor = Color.Black
-		  style.DingusColor = Color.Black
+		  style.BackgroundColor = New ColorGroup(Color.White, Color.FromString("&h001D1D1D"))
+		  style.BorderColor = New ColorGroup(Color.FromString("&h00E5E4E4"), Color.FromString("&h00353435"))
 		  
-		  style.AutocompletePopupBackgroundColor = Color.FromString("&h00ECECEC")
+		  style.FontColor = New ColorGroup(Color.Black, Color.White)
+		  style.TagBackgroundColor = New ColorGroup(Color.FromString("&h00C2D6FD"))
+		  style.TagBorderColor = New ColorGroup(Color.FromString("&h00C2D6FD"))
+		  style.TagTextColor = New ColorGroup(Color.Black)
+		  style.CaretColor = New ColorGroup(Color.Black, Color.White)
+		  style.DingusColor = New ColorGroup(Color.Black)
+		  
+		  style.AutocompletePopupBackgroundColor = New ColorGroup(Color.FromString("&h00ECECEC"))
 		  style.HasAutocompletePopupBorder = True
-		  style.AutocompletePopupBorderColor = Color.FromString("&h00B8B9B9")
-		  style.SelectedAutocompleteOptionBackgroundColor = Color.FromString("&h001043C7")
-		  style.SelectedAutocompleteOptionColor = Color.White
-		  style.AutocompleteOptionColour = Color.Black
+		  style.AutocompletePopupBorderColor = New ColorGroup(Color.FromString("&h00B8B9B9"))
+		  style.SelectedAutocompleteOptionBackgroundColor = New ColorGroup(Color.FromString("&h001043C7"))
+		  style.SelectedAutocompleteOptionColor = New ColorGroup(Color.White)
+		  style.AutocompleteOptionColor = New ColorGroup(Color.Black)
 		  
 		  #If TargetWindows
 		    style.FontSize = 14
@@ -34,21 +39,26 @@ Protected Class XUITagCanvasStyle
 		Shared Function Windows() As XUITagCanvasStyle
 		  /// Returns a new style with the colours for Windows style tags.
 		  
+		  #Pragma Warning "TODO: Add dark mode colours"
+		  
 		  Var style As New XUITagCanvasStyle
 		  
-		  style.BackgroundColor = Color.White
-		  style.TagBackgroundColor = Color.FromString("&h00F2F2F2")
-		  style.TagBorderColor = Color.Black
-		  style.TagTextColor = Color.Black
-		  style.CaretColor = Color.Black
-		  style.DingusColor = Color.Black
+		  style.BackgroundColor = New ColorGroup(Color.White)
+		  style.BorderColor = New ColorGroup(Color.FromString("&h00E5E4E4"), Color.FromString("&h00353435"))
 		  
-		  style.AutocompletePopupBackgroundColor = Color.FromString("&h00E6E6E6")
+		  style.FontColor = New ColorGroup(Color.Black)
+		  style.TagBackgroundColor = New ColorGroup(Color.FromString("&h00F2F2F2"))
+		  style.TagBorderColor = New ColorGroup(Color.Black)
+		  style.TagTextColor = New ColorGroup(Color.Black)
+		  style.CaretColor = New ColorGroup(Color.Black)
+		  style.DingusColor = New ColorGroup(Color.Black)
+		  
+		  style.AutocompletePopupBackgroundColor = New ColorGroup(Color.FromString("&h00E6E6E6"))
 		  style.HasAutocompletePopupBorder = True
-		  style.AutocompletePopupBorderColor = Color.Black
-		  style.SelectedAutocompleteOptionBackgroundColor = Color.FromString("&h00D3D3D3")
-		  style.SelectedAutocompleteOptionColor = Color.Black
-		  style.AutocompleteOptionColour = Color.Black
+		  style.AutocompletePopupBorderColor = New ColorGroup(Color.Black)
+		  style.SelectedAutocompleteOptionBackgroundColor = New ColorGroup(Color.FromString("&h00D3D3D3"))
+		  style.SelectedAutocompleteOptionColor = New ColorGroup(Color.Black)
+		  style.AutocompleteOptionColor = New ColorGroup(Color.Black)
 		  
 		  #If TargetWindows
 		    style.FontSize = 14
@@ -62,31 +72,35 @@ Protected Class XUITagCanvasStyle
 
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652074657874206F6620756E73656C6563746564206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
-		AutocompleteOptionColour As Color
+		AutocompleteOptionColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220746865206261636B67726F756E64206F6620746865206175746F636F6D706C65746520706F7075702E
-		AutocompletePopupBackgroundColor As Color
+		AutocompletePopupBackgroundColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 496620746865206175746F636F6D706C65746520706F70757020686173206120626F72646572207468656E20746869732069732069747320636F6C6F75722E
-		AutocompletePopupBorderColor As Color
+		AutocompletePopupBorderColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F6620746865207461672063616E7661732E
-		BackgroundColor As Color
+		BackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520626F7264657220636F6C6F75722028696620656E61626C6564292E
+		BorderColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F662074686520636172657420696E20746865207461672063616E7661732E
-		CaretColor As Color
+		CaretColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66206F7074696F6E616C207461672064696E67757365732E
-		DingusColor As Color
+		DingusColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620756E70617273656420746578742E
-		FontColor As Color
+		FontColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520666F6E7420746F2075736520666F7220746865207461672063616E7661732E
@@ -102,23 +116,23 @@ Protected Class XUITagCanvasStyle
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F757220666F72207468652063757272656E746C792073656C6563746564206F7074696F6E20696E20746865206175746F636F6D706C65746520706F7075702E
-		SelectedAutocompleteOptionBackgroundColor As Color
+		SelectedAutocompleteOptionBackgroundColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652074657874206F66207468652063757272656E746C792073656C6563746564206F7074696F6E20696E20746865206175746F636F6D706C65746520706F7075702E
-		SelectedAutocompleteOptionColor As Color
+		SelectedAutocompleteOptionColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F662061207461672E
-		TagBackgroundColor As Color
+		TagBackgroundColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520626F7264657220636F6C6F7572206F662061207461672E
-		TagBorderColor As Color
+		TagBorderColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520746167207465787420636F6C6F75722E
-		TagTextColor As Color
+		TagTextColor As ColorGroup
 	#tag EndProperty
 
 
@@ -276,7 +290,7 @@ Protected Class XUITagCanvasStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AutocompleteOptionColour"
+			Name="AutocompleteOptionColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
