@@ -16,7 +16,7 @@ Protected Class XUITagCanvasStyle
 		  style.TagBorderColor = New ColorGroup(Color.FromString("&h00C2D6FD"))
 		  style.TagTextColor = New ColorGroup(Color.Black)
 		  style.CaretColor = New ColorGroup(Color.Black, Color.White)
-		  style.DingusColor = New ColorGroup(Color.Black)
+		  style.WidgetColor = New ColorGroup(Color.Black)
 		  
 		  style.AutocompletePopupBackgroundColor = New ColorGroup(Color.FromString("&h00ECECEC"))
 		  style.HasAutocompletePopupBorder = True
@@ -51,7 +51,7 @@ Protected Class XUITagCanvasStyle
 		  style.TagBorderColor = New ColorGroup(Color.Black)
 		  style.TagTextColor = New ColorGroup(Color.Black)
 		  style.CaretColor = New ColorGroup(Color.Black)
-		  style.DingusColor = New ColorGroup(Color.Black)
+		  style.WidgetColor = New ColorGroup(Color.Black)
 		  
 		  style.AutocompletePopupBackgroundColor = New ColorGroup(Color.FromString("&h00E6E6E6"))
 		  style.HasAutocompletePopupBorder = True
@@ -95,10 +95,6 @@ Protected Class XUITagCanvasStyle
 		CaretColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66206F7074696F6E616C207461672064696E67757365732E
-		DingusColor As ColorGroup
-	#tag EndProperty
-
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620756E70617273656420746578742E
 		FontColor As ColorGroup
 	#tag EndProperty
@@ -133,6 +129,10 @@ Protected Class XUITagCanvasStyle
 
 	#tag Property, Flags = &h0, Description = 54686520746167207465787420636F6C6F75722E
 		TagTextColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66206F7074696F6E616C207461672064696E67757365732E
+		WidgetColor As ColorGroup
 	#tag EndProperty
 
 
@@ -242,7 +242,7 @@ Protected Class XUITagCanvasStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="DingusColor"
+			Name="WidgetColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"

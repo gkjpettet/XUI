@@ -157,8 +157,8 @@ Inherits DesktopTextInputCanvas
 		  Var tag As XUITag = TagAtXY(x, y)
 		  If tag <> Nil Then
 		    // Clicked a tag. Did we click its dingus?
-		    If tag.HasDingus Then
-		      If Not mLastClickWasContextual And tag.DingusBounds.Contains(x + ScrollPosX, y + ScrollPosY) Then
+		    If tag.HasWidget Then
+		      If Not mLastClickWasContextual And tag.WidgetBounds.Contains(x + ScrollPosX, y + ScrollPosY) Then
 		        // Left-clicked the dingus. Remove this tag.
 		        RemoveTagInstance(tag)
 		        RemovedTag(tag, True)
@@ -914,7 +914,7 @@ Inherits DesktopTextInputCanvas
 	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
-		Event RemovedTag(tag As XUITag, viaDingus As Boolean)
+		Event RemovedTag(tag As XUITag, viaWidget As Boolean)
 	#tag EndHook
 
 
@@ -1269,7 +1269,7 @@ Inherits DesktopTextInputCanvas
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E20746167732077696C6C20626520647261776E2077697468206120636C69636B61626C652064696E6775732E
-		TagsHaveDingus As Boolean = True
+		TagsHaveWidget As Boolean = True
 	#tag EndProperty
 
 
@@ -1529,7 +1529,7 @@ Inherits DesktopTextInputCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TagsHaveDingus"
+			Name="TagsHaveWidget"
 			Visible=true
 			Group="Behavior"
 			InitialValue="True"

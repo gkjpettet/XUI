@@ -29,6 +29,8 @@ Begin DesktopWindow WinTagCanvas
       AutoDeactivate  =   True
       CaretBlinkPeriod=   500
       Enabled         =   True
+      HasBorder       =   True
+      HasFocus        =   False
       Height          =   126
       Index           =   -2147483648
       InitialParent   =   ""
@@ -157,6 +159,8 @@ Begin DesktopWindow WinTagCanvas
       AutoDeactivate  =   True
       CaretBlinkPeriod=   500
       Enabled         =   True
+      HasBorder       =   True
+      HasFocus        =   False
       Height          =   34
       Index           =   -2147483648
       InitialParent   =   ""
@@ -221,6 +225,8 @@ Begin DesktopWindow WinTagCanvas
       AutoDeactivate  =   True
       CaretBlinkPeriod=   500
       Enabled         =   True
+      HasBorder       =   True
+      HasFocus        =   False
       Height          =   126
       Index           =   -2147483648
       InitialParent   =   ""
@@ -391,8 +397,8 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
-		Sub RemovedTag(tag As XUITag, viaDingus As Boolean)
-		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaDingus, " via the dingus", "")
+		Sub RemovedTag(tag As XUITag, viaWidget As Boolean)
+		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaWidget, " via the widget", "")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
@@ -434,8 +440,8 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
-		Sub RemovedTag(tag As XUITag, viaDingus As Boolean)
-		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaDingus, " via the dingus", "")
+		Sub RemovedTag(tag As XUITag, viaWidget As Boolean)
+		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaWidget, " via the widget", "")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
@@ -477,8 +483,8 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
-		Sub RemovedTag(tag As XUITag, viaDingus As Boolean)
-		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaDingus, " via the dingus", "")
+		Sub RemovedTag(tag As XUITag, viaWidget As Boolean)
+		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaWidget, " via the widget", "")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E

@@ -43,7 +43,7 @@ Protected Interface XUITagCanvasRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52656E6465727320607461676020746F206067602061742060782C2079602E2052657475726E7320746865207820636F6F7264696E6174652061742074686520666172207269676874206F66207468652072656E6465726564207461672E
-		Function RenderTag(tag As XUITag, g As Graphics, x As Integer, y As Integer, hasDingus As Boolean) As Double
+		Function RenderTag(tag As XUITag, g As Graphics, x As Integer, y As Integer, hasWidget As Boolean) As Double
 		  
 		End Function
 	#tag EndMethod

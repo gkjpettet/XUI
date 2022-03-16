@@ -167,7 +167,7 @@ Implements XUITagCanvasRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52656E6465727320607461676020746F206067602061742060782C2079602E2052657475726E7320746865207820636F6F7264696E6174652061742074686520666172207269676874206F66207468652072656E6465726564207461672E
-		Function RenderTag(tag As XUITag, g As Graphics, x As Integer, y As Integer, hasDingus As Boolean) As Double
+		Function RenderTag(tag As XUITag, g As Graphics, x As Integer, y As Integer, hasWidget As Boolean) As Double
 		  /// Renders `tag` to `g` at `x, y`. Returns the x coordinate at the far right of the rendered tag.
 		  ///
 		  /// Part of the `XUITagCanvasRenderer` interface.
@@ -190,7 +190,7 @@ Implements XUITagCanvasRenderer
 		  
 		  // Compute the width (and height as they're the same) of the close icon (dingus).
 		  Var dingusWidth, dingusHeight As Double = 0
-		  If hasDingus Then
+		  If hasWidget Then
 		    dingusWidth = (0.8 * tagH) / 2
 		    dingusHeight = dingusWidth
 		  End If
@@ -208,11 +208,11 @@ Implements XUITagCanvasRenderer
 		  g.DrawText(tag.Title, x + mTitlePadding, titleBaseline)
 		  
 		  Var dingusX, dingusTopLeftY As Double = 0
-		  If hasDingus Then
+		  If hasWidget Then
 		    // These tags have a clickable close icon as their dingus.
-		    g.DrawingColor = Owner.Style.DingusColor
+		    g.DrawingColor = Owner.Style.WidgetColor
 		    g.PenSize = 1
-		    dingusX = x + mTitlePadding + titleWidth + mDingusLeftPadding
+		    dingusX = x + mTitlePadding + titleWidth + mWidgetLeftPadding
 		    dingusTopLeftY = y + (tagH / 2) - (dingusHeight / 2)
 		    Var dingusBottomRightY As Integer = y + (tagH / 2) + (dingusHeight / 2)
 		    g.DrawLine(dingusX, dingusTopLeftY, dingusX + dingusWidth, dingusBottomRightY)
@@ -223,10 +223,10 @@ Implements XUITagCanvasRenderer
 		  tag.Bounds = New Rect(x, y, tagW, tagH)
 		  
 		  // Assign the dingus bounds to the passed tag.
-		  If hasDingus Then
-		    tag.DingusBounds = New Rect(dingusX, dingusTopLeftY, dingusWidth, dingusHeight)
+		  If hasWidget Then
+		    tag.WidgetBounds = New Rect(dingusX, dingusTopLeftY, dingusWidth, dingusHeight)
 		  Else
-		    tag.DingusBounds = Nil
+		    tag.WidgetBounds = Nil
 		  End If
 		  
 		  Return tagW + TagHorizontalPadding
@@ -291,9 +291,9 @@ Implements XUITagCanvasRenderer
 		  // Compute the width of the dingus and any padding.
 		  Var dingusWidth As Double = 0
 		  Var dingusPadding As Integer = 0
-		  If Owner.TagsHaveDingus Then
+		  If Owner.TagsHaveWidget Then
 		    dingusWidth = (0.8 * TagHeight(g)) / 2
-		    dingusPadding = mDingusLeftPadding + mDingusRightPadding
+		    dingusPadding = mWidgetLeftPadding + mWidgetRightPadding
 		  End If
 		  
 		  // Return the total width.
@@ -308,14 +308,6 @@ Implements XUITagCanvasRenderer
 	#tag EndNote
 
 
-	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C656674206F662074686520636C6F73652069636F6E2E
-		Private mDingusLeftPadding As Integer = 8
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865207269676874206F662074686520636C6F73652069636F6E2E
-		Private mDingusRightPadding As Integer = 2
-	#tag EndProperty
-
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F20746865206F776E696E67207461672063616E7661732E
 		Private mOwner As WeakRef
 	#tag EndProperty
@@ -326,6 +318,14 @@ Implements XUITagCanvasRenderer
 
 	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F7720746865207461672773207469746C652E
 		Private mVerticalPadding As Integer = 5
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C656674206F662074686520636C6F73652069636F6E2E
+		Private mWidgetLeftPadding As Integer = 8
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865207269676874206F662074686520636C6F73652069636F6E2E
+		Private mWidgetRightPadding As Integer = 2
 	#tag EndProperty
 
 
