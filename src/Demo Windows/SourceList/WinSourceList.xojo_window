@@ -1,7 +1,7 @@
 #tag DesktopWindow
 Begin DesktopWindow WinSourceList
    Backdrop        =   0
-   BackgroundColor =   &cFFD47900
+   BackgroundColor =   &cFFFFFF
    Composite       =   False
    DefaultLocation =   2
    FullScreen      =   False
@@ -23,8 +23,8 @@ Begin DesktopWindow WinSourceList
    Title           =   "SourceList Demo"
    Type            =   0
    Visible         =   False
-   Width           =   960
-   Begin XUISourceList FinderSourceList
+   Width           =   792
+   Begin XUISourceList SourceList
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   False
@@ -35,7 +35,7 @@ Begin DesktopWindow WinSourceList
       Composited      =   False
       Enabled         =   True
       HasBackgroundColor=   False
-      Height          =   502
+      Height          =   500
       Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
@@ -53,40 +53,67 @@ Begin DesktopWindow WinSourceList
       Top             =   0
       Transparent     =   True
       Visible         =   True
-      Width           =   230
+      Width           =   239
    End
-   Begin XUISourceList MailSourceList
+   Begin DesktopPopupMenu PopupRenderer
       AllowAutoDeactivate=   True
-      AllowFocus      =   False
-      AllowFocusRing  =   False
-      AllowMultipleSelection=   True
-      AllowTabs       =   True
-      Backdrop        =   0
-      BackgroundColor =   &cFFFFFF
-      Composited      =   False
+      Bold            =   False
       Enabled         =   True
-      HasBackgroundColor=   False
-      Height          =   502
-      Hierarchical    =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
       Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   730
-      LockBottom      =   True
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   342
+      LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Scope           =   0
+      SelectedRowIndex=   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   0
-      Transparent     =   True
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
       Visible         =   True
-      Width           =   230
+      Width           =   218
    End
-   Begin DesktopLabel Info
+   Begin DesktopPopupMenu PopupStyle
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   342
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      SelectedRowIndex=   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   52
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   218
+   End
+   Begin DesktopLabel LabelRenderer
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -96,27 +123,263 @@ Begin DesktopWindow WinSourceList
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   242
+      Left            =   251
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Renderer:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   79
+   End
+   Begin DesktopLabel LabelStyle
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   251
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Style:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   52
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   79
+   End
+   Begin DesktopButton ButtonFileBrowser
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "File Browser"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   251
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MacButtonStyle  =   0
+      Scope           =   2
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   116
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   105
+   End
+   Begin DesktopButton ButtonMailClient
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Mail Client"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   368
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MacButtonStyle  =   0
+      Scope           =   2
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   116
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   105
+   End
+   Begin DesktopLabel LabelDummyData
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   251
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Clicking the buttons below will reset the source list with dummy data."
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   84
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   521
+   End
+   Begin DesktopListBox ListBoxEvents
+      AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   False
+      AllowResizableColumns=   False
+      AllowRowDragging=   False
+      AllowRowReordering=   False
+      Bold            =   False
+      ColumnCount     =   1
+      ColumnWidths    =   ""
+      DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      GridLineStyle   =   0
+      HasBorder       =   True
+      HasHeader       =   False
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      HeadingIndex    =   -1
+      Height          =   270
+      Index           =   -2147483648
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   251
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   2
+      LockTop         =   True
+      RequiresSelection=   False
+      RowSelectionType=   0
+      Scope           =   2
+      TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Events will appear here."
-      TextAlignment   =   0
-      TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   459
+      Top             =   180
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   476
+      Width           =   521
+      _ScrollWidth    =   -1
+   End
+   Begin DesktopLabel LabelDummyData1
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   251
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Event Log:"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   148
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   79
+   End
+   Begin DesktopButton ButtonClearEvents
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Clear Events"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   667
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MacButtonStyle  =   0
+      Scope           =   2
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   462
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   105
    End
 End
 #tag EndDesktopWindow
@@ -124,59 +387,57 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  InitialiseFinderSourceList
-		  InitialiseMailSourceList
+		  ResetToFileBrowserData
+		  
 		End Sub
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21, Description = 496E697469616C69736573206F75722046696E6465722D7374796C6520736F75726365206C6973742E
-		Private Sub InitialiseFinderSourceList()
-		  /// Initialises our Finder-style source list.
+	#tag Method, Flags = &h21
+		Private Sub ResetToFileBrowserData()
+		  /// Resets the contents of the source list to contain items you'd expect to see in a file browser.
 		  
-		  FinderSourceList.Renderer = New XUISourceListRendererMonterey(FinderSourceList)
-		  FinderSourceList.Style = XUISourceListStyle.Monterey
+		  SourceList.RemoveAllSections
 		  
 		  // Favourites section.
 		  Var favourites As New XUISourceListItem("Favourites")
-		  favourites.AddChild(New XUISourceListItem("garry", IconSourceListHome))
-		  favourites.AddChild(New XUISourceListItem("Recents", IconSourceListRecent))
+		  favourites.AddChild(New XUISourceListItem("garry", IconSourceListHome), False)
+		  favourites.AddChild(New XUISourceListItem("Recents", IconSourceListRecent), False)
 		  favourites.Expanded = True
-		  FinderSourceList.AddSection(favourites)
+		  SourceList.AddSection(favourites)
 		  
 		  // iCloud section.
 		  Var iCloud As New XUISourceListItem("iCloud")
-		  iCloud.AddChild(New XUISourceListItem("iCloud Drive", IconSourceListICloud))
-		  iCloud.AddChild(New XUISourceListItem("Documents", IconSourceListDocuments))
-		  iCloud.AddChild(New XUISourceListItem("Desktop", IconSourceListDesktop))
-		  iCloud.AddChild(New XUISourceListItem("Shared", IconSourceListShared))
+		  iCloud.AddChild(New XUISourceListItem("iCloud Drive", IconSourceListICloud), False)
+		  iCloud.AddChild(New XUISourceListItem("Documents", IconSourceListDocuments), False)
+		  iCloud.AddChild(New XUISourceListItem("Desktop", IconSourceListDesktop), False)
+		  iCloud.AddChild(New XUISourceListItem("Shared", IconSourceListShared), False)
 		  iCloud.Expanded = True
-		  FinderSourceList.AddSection(iCloud)
+		  SourceList.AddSection(iCloud)
 		  
 		  // Locations section.
 		  Var locations As New XUISourceListItem("Locations")
-		  locations.AddChild(New XUISourceListItem("Synology", IconSourceListComputer))
-		  locations.AddChild(New XUISourceListItem("Network", IconSourceListNetwork))
+		  locations.AddChild(New XUISourceListItem("Synology", IconSourceListComputer), False)
+		  locations.AddChild(New XUISourceListItem("Network", IconSourceListNetwork), False)
 		  locations.Expanded = True
-		  FinderSourceList.AddSection(locations)
+		  SourceList.AddSection(locations)
 		  
 		  // Tags section.
 		  Var tags As New XUISourceListItem("Tags")
-		  tags.AddChild(New XUISourceListItem("Red", IconSourceListTagRed))
-		  tags.AddChild(New XUISourceListItem("Orange", IconSourceListTagOrange))
-		  tags.AddChild(New XUISourceListItem("All Tags...", IconSourceListAllTags))
+		  tags.AddChild(New XUISourceListItem("Red", IconSourceListTagRed), False)
+		  tags.AddChild(New XUISourceListItem("Orange", IconSourceListTagOrange), False)
+		  tags.AddChild(New XUISourceListItem("All Tags...", IconSourceListAllTags), False)
 		  tags.Expanded = True
-		  FinderSourceList.AddSection(tags)
+		  SourceList.AddSection(tags)
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 496E697469616C69736573206F7572204D61696C2E6170702D7374796C6520736F75726365206C6973742E
-		Private Sub InitialiseMailSourceList()
-		  /// Initialises our Mail.app-style source list.
+	#tag Method, Flags = &h21, Description = 5265736574732074686520636F6E74656E7473206F662074686520736F75726365206C69737420746F20636F6E7461696E206974656D7320796F7527642065787065637420746F2073656520696E20616E20656D61696C20636C69656E74277320736F75726365206C6973742E
+		Private Sub ResetToMailSourceList()
+		  /// Resets the contents of the source list to contain items you'd expect to see in an email client's source list.
 		  
-		  MailSourceList.Renderer = New XUISourceListRendererMonterey(MailSourceList)
-		  MailSourceList.Style = XUISourceListStyle.Monterey
+		  SourceList.RemoveAllSections
 		  
 		  // =======================
 		  // FAVOURITES SECTION
@@ -215,7 +476,7 @@ End
 		  favourites.HasWidget = True
 		  
 		  // Add the favourites section to the source list.
-		  MailSourceList.AddSection(favourites)
+		  SourceList.AddSection(favourites)
 		  
 		  // =======================
 		  // SMART MAILBOXES SECTION
@@ -228,7 +489,31 @@ End
 		  smart.HasWidget = True
 		  
 		  // Add the smart mailboxes section to the source list.
-		  MailSourceList.AddSection(smart)
+		  SourceList.AddSection(smart)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 536574732074686520736F75726365206C69737427732072656E646572657220746F207468652073656C65637465642072656E646572657220696E2074686520706F7075702E
+		Private Sub SetRenderer()
+		  /// Sets the source list's renderer to the selected renderer in the popup.
+		  
+		  Select Case PopupRenderer.SelectedRowValue
+		  Case "macOS Monterey"
+		    SourceList.Renderer = New XUISourceListRendererMonterey(SourceList)
+		  Case "Windows 11"
+		    SourceList.Renderer = New XUISourceListRendererWindows11(SourceList)
+		  Else
+		    Raise New UnsupportedOperationException("Unknown renderer in popup.")
+		  End Select
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5365747320746865207374796C65206F662074686520736F75726365206C69737420746F207468652073656C6563746564207374796C6520696E2074686520706F7075702E
+		Private Sub SetStyle()
+		  /// Sets the style of the source list to the selected style in the popup.
+		  
+		  SourceList.Style = PopupStyle.RowTagAt(PopupStyle.SelectedRowIndex)
 		  
 		End Sub
 	#tag EndMethod
@@ -236,319 +521,95 @@ End
 
 #tag EndWindowCode
 
-#tag Events FinderSourceList
+#tag Events SourceList
 	#tag Event , Description = 54686520757365722068617320636C69636B6564206F6E20616E206974656D2773207769646765742E
 		Sub ClickedItemWidget(item As XUISourceListItem)
-		  Info.Text = "Clicked """ + item.Title + """ widget"
+		  ListBoxEvents.AddRow("Clicked """ + item.Title + """ widget")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 54686520757365722068617320636F6C6C617073656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
 		Sub CollapsedItem(item As XUISourceListItem)
-		  Info.Text = "Collapsed """ + item.Title + """"
+		  ListBoxEvents.AddRow("Collapsed """ + item.Title + """")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 54686520757365722068617320657870616E64656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
 		Sub ExpandedItem(item As XUISourceListItem)
-		  Info.Text = "Expanded """ + item.Title + """"
+		  ListBoxEvents.AddRow("Expanded """ + item.Title + """")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C697374207761732073656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
 		Sub ItemSelected(item As XUISourceListItem, x As Integer, y As Integer)
-		  #Pragma Unused x
-		  #Pragma Unused y
-		  
-		  Info.Text = "Selected """ + item.Title + """"
+		  ListBoxEvents.AddRow("Selected """ + item.Title + """")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320756E73656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
 		Sub ItemUnselected(item As XUISourceListItem, x As Integer, y As Integer)
-		  #Pragma Unused x
-		  #Pragma Unused y
-		  
-		  Info.Text = "Unselected """ + item.Title + """"
+		  ListBoxEvents.AddRow("Unselected """ + item.Title + """")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 43616C6C6564207768656E20606974656D6020686173206265656E206D6F7665642066726F6D20606F6C64506172656E746020746F20606E6577506172656E74602E204F6363757273207768656E20746865726520686173206265656E206120647261672072656F72646572696E672E
 		Sub MovedItem(item As XUISourceListItem, oldParent As XUISourceListItem, newParent As XUISourceListItem)
-		  Info.Text = "Moved item """ + item.Title + """ from """ + If(oldParent = Nil, "Nil", oldParent.Title) + """ to """ + _
-		  If(newParent = Nil, "Nil", newParent.Title) + """"
+		  ListBoxEvents.AddRow("Moved """ + item.Title + """ to " + If(newParent = Nil, "Nil", """" + newParent.Title + """"))
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events MailSourceList
-	#tag Event , Description = 54686520757365722068617320636C69636B6564206F6E20616E206974656D2773207769646765742E
-		Sub ClickedItemWidget(item As XUISourceListItem)
-		  Info.Text = "Clicked """ + item.Title + """ widget"
-		End Sub
-	#tag EndEvent
-	#tag Event , Description = 54686520757365722068617320636F6C6C617073656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
-		Sub CollapsedItem(item As XUISourceListItem)
-		  Info.Text = "Collapsed """ + item.Title + """"
-		End Sub
-	#tag EndEvent
-	#tag Event , Description = 54686520757365722068617320657870616E64656420616E206974656D20627920636C69636B696E67206F6E2074686520646973636C6F73757265207769646765742E
-		Sub ExpandedItem(item As XUISourceListItem)
-		  Info.Text = "Expanded """ + item.Title + """"
-		End Sub
-	#tag EndEvent
-	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C697374207761732073656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
-		Sub ItemSelected(item As XUISourceListItem, x As Integer, y As Integer)
-		  #Pragma Unused x
-		  #Pragma Unused y
+#tag Events PopupRenderer
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  SourceList.Renderer = Me.RowTagAt(Me.SelectedRowIndex)
 		  
-		  Info.Text = "Selected """ + item.Title + """"
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320756E73656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
-		Sub ItemUnselected(item As XUISourceListItem, x As Integer, y As Integer)
-		  #Pragma Unused x
-		  #Pragma Unused y
+	#tag Event
+		Sub Opening()
+		  Me.AddRow("macOS Monterey")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUISourceListRendererMonterey(SourceList)
 		  
-		  Info.Text = "Unselected """ + item.Title + """"
-		End Sub
-	#tag EndEvent
-	#tag Event , Description = 43616C6C6564207768656E20606974656D6020686173206265656E206D6F7665642066726F6D20606F6C64506172656E746020746F20606E6577506172656E74602E204F6363757273207768656E20746865726520686173206265656E206120647261672072656F72646572696E672E
-		Sub MovedItem(item As XUISourceListItem, oldParent As XUISourceListItem, newParent As XUISourceListItem)
-		  Info.Text = "Moved item """ + item.Title + """ from """ + If(oldParent = Nil, "Nil", oldParent.Title) + """ to """ + _
-		  If(newParent = Nil, "Nil", newParent.Title) + """"
+		  Me.AddRow("Windows 11")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUISourceListRendererWindows11(SourceList)
+		  
+		  // Default to the Mac renderer.
+		  Me.SelectedRowIndex = 0
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag ViewBehavior
-	#tag ViewProperty
-		Name="Name"
-		Visible=true
-		Group="ID"
-		InitialValue=""
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Interfaces"
-		Visible=true
-		Group="ID"
-		InitialValue=""
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Super"
-		Visible=true
-		Group="ID"
-		InitialValue=""
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Width"
-		Visible=true
-		Group="Size"
-		InitialValue="600"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Height"
-		Visible=true
-		Group="Size"
-		InitialValue="400"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinimumWidth"
-		Visible=true
-		Group="Size"
-		InitialValue="64"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinimumHeight"
-		Visible=true
-		Group="Size"
-		InitialValue="64"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MaximumWidth"
-		Visible=true
-		Group="Size"
-		InitialValue="32000"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MaximumHeight"
-		Visible=true
-		Group="Size"
-		InitialValue="32000"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Type"
-		Visible=true
-		Group="Frame"
-		InitialValue="0"
-		Type="Types"
-		EditorType="Enum"
-		#tag EnumValues
-			"0 - Document"
-			"1 - Movable Modal"
-			"2 - Modal Dialog"
-			"3 - Floating Window"
-			"4 - Plain Box"
-			"5 - Shadowed Box"
-			"6 - Rounded Window"
-			"7 - Global Floating Window"
-			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
-		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Title"
-		Visible=true
-		Group="Frame"
-		InitialValue="Untitled"
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasCloseButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasMaximizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasMinimizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasFullScreenButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Resizeable"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Composite"
-		Visible=false
-		Group="OS X (Carbon)"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MacProcID"
-		Visible=false
-		Group="OS X (Carbon)"
-		InitialValue="0"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FullScreen"
-		Visible=false
-		Group="Behavior"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="DefaultLocation"
-		Visible=true
-		Group="Behavior"
-		InitialValue="2"
-		Type="Locations"
-		EditorType="Enum"
-		#tag EnumValues
-			"0 - Default"
-			"1 - Parent Window"
-			"2 - Main Screen"
-			"3 - Parent Window Screen"
-			"4 - Stagger"
-		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Visible"
-		Visible=true
-		Group="Behavior"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ImplicitInstance"
-		Visible=true
-		Group="Windows Behavior"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasBackgroundColor"
-		Visible=true
-		Group="Background"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="BackgroundColor"
-		Visible=true
-		Group="Background"
-		InitialValue="&cFFFFFF"
-		Type="ColorGroup"
-		EditorType="ColorGroup"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Backdrop"
-		Visible=true
-		Group="Background"
-		InitialValue=""
-		Type="Picture"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBar"
-		Visible=true
-		Group="Menus"
-		InitialValue=""
-		Type="DesktopMenuBar"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBarVisible"
-		Visible=true
-		Group="Deprecated"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-#tag EndViewBehavior
+#tag Events PopupStyle
+	#tag Event
+		Sub Opening()
+		  Me.AddRow("macOS Monterey")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUISourceListStyle.Monterey
+		  
+		  // Default to Monterey's style.
+		  Me.SelectedRowIndex = 0
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  SourceList.Style = Me.RowTagAt(Me.SelectedRowIndex)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonFileBrowser
+	#tag Event
+		Sub Pressed()
+		  ResetToFileBrowserData
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonMailClient
+	#tag Event
+		Sub Pressed()
+		  ResetToMailSourceList
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonClearEvents
+	#tag Event
+		Sub Pressed()
+		  ListBoxEvents.RemoveAllRows
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents

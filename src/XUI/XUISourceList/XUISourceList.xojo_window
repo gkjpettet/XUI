@@ -388,13 +388,14 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52656D6F7665732065766572792073656374696F6E20696E2074686520736F75726365206C6973742E
+	#tag Method, Flags = &h0, Description = 52656D6F7665732065766572792073656374696F6E20696E2074686520736F75726365206C6973742E2052656275696C64732074686520736F75726365206C6973742E
 		Sub RemoveAllSections()
 		  /// Removes every section in the source list.
+		  /// Rebuilds the source list.
 		  
 		  mSections.RemoveAll
 		  ResetMouseProperties
-		  Refresh(True)
+		  Refresh
 		  
 		End Sub
 	#tag EndMethod
@@ -613,7 +614,7 @@ End
 		#tag Setter
 			Set
 			  mStyle = value
-			  Refresh
+			  If Self.Renderer <> Nil Then Refresh
 			End Set
 		#tag EndSetter
 		Style As XUISourceListStyle
@@ -631,6 +632,8 @@ End
 		Function PaintCellBackground(g As Graphics, row As Integer, column As Integer) As Boolean
 		  #Pragma Unused column
 		  
+		  #Pragma BreakOnExceptions False
+		  
 		  If Renderer = Nil Then Return True
 		  
 		  // Render the background.
@@ -647,6 +650,9 @@ End
 		  End If
 		  
 		  Return True
+		  
+		  Exception e As NilObjectException
+		    // This must likely occurred because a style ColorGroup is Nil. Ignore it.
 		End Function
 	#tag EndEvent
 	#tag Event
