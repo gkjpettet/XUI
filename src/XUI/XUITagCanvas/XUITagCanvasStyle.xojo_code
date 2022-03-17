@@ -9,17 +9,17 @@ Protected Class XUITagCanvasStyle
 		  // Autocomplete.
 		  style.HasAutocompletePopupBorder = True
 		  style.AutocompleteOptionColor = New ColorGroup(Color.Black, Color.White)
-		  style.AutocompletePopupBackgroundColor = New ColorGroup(Color.FromString("&h00ECECEC"), Color.FromString("&h00323233"))
-		  style.AutocompletePopupBorderColor = New ColorGroup(Color.FromString("&h00B8B9B9"), Color.Black)
-		  style.SelectedAutocompleteOptionBackgroundColor = New ColorGroup(Color.FromString("&h001043C7"))
+		  style.AutocompletePopupBackgroundColor = New ColorGroup(&cE6E7E7, &c262626)
+		  style.AutocompletePopupBorderColor = New ColorGroup(&cB9BBBB, Color.Black)
+		  style.SelectedAutocompleteOptionBackgroundColor = New ColorGroup(&c002BC3, &c356FFF)
 		  style.SelectedAutocompleteOptionColor = New ColorGroup(Color.White)
 		  
 		  // General.
-		  style.BackgroundColor = New ColorGroup(Color.White, Color.FromString("&h001D1D1D"))
-		  style.BorderColor = New ColorGroup(Color.FromString("&h00E5E4E4"), Color.FromString("&h00353435"))
+		  style.BackgroundColor = New ColorGroup(Color.White, &c171717)
+		  style.BorderColor = New ColorGroup(&cDDDFDF, &c282828)
 		  style.CaretColor = New ColorGroup(Color.Black, Color.White)
-		  style.TagBackgroundColor = New ColorGroup(Color.FromString("&h00C2D6FD"), Color.FromString("&h00273C5F"))
-		  style.TagBorderColor = New ColorGroup(Color.FromString("&h00C2D6FD"), Color.FromString("&h00273C5F"))
+		  style.TagBackgroundColor = New ColorGroup(&cAFCCFF, &c192D4F)
+		  style.TagBorderColor = New ColorGroup(&cAFCCFF, &c192D4F)
 		  style.TagTextColor = New ColorGroup(Color.Black, Color.White)
 		  style.WidgetColor = New ColorGroup(Color.Black, Color.White)
 		  
@@ -39,34 +39,35 @@ Protected Class XUITagCanvasStyle
 		Shared Function Windows() As XUITagCanvasStyle
 		  /// Returns a new style with the colours for Windows style tags.
 		  
-		  #Pragma Warning "TODO: Add dark mode colours"
-		  
 		  Var style As New XUITagCanvasStyle
 		  
-		  style.BackgroundColor = New ColorGroup(Color.White)
-		  style.BorderColor = New ColorGroup(Color.FromString("&h00E5E4E4"), Color.FromString("&h00353435"))
+		  // General.
+		  style.BackgroundColor = New ColorGroup(Color.White, &c303030)
+		  style.BorderColor = New ColorGroup(&cECECEC, &c303030)
+		  style.CaretColor = New ColorGroup(Color.Black, Color.White)
+		  style.TagBackgroundColor = New ColorGroup(&cE4E9EE, &c1E2327)
+		  style.TagBorderColor = New ColorGroup(Color.Black, &c1E2327)
+		  style.TagTextColor = New ColorGroup(Color.Black, Color.White)
+		  style.WidgetColor = New ColorGroup(Color.Black, Color.White)
 		  
-		  style.FontColor = New ColorGroup(Color.Black)
-		  style.TagBackgroundColor = New ColorGroup(Color.FromString("&h00F2F2F2"))
-		  style.TagBorderColor = New ColorGroup(Color.Black)
-		  style.TagTextColor = New ColorGroup(Color.Black)
-		  style.CaretColor = New ColorGroup(Color.Black)
-		  style.WidgetColor = New ColorGroup(Color.Black)
-		  
-		  style.AutocompletePopupBackgroundColor = New ColorGroup(Color.FromString("&h00E6E6E6"))
+		  // Autocomplete.
 		  style.HasAutocompletePopupBorder = True
-		  style.AutocompletePopupBorderColor = New ColorGroup(Color.Black)
-		  style.SelectedAutocompleteOptionBackgroundColor = New ColorGroup(Color.FromString("&h00D3D3D3"))
-		  style.SelectedAutocompleteOptionColor = New ColorGroup(Color.Black)
-		  style.AutocompleteOptionColor = New ColorGroup(Color.Black)
+		  style.AutocompleteOptionColor = New ColorGroup(Color.Black, Color.White)
+		  style.AutocompletePopupBorderColor = New ColorGroup(&cECECEC, &c303030)
+		  style.AutocompletePopupBackgroundColor = New ColorGroup(&cFFFFFF, &c262626)
+		  style.SelectedAutocompleteOptionBackgroundColor = New ColorGroup(&cF4F4F4, &c303030)
+		  style.SelectedAutocompleteOptionColor = New ColorGroup(Color.Black, Color.White)
 		  
+		  // Font.
 		  #If TargetWindows
 		    style.FontSize = 14
 		  #Else
 		    style.FontSize = 0
 		  #EndIf
+		  style.FontColor = New ColorGroup(Color.Black, Color.White)
 		  
 		  Return style
+		  
 		End Function
 	#tag EndMethod
 
