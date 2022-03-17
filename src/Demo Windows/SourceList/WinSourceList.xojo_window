@@ -139,33 +139,33 @@ End
 		  
 		  // Favourites section.
 		  Var favourites As New XUISourceListItem("Favourites")
-		  favourites.AddChild(New XUISourceListItem("garry", IconSourceListHome), False)
-		  favourites.AddChild(New XUISourceListItem("Recents", IconSourceListRecent), False)
-		  favourites.SetExpanded(False)
+		  favourites.AddChild(New XUISourceListItem("garry", IconSourceListHome))
+		  favourites.AddChild(New XUISourceListItem("Recents", IconSourceListRecent))
+		  favourites.Expanded = True
 		  FinderSourceList.AddSection(favourites)
 		  
 		  // iCloud section.
 		  Var iCloud As New XUISourceListItem("iCloud")
-		  iCloud.AddChild(New XUISourceListItem("iCloud Drive", IconSourceListICloud), False)
-		  iCloud.AddChild(New XUISourceListItem("Documents", IconSourceListDocuments), False)
-		  iCloud.AddChild(New XUISourceListItem("Desktop", IconSourceListDesktop), False)
-		  iCloud.AddChild(New XUISourceListItem("Shared", IconSourceListShared), False)
-		  iCloud.SetExpanded(False)
+		  iCloud.AddChild(New XUISourceListItem("iCloud Drive", IconSourceListICloud))
+		  iCloud.AddChild(New XUISourceListItem("Documents", IconSourceListDocuments))
+		  iCloud.AddChild(New XUISourceListItem("Desktop", IconSourceListDesktop))
+		  iCloud.AddChild(New XUISourceListItem("Shared", IconSourceListShared))
+		  iCloud.Expanded = True
 		  FinderSourceList.AddSection(iCloud)
 		  
 		  // Locations section.
 		  Var locations As New XUISourceListItem("Locations")
-		  locations.AddChild(New XUISourceListItem("Synology", IconSourceListComputer), False)
-		  locations.AddChild(New XUISourceListItem("Network", IconSourceListNetwork), False)
-		  locations.SetExpanded(False)
+		  locations.AddChild(New XUISourceListItem("Synology", IconSourceListComputer))
+		  locations.AddChild(New XUISourceListItem("Network", IconSourceListNetwork))
+		  locations.Expanded = True
 		  FinderSourceList.AddSection(locations)
 		  
 		  // Tags section.
 		  Var tags As New XUISourceListItem("Tags")
-		  tags.AddChild(New XUISourceListItem("Red", IconSourceListTagRed), False)
-		  tags.AddChild(New XUISourceListItem("Orange", IconSourceListTagOrange), False)
-		  tags.AddChild(New XUISourceListItem("All Tags...", IconSourceListAllTags), False)
-		  tags.SetExpanded(False)
+		  tags.AddChild(New XUISourceListItem("Red", IconSourceListTagRed))
+		  tags.AddChild(New XUISourceListItem("Orange", IconSourceListTagOrange))
+		  tags.AddChild(New XUISourceListItem("All Tags...", IconSourceListAllTags))
+		  tags.Expanded = True
 		  FinderSourceList.AddSection(tags)
 		  
 		End Sub
@@ -184,32 +184,32 @@ End
 		  Var favourites As New XUISourceListItem("Favourites")
 		  
 		  // Inbox.
-		  favourites.AddChild(New XUISourceListItem("Inbox", IconSourceListInbox), False)
+		  favourites.AddChild(New XUISourceListItem("Inbox", IconSourceListInbox))
 		  
 		  // VIPs.
 		  Var vips As New XUISourceListItem("VIPs", IconSourceListVIPs, 0, Nil, True)
-		  vips.AddChild(New XUISourceListItem("Peter Parker", IconSourceListVIPs), False)
-		  vips.AddChild(New XUISourceListItem("Tony Stark", IconSourceListVIPs), False)
+		  vips.AddChild(New XUISourceListItem("Peter Parker", IconSourceListVIPs))
+		  vips.AddChild(New XUISourceListItem("Tony Stark", IconSourceListVIPs))
 		  favourites.AddChild(vips, False)
-		  vips.SetExpanded(False)
+		  vips.Expanded = True
 		  
 		  // Flagged.
 		  Var flagged As New XUISourceListItem("Flagged", IconSourceListFlagged, 0, Nil, True)
-		  flagged.AddChild(New XUISourceListItem("Orange", IconSourceListFlagOrange, 1), False)
-		  flagged.AddChild(New XUISourceListItem("Red", IconSourceListFlagRed, 4), False)
-		  flagged.AddChild(New XUISourceListItem("Purple", IconSourceListFlagPurple, 9), False)
+		  flagged.AddChild(New XUISourceListItem("Orange", IconSourceListFlagOrange, 1))
+		  flagged.AddChild(New XUISourceListItem("Red", IconSourceListFlagRed, 4))
+		  flagged.AddChild(New XUISourceListItem("Purple", IconSourceListFlagPurple, 9))
 		  favourites.AddChild(flagged, False)
-		  flagged.SetExpanded(False)
+		  flagged.Expanded = True
 		  
 		  // Drafts.
 		  Var drafts As New XUISourceListItem("Drafts", IconSourceListDocuments, 1)
 		  favourites.AddChild(drafts, False)
 		  
 		  // Sent.
-		  favourites.AddChild(New XUISourceListItem("Sent", IconSourceListSent), False)
+		  favourites.AddChild(New XUISourceListItem("Sent", IconSourceListSent))
 		  
 		  // Expand the favourites section.
-		  favourites.SetExpanded(False)
+		  favourites.Expanded = True
 		  
 		  // The favourites section should have a widget.
 		  favourites.HasWidget = True
@@ -221,8 +221,8 @@ End
 		  // SMART MAILBOXES SECTION
 		  // =======================
 		  Var smart As New XUISourceListItem("Smart Mailboxes")
-		  smart.AddChild(New XUISourceListItem("Today", IconSourceListSmart), False)
-		  smart.SetExpanded(False)
+		  smart.AddChild(New XUISourceListItem("Today", IconSourceListSmart))
+		  smart.Expanded = True
 		  
 		  // The smart mailboxes section should have a widget.
 		  smart.HasWidget = True

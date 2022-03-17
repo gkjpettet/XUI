@@ -156,7 +156,7 @@ End
 		  If item = Nil Then Return
 		  
 		  // Mark this row as expanded but don't rebuild.
-		  item.SetExpanded(False)
+		  item.Expanded = True
 		  
 		  // Display this item's children.
 		  Var childrenLastIndex As Integer = item.ChildCount - 1
@@ -364,7 +364,7 @@ End
 		  If index = -1 Then
 		    newParent.AddChild(item, False)
 		  Else
-		    newParent.AddChildAt(index, item, False)
+		    newParent.AddChildAt(index, item)
 		  End If
 		  
 		  RaiseEvent MovedItem(item, oldParent, newParent)
@@ -385,6 +385,32 @@ End
 		    
 		  Next section
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52656D6F7665732065766572792073656374696F6E20696E2074686520736F75726365206C6973742E
+		Sub RemoveAllSections()
+		  /// Removes every section in the source list.
+		  
+		  mSections.RemoveAll
+		  ResetMouseProperties
+		  Refresh(True)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5265736574732074686520707269766174652070726F7065727469657320747261636B696E67206D6F75736520616374696F6E732E
+		Private Sub ResetMouseProperties()
+		  /// Resets the private properties tracking mouse actions.
+		  
+		  mIsDraggingRow = False
+		  mLastMouseDownRow = -1
+		  mLastMouseDownX = 0
+		  mLastMouseDownY = 0
+		  mLastMouseDragRow = -1
+		  mLastMouseDragX = 0
+		  mLastMouseDragY = 0
+		  mMouseMoveRow = -1
 		End Sub
 	#tag EndMethod
 
@@ -672,11 +698,13 @@ End
 		  If item.Expandable And item.DisclosureBounds <> Nil And item.DisclosureBounds.Contains(x, y) Then
 		    StoppedDragging
 		    If item.Expanded Then
-		      item.SetCollapsed(True)
+		      item.Expanded = False
+		      Refresh
 		      RaiseEvent CollapsedItem(item)
 		      Return True
 		    Else
-		      item.SetExpanded(True)
+		      item.Expanded = True
+		      Refresh
 		      RaiseEvent ExpandedItem(item)
 		      Return True
 		    End If
@@ -784,7 +812,9 @@ End
 		    Next selectedItem
 		    
 		    // Make sure the dropItem is expanded to show the moved items.
-		    If Not dropItem.Expanded Then dropItem.SetExpanded(True)
+		    If Not dropItem.Expanded Then dropItem.Expanded = True
+		    
+		    Refresh
 		    
 		    Return True
 		  End If

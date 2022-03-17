@@ -1,9 +1,9 @@
 #tag Class
 Protected Class XUISourceListItem
-	#tag Method, Flags = &h0, Description = 417070656E647320606974656D6020746F2074686520656E64206F662074686973206974656D2773206368696C6472656E2E2042792064656661756C7420746869732077696C6C207472696767657220612066756C6C2072656275696C64206F662074686520736F75726365206C6973742E
-		Sub AddChild(item As XUISourceListItem, shouldRebuild As Boolean = True)
+	#tag Method, Flags = &h0, Description = 417070656E647320606974656D6020746F2074686520656E64206F662074686973206974656D2773206368696C6472656E2E2042792064656661756C7420746869732077696C6C206E6F7420696D6D6564696174656C792072656275696C642074686520736F75726365206C6973742E
+		Sub AddChild(item As XUISourceListItem, shouldRebuild As Boolean = False)
 		  /// Appends `item` to the end of this item's children.
-		  /// By default this will trigger a full rebuild of the source list.
+		  /// By default this will not immediately rebuild the source list.
 		  
 		  If item = Nil Then
 		    Raise New InvalidArgumentException("Cannot add a Nil item as a child.")
@@ -22,10 +22,10 @@ Protected Class XUISourceListItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 4164647320606974656D6020746F207468652073706563696669656420302D626173656420696E646578206F662074686973206974656D2773206368696C6472656E2E2042792064656661756C7420746869732077696C6C207472696767657220612066756C6C2072656275696C64206F662074686520736F75726365206C6973742E
-		Sub AddChildAt(index As Integer, item As XUISourceListItem, shouldRebuild As Boolean = True)
+	#tag Method, Flags = &h0, Description = 4164647320606974656D6020746F207468652073706563696669656420302D626173656420696E646578206F662074686973206974656D2773206368696C6472656E2E2042792064656661756C7420746869732077696C6C206E6F7420696D6D6564696174656C792072656275696C642074686520736F75726365206C6973742E
+		Sub AddChildAt(index As Integer, item As XUISourceListItem, shouldRebuild As Boolean = False)
 		  /// Adds `item` to the specified 0-based index of this item's children.
-		  /// By default this will trigger a full rebuild of the source list.
+		  /// By default this will not immediately rebuild the source list.
 		  
 		  If item = Nil Then
 		    Raise New InvalidArgumentException("Cannot add a Nil item as a child.")
@@ -119,39 +119,6 @@ Protected Class XUISourceListItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 536574732074686973206974656D20617320636F6C6C61707365642E2042792064656661756C742069742072656275696C64732074686520656E7469726520736F75726365206C6973742E
-		Sub SetCollapsed(shouldRebuild As Boolean = True)
-		  /// Sets this item as collapsed. By default it rebuilds the entire source list.
-		  
-		  mExpanded = False
-		  
-		  If Owner <> Nil And shouldRebuild Then Owner.Rebuild
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0, Description = 5365747320776865746865722074686973206974656D20697320657870616E6461626C65206F72206E6F742E2042792064656661756C742069742072656275696C64732074686520656E7469726520736F75726365206C6973742E
-		Sub SetExpandable(value As Boolean, shouldRebuild As Boolean = True)
-		  /// Sets whether this item is expandable or not. By default it rebuilds the entire source list.
-		  
-		  mExpandable = value
-		  
-		  If Owner <> Nil And shouldRebuild Then Owner.Rebuild
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0, Description = 536574732074686973206974656D20617320657870616E6465642E2042792064656661756C742069742072656275696C64732074686520656E7469726520736F75726365206C6973742E
-		Sub SetExpanded(shouldRebuild As Boolean = True)
-		  /// Sets this item as expanded. By default it rebuilds the entire source list.
-		  
-		  mExpanded = True
-		  
-		  If Owner <> Nil And shouldRebuild Then Owner.Rebuild
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0, Description = 536574732074686973206974656D277320706172656E74206974656D2E2042792064656661756C742073657474696E672074686520706172656E742077696C6C207472696767657220612066756C6C2072656275696C64206F662074686520736F75726365206C6973742E
 		Sub SetParent(parent As XUISourceListItem, shouldRebuild As Boolean = True)
 		  /// Sets this item's parent item. By default setting the parent will trigger a full 
@@ -222,23 +189,13 @@ Protected Class XUISourceListItem
 		DisclosureBounds As Rect
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D20697320616C6C6F77656420746F20626520657870616E6465642E
-		#tag Getter
-			Get
-			  Return mExpandable
-			End Get
-		#tag EndGetter
-		Expandable As Boolean
-	#tag EndComputedProperty
+	#tag Property, Flags = &h0, Description = 547275652069662074686973206974656D20697320616C6C6F77656420746F20626520657870616E6465642E2053657474696E67207468697320646F6573206E6F7420696D6D6564696174656C7920726566726573682074686520736F75726365206C6973742E
+		Expandable As Boolean = True
+	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D20697320657870616E6465642E
-		#tag Getter
-			Get
-			  Return mExpanded
-			End Get
-		#tag EndGetter
-		Expanded As Boolean
-	#tag EndComputedProperty
+	#tag Property, Flags = &h0, Description = 547275652069662074686973206974656D20697320657870616E6465642E2053657474696E6720746869732077696C6C206E6F74206175746F6D61746963616C6C7920726566726573682074686520736F75726365206C6973742E
+		Expanded As Boolean = False
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 547275652069662074686973206974656D27732069636F6E206973206E6F74204E696C2E
 		#tag Getter
@@ -270,14 +227,6 @@ Protected Class XUISourceListItem
 
 	#tag Property, Flags = &h21
 		Private mChildren() As XUISourceListItem
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 547275652069662074686973206974656D20697320616C6C6F77656420746F20626520657870616E6465642E
-		Private mExpandable As Boolean = True
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 547275652069662074686973206974656D20697320657870616E6465642E
-		Private mExpanded As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F20746865206F776E696E6720736F75726365206C6973742E204D6179206265204E696C20696620746865206974656D2077617320637265617465642070726F6772616D6D61746963616C6C792E
@@ -437,22 +386,6 @@ Protected Class XUISourceListItem
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Expandable"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Expanded"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="HasIcon"
 			Visible=false
 			Group="Behavior"
@@ -474,6 +407,46 @@ Protected Class XUISourceListItem
 			Group="Behavior"
 			InitialValue=""
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CanAcceptChildren"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasWidget"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ShowBadge"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WidgetIcon"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Expanded"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
