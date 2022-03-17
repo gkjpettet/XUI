@@ -7,33 +7,28 @@ Protected Class XUISourceListStyle
 		  Var style As New XUISourceListStyle
 		  
 		  // General
-		  style.BackgroundColor = New ColorGroup(Color.FromString("&h00F6F6F6"), Color.FromString("&h00383838"))
-		  style.SelectedBackgroundColor = New ColorGroup(Color.FromString("&h00DDDDDD"), Color.FromString("&h00515151"))
-		  style.SelectedColor = New ColorGroup(Color.FromString("&h00474747"), Color.FromString("&h00EAEBEB"))
+		  style.BackgroundColor = New ColorGroup(&cF4F4F4, &c2A2A2A)
+		  style.SelectedBackgroundColor = New ColorGroup(&cD5D4D5, &c3F4141)
+		  style.SelectedColor = New ColorGroup(&C474747, Color.White)
 		  
 		  // Items.
-		  style.ItemColor = New ColorGroup(Color.FromString("&h00474747"), Color.FromString("&h00EAEBEB"))
-		  style.DisclosureWidgetColor = New ColorGroup(Color.FromString("&h00767877"), Color.FromString("&h00B3B4B4"))
+		  style.ItemColor = New ColorGroup(&C474747, Color.White)
+		  style.DisclosureWidgetColor = New ColorGroup(&C767877, &c666566)
 		  
 		  // Sections.
-		  style.SectionColor = New ColorGroup(Color.FromString("&h00B6B6B6"), Color.FromString("&h00797979"))
-		  style.SectionDisclosureWidgetColor = _
-		  New ColorGroup(Color.FromString("&h00BABABA"), Color.FromString("&h00707070"))
+		  style.SectionColor = New ColorGroup(&C767877, &c666566)
+		  style.SectionDisclosureWidgetColor = New ColorGroup(&C767877, &c666566)
 		  
 		  // Widget.
-		  style.WidgetColor = _
-		  New ColorGroup(Color.FromString("&h00BABABA"), Color.FromString("&h00707070"))
+		  style.WidgetColor = New ColorGroup(&CBABABA, &c666566)
 		  
 		  // Badges.
-		  style.BadgeColor = _
-		  New ColorGroup(Color.FromString("&h00E9E9E9"), Color.FromString("&h004C4C4C"))
-		  style.BadgeValueColor = _
-		  New ColorGroup(Color.FromString("&h007D7D7D"), Color.FromString("&h00ADADAD"))
+		  style.BadgeColor = New ColorGroup(&cE3E5E2, &c3B3B3A)
+		  style.BadgeValueColor = New ColorGroup(&C7D7D7D, Color.White)
 		  
 		  // Drop targets.
-		  style.DropTargetBackgroundColor = _
-		  New ColorGroup(Color.FromString("&h002456DA"), Color.FromString("&h002454C5"))
-		  style.DropTargetColor = New ColorGroup(Color.FromString("&h00474747"), Color.FromString("&h00EAEBEB"))
+		  style.DropTargetBackgroundColor = New ColorGroup(&C2456DA, &c2454C5)
+		  style.DropTargetColor = New ColorGroup(Color.White, Color.White)
 		  
 		  Return style
 		  

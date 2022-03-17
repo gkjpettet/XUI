@@ -252,46 +252,6 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 546865207573657220686173206A7573742072656C656173656420746865206D6F757365206166746572206472616767696E672E2060786020616E642060796020617265206C6F63616C20746F2074686520736F75726365206C6973742E
-		Private Sub HandleDragRow(x As Integer, y As Integer)
-		  /// The user has just released the mouse after dragging. `x` and `y` are local to the source list.
-		  
-		  #Pragma Warning "TODO: Handle row dragging"
-		  
-		  // Mark that we're no longer dragging.
-		  mIsDraggingRow = False
-		  
-		  // Get the row the mouse was released over.
-		  Var row As Integer = SourceList.RowFromXY(x, y)
-		  
-		  // If we've released the mouse NOT over a row then there's nothing else to do.
-		  If row = -1 Or row > SourceList.RowCount - 1 Then Return
-		  
-		  // Get the item the mouse released over.
-		  Var drop As XUISourceListItem = ItemAtRowIndex(row)
-		  
-		  // If the item released over cannot accept children then we add the selected items as siblings.
-		  If Not drop.CanAcceptChildren Then
-		    Var dropParent As XUISourceListItem = drop.GetParent
-		    For Each child As XUISourceListItem In mSelectedItems
-		      // Prevent circular reference.
-		      If child = drop Then Continue
-		      // Remove this child from its current parent.
-		      Var childParent As XUISourceListItem = child.GetParent
-		      If childParent <> Nil Then childParent.RemoveChild(child)
-		      dropParent.AddChild(child, False)
-		    Next child
-		    Refresh
-		    Return
-		  End If
-		  
-		  // The item released over can accept children. We need to know if we've dropped our selection over the 
-		  // middle of the row or the lower edge. If it's the lower edge we add them as siblings but if it's over the
-		  // middle we add them as children.
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662074686520757365722069732063757272656E746C79206472616767696E67206F76657220746865206974656D2061742060726F77602E
 		Private Function IsDraggingOverRow(row As Integer) As Boolean
 		  /// Returns True if the user is currently dragging over the item at `row`.
@@ -872,8 +832,6 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseDrag(x As Integer, y As Integer)
-		  #Pragma Warning "TODO: Doesn't fire because MouseDown can't return True!"
-		  
 		  mLastMouseDragX = x
 		  mLastMouseDragY = y
 		  
