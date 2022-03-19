@@ -6,6 +6,8 @@ Protected Class XUITagCanvasStyle
 		  
 		  Var style As New XUITagCanvasStyle
 		  
+		  style.Name = "Monterey"
+		  
 		  // Autocomplete.
 		  style.HasAutocompletePopupBorder = True
 		  style.AutocompleteOptionColor = New ColorGroup(Color.Black, Color.White)
@@ -40,6 +42,8 @@ Protected Class XUITagCanvasStyle
 		  /// Returns a new style with the colours for Windows style tags.
 		  
 		  Var style As New XUITagCanvasStyle
+		  
+		  style.Name = "Windows 11"
 		  
 		  // General.
 		  style.BackgroundColor = New ColorGroup(Color.White, &c303030)
@@ -110,6 +114,10 @@ Protected Class XUITagCanvasStyle
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746865206175746F636F6D706C65746520706F70757020686173206120626F726465722E
 		HasAutocompletePopupBorder As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686973207374796C652773206E616D652E
+		Name As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F757220666F72207468652063757272656E746C792073656C6563746564206F7074696F6E20696E20746865206175746F636F6D706C65746520706F7075702E

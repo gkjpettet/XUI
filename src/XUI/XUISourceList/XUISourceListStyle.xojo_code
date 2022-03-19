@@ -6,6 +6,8 @@ Protected Class XUISourceListStyle
 		  
 		  Var style As New XUISourceListStyle
 		  
+		  style.Name = "Moneterey"
+		  
 		  // General
 		  style.BackgroundColor = New ColorGroup(&cF4F4F4, &c2A2A2A)
 		  style.SelectedBackgroundColor = New ColorGroup(&cD5D4D5, &c3F4141)
@@ -42,6 +44,8 @@ Protected Class XUISourceListStyle
 		  /// Returns a new style with the colours for Windows 11 style source lists.
 		  
 		  Var style As New XUISourceListStyle
+		  
+		  style.Name = "Windows 11"
 		  
 		  // General
 		  style.BackgroundColor = New ColorGroup(Color.White, &c131313)
@@ -105,6 +109,10 @@ Protected Class XUISourceListStyle
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7220746F2075736520666F72206974656D207469746C6520746578742E
 		ItemColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686973207374796C652773206E616D652E
+		Name As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F722073656374696F6E207469746C65732E
