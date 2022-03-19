@@ -177,11 +177,11 @@ Begin DesktopWindow WinSourceList
       Visible         =   True
       Width           =   79
    End
-   Begin DesktopButton ButtonFileBrowser
+   Begin DesktopButton ButtonFinder
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "File Browser"
+      Caption         =   "Finder"
       Default         =   False
       Enabled         =   True
       FontName        =   "System"
@@ -221,7 +221,7 @@ Begin DesktopWindow WinSourceList
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   368
+      Left            =   485
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -316,6 +316,7 @@ Begin DesktopWindow WinSourceList
       Underline       =   False
       Visible         =   True
       Width           =   521
+      _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
    Begin DesktopLabel LabelDummyData1
@@ -364,11 +365,11 @@ Begin DesktopWindow WinSourceList
       Index           =   -2147483648
       Italic          =   False
       Left            =   667
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       MacButtonStyle  =   0
       Scope           =   2
       TabIndex        =   10
@@ -381,52 +382,156 @@ Begin DesktopWindow WinSourceList
       Visible         =   True
       Width           =   105
    End
+   Begin DesktopCheckBox CheckBoxHierarchical
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Hierarchical"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   672
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   116
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   100
+   End
+   Begin DesktopButton ButtonExplorer
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Explorer"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   368
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MacButtonStyle  =   0
+      Scope           =   2
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   116
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   105
+   End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  ResetToFileBrowserData
+		  ResetToExplorerData
 		  
 		End Sub
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21
-		Private Sub ResetToFileBrowserData()
-		  /// Resets the contents of the source list to contain items you'd expect to see in a file browser.
+	#tag Method, Flags = &h21, Description = 5265736574732074686520636F6E74656E7473206F662074686520736F75726365206C69737420746F20636F6E7461696E206974656D7320796F7527642065787065637420746F2073656520696E207468652057696E646F7773204578706C6F7265722E
+		Private Sub ResetToExplorerData()
+		  /// Resets the contents of the source list to contain items you'd expect to see in the Windows Explorer.
+		  
+		  SourceList.RemoveAllSections
+		  
+		  // =======================
+		  // QUICK ACCESS SECTION
+		  // =======================
+		  Var quickAccess As New XUISourceListItem("Quick Access", IconSourceListStar)
+		  // Folder 1
+		  Var folder1 As New XUISourceListItem("Folder 1", IconSourceListWindowsFolder)
+		  folder1.HasWidget = True
+		  folder1.WidgetIcon = IconSourceListWidgetPin
+		  quickAccess.AddChild(folder1)
+		  // Folder 2.
+		  Var folder2 As New XUISourceListItem("Folder 2", IconSourceListWindowsFolder)
+		  folder2.HasWidget = True
+		  folder2.WidgetIcon = IconSourceListWidgetPin
+		  quickAccess.AddChild(folder2)
+		  // Videos.
+		  quickAccess.AddChild(New XUISourceListItem("Videos", IconSourceListWindowsVideos))
+		  quickAccess.Expanded = True
+		  
+		  SourceList.AddSection(quickAccess)
+		  
+		  // "This PC" section.
+		  Var thisPC As New XUISourceListItem("This PC", IconSourceListWindowsPC)
+		  thisPC.AddChild(New XUISourceListItem("Desktop", IconSourceListWindowsDesktop))
+		  thisPC.AddChild(New XUISourceListItem("Local Disk", IconSourceListWindowsLocalDisk))
+		  thisPC.AddChild(New XUISourceListItem("DVD Drive", IconSourceListDVD))
+		  thisPC.Expanded = True
+		  SourceList.AddSection(thisPC)
+		  
+		  // "Network" section.
+		  Var network As New XUISourceListItem("Network", IconSourceListWindowsNetwork)
+		  network.AddChild(New XUISourceListItem("HP Printer", IconSourceListWindowsPrinter))
+		  network.Expanded = True
+		  SourceList.AddSection(network)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5265736574732074686520636F6E74656E7473206F662074686520736F75726365206C69737420746F20636F6E7461696E206974656D7320796F7527642065787065637420746F2073656520696E20746865206D61634F532046696E6465722E
+		Private Sub ResetToFinderData()
+		  /// Resets the contents of the source list to contain items you'd expect to see in the macOS Finder.
 		  
 		  SourceList.RemoveAllSections
 		  
 		  // Favourites section.
 		  Var favourites As New XUISourceListItem("Favourites")
-		  favourites.AddChild(New XUISourceListItem("garry", IconSourceListHome), False)
-		  favourites.AddChild(New XUISourceListItem("Recents", IconSourceListRecent), False)
+		  favourites.AddChild(New XUISourceListItem("garry", IconSourceListHome))
+		  favourites.AddChild(New XUISourceListItem("Recents", IconSourceListRecent))
 		  favourites.Expanded = True
 		  SourceList.AddSection(favourites)
 		  
 		  // iCloud section.
 		  Var iCloud As New XUISourceListItem("iCloud")
-		  iCloud.AddChild(New XUISourceListItem("iCloud Drive", IconSourceListICloud), False)
-		  iCloud.AddChild(New XUISourceListItem("Documents", IconSourceListDocuments), False)
-		  iCloud.AddChild(New XUISourceListItem("Desktop", IconSourceListDesktop), False)
-		  iCloud.AddChild(New XUISourceListItem("Shared", IconSourceListShared), False)
+		  iCloud.AddChild(New XUISourceListItem("iCloud Drive", IconSourceListICloud))
+		  iCloud.AddChild(New XUISourceListItem("Documents", IconSourceListDocuments))
+		  iCloud.AddChild(New XUISourceListItem("Desktop", IconSourceListDesktop))
+		  iCloud.AddChild(New XUISourceListItem("Shared", IconSourceListShared))
 		  iCloud.Expanded = True
 		  SourceList.AddSection(iCloud)
 		  
 		  // Locations section.
 		  Var locations As New XUISourceListItem("Locations")
-		  locations.AddChild(New XUISourceListItem("Synology", IconSourceListComputer), False)
-		  locations.AddChild(New XUISourceListItem("Network", IconSourceListNetwork), False)
+		  locations.AddChild(New XUISourceListItem("Synology", IconSourceListComputer))
+		  locations.AddChild(New XUISourceListItem("Network", IconSourceListNetwork))
 		  locations.Expanded = True
 		  SourceList.AddSection(locations)
 		  
 		  // Tags section.
 		  Var tags As New XUISourceListItem("Tags")
-		  tags.AddChild(New XUISourceListItem("Red", IconSourceListTagRed), False)
-		  tags.AddChild(New XUISourceListItem("Orange", IconSourceListTagOrange), False)
-		  tags.AddChild(New XUISourceListItem("All Tags...", IconSourceListAllTags), False)
+		  tags.AddChild(New XUISourceListItem("Red", IconSourceListTagRed))
+		  tags.AddChild(New XUISourceListItem("Orange", IconSourceListTagOrange))
+		  tags.AddChild(New XUISourceListItem("All Tags...", IconSourceListAllTags))
 		  tags.Expanded = True
 		  SourceList.AddSection(tags)
 		  
@@ -539,16 +644,24 @@ End
 	#tag EndEvent
 	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C697374207761732073656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
 		Sub ItemSelected(item As XUISourceListItem, x As Integer, y As Integer)
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
 		  ListBoxEvents.AddRow("Selected """ + item.Title + """")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 416E206974656D20696E2074686520736F75726365206C6973742077617320756E73656C65637465642E20496620636C69636B65642C205820616E6420592061726520746865206D6F75736520636F6F7264696E61746573206F662074686520636C69636B206C6F63616C20746F2074686520726F7720746865206974656D206973206F6E2E2054686573652077696C6C20626520602D3160206966207468652073656C656374696F6E207761732070726F6772616D617469632E
 		Sub ItemUnselected(item As XUISourceListItem, x As Integer, y As Integer)
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
 		  ListBoxEvents.AddRow("Unselected """ + item.Title + """")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 43616C6C6564207768656E20606974656D6020686173206265656E206D6F7665642066726F6D20606F6C64506172656E746020746F20606E6577506172656E74602E204F6363757273207768656E20746865726520686173206265656E206120647261672072656F72646572696E672E
 		Sub MovedItem(item As XUISourceListItem, oldParent As XUISourceListItem, newParent As XUISourceListItem)
+		  #Pragma Unused oldParent
+		  
 		  ListBoxEvents.AddRow("Moved """ + item.Title + """ to " + If(newParent = Nil, "Nil", """" + newParent.Title + """"))
 		End Sub
 	#tag EndEvent
@@ -556,7 +669,14 @@ End
 #tag Events PopupRenderer
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma Unused item
+		  
 		  SourceList.Renderer = Me.RowTagAt(Me.SelectedRowIndex)
+		  
+		  // Windows 11 source lists are always hierarchical.
+		  If SourceList.Renderer IsA XUISourceListRendererWindows11 Then
+		    CheckBoxHierarchical.Value = True
+		  End If
 		  
 		End Sub
 	#tag EndEvent
@@ -568,8 +688,8 @@ End
 		  Me.AddRow("Windows 11")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUISourceListRendererWindows11(SourceList)
 		  
-		  // Default to the Mac renderer.
-		  Me.SelectedRowIndex = 0
+		  // Default to the Windows 11 renderer.
+		  Me.SelectedRowIndex = 1
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -579,22 +699,27 @@ End
 		  Me.AddRow("macOS Monterey")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = XUISourceListStyle.Monterey
 		  
-		  // Default to Monterey's style.
-		  Me.SelectedRowIndex = 0
+		  Me.AddRow("Windows 11")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUISourceListStyle.Windows11
+		  
+		  // Default to the Windows 11 style.
+		  Me.SelectedRowIndex = 1
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma Unused item
+		  
 		  SourceList.Style = Me.RowTagAt(Me.SelectedRowIndex)
 		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events ButtonFileBrowser
+#tag Events ButtonFinder
 	#tag Event
 		Sub Pressed()
-		  ResetToFileBrowserData
+		  ResetToFinderData
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -609,6 +734,22 @@ End
 	#tag Event
 		Sub Pressed()
 		  ListBoxEvents.RemoveAllRows
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxHierarchical
+	#tag Event
+		Sub ValueChanged()
+		  SourceList.Hierarchical = Me.Value
+		  SourceList.Refresh
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonExplorer
+	#tag Event
+		Sub Pressed()
+		  ResetToExplorerData
 		  
 		End Sub
 	#tag EndEvent

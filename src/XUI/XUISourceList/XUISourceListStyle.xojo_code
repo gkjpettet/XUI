@@ -13,11 +13,13 @@ Protected Class XUISourceListStyle
 		  
 		  // Items.
 		  style.ItemColor = New ColorGroup(&C474747, Color.White)
-		  style.DisclosureWidgetColor = New ColorGroup(&C767877, &c666566)
+		  style.DisclosureWidgetCollapsedColor = New ColorGroup(&C767877, &c666566)
+		  style.DisclosureWidgetExpandedColor = New ColorGroup(&C767877, &c666566)
 		  
 		  // Sections.
 		  style.SectionColor = New ColorGroup(&C767877, &c666566)
-		  style.SectionDisclosureWidgetColor = New ColorGroup(&C767877, &c666566)
+		  style.SectionDisclosureWidgetCollapsedColor = New ColorGroup(&C767877, &c666566)
+		  style.SectionDisclosureWidgetExpandedColor = New ColorGroup(&C767877, &c666566)
 		  
 		  // Widget.
 		  style.WidgetColor = New ColorGroup(&CBABABA, &c666566)
@@ -29,6 +31,43 @@ Protected Class XUISourceListStyle
 		  // Drop targets.
 		  style.DropTargetBackgroundColor = New ColorGroup(&C2456DA, &c2454C5)
 		  style.DropTargetColor = New ColorGroup(Color.White, Color.White)
+		  
+		  Return style
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E732061206E6577207374796C6520776974682074686520636F6C6F75727320666F722057696E646F7773203131207374796C6520736F75726365206C697374732E
+		Shared Function Windows11() As XUISourceListStyle
+		  /// Returns a new style with the colours for Windows 11 style source lists.
+		  
+		  Var style As New XUISourceListStyle
+		  
+		  // General
+		  style.BackgroundColor = New ColorGroup(Color.White, &c131313)
+		  style.SelectedBackgroundColor = New ColorGroup(&cD0D0D0, &c262626)
+		  style.SelectedColor = New ColorGroup(Color.Black, Color.White)
+		  
+		  // Items.
+		  style.ItemColor = New ColorGroup(Color.Black, Color.White)
+		  style.DisclosureWidgetCollapsedColor = New ColorGroup(&c8C8C8C, &c515151)
+		  style.DisclosureWidgetExpandedColor = New ColorGroup(&c313131, &cACACAC)
+		  
+		  // Sections.
+		  style.SectionColor = New ColorGroup(Color.Black, Color.White)
+		  style.SectionDisclosureWidgetCollapsedColor = New ColorGroup(&c8C8C8C, &c515151)
+		  style.SectionDisclosureWidgetExpandedColor = New ColorGroup(&c313131, &cACACAC)
+		  
+		  // Widget.
+		  style.WidgetColor = New ColorGroup(&c313131, &cACACAC)
+		  
+		  // Badges.
+		  style.BadgeColor = New ColorGroup(Color.Red, Color.Red) // Not used.
+		  style.BadgeValueColor = New ColorGroup(Color.Black, Color.White)
+		  
+		  // Drop targets.
+		  style.DropTargetBackgroundColor = New ColorGroup(&cC1E2FF, &c4F4F4F)
+		  style.DropTargetColor = New ColorGroup(Color.Black, Color.White)
 		  
 		  Return style
 		  
@@ -48,8 +87,12 @@ Protected Class XUISourceListStyle
 		BadgeValueColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220726567756C6172206974656D20286E6F742073656374696F6E2920646973636C6F7375726520776964676574732E
-		DisclosureWidgetColor As ColorGroup
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220726567756C6172206974656D20286E6F742073656374696F6E2920646973636C6F737572652077696467657473207768656E20636F6C6C61707365642E
+		DisclosureWidgetCollapsedColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220726567756C6172206974656D20286E6F742073656374696F6E2920646973636C6F737572652077696467657473207768656E20657870616E6465642E
+		DisclosureWidgetExpandedColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F757220666F72206974656D73207768656E20746865792061726520612076616C69642064726F70207461726765742E
@@ -68,8 +111,12 @@ Protected Class XUISourceListStyle
 		SectionColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F722073656374696F6E20646973636C6F7375726520776964676574732E
-		SectionDisclosureWidgetColor As ColorGroup
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220636F6C6C61707365642073656374696F6E20646973636C6F7375726520776964676574732E
+		SectionDisclosureWidgetCollapsedColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220657870616E6465642073656374696F6E20646973636C6F7375726520776964676574732E
+		SectionDisclosureWidgetExpandedColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F662073656C6563746564206974656D732E
@@ -159,7 +206,7 @@ Protected Class XUISourceListStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="DisclosureWidgetColor"
+			Name="DisclosureWidgetCollapsedColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
@@ -167,7 +214,7 @@ Protected Class XUISourceListStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="SectionDisclosureWidgetColor"
+			Name="SectionDisclosureWidgetCollapsedColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

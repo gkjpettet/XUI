@@ -109,10 +109,10 @@ Implements XUISourceListRenderer
 		  Var iconX As Double
 		  If Owner.Hierarchical Then
 		    If item.Expandable And item.ChildCount > 0 Then
-		      g.DrawingColor = style.DisclosureWidgetColor
 		      g.PenSize = 1
 		      If item.Expanded Then
 		        // Draw down-facing arrow.
+		        g.DrawingColor = style.DisclosureWidgetExpandedColor
 		        Var rightX As Double = disclosureX + 10 // 10 is the widget width.
 		        Var bottomX As Double = disclosureX + 5 // 5 is half the widget's height.
 		        Var topY As Double = (g.Height / 2) - 2.5 // -2.5 is half the widget's height.
@@ -123,6 +123,7 @@ Implements XUISourceListRenderer
 		        item.DisclosureBounds = New Rect(disclosureX, topY, rightX - disclosureX + 1, bottomY - topY + 1)
 		      Else
 		        // Draw rightward-facing arrow.
+		        g.DrawingColor = style.DisclosureWidgetCollapsedColor
 		        Var topY As Double = (g.Height / 2) - 5 // -5 is half the widget's height.
 		        Var rightX As Double = disclosureX + 6 // 6 is widget width.
 		        Var rightY As Double = topY + 5 // 5 is half the height of the widget.
@@ -178,6 +179,8 @@ Implements XUISourceListRenderer
 		    Var badgeY As Double = (g.Height / 2) - (badgeH / 2)
 		    Var badgeX As Double = g.Width - CONTENT_HORIZ_PADDING - badgeW - BADGE_HORIZ_PADDING
 		    DrawBadge(g, badgeValue, badgeX, badgeY, badgeW, badgeH)
+		  Else
+		    badgeW = 0
 		  End If
 		  
 		  // =================
@@ -228,10 +231,10 @@ Implements XUISourceListRenderer
 		  // =================
 		  // If present, the disclosure widget is the right-most icon.
 		  If hoveringOverRow And section.Expandable And section.ChildCount > 0 Then
-		    g.DrawingColor = style.SectionDisclosureWidgetColor
 		    g.PenSize = 1
 		    If section.Expanded Then
 		      // Draw down-facing arrow.
+		      g.DrawingColor = style.SectionDisclosureWidgetExpandedColor
 		      Var leftX As Double = g.Width - CONTENT_HORIZ_PADDING - DOWN_DISCLOSURE_WIDTH
 		      Var rightX As Double = leftX + DOWN_DISCLOSURE_WIDTH
 		      Var bottomX As Double = leftX + DOWN_DISCLOSURE_HEIGHT
@@ -243,6 +246,7 @@ Implements XUISourceListRenderer
 		      section.DisclosureBounds = New Rect(leftX, topY, rightX - leftX, bottomY - topY)
 		    Else
 		      // Draw rightward-facing arrow.
+		      g.DrawingColor = style.SectionDisclosureWidgetCollapsedColor
 		      Var leftX As Double = g.Width - CONTENT_HORIZ_PADDING - RIGHT_DISCLOSURE_WIDTH
 		      Var topY As Double = g.Height - DISCLOSURE_OFFSET_FROM_BOTTOM - RIGHT_DISCLOSURE_HEIGHT
 		      Var rightX As Double = leftX + RIGHT_DISCLOSURE_WIDTH

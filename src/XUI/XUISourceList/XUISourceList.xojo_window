@@ -723,7 +723,7 @@ End
 		    Return True
 		  End If
 		  
-		  // Forbid section selection.
+		  // Our source list does not allow section selection.
 		  If item.IsSection Then Return True
 		  
 		  // If there multiple items selected and we click on one of them, do nothing.
