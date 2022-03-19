@@ -426,6 +426,11 @@ Inherits DesktopCanvas
 		  // Grab a reference to the buffer's graphics context.
 		  Var g As Graphics = mBuffer.Graphics
 		  
+		  // Draw the background colour.
+		  g.DrawingColor = Style.BackgroundColor
+		  g.FillRectangle(0, 0, g.Width, g.Height)
+		  
+		  // Draw the tabs.
 		  Var x, selectedTabX As Integer = 0
 		  For i As Integer = 0 To mTabs.LastIndex
 		    Var tab As XUITabBarItem = mTabs(i)

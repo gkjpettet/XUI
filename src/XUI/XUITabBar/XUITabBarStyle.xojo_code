@@ -8,6 +8,7 @@ Protected Class XUITabBarStyle
 		  Me.ActiveTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.ActiveTabBorderColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.ActiveTabTextColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.BackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.DisabledTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.DisabledTabTextColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.HoverTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
@@ -40,6 +41,7 @@ Protected Class XUITabBarStyle
 		  style.ActiveTabBackgroundColor = New ColorGroup(Color.White, &c1D1D1D)
 		  style.ActiveTabBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
 		  style.ActiveTabTextColor = New ColorGroup(&c606060, Color.White)
+		  style.BackgroundColor = New ColorGroup(&cEFEFEF, &c111111)
 		  style.DisabledTabBackgroundColor = New ColorGroup(&cEFEFEF, &c111111)
 		  style.DisabledTabTextColor = New ColorGroup(&c606060, &c7F7F7F)
 		  style.HoverTabBackgroundColor = New ColorGroup(&cDDDFDF, &c181818)
@@ -95,6 +97,10 @@ Protected Class XUITabBarStyle
 
 	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520616374697665207461622073686F756C64206265206974616C69632E
 		ActiveTabTextItalic As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520746162206261722773206261636B67726F756E6420636F6C6F75722E2049742069732076697369626C65207768656E20746162732061726520647261676765642061726F756E642E
+		BackgroundColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

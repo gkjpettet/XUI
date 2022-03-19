@@ -249,6 +249,7 @@ End
 		  style.ActiveTabBackgroundColor = New ColorGroup(Color.White, &c1B1C1D)
 		  style.ActiveTabBorderColor = New ColorGroup(&c00BCD4, &c00AFCA)
 		  style.ActiveTabTextColor = New ColorGroup(&c2B2C2C, &cDCDDDD)
+		  style.BackgroundColor = New ColorGroup(&cECECEC, &c323232)
 		  style.DisabledTabBackgroundColor = New ColorGroup(Color.Gray, &c323232)
 		  style.DisabledTabTextColor = New ColorGroup(&cA9AEAE, &cDCDDDD)
 		  style.HoverTabBackgroundColor = New ColorGroup(&cECECEC, &c323232)
