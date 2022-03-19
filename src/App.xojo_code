@@ -3,7 +3,7 @@ Protected Class App
 Inherits DesktopApplication
 	#tag Event
 		Sub Opening()
-		  WinSourceList.Visible = True
+		  WinTagCanvas.Visible = True
 		End Sub
 	#tag EndEvent
 

@@ -938,7 +938,7 @@ Inherits DesktopTextInputCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  If mCaretBlinker <> Nil Then mCaretBlinker.Period = CaretBlinkPeriod
+			  If mCaretBlinker <> Nil Then mCaretBlinker.Period = Max(value, 1)
 			End Set
 		#tag EndSetter
 		CaretBlinkPeriod As Integer
@@ -1468,7 +1468,7 @@ Inherits DesktopTextInputCanvas
 			Name="CaretBlinkPeriod"
 			Visible=true
 			Group="Behavior"
-			InitialValue="500"
+			InitialValue="250"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

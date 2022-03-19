@@ -379,7 +379,7 @@ End
 		  Me.Style = XUITagCanvasStyle.Monterey
 		  
 		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
-		  Me.Renderer = New XUITagCanvasMacOSRenderer(Me)
+		  Me.Renderer = New XUITagCanvasRendererMonterey(Me)
 		  
 		  // Assign our simple parselet.
 		  Me.Parselet = New XUIDefaultTagParselet
@@ -422,7 +422,7 @@ End
 		  Me.Style = XUITagCanvasStyle.Windows
 		  
 		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
-		  Me.Renderer = New XUITagCanvasWindowsRenderer(Me)
+		  Me.Renderer = New XUITagCanvasRendererWindows11(Me)
 		  
 		  // Assign our simple parselet.
 		  Me.Parselet = New XUIDefaultTagParselet
@@ -465,7 +465,7 @@ End
 		  Me.Style = XUITagCanvasStyle.Monterey
 		  
 		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
-		  Me.Renderer = New XUITagCanvasMacOSRenderer(Me)
+		  Me.Renderer = New XUITagCanvasRendererMonterey(Me)
 		  
 		  // Assign our email parselet.
 		  Me.Parselet = New XUIEmailTagParselet
