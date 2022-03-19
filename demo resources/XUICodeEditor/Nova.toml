@@ -3,206 +3,195 @@
 # - Wren
 
 [meta]
-name = "Demo Light"
+name = "Nova"
 version = "1.0.0"
 author = "Garry Pettet"
-description = "A demo light theme for the XUICodeEditor."
+description = "A theme inspired by Panic's Nova code editor."
 
 [editor]
-backgroundColor = "&h00FAFAFA"
-blockLineColor = "&h00D5D5D5"
-caretColor = "&h00000000"
-currentLineHighlightColor = "&h00E8F2FF"
-currentLineNumberColor = "&h00919191"
-lineNumberColor = "&h00919191"
-selectionColor = "&h00A4CDFF"
-unmatchedBlockLineColor = "&h00CC1400"
+backgroundColor = "&h00FFFFFF, &h00171717"
+blockLineColor = "&h00D5D5D5, &h00323232"
+caretColor = "&h00000000, &h00FFFFFF"
+currentLineHighlightColor = "&h00FFFFE0, &h001C1D1E"
+currentLineNumberColor = "&h00373737, &h00A6B2BF"
+lineNumberColor = "&h00878787, &h004A4E52"
+selectionColor = "&h00A4CDFF, &h00314F78"
+unmatchedBlockLineColor = "&h00CC1400, &h00CC1400"
 
 [delimiters]
 hasBorderColor = true
-borderColor = "&h00CCCCCC"
+borderColor = "&h00CCCCCC, &h00CCCCCC"
 hasFillColor = false
 hasUnderlineColor = true
-underlineColor = "&h00CCCCCC"
+underlineColor = "&h00CCCCCC, &h00CCCCCC"
 
 ##############################################################################
 # GENERIC TOKENS
 ##############################################################################
 [tokens.boolean]
-color = "&h006C36A9"
+color = "&h00365FB1, &h005BA5FF"
 
 [tokens.comment]
-color = "&h005D6C79"
+color = "&h00262626, &h0062707D"
 italic = true
 
 [tokens.default]
-color = "&h00000000"
+color = "&h00262626, &h00C8C8C8"
 
 [tokens.error]
-color = "&h00CC1400"
+color = "&h00CC1400, &h00CC1400"
 
 [tokens.escape]
-color = "&h00179293"
+color = "&h00179293, &h00179293"
 
 [tokens.identifier]
-color = "&h00326D74"
+color = "&h00326D74, &h00326D74"
 
 [tokens.keyword]
-color = "&h009B2393"
+color = "&h00813AA8, &h00B285E2"
 
 [tokens.number]
-color = "&h001C00CF"
+color = "&h001C00CF, &h005BA5FF"
 
 [tokens.operator]
-color = "&h00000000"
+color = "&h00262626, &h00C8C8C8"
 
 [tokens.string]
-color = "&h00267507"
+color = "&h00BE1809, &h00FD736C"
 
 ##############################################################################
 # MARKDOWN-SPECIFIC TOKENS
 ##############################################################################
 [tokens.ATXDelimiterLevel1]
-color = "&h00004C99"
+color = "&h00A9A9A9, &h004A4B4B"
 bold = true
 
 [tokens.ATXDelimiterLevel2]
-color = "&h00004C99"
+color = "&h00A9A9A9, &h004A4B4B"
 bold = true
 
 [tokens.ATXDelimiterLevel3]
-color = "&h00004C99"
-bold = false
+color = "&h00A9A9A9, &h004A4B4B"
 
 [tokens.ATXDelimiterLevel4]
-color = "&h00004C99"
-bold = false
+color = "&h00A9A9A9, &h004A4B4B"
 
 [tokens.ATXDelimiterLevel5]
-color = "&h00004C99"
-bold = false
+color = "&h00A9A9A9, &h004A4B4B"
 
 [tokens.ATXDelimiterLevel6]
-color = "&h00004C99"
-bold = false
+color = "&h00A9A9A9, &h004A4B4B"
 
 [tokens.ATXLevel1]
-color = "&h00004C99"
+color = "&h00262626, &h00C8C8C8"
 bold = true
 
 [tokens.ATXLevel2]
-color = "&h00004C99"
+color = "&h00262626, &h00C8C8C8"
 bold = true
 
 [tokens.ATXLevel3]
-color = "&h00004C99"
-bold = false
+color = "&h00262626, &h00C8C8C8"
 
 [tokens.ATXLevel4]
-color = "&h00004C99"
-bold = false
+color = "&h00262626, &h00C8C8C8"
 
 [tokens.ATXLevel5]
-color = "&h00004C99"
-bold = false
+color = "&h00262626, &h00C8C8C8"
 
 [tokens.ATXLevel6]
-color = "&h00004C99"
-bold = false
+color = "&h00262626, &h00C8C8C8"
 
 [tokens.blockQuoteDelimiter]
-color = "&h00000000"
-hasBackgroundColor = true
-backgroundColor = "&h00CCCCCC"
+color = "&h00A9A9A9, &h004A4B4B"
 
 [tokens.codespan]
-color = "&h00000000"
+color = "&h00262626, &h00C8C8C8"
 hasBackgroundColor = true
-backgroundColor = "&h00CCCCCC"
+backgroundColor = "&h00EFEFEF, &h00151616"
 
 [tokens.codespanDelimiter]
-color = "&h00000000"
+color = "&h00A5A5A5, &h00484848"
 hasBackgroundColor = true
-backgroundColor = "&h00CCCCCC"
+backgroundColor = "&h00EFEFEF, &h00151616"
 
 [tokens.codeline]
-color = "&h00000000"
+color = "&h00262626, &h00C8C8C8"
 
 [tokens.emphasis] # Inline emphasis text.
-color = "&h00DD7831"
+color = "&h00262626, &h00C8C8C8"
 italic = true
 
 [tokens.emphasisDelimiter] # `*` and `_` delimiters.
-color = "&h00DD7831"
-italic = true
+color = "&h00C0C2C2, &h004A4B4B"
 
 [tokens.fenceDelimiter] # ``` and ~~~
-color = "&h00000000"
-hasBackgroundColor = true
-backgroundColor = "&h00CCCCCC"
+color = "&h00B7B9B8, &h00484848"
 
 [tokens.infostring]
-color = "&h00000000"
-hasBackgroundColor = true
-backgroundColor = "&h00CCCCCC"
+color = "&h00B7B9B8, &h00484848"
 
 [tokens.inlineHTML]
-color = "&h000079B8"
+color = "&h00262626, &h00C8C8C8"
 
 [tokens.inlineLinkLabel] # E.g: `![linkLabel]` and `[linkLabel]`.
-color = "&h000079B8"
+color = "&h00813AA8, &h00B285E2"
 
 [tokens.linkDestination] # For both inline and reference link destinations.
-color = "&h008539AB"
+color = "&h00CB3D2B, &h00CFDEED"
 
 [tokens.linkDestinationDelimiter] # The `()` around inline link destinations.
-color = "&h00000000"
+color = "&h00262626, &h00CFDEED"
 
 [tokens.linkLabelDelimiter] # The `[]` around link labels.
-color = "&h00000000"
+color = "&h00262626, &h00CFDEED"
 
 [tokens.linkTitle]
-color = "&h006B60AA"
+color = "&h006B60AA, &h00CFDEED"
 
 [tokens.linkTitleDelimiter] # The delimiters (e.g: `"`) around link titles.
-color = "&h00000000"
+color = "&h00FF0000, &h00FF0000"
 
 [tokens.listMarker]
-color = "&h00034E9A"
+color = "&h00A9A9A9, &h004A4B4B"
+
+[tokens.referenceLinkLabel]
+color = "&h00813AA8, &h00B285E2"
 
 [tokens.setextUnderlineLevel1]
-color = "&h00004C99"
+color = "&h00A9A9A9, &h004A4B4B"
 bold = true
 
 [tokens.setextUnderlineLevel2]
-color = "&h00004C99"
+color = "&h00A9A9A9, &h004A4B4B"
 bold = true
 
 [tokens.setextLevel1]
-color = "&h00004C99"
-bold = false
+color = "&h00262626, &h00C8C8C8"
+bold = true
 
 [tokens.setextLevel2]
-color = "&h00004C99"
-bold = false
+color = "&h00262626, &h00C8C8C8"
+bold = true
 
 [tokens.strong] # Inline strong emphasis text.
-color = "&h003A8E3B"
+color = "&h00262626, &h00C8C8C8"
 bold = true
 
 [tokens.strongAndEmphasis] # Inline strong and emphasised text (e.g: `**_Hello_**`)
-color = "&h003A8E3B"
+color = "&h00262626, &h00C8C8C8"
 bold = true
+italic = true
 
 [tokens.strongDelimiter] # `**` and `__` delimiters.
-color = "&h003A8E3B"
+color = "&h00C0C2C2, &h004A4B4B"
 bold = true
 
 [tokens.thematicBreak]
-color = "&h00DD7831"
+color = "&h00C0C2C2, &h004A4B4B"
 
 ##############################################################################
 # WREN-SPECIFIC TOKENS
 ##############################################################################
 [tokens.interpolation]
-color = "&h00179293"
+color = "&h00179293, &h00179293"

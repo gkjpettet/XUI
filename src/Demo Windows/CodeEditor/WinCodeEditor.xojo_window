@@ -296,7 +296,7 @@ End
 #tag Events Editor
 	#tag Event , Description = 54686520656469746F722069732061626F757420746F20626520646973706C617965642E
 		Sub Opening()
-		  Me.Theme = XUICETheme.FromFile(SpecialFolder.Resource("XUICodeEditor Theme.toml"))
+		  Me.Theme = XUICETheme.FromFile(SpecialFolder.Resource("Nova.toml"))
 		  
 		  Me.Formatter = New XUICETextFormatter
 		  
