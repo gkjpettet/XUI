@@ -573,19 +573,19 @@ Inherits NSScrollViewCanvas
 		  FontSize = DEFAULT_FONT_SIZE
 		  LineNumberFontSize = DEFAULT_LINE_NUMBER_FONT_SIZE
 		  #If TargetMacOS Then
-		    If XUI.FontAvailable("Menlo") Then
+		    If XUIFonts.FontAvailable("Menlo") Then
 		      FontName = "Menlo"
 		    Else
 		      FontName = "System"
 		    End If
 		  #ElseIf TargetWindows Then
-		    If XUI.FontAvailable("Consolas") Then
+		    If XUIFonts.FontAvailable("Consolas") Then
 		      FontName = "Consolas"
 		    Else
 		      FontName = "System"
 		    End If
 		  #ElseIf TargetLinux Then
-		    If XUI.FontAvailable("DejaVu Sans Mono") Then
+		    If XUIFonts.FontAvailable("DejaVu Sans Mono") Then
 		      FontName = "DejaVu Sans Mono"
 		    Else
 		      FontName = "System"

@@ -1,13 +1,6 @@
 #tag Class
 Protected Class App
 Inherits DesktopApplication
-	#tag Event
-		Sub Opening()
-		  'WinCodeEditor.Visible = True
-		End Sub
-	#tag EndEvent
-
-
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"&Delete"
 		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"&Delete"
