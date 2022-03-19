@@ -568,15 +568,28 @@ Inherits NSScrollViewCanvas
 		  mDisplayLineNumbers = True
 		  mCaretType = CaretTypes.VerticalBar
 		  
-		  // Default to some sensible typography.
-		  FontSize = 13
-		  LineNumberFontSize = 11
+		  // Try to default to some sensible monospace typography.
+		  // If we can't find the expected font we'll default to "System" which isn't monospace and will cause issues.
+		  FontSize = DEFAULT_FONT_SIZE
+		  LineNumberFontSize = DEFAULT_LINE_NUMBER_FONT_SIZE
 		  #If TargetMacOS Then
-		    FontName = "Menl"
+		    If XUI.FontAvailable("Menlo") Then
+		      FontName = "Menlo"
+		    Else
+		      FontName = "System"
+		    End If
 		  #ElseIf TargetWindows Then
-		    FontName = "Consolas"
+		    If XUI.FontAvailable("Consolas") Then
+		      FontName = "Consolas"
+		    Else
+		      FontName = "System"
+		    End If
 		  #ElseIf TargetLinux Then
-		    FontName = "DejaVu Sans Mono"
+		    If XUI.FontAvailable("DejaVu Sans Mono") Then
+		      FontName = "DejaVu Sans Mono"
+		    Else
+		      FontName = "System"
+		    End If
 		  #EndIf
 		  
 		  // Raise our Opening event before we do any drawing (so the user can assign a theme).
@@ -3614,6 +3627,12 @@ Inherits NSScrollViewCanvas
 	#tag EndConstant
 
 	#tag Constant, Name = CARET_BLINK_PERIOD, Type = Double, Dynamic = False, Default = \"500", Scope = Private, Description = 54686520696E74657276616C2028696E206D7329206265747765656E20636172657420626C696E6B732E
+	#tag EndConstant
+
+	#tag Constant, Name = DEFAULT_FONT_SIZE, Type = Double, Dynamic = False, Default = \"13", Scope = Public, Description = 5468652064656661756C7420666F6E742073697A6520746F20757365206966206E6F74206F76657272696464656E2E
+	#tag EndConstant
+
+	#tag Constant, Name = DEFAULT_LINE_NUMBER_FONT_SIZE, Type = Double, Dynamic = False, Default = \"13", Scope = Public, Description = 5468652064656661756C7420666F6E742073697A6520746F2075736520666F72206C696E65206E756D62657273206966206E6F74206F76657272696464656E2E
 	#tag EndConstant
 
 	#tag Constant, Name = DELIMITER_TIMER_PERIOD, Type = Double, Dynamic = False, Default = \"500", Scope = Private, Description = 546865206E756D626572206F66206D696C6C697365636F6E6473206265747765656E207570646174696E6720746865206E6561726573742064656C696D697465727320746F207468652063617265742E

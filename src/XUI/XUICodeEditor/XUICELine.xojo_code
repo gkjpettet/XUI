@@ -839,13 +839,6 @@ Inherits XUITextLine
 		  // Get the characters from the start of this line up to the computed offset.
 		  Var chars As String = CharactersFromColumn(0, caretPos - Start)
 		  
-		  #Pragma Warning "BUG: TextWidth wrong on Win/Linux if there are bold fonts"
-		  ' I think we need to iterate over every token up to the caret and determine the width of each.
-		  ' Not sure why this is OK on macOS as in theory it shouldn't work on any platform!
-		  ' Need to investigate the performance hit of iterating the tokens.
-		  ' Might be more efficient to store the X coordinate of the start of each token when the line
-		  ' is drawn since it's computed at that point anyway.
-		  
 		  // Compute the width of this string.
 		  Return g.TextWidth(chars)
 		  
@@ -1046,6 +1039,70 @@ Inherits XUITextLine
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Number"
+			Visible=false
+			Group="Behavior"
+			InitialValue="1"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Start"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Finish"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Length"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsEmpty"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsBlank"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Value"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsDirty"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true

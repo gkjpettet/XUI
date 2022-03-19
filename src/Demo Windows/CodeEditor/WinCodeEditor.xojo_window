@@ -22,40 +22,63 @@ Begin DesktopWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   False
+   Visible         =   True
    Width           =   1290
    Begin XUICodeEditor Editor
       AllowInertialScrolling=   True
+      AutocompleteCombo=   "XUICodeEditor.AutocompleteCombos.Tab"
       AutoDeactivate  =   True
       BackgroundColor =   &c00000000
       BlinkCaret      =   True
       CaretColour     =   &c00000000
+      CaretColumn     =   0
+      CaretLineNumber =   0
+      CaretPosition   =   0
+      CaretType       =   ""
+      CaretXCoordinate=   0
+      Contents        =   ""
       ContentType     =   "XUICodeEditor.ContentTypes.SourceCode"
       CurrentLineHighlightColor=   &c00000000
       CurrentLineNumberColor=   &c00000000
+      CurrentUndoID   =   0
+      DisplayLineNumbers=   False
+      DrawBlockLines  =   False
       Enabled         =   True
+      FirstVisibleLine=   0
+      FontName        =   ""
+      FontSize        =   0
+      HasFocus        =   False
       HasHorizontalScrollbar=   True
       HasVerticalScrollbar=   True
       Height          =   715
+      HighlightCurrentLine=   False
       HighlightDelimitersAroundCaret=   True
       Index           =   -2147483648
       InitialParent   =   ""
+      LastFullyVisibleLineNumber=   0
       Left            =   0
       LineNumberColor =   &c00000000
+      LineNumberFontSize=   0
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      LongestLineChanged=   False
+      NeedsFullRedraw =   False
+      ReadOnly        =   False
       Scope           =   0
+      ScrollPosX      =   0
       SelectionColour =   &c00000000
       SpacesPerTab    =   4
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      TextSelected    =   False
       TokeniseMode    =   "XUICodeEditor.TokeniseModes.All"
       Tooltip         =   ""
       Top             =   0
+      VerticalLinePadding=   0
       Visible         =   True
       Width           =   1290
    End
@@ -162,6 +185,9 @@ End
 		  // Create an undo manager.
 		  UndoManager = New XUIUndoManager
 		  
+		  // We have to assign the code editor's undo manager here because the window's Opening event fires 
+		  // after the editor's Opening event.
+		  Editor.UndoManager = Self.UndoManager
 		End Sub
 	#tag EndEvent
 
@@ -272,20 +298,15 @@ End
 		Sub Opening()
 		  Me.Theme = XUICETheme.FromFile(SpecialFolder.Resource("XUICodeEditor Theme.toml"))
 		  
-		  'Me.Theme = XUICETheme.FromFile(New FolderItem("/Users/garry/Repos/Merlin/themes/Hawk Light.xool"))
-		  
 		  Me.Formatter = New XUICETextFormatter
 		  
 		  Me.HighlightDelimitersAroundCaret = True
 		  
-		  Me.UndoManager = Self.UndoManager
-		  Me.FontName = "SF Mono"
-		  Me.FontSize = 15
-		  Me.LineNumberFontSize = 12
-		  
 		  Editor.ContentType = XUICodeEditor.ContentTypes.SourceCode
 		  
 		  Editor.AutocompleteCombo = XUICodeEditor.AutocompleteCombos.CtrlSpace
+		  
+		  Me.HighlightCurrentLine = True
 		End Sub
 	#tag EndEvent
 #tag EndEvents

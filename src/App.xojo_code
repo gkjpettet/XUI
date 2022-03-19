@@ -3,7 +3,7 @@ Protected Class App
 Inherits DesktopApplication
 	#tag Event
 		Sub Opening()
-		  WinTabBar.Visible = True
+		  'WinCodeEditor.Visible = True
 		End Sub
 	#tag EndEvent
 
