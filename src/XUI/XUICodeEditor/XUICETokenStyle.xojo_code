@@ -4,36 +4,51 @@ Protected Class XUICETokenStyle
 		Function Clone() As XUICETokenStyle
 		  /// Returns a clone of this object.
 		  
-		  Return New XUICETokenStyle(Self.Colour, Self.Bold, Self.Italic, Self.Underline, _
-		  Self.BackgroundColour, Self.HasBackgroundColour)
+		  Var style As New XUICETokenStyle
+		  
+		  style.BackgroundColour = Self.BackgroundColour
+		  style.Bold = Self.Bold
+		  style.Colour = Self.Colour
+		  style.HasBackgroundColour = Self.HasBackgroundColour
+		  style.Italic = Self.Italic
+		  style.Underline = Self.Underline
+		  
+		  Return style
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(colour As Color = &c000000, bold As Boolean = False, italic As Boolean = False, underline As Boolean = False, backgroundColour As Color = &c000000, hasBackgroundColour As Boolean = False)
-		  Self.Colour = colour
-		  Self.Bold = bold
-		  Self.Italic = italic
-		  Self.Underline = underline
-		  Self.BackgroundColour = backgroundColour
-		  Self.HasBackgroundColour = hasBackgroundColour
+		Sub Constructor()
+		  // Initialise all ColorGroup properties to prevent Nil object exceptions.
+		  
+		  Me.BackgroundColour = New ColorGroup(Color.Black, Color.Black)
+		  Me.Colour = New ColorGroup(Color.Black, Color.Black)
+		  
+		  // Set defaults.
+		  Self.Bold = False
+		  Self.HasBackgroundColour = False
+		  Self.Italic = False
+		  Self.Underline = False
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Constructor(d As Dictionary)
+		  /// Instantiates a new token style from a Dictionary.
+		  ///
+		  /// Assumes that ColorGroup values are strings in the following format:
+		  /// &hAARRGGBB   or  &hAARRGGBB,&hAARRGGBB
+		  /// If only one colour is provided it is used in both light and dark mode. If two colours are provided (separated
+		  /// by a comma) then the first is used in light mode and the second in dark mode. 
+		  /// If two colours are provided and the OS doesn't support dark mode then the first colour is used.
+		  
+		  Constructor
+		  
 		  If d = Nil Then
 		    Raise New InvalidArgumentException("Cannot instantiate a token style from a Nil dictionary.")
 		  End If
-		  
-		  // Set defaults.
-		  Self.BackgroundColour = Color.White
-		  Self.Bold = False
-		  Self.Colour = Color.Black
-		  Self.HasBackgroundColour = False
-		  Self.Italic = False
-		  Self.Underline = False
 		  
 		  For Each entry As DictionaryEntry In d
 		    If entry.Key.Type <> Variant.TypeString Then
@@ -42,13 +57,13 @@ Protected Class XUICETokenStyle
 		    
 		    Select Case entry.Key
 		    Case "backgroundColor"
-		      Self.BackgroundColour = entry.Value
+		      Self.BackgroundColour = XUIColorGroups.FromString(entry.Value)
 		      
 		    Case "bold"
 		      Self.Bold = entry.Value
 		      
 		    Case "color"
-		      Self.Colour = entry.Value
+		      Self.Colour = XUIColorGroups.FromString(entry.Value)
 		      
 		    Case "hasBackgroundColor"
 		      Self.HasBackgroundColour = entry.Value
@@ -67,53 +82,9 @@ Protected Class XUICETokenStyle
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73207468697320746F6B656E207374796C652061732061204A534F4E206F626A6563742E
-		Function ToJSON() As String
-		  /// Returns this token style as a JSON object.
-		  
-		  Var json() As String
-		  
-		  json.Add("{")
-		  
-		  // Background colour.
-		  json.Add(GenerateJSON(KEY_BACKGROUND_COLOUR)) + ":"
-		  json.Add(GenerateJSON(BackgroundColour.ToString))
-		  json.Add(",")
-		  
-		  // Bold.
-		  json.Add(GenerateJSON(KEY_BOLD)) + ":"
-		  json.Add(GenerateJSON(Bold))
-		  json.Add(",")
-		  
-		  // Colour.
-		  json.Add(GenerateJSON(KEY_COLOUR)) + ":"
-		  json.Add(GenerateJSON(Colour.ToString))
-		  json.Add(",")
-		  
-		  // HasBackgroundColour.
-		  json.Add(GenerateJSON(KEY_HAS_BACKGROUND_COLOUR)) + ":"
-		  json.Add(GenerateJSON(HasBackgroundColour))
-		  json.Add(",")
-		  
-		  // Italic.
-		  json.Add(GenerateJSON(KEY_ITALIC)) + ":"
-		  json.Add(GenerateJSON(Italic))
-		  json.Add(",")
-		  
-		  // Underline.
-		  json.Add(GenerateJSON(KEY_UNDERLINE)) + ":"
-		  json.Add(GenerateJSON(Underline))
-		  
-		  json.Add("}")
-		  
-		  Return String.FromArray(json, "")
-		  
-		End Function
-	#tag EndMethod
-
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468697320746F6B656E2773206261636B67726F756E642028696620656E61626C6564292E
-		BackgroundColour As Color
+		BackgroundColour As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -121,7 +92,7 @@ Protected Class XUICETokenStyle
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Colour As Color
+		Colour As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 547275652069662074686973207374796C65206861732061206261636B67726F756E6420636F6C6F75722E

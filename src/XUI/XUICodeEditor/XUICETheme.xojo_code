@@ -17,7 +17,7 @@ Protected Class XUICETheme
 		  /// Raises an `InvalidArgumentException` if it's not.
 		  
 		  // The following keys are permitted within a token dictionary:
-		  // backgroundColor (Color), bold (Boolean), color (Color), hasBackgroundColor (Color), 
+		  // backgroundColor (ColorGroup string), bold (Boolean), color (ColorGroup string), hasBackgroundColor (Boolean), 
 		  // italic (Boolean) and underline (Boolean).
 		  // They are all optional but at least one must be specified.
 		  
@@ -26,9 +26,10 @@ Protected Class XUICETheme
 		    Select Case entry.Key
 		    Case "backgroundColor"
 		      Try
-		        Call Color.FromString(entry.Value)
+		        Call XUIColorGroups.FromString(entry.Value)
 		      Catch e As RuntimeException
-		        Raise New InvalidArgumentException("`backgroundColor` must be a Xojo Color literal in the form `&hAARRGGBB`.")
+		        Raise New InvalidArgumentException("`backgroundColor` must be a Xojo hexademical ColorGroup literal " + _
+		        "in the form `&hAARRGGBB` or `&hAARRGGBB, &hAARRGGBB`.")
 		      End Try
 		      definedProperties = definedProperties + 1
 		      
@@ -41,9 +42,10 @@ Protected Class XUICETheme
 		    Case "color"
 		      #Pragma BreakOnExceptions False
 		      Try
-		        Call Color.FromString(entry.Value)
+		        Call XUIColorGroups.FromString(entry.Value)
 		      Catch e As RuntimeException
-		        Raise New InvalidArgumentException("`color` must be a Xojo Color literal in the form `&hAARRGGBB`.")
+		        Raise New InvalidArgumentException("`color` must be a Xojo hexademical ColorGroup literal " + _
+		        "in the form `&hAARRGGBB` or `&hAARRGGBB, &hAARRGGBB`.")
 		      End Try
 		      #Pragma BreakOnExceptions Default
 		      definedProperties = definedProperties + 1
@@ -134,6 +136,16 @@ Protected Class XUICETheme
 		    End Try
 		    #Pragma BreakOnExceptions Default
 		    
+		  Case TYPE_COLORGROUP
+		    #Pragma BreakOnExceptions False
+		    Try
+		      Call XUIColorGroups.FromString(value)
+		      Return
+		    Catch e As RuntimeException
+		      Raise New InvalidArgumentException("`" + path + "` is not a ColorGroup string.")
+		    End Try
+		    #Pragma BreakOnExceptions Default
+		    
 		  Case TYPE_DATETIME
 		    If value.Type <> Variant.TypeDateTime Then
 		      Raise New InvalidArgumentException("`" + path + "` is not a DateTime.")
@@ -206,20 +218,20 @@ Protected Class XUICETheme
 		  // ======================
 		  // Required properties.
 		  AssertPathType(d, "editor", TYPE_DICTIONARY)
-		  AssertPathType(d, "editor.backgroundColor", TYPE_COLOR)
-		  AssertPathType(d, "editor.caretColor", TYPE_COLOR)
-		  AssertPathType(d, "editor.currentLineNumberColor", TYPE_COLOR)
-		  AssertPathType(d, "editor.lineNumberColor", TYPE_COLOR)
-		  AssertPathType(d, "editor.selectionColor", TYPE_COLOR)
+		  AssertPathType(d, "editor.backgroundColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "editor.caretColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "editor.currentLineNumberColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "editor.lineNumberColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "editor.selectionColor", TYPE_COLORGROUP)
 		  Var editor As Dictionary = d.Value("editor")
 		  
 		  // Optional.
-		  If editor.HasKey("blockLineColor") Then AssertPathType(d, "editor.blockLineColor", TYPE_COLOR)
+		  If editor.HasKey("blockLineColor") Then AssertPathType(d, "editor.blockLineColor", TYPE_COLORGROUP)
 		  If editor.HasKey("currentLineHighlightColor") Then
-		    AssertPathType(d, "editor.currentLineHighlightColor", TYPE_COLOR)
+		    AssertPathType(d, "editor.currentLineHighlightColor", TYPE_COLORGROUP)
 		  End If
 		  If editor.HasKey("unmatchedBlockLineColor") Then
-		    AssertPathType(d, "editor.unmatchedBlockLineColor", TYPE_COLOR)
+		    AssertPathType(d, "editor.unmatchedBlockLineColor", TYPE_COLORGROUP)
 		  End If
 		  
 		  // ======================
@@ -230,11 +242,11 @@ Protected Class XUICETheme
 		    AssertPathType(d, "delimiters", TYPE_DICTIONARY)
 		    Var delim As Dictionary = d.Value("delimiters")
 		    If delim.HasKey("hasBorderColor") Then AssertPathType(d, "delimiters.hasBorderColor", TYPE_BOOLEAN)
-		    If delim.HasKey("borderColor") Then AssertPathType(d, "delimiters.borderColor", TYPE_COLOR)
+		    If delim.HasKey("borderColor") Then AssertPathType(d, "delimiters.borderColor", TYPE_COLORGROUP)
 		    If delim.HasKey("hasFillColor") Then AssertPathType(d, "delimiters.hasFillColor", TYPE_BOOLEAN)
-		    If delim.HasKey("fillColor") Then AssertPathType(d, "delimiters.fillColor", TYPE_COLOR)
+		    If delim.HasKey("fillColor") Then AssertPathType(d, "delimiters.fillColor", TYPE_COLORGROUP)
 		    If delim.HasKey("hasUnderlineColor") Then AssertPathType(d, "delimiters.hasUnderlineColor", TYPE_BOOLEAN)
-		    If delim.HasKey("underlineColor") Then AssertPathType(d, "delimiters.underlineColor", TYPE_COLOR)
+		    If delim.HasKey("underlineColor") Then AssertPathType(d, "delimiters.underlineColor", TYPE_COLORGROUP)
 		  End If
 		  
 		  // ======================
@@ -246,7 +258,7 @@ Protected Class XUICETheme
 		  
 		  Var tokens As Dictionary = d.Value("tokens")
 		  AssertIsTokenDictionary(tokens.Value("default"))
-		  AssertPathType(d, "tokens.default.color", TYPE_COLOR)
+		  AssertPathType(d, "tokens.default.color", TYPE_COLORGROUP)
 		  
 		  // All other top-level values in `tokens` must be dictionaries.
 		  For Each entry As DictionaryEntry In tokens
@@ -259,6 +271,19 @@ Protected Class XUICETheme
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  Self.Styles = New Dictionary("default" : New XUICETokenStyle)
+		  
+		  // Initialise all ColorGroups to prevent Nil object exceptions in themes that don't stipulate them.
+		  Me.BackgroundColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.BlockLineColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.CaretColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.CurrentLineHighlightColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.CurrentLineNumberColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.DelimitersBorderColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.DelimitersFillColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.DelimitersUnderlineColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.LineNumberColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.SelectionColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.UnmatchedBlockLineColor = New ColorGroup(Color.Black, Color.Black)
 		  
 		End Sub
 	#tag EndMethod
@@ -290,18 +315,21 @@ Protected Class XUICETheme
 		  Var editor As Dictionary = d.Value("editor")
 		  
 		  // Required editor properties.
-		  theme.BackgroundColor = editor.Value("backgroundColor")
-		  theme.CaretColor = editor.Value("caretColor")
-		  theme.CurrentLineNumberColor = editor.Value("currentLineNumberColor")
-		  theme.LineNumberColor = editor.Value("lineNumberColor")
-		  theme.SelectionColor = editor.Value("selectionColor")
+		  theme.BackgroundColor = XUIColorGroups.FromString(editor.Value("backgroundColor"))
+		  theme.CaretColor = XUIColorGroups.FromString(editor.Value("caretColor"))
+		  theme.CurrentLineNumberColor = XUIColorGroups.FromString(editor.Value("currentLineNumberColor"))
+		  theme.LineNumberColor = XUIColorGroups.FromString(editor.Value("lineNumberColor"))
+		  theme.SelectionColor = XUIColorGroups.FromString(editor.Value("selectionColor"))
 		  
 		  // Optional editor properties.
-		  theme.BlockLineColor = editor.Lookup("blockLineColor", DEFAULT_BLOCK_LINE_COLOR)
+		  theme.BlockLineColor = XUIColorGroups.FromString(editor.Lookup("blockLineColor", _
+		  New ColorGroup(DEFAULT_BLOCK_LINE_COLOR_LIGHT, DEFAULT_BLOCK_LINE_COLOR_LIGHT)))
 		  theme.CurrentLineHighlightColor = _
-		  editor.Lookup("currentLineHighlightColor", DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR)
+		  XUIColorGroups.FromString(editor.Lookup("currentLineHighlightColor", _
+		  New ColorGroup(DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_LIGHT, DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_DARK)))
 		  theme.UnmatchedBlockLineColor = _
-		  editor.Lookup("unmatchedBlockLineColor", DEFAULT_UNMATCHED_BLOCK_LINE_COLOR)
+		  XUIColorGroups.FromString(editor.Lookup("unmatchedBlockLineColor", _
+		  New ColorGroup(DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_LIGHT, DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_DARK)))
 		  
 		  // =================
 		  // DELIMITERS
@@ -310,11 +338,17 @@ Protected Class XUICETheme
 		  If d.HasKey("delimiters") Then
 		    Var delim As Dictionary = d.Value("delimiters")
 		    If delim.HasKey("hasBorderColor") Then theme.DelimitersHaveBorder = delim.Value("hasBorderColor")
-		    If delim.HasKey("borderColor") Then theme.DelimitersBorderColor = delim.Value("borderColor")
+		    If delim.HasKey("borderColor") Then
+		      theme.DelimitersBorderColor = XUIColorGroups.FromString(delim.Value("borderColor"))
+		    End If
 		    If delim.HasKey("hasFillColor") Then theme.DelimitersHaveFillColor = delim.Value("hasFillColor")
-		    If delim.HasKey("fillColor") Then theme.DelimitersFillColor = delim.Value("fillColor")
+		    If delim.HasKey("fillColor") Then
+		      theme.DelimitersFillColor = XUIColorGroups.FromString(delim.Value("fillColor"))
+		    End If
 		    If delim.HasKey("hasUnderlineColor") Then theme.DelimitersHaveUnderline = delim.Value("hasUnderlineColor")
-		    If delim.HasKey("underlineColor") Then theme.DelimitersUnderlineColor = delim.Value("underlineColor")
+		    If delim.HasKey("underlineColor") Then
+		      theme.DelimitersUnderlineColor = XUIColorGroups.FromString(delim.Value("underlineColor"))
+		    End If
 		  End If
 		  
 		  // =================
@@ -394,23 +428,23 @@ Protected Class XUICETheme
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F722074686520656469746F722773206261636B67726F756E642E
-		BackgroundColor As Color
+		BackgroundColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220626C6F636B206C696E65732E
-		BlockLineColor As Color
+		BlockLineColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F662074686520656469746F7227732063617265742E
-		CaretColor As Color
+		CaretColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520746F20686967686C69676874207468652063757272656E74206C696E6520696E2074686520656469746F722028696620656E61626C6564292E
-		CurrentLineHighlightColor As Color
+		CurrentLineHighlightColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865206C696E65206E756D626572206F66207468652063757272656E74206C696E652E
-		CurrentLineNumberColor As Color
+		CurrentLineNumberColor As ColorGroup
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 5468652064656661756C7420746F6B656E207374796C652E
@@ -423,11 +457,11 @@ Protected Class XUICETheme
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 49662064726177696E672063757272656E742064656C696D697465727320616E64206044656C696D697465727348617665426F72646572436F6C6F7260203D205472756560207468656E20746869732069732074686520636F6C6F7572206F6620746865697220626F726465722E
-		DelimitersBorderColor As Color
+		DelimitersBorderColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 49662064726177696E672063757272656E742064656C696D697465727320616E64206044656C696D69746572734861766546696C6C436F6C6F72203D205472756560207468656E20746869732069732074686520636F6C6F7572207468656972206261636B67726F756E642077696C6C2062652E
-		DelimitersFillColor As Color
+		DelimitersFillColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E207768656E207468652063757272656E742064656C696D69746572732061726520647261776E20746865792073686F756C642068617665206120626F72646572206F6620636F6C6F72206044656C696D6974657273426F72646572436F6C6F72602E
@@ -443,7 +477,7 @@ Protected Class XUICETheme
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 49662064726177696E672063757272656E742064656C696D697465727320616E64206044656C696D697465727348617665556E6465726C696E6560203D205472756560207468656E20746869732069732074686520636F6C6F7572206F662074686520756E6465726C696E652E
-		DelimitersUnderlineColor As Color
+		DelimitersUnderlineColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 41206465736372697074696F6E206F662074686973207468656D652E
@@ -451,7 +485,7 @@ Protected Class XUICETheme
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865206C696E65206E756D626572732E
-		LineNumberColor As Color
+		LineNumberColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686973207468656D652773206E616D652E
@@ -459,7 +493,7 @@ Protected Class XUICETheme
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220746865206261636B67726F756E64206F662073656C656374656420746578742E
-		SelectionColor As Color
+		SelectionColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686973207468656D652773207374796C65732E204B6579203D205374796C65206E616D652C2056616C7565203D204D4345546F6B656E5374796C652E
@@ -467,7 +501,7 @@ Protected Class XUICETheme
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220626C6F636B206C696E657320746861742061726520756E6D6174636865642E
-		UnmatchedBlockLineColor As Color
+		UnmatchedBlockLineColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686973207468656D6527732076657273696F6E2E
@@ -475,13 +509,19 @@ Protected Class XUICETheme
 	#tag EndProperty
 
 
-	#tag Constant, Name = DEFAULT_BLOCK_LINE_COLOR, Type = Color, Dynamic = False, Default = \"&cD6D6D6", Scope = Private
+	#tag Constant, Name = DEFAULT_BLOCK_LINE_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cD6D6D6", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private
+	#tag Constant, Name = DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = DEFAULT_UNMATCHED_BLOCK_LINE_COLOR, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private
+	#tag Constant, Name = DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = TYPE_ARRAY, Type = String, Dynamic = False, Default = \"array", Scope = Private
@@ -491,6 +531,9 @@ Protected Class XUICETheme
 	#tag EndConstant
 
 	#tag Constant, Name = TYPE_COLOR, Type = String, Dynamic = False, Default = \"color", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_COLORGROUP, Type = String, Dynamic = False, Default = \"colorGroup", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = TYPE_DATETIME, Type = String, Dynamic = False, Default = \"datetime", Scope = Private
