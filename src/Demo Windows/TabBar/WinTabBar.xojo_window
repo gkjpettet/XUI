@@ -35,7 +35,7 @@ Begin DesktopWindow WinTabBar
       Enabled         =   True
       HasAnchoredFirstTab=   False
       HasLeftBorder   =   False
-      HasMenuButton   =   False
+      HasMenuButton   =   True
       HasRightBorder  =   False
       Height          =   28
       Index           =   -2147483648
@@ -234,175 +234,37 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4372656174657320612074616220626172207374796C652074686174206D696D6963732050616E69632773204E6F76612773207461622062617220696E206461726B206D6F64652E
-		Private Function NovaDarkStyle() As XUITabBarStyle
-		  /// Creates a tab bar style that mimics Panic's Nova's tab bar in dark mode.
+	#tag Method, Flags = &h21, Description = 4372656174657320612074616220626172207374796C652074686174206D696D6963732050616E69632773204E6F7661277320746162206261722E
+		Private Function NovaStyle() As XUITabBarStyle
+		  /// Creates a tab bar style that mimics Panic's Nova's tab bar.
 		  
 		  Var style As New XUITabBarStyle
 		  
-		  style.Name = "Nova Dark"
+		  style.Name = "Nova"
 		  
-		  // Light grey borders.
-		  style.TabBorderColor = Color.FromString("&h00454647")
-		  
-		  // The active tab is dark grey with a thick turquoise top border.
-		  style.ActiveTabBackgroundColor = Color.FromString("&h001B1C1D")
-		  style.ActiveTabBorderColor = Color.FromString("&h0040B9D1")
+		  style.ActiveTabHasBottomBorder = False
 		  style.ActiveTabHasTopBorder = True
 		  style.ActiveTabHasThickTopBorder = True
-		  style.ActiveTabHasBottomBorder = False
-		  style.ActiveTabTextColor = Color.FromString("&h00DCDDDD")
 		  
-		  // Inactive tabs are grey.
-		  style.InactiveTabBackgroundColor = Color.FromString("&h00323232")
-		  style.InactiveTabTextColor = Color.FromString("&h00DCDDDD")
-		  
-		  // Nova doesn't really have inactive tabs so we'll make them look like inactive tabs.
-		  style.DisabledTabBackgroundColor = Color.FromString("&h00323232")
-		  style.DisabledTabTextColor = Color.FromString("&h00DCDDDD")
-		  
-		  // Hovering over a tab.
-		  style.HoverTabBackgroundColor = Color.FromString("&h00323232")
-		  style.HoverTabTextColor = Color.FromString("&h00DCDDDD")
-		  
-		  // Close icons.
-		  style.TabCloseColor = Color.FromString("&h00A2A3A3")
-		  style.HoverTabCloseColor = Color.FromString("&h00A2A3A3")
-		  
-		  // Store in this style's Tag property the colour to use for the canvas on the window.
-		  style.Tag = Color.FromString("&h001B1C1D")
+		  style.ActiveTabBackgroundColor = New ColorGroup(Color.White, &c1B1C1D)
+		  style.ActiveTabBorderColor = New ColorGroup(&c00BCD4, &c00AFCA)
+		  style.ActiveTabTextColor = New ColorGroup(&c2B2C2C, &cDCDDDD)
+		  style.DisabledTabBackgroundColor = New ColorGroup(Color.Gray, &c323232)
+		  style.DisabledTabTextColor = New ColorGroup(&cA9AEAE, &cDCDDDD)
+		  style.HoverTabBackgroundColor = New ColorGroup(&cECECEC, &c323232)
+		  style.HoverTabCloseColor = New ColorGroup(&c2B2C2C, &cA2A3A3)
+		  style.HoverTabTextColor = New ColorGroup(&c2B2C2C, &cDCDDDD)
+		  style.InactiveTabBackgroundColor = New ColorGroup(&cECECEC, &c323232)
+		  style.InactiveTabTextColor = New ColorGroup(&c2B2C2C, &cDCDDDD)
+		  style.MenuButtonBackgroundColor = New ColorGroup(Color.White, &c1B1C1D)
+		  style.MenuButtonBorderColor = New ColorGroup(&cC8C8C8, &c454647)
+		  style.MenuButtonColor = New ColorGroup(&c2B2C2C,  &cDCDDDD)
+		  style.MenuButtonHoverBackgroundColor = New ColorGroup(Color.White, &c1B1C1D)
+		  style.MenuButtonHoverColor = New ColorGroup(&c131414)
+		  style.TabBorderColor = New ColorGroup(&cC8C8C8, &c454647)
+		  style.TabCloseColor = New ColorGroup(&c6D7070, &cA2A3A3)
 		  
 		  Return style
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 4372656174657320612074616220626172207374796C652074686174206D696D6963732050616E69632773204E6F76612773207461622062617220696E206C69676874206D6F64652E
-		Private Function NovaLightStyle() As XUITabBarStyle
-		  /// Creates a tab bar style that mimics Panic's Nova's tab bar in light mode.
-		  
-		  Var style As New XUITabBarStyle
-		  
-		  style.Name = "Nova Light"
-		  
-		  // Light grey borders.
-		  style.TabBorderColor = Color.FromString("&h00C8C8C8")
-		  
-		  // The active tab is white with a thick green top border.
-		  style.ActiveTabBackgroundColor = Color.White
-		  style.ActiveTabBorderColor = Color.FromString("&h0000BCD4")
-		  style.ActiveTabHasTopBorder = True
-		  style.ActiveTabHasThickTopBorder = True
-		  style.ActiveTabHasBottomBorder = False
-		  style.ActiveTabTextColor = Color.FromString("&h002B2C2C")
-		  
-		  // Inactive tabs are grey.
-		  style.InactiveTabBackgroundColor = Color.FromString("&h00ECECEC")
-		  style.InactiveTabTextColor = Color.FromString("&h002B2C2C")
-		  
-		  // Nova doesn't really have inactive tabs so we'll make them look like inactive tabs with faded text.
-		  style.DisabledTabBackgroundColor = Color.Gray
-		  style.DisabledTabTextColor = Color.FromString("&h00A9AEAE")
-		  
-		  // Hovering over a tab.
-		  style.HoverTabBackgroundColor = Color.FromString("&h00ECECEC")
-		  style.HoverTabTextColor = Color.FromString("&h002B2C2C")
-		  
-		  // Close icons.
-		  style.TabCloseColor = Color.FromString("&h006D7070")
-		  style.HoverTabCloseColor = Color.FromString("&h002B2C2C")
-		  
-		  // Store in this style's Tag property the colour to use for the canvas on the window.
-		  style.Tag = Color.White
-		  
-		  Return style
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 4372656174657320612074616220626172207374796C652074686174206D696D696373205361666172692773207461622062617220696E206461726B206D6F64652E
-		Private Function SafariDarkStyle() As XUITabBarStyle
-		  /// Creates a tab bar style that mimics Safari's tab bar in dark mode.
-		  
-		  Var style As New XUITabBarStyle
-		  
-		  style.Name = "Safari Dark"
-		  
-		  // Grey borders.
-		  style.TabBorderColor = Color.FromString("&h00242525")
-		  
-		  // The active tab is dark grey without a top border.
-		  style.ActiveTabBackgroundColor = Color.FromString("&h00262626")
-		  style.ActiveTabBorderColor = Color.FromString("&h00242525")
-		  style.ActiveTabHasTopBorder = False
-		  style.ActiveTabHasBottomBorder = True
-		  style.ActiveTabHasThickBottomBorder = False
-		  style.ActiveTabTextColor = Color.White
-		  
-		  // Inactive tabs are almost black.
-		  style.InactiveTabBackgroundColor = Color.FromString("&h00151515")
-		  style.InactiveTabTextColor = Color.FromString("&h00919191")
-		  
-		  // Safari doesn't really have inactive tabs so we'll make them look like inactive tabs.
-		  style.DisabledTabBackgroundColor = Color.FromString("&h00151515")
-		  style.DisabledTabTextColor = Color.FromString("&h00919191")
-		  
-		  // Hovering over a tab.
-		  style.HoverTabBackgroundColor = Color.FromString("&h00212122")
-		  style.HoverTabTextColor = Color.FromString("&h00919191")
-		  
-		  // Close icons.
-		  style.TabCloseColor = Color.FromString("&h00919191")
-		  style.HoverTabCloseColor = Color.FromString("&h00919191")
-		  
-		  // Store in this style's Tag property the colour to use for the canvas on the window.
-		  style.Tag = Color.FromString("&h00111111")
-		  
-		  Return style
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 4372656174657320612074616220626172207374796C652074686174206D696D696373205361666172692773207461622062617220696E206C69676874206D6F64652E
-		Private Function SafariLightStyle() As XUITabBarStyle
-		  /// Creates a tab bar style that mimics Safari's tab bar in light mode.
-		  
-		  Var style As New XUITabBarStyle
-		  
-		  style.Name = "Safari Light"
-		  
-		  // Light grey borders.
-		  style.TabBorderColor = Color.FromString("&h00E0E0E0")
-		  
-		  // The active tab is off-white without a top border.
-		  style.ActiveTabBackgroundColor = Color.FromString("&h00FEFFFF")
-		  style.ActiveTabBorderColor = Color.FromString("&h00E0E0E0")
-		  style.ActiveTabHasTopBorder = False
-		  style.ActiveTabHasBottomBorder = True
-		  style.ActiveTabHasThickBottomBorder = False
-		  style.ActiveTabTextColor = Color.FromString("&h002D2E2E")
-		  
-		  // Inactive tabs are grey.
-		  style.InactiveTabBackgroundColor = Color.FromString("&h00F2F2F2")
-		  style.InactiveTabTextColor = Color.FromString("&h00737373")
-		  
-		  // Safari doesn't really have inactive tabs so we'll make them look like inactive tabs.
-		  style.DisabledTabBackgroundColor = Color.FromString("&h00F2F2F2")
-		  style.DisabledTabTextColor = Color.FromString("&h00737373")
-		  
-		  // Hovering over a tab.
-		  style.HoverTabBackgroundColor = Color.FromString("&h00E1E2E2")
-		  style.HoverTabTextColor = Color.FromString("&h00737373")
-		  
-		  // Close icons.
-		  style.TabCloseColor = Color.FromString("&h00666668")
-		  style.HoverTabCloseColor = Color.FromString("&h00666668")
-		  
-		  // Store in this style's Tag property the colour to use for the canvas on the window.
-		  style.Tag = Color.FromString("&h00F4F5F7")
-		  
-		  Return style
-		  
 		End Function
 	#tag EndMethod
 
@@ -462,16 +324,12 @@ End
 #tag Events PopupStyle
 	#tag Event
 		Sub Opening()
-		  Me.AddRow("Nova (Light)")
-		  Me.RowTagAt(Me.LastAddedRowIndex) = NovaLightStyle
-		  Me.AddRow("Nova (Dark)")
-		  Me.RowTagAt(Me.LastAddedRowIndex) = NovaDarkStyle
-		  Me.AddRow("Safari (Light)")
-		  Me.RowTagAt(Me.LastAddedRowIndex) = SafariLightStyle
-		  Me.AddRow("Safari (Dark)")
-		  Me.RowTagAt(Me.LastAddedRowIndex) = SafariDarkStyle
+		  Me.AddRow("Safari")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUITabBarStyle.Safari
+		  Me.AddRow("Nova")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = NovaStyle
 		  
-		  // Start with the Nova light style.
+		  // Start with Safari's style.
 		  Me.SelectedRowIndex = 0
 		End Sub
 	#tag EndEvent

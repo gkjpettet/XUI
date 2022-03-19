@@ -269,6 +269,22 @@ Protected Class XUISourceListStyle
 			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DisclosureWidgetExpandedColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SectionDisclosureWidgetExpandedColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
 #tag EndClass

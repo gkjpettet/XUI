@@ -765,8 +765,6 @@ End
 		  
 		  #Pragma Unused parentRow
 		  
-		  #Pragma Warning "TODO: Do we need to account for x coordinate (i.e. indent level)"
-		  
 		  StoppedDragging
 		  
 		  // We must have let go of the mouse button at this point so we can't be dragging a row any longer.
