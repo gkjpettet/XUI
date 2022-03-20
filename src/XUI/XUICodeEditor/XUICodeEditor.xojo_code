@@ -297,8 +297,6 @@ Inherits NSScrollViewCanvas
 		Sub MouseDrag(x As Integer, y As Integer)
 		  /// The user is dragging the mouse in the editor.
 		  
-		  #Pragma Warning "TODO: Handle dragging scrollbar thumbs on Windows and Linux"
-		  
 		  // Determine if the mouse has moved and we are actually dragging.
 		  If Abs(mLastMouseDownX - X) < 4 And Abs(mLastMouseDownY - Y) < 4 Then Return
 		  
@@ -308,6 +306,33 @@ Inherits NSScrollViewCanvas
 		  
 		  // Must be actually dragging the mouse.
 		  mDragging = True
+		  
+		  // Dragging a scrollbar?
+		  #If TargetWindows Or TargetLinux
+		    Var dragDiffX As Integer = If(mLastMouseDragX = -1, 0, x - mLastMouseDragX)
+		    Var dragDiffY As Integer = If(mLastMouseDragY = -1, 0, y - mLastMouseDragY)
+		    
+		    If mVerticalScrollbar <> Nil And mVerticalScrollbarThumbBounds.Contains(x, y) Then
+		      mDraggingScrollbarThumb = True
+		      If dragDiffY < 0 Then
+		        ScrollUp(-dragDiffY / 2, False, True)
+		      ElseIf dragDiffY > 0 Then
+		        ScrollDown(dragDiffY / 2, False, True)
+		      End If
+		      
+		    ElseIf mHorizontalScrollbar <> Nil And mHorizontalScrollbarThumbBounds.Contains(x, y) Then
+		      mDraggingScrollbarThumb = True
+		      ScrollPosX = ScrollPosX + dragDiffX
+		      Refresh
+		    End If
+		  #EndIf
+		  
+		  // Store these coordinates.
+		  mLastMouseDragX = x
+		  mLastMouseDragY = y
+		  
+		  // If we;re dragging the scrollbar thumb, don't alter selections.
+		  If mDraggingScrollbarThumb Then Return
 		  
 		  // Update the location under the mouse.
 		  mLocationUnderMouse = LocationAtXY(x, y)
@@ -377,6 +402,16 @@ Inherits NSScrollViewCanvas
 	#tag Event
 		Sub MouseUp(x As Integer, y As Integer)
 		  /// A mouse button has just been released in the editor.
+		  
+		  mLastMouseDragX = -1
+		  mLastMouseDragY = -1
+		  
+		  If mDraggingScrollbarThumb Then
+		    // Must have finished dragging the thumb.
+		    mDragging = False
+		    mDraggingScrollbarThumb = False
+		    Return
+		  End If
 		  
 		  If mDragging Then
 		    // Must have finished dragging.
@@ -2435,7 +2470,7 @@ Inherits NSScrollViewCanvas
 		Private Sub RebuildHorizontalScrollbar()
 		  /// Rebuilds the horizontal scroll bar or sets it to Nil if it's not needed.
 		  
-		  If Not mRequiresHorizontalScrollbar Then
+		  If Not RequiresHorizontalScrollbar Then
 		    mHorizontalScrollbar = Nil
 		    mHorizontalScrollbarThumbBounds = Nil
 		    Return
@@ -2494,7 +2529,7 @@ Inherits NSScrollViewCanvas
 		Private Sub RebuildVerticalScrollbar()
 		  /// Rebuilds the vertical scroll bar or sets it to Nil if it's not needed.
 		  
-		  If Not mRequiresVerticalScrollbar Then
+		  If Not RequiresVerticalScrollbar Then
 		    mVerticalScrollbar = Nil
 		    mVerticalScrollbarThumbBounds = Nil
 		    Return
@@ -2625,6 +2660,31 @@ Inherits NSScrollViewCanvas
 		  
 		  Return Max(w, Self.Width)
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966206120686F72697A6F6E74616C207363726F6C6C6261722069732072657175697265642028696E657870656E7369766520636F6D7075746174696F6E292E
+		Private Function RequiresHorizontalScrollbar() As Boolean
+		  /// Returns True if a horizontal scrollbar is required (inexpensive computation).
+		  
+		  Return mCachedRequiredBufferWidth > Self.Width
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966206120766572746963616C207363726F6C6C6261722069732072657175697265642E20496E657870656E7369766520636F6D7075746174696F6E2E
+		Private Function RequiresVerticalScrollbar() As Boolean
+		  /// Returns True if a vertical scrollbar is required. Inexpensive computation.
+		  
+		  If LineManager.LineCount = mMaxVisibleLines Then Return False
+		  
+		  // Compute the maximum vertical scrollbar value.
+		  Var vScrollBarMax As Integer = Max(LineManager.LineCount - mMaxVisibleLines, mFirstVisibleLine)
+		  
+		  // Edge case.
+		  If vScrollBarMax = 1 And FirstVisibleLine = 1 Then Return False
+		  
+		  Return True
 		End Function
 	#tag EndMethod
 
@@ -3090,24 +3150,8 @@ Inherits NSScrollViewCanvas
 		Event DidContextualClick(x As Integer, y As Integer)
 	#tag EndHook
 
-	#tag Hook, Flags = &h0, Description = 4966205B76697369626C655D2069732054727565207468656E206120686F72697A6F6E74616C207363726F6C6C6261722069732072657175697265642E204E6F742075736564206F6E206D61634F532E
-		Event HorizontalScrollbarVisibilityChanged(visible As Boolean)
-	#tag EndHook
-
-	#tag Hook, Flags = &h0, Description = 5468652076616C7565206F662074686520686F72697A6F6E74616C207363726F6C6C20626172206368616E6765642E204E6F742075736564206F6E206D61634F532E
-		Event HorizontalScrollValueChanged(value As Integer, maximum As Integer)
-	#tag EndHook
-
 	#tag Hook, Flags = &h0, Description = 54686520656469746F722069732061626F757420746F20626520646973706C617965642E
 		Event Opening()
-	#tag EndHook
-
-	#tag Hook, Flags = &h0, Description = 4966205B76697369626C655D2069732054727565207468656E206120766572746963616C207363726F6C6C6261722069732072657175697265642E204E6F742075736564206F6E206D61634F532E
-		Event VerticalScrollbarVisibilityChanged(visible As Boolean)
-	#tag EndHook
-
-	#tag Hook, Flags = &h0, Description = 5468652076616C7565206F662074686520766572746963616C207363726F6C6C20626172206368616E6765642E204E6F742075736564206F6E206D61634F532E
-		Event VerticalScrollValueChanged(value As Integer, maximum As Integer)
 	#tag EndHook
 
 
@@ -3366,44 +3410,6 @@ Inherits NSScrollViewCanvas
 			  mFirstVisibleLine = XUIMaths.Clamp(value, 1, LineManager.LineCount)
 			  NeedsFullRedraw = True
 			  
-			  // ====================================
-			  // Non-macOS vertical scrollbar events.
-			  // ====================================
-			  #If Not TargetMacOS
-			    // Cache the maximum number of visible lines.
-			    Var maxVisible As Integer = MaxVisibleLines(mLineHeight)
-			    
-			    // Compute the maximum vertical scrollbar value.
-			    Var vScrollBarMax As Integer = Max(LineManager.LineCount - maxVisible, mFirstVisibleLine)
-			    
-			    If LineManager.LineCount = maxVisible Then
-			      // No vertical scrollbar required.
-			      If mRequiresVerticalScrollbar Then
-			        VerticalScrollbarVisibilityChanged(False)
-			        mRequiresVerticalScrollbar = False
-			      End If
-			      
-			    Else
-			      // We need a vertical scrollbar because there is more content
-			      // below the viewport than is visible.
-			      
-			      // Edge case.
-			      If vScrollBarMax = 1 And FirstVisibleLine = 1 Then
-			        // No vertical scrollbar required.
-			        If mRequiresVerticalScrollbar Then
-			          VerticalScrollbarVisibilityChanged(False)
-			          mRequiresVerticalScrollbar = False
-			        End If
-			        Return
-			      End If
-			      
-			      VerticalScrollValueChanged(FirstVisibleLine, vScrollBarMax)
-			      If Not mRequiresVerticalScrollbar Then
-			        VerticalScrollbarVisibilityChanged(True)
-			        mRequiresVerticalScrollbar = True
-			      End If
-			    End If
-			  #EndIf
 			End Set
 		#tag EndSetter
 		FirstVisibleLine As Integer
@@ -3583,6 +3589,10 @@ Inherits NSScrollViewCanvas
 		Private mDragging As Boolean = False
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 547275652069662074686520757365722069732063757272656E746C79206472616767696E672061207363726F6C6C626172207468756D622E20416C776179732046616C7365206F6E206D61634F532E
+		Private mDraggingScrollbarThumb As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 49662054727565207468656E2074686520656469746F722077696C6C206472617720626C6F636B206C696E657320666F7220736F7572636520636F64652E204261636B7320746865206044726177426C6F636B4C696E65736020636F6D70757465642070726F70657274792E
 		Private mDrawBlockLines As Boolean = True
 	#tag EndProperty
@@ -3655,6 +3665,14 @@ Inherits NSScrollViewCanvas
 		Private mLastMouseDownY As Integer
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865205820636F6F7264696E61746520647572696E6720746865206C617374204D6F75736544726167206576656E74206F72202D3120696620746865206D6F75736520686173206265656E2072656C65617365642073696E636520746865206C6173742064726167206576656E742E
+		Private mLastMouseDragX As Integer = -1
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E61746520647572696E6720746865206C617374204D6F75736544726167206576656E74206F72202D3120696620746865206D6F75736520686173206265656E2072656C65617365642073696E636520746865206C6173742064726167206576656E742E
+		Private mLastMouseDragY As Integer = -1
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 5468652058206D6F75736520636F6F7264696E6174652066726F6D207468652070726576696F757320604D6F757365557060206576656E742E
 		Private mLastMouseUpX As Integer
 	#tag EndProperty
@@ -3689,14 +3707,6 @@ Inherits NSScrollViewCanvas
 
 	#tag Property, Flags = &h21, Description = 4261636B696E672073746F726520666F72207468652060526561644F6E6C796020636F6D70757465642070726F70657274792E
 		Private mReadOnly As Boolean = False
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 4120686F72697A6F6E74616C207363726F6C6C62617220697320726571756972656420617320746865206261636B20627566666572206973207769646572207468616E207468652063616E7661732E
-		Private mRequiresHorizontalScrollbar As Boolean = False
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520605265717569726573566572746963616C5363726F6C6C6261726020636F6D70757465642070726F70657274792E
-		Private mRequiresVerticalScrollbar As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520605363726F6C6C506F73586020636F6D70757465642070726F70657274792E
@@ -3760,28 +3770,6 @@ Inherits NSScrollViewCanvas
 			  // Set the value of ScrollPosX, not exceeding the maximum value.
 			  mScrollPosX = XUIMaths.Clamp(value, 0, maxScrollPosX)
 			  
-			  // ======================================
-			  // Non-macOS horizontal scrollbar events.
-			  // ======================================
-			  #If Not TargetMacOS
-			    If mCachedRequiredBufferWidth > Self.Width Then
-			      // A horizontal scrollbar is required.
-			      If Not mRequiresHorizontalScrollbar Then
-			        // Since the editor previously didn't need a horizontal scroll bar,
-			        // inform users that it now does need one.
-			        HorizontalScrollbarVisibilityChanged(True)
-			        mRequiresHorizontalScrollbar = True
-			      End If
-			      // Inform users of the new scrollbar position and max value.
-			      HorizontalScrollValueChanged(mScrollPosX, maxScrollPosX)
-			    Else
-			      // No need for a horizontal scrollbar.
-			      If mRequiresHorizontalScrollbar Then
-			        HorizontalScrollbarVisibilityChanged(False)
-			      End If
-			      mRequiresHorizontalScrollbar = False
-			    End If
-			  #EndIf
 			End Set
 		#tag EndSetter
 		ScrollPosX As Integer
