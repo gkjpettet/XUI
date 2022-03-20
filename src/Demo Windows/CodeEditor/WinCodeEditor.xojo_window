@@ -188,6 +188,8 @@ End
 		  // We have to assign the code editor's undo manager here because the window's Opening event fires 
 		  // after the editor's Opening event.
 		  Editor.UndoManager = Self.UndoManager
+		  
+		  Editor.FontSize = 14
 		End Sub
 	#tag EndEvent
 
