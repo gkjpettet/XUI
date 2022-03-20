@@ -386,16 +386,19 @@ Inherits NSScrollViewCanvas
 		  
 		  // By default the mouse cursor is an IBeam but we'll change it back to the 
 		  // standard pointer if the mouse is to the left of a line (i.e. over the gutter).
-		  If mLocationUnderMouse <> Nil Then
-		    If mLocationUnderMouse.ActuallyOverLine = False And mLocationUnderMouse.Column = 0 Then
-		      Self.MouseCursor = System.Cursors.StandardPointer
-		    Else
-		      Self.MouseCursor = System.Cursors.IBeam
-		    End If
-		  Else
+		  If Not TargetMacOS And (IsOverHorizontalScrollbar(x, y) Or IsOverVerticalScrollbar(x, y)) Then
 		    Self.MouseCursor = System.Cursors.StandardPointer
+		  Else
+		    If mLocationUnderMouse <> Nil Then
+		      If mLocationUnderMouse.ActuallyOverLine = False And mLocationUnderMouse.Column = 0 Then
+		        Self.MouseCursor = System.Cursors.StandardPointer
+		      Else
+		        Self.MouseCursor = System.Cursors.IBeam
+		      End If
+		    Else
+		      Self.MouseCursor = System.Cursors.StandardPointer
+		    End If
 		  End If
-		  
 		End Sub
 	#tag EndEvent
 
@@ -1513,6 +1516,32 @@ Inherits NSScrollViewCanvas
 		  mLastMouseUpY = y
 		  
 		  Return result
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662060782C207960206973206F76657220616E792070617274206F662074686520686F72697A6F6E74616C207363726F6C6C626172202857696E646F77732026204C696E7578206F6E6C79292E
+		Private Function IsOverHorizontalScrollbar(x As Integer, y As Integer) As Boolean
+		  /// Returns True if `x, y` is over any part of the horizontal scrollbar (Windows & Linux only).
+		  
+		  #Pragma Unused y
+		  
+		  If mHorizontalScrollbar = Nil Then Return False
+		  
+		  Return y >= Height - HORIZONTAL_SCROLLBAR_HEIGHT
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662060782C207960206973206F76657220616E792070617274206F662074686520766572746963616C207363726F6C6C626172202857696E646F77732026204C696E7578206F6E6C79292E
+		Private Function IsOverVerticalScrollbar(x As Integer, y As Integer) As Boolean
+		  /// Returns True if `x, y` is over any part of the vertical scrollbar (Windows & Linux only).
+		  
+		  #Pragma Unused x
+		  
+		  If mVerticalScrollbar = Nil Then Return False
+		  
+		  Return x >= Width - VERTICAL_SCROLLBAR_WIDTH
 		  
 		End Function
 	#tag EndMethod
