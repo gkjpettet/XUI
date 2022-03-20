@@ -18,6 +18,11 @@ lineNumberColor = "&h00878787, &h004A4E52"
 selectionColor = "&h00A4CDFF, &h00314F78"
 unmatchedBlockLineColor = "&h00CC1400, &h00CC1400"
 
+[scrollbars]
+backgroundColor = "&h00ECECEC, &h00171717"
+borderColor = "&h00ECECEC, &h00202020"
+thumbColor = "&h00717272, &h00838383"
+
 [delimiters]
 hasBorderColor = true
 borderColor = "&h00CCCCCC, &h00CCCCCC"

@@ -458,8 +458,6 @@ Inherits NSScrollViewCanvas
 		  
 		  Var shouldInvalidate As Boolean = False
 		  
-		  System.DebugLog("deltaX: " + deltaX.ToString + ", deltaY: " + deltaY.ToString)
-		  
 		  // =================================
 		  // HORIZONTAL SCROLLING
 		  // =================================
@@ -533,7 +531,7 @@ Inherits NSScrollViewCanvas
 		    mFirstVisibleLine = 1
 		    NeedsFullRedraw = True
 		  End If
-		  ScrollPosY = ScrollY_
+		  mScrollPosY = ScrollY_
 		  
 		  // =================================
 		  // HORIZONTAL SCROLLING
@@ -644,6 +642,17 @@ Inherits NSScrollViewCanvas
 		  #If TargetMacOS
 		    SetDocumentSize(mBackBuffer.Graphics.Width, LineManager.LineCount * mLineHeight)
 		  #EndIf
+		  
+		  // Draw the scrollbars if needed on Windows and Linux.
+		  #If TargetWindows Or TargetLinux
+		    If mVerticalScrollbar <> Nil Then
+		      g.DrawPicture(mVerticalScrollbar, g.Width - mVerticalScrollbar.Graphics.Width, 0)
+		    End If
+		    If mHorizontalScrollbar <> Nil Then
+		      g.DrawPicture(mHorizontalScrollbar, 0, g.Height - mHorizontalScrollbar.Graphics.Height)
+		    End If
+		  #EndIf
+		  
 		End Sub
 	#tag EndEvent
 
@@ -671,7 +680,7 @@ Inherits NSScrollViewCanvas
 		  #Pragma Unused newScaleFactor
 		  
 		  RebuildBackBuffer
-		  
+		  RebuildScrollbars
 		End Sub
 	#tag EndEvent
 
@@ -1569,14 +1578,19 @@ Inherits NSScrollViewCanvas
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 546865206D6178696D756D206E756D626572206F66206C696E65732074686174206172652076697369626C6520696E207468652063616E7661732E
+	#tag Method, Flags = &h21, Description = 546865206D6178696D756D206E756D626572206F66206C696E65732074686174206172652076697369626C6520696E207468652063616E7661732E204164646974696F6E616C6C7920636163686573207468652076616C756520696E20606D4D617856697369626C654C696E6573602E
 		Private Function MaxVisibleLines(lineHeight As Double) As Integer
 		  /// The maximum number of lines that are visible in the canvas. 
 		  ///
 		  /// Will never be more than the maximum number of lines in existence.
 		  
-		  Return Min(Me.Height / lineHeight, LineManager.LineCount)
+		  #If TargetMacOS
+		    mMaxVisibleLines = Min(Me.Height / lineHeight, LineManager.LineCount)
+		  #Else
+		    mMaxVisibleLines = Min((Me.Height - HORIZONTAL_SCROLLBAR_HEIGHT) / lineHeight, LineManager.LineCount)
+		  #EndIf
 		  
+		  Return mMaxVisibleLines
 		End Function
 	#tag EndMethod
 
@@ -2316,6 +2330,103 @@ Inherits NSScrollViewCanvas
 		  End If
 		  
 		  NeedsFullRedraw = False
+		  
+		  // Update the scrollbars.
+		  #If TargetWindows Or TargetLinux
+		    RebuildScrollbars
+		  #EndIf
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52656275696C64732074686520766572746963616C207363726F6C6C20626172206F72207365747320697420746F204E696C2069662069742773206E6F74206E65656465642E
+		Private Sub RebuildHorizontalScrollbar()
+		  /// Rebuilds the horizontal scroll bar or sets it to Nil if it's not needed.
+		  
+		  If Not mRequiresHorizontalScrollbar Then
+		    mHorizontalScrollbar = Nil
+		    Return
+		  End If
+		  
+		  // Create a new picture, the required size of the track.
+		  mHorizontalScrollbar = Window.BitmapForCaching(Width - VERTICAL_SCROLLBAR_WIDTH, HORIZONTAL_SCROLLBAR_HEIGHT)
+		  
+		  // For brevity grab the graphics context.
+		  Var g As Graphics = mHorizontalScrollbar.Graphics
+		  
+		  // Compute the maximum permissible X scroll position.
+		  Var maxScrollPosX As Integer = Max(mCachedRequiredBufferWidth - Width, 0)
+		  
+		  // Compute the width of the thumb.
+		  Var thumbW As Double = (g.Width / mBackBuffer.Graphics.Width) * (g.Width - (SCROLLBAR_THUMB_PADDING * 2))
+		  
+		  // Compute the X coordinate of the left of the thumb.
+		  Var minX As Integer = SCROLLBAR_THUMB_PADDING
+		  Var maxX As Integer = g.Width - thumbW - SCROLLBAR_THUMB_PADDING
+		  Var thumbX As Integer = XUIMaths.Clamp((ScrollPosX / maxScrollPosX) * (maxX - minX), minX, maxX)
+		  
+		  // Compute the thumb Y position.
+		  Var thumbY As Double = (g.Height / 2) - (HORIZONTAL_SCROLLBAR_THUMB_HEIGHT / 2)
+		  
+		  // Draw the track background.
+		  g.DrawingColor = Me.Theme.ScrollbarBackgroundColor
+		  g.FillRectangle(0, 0, g.Width, g.Height)
+		  
+		  // Track borders.
+		  g.DrawingColor = Me.Theme.ScrollbarBorderColor
+		  g.DrawRectangle(0, 0, g.Width, g.Height)
+		  
+		  // Thumb.
+		  g.DrawingColor = Me.Theme.ScrollbarThumbColor
+		  g.FillRoundRectangle(thumbX, thumbY, thumbW, HORIZONTAL_SCROLLBAR_THUMB_HEIGHT, 3, 3)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52656275696C647320626F74682074686520766572746963616C20616E6420686F72697A6F6E74616C207363726F6C6C62617273206F722073657473207468656D20746F204E696C2069662074686579206172656E2774206E65656465642E
+		Private Sub RebuildScrollbars()
+		  /// Rebuilds both the vertical and horizontal scrollbars or sets them to Nil if they aren't needed.
+		  
+		  RebuildVerticalScrollbar
+		  RebuildHorizontalScrollbar
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52656275696C64732074686520766572746963616C207363726F6C6C20626172206F72207365747320697420746F204E696C2069662069742773206E6F74206E65656465642E
+		Private Sub RebuildVerticalScrollbar()
+		  /// Rebuilds the vertical scroll bar or sets it to Nil if it's not needed.
+		  
+		  If Not mRequiresVerticalScrollbar Then
+		    mVerticalScrollbar = Nil
+		    Return
+		  End If
+		  
+		  // Create a new picture, the required size of the track.
+		  mVerticalScrollbar = Window.BitmapForCaching(VERTICAL_SCROLLBAR_WIDTH, Height)
+		  
+		  // For brevity grab the graphics context.
+		  Var g As Graphics = mVerticalScrollbar.Graphics
+		  
+		  // Compute the Y coordinate of the top of the thumb.
+		  Var thumbY As Integer = (FirstVisibleLine / LineManager.LineCount) * (g.Height - (SCROLLBAR_THUMB_PADDING * 2))
+		  
+		  // Compute the height of the thumb.
+		  Var thumbH As Integer = (mMaxVisibleLines / LineManager.LineCount) * (g.Height - (SCROLLBAR_THUMB_PADDING * 2))
+		  
+		  // Compute the thumb left X edge.
+		  Var thumbX As Double = (g.Width / 2) - (VERTICAL_SCROLLBAR_THUMB_WIDTH / 2)
+		  
+		  // Draw the track background.
+		  g.DrawingColor = Me.Theme.ScrollbarBackgroundColor
+		  g.FillRectangle(0, 0, g.Width, g.Height)
+		  
+		  // Track borders.
+		  g.DrawingColor = Me.Theme.ScrollbarBorderColor
+		  g.DrawRectangle(0, 0, g.Width, g.Height)
+		  
+		  // Thumb.
+		  g.DrawingColor = Me.Theme.ScrollbarThumbColor
+		  g.FillRoundRectangle(thumbX, thumbY, VERTICAL_SCROLLBAR_THUMB_WIDTH, thumbH, 3, 3)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -2355,6 +2466,11 @@ Inherits NSScrollViewCanvas
 		  If mCaretVisible Then
 		    PaintCaret(g, mCaretPosition)
 		  End If
+		  
+		  // Update the scrollbars.
+		  #If TargetWindows Or TargetLinux
+		    RebuildScrollbars
+		  #EndIf
 		End Sub
 	#tag EndMethod
 
@@ -2571,21 +2687,21 @@ Inherits NSScrollViewCanvas
 		    If CaretLineNumber < FirstVisibleLine Or CaretLineNumber >LastFullyVisibleLineNumber Then
 		      If CaretLineNumber = LastFullyVisibleLineNumber + 1 Then
 		        // Scroll down a single line.
-		        ScrollPosY = ScrollPosY + mLineHeight
+		        mScrollPosY = mScrollPosY + mLineHeight
 		      ElseIf CaretLineNumber = FirstVisibleLine - 1 Then
 		        // Scroll up a single line.
-		        ScrollPosY = ScrollPosY - mLineHeight
+		        mScrollPosY = mScrollPosY - mLineHeight
 		      Else
-		        ScrollPosY = CaretLineNumber * mLineHeight
+		        mScrollPosY = CaretLineNumber * mLineHeight
 		      End If
-		      ScrollPosY = XUIMaths.Clamp(ScrollPosY, 0, (LineManager.LineCount * mLineHeight) - mLineHeight)
+		      mScrollPosY = XUIMaths.Clamp(mScrollPosY, 0, (LineManager.LineCount * mLineHeight) - mLineHeight)
 		    End If
 		    
 		    // Scroll.
-		    ScrollToPoint(ScrollPosX, ScrollPosY)
+		    ScrollToPoint(ScrollPosX, mScrollPosY)
 		    
 		    // Update ScrollPosY.
-		    ScrollPosY = ScrollY_
+		    mScrollPosY = ScrollY_
 		    
 		    If shouldInvalidate Then Refresh
 		    
@@ -3403,6 +3519,10 @@ Inherits NSScrollViewCanvas
 		Private mHighlightCurrentLine As Boolean
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C62617220696D61676520746F20647261772E204D6179206265204E696C206966206E6F742072657175697265642E
+		Private mHorizontalScrollbar As Picture
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 5472756520696620746865206C61737420636C69636B2074686174206F6363757272656420776173206120646F75626C6520636C69636B2E
 		Private mIsDoubleClick As Boolean = False
 	#tag EndProperty
@@ -3455,6 +3575,10 @@ Inherits NSScrollViewCanvas
 		Private mLocationUnderMouse As XUICELocation
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 41206361636865206F6620746865206C6173742076616C75652072657475726E65642062792074686520604D617856697369626C654C696E657360206D6574686F642E204974277320746865206D6178696D756D206E756D626572206F66206C696E65732076697369626C6520696E207468652063616E7661732E2057696C6C206E65766572206265206D6F7265207468616E20746865206E756D626572206F66206C696E657320696E206578697374656E63652E
+		Private mMaxVisibleLines As Integer = 0
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 4261636B696E672073746F726520666F72207468652060526561644F6E6C796020636F6D70757465642070726F70657274792E
 		Private mReadOnly As Boolean = False
 	#tag EndProperty
@@ -3471,12 +3595,20 @@ Inherits NSScrollViewCanvas
 		Private mScrollPosX As Integer = 0
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E617465207468652063616E766173206C617374207363726F6C6C656420746F2E
+		Private mScrollPosY As Integer
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 54686520656469746F7227732063757272656E74207468656D6520286261636B732074686520605468656D656020636F6D70757465642070726F7065727479292E
 		Private mTheme As XUICETheme
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060566572746963616C4C696E6550616464696E676020636F6D70757465642070726F70657274792E
 		Private mVerticalLinePadding As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520766572746963616C207363726F6C6C62617220696D61676520746F20647261772E204D6179206265204E696C206966206E6F742072657175697265642E
+		Private mVerticalScrollbar As Picture
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54727565206966207468652063616E766173206E6565647320612066756C6C207265647261772E
@@ -3542,10 +3674,6 @@ Inherits NSScrollViewCanvas
 		#tag EndSetter
 		ScrollPosX As Integer
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E617465207468652063616E766173206C617374207363726F6C6C656420746F2E
-		Private ScrollPosY As Integer
-	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 5468652073656C656374696F6E20636F6C6F75722E
 		#tag Getter
@@ -3638,6 +3766,16 @@ Inherits NSScrollViewCanvas
 	#tag Constant, Name = DELIMITER_TIMER_PERIOD, Type = Double, Dynamic = False, Default = \"500", Scope = Private, Description = 546865206E756D626572206F66206D696C6C697365636F6E6473206265747765656E207570646174696E6720746865206E6561726573742064656C696D697465727320746F207468652063617265742E
 	#tag EndConstant
 
+	#tag Constant, Name = HORIZONTAL_SCROLLBAR_HEIGHT, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865207769647468206F662074686520766572746963616C207363726F6C6C6261722E
+		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"16"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"20"
+	#tag EndConstant
+
+	#tag Constant, Name = HORIZONTAL_SCROLLBAR_THUMB_HEIGHT, Type = Double, Dynamic = False, Default = \"", Scope = Private, Description = 546865207769647468206F662074686520766572746963616C207363726F6C6C626172207468756D622E
+		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"4"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"10"
+	#tag EndConstant
+
 	#tag Constant, Name = LEFT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"50", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F20706164206C656674207768656E207363726F6C6C696E67206C65667477617264732E
 	#tag EndConstant
 
@@ -3647,13 +3785,26 @@ Inherits NSScrollViewCanvas
 	#tag Constant, Name = MIN_LINE_NUMBER_WIDTH, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 4966206C696E65206E756D6265727320617265202A6E6F742A20647261776E2C207468697320697320746865206D696E696D756D207769647468206F6620746865206C696E65206E756D6265722073656374696F6E206F6620746865206775747465722E
 	#tag EndConstant
 
-	#tag Constant, Name = RIGHT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 467564676520666163746F7220666F722070616464696E6720746865207269676874206F66206C696E6573207768656E20686F72697A6F6E74616C207363726F6C6C696E672E
+	#tag Constant, Name = RIGHT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"22", Scope = Private, Description = 467564676520666163746F7220666F722070616464696E6720746865207269676874206F66206C696E6573207768656E20686F72697A6F6E74616C207363726F6C6C696E672E
+	#tag EndConstant
+
+	#tag Constant, Name = SCROLLBAR_THUMB_PADDING, Type = Double, Dynamic = False, Default = \"4", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F20706164206569746865722073696465206F6620746865207363726F6C6C626172207468756D622E
 	#tag EndConstant
 
 	#tag Constant, Name = TYPING_SPEED_TICKS, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865206E756D626572206F66207469636B73206265747765656E206B65797374726F6B657320746F207374696C6C20626520636F6E73696465726564206173206163746976656C7920747970696E672E
 	#tag EndConstant
 
 	#tag Constant, Name = UNDO_EVENT_BLOCK_SECONDS, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 546865206E756D626572206F66207365636F6E64732077697468696E20776869636820756E646F61626C6520616374696F6E2077696C6C2062652067726F7570656420746F67657468657220617320612073696E676C6520756E646F61626C6520616374696F6E2E
+	#tag EndConstant
+
+	#tag Constant, Name = VERTICAL_SCROLLBAR_THUMB_WIDTH, Type = Double, Dynamic = False, Default = \"", Scope = Private, Description = 546865207769647468206F662074686520766572746963616C207363726F6C6C626172207468756D622E
+		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"4"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"10"
+	#tag EndConstant
+
+	#tag Constant, Name = VERTICAL_SCROLLBAR_WIDTH, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865207769647468206F662074686520766572746963616C207363726F6C6C6261722E
+		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"16"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"20"
 	#tag EndConstant
 
 	#tag Constant, Name = VSCROLL_SENSITIVITY, Type = Double, Dynamic = False, Default = \"2.5", Scope = Private, Description = 486967686572206E756D626572203D206D6F7265206C696E6573207363726F6C6C6564207768656E20717569636B6C79207363726F6C6C696E6720766572746963616C6C792E2056616C756573206265747765656E2031202D203320776F726B2077656C6C2E

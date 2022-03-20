@@ -10,7 +10,7 @@ Begin DesktopWindow WinCodeEditor
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   760
+   Height          =   500
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -23,7 +23,7 @@ Begin DesktopWindow WinCodeEditor
    Title           =   "XUICodeEditor Demo"
    Type            =   0
    Visible         =   True
-   Width           =   1290
+   Width           =   600
    Begin XUICodeEditor Editor
       AllowInertialScrolling=   True
       AutocompleteCombo=   "XUICodeEditor.AutocompleteCombos.Tab"
@@ -50,7 +50,7 @@ Begin DesktopWindow WinCodeEditor
       HasFocus        =   False
       HasHorizontalScrollbar=   True
       HasVerticalScrollbar=   True
-      Height          =   715
+      Height          =   455
       HighlightCurrentLine=   False
       HighlightDelimitersAroundCaret=   True
       Index           =   -2147483648
@@ -80,7 +80,7 @@ Begin DesktopWindow WinCodeEditor
       Top             =   0
       VerticalLinePadding=   0
       Visible         =   True
-      Width           =   1290
+      Width           =   600
    End
    Begin DesktopPopupMenu PopupFormatters
       AllowAutoDeactivate=   True
@@ -94,7 +94,7 @@ Begin DesktopWindow WinCodeEditor
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   1134
+      Left            =   444
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -106,7 +106,7 @@ Begin DesktopWindow WinCodeEditor
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   727
+      Top             =   467
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -122,7 +122,7 @@ Begin DesktopWindow WinCodeEditor
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   871
+      Left            =   181
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -138,7 +138,7 @@ Begin DesktopWindow WinCodeEditor
       TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   727
+      Top             =   467
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -338,8 +338,10 @@ End
 #tag Events InfoTimer
 	#tag Event
 		Sub Action()
-		  Info.Text = "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
-		  Editor.CaretColumn.ToString
+		  ' Info.Text = "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
+		  ' Editor.CaretColumn.ToString
+		  
+		  Info.Text = "ScrollPosX: " + Editor.ScrollPosX.ToString
 		End Sub
 	#tag EndEvent
 #tag EndEvents

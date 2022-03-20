@@ -235,6 +235,15 @@ Protected Class XUICETheme
 		  End If
 		  
 		  // ======================
+		  // SCROLLBARS DICTIONARY
+		  // ======================
+		  // Required properties.
+		  AssertPathType(d, "scrollbars", TYPE_DICTIONARY)
+		  AssertPathType(d, "scrollbars.backgroundColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "scrollbars.borderColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "scrollbars.thumbColor", TYPE_COLORGROUP)
+		  
+		  // ======================
 		  // DELIMITERS DICTIONARY
 		  // ======================
 		  // The delimiters dictionary is optional.
@@ -283,6 +292,9 @@ Protected Class XUICETheme
 		  Me.DelimitersUnderlineColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.LineNumberColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.SelectionColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.ScrollbarBackgroundColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.ScrollbarBorderColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.ScrollbarThumbColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.UnmatchedBlockLineColor = New ColorGroup(Color.Black, Color.Black)
 		  
 		End Sub
@@ -330,6 +342,14 @@ Protected Class XUICETheme
 		  theme.UnmatchedBlockLineColor = _
 		  XUIColorGroups.FromString(editor.Lookup("unmatchedBlockLineColor", _
 		  New ColorGroup(DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_LIGHT, DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_DARK)))
+		  
+		  // =================
+		  // SCROLLBARS
+		  // =================
+		  Var scrollbars As Dictionary = d.Value("scrollbars")
+		  theme.ScrollbarBackgroundColor = XUIColorGroups.FromString(scrollbars.Value("backgroundColor"))
+		  theme.ScrollbarBorderColor = XUIColorGroups.FromString(scrollbars.Value("borderColor"))
+		  theme.ScrollbarThumbColor = XUIColorGroups.FromString(scrollbars.Value("thumbColor"))
 		  
 		  // =================
 		  // DELIMITERS
@@ -492,6 +512,18 @@ Protected Class XUICETheme
 		Name As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865206261636B67726F756E64206F6620746865207363726F6C6C62617220747261636B2E204F6E6C792072656C6576616E74206F6E2057696E646F777320616E64204C696E75782E
+		ScrollbarBackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F662074686520626F72646572206F6620746865207363726F6C6C62617220747261636B2E204F6E6C792072656C6576616E74206F6E2057696E646F777320616E64204C696E75782E
+		ScrollbarBorderColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865207468756D62206F6620746865207363726F6C6C62617220747261636B2E204F6E6C792072656C6576616E74206F6E2057696E646F777320616E64204C696E75782E
+		ScrollbarThumbColor As ColorGroup
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220746865206261636B67726F756E64206F662073656C656374656420746578742E
 		SelectionColor As ColorGroup
 	#tag EndProperty
@@ -601,7 +633,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -609,7 +641,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -617,7 +649,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -625,7 +657,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -633,7 +665,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -641,7 +673,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -649,7 +681,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -657,7 +689,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -689,7 +721,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -697,7 +729,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -705,7 +737,7 @@ Protected Class XUICETheme
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
