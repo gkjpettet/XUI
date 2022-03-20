@@ -1524,7 +1524,7 @@ Inherits NSScrollViewCanvas
 		Private Function IsOverHorizontalScrollbar(x As Integer, y As Integer) As Boolean
 		  /// Returns True if `x, y` is over any part of the horizontal scrollbar (Windows & Linux only).
 		  
-		  #Pragma Unused y
+		  #Pragma Unused x
 		  
 		  If mHorizontalScrollbar = Nil Then Return False
 		  
@@ -1537,7 +1537,7 @@ Inherits NSScrollViewCanvas
 		Private Function IsOverVerticalScrollbar(x As Integer, y As Integer) As Boolean
 		  /// Returns True if `x, y` is over any part of the vertical scrollbar (Windows & Linux only).
 		  
-		  #Pragma Unused x
+		  #Pragma Unused y
 		  
 		  If mVerticalScrollbar = Nil Then Return False
 		  
