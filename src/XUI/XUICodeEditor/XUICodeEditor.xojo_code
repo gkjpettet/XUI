@@ -297,6 +297,8 @@ Inherits NSScrollViewCanvas
 		Sub MouseDrag(x As Integer, y As Integer)
 		  /// The user is dragging the mouse in the editor.
 		  
+		  #Pragma Warning "TODO: Handle dragging scrollbar thumbs on Windows and Linux"
+		  
 		  // Determine if the mouse has moved and we are actually dragging.
 		  If Abs(mLastMouseDownX - X) < 4 And Abs(mLastMouseDownY - Y) < 4 Then Return
 		  
@@ -412,6 +414,19 @@ Inherits NSScrollViewCanvas
 		    Return
 		  End If
 		  
+		  // ==================================
+		  // LEFT CLICKED ON A SCROLLBAR TRACK?
+		  // ==================================
+		  #If TargetWindows Or TargetLinux
+		    If IsWithinHorizontalScrollbarTrack(x, y) Then
+		      HandleHorizontalScrollbarTrackClick(x, y)
+		      Return
+		    ElseIf IsWithinVerticalScrollbarTrack(x, y) Then
+		      HandleVerticalScrollbarTrackClick(x, y)
+		      Return
+		    End If
+		  #EndIf
+		  
 		  // ==========================
 		  // LEFT CLICKED IN THE CANVAS
 		  // ==========================
@@ -445,9 +460,6 @@ Inherits NSScrollViewCanvas
 		  /// [deltaY] is positive when the user scrolls down and negative when scrolling up.
 		  ///
 		  /// Never called on macOS (handled instead within `NSScrollViewBoundsChanged`).
-		  
-		  #Pragma Warning "TODO: Buggy on Windows/Linux. VScroll height seems wrong when there are many lines"
-		  #Pragma Warning "REFACTOR: Why don't we draw the scroll bars on the canvas instead?"
 		  
 		  #Pragma Unused X
 		  #Pragma Unused Y
@@ -1195,6 +1207,36 @@ Inherits NSScrollViewCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 48616E646C6573206120636C69636B20696E2074686520686F72697A6F6E74616C207363726F6C6C62617220747261636B2E
+		Private Sub HandleHorizontalScrollbarTrackClick(x As Integer, y As Integer)
+		  /// Handles a click in the horizontal scrollbar track.
+		  ///
+		  /// Assumes the click location has been verified prior to this with a call to `IsWithinHorizontalScrollbarTrack()`.
+		  /// We mimic Window's behaviour so if we left of the thumb we move the thumb up so its left edge is 
+		  /// positioned at the mouse click. If we click to the right of the thumb we move the thumb rightwards so 
+		  /// its right edge is positioned at the mouse click.
+		  /// Only valid on Windows and Linux.
+		  
+		  #Pragma Unused y
+		  
+		  // Compute the maximum permissible X scroll position.
+		  Var maxScrollPosX As Integer = Max(mCachedRequiredBufferWidth - Width, 0)
+		  
+		  Var minX As Integer = SCROLLBAR_THUMB_PADDING
+		  Var maxX As Integer = _
+		  mHorizontalScrollbar.Graphics.Width - mHorizontalScrollbarThumbBounds.Width - SCROLLBAR_THUMB_PADDING
+		  
+		  If x <= mHorizontalScrollbarThumbBounds.Left Then
+		    // Clicked to the left of the thumb.
+		    ScrollPosX = (x / (maxX - minX)) * maxScrollPosX
+		  Else
+		    // Clicked to the right of the thumb.
+		    ScrollPosX = ((x - mHorizontalScrollbarThumbBounds.Width) / (maxX - minX)) * maxScrollPosX
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 48616E646C657320612052657475726E206B6579207072657373206174207468652063757272656E7420636172657420706F736974696F6E2E
 		Sub HandleReturnKey(allowUndo As Boolean, raiseContentsDidChange As Boolean = True)
 		  /// Handles a Return key press at the current caret position.
@@ -1308,6 +1350,31 @@ Inherits NSScrollViewCanvas
 		  
 		  // Set the caret to the start of the line selected.
 		  MoveCaretToPos(mCurrentSelection.StartLocation)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 48616E646C6573206120636C69636B20696E2074686520766572746963616C207363726F6C6C62617220747261636B2E
+		Private Sub HandleVerticalScrollbarTrackClick(x As Integer, y As Integer)
+		  /// Handles a click in the vertical scrollbar track.
+		  ///
+		  /// Assumes the click location has been verified prior to this with a call to `IsWithinVerticalScrollbarTrack()`.
+		  /// We mimic Window's behaviour so if we click above the thumb we move the thumb up so its top is 
+		  /// positioned at the mouse click. If we click below the thumb we move the thumb down so its bottom is
+		  /// positioned at the mouse click.
+		  /// Only valid on Windows and Linux.
+		  
+		  #Pragma Unused x
+		  
+		  If y <= mVerticalScrollbarThumbBounds.Top Then
+		    // Clicked above the thumb.
+		    FirstVisibleLine = _
+		    (y / (mVerticalScrollbar.Graphics.Height - (SCROLLBAR_THUMB_PADDING * 2))) * LineManager.LineCount
+		  Else
+		    // Clicked below the thumb.
+		    FirstVisibleLine = _
+		    ((y - mVerticalScrollbarThumbBounds.Height ) / (mVerticalScrollbar.Graphics.Height - (SCROLLBAR_THUMB_PADDING * 2))) * LineManager.LineCount
+		  End If
 		  
 		End Sub
 	#tag EndMethod
@@ -1452,6 +1519,32 @@ Inherits NSScrollViewCanvas
 		    mIsDoubleClick = False
 		    Return False
 		  End If
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662060782C2079602069732077697468696E20612076697369626C6520686F72697A6F6E74616C207363726F6C6C62617220747261636B20286E6F7420746865207468756D62292E
+		Private Function IsWithinHorizontalScrollbarTrack(x As Integer, y As Integer) As Boolean
+		  /// Returns True if `x, y` is within a visible horizontal scrollbar track (not the thumb).
+		  
+		  If mHorizontalScrollbar = Nil Then Return False
+		  If y < Height - mHorizontalScrollbar.Height Then Return False
+		  If mHorizontalScrollbarThumbBounds = Nil Then Return False
+		  
+		  Return Not mHorizontalScrollbarThumbBounds.Contains(x, y)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662060782C2079602069732077697468696E20612076697369626C6520766572746963616C207363726F6C6C62617220747261636B20286E6F7420746865207468756D62292E
+		Private Function IsWithinVerticalScrollbarTrack(x As Integer, y As Integer) As Boolean
+		  /// Returns True if `x, y` is within a visible vertical scrollbar track (not the thumb).
+		  
+		  If mVerticalScrollbar = Nil Then Return False
+		  If x < Width - mVerticalScrollbar.Width Then Return False
+		  If mVerticalScrollbarThumbBounds = Nil Then Return False
+		  
+		  Return Not mVerticalScrollbarThumbBounds.Contains(x, y)
+		  
 		End Function
 	#tag EndMethod
 
@@ -2344,6 +2437,7 @@ Inherits NSScrollViewCanvas
 		  
 		  If Not mRequiresHorizontalScrollbar Then
 		    mHorizontalScrollbar = Nil
+		    mHorizontalScrollbarThumbBounds = Nil
 		    Return
 		  End If
 		  
@@ -2378,6 +2472,11 @@ Inherits NSScrollViewCanvas
 		  // Thumb.
 		  g.DrawingColor = Me.Theme.ScrollbarThumbColor
 		  g.FillRoundRectangle(thumbX, thumbY, thumbW, HORIZONTAL_SCROLLBAR_THUMB_HEIGHT, 3, 3)
+		  
+		  // Update the thumb bounds. We use the entire height of the track not the thumb height for easier clickability.
+		  mHorizontalScrollbarThumbBounds = _
+		  New Rect(thumbX, Height - HORIZONTAL_SCROLLBAR_HEIGHT, thumbW, HORIZONTAL_SCROLLBAR_HEIGHT)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -2397,6 +2496,7 @@ Inherits NSScrollViewCanvas
 		  
 		  If Not mRequiresVerticalScrollbar Then
 		    mVerticalScrollbar = Nil
+		    mVerticalScrollbarThumbBounds = Nil
 		    Return
 		  End If
 		  
@@ -2426,6 +2526,10 @@ Inherits NSScrollViewCanvas
 		  // Thumb.
 		  g.DrawingColor = Me.Theme.ScrollbarThumbColor
 		  g.FillRoundRectangle(thumbX, thumbY, VERTICAL_SCROLLBAR_THUMB_WIDTH, thumbH, 3, 3)
+		  
+		  // Update the thumb bounds. We use the entire width of the track not the thumb width for easier clickability.
+		  mVerticalScrollbarThumbBounds = _
+		  New Rect(Width - VERTICAL_SCROLLBAR_WIDTH, thumbY, VERTICAL_SCROLLBAR_WIDTH, thumbH)
 		  
 		End Sub
 	#tag EndMethod
@@ -3523,6 +3627,10 @@ Inherits NSScrollViewCanvas
 		Private mHorizontalScrollbar As Picture
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 5468652063757272656E7420626F756E6473206F662074686520686F72697A6F6E74616C207363726F6C6C626172207468756D622E2057696C6C206265204E696C2069662074686520766572746963616C207363726F6C6C626172206973206E6F742076697369626C652E20416C77617973204E696C206F6E206D61634F532E
+		Private mHorizontalScrollbarThumbBounds As Rect
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 5472756520696620746865206C61737420636C69636B2074686174206F6363757272656420776173206120646F75626C6520636C69636B2E
 		Private mIsDoubleClick As Boolean = False
 	#tag EndProperty
@@ -3609,6 +3717,10 @@ Inherits NSScrollViewCanvas
 
 	#tag Property, Flags = &h21, Description = 54686520766572746963616C207363726F6C6C62617220696D61676520746F20647261772E204D6179206265204E696C206966206E6F742072657175697265642E
 		Private mVerticalScrollbar As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652063757272656E7420626F756E6473206F662074686520766572746963616C207363726F6C6C626172207468756D622E2057696C6C206265204E696C2069662074686520766572746963616C207363726F6C6C626172206973206E6F742076697369626C652E20416C77617973204E696C206F6E206D61634F532E
+		Private mVerticalScrollbarThumbBounds As Rect
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54727565206966207468652063616E766173206E6565647320612066756C6C207265647261772E
