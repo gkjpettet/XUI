@@ -287,6 +287,23 @@ Inherits NSScrollViewCanvas
 		  // Right click?
 		  mLastClickWasContextual = IsContextualClick
 		  
+		  // Dragging a scrollbar?
+		  #If TargetWindows Or TargetLinux
+		    If mVerticalScrollbar <> Nil And mVerticalScrollbarThumbBounds.Contains(x, y) Then
+		      mDraggingVerticalScrollbarThumb = True
+		      mDraggingHorizontalScrollbarThumb = False
+		    ElseIf mHorizontalScrollbar <> Nil And mHorizontalScrollbarThumbBounds.Contains(x, y) Then
+		      mDraggingHorizontalScrollbarThumb = True
+		      mDraggingVerticalScrollbarThumb = False
+		    Else
+		      mDraggingHorizontalScrollbarThumb = False
+		      mDraggingVerticalScrollbarThumb = False
+		    End If
+		  #Else
+		    mDraggingHorizontalScrollbarThumb = False
+		    mDraggingVerticalScrollbarThumb = False
+		  #EndIf
+		  
 		  // Permit the `MouseUp` event to fire.
 		  Return True
 		  
@@ -312,16 +329,14 @@ Inherits NSScrollViewCanvas
 		    Var dragDiffX As Integer = If(mLastMouseDragX = -1, 0, x - mLastMouseDragX)
 		    Var dragDiffY As Integer = If(mLastMouseDragY = -1, 0, y - mLastMouseDragY)
 		    
-		    If mVerticalScrollbar <> Nil And mVerticalScrollbarThumbBounds.Contains(x, y) Then
-		      mDraggingScrollbarThumb = True
+		    If mDraggingVerticalScrollbarThumb Then
 		      If dragDiffY < 0 Then
 		        ScrollUp(-dragDiffY / 2, False, True)
 		      ElseIf dragDiffY > 0 Then
 		        ScrollDown(dragDiffY / 2, False, True)
 		      End If
 		      
-		    ElseIf mHorizontalScrollbar <> Nil And mHorizontalScrollbarThumbBounds.Contains(x, y) Then
-		      mDraggingScrollbarThumb = True
+		    ElseIf mDraggingHorizontalScrollbarThumb Then
 		      ScrollPosX = ScrollPosX + dragDiffX
 		      Refresh
 		    End If
@@ -331,8 +346,8 @@ Inherits NSScrollViewCanvas
 		  mLastMouseDragX = x
 		  mLastMouseDragY = y
 		  
-		  // If we;re dragging the scrollbar thumb, don't alter selections.
-		  If mDraggingScrollbarThumb Then Return
+		  // If we're dragging the scrollbar thumb, don't alter selections.
+		  If mDraggingHorizontalScrollbarThumb Or mDraggingVerticalScrollbarThumb Then Return
 		  
 		  // Update the location under the mouse.
 		  mLocationUnderMouse = LocationAtXY(x, y)
@@ -409,10 +424,11 @@ Inherits NSScrollViewCanvas
 		  mLastMouseDragX = -1
 		  mLastMouseDragY = -1
 		  
-		  If mDraggingScrollbarThumb Then
+		  If mDraggingHorizontalScrollbarThumb Or mDraggingVerticalScrollbarThumb Then
 		    // Must have finished dragging the thumb.
 		    mDragging = False
-		    mDraggingScrollbarThumb = False
+		    mDraggingHorizontalScrollbarThumb = False
+		    mDraggingVerticalScrollbarThumb = False
 		    Return
 		  End If
 		  
@@ -3618,8 +3634,12 @@ Inherits NSScrollViewCanvas
 		Private mDragging As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 547275652069662074686520757365722069732063757272656E746C79206472616767696E672061207363726F6C6C626172207468756D622E20416C776179732046616C7365206F6E206D61634F532E
-		Private mDraggingScrollbarThumb As Boolean = False
+	#tag Property, Flags = &h21, Description = 53657420746F205472756520696E204D6F757365446F776E2069662074686520757365722068617320636C69636B65642074686520686F72697A6F6E74616C207363726F6C6C626172207468756D62206F6E2057696E646F77732026204C696E75782E
+		Private mDraggingHorizontalScrollbarThumb As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 53657420746F205472756520696E204D6F757365446F776E2069662074686520757365722068617320636C69636B65642074686520766572746963616C207363726F6C6C626172207468756D62206F6E2057696E646F77732026204C696E75782E
+		Private mDraggingVerticalScrollbarThumb As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 49662054727565207468656E2074686520656469746F722077696C6C206472617720626C6F636B206C696E657320666F7220736F7572636520636F64652E204261636B7320746865206044726177426C6F636B4C696E65736020636F6D70757465642070726F70657274792E
