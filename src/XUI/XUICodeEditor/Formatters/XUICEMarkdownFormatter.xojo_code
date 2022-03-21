@@ -1,6 +1,6 @@
 #tag Class
 Protected Class XUICEMarkdownFormatter
-Implements MarkdownKit.MKRenderer,  XUICEFormatter
+Implements MarkdownKit.MKRenderer,XUICEFormatter
 	#tag Method, Flags = &h21, Description = 4164647320746F6B656E7320666F7220616E79207265666572656E6365206C696E6B20646566696E6974696F6E7320696E2074686520646F63756D656E742E
 		Private Sub HandleReferenceLinkDefinitions(doc As MarkdownKit.MKDocument)
 		  /// Adds tokens for any reference link definitions in the document.
@@ -415,16 +415,10 @@ Implements MarkdownKit.MKRenderer,  XUICEFormatter
 		    Return Nil
 		    
 		  ElseIf image.LinkType = MarkdownKit.MKLinkTypes.CollapsedReference Then
-		    // `[]`
-		    Var destOpener As MarkdownKit.MKCharacter = image.Destination.StartCharacter
-		    line = XUICELine(destOpener.Line)
-		    line.Tokens.Add(New XUICELineToken(destOpener.AbsolutePosition, destOpener.LocalPosition, 1, _
-		    destOpener.Line.Number, TOKEN_LINK_DESTINATION_DELIMITER))
-		    
-		    Var destCloser As MarkdownKit.MKCharacter = image.Destination.EndCharacter
-		    line = XUICELine(destCloser.Line)
-		    line.Tokens.Add(New XUICELineToken(destCloser.AbsolutePosition, destCloser.LocalPosition, 1, _
-		    destCloser.Line.Number, TOKEN_LINK_DESTINATION_DELIMITER))
+		    // `[]` follows immediately the closing `]` of the link label.
+		    line = XUICELine(image.CloserCharacter.Line)
+		    line.Tokens.Add(New XUICELineToken(image.CloserCharacter.AbsolutePosition + 1, image.CloserCharacter.LocalPosition + 1, _
+		    2, image.CloserCharacter.Line.Number, TOKEN_LINK_DESTINATION_DELIMITER))
 		    
 		  ElseIf image.LinkType = MarkdownKit.MKLinkTypes.Standard Then
 		    // `(`
@@ -541,16 +535,10 @@ Implements MarkdownKit.MKRenderer,  XUICEFormatter
 		    Return Nil
 		    
 		  ElseIf link.LinkType = MarkdownKit.MKLinkTypes.CollapsedReference Then
-		    // `[]`
-		    Var destOpener As MarkdownKit.MKCharacter = link.Destination.StartCharacter
-		    line = XUICELine(destOpener.Line)
-		    line.Tokens.Add(New XUICELineToken(destOpener.AbsolutePosition, destOpener.LocalPosition, 1, _
-		    destOpener.Line.Number, TOKEN_LINK_DESTINATION_DELIMITER))
-		    
-		    Var destCloser As MarkdownKit.MKCharacter = link.Destination.EndCharacter
-		    line = XUICELine(destCloser.Line)
-		    line.Tokens.Add(New XUICELineToken(destCloser.AbsolutePosition, destCloser.LocalPosition, 1, _
-		    destCloser.Line.Number, TOKEN_LINK_DESTINATION_DELIMITER))
+		    // `[]` follows immediately the closing `]` of the link label.
+		    line = XUICELine(link.CloserCharacter.Line)
+		    line.Tokens.Add(New XUICELineToken(link.CloserCharacter.AbsolutePosition + 1, link.CloserCharacter.LocalPosition + 1, _
+		    2, link.CloserCharacter.Line.Number, TOKEN_LINK_DESTINATION_DELIMITER))
 		    
 		  ElseIf link.LinkType = MarkdownKit.MKLinkTypes.Standard Then
 		    // `(`
