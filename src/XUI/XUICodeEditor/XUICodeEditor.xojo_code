@@ -751,6 +751,16 @@ Inherits NSScrollViewCanvas
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h0, Description = 41636365707473207468652063757272656E746C792073656C65637465642073756767657374696F6E20696E207468652073756767657374696F6E7320706F7075702E
+		Sub AcceptCurrentAutocompleteOption()
+		  /// Accepts the currently selected option in the autocomplete popup.
+		  
+		  #Pragma Warning "TODO: Accept the current autocomplete option"
+		  
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 546F67676C657320746865207669736962696C697479206F66207468652063617265742E2043616C6C6564206279205B6D4361726574426C696E6B65722E416374696F6E5D2E
 		Private Sub CaretBlinkerAction(caretBlinker As Timer)
 		  /// Toggles the visibility of the caret. Called by [mCaretBlinker.Action].
@@ -1059,6 +1069,7 @@ Inherits NSScrollViewCanvas
 		  /// Requests autocomplete data for the word immediately in front of the caret.
 		  
 		  #Pragma Warning "TODO"
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1132,7 +1143,6 @@ Inherits NSScrollViewCanvas
 		  
 		  #Pragma Warning "TODO"
 		  
-		  Break
 		End Sub
 	#tag EndMethod
 
@@ -3206,6 +3216,10 @@ Inherits NSScrollViewCanvas
 
 	#tag Property, Flags = &h0
 		AutocompleteCombo As XUICodeEditor.AutocompleteCombos = XUICodeEditor.AutocompleteCombos.Tab
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206175746F636F6D706C657465206F7074696F6E7320666F722070726566697820696E2066726F6E74206F66207468652063617265742E204D6179206265204E696C2E
+		AutocompleteData As XUICEAutocompleteData
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 54686520656469746F722773206261636B67726F756E6420636F6C6F75722E

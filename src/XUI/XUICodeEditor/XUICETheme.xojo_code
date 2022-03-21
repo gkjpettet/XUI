@@ -258,6 +258,33 @@ Protected Class XUICETheme
 		    If delim.HasKey("underlineColor") Then AssertPathType(d, "delimiters.underlineColor", TYPE_COLORGROUP)
 		  End If
 		  
+		  // =======================
+		  // AUTOCOMPLETE DICTIONARY
+		  // =======================
+		  // Required properties.
+		  AssertPathType(d, "autocomplete", TYPE_DICTIONARY)
+		  AssertPathType(d, "autocomplete.hasPopupBorder", TYPE_BOOLEAN)
+		  AssertPathType(d, "autocomplete.popupBackgroundColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "autocomplete.popupBorderColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "autocomplete.optionColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "autocomplete.selectedOptionBackgroundColor", TYPE_COLORGROUP)
+		  AssertPathType(d, "autocomplete.selectedOptionColor", TYPE_COLORGROUP)
+		  Var autocomplete As Dictionary = d.Value("autocomplete")
+		  
+		  // Optional.
+		  If autocomplete.HasKey("horizontalPadding") Then
+		    AssertPathType(d, "autocomplete.horizontalPadding", TYPE_INTEGER)
+		  End If
+		  If autocomplete.HasKey("optionVerticalPadding") Then 
+		    AssertPathType(d, "autocomplete.optionVerticalPadding", TYPE_INTEGER)
+		  End If
+		  If autocomplete.HasKey("popupBorderRadius") Then
+		    AssertPathType(d, "autocomplete.popupBorderRadius", TYPE_INTEGER)
+		  End If
+		  If autocomplete.HasKey("verticalPadding") Then
+		    AssertPathType(d, "autocomplete.verticalPadding", TYPE_INTEGER)
+		  End If
+		  
 		  // ======================
 		  // TOKENS DICTIONARY
 		  // ======================
@@ -282,6 +309,9 @@ Protected Class XUICETheme
 		  Self.Styles = New Dictionary("default" : New XUICETokenStyle)
 		  
 		  // Initialise all ColorGroups to prevent Nil object exceptions in themes that don't stipulate them.
+		  Me.AutocompleteOptionColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.AutocompletePopupBackgroundColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.AutocompletePopupBorderColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.BackgroundColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.BlockLineColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.CaretColor = New ColorGroup(Color.Black, Color.Black)
@@ -291,6 +321,8 @@ Protected Class XUICETheme
 		  Me.DelimitersFillColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.DelimitersUnderlineColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.LineNumberColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.SelectedAutocompleteOptionBackgroundColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.SelectedAutocompleteOptionColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.SelectionColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.ScrollbarBackgroundColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.ScrollbarBorderColor = New ColorGroup(Color.Black, Color.Black)
@@ -372,6 +404,37 @@ Protected Class XUICETheme
 		  End If
 		  
 		  // =================
+		  // AUTOCOMPLETE
+		  // =================
+		  // Required autocomplete properties.
+		  Var autocomplete As Dictionary = d.Value("autocomplete")
+		  theme.HasAutocompletePopupBorder = autocomplete.Value("hasPopupBorder")
+		  theme.AutocompletePopupBackgroundColor = _
+		  XUIColorGroups.FromString(autocomplete.Value("popupBackgroundColor"))
+		  theme.AutocompletePopupBorderColor = _
+		  XUIColorGroups.FromString(autocomplete.Value("popupBorderColor"))
+		  theme.AutocompleteOptionColor = _
+		  XUIColorGroups.FromString(autocomplete.Value("optionColor"))
+		  theme.SelectedAutocompleteOptionBackgroundColor = _
+		  XUIColorGroups.FromString(autocomplete.Value("selectedOptionBackgroundColor"))
+		  theme.SelectedAutocompleteOptionColor = _
+		  XUIColorGroups.FromString(autocomplete.Value("selectedOptionColor"))
+		  
+		  // Optional autocomplete properties.
+		  If autocomplete.HasKey("horizontalPadding") Then
+		    theme.AutocompleteHorizontalPadding = autocomplete.Value("horizontalPadding")
+		  End If
+		  If autocomplete.HasKey("optionVerticalPadding") Then 
+		    theme.AutocompleteOptionVerticalPadding = autocomplete.Value("optionVerticalPadding")
+		  End If
+		  If autocomplete.HasKey("popupBorderRadius") Then
+		    theme.AutocompletePopupBorderRadius = autocomplete.Value("popupBorderRadius")
+		  End If
+		  If autocomplete.HasKey("verticalPadding") Then
+		    theme.AutocompleteVerticalPadding = autocomplete.Value("verticalPadding")
+		  End If
+		  
+		  // =================
 		  // TOKENS
 		  // =================
 		  Var tokens As Dictionary = d.Value("tokens")
@@ -447,6 +510,34 @@ Protected Class XUICETheme
 		Author As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746F20746865206C65667420616E64207269676874206F66206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+		AutocompleteHorizontalPadding As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652074657874206F6620756E73656C6563746564206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+		AutocompleteOptionColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F766520616E642062656C6F77206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+		AutocompleteOptionVerticalPadding As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220746865206261636B67726F756E64206F6620746865206175746F636F6D706C65746520706F7075702E
+		AutocompletePopupBackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 496620746865206175746F636F6D706C65746520706F70757020686173206120626F72646572207468656E20746869732069732069747320636F6C6F75722E
+		AutocompletePopupBorderColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520626F7264657220726164697573206F6620746865206175746F636F6D706C65746520706F7075702E
+		AutocompletePopupBorderRadius As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F76652074686520666972737420616E642062656C6F7720746865206C617374206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+		AutocompleteVerticalPadding As Integer = 0
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F722074686520656469746F722773206261636B67726F756E642E
 		BackgroundColor As ColorGroup
 	#tag EndProperty
@@ -504,6 +595,10 @@ Protected Class XUICETheme
 		Description As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 5472756520696620746865206175746F636F6D706C65746520706F70757020686173206120626F726465722E
+		HasAutocompletePopupBorder As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865206C696E65206E756D626572732E
 		LineNumberColor As ColorGroup
 	#tag EndProperty
@@ -522,6 +617,14 @@ Protected Class XUICETheme
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865207468756D62206F6620746865207363726F6C6C62617220747261636B2E204F6E6C792072656C6576616E74206F6E2057696E646F777320616E64204C696E75782E
 		ScrollbarThumbColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F757220666F72207468652063757272656E746C792073656C6563746564206F7074696F6E20696E20746865206175746F636F6D706C65746520706F7075702E
+		SelectedAutocompleteOptionBackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652074657874206F66207468652063757272656E746C792073656C6563746564206F7074696F6E20696E20746865206175746F636F6D706C65746520706F7075702E
+		SelectedAutocompleteOptionColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220746865206261636B67726F756E64206F662073656C656374656420746578742E
@@ -763,6 +866,94 @@ Protected Class XUICETheme
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ScrollbarBackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ScrollbarBorderColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ScrollbarThumbColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompleteVerticalPadding"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompleteHorizontalPadding"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompleteOptionVerticalPadding"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasAutocompletePopupBorder"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompletePopupBorderColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompletePopupBorderRadius"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompletePopupBackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SelectedAutocompleteOptionBackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

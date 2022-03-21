@@ -30,6 +30,18 @@ hasFillColor = false
 hasUnderlineColor = true
 underlineColor = "&h00CCCCCC, &h00CCCCCC"
 
+[autocomplete]
+hasPopupBorder = true
+popupBackgroundColor = "&h00E6E7E7, &h00262626"
+popupBorderColor = "&h00B9BBBB, &h00000000"
+optionColor = "&h00FFFFFF, &h00FFFFFF"
+selectedOptionBackgroundColor = "&h00002BC3, &h00356FFF"
+selectedOptionColor = "&h00FFFFFF, &h00FFFFFF"
+horizontalPadding = 10
+optionVerticalPadding = 2
+popupBorderRadius = 10
+verticalPadding = 5
+
 ##############################################################################
 # GENERIC TOKENS
 ##############################################################################
