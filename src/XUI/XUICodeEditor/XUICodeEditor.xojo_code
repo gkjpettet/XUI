@@ -36,6 +36,32 @@ Inherits NSScrollViewCanvas
 		    mLastKeyDownTicks = 0
 		  End Select
 		  
+		  // =========================================
+		  // SUGGESTIONS POPUP
+		  // =========================================
+		  If mAutocompletePopup.Visible Then
+		    Select Case command
+		    Case CmdMoveDown
+		      mAutocompletePopup.SelectedIndex = mAutocompletePopup.SelectedIndex + 1
+		      Refresh
+		      Return True
+		      
+		    Case CmdMoveUp
+		      mAutocompletePopup.SelectedIndex = mAutocompletePopup.SelectedIndex - 1
+		      Refresh
+		      Return True
+		      
+		    Case CmdInsertTab, CmdInsertNewline
+		      AcceptCurrentAutocompleteOption
+		      Return True
+		      
+		    Else
+		      HideAutocompletePopup
+		      mSuppressAutocompletePopup = True
+		      Refresh
+		    End Select
+		  End If
+		  
 		  Select Case command
 		    // =========================================
 		    // MOVING THE CARET
@@ -316,6 +342,9 @@ Inherits NSScrollViewCanvas
 		  
 		  // Determine if the mouse has moved and we are actually dragging.
 		  If Abs(mLastMouseDownX - X) < 4 And Abs(mLastMouseDownY - Y) < 4 Then Return
+		  
+		  // Don't ever show the autocomplete popup when dragging.
+		  mSuppressAutocompletePopup = True
 		  
 		  // We need to know if we were dragging last time this event fired so we can decide if we should start 
 		  // a new selection or continue from a pre-existing selection.
@@ -635,26 +664,36 @@ Inherits NSScrollViewCanvas
 		  // Try to default to some sensible monospace typography.
 		  // If we can't find the expected font we'll default to "System" which isn't monospace and will cause issues.
 		  FontSize = DEFAULT_FONT_SIZE
+		  AutocompletePopupFontSize = DEFAULT_AUTOCOMPLETE_POPUP_FONT_SIZE
 		  LineNumberFontSize = DEFAULT_LINE_NUMBER_FONT_SIZE
 		  #If TargetMacOS Then
 		    If XUIFonts.FontAvailable("Menlo") Then
 		      FontName = "Menlo"
+		      AutocompletePopupFontName = "Menlo"
 		    Else
 		      FontName = "System"
+		      AutocompletePopupFontName = "System"
 		    End If
 		  #ElseIf TargetWindows Then
 		    If XUIFonts.FontAvailable("Consolas") Then
 		      FontName = "Consolas"
+		      AutocompletePopupFontName = "Consolas"
 		    Else
 		      FontName = "System"
+		      AutocompletePopupFontName = "System"
 		    End If
 		  #ElseIf TargetLinux Then
 		    If XUIFonts.FontAvailable("DejaVu Sans Mono") Then
 		      FontName = "DejaVu Sans Mono"
+		      AutocompletePopupFontName = "DejaVu Sans Mono"
 		    Else
 		      FontName = "System"
+		      AutocompletePopupFontName = "System"
 		    End If
 		  #EndIf
+		  
+		  // Attach the autocomplete popup to the canvas.
+		  Self.Window.AddControl(mAutocompletePopup)
 		  
 		  // Raise our Opening event before we do any drawing (so the user can assign a theme).
 		  RaiseEvent Opening
@@ -719,6 +758,12 @@ Inherits NSScrollViewCanvas
 		    End If
 		  #EndIf
 		  
+		  // Handle the autocomplete popup.
+		  If AutocompleteData <> Nil And Not mSuppressAutocompletePopup Then
+		    If mHasFocus Then ShowAutocompletePopup
+		  Else
+		    HideAutocompletePopup(mHasFocus)
+		  End If
 		End Sub
 	#tag EndEvent
 
@@ -755,10 +800,42 @@ Inherits NSScrollViewCanvas
 		Sub AcceptCurrentAutocompleteOption()
 		  /// Accepts the currently selected option in the autocomplete popup.
 		  
-		  #Pragma Warning "TODO: Accept the current autocomplete option"
+		  // Sanity checks.
+		  If AutoCompleteData = Nil Then Return
+		  If mAutocompletePopup.SelectedIndex < 0 Or _
+		    mAutocompletePopup.SelectedIndex > AutoCompleteData.Options.LastIndex Then
+		    Return
+		  End If
 		  
+		  // Get the value of the suggestion to insert.
+		  Var value As String = AutoCompleteData.Options(mAutocompletePopup.SelectedIndex).Value
 		  
+		  // We need to remove the prefix that's already been typed from the value.
+		  value = value.Replace(AutoCompleteData.Prefix, "")
+		  
+		  Insert(value, CaretPosition, True)
+		  
+		  mSuppressAutocompletePopup = True
+		  HideAutocompletePopup
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 5472756520696620746865726520617265206175746F636F6D706C6574696F6E206F7074696F6E7320617661696C61626C65206174207468652063757272656E7420636172657420706F736974696F6E2E
+		Function AutocompleteOptionsAvailable() As Boolean
+		  /// True if there are autocompletion options available at the current caret position.
+		  
+		  Return AllowAutocomplete And AutocompleteData <> Nil And AutocompleteData.Options.Count > 0
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 54727565206966207468652063617265742069732061742074686520656E64206F66207468652063757272656E74206C696E652E
+		Private Function CaretAtCurrentLineEnd() As Boolean
+		  /// True if the caret is at the end of the current line.
+		  
+		  Return CaretPosition = CurrentLine.Finish
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 546F67676C657320746865207669736962696C697479206F66207468652063617265742E2043616C6C6564206279205B6D4361726574426C696E6B65722E416374696F6E5D2E
@@ -827,6 +904,12 @@ Inherits NSScrollViewCanvas
 		  mDelimiterTimer.RunMode = Timer.RunModes.Multiple
 		  mDelimiterTimer.Period = DELIMITER_TIMER_PERIOD
 		  AddHandler mDelimiterTimer.Action, AddressOf DelimiterTimerAction
+		  
+		  // Initialise the autocomplete popup.
+		  AutocompleteData = Nil
+		  mAutocompletePopup = New XUICodeEditorAutocompletePopup(Self)
+		  mAutocompletePopup.Visible = False
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1068,7 +1151,45 @@ Inherits NSScrollViewCanvas
 		Private Sub FetchAutocompleteData()
 		  /// Requests autocomplete data for the word immediately in front of the caret.
 		  
-		  #Pragma Warning "TODO"
+		  mSuppressAutocompletePopup = True
+		  
+		  // Clear out any existing autocomplete data.
+		  AutocompleteData = Nil
+		  
+		  // Quick exit if autocompletion disabled.
+		  If Not AllowAutocomplete Then Return
+		  
+		  // Sanity check.
+		  If CurrentLine = Nil Then Return
+		  
+		  // Disable autocomplete in comments if that's the behaviour the user wants.
+		  If Not AllowAutoCompleteInComments Then
+		    Var tokenAtCaret As XUICELineToken = CurrentLine.TokenAtColumn(CaretColumn - 1)
+		    If tokenAtCaret <> Nil Then
+		      If Formatter.TokenIsComment(tokenAtCaret) Then Return
+		    End If
+		  End If
+		  
+		  // Get the word up to the caret. This is our prefix.
+		  Var prefix As String = CurrentLine.WordToColumn(CaretColumn)
+		  
+		  // If there is no word up to the caret then there will be no suggestions.
+		  If prefix = "" Then Return
+		  
+		  // Is the prefix long enough to trigger autocompletion?
+		  If prefix.Length < MinimumAutocompletionLength Then Return
+		  
+		  // Now we know the prefix, request the autocompletion data.
+		  AutocompleteData = AutocompleteDataForPrefix(prefix, CaretLineNumber, CaretColumn)
+		  
+		  If AutoCompleteData <> Nil And AutocompleteData.Options.Count = 0 Then
+		    // The autocomplete engine has no options for the user.
+		    AutocompleteData = Nil
+		    
+		  ElseIf AutocompleteData <> Nil Then
+		    // Make sure that the autocomplete data has the correct prefix assigned.
+		    AutocompleteData.Prefix = prefix
+		  End If
 		  
 		End Sub
 	#tag EndMethod
@@ -1141,7 +1262,31 @@ Inherits NSScrollViewCanvas
 		Private Sub HandleAutocompleteKeyPress()
 		  /// Handles the pressing of the autocomplete key.
 		  
-		  #Pragma Warning "TODO"
+		  // Firstly assume we won't have to show the autocomplete popup.
+		  mSuppressAutocompletePopup = True
+		  
+		  // Bail early if there are no autocomplete suggestions available.
+		  If AutoCompleteData = Nil Or AutocompleteData.Options.Count = 0 Then
+		    Refresh
+		    Return
+		  End If
+		  
+		  If CaretAtCurrentLineEnd And AutoCompleteData.Options.Count = 1 Then
+		    // Insert the only option at the caret position.
+		    Insert(AutoCompleteData.LongestCommonPrefix, CaretPosition, True)
+		    
+		  ElseIf CaretAtCurrentLineEnd And AutoCompleteData.LongestCommonPrefix <> "" Then
+		    // At the end of the line but there are multiple options available.
+		    // Insert the longest common prefix and fetch additional autocomplete data.
+		    Insert(AutoCompleteData.LongestCommonPrefix, CaretPosition, True)
+		    FetchAutocompleteData
+		    mSuppressAutocompletePopup = False
+		    
+		  Else
+		    // There are suggestions available that require the autocomplete popup.
+		    mSuppressAutocompletePopup = False
+		    Refresh
+		  End If
 		  
 		End Sub
 	#tag EndMethod
@@ -1440,6 +1585,18 @@ Inherits NSScrollViewCanvas
 		    ((y - mVerticalScrollbarThumbBounds.Height ) / (mVerticalScrollbar.Graphics.Height - (SCROLLBAR_THUMB_PADDING * 2))) * LineManager.LineCount
 		  End If
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 486964657320746865206175746F636F6D706C65746520706F7075702E
+		Private Sub HideAutocompletePopup(shouldSetFocus As Boolean = True)
+		  /// Hides the autocomplete popup.
+		  
+		  mAutocompletePopup.Visible = False
+		  mAutocompletePopup.ScrollPosY = 0
+		  mAutocompletePopup.SelectedIndex = 0
+		  
+		  If shouldSetFocus Then Self.SetFocus
 		End Sub
 	#tag EndMethod
 
@@ -3144,6 +3301,65 @@ Inherits NSScrollViewCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 53686F777320746865206175746F636F6D706C65746520706F7075702061742074686520636172657420706F736974696F6E2E
+		Private Sub ShowAutocompletePopup()
+		  /// Shows the autocomplete popup at the caret position.
+		  
+		  // Get the (x, y) coordinates of the top left aspect of the caret, relative to the code editor.
+		  Var x, y As Double = 0
+		  XYAtCaretPos(CaretPosition, x, y)
+		  
+		  // Compute the maximum height available for the popup. Usually we'll want to display the popup beneath
+		  // the caret but if the available height is too small we'll display it above the caret.
+		  ' Var availableHeightBelow As Integer = Self.Window.Height - Self.Height - Self.Top - y
+		  Var availableHeightBelow As Integer = Self.Window.Height - Self.Top - y
+		  Var availableHeightAbove As Integer = Self.Top + y
+		  Var minOptionsToShow As Integer = If(AutocompleteData.Options.Count = 1, 1, 2)
+		  Var displayBelowCaret As Boolean = True
+		  Var maxPopupHeight As Integer
+		  If availableHeightBelow < availableHeightAbove Then
+		    If availableHeightBelow < mAutocompletePopup.AutocompleteOptionHeight * minOptionsToShow Then
+		      maxPopupHeight = availableHeightAbove
+		      displayBelowCaret = False
+		    Else
+		      maxPopupHeight = availableHeightBelow
+		    End If
+		  Else
+		    maxPopupHeight = availableHeightBelow
+		  End If
+		  
+		  // Compute the maximum width for the popup.
+		  Var maxPopupWidth As Integer = Self.Width
+		  
+		  // Tell the popup to update itself using this tag canvas' public autocomplete data.
+		  mAutocompletePopup.Update(maxPopupWidth, maxPopupHeight)
+		  
+		  // ==================
+		  // Popup x coordinate
+		  // ==================
+		  If x + mAutocompletePopup.Width + POPUP_PADDING > (Self.Width + ScrollPosX) Then
+		    x = Self.Width - POPUP_PADDING - mAutocompletePopup.Width
+		  End If
+		  x = x + Self.Left
+		  
+		  // ==================
+		  // Popup y coordinate
+		  // ==================
+		  If displayBelowCaret Then
+		    // Position the popup beneath the caret.
+		    y = y + mLineHeight + Self.Top
+		  Else
+		    // We need to draw above the caret.
+		    y = y - mAutocompletePopup.Height + Self.Top
+		  End If
+		  
+		  mAutocompletePopup.Left = x
+		  mAutocompletePopup.Top = y
+		  If mAutocompletePopup.SelectedIndex = -1 Then mAutocompletePopup.SelectedIndex = 0
+		  mAutocompletePopup.Visible = True
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52657475726E7320612074616220636861726163746572732061732061206669786564207769647468206F6620737061636520636861726163746572732E2044657465726D696E65642062792060537061636573506572546162602E
 		Private Function TabToSpaces() As String
 		  /// Returns a tab characters as a fixed width of space characters. Determined by `SpacesPerTab`.
@@ -3197,6 +3413,10 @@ Inherits NSScrollViewCanvas
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0, Description = 54686520636F646520656469746F722069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F72207468652073706563696669656420607072656669786020617420606361726574436F6C756D6E60206F6E206C696E65206E756D626572206063617265744C696E65602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
+		Event AutocompleteDataForPrefix(prefix As String, caretLine As Integer, caretColumn As Integer) As XUICEAutocompleteData
+	#tag EndHook
+
 	#tag Hook, Flags = &h0, Description = 546865207465787420636F6E74656E7473206F662074686520656469746F7220686173206368616E6765642E
 		Event ContentsDidChange()
 	#tag EndHook
@@ -3210,6 +3430,14 @@ Inherits NSScrollViewCanvas
 	#tag EndHook
 
 
+	#tag Property, Flags = &h0, Description = 547275652069662074686520656469746F7220737570706F727473206175746F636F6D706C6574696F6E2E
+		AllowAutocomplete As Boolean = True
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 49662054727565207468656E20746865206175746F636F6D706C65746520656E67696E652077696C6C20616C736F2066756E6374696F6E20696E7369646520636F6D6D656E74732E
+		AllowAutoCompleteInComments As Boolean = True
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E207468652063616E7661732077696C6C20766572746963616C6C79207363726F6C6C2066617374657220696620746865206D6F75736520776865656C206973206D6F766564206661737465722E
 		AllowInertialScrolling As Boolean = True
 	#tag EndProperty
@@ -3220,6 +3448,14 @@ Inherits NSScrollViewCanvas
 
 	#tag Property, Flags = &h0, Description = 546865206175746F636F6D706C657465206F7074696F6E7320666F722070726566697820696E2066726F6E74206F66207468652063617265742E204D6179206265204E696C2E
 		AutocompleteData As XUICEAutocompleteData
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206E616D65206F662074686520666F6E742066616D696C7920746F2075736520666F72206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
+		AutocompletePopupFontName As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206175746F636F6D706C65746520706F707570206F7074696F6E20666F6E742073697A652E
+		AutocompletePopupFontSize As Integer = 0
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 54686520656469746F722773206261636B67726F756E6420636F6C6F75722E
@@ -3600,6 +3836,10 @@ Inherits NSScrollViewCanvas
 		LongestLineChanged As Boolean = False
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 5468697320636F646520656469746F722773206175746F636F6D706C65746520706F70757020636F6E74726F6C2E
+		Private mAutocompletePopup As XUICodeEditorAutocompletePopup
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 5468652062756666657220776520647261772074686520656469746F7220636F6E74656E747320746F20616E64207468656E20626C697420746F207468652073637265656E2065616368206672616D652E
 		Private mBackBuffer As Picture
 	#tag EndProperty
@@ -3704,6 +3944,21 @@ Inherits NSScrollViewCanvas
 		Private mHorizontalScrollbarThumbBounds As Rect
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 546865206D696E696D756D206E756D626572206F662063686172616374657273207265717569726564206265666F7265206175746F636F6D706C6574696F6E206973206F6666657265642E204D757374206265203E3D20322E
+		#tag Getter
+			Get
+			  Return mMinimumAutocompletionLength
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mMinimumAutocompletionLength = Max(value, 2)
+			  
+			End Set
+		#tag EndSetter
+		MinimumAutocompletionLength As Integer
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21, Description = 5472756520696620746865206C61737420636C69636B2074686174206F6363757272656420776173206120646F75626C6520636C69636B2E
 		Private mIsDoubleClick As Boolean = False
 	#tag EndProperty
@@ -3768,6 +4023,10 @@ Inherits NSScrollViewCanvas
 		Private mMaxVisibleLines As Integer = 0
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865206D696E696D756D206E756D626572206F662063686172616374657273207265717569726564206265666F7265206175746F636F6D706C6574696F6E206973206F6666657265642E204261636B732074686520604D696E696D756D4175746F636F6D706C6574696F6E4C656E6774686020636F6D70757465642070726F70657274792E
+		Private mMinimumAutocompletionLength As Integer = 2
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 4261636B696E672073746F726520666F72207468652060526561644F6E6C796020636F6D70757465642070726F70657274792E
 		Private mReadOnly As Boolean = False
 	#tag EndProperty
@@ -3778,6 +4037,10 @@ Inherits NSScrollViewCanvas
 
 	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E617465207468652063616E766173206C617374207363726F6C6C656420746F2E
 		Private mScrollPosY As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E20746865206175746F636F6D706C65746520706F7075702069732073757070726573736564206576656E206966207468657265206973206175746F636F6D706C657465206461746120617661696C61626C652E20536574206166746572207468652075736572206861732063616E63656C6C6564206F72206163636570746564206175746F636F6D706C6574652E
+		Private mSuppressAutocompletePopup As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520656469746F7227732063757272656E74207468656D6520286261636B732074686520605468656D656020636F6D70757465642070726F7065727479292E
@@ -3920,6 +4183,9 @@ Inherits NSScrollViewCanvas
 	#tag Constant, Name = CARET_BLINK_PERIOD, Type = Double, Dynamic = False, Default = \"500", Scope = Private, Description = 54686520696E74657276616C2028696E206D7329206265747765656E20636172657420626C696E6B732E
 	#tag EndConstant
 
+	#tag Constant, Name = DEFAULT_AUTOCOMPLETE_POPUP_FONT_SIZE, Type = Double, Dynamic = False, Default = \"13", Scope = Public, Description = 5468652064656661756C7420666F6E742073697A6520666F7220746865206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F70757020746F20757365206966206E6F74206F76657272696464656E2E
+	#tag EndConstant
+
 	#tag Constant, Name = DEFAULT_FONT_SIZE, Type = Double, Dynamic = False, Default = \"13", Scope = Public, Description = 5468652064656661756C7420666F6E742073697A6520746F20757365206966206E6F74206F76657272696464656E2E
 	#tag EndConstant
 
@@ -3946,6 +4212,9 @@ Inherits NSScrollViewCanvas
 	#tag EndConstant
 
 	#tag Constant, Name = MIN_LINE_NUMBER_WIDTH, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 4966206C696E65206E756D6265727320617265202A6E6F742A20647261776E2C207468697320697320746865206D696E696D756D207769647468206F6620746865206C696E65206E756D6265722073656374696F6E206F6620746865206775747465722E
+	#tag EndConstant
+
+	#tag Constant, Name = POPUP_PADDING, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865206E756D626572206F6620706978656C73206265747765656E20746865206175746F636F6D706C65746520706F70757020616E64207468652065646765206F66207468652063616E7661732E
 	#tag EndConstant
 
 	#tag Constant, Name = RIGHT_SCROLL_PADDING, Type = Double, Dynamic = False, Default = \"40", Scope = Private, Description = 467564676520666163746F7220666F722070616464696E6720746865207269676874206F66206C696E6573207768656E20686F72697A6F6E74616C207363726F6C6C696E672E
@@ -4463,6 +4732,46 @@ Inherits NSScrollViewCanvas
 				"0 - CtrlSpace"
 				"1 - Tab"
 			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowAutocomplete"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowAutoCompleteInComments"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MinimumAutocompletionLength"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompletePopupFontName"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompletePopupFontSize"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -10,7 +10,7 @@ Protected Class XUICEAutocompleteOption
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(value As String, data As Variant)
+		Sub Constructor(value As String, data As Variant = Nil)
 		  Self.Value = value
 		  Self.Data = data
 		End Sub

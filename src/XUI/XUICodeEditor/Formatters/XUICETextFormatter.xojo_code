@@ -14,6 +14,18 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 547275652069662060746F6B656E6020697320636F6E7369646572656420746F206265206120636F6D6D656E742E
+		Function TokenIsComment(token As XUICELineToken) As Boolean
+		  /// True if `token` is considered to be a comment.
+		  
+		  #Pragma Unused token
+		  
+		  // As this is a plain text formatter, there is no such thing as a comment.
+		  Return False
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 546F6B656E6973657320616E206172726179206F66206C696E65732E
 		Sub Tokenise(lines() As XUICELine, firstVisibleLineNumber As Integer, lastVisibleLineNumber As Integer)
 		  /// Tokenises an array of lines.

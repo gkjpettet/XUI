@@ -263,13 +263,20 @@ Protected Class XUICETheme
 		  // =======================
 		  // Required properties.
 		  AssertPathType(d, "autocomplete", TYPE_DICTIONARY)
+		  Var autocomplete As Dictionary = d.Value("autocomplete")
+		  
+		  // Required popup styling.
 		  AssertPathType(d, "autocomplete.hasPopupBorder", TYPE_BOOLEAN)
 		  AssertPathType(d, "autocomplete.popupBackgroundColor", TYPE_COLORGROUP)
 		  AssertPathType(d, "autocomplete.popupBorderColor", TYPE_COLORGROUP)
 		  AssertPathType(d, "autocomplete.optionColor", TYPE_COLORGROUP)
 		  AssertPathType(d, "autocomplete.selectedOptionBackgroundColor", TYPE_COLORGROUP)
 		  AssertPathType(d, "autocomplete.selectedOptionColor", TYPE_COLORGROUP)
-		  Var autocomplete As Dictionary = d.Value("autocomplete")
+		  
+		  // Required prefix styling.
+		  AssertPathType(d, "autocomplete.prefix", TYPE_DICTIONARY)
+		  AssertIsTokenDictionary(autocomplete.Value("prefix"))
+		  AssertPathType(d, "autocomplete.prefix.color", TYPE_COLORGROUP)
 		  
 		  // Optional.
 		  If autocomplete.HasKey("horizontalPadding") Then
@@ -306,7 +313,8 @@ Protected Class XUICETheme
 
 	#tag Method, Flags = &h0
 		Sub Constructor()
-		  Self.Styles = New Dictionary("default" : New XUICETokenStyle)
+		  Self.Styles = _
+		  New Dictionary("default" : New XUICETokenStyle, "autocompletePrefix" : New XUICETokenStyle)
 		  
 		  // Initialise all ColorGroups to prevent Nil object exceptions in themes that don't stipulate them.
 		  Me.AutocompleteOptionColor = New ColorGroup(Color.Black, Color.Black)
@@ -419,6 +427,10 @@ Protected Class XUICETheme
 		  XUIColorGroups.FromString(autocomplete.Value("selectedOptionBackgroundColor"))
 		  theme.SelectedAutocompleteOptionColor = _
 		  XUIColorGroups.FromString(autocomplete.Value("selectedOptionColor"))
+		  
+		  // Prefix styles.
+		  Var autocompletePrefix As Dictionary = autocomplete.Value("prefix")
+		  theme.AddTokenStyle("autocompletePrefix", New XUICETokenStyle(autocompletePrefix))
 		  
 		  // Optional autocomplete properties.
 		  If autocomplete.HasKey("horizontalPadding") Then
@@ -533,6 +545,15 @@ Protected Class XUICETheme
 	#tag Property, Flags = &h0, Description = 54686520626F7264657220726164697573206F6620746865206175746F636F6D706C65746520706F7075702E
 		AutocompletePopupBorderRadius As Integer = 0
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 546865207374796C6520746F2075736520666F7220746865206175746F636F6D706C6574696F6E207072656669782E
+		#tag Getter
+			Get
+			  Return Styles.Value("autocompletePrefix")
+			End Get
+		#tag EndGetter
+		AutocompletePrefixStyle As XUICETokenStyle
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F207061642061626F76652074686520666972737420616E642062656C6F7720746865206C617374206175746F636F6D706C657465206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
 		AutocompleteVerticalPadding As Integer = 0
@@ -949,6 +970,22 @@ Protected Class XUICETheme
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SelectedAutocompleteOptionBackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SelectedAutocompleteOptionColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompleteOptionColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

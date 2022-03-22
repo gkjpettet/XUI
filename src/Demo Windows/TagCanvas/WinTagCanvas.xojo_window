@@ -293,8 +293,8 @@ End
 	#tag EndMenuHandler
 
 
-	#tag Method, Flags = &h0, Description = 496E697469616C697365732061206261736963206175746F636F6D706C6574696F6E20656E67696E65207769746820636F756E74727920636F6465732E
-		Sub InitialiseCountryCodesAutocompleteEngine()
+	#tag Method, Flags = &h21, Description = 496E697469616C697365732061206261736963206175746F636F6D706C6574696F6E20656E67696E65207769746820636F756E74727920636F6465732E
+		Private Sub InitialiseCountryCodesAutocompleteEngine()
 		  /// Initialises a basic autocompletion engine with country codes.
 		  ///
 		  /// Typing the country's name in the tag field will create a tag whose title is their country code.

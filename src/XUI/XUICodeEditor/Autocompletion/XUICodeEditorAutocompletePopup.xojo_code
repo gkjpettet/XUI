@@ -72,11 +72,23 @@ Inherits DesktopTextInputCanvas
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21, Description = 52657475726E732074686520686569676874206F6620616E206175746F636F6D706C657465206F7074696F6E20696E2074686520706F707570206261736564206F6E20746865206F776E657227732063757272656E74207468656D652E
-		Private Function AutocompleteOptionHeight() As Integer
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520686569676874206F6620616E206175746F636F6D706C657465206F7074696F6E20696E2074686520706F707570206261736564206F6E20746865206F776E657227732063757272656E74207468656D652E
+		Function AutocompleteOptionHeight() As Integer
 		  /// Returns the height of an autocomplete option in the popup based on the owner's current theme.
 		  
-		  #Pragma Warning "TODO"
+		  Var tmp As Picture
+		  If Owner.Window = Nil Then
+		    tmp = New Picture(10, 10)
+		  Else
+		    tmp = Owner.Window.BitmapForCaching(10, 10)
+		  End If
+		  
+		  tmp.Graphics.FontName = Owner.AutocompletePopupFontName
+		  tmp.Graphics.FontSize = Owner.AutocompletePopupFontSize
+		  
+		  Var h As Double = tmp.Graphics.TextHeight + (2 * Owner.Theme.AutocompleteOptionVerticalPadding)
+		  
+		  Return h
 		  
 		End Function
 	#tag EndMethod
@@ -94,7 +106,8 @@ Inherits DesktopTextInputCanvas
 		Private Sub RebuildBuffer(maxWidth As Integer, selectedIndex As Integer)
 		  /// Creates the buffer that represents the popup. Assigns the buffer to `mBuffer`.
 		  
-		  #Pragma Warning "CHECK: This was copied nearly verbatim from XUITagCanvasAutocompletePopup"
+		  // For bevity grab a reference to the theme to use.
+		  Var theme As XUICETheme = Owner.Theme
 		  
 		  // We need a temporary graphics context to get the width of the longest option.
 		  Var tmpPic As Picture
@@ -103,11 +116,8 @@ Inherits DesktopTextInputCanvas
 		  Else
 		    tmpPic = Owner.Window.BitmapForCaching(1, 1)
 		  End If
-		  tmpPic.Graphics.FontName = Owner.FontName
-		  tmpPic.Graphics.FontSize = Owner.FontSize
-		  
-		  // For bevity grab a reference to the theme to use.
-		  Var theme As XUICETheme = Owner.Theme
+		  tmpPic.Graphics.FontName = Owner.AutocompletePopupFontName
+		  tmpPic.Graphics.FontSize = Owner.AutocompletePopupFontSize
 		  
 		  // Compute the required width of the buffer.
 		  Var longestOptionW As Double = tmpPic.Graphics.TextWidth(Owner.AutocompleteData.LongestOptionValue)
@@ -127,13 +137,14 @@ Inherits DesktopTextInputCanvas
 		  // Grab a reference to the buffer's graphics context.
 		  Var g As Graphics = mBuffer.Graphics
 		  
+		  // Set the correct font family and size.
+		  g.FontName = Owner.AutocompletePopupFontName
+		  g.FontSize = Owner.AutocompletePopupFontSize
+		  
 		  // Background.
 		  g.DrawingColor = theme.AutocompletePopupBackgroundColor
 		  g.FillRoundRectangle(0, 0, g.Width, g.Height, _
 		  theme.AutocompletePopupBorderRadius, theme.AutocompletePopupBorderRadius)
-		  
-		  g.FontName = Owner.FontName
-		  g.FontSize = Owner.FontSize
 		  
 		  // If there's only one option, make sure it's selected.
 		  If Owner.AutocompleteData.Options.Count = 1 Then selectedIndex = 0

@@ -10,7 +10,7 @@ Begin DesktopWindow WinCodeEditor
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   500
+   Height          =   628
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -23,8 +23,10 @@ Begin DesktopWindow WinCodeEditor
    Title           =   "XUICodeEditor Demo"
    Type            =   0
    Visible         =   False
-   Width           =   600
+   Width           =   968
    Begin XUICodeEditor Editor
+      AllowAutocomplete=   True
+      AllowAutoCompleteInComments=   True
       AllowInertialScrolling=   True
       AutocompleteCombo=   "XUICodeEditor.AutocompleteCombos.Tab"
       AutoDeactivate  =   True
@@ -50,7 +52,7 @@ Begin DesktopWindow WinCodeEditor
       HasFocus        =   False
       HasHorizontalScrollbar=   True
       HasVerticalScrollbar=   True
-      Height          =   455
+      Height          =   583
       HighlightCurrentLine=   False
       HighlightDelimitersAroundCaret=   True
       Index           =   -2147483648
@@ -80,7 +82,7 @@ Begin DesktopWindow WinCodeEditor
       Top             =   0
       VerticalLinePadding=   0
       Visible         =   True
-      Width           =   600
+      Width           =   968
    End
    Begin DesktopPopupMenu PopupFormatters
       AllowAutoDeactivate=   True
@@ -94,7 +96,7 @@ Begin DesktopWindow WinCodeEditor
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   444
+      Left            =   812
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -106,7 +108,7 @@ Begin DesktopWindow WinCodeEditor
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   467
+      Top             =   595
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -122,7 +124,7 @@ Begin DesktopWindow WinCodeEditor
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   181
+      Left            =   549
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -138,7 +140,7 @@ Begin DesktopWindow WinCodeEditor
       TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   467
+      Top             =   595
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -189,7 +191,15 @@ End
 		  // after the editor's Opening event.
 		  Editor.UndoManager = Self.UndoManager
 		  
+		  // Increase the default font a little.
 		  Editor.FontSize = 14
+		  
+		  // Enable autocompletion.
+		  Editor.AllowAutocomplete = True
+		  
+		  // Initialise a basic autocompletion engine.
+		  InitialiseAutocomplete
+		  
 		End Sub
 	#tag EndEvent
 
@@ -288,6 +298,22 @@ End
 	#tag EndMenuHandler
 
 
+	#tag Method, Flags = &h21
+		Private Sub InitialiseAutocomplete()
+		  AutocompleteEngine = New CodeEngineDemoAutocompleteEngine(False)
+		  
+		  AutocompleteEngine.AddOption("String")
+		  AutocompleteEngine.AddOption("Strict")
+		  AutocompleteEngine.AddOption("Structure")
+		  
+		End Sub
+	#tag EndMethod
+
+
+	#tag Property, Flags = &h21, Description = 4F75722064656D6F206175746F636F6D706C65746520656E67696E652E
+		Private AutocompleteEngine As CodeEngineDemoAutocompleteEngine
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54686520756E646F206D616E6167657220666F72207468652064656D6F20656469746F722E
 		UndoManager As XUIUndoManager
 	#tag EndProperty
@@ -310,6 +336,15 @@ End
 		  
 		  Me.HighlightCurrentLine = True
 		End Sub
+	#tag EndEvent
+	#tag Event , Description = 54686520636F646520656469746F722069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F72207468652073706563696669656420607072656669786020617420606361726574436F6C756D6E60206F6E206C696E65206E756D626572206063617265744C696E65602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
+		Function AutocompleteDataForPrefix(prefix As String, caretLine As Integer, caretColumn As Integer) As XUICEAutocompleteData
+		  #Pragma Unused caretLine
+		  #Pragma Unused caretColumn
+		  
+		  Return AutocompleteEngine.DataForPrefix(prefix)
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events PopupFormatters
@@ -338,10 +373,8 @@ End
 #tag Events InfoTimer
 	#tag Event
 		Sub Action()
-		  ' Info.Text = "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
-		  ' Editor.CaretColumn.ToString
-		  
-		  Info.Text = "ScrollPosX: " + Editor.ScrollPosX.ToString
+		  Info.Text = "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
+		  Editor.CaretColumn.ToString
 		End Sub
 	#tag EndEvent
 #tag EndEvents

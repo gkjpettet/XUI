@@ -34,13 +34,16 @@ underlineColor = "&h00CCCCCC, &h00CCCCCC"
 hasPopupBorder = true
 popupBackgroundColor = "&h00E6E7E7, &h00262626"
 popupBorderColor = "&h00B9BBBB, &h00000000"
-optionColor = "&h00FFFFFF, &h00FFFFFF"
+optionColor = "&h00000000, &h00000000"
 selectedOptionBackgroundColor = "&h00002BC3, &h00356FFF"
 selectedOptionColor = "&h00FFFFFF, &h00FFFFFF"
 horizontalPadding = 10
 optionVerticalPadding = 2
 popupBorderRadius = 10
 verticalPadding = 5
+
+[autocomplete.prefix]
+color = "&h00DEE2E6, &h00DEE2E6"
 
 ##############################################################################
 # GENERIC TOKENS

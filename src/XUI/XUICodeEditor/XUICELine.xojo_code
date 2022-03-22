@@ -332,6 +332,29 @@ Inherits XUITextLine
 		    End If
 		  Next i
 		  
+		  // ===============
+		  // AUTOCOMPLETION
+		  // ===============
+		  If Not IsEmpty And editor.CaretLineNumber = Self.Number And editor.CaretPosition = Self.Finish And _
+		    Not editor.Formatter.TokenIsComment(LastToken) Then
+		    // The caret is at the end of this non-empty, non-comment line. 
+		    // Are there any available autocomplete options?
+		    If editor.AutocompleteOptionsAvailable Then
+		      // Set the graphics object to the autocomplete style.
+		      editor.SetGraphicsStyle(g, editor.Theme.AutocompletePrefixStyle)
+		      // Compute the X start coordinate for the suggestion.
+		      Var optionX As Double = mTextStartX + (g.TextWidth(mContents))
+		      If editor.AutoCompleteData.Options.Count = 1 Then
+		        // Just one possible completion. Draw it as a placeholder.
+		        DrawText(g, editor.AutoCompleteData.LongestCommonPrefix, optionX, mTextStartY)
+		      Else
+		        // Multiple suggestions available. 
+		        // We will draw the longest common prefix (less the prefix triggering the autocomplete) 
+		        // followed by an ellipsis.
+		        DrawText(g, editor.AutoCompleteData.LongestCommonPrefix + ELLIPSIS, optionX, mTextStartY)
+		      End If
+		    End If
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -749,6 +772,23 @@ Inherits XUITextLine
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520746F6B656E20617420746865207370656369666965642060636F6C756D6E60206F72204E696C2069662074686572652069736E2774206F6E652E
+		Function TokenAtColumn(column As Integer) As XUICELineToken
+		  /// Returns the token at the specified `column` or Nil if there isn't one.
+		  
+		  If mContents = "" Or column < 0 Or column > Characters.LastIndex Then Return Nil
+		  
+		  For Each token As XUICELineToken In Tokens
+		    If column >= token.StartLocal And column <= token.EndLocal Then
+		      Return token
+		    End If
+		  Next token
+		  
+		  Return Nil
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52652D746F6B656E697365732074686973206C696E6520616E6420616E79206F74686572732072657175697265642028646570656E64696E67206F6E206D6F6465292E
 		Sub Tokenise()
 		  /// Re-tokenises this line and any others required (depending on mode).
@@ -888,6 +928,33 @@ Inherits XUITextLine
 		      Return g.TextWidth(s) + IndentWidth(charWidth)
 		    End If
 		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520776F72642072756E6E696E6720757020746F20286E6F742D696E636C7564696E672920302D62617365642060636F6C756D6E602E2052657475726E732022222069662074686572652069736E2774206F6E652E
+		Function WordToColumn(column As Integer) As String
+		  /// Returns the word running up to (not-including) 0-based `column`.
+		  /// Returns "" if there isn't one.
+		  
+		  // Easy checks.
+		  If column < 1 Then Return ""
+		  If column > Characters.LastIndex + 1 Then Return ""
+		  
+		  // Edge case: There is whitespace immediately before the specified column.
+		  If Characters(column - 1).IsWhiteSpace Then Return ""
+		  
+		  Var start As Integer = 0
+		  For i As Integer = column - 1 DownTo 0
+		    Var c As String = Characters(i)
+		    If Not c.IsLetterOrDigit And c <> "." Then
+		      // We allow dots in words to support basic fully qualified identifiers.
+		      start = i + 1
+		      Exit
+		    End If
+		  Next i
+		  
+		  Return mContents.Middle(start, column - start)
 		  
 		End Function
 	#tag EndMethod
@@ -1035,6 +1102,9 @@ Inherits XUITextLine
 
 
 	#tag Constant, Name = COLUMNS_PER_INDENT, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 546865206E756D626572206F6620636F6C756D6E732065616368206C6576656C206F6620696E64656E746174696F6E206973206571756976616C656E7420746F2E
+	#tag EndConstant
+
+	#tag Constant, Name = ELLIPSIS, Type = String, Dynamic = False, Default = \"\xE2\x80\xA6", Scope = Private, Description = 54686520737472696E6720746F2064726177207768656E20746865726520617265206175746F636F6D706C6574652073756767657374696F6E7320617661696C61626C652E
 	#tag EndConstant
 
 
