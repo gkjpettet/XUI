@@ -10,55 +10,21 @@ Begin DesktopWindow WinTagCanvas
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   470
+   Height          =   616
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   819644415
+   MenuBar         =   ""
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
    Resizeable      =   True
    Title           =   "TagCanvas Demo"
    Type            =   0
-   Visible         =   False
-   Width           =   606
-   Begin XUITagCanvas FictionalCharacters
-      AllowAutocomplete=   True
-      AutoDeactivate  =   True
-      CaretBlinkPeriod=   500
-      Enabled         =   True
-      HasBorder       =   True
-      HasFocus        =   False
-      Height          =   126
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   20
-      LineHeight      =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      MinimumAutocompletionLength=   2
-      Multiline       =   True
-      ParseOnComma    =   True
-      ParseOnReturn   =   True
-      ParseOnTab      =   True
-      ParseTriggers   =   ""
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TagsHaveWidget  =   True
-      Tooltip         =   ""
-      Top             =   44
-      Visible         =   True
-      Width           =   566
-   End
-   Begin DesktopLabel Info
+   Visible         =   True
+   Width           =   762
+   Begin DesktopPopupMenu PopupDemo
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -67,30 +33,151 @@ Begin DesktopWindow WinTagCanvas
       FontUnit        =   0
       Height          =   20
       Index           =   -2147483648
+      InitialValue    =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   104
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      SelectedRowIndex=   0
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   182
+   End
+   Begin DesktopPagePanel Panel
+      AllowAutoDeactivate=   True
+      Enabled         =   True
+      Height          =   532
+      Index           =   -2147483648
+      Left            =   0
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Multiline       =   False
+      PanelCount      =   3
+      Panels          =   ""
       Scope           =   0
-      Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Info"
-      TextAlignment   =   0
-      TextColor       =   &c000000
+      TabStop         =   False
       Tooltip         =   ""
-      Top             =   430
+      Top             =   84
       Transparent     =   False
-      Underline       =   False
+      Value           =   1
       Visible         =   True
-      Width           =   566
+      Width           =   762
+      Begin XUITagCanvas CountryCodes
+         AllowAutocomplete=   True
+         AutoDeactivate  =   True
+         CaretBlinkPeriod=   500
+         Enabled         =   True
+         HasBorder       =   True
+         HasFocus        =   False
+         Height          =   175
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   20
+         LineHeight      =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         MinimumAutocompletionLength=   2
+         Multiline       =   True
+         ParseOnComma    =   True
+         ParseOnReturn   =   True
+         ParseOnTab      =   True
+         ParseTriggers   =   ""
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TagsHaveWidget  =   True
+         Tooltip         =   ""
+         Top             =   104
+         Visible         =   True
+         Width           =   722
+      End
+      Begin DesktopLabel LabelAboutCountryCodes
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   50
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   5
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   "In this example, typing a country's name will create a tag whose value is the country's two digit ISO 3166-1 code. Anything other than a country name will be rejected."
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   291
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   722
+      End
+      Begin DesktopLabel InfoCountryCodes
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   False
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   6
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   "Country Codes Info"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   576
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   722
+      End
    End
-   Begin DesktopLabel Label1
+   Begin DesktopLabel LabelDemo
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -104,25 +191,25 @@ Begin DesktopWindow WinTagCanvas
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Multiline       =   False
-      Scope           =   2
+      Scope           =   0
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Multiline Fictional Characters"
-      TextAlignment   =   0
+      Text            =   "Demo:"
+      TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   12
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   199
+      Width           =   72
    End
-   Begin DesktopLabel Label2
+   Begin DesktopPopupMenu PopupRenderer
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -131,64 +218,27 @@ Begin DesktopWindow WinTagCanvas
       FontUnit        =   0
       Height          =   20
       Index           =   -2147483648
+      InitialValue    =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   560
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
+      Scope           =   0
+      SelectedRowIndex=   0
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Single Line Country Codes"
-      TextAlignment   =   0
-      TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   182
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   199
+      Width           =   182
    End
-   Begin XUITagCanvas CountryCodes
-      AllowAutocomplete=   True
-      AutoDeactivate  =   True
-      CaretBlinkPeriod=   500
-      Enabled         =   True
-      HasBorder       =   True
-      HasFocus        =   False
-      Height          =   34
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   20
-      LineHeight      =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      MinimumAutocompletionLength=   2
-      Multiline       =   False
-      ParseOnComma    =   True
-      ParseOnReturn   =   True
-      ParseOnTab      =   True
-      ParseTriggers   =   ""
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   4
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TagsHaveWidget  =   True
-      Tooltip         =   ""
-      Top             =   214
-      Visible         =   True
-      Width           =   566
-   End
-   Begin DesktopLabel Label3
+   Begin DesktopLabel LabelRenderer
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -198,61 +248,88 @@ Begin DesktopWindow WinTagCanvas
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   476
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       Multiline       =   False
-      Scope           =   2
+      Scope           =   0
       Selectable      =   False
-      TabIndex        =   5
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Multiline Email Addresses"
-      TextAlignment   =   0
+      Text            =   "Renderer:"
+      TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   260
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   199
+      Width           =   72
    End
-   Begin XUITagCanvas EmailAddresses
-      AllowAutocomplete=   True
-      AutoDeactivate  =   True
-      CaretBlinkPeriod=   500
+   Begin DesktopPopupMenu PopupStyle
+      AllowAutoDeactivate=   True
+      Bold            =   False
       Enabled         =   True
-      HasBorder       =   True
-      HasFocus        =   False
-      Height          =   126
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
       Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   20
-      LineHeight      =   0
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   560
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MinimumAutocompletionLength=   2
-      Multiline       =   True
-      ParseOnComma    =   True
-      ParseOnReturn   =   True
-      ParseOnTab      =   True
-      ParseTriggers   =   ""
-      ReadOnly        =   False
       Scope           =   0
+      SelectedRowIndex=   0
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   52
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   182
+   End
+   Begin DesktopLabel LabelStyle
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   476
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      TagsHaveWidget  =   True
+      Text            =   "Style:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   292
+      Top             =   52
+      Transparent     =   False
+      Underline       =   False
       Visible         =   True
-      Width           =   566
+      Width           =   72
    End
 End
 #tag EndDesktopWindow
@@ -260,37 +337,11 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  InitialiseFictionalCharactersAutocompleteEngine
-		  
 		  InitialiseCountryCodesAutocompleteEngine
+		  
+		  InfoCountryCodes.Text = ""
 		End Sub
 	#tag EndEvent
-
-
-	#tag MenuHandler
-		Function EditPaste() As Boolean Handles EditPaste.Action
-			// Pastes the contents of the clipboard into the tag canvas currently in focus.
-			
-			// Get the clipboard text (replacing any line endings with UNIX ones).
-			Var c As New Clipboard
-			Var s As String = c.Text.ReplaceLineEndings(&u0A)
-			c.Close
-			
-			If s.CharacterCount = 0 Then Return True
-			
-			// Insert the text.
-			If FictionalCharacters.HasFocus Then
-			FictionalCharacters.InsertString(s)
-			ElseIf CountryCodes.HasFocus Then
-			CountryCodes.InsertString(s)
-			ElseIf EmailAddresses.HasFocus Then
-			EmailAddresses.InsertString(s)
-			End If
-			
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
 
 
 	#tag Method, Flags = &h21, Description = 496E697469616C697365732061206261736963206175746F636F6D706C6574696F6E20656E67696E65207769746820636F756E74727920636F6465732E
@@ -301,147 +352,74 @@ End
 		  
 		  Self.CountryCodesAutocompleteEngine = New TagCanvasDemoAutocompleteEngine(False)
 		  
-		  CountryCodesAutocompleteEngine.AddOption("Australia", New XUITagData("AU"))
-		  CountryCodesAutocompleteEngine.AddOption("Belgium", New XUITagData("BE"))
-		  CountryCodesAutocompleteEngine.AddOption("Brazil", New XUITagData("BR"))
-		  CountryCodesAutocompleteEngine.AddOption("Canada", New XUITagData("CA"))
-		  CountryCodesAutocompleteEngine.AddOption("Denark", New XUITagData("DK"))
-		  CountryCodesAutocompleteEngine.AddOption("Finland", New XUITagData("FI"))
-		  CountryCodesAutocompleteEngine.AddOption("France", New XUITagData("FR"))
-		  CountryCodesAutocompleteEngine.AddOption("Germany", New XUITagData("DE"))
-		  CountryCodesAutocompleteEngine.AddOption("Greece", New XUITagData("GR"))
-		  CountryCodesAutocompleteEngine.AddOption("Guernsey", New XUITagData("GG"))
-		  CountryCodesAutocompleteEngine.AddOption("Hong Kong", New XUITagData("HK"))
-		  CountryCodesAutocompleteEngine.AddOption("India", New XUITagData("IN"))
-		  CountryCodesAutocompleteEngine.AddOption("Italy", New XUITagData("IT"))
-		  CountryCodesAutocompleteEngine.AddOption("Mexico", New XUITagData("MX"))
-		  CountryCodesAutocompleteEngine.AddOption("New Zealand", New XUITagData("NZ"))
-		  CountryCodesAutocompleteEngine.AddOption("Norway", New XUITagData("NO"))
-		  CountryCodesAutocompleteEngine.AddOption("South Africa", New XUITagData("ZA"))
-		  CountryCodesAutocompleteEngine.AddOption("Spain", New XUITagData("ES"))
-		  CountryCodesAutocompleteEngine.AddOption("United Kingdom", New XUITagData("GB"))
-		  CountryCodesAutocompleteEngine.AddOption("United States of America", New XUITagData("US"))
+		  For Each entry As DictionaryEntry In CountryCodesParselet.CountryNameCodeDict
+		    CountryCodesAutocompleteEngine.AddOption(entry.Key, New XUITagData(entry.Key))
+		  Next entry
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 496E697469616C697365732061206261736963206175746F636F6D706C6574696F6E20656E67696E6520776974682066696374696F6E616C20636861726163746572206E616D65732E
-		Private Sub InitialiseFictionalCharactersAutocompleteEngine()
-		  /// Initialises a basic autocompletion engine with fictional character names.
-		  ///
-		  /// Typing the character's alter ego in the tag field will create a tag whose title is their 
-		  /// superhero name.
-		  
-		  Self.FictionalCharacterAutocompleteEngine = New TagCanvasDemoAutocompleteEngine(False)
-		  
-		  FictionalCharacterAutocompleteEngine.AddOption("Bruce Banner", New XUITagData("Hulk"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Bruce Wayne", New XUITagData("Batman"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Bucky Barnes", New XUITagData("Winter Soldier"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Carol Danvers", New XUITagData("Captain Marvel"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Clint Barton", New XUITagData("Hawkeye"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Diana Prince", New XUITagData("Wonder Woman"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Flint Marko", New XUITagData("Sandman"))
-		  FictionalCharacterAutocompleteEngine.AddOption("James Howlett", New XUITagData("Wolverine"))
-		  FictionalCharacterAutocompleteEngine.AddOption("James Rhodes", New XUITagData("War Machine"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Max Dillon", New XUITagData("Electro"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Nadia Pym", New XUITagData("Wasp"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Natasha Romanoff", New XUITagData("Black Widow"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Norman Osborn", New XUITagData("Green Goblin"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Otto  Octavius", New XUITagData("Dr Octopus"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Peter Parker", New XUITagData("Spider-Man"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Peter Quill", New XUITagData("Star-Lord"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Scott Lang", New XUITagData("Ant-Man"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Stephen Strange", New XUITagData("Dr Strange"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Steve Rogers", New XUITagData("Captain America"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Tony Stark", New XUITagData("Iron Man"))
-		  FictionalCharacterAutocompleteEngine.AddOption("Wade Wilson", New XUITagData("Deadpool"))
-		End Sub
-	#tag EndMethod
 
-
-	#tag Property, Flags = &h0, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F7220636F756E74727920636F6465732E
-		CountryCodesAutocompleteEngine As TagCanvasDemoAutocompleteEngine
+	#tag Property, Flags = &h21, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F7220636F756E74727920636F6465732E
+		Private CountryCodesAutocompleteEngine As TagCanvasDemoAutocompleteEngine
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F722066696374696F6E616C20636861726163746572206E616D65732E
-		FictionalCharacterAutocompleteEngine As TagCanvasDemoAutocompleteEngine
-	#tag EndProperty
+
+	#tag Constant, Name = PANEL_COUNTRY_CODES, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_EMAIL, Type = Double, Dynamic = False, Default = \"0", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_SUPER_HEROES, Type = Double, Dynamic = False, Default = \"2", Scope = Private
+	#tag EndConstant
 
 
 #tag EndWindowCode
 
-#tag Events FictionalCharacters
+#tag Events PopupDemo
 	#tag Event
 		Sub Opening()
-		  // Create a style to colour the tag canvas.
+		  Me.AddRow("Email Addresses")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = PANEL_EMAIL
+		  Me.AddRow("Country Codes")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = PANEL_COUNTRY_CODES
+		  Me.AddRow("Super Heroes")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = PANEL_SUPER_HEROES
 		  
-		  // Assign the colour scheme.
-		  Me.Style = XUITagCanvasStyle.Monterey
-		  
-		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
-		  Me.Renderer = New XUITagCanvasRendererMonterey(Me)
-		  
-		  // Assign our simple parselet.
-		  Me.Parselet = New XUIDefaultTagParselet
-		  
+		  // Start on the country codes demo.
+		  Me.SelectedRowIndex = 1
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 412074616720686173206265656E20636C69636B65642E
-		Sub ClickedTag(tag As XUITag, isContextualClick As Boolean)
-		  If isContextualClick Then
-		    Info.Text = "Right clicked tag """ + tag.Title + """"
-		  Else
-		    Info.Text = "Left clicked tag """ + tag.Title + """"
-		  End If
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma Unused item
 		  
-		End Sub
-	#tag EndEvent
-	#tag Event , Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
-		Sub RemovedTag(tag As XUITag, viaWidget As Boolean)
-		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaWidget, " via the widget", "")
-		End Sub
-	#tag EndEvent
-	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
-		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
-		  Return FictionalCharacterAutocompleteEngine.DataForPrefix(prefix)
-		  
-		End Function
-	#tag EndEvent
-	#tag Event , Description = 416464656420607461676020746F20746865207461672063616E7661732E
-		Sub AddedTag(tag As XUITag)
-		  Info.Text = "Added tag """ + tag.Title + """"
+		  Panel.SelectedPanelIndex = Me.RowTagAt(Me.SelectedRowIndex)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events CountryCodes
 	#tag Event
 		Sub Opening()
-		  // Create a style to colour the tag canvas.
-		  
-		  // Assign the colour scheme.
-		  Me.Style = XUITagCanvasStyle.Windows
-		  
-		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
-		  Me.Renderer = New XUITagCanvasRendererWindows11(Me)
-		  
-		  // Assign our simple parselet.
-		  Me.Parselet = New XUIDefaultTagParselet
+		  // Assign our custom country codes parselet.
+		  Me.Parselet = New CountryCodesParselet
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616720686173206265656E20636C69636B65642E
 		Sub ClickedTag(tag As XUITag, isContextualClick As Boolean)
-		  If isContextualClick Then
-		    Info.Text = "Right clicked tag """ + tag.Title + """"
+		  If IsContextualClick Then
+		    InfoCountryCodes.Text = "Right clicked tag """ + tag.Title + """"
 		  Else
-		    Info.Text = "Left clicked tag """ + tag.Title + """"
+		    InfoCountryCodes.Text = "Left clicked tag """ + tag.Title + """"
 		  End If
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
 		Sub RemovedTag(tag As XUITag, viaWidget As Boolean)
-		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaWidget, " via the widget", "")
+		  InfoCountryCodes.Text = "Removed tag """ + tag.Title + """" + If(viaWidget, " via the widget", "")
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
@@ -452,53 +430,66 @@ End
 	#tag EndEvent
 	#tag Event , Description = 416464656420607461676020746F20746865207461672063616E7661732E
 		Sub AddedTag(tag As XUITag)
-		  Info.Text = "Added tag """ + tag.Title + """"
+		  InfoCountryCodes.Text = "Added tag """ + tag.Title + """"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events EmailAddresses
+#tag Events PopupRenderer
 	#tag Event
 		Sub Opening()
-		  // Create a style to colour the tag canvas.
+		  Me.AddRow("Monterey")
+		  Me.AddRow("Windows 11")
 		  
-		  // Assign the colour scheme.
-		  Me.Style = XUITagCanvasStyle.Monterey
-		  
-		  // Assign a renderer that is responsible for drawing the tags and the autocomplete popup.
-		  Me.Renderer = New XUITagCanvasRendererMonterey(Me)
-		  
-		  // Assign our email parselet.
-		  Me.Parselet = New XUIEmailTagParselet
+		  #If TargetWindows Then
+		    // Default to the windows 11 style renderer (you don't have to, it just looks more "native").
+		    Me.SelectedRowIndex = 1
+		  #Else
+		    // Default to the Monterey style renderer on macOS and Linux. Again, you can use any renderer on any platform.
+		    Me.SelectedRowIndex = 0
+		  #EndIf
 		  
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 412074616720686173206265656E20636C69636B65642E
-		Sub ClickedTag(tag As XUITag, isContextualClick As Boolean)
-		  If isContextualClick Then
-		    Info.Text = "Right clicked tag """ + tag.Title + """"
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma Unused item
+		  
+		  Select Case Me.SelectedRowValue
+		  Case "Monterey"
+		    CountryCodes.Renderer = New XUITagCanvasRendererMonterey(CountryCodes)
+		  Case "Windows 11"
+		    CountryCodes.Renderer = New XUITagCanvasRendererWindows11(CountryCodes)
 		  Else
-		    Info.Text = "Left clicked tag """ + tag.Title + """"
-		  End If
+		    Raise New UnsupportedOperationException("Unknown renderer name.")
+		  End Select
 		  
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
-		Sub RemovedTag(tag As XUITag, viaWidget As Boolean)
-		  Info.Text = "Removed tag """ + tag.Title + """" + If(viaWidget, " via the widget", "")
+#tag EndEvents
+#tag Events PopupStyle
+	#tag Event
+		Sub Opening()
+		  Me.AddRow("Monterey")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUITagCanvasStyle.Monterey
+		  Me.AddRow("Windows 11")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUITagCanvasStyle.Windows
+		  
+		  #If TargetWindows Then
+		    // Default to the Windows 11 style on Windows. You can use any style you fancy though.
+		    Me.SelectedRowIndex = 1
+		  #Else
+		    // Default to the Monterey style on macOS and Linux.
+		    Me.SelectedRowIndex = 0
+		  #EndIf
+		  
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 546865207461672063616E7661732069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F7220746865207370656369666965642060707265666978602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
-		Function AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData
-		  // In this example we won't offer any autocompletion options.
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma Unused item
 		  
-		  #Pragma Unused prefix
+		  CountryCodes.Style = Me.RowTagAt(Me.SelectedRowIndex)
 		  
-		  Return Nil
-		End Function
-	#tag EndEvent
-	#tag Event , Description = 416464656420607461676020746F20746865207461672063616E7661732E
-		Sub AddedTag(tag As XUITag)
-		  Info.Text = "Added tag """ + tag.Title + """"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
