@@ -1,6 +1,7 @@
 #tag Class
 Protected Class XUICodeEditor
 Inherits NSScrollViewCanvas
+Implements XUINotificationListener
 	#tag Event
 		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
 		  /// The user contextual clicked with CTRL-click on macOS.
@@ -694,6 +695,8 @@ Inherits NSScrollViewCanvas
 		  
 		  // Attach the autocomplete popup to the canvas.
 		  Self.Window.AddControl(mAutocompletePopup)
+		  
+		  RegisterForNotifications
 		  
 		  // Raise our Opening event before we do any drawing (so the user can assign a theme).
 		  RaiseEvent Opening
@@ -2498,6 +2501,22 @@ Inherits NSScrollViewCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 41206E6F74696669636174696F6E20686173206265656E2072656365697665642066726F6D20746865204E6F74696669636174696F6E2043656E7465722E
+		Sub NotificationReceived(n As XUINotification)
+		  /// A notification has been received from the Notification Center.
+		  ///
+		  /// Part of the XUINotificationListener interface.
+		  
+		  Select Case n.Key
+		  Case App.NOTIFICATION_APPEARANCE_CHANGED
+		    // A light/dark mode switch has occurred. 
+		    NeedsFullRedraw = True
+		    Refresh(True)
+		  End Select
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 506167657320646F776E20616E64206D6F646966696573207468652073656C656374696F6E2E
 		Private Sub PageDownAndModifySelection()
 		  /// Pages down and modifies the selection.
@@ -2822,6 +2841,15 @@ Inherits NSScrollViewCanvas
 		  #If TargetWindows Or TargetLinux
 		    RebuildScrollbars
 		  #EndIf
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5265676973746572732074686520656469746F7220666F722064657369726564206E6F74696669636174696F6E732E
+		Private Sub RegisterForNotifications()
+		  /// Registers the editor for desired notifications.
+		  
+		  Self.ListenForKey(App.NOTIFICATION_APPEARANCE_CHANGED)
+		  
 		End Sub
 	#tag EndMethod
 
