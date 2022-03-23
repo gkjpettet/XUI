@@ -4,6 +4,8 @@ Protected Module WindowExtensions
 		Sub Center(Extends w As DesktopWindow)
 		  /// Centers this window on its current display by adjusting the window's `Left` and `Top` properties.
 		  
+		  #Pragma Warning "BUG: Not centering on external monitor on Linux VM"
+		  
 		  Var display As DesktopDisplay = w.Display
 		  If display = Nil Then Return
 		  

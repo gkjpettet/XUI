@@ -52,7 +52,7 @@ color = "&h00DEE2E6, &h00DEE2E6"
 color = "&h00365FB1, &h005BA5FF"
 
 [tokens.comment]
-color = "&h00262626, &h0062707D"
+color = "&h00ADB5BD, &h0062707D"
 italic = true
 
 [tokens.default]
