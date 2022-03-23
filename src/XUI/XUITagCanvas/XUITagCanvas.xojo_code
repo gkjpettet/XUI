@@ -1,6 +1,7 @@
 #tag Class
 Protected Class XUITagCanvas
 Inherits DesktopTextInputCanvas
+Implements XUINotificationListener
 	#tag Event
 		Function DoCommand(command As String) As Boolean
 		  /// Handles `command`.
@@ -218,6 +219,8 @@ Inherits DesktopTextInputCanvas
 	#tag Event
 		Sub Opening()
 		  Self.Window.AddControl(mAutocompletePopup)
+		  
+		  RegisterForNotifications
 		  
 		  RaiseEvent Opening
 		End Sub
@@ -583,6 +586,21 @@ Inherits DesktopTextInputCanvas
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 41206E6F74696669636174696F6E20686173206265656E2072656365697665642066726F6D20746865204E6F74696669636174696F6E2043656E7465722E
+		Sub NotificationReceived(n As XUINotification)
+		  /// A notification has been received from the Notification Center.
+		  ///
+		  /// Part of the XUINotificationListener interface.
+		  
+		  Select Case n.Key
+		  Case App.NOTIFICATION_APPEARANCE_CHANGED
+		    // A light/dark mode switch has occurred. 
+		    Refresh(True)
+		  End Select
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 5061696E7473207468652063617265742061742074686520656E64206F66207468652063757272656E74206C696E652E
 		Private Sub PaintCaret(g As Graphics)
 		  /// Paints the caret at the end of the current line.
@@ -655,6 +673,15 @@ Inherits DesktopTextInputCanvas
 		  If mCaretVisible Then
 		    PaintCaret(g)
 		  End If
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5265676973746572732074686520656469746F7220666F722064657369726564206E6F74696669636174696F6E732E
+		Private Sub RegisterForNotifications()
+		  /// Registers the canvas for desired notifications.
+		  
+		  Self.ListenForKey(App.NOTIFICATION_APPEARANCE_CHANGED)
 		  
 		End Sub
 	#tag EndMethod
