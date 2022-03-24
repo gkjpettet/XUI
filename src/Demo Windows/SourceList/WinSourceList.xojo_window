@@ -35,11 +35,11 @@ Begin DesktopWindow WinSourceList
       Composited      =   False
       Enabled         =   True
       HasBackgroundColor=   False
-      Height          =   500
+      Height          =   503
       Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   0
+      Left            =   -1
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -50,10 +50,10 @@ Begin DesktopWindow WinSourceList
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   0
+      Top             =   -1
       Transparent     =   True
       Visible         =   True
-      Width           =   239
+      Width           =   240
    End
    Begin DesktopPopupMenu PopupRenderer
       AllowAutoDeactivate=   True
