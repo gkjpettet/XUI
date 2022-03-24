@@ -109,32 +109,6 @@ Begin DesktopWindow WinTabBar
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin TabBarDemoCanvas BackgroundCanvas
-      AllowAutoDeactivate=   True
-      AllowFocus      =   False
-      AllowFocusRing  =   True
-      AllowTabs       =   False
-      Backdrop        =   0
-      BackgroundColor =   &c00000000
-      Enabled         =   True
-      Height          =   261
-      Index           =   -2147483648
-      Left            =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   28
-      Transparent     =   True
-      Visible         =   True
-      Width           =   1000
-   End
    Begin DesktopPopupMenu PopupStyle
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -147,7 +121,7 @@ Begin DesktopWindow WinTabBar
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   772
+      Left            =   132
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -159,7 +133,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   301
+      Top             =   40
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -175,7 +149,7 @@ Begin DesktopWindow WinTabBar
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   660
+      Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -191,7 +165,7 @@ Begin DesktopWindow WinTabBar
       TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   301
+      Top             =   40
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -343,9 +317,6 @@ End
 		  Var style As XUITabBarStyle = Me.RowTagAt(Me.SelectedRowIndex)
 		  
 		  TabBar.Style = style
-		  
-		  // Set the canvas background colour to match the style. The colour is stored in the style's Tag property.
-		  BackgroundCanvas.BackgroundColor = style.Tag
 		  
 		End Sub
 	#tag EndEvent
