@@ -79,7 +79,7 @@ Begin DesktopWindow WinTabBar2
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   544
+      Height          =   316
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -96,7 +96,7 @@ Begin DesktopWindow WinTabBar2
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   72
+      Top             =   300
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -166,6 +166,169 @@ Begin DesktopWindow WinTabBar2
       Visible         =   True
       Width           =   100
    End
+   Begin DesktopGroupBox GroupBoxAddTag
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   206
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   72
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   434
+      Begin DesktopLabel LabelTagCaption
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "Caption:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   87
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   67
+      End
+      Begin DesktopTextField TagCaption
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "Tag Caption"
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Italic          =   False
+         Left            =   99
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   85
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   178
+      End
+      Begin DesktopCheckBox CheckBoxTagClosable
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Closable"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Italic          =   False
+         Left            =   40
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   119
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   1
+         Width           =   100
+      End
+      Begin DesktopCheckBox CheckBoxTagEnabled
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Enabled"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Italic          =   False
+         Left            =   40
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   151
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   1
+         Width           =   100
+      End
+   End
 End
 #tag EndDesktopWindow
 
@@ -178,6 +341,20 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657365747320746865207461622062617220746162732E
+		Private Sub ResetTabs()
+		  /// Resets the tab bar tabs.
+		  
+		  TabBar.AppendTab("Apple", FavIconApple)
+		  TabBar.AppendTab("Stack Overflow", FavIconStackOverflow)
+		  TabBar.AppendTab("Xojo", FavIconXojo)
+		  TabBar.AppendTab("hckr news", FavIconHckrNews)
+		  TabBar.AppendTab("Daring Fireball", FavIconDaringFireball)
+		  
+		  TabBar.SelectTabAtIndex(1)
+		End Sub
+	#tag EndMethod
+
 
 #tag EndWindowCode
 
@@ -186,14 +363,8 @@ End
 		Sub Opening()
 		  Me.Renderer = New XUITabBarRendererSafari(Me)
 		  
-		  Me.AppendTab("Tab 1")
-		  Me.AppendTab("Tab 2")
-		  Me.AppendTab("Tab 3")
-		  Me.AppendTab("Tab 4")
-		  Me.AppendTab("Tab 5")
-		  Me.AppendTab("Tab 6")
+		  ResetTabs
 		  
-		  Me.SelectTabAtIndex(1)
 		  
 		End Sub
 	#tag EndEvent
