@@ -143,7 +143,7 @@ Inherits DesktopCanvas
 		  End If
 		  
 		  // Clicked the menu button?
-		  #Pragma Warning "TODO"
+		  #Pragma Warning "TODO: Clicking menu button"
 		End Sub
 	#tag EndEvent
 
@@ -168,6 +168,13 @@ Inherits DesktopCanvas
 		  mScaleX = g.ScaleX
 		  
 		  If Renderer = Nil Then Return
+		  
+		  // If the tab bar has resized since the last paint we need to do a full redraw and reset the scrolling.
+		  If mPaintWidth <> Self.Width Then
+		    mNeedsFullRedraw = True
+		    ScrollPosX = 0
+		    mPaintWidth = Self.Width
+		  End If
 		  
 		  Renderer.Render(g, ScrollPosX, mNeedsFullRedraw)
 		End Sub
@@ -643,6 +650,10 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		MouseMoveY As Integer
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21, Description = 546865207769647468206F662074686520636F6E74726F6C20647572696E6720746865206C61737420605061696E7460206576656E742E
+		Private mPaintWidth As Integer
+	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5468652072656E646572657220746F2075736520666F722074686520746162206261722E
 		Private mRenderer As XUITabBarRenderer

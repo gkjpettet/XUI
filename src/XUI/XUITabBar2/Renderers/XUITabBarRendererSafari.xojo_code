@@ -108,7 +108,7 @@ Implements XUITabBarRenderer
 		  
 		  // Create a buffer of the required size. We need to sum the widths of the individual tabs.
 		  // We'll also track the widest tab (since all tabs drawn by this renderer are the same width).
-		  Var w, widestTab, tabW As Integer = 0 
+		  Var w, widestTab, tabW As Double = 0 
 		  For Each tab As XUITabBar2Item In Owner.Tabs
 		    tabW = TabWidth(tab, ownerGraphics, style)
 		    widestTab = If(tabW > widestTab, tabW, widestTab)
@@ -131,7 +131,7 @@ Implements XUITabBarRenderer
 		  g.FillRectangle(0, 0, g.Width, g.Height)
 		  
 		  // Draw all tabs *except* the selected tab.
-		  Var x, selectedTabX As Integer = 0
+		  Var x, selectedTabX As Double = 0
 		  Var tabs() As XUITabBar2Item = Owner.Tabs
 		  For i As Integer = 0 To tabs.LastIndex
 		    Var tab As XUITabBar2Item = tabs(i)
@@ -170,11 +170,11 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52656E646572732060746162602077697468206077696474686020746F206067602C20706C6163696E6720697473206C65667420656467652061742060786020616E6420736574732069747320626F756E64732E
-		Private Sub RenderTab(tab As XUITabBar2Item, g As Graphics, x As Integer, style As XUITabBar2Style, width As Integer)
+		Private Sub RenderTab(tab As XUITabBar2Item, g As Graphics, x As Double, style As XUITabBar2Style, width As Double)
 		  /// Renders `tab` with `width` to `g`, placing its left edge at `x` and sets its bounds.
 		  
-		  Var leftEdge As Integer = x
-		  Var rightEdge As Integer = x + width
+		  Var leftEdge As Double = x
+		  Var rightEdge As Double = x + width
 		  
 		  Var isSelected As Boolean = (tab = Owner.SelectedTab)
 		  Var hoveredOver As Boolean = (Owner.MouseMoveX >= leftEdge And Owner.MouseMoveX <= rightEdge)
@@ -347,11 +347,11 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52657475726E7320746865207769647468206F66206074616260206966206974207765726520647261776E20746F206067602E
-		Private Function TabWidth(tab As XUITabBar2Item, g As Graphics, style As XUITabBar2Style) As Integer
+		Private Function TabWidth(tab As XUITabBar2Item, g As Graphics, style As XUITabBar2Style) As Double
 		  /// Returns the width of `tab` if it were drawn to `g`.
 		  
 		  // Factor in the horizontal padding.
-		  Var w As Integer = 2 * CONTENTS_HORIZONTAL_PADDING
+		  Var w As Double = 2 * CONTENTS_HORIZONTAL_PADDING
 		  
 		  g.FontName = style.FontName
 		  g.FontSize = style.FontSize
