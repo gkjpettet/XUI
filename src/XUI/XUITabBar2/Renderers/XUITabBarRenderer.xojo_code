@@ -1,5 +1,11 @@
 #tag Interface
 Protected Interface XUITabBarRenderer
+	#tag Method, Flags = &h0, Description = 5468652063757272656E74207769647468206F66207468652062756666657220696E20706F696E74732E
+		Function BufferWidth() As Integer
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Constructor(owner As XUITabBar2)
 		  
@@ -18,8 +24,8 @@ Protected Interface XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52656E64657273207468652074616220626172206261636B67726F756E642E
-		Sub RenderBackground(g As Graphics)
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520696D61676520746F20626520647261776E20746F207468652074616220626172277320677261706869637320636F6E7465787420696E20697473205061696E74206576656E742E
+		Sub Render(ownerGraphics As Graphics, scrollPosX As Integer, needsFullRedraw As Boolean = True)
 		  
 		End Sub
 	#tag EndMethod
@@ -38,6 +44,12 @@ Protected Interface XUITabBarRenderer
 
 	#tag Method, Flags = &h0, Description = 5472756520696620746869732072656E646572657220737570706F7274732074686520636F6E63657074206F662061207269676874206D656E7520627574746F6E2E
 		Function SupportsRightMenuButton() As Boolean
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206865696768742074686520746162206261722077696C6C2062652072656E64657265642061742E
+		Function TabBarHeight() As Integer
 		  
 		End Function
 	#tag EndMethod

@@ -5,9 +5,6 @@ Protected Class XUITabBar2Style
 		  // Ensure that all color groups are initialised to avoid Nil object exceptions.
 		  // For conspicuousness we;ll set the colours to black and red.
 		  
-		  Me.ActiveTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
-		  Me.ActiveTabBorderColor = New ColorGroup(Color.Black, Color.Red)
-		  Me.ActiveTabTextColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.BackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.DisabledTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.DisabledTabTextColor = New ColorGroup(Color.Black, Color.Red)
@@ -21,6 +18,10 @@ Protected Class XUITabBar2Style
 		  Me.MenuButtonColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.MenuButtonHoverBackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.MenuButtonHoverColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.SelectedTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.SelectedTabBottomBorderColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.SelectedTabTextColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.SelectedTabTopBorderColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.TabBorderColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.TabCloseColor = New ColorGroup(Color.Black, Color.Red)
 		End Sub
@@ -34,9 +35,6 @@ Protected Class XUITabBar2Style
 		  
 		  style.Name = "Safari"
 		  
-		  style.ActiveTabBackgroundColor = New ColorGroup(Color.White, &c1D1D1D)
-		  style.ActiveTabBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
-		  style.ActiveTabTextColor = New ColorGroup(&c606060, Color.White)
 		  style.BackgroundColor = New ColorGroup(&cEFEFEF, &c111111)
 		  style.DisabledTabBackgroundColor = New ColorGroup(&cEFEFEF, &c111111)
 		  style.DisabledTabTextColor = New ColorGroup(&c606060, &c7F7F7F)
@@ -50,6 +48,10 @@ Protected Class XUITabBar2Style
 		  style.MenuButtonColor = New ColorGroup(&c606060, &c7F7F7F)
 		  style.MenuButtonHoverBackgroundColor = New ColorGroup(Color.White, &c1D1D1D)
 		  style.MenuButtonHoverColor = New ColorGroup(&c2E2E2E, Color.White)
+		  style.SelectedTabBackgroundColor = New ColorGroup(Color.White, &c1D1D1D)
+		  style.SelectedTabBottomBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
+		  style.SelectedTabTextColor = New ColorGroup(&c606060, Color.White)
+		  style.SelectedTabTopBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
 		  style.TabBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
 		  style.TabCloseColor = New ColorGroup(&c626262, &c868686)
 		  
@@ -58,18 +60,6 @@ Protected Class XUITabBar2Style
 		End Function
 	#tag EndMethod
 
-
-	#tag Property, Flags = &h0
-		ActiveTabBackgroundColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ActiveTabBorderColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ActiveTabTextColor As ColorGroup
-	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520746162206261722773206261636B67726F756E6420636F6C6F75722E2049742069732076697369626C65207768656E20746162732061726520647261676765642061726F756E642E
 		BackgroundColor As ColorGroup
@@ -136,6 +126,22 @@ Protected Class XUITabBar2Style
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		SelectedTabBackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SelectedTabBottomBorderColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SelectedTabTextColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SelectedTabTopBorderColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		TabBorderColor As ColorGroup
 	#tag EndProperty
 
@@ -190,7 +196,7 @@ Protected Class XUITabBar2Style
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ActiveTabBackgroundColor"
+			Name="SelectedTabBackgroundColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
@@ -198,7 +204,7 @@ Protected Class XUITabBar2Style
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ActiveTabTextColor"
+			Name="SelectedTabTextColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
@@ -246,7 +252,7 @@ Protected Class XUITabBar2Style
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ActiveTabBorderColor"
+			Name="SelectedTabBottomBorderColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
