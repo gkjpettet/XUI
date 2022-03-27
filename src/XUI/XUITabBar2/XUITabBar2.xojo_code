@@ -12,6 +12,8 @@ Inherits DesktopCanvas
 		  mMouseDownX = x
 		  mMouseDownY = y
 		  mMouseDownIndex = TabIndexAtXY(x, y)
+		  mMouseOverLeftMenuButton = OverLeftMenuButton(x, y)
+		  mMouseOverRightMenuButton = OverRightMenuButton(x, y)
 		  
 		  // Right click?
 		  mLastClickWasContextual = IsContextualClick
@@ -19,6 +21,14 @@ Inherits DesktopCanvas
 		  
 		  // Nothing else to do if there are no tabs.
 		  If mTabs.Count = 0 Then Return True
+		  
+		  If HasLeftMenuButton And mMouseOverLeftMenuButton Then
+		    // Have clicked on the left menu button. This will be handled in `MouseUp()`.
+		    Return True
+		  ElseIf HasRightMenuButton And mMouseOverRightMenuButton Then
+		    // Have clicked on the right menu button. This will be handled in `MouseUp()`.
+		    Return True
+		  End If
 		  
 		  // Get the index of the tab under the mouse.
 		  Var index As Integer = TabIndexAtXY(x, y)
@@ -107,6 +117,8 @@ Inherits DesktopCanvas
 		  mMouseMoveX = x
 		  mMouseMoveY = y
 		  mMouseOverIndex = TabIndexAtXY(x, y)
+		  mMouseOverLeftMenuButton = False
+		  mMouseOverRightMenuButton = False
 		  
 		  Refresh
 		  
@@ -140,8 +152,12 @@ Inherits DesktopCanvas
 		    Return
 		  End If
 		  
-		  // Clicked the menu button?
-		  #Pragma Warning "TODO: Clicking menu button"
+		  // Clicked a menu button?
+		  If HasLeftMenuButton And mMouseOverLeftMenuButton Then
+		    RaiseEvent PressedLeftMenuButton
+		  ElseIf HasRightMenuButton And mMouseOverRightMenuButton Then
+		    RaiseEvent PressedRightMenuButton
+		  End If
 		End Sub
 	#tag EndEvent
 
@@ -239,6 +255,44 @@ Inherits DesktopCanvas
 		  
 		  Return tab.CloseIconBounds.Contains(x, mMouseMoveY)
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 547275652069662060782C207960206973206F76657220746865206C656674206D656E7520627574746F6E2E
+		Private Function OverLeftMenuButton(x As Integer, y As Integer) As Boolean
+		  /// True if `x, y` is over the left menu button.
+		  ///
+		  /// `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
+		  /// scrolling of the tab bar.
+		  /// `y` is the absolute coordinate from the top left edge of the tab bar.
+		  
+		  // Adjust for scrolling.
+		  x = x + ScrollPosX
+		  
+		  If Not HasLeftMenuButton Then Return False
+		  If Not Renderer.SupportsLeftMenuButton Then Return False
+		  If LeftMenuButtonBounds = Nil Then Return False
+		  
+		  Return LeftMenuButtonBounds.Contains(x, y)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 547275652069662060782C207960206973206F76657220746865207269676874206D656E7520627574746F6E2E
+		Private Function OverRightMenuButton(x As Integer, y As Integer) As Boolean
+		  /// True if `x, y` is over the right menu button.
+		  ///
+		  /// `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
+		  /// scrolling of the tab bar.
+		  /// `y` is the absolute coordinate from the top left edge of the tab bar.
+		  
+		  // Adjust for scrolling.
+		  x = x + ScrollPosX
+		  
+		  If Not HasRightMenuButton Then Return False
+		  If Not Renderer.SupportsRightMenuButton Then Return False
+		  If RightMenuButtonBounds = Nil Then Return False
+		  
+		  Return RightMenuButtonBounds.Contains(x, y)
 		End Function
 	#tag EndMethod
 
@@ -481,6 +535,14 @@ Inherits DesktopCanvas
 		Event MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer)
 	#tag EndHook
 
+	#tag Hook, Flags = &h0, Description = 546865207573657220686173206A757374206A757374207072657373656420746865206C656674206D656E7520627574746F6E2E
+		Event PressedLeftMenuButton()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865207573657220686173206A757374206A757374207072657373656420746865207269676874206D656E7520627574746F6E2E
+		Event PressedRightMenuButton()
+	#tag EndHook
+
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746162732063616E2062652072656F726465726564206279206472616767696E67207769746820746865206D6F7573652E
 		AllowDragReordering As Boolean = True
@@ -559,6 +621,10 @@ Inherits DesktopCanvas
 		IsDraggingTab As Boolean
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 54686520626F756E6473206F6620746865206C656674206D656E7520627574746F6E2028696620656E61626C6564292E20536574206279207468652072656E64657265722E204D6179206265204E696C2E
+		LeftMenuButtonBounds As Rect
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 546865206F66667365742066726F6D20746865206C6566742065646765206F66207468652074616220746861742773206265696E6720647261676765642E
 		Private mDraggingTabLeftEdgeXOffset As Integer = 0
 	#tag EndProperty
@@ -617,6 +683,14 @@ Inherits DesktopCanvas
 
 	#tag Property, Flags = &h21, Description = 54686520696E646578206F662074686520746162207468617420746865206D6F7573652069732063757272656E746C79206F766572206F7220602D3160206966206E6F74206F766572206F6E652E
 		Private mMouseOverIndex As Integer = -1
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 43616368656420636F6D7075746174696F6E206F6660204F7665724C6566744D656E75427574746F6E6020636F6D707574656420696E20604D6F7573654D6F76652829602E
+		Private mMouseOverLeftMenuButton As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 43616368656420636F6D7075746174696F6E206F6660204F76657252696768744D656E75427574746F6E6020636F6D707574656420696E20604D6F7573654D6F76652829602E
+		Private mMouseOverRightMenuButton As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54727565206966207468652074616220626172206E6565647320612066756C6C2072656472617720647572696E6720697473206E65787420605061696E74282960206576656E742E
@@ -704,6 +778,10 @@ Inherits DesktopCanvas
 		#tag EndSetter
 		Renderer As XUITabBarRenderer
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0, Description = 54686520626F756E6473206F6620746865207269676874206D656E7520627574746F6E2028696620656E61626C6564292E20536574206279207468652072656E64657265722E204D6179206265204E696C2E
+		RightMenuButtonBounds As Rect
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E
 		#tag Getter

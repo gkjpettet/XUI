@@ -163,6 +163,10 @@ Implements XUITabBarRenderer
 		    End If
 		  End If
 		  
+		  // Set the left and right menu button bounds to Nil (since this renderer doesn's support them).
+		  Owner.LeftMenuButtonBounds = Nil
+		  Owner.RightMenuButtonBounds = Nil
+		  
 		  // Draw the buffer to the owner's graphics context.
 		  ownerGraphics.DrawPicture(mBuffer, -scrollPosX, 0)
 		  
