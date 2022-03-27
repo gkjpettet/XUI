@@ -333,6 +333,13 @@ End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Opening()
+		  ResetTabs
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h21, Description = 4563686F7320606D6573736167656020746F20746865206D65737361676573206C697374626F782E
 		Private Sub Echo(message As String)
 		  /// Echos `message` to the messages listbox.
@@ -363,9 +370,6 @@ End
 		Sub Opening()
 		  Me.Renderer = New XUITabBarRendererSafari(Me)
 		  
-		  ResetTabs
-		  
-		  
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616220776173206A75737420616464656420746F2074686520746162206261722061742060696E646578602E
@@ -381,6 +385,21 @@ End
 	#tag Event , Description = 54686520746162206174207468652073706563696669656420696E64657820776173206A7573742073656C65637465642E
 		Sub DidSelectTab(tab As XUITabBar2Item, index As Integer)
 		  Echo("Selected tab with caption `" + tab.Caption + "` at index " + index.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B65642920696E736964652074686520746162206261722061742074686520706173736564206C6F63616C20636F6F7264696E617465732E
+		Sub DidContextualClick(x As Integer, y As Integer)
+		  Echo("Contextual clicked at " + x.ToString + ", " + y.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 5468652075736572206A7573742066696E6973686564206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
+		Sub DidFinishDragging(tab As XUITabBar2Item, index As Integer)
+		  Echo("Finished dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 5468652075736572206A75737420626567616E206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
+		Sub DidStartDragging(tab As XUITabBar2Item, index As Integer)
+		  Echo("Began dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

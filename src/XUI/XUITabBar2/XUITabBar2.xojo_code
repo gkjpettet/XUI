@@ -51,30 +51,28 @@ Inherits DesktopCanvas
 		      
 		      If Not ValidTabIndex(mMouseDownIndex) Then Return
 		      
-		      mMouseOverIndex = -1
-		      
 		      Var startedDragging As Boolean = False
 		      If Not mIsDraggingTab Then
 		        // Have just started dragging. Compute the offset from the selected tab's left edge that the
 		        // mouse is currently at.
 		        startedDragging = True
 		        Var selectedTab As XUITabBar2Item = mTabs(mSelectedTabIndex)
-		        ' mDraggingTabLeftEdgeXOffset = (x - mSelectedTabIndex * mWidestTab)
 		        mDraggingTabLeftEdgeXOffset = (x - selectedTab.Bounds.Left)
 		      End If
 		      
 		      mIsDraggingTab = True
 		      mMouseDragX = x
 		      mMouseDragY = y
-		      mDragIndex = TabIndexAtXY(x, y)
+		      mDragIndex = TabIndexAtXY(x, y, True)
 		      
+		      // Should we scroll the tab bar?
 		      If x > Self.Width - DRAG_SCROLL_THRESHOLD Then
 		        ScrollPosX = ScrollPosX + DRAG_SCROLL_THRESHOLD
 		      ElseIf x < DRAG_SCROLL_THRESHOLD Then
 		        ScrollPosX = ScrollPosX - DRAG_SCROLL_THRESHOLD
 		      End If
 		      
-		      If mDragIndex <> mSelectedTabIndex Then
+		      If ValidTabIndex(mDragIndex) And mDragIndex <> mSelectedTabIndex Then
 		        SwapTabs(mSelectedTabIndex, mDragIndex, False)
 		        mSelectedTabIndex = mDragIndex
 		        Refresh
@@ -391,12 +389,13 @@ Inherits DesktopCanvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52657475726E732074686520696E646578206F662074686520746162206174206D6F75736520706F736974696F6E2060782C207960206F72202D312069662074686572652069736E2774206F6E652E
-		Private Function TabIndexAtXY(x As Integer, y As Integer) As Integer
+		Private Function TabIndexAtXY(x As Integer, y As Integer, excludeSelected As Boolean = False) As Integer
 		  /// Returns the index of the tab at mouse position `x, y` or -1 if there isn't one.
 		  ///
 		  /// `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
 		  /// scrolling of the tab bar.
 		  /// `y` is the absolute coordinate from the top left edge of the tab bar.
+		  /// If `excludeSelected` then we don't check the currently selected tab's bounds.
 		  
 		  // Adjust for scrolling.
 		  x = x + ScrollPosX
@@ -405,8 +404,17 @@ Inherits DesktopCanvas
 		  If mTabs.Count = 0 Then Return -1
 		  If x < 0 Then Return -1
 		  
+		  Var selectedTab As XUITabBar2Item
+		  If ValidTabIndex(mSelectedTabIndex) Then
+		    selectedTab = mTabs(mSelectedTabIndex)
+		  Else
+		    selectedTab = Nil
+		  End If
+		  
 		  For i As Integer = 0 To mTabs.LastIndex
 		    Var tab As XUITabBar2Item = mTabs(i)
+		    If excludeSelected And tab = selectedTab Then Continue
+		    
 		    If tab.Bounds <> Nil And tab.Bounds.Contains(x, y) Then Return i
 		  Next i
 		  
