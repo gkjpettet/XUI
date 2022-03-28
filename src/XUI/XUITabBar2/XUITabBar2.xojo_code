@@ -105,6 +105,8 @@ Inherits DesktopCanvas
 		  mMouseMoveX = -1
 		  mMouseMoveY = -1
 		  mMouseOverIndex = -1
+		  mMouseOverLeftMenuButton = False
+		  mMouseOverRightMenuButton = False
 		  
 		  Refresh
 		  
@@ -117,8 +119,8 @@ Inherits DesktopCanvas
 		  mMouseMoveX = x
 		  mMouseMoveY = y
 		  mMouseOverIndex = TabIndexAtXY(x, y)
-		  mMouseOverLeftMenuButton = False
-		  mMouseOverRightMenuButton = False
+		  mMouseOverLeftMenuButton = OverLeftMenuButton(x, y)
+		  mMouseOverRightMenuButton = OverRightMenuButton(x, y)
 		  
 		  Refresh
 		  
@@ -139,11 +141,16 @@ Inherits DesktopCanvas
 		    Return
 		  End If
 		  
-		  // If this event was triggered by a right click then bail as right clicks should get handled in 
-		  /// the `ConstructContextualMenu` event.
+		  // Right click?
 		  If mLastClickWasContextual Then
-		    RaiseEvent DidContextualClick(x, y)
-		    Return
+		    If mMouseOverLeftMenuButton Then
+		      DidContextualClickLeftMenuButton(x, y)
+		    ElseIf mMouseOverRightMenuButton Then
+		      DidContextualClickRightMenuButton(x, y)
+		    ElseIf ValidTabIndex(mMouseOverIndex) Then
+		      RaiseEvent DidContextualClickTab(mTabs(mMouseDownIndex), x, y)
+		      Return
+		    End If
 		  End If
 		  
 		  // Close this tab?
@@ -503,8 +510,16 @@ Inherits DesktopCanvas
 		Event DidAddTab(tab As XUITabBar2Item, index As Integer)
 	#tag EndHook
 
-	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B65642920696E736964652074686520746162206261722061742074686520706173736564206C6F63616C20636F6F7264696E617465732E
-		Event DidContextualClick(x As Integer, y As Integer)
+	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B656429206F76657220746865206C656674206D656E7520627574746F6E206174207468652070617373656420636F6F7264696E617465732E2054686520636F6F7264696E6174657320617265206C6F63616C20746F2074686520746F70206C65667420636F726E6572206F662074686520746162206261722E
+		Event DidContextualClickLeftMenuButton(x As Integer, y As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B656420286C65667420636C69636B656429206F76657220746865206C656674206D656E7520627574746F6E206174207468652070617373656420636F6F7264696E617465732E2054686520636F6F7264696E6174657320617265206C6F63616C20746F2074686520746F70206C65667420636F726E6572206F662074686520746162206261722E
+		Event DidContextualClickRightMenuButton(x As Integer, y As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B656429206F766572206120746162206174207468652070617373656420636F6F7264696E617465732E2054686520636F6F7264696E6174657320617265206C6F63616C20746F2074686520746F70206C65667420636F726E6572206F662074686520746162206261722E
+		Event DidContextualClickTab(tab As XUITabBar2Item, x As Integer, y As Integer)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 5468652075736572206A7573742066696E6973686564206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E

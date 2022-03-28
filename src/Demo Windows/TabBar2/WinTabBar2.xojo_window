@@ -32,6 +32,7 @@ Begin DesktopWindow WinTabBar2
       AllowTabs       =   False
       AvailableTabSpace=   0.0
       Backdrop        =   0
+      DraggingTabLeftEdgeXOffset=   0
       Enabled         =   True
       HasLeftBorder   =   False
       HasLeftMenuButton=   False
@@ -39,14 +40,20 @@ Begin DesktopWindow WinTabBar2
       HasRightMenuButton=   False
       Height          =   28
       Index           =   -2147483648
+      IsDraggingTab   =   False
       Left            =   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      MouseDragX      =   0
+      MouseDragY      =   0
+      MouseMoveX      =   0
+      MouseMoveY      =   0
       Scope           =   0
       SelectedTabIndex=   0
+      TabCount        =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -294,6 +301,7 @@ Begin DesktopWindow WinTabBar2
          Top             =   119
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   1
          Width           =   100
@@ -324,6 +332,7 @@ Begin DesktopWindow WinTabBar2
          Top             =   151
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   1
          Width           =   100
@@ -387,9 +396,9 @@ End
 		  Echo("Selected tab with caption `" + tab.Caption + "` at index " + index.ToString)
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B65642920696E736964652074686520746162206261722061742074686520706173736564206C6F63616C20636F6F7264696E617465732E
-		Sub DidContextualClick(x As Integer, y As Integer)
-		  Echo("Contextual clicked at " + x.ToString + ", " + y.ToString)
+	#tag Event , Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B656429206F766572206120746162206174207468652070617373656420636F6F7264696E617465732E2054686520636F6F7264696E6174657320617265206C6F63616C20746F2074686520746F70206C65667420636F726E6572206F662074686520746162206261722E
+		Sub DidContextualClickTab(tab As XUITabBar2Item, x As Integer, y As Integer)
+		  Echo("Contextual clicked tab """ + tab.Caption + """ at " + x.ToString + ", " + y.ToString)
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 5468652075736572206A7573742066696E6973686564206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
