@@ -6,13 +6,14 @@ Inherits DesktopCanvas
 		  mMouseDownTicks = System.Ticks
 		  
 		  // At the exact moment the mouse is clicked we aren't dragging yet.
-		  mDragging = False
+		  mIsDraggingTab = False
 		  
 		  // Cache the x, y coords that this mouse down event occurs at.
-		  mLastMouseDownX = x
-		  mLastMouseDownY = y
-		  mMouseDownIndex = TabIndexAtX(x)
-		  mMouseOverMenuButton = OverMenuButton(x)
+		  mMouseDownX = x
+		  mMouseDownY = y
+		  mMouseDownIndex = TabIndexAtXY(x, y)
+		  mMouseOverLeftMenuButton = OverLeftMenuButton(x, y)
+		  mMouseOverRightMenuButton = OverRightMenuButton(x, y)
 		  
 		  // Right click?
 		  mLastClickWasContextual = IsContextualClick
@@ -21,22 +22,25 @@ Inherits DesktopCanvas
 		  // Nothing else to do if there are no tabs.
 		  If mTabs.Count = 0 Then Return True
 		  
-		  If mMouseOverMenuButton And HasMenuButton Then
-		    // Have clicked on the menu button. This will be handled in `MouseUp()`.
+		  If HasLeftMenuButton And mMouseOverLeftMenuButton Then
+		    // Have clicked on the left menu button. This will be handled in `MouseUp()`.
 		    Return True
-		  Else
-		    // Get the index of the tab under the mouse.
-		    Var index As Integer = TabIndexAtX(x)
-		    If index < 0 Or index > mTabs.LastIndex Then
-		      // No tab under the mouse.
-		      Return True
-		    End If
-		    
-		    Var tab As XUITabBarItem = mTabs(index)
-		    
-		    // If the tab is enabled then select it.
-		    If tab.Enabled Then SelectTabAtIndex(index)
+		  ElseIf HasRightMenuButton And mMouseOverRightMenuButton Then
+		    // Have clicked on the right menu button. This will be handled in `MouseUp()`.
+		    Return True
 		  End If
+		  
+		  // Get the index of the tab under the mouse.
+		  Var index As Integer = TabIndexAtXY(x, y)
+		  If index < 0 Or index > mTabs.LastIndex Then
+		    // No tab under the mouse.
+		    Return True
+		  End If
+		  
+		  Var tab As XUITabBarItem = mTabs(index)
+		  
+		  // If the tab is enabled then select it.
+		  If tab.Enabled Then SelectTabAtIndex(index)
 		  
 		  // Permit the `MouseUp` event to fire.
 		  Return True
@@ -52,37 +56,38 @@ Inherits DesktopCanvas
 		    
 		    mMouseDownTicks = System.Ticks
 		    
-		    If Abs(x - mLastMouseDownX) > DRAG_THRESHOLD_DISTANCE Or _
-		      Abs(y - mLastMouseDownY) > DRAG_THRESHOLD_DISTANCE Then
+		    If Abs(x - mMouseDownX) > DRAG_THRESHOLD_DISTANCE Or _
+		      Abs(y - mMouseDownY) > DRAG_THRESHOLD_DISTANCE Then
 		      
 		      If Not ValidTabIndex(mMouseDownIndex) Then Return
 		      
-		      mMouseOverIndex = -1
-		      
 		      Var startedDragging As Boolean = False
-		      If Not mDragging Then
+		      If Not mIsDraggingTab Then
 		        // Have just started dragging. Compute the offset from the selected tab's left edge that the
 		        // mouse is currently at.
 		        startedDragging = True
-		        mDragXLeftEdgeOffset = (x - mSelectedTabIndex * mWidestTab)
+		        Var selectedTab As XUITabBarItem = mTabs(mSelectedTabIndex)
+		        mDraggingTabLeftEdgeXOffset = (x - selectedTab.Bounds.Left)
 		      End If
 		      
-		      mDragging = True
-		      mDragX = x
-		      mDragIndex = TabIndexAtX(x)
+		      mIsDraggingTab = True
+		      mMouseDragX = x
+		      mMouseDragY = y
+		      mDragIndex = TabIndexAtXY(x, y, True)
 		      
+		      // Should we scroll the tab bar?
 		      If x > Self.Width - DRAG_SCROLL_THRESHOLD Then
 		        ScrollPosX = ScrollPosX + DRAG_SCROLL_THRESHOLD
 		      ElseIf x < DRAG_SCROLL_THRESHOLD Then
 		        ScrollPosX = ScrollPosX - DRAG_SCROLL_THRESHOLD
 		      End If
 		      
-		      If mDragIndex <> mSelectedTabIndex Then
+		      If ValidTabIndex(mDragIndex) And mDragIndex <> mSelectedTabIndex Then
 		        SwapTabs(mSelectedTabIndex, mDragIndex, False)
 		        mSelectedTabIndex = mDragIndex
-		        Redraw
+		        Refresh
 		      Else
-		        Redraw
+		        Refresh
 		      End If
 		      
 		      If startedDragging And mSelectedTabIndex <> -1 Then
@@ -97,12 +102,13 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub MouseExit()
-		  mMouseOverIndex = -1
-		  mMouseOverMenuButton = False
 		  mMouseMoveX = -1
 		  mMouseMoveY = -1
+		  mMouseOverIndex = -1
+		  mMouseOverLeftMenuButton = False
+		  mMouseOverRightMenuButton = False
 		  
-		  Redraw
+		  Refresh
 		  
 		  RaiseEvent MouseExit
 		End Sub
@@ -110,15 +116,13 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub MouseMove(x As Integer, y As Integer)
-		  mMouseOverIndex = TabIndexAtX(x)
-		  
-		  mMouseOverMenuButton = OverMenuButton(x)
-		  If mMouseOverMenuButton And HasMenuButton Then mMouseOverIndex = -1
-		  
 		  mMouseMoveX = x
 		  mMouseMoveY = y
+		  mMouseOverIndex = TabIndexAtXY(x, y)
+		  mMouseOverLeftMenuButton = OverLeftMenuButton(x, y)
+		  mMouseOverRightMenuButton = OverRightMenuButton(x, y)
 		  
-		  Redraw
+		  Refresh
 		  
 		  RaiseEvent MouseMove(x, y)
 		End Sub
@@ -126,21 +130,27 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub MouseUp(x As Integer, y As Integer)
-		  If mDragging Then
+		  If mIsDraggingTab Then
 		    // Must have finished dragging.
-		    mDragging = False
-		    mDragX = 0
+		    mIsDraggingTab = False
+		    mMouseDragX = 0
+		    mMouseDragY = 0
 		    mDragIndex = -1
-		    Redraw
+		    Refresh
 		    If mSelectedTabIndex <> -1 Then RaiseEvent DidFinishDragging(mTabs(mSelectedTabIndex), mSelectedTabIndex)
 		    Return
 		  End If
 		  
-		  // If this event was triggered by a right click then bail as right clicks should get handled in 
-		  /// the `ConstructContextualMenu` event.
+		  // Right click?
 		  If mLastClickWasContextual Then
-		    RaiseEvent DidContextualClick(x, y)
-		    Return
+		    If mMouseOverLeftMenuButton Then
+		      DidContextualClickLeftMenuButton(x, y)
+		    ElseIf mMouseOverRightMenuButton Then
+		      DidContextualClickRightMenuButton(x, y)
+		    ElseIf ValidTabIndex(mMouseOverIndex) Then
+		      RaiseEvent DidContextualClickTab(mTabs(mMouseDownIndex), x, y)
+		      Return
+		    End If
 		  End If
 		  
 		  // Close this tab?
@@ -149,9 +159,11 @@ Inherits DesktopCanvas
 		    Return
 		  End If
 		  
-		  // Clicked the menu button?
-		  If HasMenuButton And mMouseOverMenuButton Then
-		    RaiseEvent PressedMenuButton
+		  // Clicked a menu button?
+		  If HasLeftMenuButton And mMouseOverLeftMenuButton Then
+		    RaiseEvent PressedLeftMenuButton
+		  ElseIf HasRightMenuButton And mMouseOverRightMenuButton Then
+		    RaiseEvent PressedRightMenuButton
 		  End If
 		End Sub
 	#tag EndEvent
@@ -162,7 +174,7 @@ Inherits DesktopCanvas
 		    // deltaX reported by Xojo is very small. Beef it up a little.
 		    deltaX = deltaX * 5
 		    ScrollPosX = ScrollPosX + deltaX
-		    Redraw
+		    Refresh
 		  End If
 		  
 		  RaiseEvent MouseWheel(x, y, deltaX, deltaY)
@@ -173,24 +185,25 @@ Inherits DesktopCanvas
 		Sub Paint(g As Graphics, areas() As Rect)
 		  #Pragma Unused areas
 		  
-		  If mNeedsRedrawing Or mBuffer = Nil Or _
-		    mBuffer.Graphics.Width < g.Width Or mBuffer.Graphics.Height < g.Height Then
-		    RebuildBuffer
+		  // Cache the scale factor.
+		  mScaleX = g.ScaleX
+		  
+		  If Renderer = Nil Then Return
+		  
+		  // If the tab bar has resized since the last paint we need to do a full redraw and reset the scrolling.
+		  If mPaintWidth <> Self.Width Then
+		    mNeedsFullRedraw = True
+		    ScrollPosX = 0
+		    mPaintWidth = Self.Width
 		  End If
 		  
-		  // Draw the back buffer to the screen.
-		  g.DrawPicture(mBuffer, -ScrollPosX, 0)
-		  
-		  // Draw the optional menu button.
-		  If HasMenuButton Then DrawMenuButton(g, Me.Width - MenuButtonWidth)
-		  
-		  RaiseEvent Paint(g)
+		  Renderer.Render(g, ScrollPosX, mNeedsFullRedraw)
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub ScaleFactorChanged()
-		  Redraw
+		  Refresh
 		End Sub
 	#tag EndEvent
 
@@ -202,7 +215,7 @@ Inherits DesktopCanvas
 		  
 		  mTabs.AddAt(index, New XUITabBarItem(Self, caption, icon, tag, closable, enabled))
 		  
-		  Redraw
+		  Refresh
 		  
 		  DidAddTab(mTabs(index), index)
 		  
@@ -219,48 +232,6 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6D707574657320746865207769647468206F66207468652062756666657220616E642074686520776964657374207461622E205365747320606D526571756972656442756666657257696474686020616E6420606D576964657374546162602E
-		Private Sub ComputeBufferWidthAndWidestTab()
-		  /// Computes the width of the buffer and the widest tab. Sets `mRequiredBufferWidth` and `mWidestTab`.
-		  ///
-		  /// The buffer will always be at least as wide as the tab bar's current width.
-		  
-		  Var g As Graphics
-		  Var p As Picture
-		  If mBuffer = Nil Then
-		    // Edge case: The canvas is embedded in a DesktopContainer that is not
-		    // yet embedded in a window. In this scenario, `Window` is Nil.
-		    If Self.Window <> Nil Then
-		      p = Self.Window.BitmapForCaching(10, 10)
-		    Else
-		      p = New Picture(10, 10)
-		    End If
-		    g = p.Graphics
-		  Else
-		    g = mBuffer.Graphics
-		  End If
-		  
-		  Var w As Double
-		  
-		  // Find the widest tab.
-		  mWidestTab = 0
-		  Var tmp As Double
-		  For i As Integer = 0 To mTabs.LastIndex
-		    tmp = mTabs(i).Width(g, i = mSelectedTabIndex)
-		    If tmp > mWidestTab Then mWidestTab = tmp
-		  Next i
-		  
-		  If (mTabs.Count * mWidestTab) < Self.AvailableTabSpace Then
-		    mWidestTab = Self.AvailableTabSpace / mTabs.Count
-		  End If
-		  
-		  w = w + (mTabs.Count * mWidestTab)
-		  
-		  mRequiredBufferWidth = Max(w, Self.Width)
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  // Calling the overridden superclass constructor.
@@ -268,53 +239,6 @@ Inherits DesktopCanvas
 		  
 		  Self.Style = New XUITabBarStyle
 		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 447261777320746865206D656E7520627574746F6E206174206078602E
-		Private Sub DrawMenuButton(g As Graphics, x As Integer)
-		  /// Draws the menu button at `x`.
-		  ///
-		  /// Assumes the tab bar should have a menu button.
-		  
-		  // Background.
-		  g.DrawingColor = If(mMouseOverMenuButton, Style.MenuButtonHoverBackgroundColor, _
-		  Style.MenuButtonBackgroundColor)
-		  g.FillRectangle(x, 0, MenuButtonWidth, g.Height)
-		  
-		  // Border.
-		  g.DrawingColor = Style.MenuButtonBorderColor
-		  g.PenSize = 1
-		  g.DrawRectangle(x, 0, MenuButtonWidth, g.Height)
-		  
-		  // Icon.
-		  Var icon As Picture
-		  If mMouseOverMenuButton Then
-		    If mMenuButtonHoverIcon = Nil Then
-		      icon = mMenuButtonIcon
-		    Else
-		      icon = mMenuButtonHoverIcon
-		    End If
-		  Else
-		    icon = mMenuButtonIcon
-		  End If
-		  
-		  If icon <> Nil Then
-		    Var iconX As Double = x + (MenuButtonWidth / 2) - (icon.Width / 2)
-		    Var iconY As Double = (g.Height / 2) - (icon.Height / 2)
-		    g.DrawPicture(icon, iconX, iconY)
-		  Else
-		    // Draw a `+`.
-		    g.DrawingColor = If(mMouseOverMenuButton, Style.MenuButtonHoverColor, Style.MenuButtonColor)
-		    Const PLUS_WIDTH = 10
-		    Const PLUS_HEIGHT = 10
-		    g.PenSize = 1
-		    Var plusLeft As Double = x + (MenuButtonWidth / 2) - (PLUS_WIDTH / 2)
-		    Var midY As Double = g.Height / 2
-		    Var plusTop As Double = midY - (PLUS_HEIGHT / 2)
-		    g.DrawLine(plusLeft, midY, plusLeft + PLUS_WIDTH, midY)
-		    g.DrawLine(x + midY, plusTop, x + midY, plusTop + PLUS_HEIGHT)
-		  End If
 		End Sub
 	#tag EndMethod
 
@@ -326,38 +250,56 @@ Inherits DesktopCanvas
 		  If mTabs.Count = 0 Then Return False
 		  If index < 0 Or index > mTabs.LastIndex Then Return False
 		  If mMouseMoveX = -1 Or mMouseMoveY = -1 Then Return False
-		  If Not mTabs(index).Closable Then Return False
 		  
-		  // Compute the x coord of the left edge of this tab.
-		  Var leftEdgeTab As Integer = (mWidestTab * index)
+		  // Get the tab.
+		  Var tab As XUITabBarItem = mTabs(index)
 		  
-		  // Compute the left edge of the close icon.
-		  Var leftEdgeClose As Integer = leftEdgeTab + XUITabBarItem.CLOSE_PADDING
-		  
-		  // Var compute the top edge of the close icon. -1 is a fudge.
-		  Var topEdgeClose As Integer = (Self.Height / 2) - (XUITabBarItem.CLOSE_HEIGHT / 2) - 1
+		  If Not tab.Closable Then Return False
+		  If tab.CloseIconBounds = Nil Then Return False
 		  
 		  // We know where the mouse was during the last mouse move but we need to account for any scrolling.
 		  Var x As Integer = mMouseMoveX + ScrollPosX
 		  
-		  // The +2 values are just fudges.
-		  If x >= leftEdgeClose And x < leftEdgeClose + XUITabBarItem.CLOSE_WIDTH + 2 And _
-		    mMouseMoveY >= topEdgeClose And mMouseMoveY <= topEdgeClose + XUITabBarItem.CLOSE_HEIGHT + 2 Then
-		    Return True
-		  End If
+		  Return tab.CloseIconBounds.Contains(x, mMouseMoveY)
 		  
-		  Return False
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620607860206973206F76657220746865206D656E7520627574746F6E2E
-		Private Function OverMenuButton(x As Integer) As Boolean
-		  /// Returns True if `x` is over the menu button.
+	#tag Method, Flags = &h21, Description = 547275652069662060782C207960206973206F76657220746865206C656674206D656E7520627574746F6E2E
+		Private Function OverLeftMenuButton(x As Integer, y As Integer) As Boolean
+		  /// True if `x, y` is over the left menu button.
+		  ///
+		  /// `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
+		  /// scrolling of the tab bar.
+		  /// `y` is the absolute coordinate from the top left edge of the tab bar.
 		  
-		  If Not HasMenuButton Then Return False
+		  // Adjust for scrolling.
+		  x = x + ScrollPosX
 		  
-		  Return x >= Self.Width - MenuButtonWidth
+		  If Not HasLeftMenuButton Then Return False
+		  If Not Renderer.SupportsLeftMenuButton Then Return False
+		  If LeftMenuButtonBounds = Nil Then Return False
 		  
+		  Return LeftMenuButtonBounds.Contains(x, y)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 547275652069662060782C207960206973206F76657220746865207269676874206D656E7520627574746F6E2E
+		Private Function OverRightMenuButton(x As Integer, y As Integer) As Boolean
+		  /// True if `x, y` is over the right menu button.
+		  ///
+		  /// `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
+		  /// scrolling of the tab bar.
+		  /// `y` is the absolute coordinate from the top left edge of the tab bar.
+		  
+		  // Adjust for scrolling.
+		  x = x + ScrollPosX
+		  
+		  If Not HasRightMenuButton Then Return False
+		  If Not Renderer.SupportsRightMenuButton Then Return False
+		  If RightMenuButtonBounds = Nil Then Return False
+		  
+		  Return RightMenuButtonBounds.Contains(x, y)
 		End Function
 	#tag EndMethod
 
@@ -375,7 +317,7 @@ Inherits DesktopCanvas
 		    mSelectedTabIndex = mSelectedTabIndex - 1
 		  End If
 		  
-		  Redraw
+		  Refresh
 		End Sub
 	#tag EndMethod
 
@@ -393,7 +335,7 @@ Inherits DesktopCanvas
 		    mSelectedTabIndex = mSelectedTabIndex + 1
 		  End If
 		  
-		  Redraw
+		  Refresh
 		End Sub
 	#tag EndMethod
 
@@ -405,67 +347,13 @@ Inherits DesktopCanvas
 		  
 		  Var popped As XUITabBarItem = mTabs.Pop
 		  
-		  Redraw
+		  Refresh
 		  
 		  DidRemoveTab(popped)
 		  
 		  Return popped
 		  
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 52656275696C64732074686520656E74697265206275666665722062792064726177696E6720616C6C2076697369626C6520636F6E74656E7420746F2069742E
-		Private Sub RebuildBuffer()
-		  /// Rebuilds the entire buffer by drawing all visible content to it.
-		  
-		  ComputeBufferWidthAndWidestTab
-		  
-		  // Create a new HiDPI aware back buffer picture.
-		  mBuffer = Window.BitmapForCaching(mRequiredBufferWidth, Height)
-		  
-		  If mTabs.Count = 0 Then Return
-		  
-		  // Grab a reference to the buffer's graphics context.
-		  Var g As Graphics = mBuffer.Graphics
-		  
-		  // Draw the background colour.
-		  g.DrawingColor = Style.BackgroundColor
-		  g.FillRectangle(0, 0, g.Width, g.Height)
-		  
-		  // Draw the tabs.
-		  Var x, selectedTabX As Integer = 0
-		  For i As Integer = 0 To mTabs.LastIndex
-		    Var tab As XUITabBarItem = mTabs(i)
-		    If i <> mSelectedTabIndex Then
-		      x = tab.Draw(g, x, False, i = mMouseOverIndex, OverCloseIconAtIndex(i), mWidestTab)
-		    Else
-		      selectedTabX = x
-		      x = x + mWidestTab
-		    End If
-		  Next i
-		  
-		  // Draw the selected tab.
-		  If mSelectedTabIndex <> -1 Then
-		    If mDragging Then
-		      Call mTabs(mSelectedTabIndex).Draw(g, mDragX - mDragXLeftEdgeOffset, True, False, False, mWidestTab)
-		    Else
-		      Call mTabs(mSelectedTabIndex).Draw(g, selectedTabX, True, _
-		      mSelectedTabIndex = mMouseOverIndex, OverCloseIconAtIndex(mSelectedTabIndex), mWidestTab)
-		    End If
-		  End If
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0, Description = 466F7263657320616E20696D6D6564696174652066756C6C20726564726177206F662074686520636F6E74726F6C2E
-		Sub Redraw()
-		  /// Forces an immediate full redraw of the control.
-		  
-		  mNeedsRedrawing = True
-		  
-		  Refresh(True)
-		  
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52656D6F76657320616C6C20746162732C207374617274696E672066726F6D207468652072696768742D6D6F7374207461622E
@@ -497,7 +385,7 @@ Inherits DesktopCanvas
 		    mSelectedTabIndex = mSelectedTabIndex - 1
 		  End If
 		  
-		  Redraw
+		  Refresh
 		  
 		  DidRemoveTab(removed)
 		  
@@ -516,7 +404,7 @@ Inherits DesktopCanvas
 		  
 		  mSelectedTabIndex = index
 		  
-		  Redraw
+		  Refresh
 		  
 		  DidAddTab(newTab, index)
 		  
@@ -538,7 +426,7 @@ Inherits DesktopCanvas
 		  
 		  mSelectedTabIndex = index
 		  
-		  Redraw
+		  Refresh
 		  
 		  DidSelectTab(mTabs(index), index)
 		End Sub
@@ -557,16 +445,18 @@ Inherits DesktopCanvas
 		  mTabs(index2) = mTabs(Index1)
 		  mTabs(Index1) = tab2
 		  
-		  If shouldRedraw Then Redraw
+		  If shouldRedraw Then Refresh
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732074686520696E646578206F662074686520746162206174206D6F75736520706F736974696F6E20607860206F72202D312069662074686572652069736E2774206F6E652E
-		Private Function TabIndexAtX(x As Double) As Integer
-		  /// Returns the index of the tab at mouse position `x` or -1 if there isn't one.
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520696E646578206F662074686520746162206174206D6F75736520706F736974696F6E2060782C207960206F72202D312069662074686572652069736E2774206F6E652E
+		Private Function TabIndexAtXY(x As Integer, y As Integer, excludeSelected As Boolean = False) As Integer
+		  /// Returns the index of the tab at mouse position `x, y` or -1 if there isn't one.
 		  ///
 		  /// `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
 		  /// scrolling of the tab bar.
+		  /// `y` is the absolute coordinate from the top left edge of the tab bar.
+		  /// If `excludeSelected` then we don't check the currently selected tab's bounds.
 		  
 		  // Adjust for scrolling.
 		  x = x + ScrollPosX
@@ -574,16 +464,31 @@ Inherits DesktopCanvas
 		  // Sanity checks.
 		  If mTabs.Count = 0 Then Return -1
 		  If x < 0 Then Return -1
-		  If mBuffer = Nil Then Return -1
-		  If x > mBuffer.Width Then Return -1
 		  
-		  Var index As Integer = Floor(x / mWidestTab)
-		  
-		  If index < 0 Then
-		    Return -1
+		  Var selectedTab As XUITabBarItem
+		  If ValidTabIndex(mSelectedTabIndex) Then
+		    selectedTab = mTabs(mSelectedTabIndex)
 		  Else
-		    Return XUIMaths.Clamp(index, 0, mTabs.LastIndex)
+		    selectedTab = Nil
 		  End If
+		  
+		  For i As Integer = 0 To mTabs.LastIndex
+		    Var tab As XUITabBarItem = mTabs(i)
+		    If excludeSelected And tab = selectedTab Then Continue
+		    
+		    If tab.Bounds <> Nil And tab.Bounds.Contains(x, y) Then Return i
+		  Next i
+		  
+		  Return -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E73207468652074616220626172277320746162732E20546869732061727261792073686F756C6420626520636F6E736964657265642072656164206F6E6C792E20446F206E6F74206D6F6469667920697421
+		Function Tabs() As XUITabBarItem()
+		  /// Returns the tab bar's tabs. This array should be considered read only. Do not modify it!
+		  
+		  Return mTabs
+		  
 		End Function
 	#tag EndMethod
 
@@ -605,8 +510,16 @@ Inherits DesktopCanvas
 		Event DidAddTab(tab As XUITabBarItem, index As Integer)
 	#tag EndHook
 
-	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B65642920696E736964652074686520746162206261722061742074686520706173736564206C6F63616C20636F6F7264696E617465732E
-		Event DidContextualClick(x As Integer, y As Integer)
+	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B656429206F76657220746865206C656674206D656E7520627574746F6E206174207468652070617373656420636F6F7264696E617465732E2054686520636F6F7264696E6174657320617265206C6F63616C20746F2074686520746F70206C65667420636F726E6572206F662074686520746162206261722E
+		Event DidContextualClickLeftMenuButton(x As Integer, y As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B656420286C65667420636C69636B656429206F76657220746865206C656674206D656E7520627574746F6E206174207468652070617373656420636F6F7264696E617465732E2054686520636F6F7264696E6174657320617265206C6F63616C20746F2074686520746F70206C65667420636F726E6572206F662074686520746162206261722E
+		Event DidContextualClickRightMenuButton(x As Integer, y As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B656429206F766572206120746162206174207468652070617373656420636F6F7264696E617465732E2054686520636F6F7264696E6174657320617265206C6F63616C20746F2074686520746F70206C65667420636F726E6572206F662074686520746162206261722E
+		Event DidContextualClickTab(tab As XUITabBarItem, x As Integer, y As Integer)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 5468652075736572206A7573742066696E6973686564206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
@@ -637,12 +550,12 @@ Inherits DesktopCanvas
 		Event MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer)
 	#tag EndHook
 
-	#tag Hook, Flags = &h0, Description = 54686520636F6E74726F6C20686173206A7573742072657061696E7465642E
-		Event Paint(g As Graphics)
+	#tag Hook, Flags = &h0, Description = 546865207573657220686173206A757374206A757374207072657373656420746865206C656674206D656E7520627574746F6E2E
+		Event PressedLeftMenuButton()
 	#tag EndHook
 
-	#tag Hook, Flags = &h0, Description = 546865207573657220686173206A757374206A757374207072657373656420746865206D656E7520627574746F6E2E
-		Event PressedMenuButton()
+	#tag Hook, Flags = &h0, Description = 546865207573657220686173206A757374206A757374207072657373656420746865207269676874206D656E7520627574746F6E2E
+		Event PressedRightMenuButton()
 	#tag EndHook
 
 
@@ -650,160 +563,108 @@ Inherits DesktopCanvas
 		AllowDragReordering As Boolean = True
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h21, Description = 54686520776964746820617661696C61626C6520746F2072656E64657220746162732C20666163746F72696E6720696E207468652070726573656E6365206F7220616273656E6365206F6620746865206F7074696F6E616C206D656E7520627574746F6E2E
+	#tag ComputedProperty, Flags = &h0, Description = 54686520776964746820617661696C61626C6520746F2072656E64657220746162732C20666163746F72696E6720696E207468652070726573656E6365206F7220616273656E6365206F6620746865206F7074696F6E616C206D656E7520627574746F6E732E
 		#tag Getter
 			Get
-			  Return Self.Width - If(HasMenuButton, MenuButtonWidth, 0)
+			  Var menuButtonSpace As Integer
+			  If HasLeftMenuButton And Renderer.SupportsLeftMenuButton Then
+			    menuButtonSpace = menuButtonSpace + Renderer.LeftMenuButtonWidth
+			  End If
+			  If HasRightMenuButton And Renderer.SupportsRightMenuButton Then
+			    menuButtonSpace = menuButtonSpace + Renderer.RightMenuButtonWidth
+			  End If
 			  
+			  Return Self.Width - menuButtonSpace
 			End Get
 		#tag EndGetter
-		Private AvailableTabSpace As Double
+		AvailableTabSpace As Double
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F66206974656D7320696E2074686520746162206261722E
+	#tag ComputedProperty, Flags = &h0, Description = 546865206F66667365742066726F6D20746865206C6566742065646765206F66207468652074616220746861742773206265696E6720647261676765642E
 		#tag Getter
 			Get
-			  Return mTabs.Count
+			  Return mDraggingTabLeftEdgeXOffset
 			End Get
 		#tag EndGetter
-		Count As Integer
+		DraggingTabLeftEdgeXOffset As Integer
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h0, Description = 54727565206966207468652066697273742074616220697320666978656420696E20706C61636520616E642063616E6E6F7420626520647261672D72656F7264657265642E
-		HasAnchoredFirstTab As Boolean
-	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 547275652069662074686520746162206261722073686F756C6420647261772061206C65667420626F72646572206F6E20746865206C6566742D6D6F7374207461622E
 		HasLeftBorder As Boolean = False
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E2061206D656E7520627574746F6E2077696C6C20626520647261776E20746F20746865207269676874206F662074686520746162206261722E
+	#tag ComputedProperty, Flags = &h0, Description = 4966205472756520616E6420746865202872656E6465726572207375706F72747320697429207468656E2061206D656E7520627574746F6E2077696C6C20626520647261776E20746F20746865206C656674206F662074686520746162206261722E
 		#tag Getter
 			Get
-			  Return mHasMenuButton
+			  Return mHasLeftMenuButton
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mHasMenuButton = value
-			  Redraw
+			  mHasLeftMenuButton = value
+			  Refresh
 			End Set
 		#tag EndSetter
-		HasMenuButton As Boolean
+		HasLeftMenuButton As Boolean
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 547275652069662074686520746162206261722073686F756C642064726177206120726967687420626F72646572206F6E207468652072696768742D6D6F7374207461622E
 		HasRightBorder As Boolean = False
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746865206D6F75736520697320686F766572696E67206F7665722061207461622E
+	#tag ComputedProperty, Flags = &h0, Description = 4966205472756520616E6420746865202872656E6465726572207375706F72747320697429207468656E2061206D656E7520627574746F6E2077696C6C20626520647261776E20746F20746865207269676874206F662074686520746162206261722E
 		#tag Getter
 			Get
-			  Return mMouseOverIndex <> -1
+			  Return mHasRightMenuButton
 			End Get
 		#tag EndGetter
-		IsHoveringOverTab As Boolean
+		#tag Setter
+			Set
+			  mHasRightMenuButton = value
+			  Refresh
+			End Set
+		#tag EndSetter
+		HasRightMenuButton As Boolean
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21, Description = 41207069637475726520636F6E7461696E696E67207468652066756C6C20776964746820746162206261722E
-		Private mBuffer As Picture
+	#tag ComputedProperty, Flags = &h0, Description = 547275652069662061207461622069732063757272656E746C79206265696E6720647261676765642E
+		#tag Getter
+			Get
+			  Return mIsDraggingTab
+			End Get
+		#tag EndGetter
+		IsDraggingTab As Boolean
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0, Description = 54686520626F756E6473206F6620746865206C656674206D656E7520627574746F6E2028696620656E61626C6564292E20536574206279207468652072656E64657265722E204D6179206265204E696C2E
+		LeftMenuButtonBounds As Rect
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F7573652069732063757272656E746C79206472616767696E672E
-		Private mDragging As Boolean = False
+	#tag Property, Flags = &h21, Description = 546865206F66667365742066726F6D20746865206C6566742065646765206F66207468652074616220746861742773206265696E6720647261676765642E
+		Private mDraggingTabLeftEdgeXOffset As Integer = 0
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5768656E206472616767696E672061207461622C20746869732069732074686520696E646578206265696E67206472616767656420746F2E
 		Private mDragIndex As Integer = -1
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 5468652060786020636F6F7264696E61746520696E20746865206C61737420604D6F7573654472616760206576656E742E
-		Private mDragX As Integer = 0
+	#tag Property, Flags = &h21, Description = 4966205472756520616E6420746865202872656E6465726572207375706F72747320697429207468656E2061206D656E7520627574746F6E2077696C6C20626520647261776E20746F20746865206C656674206F662074686520746162206261722E
+		Private mHasLeftMenuButton As Boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865206E756D626572206F6620706978656C732066726F6D20746865206C6566742065646765206F66207468652063757272656E746C7920647261676765642074616220746865206D6F75736520637572736F7220776173207768656E206472616767696E6720626567616E2E
-		Private mDragXLeftEdgeOffset As Integer = 0
+	#tag Property, Flags = &h21, Description = 4966205472756520616E6420746865202872656E6465726572207375706F72747320697429207468656E2061206D656E7520627574746F6E2077696C6C20626520647261776E20746F20746865207269676874206F662074686520746162206261722E
+		Private mHasRightMenuButton As Boolean
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865206F7074696F6E616C2069636F6E20666F7220746865206D656E7520627574746F6E207768656E20686F7665726564206F7665722E
-		#tag Getter
-			Get
-			  Return mMenuButtonHoverIcon
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  mMenuButtonHoverIcon = value
-			  Redraw
-			End Set
-		#tag EndSetter
-		MenuButtonHoverIcon As Picture
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0, Description = 546865206F7074696F6E616C2069636F6E20666F7220746865206D656E7520627574746F6E2E
-		#tag Getter
-			Get
-			  Return mMenuButtonIcon
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  mMenuButtonIcon = value
-			  Redraw
-			End Set
-		#tag EndSetter
-		MenuButtonIcon As Picture
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0, Description = 546865207769647468206F6620746865206F7074696F6E616C206D656E7520627574746F6E2E
-		#tag Getter
-			Get
-			  Return mMenuButtonWidth
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  mMenuButtonWidth = value
-			  
-			  Redraw
-			End Set
-		#tag EndSetter
-		MenuButtonWidth As Integer
-	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21, Description = 49662054727565207468656E2061206D656E7520627574746F6E2077696C6C20626520647261776E20746F20746865207269676874206F662074686520746162206261722E
-		Private mHasMenuButton As Boolean = False
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 546865206D696E756D756D2077696474682061207461622077696C6C2062652E
-		MinimumTabWidth As Double = 250
+	#tag Property, Flags = &h21, Description = 547275652069662061207461622069732063757272656E746C79206265696E6720647261676765642E
+		Private mIsDraggingTab As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F75736520636C69636B2074686174206A757374206F6363757272656420696E2074686520604D6F757365446F776E60206576656E7420776173206120636F6E7465787475616C20636C69636B2E
 		Private mLastClickWasContextual As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865205820636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
-		Private mLastMouseDownX As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
-		Private mLastMouseDownY As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 546865206F7074696F6E616C2069636F6E20666F7220746865206D656E7520627574746F6E207768656E20686F7665726564206F7665722E
-		Private mMenuButtonHoverIcon As Picture
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 546865206F7074696F6E616C2069636F6E20666F7220746865206D656E7520627574746F6E2E
-		Private mMenuButtonIcon As Picture
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 546865207769647468206F6620746865206F7074696F6E616C206D656E7520627574746F6E2E
-		Private mMenuButtonWidth As Integer = 32
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 54686520696E646578206F66207468652074616220756E64657220746865206D6F75736520647572696E6720746865206C617374204D6F757365446F776E206576656E742E
+	#tag Property, Flags = &h21, Description = 54686520696E646578206F66207468652074616220756E64657220746865206D6F75736520647572696E6720746865206C61737420604D6F757365446F776E60206576656E742E20602D3160206966207468657265207761736E2774206F6E652E
 		Private mMouseDownIndex As Integer = -1
 	#tag EndProperty
 
@@ -811,11 +672,27 @@ Inherits DesktopCanvas
 		Private mMouseDownTicks As Double
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865205820636F6F7264696E61746520647572696E6720746865206C61737420604D6F7573654D6F7665282960206576656E742E
+	#tag Property, Flags = &h21, Description = 5468652060586020636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
+		Private mMouseDownX As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652060596020636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
+		Private mMouseDownY As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652060586020636F6F7264696E61746520696E20746865206C61737420604D6F7573654472616760206576656E742E
+		Private mMouseDragX As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652060596020636F6F7264696E61746520696E20746865206C61737420604D6F7573654472616760206576656E742E
+		Private mMouseDragY As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520582076616C756520647572696E6720746865206C61737420604D6F7573654D6F766560206576656E742E2053657420746F202D3120696620746865206D6F757365206C65617665732074686520746162206261722E
 		Private mMouseMoveX As Integer = -1
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E61746520647572696E6720746865206C61737420604D6F7573654D6F7665282960206576656E742E
+	#tag Property, Flags = &h21, Description = 54686520592076616C756520647572696E6720746865206C61737420604D6F7573654D6F766560206576656E742E2053657420746F202D3120696620746865206D6F757365206C65617665732074686520746162206261722E
 		Private mMouseMoveY As Integer = -1
 	#tag EndProperty
 
@@ -823,16 +700,64 @@ Inherits DesktopCanvas
 		Private mMouseOverIndex As Integer = -1
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 43616368656420636F6D7075746174696F6E206F6660204F7665724D656E75427574746F6E6020636F6D707574656420696E20604D6F7573654D6F76652829602E
-		Private mMouseOverMenuButton As Boolean = False
+	#tag Property, Flags = &h21, Description = 43616368656420636F6D7075746174696F6E206F6660204F7665724C6566744D656E75427574746F6E6020636F6D707574656420696E20604D6F7573654D6F76652829602E
+		Private mMouseOverLeftMenuButton As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 547275652069662074686520746162206E6565647320726564726177696E672E
-		Private mNeedsRedrawing As Boolean = True
+	#tag Property, Flags = &h21, Description = 43616368656420636F6D7075746174696F6E206F6660204F76657252696768744D656E75427574746F6E6020636F6D707574656420696E20604D6F7573654D6F76652829602E
+		Private mMouseOverRightMenuButton As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 54686520776964746820746865206275666665722073686F756C642062652E2053657420696E2060436F6D707574654275666665725769647468416E64576964657374546162602E
-		Private mRequiredBufferWidth As Integer = 0
+	#tag Property, Flags = &h21, Description = 54727565206966207468652074616220626172206E6565647320612066756C6C2072656472617720647572696E6720697473206E65787420605061696E74282960206576656E742E
+		Private mNeedsFullRedraw As Boolean = True
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 5468652060586020636F6F7264696E61746520696E20746865206C61737420604D6F7573654472616760206576656E742E2052656164206F6E6C792E
+		#tag Getter
+			Get
+			  Return mMouseDragX
+			End Get
+		#tag EndGetter
+		MouseDragX As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 5468652060596020636F6F7264696E61746520696E20746865206C61737420604D6F7573654472616760206576656E742E2052656164206F6E6C792E
+		#tag Getter
+			Get
+			  Return mMouseDragY
+			End Get
+		#tag EndGetter
+		MouseDragY As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686520582076616C756520647572696E6720746865206C61737420604D6F7573654D6F766560206576656E742E2053657420746F202D3120696620746865206D6F757365206C65617665732074686520746162206261722E
+		#tag Getter
+			Get
+			  Return mMouseMoveX
+			End Get
+		#tag EndGetter
+		MouseMoveX As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686520592076616C756520647572696E6720746865206C61737420604D6F7573654D6F766560206576656E742E2053657420746F202D3120696620746865206D6F757365206C65617665732074686520746162206261722E
+		#tag Getter
+			Get
+			  Return mMouseMoveY
+			End Get
+		#tag EndGetter
+		MouseMoveY As Integer
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21, Description = 546865207769647468206F662074686520636F6E74726F6C20647572696E6720746865206C61737420605061696E7460206576656E742E
+		Private mPaintWidth As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652072656E646572657220746F2075736520666F722074686520746162206261722E
+		Private mRenderer As XUITabBarRenderer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 4361636865642076616C7565206F662060672E5363616C6558602066726F6D20746865206C61737420605061696E7460206576656E742E
+		Private mScaleX As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E204261636B732074686520605363726F6C6C506F73586020636F6D70757465642070726F70657274792E
@@ -843,7 +768,7 @@ Inherits DesktopCanvas
 		Private mSelectedTabIndex As Integer = 0
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865207374796C65732075736564206279207468697320746162206261722E
+	#tag Property, Flags = &h21, Description = 54686520636F6C6F7572207374796C6520746F2075736520666F722074686520746162206261722E
 		Private mStyle As XUITabBarStyle
 	#tag EndProperty
 
@@ -851,8 +776,26 @@ Inherits DesktopCanvas
 		Private mTabs() As XUITabBarItem
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865207769647468206F662074686520776964657374207461622E2053657420696E2060436F6D707574654275666665725769647468416E64576964657374546162602E
-		Private mWidestTab As Double
+	#tag ComputedProperty, Flags = &h0, Description = 5468652072656E646572657220746F2075736520666F722074686520746162206261722E
+		#tag Getter
+			Get
+			  Return mRenderer
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mRenderer = value
+			  
+			  If value = Nil Then Return
+			  
+			  
+			End Set
+		#tag EndSetter
+		Renderer As XUITabBarRenderer
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0, Description = 54686520626F756E6473206F6620746865207269676874206D656E7520627574746F6E2028696620656E61626C6564292E20536574206279207468652072656E64657265722E204D6179206265204E696C2E
+		RightMenuButtonBounds As Rect
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E
@@ -866,49 +809,66 @@ Inherits DesktopCanvas
 			Set
 			  /// Update how much the tab bar is horizontally scrolled.
 			  
+			  If Renderer = Nil Then Return
+			  
 			  // Compute the maximum allowed X scroll position.
-			  Var maxScrollPosX As Integer = Max(mRequiredBufferWidth - Self.Width, 0)
+			  Var maxScrollPosX As Integer = Max((Renderer.BufferWidth / mScaleX) - Self.Width, 0)
 			  
 			  // Set the value of ScrollPosX, not exceeding the maximum value.
 			  mScrollPosX = XUIMaths.Clamp(value, 0, maxScrollPosX)
 			  
-			  Redraw
+			  Refresh
 			End Set
 		#tag EndSetter
 		Private ScrollPosX As Integer
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 54686520302D626173656420696E646578206F66207468652063757272656E746C792073656C6563746564207461622E20602D3160206966206E6F7468696E672069732073656C65637465642E
+	#tag ComputedProperty, Flags = &h0, Description = 5468652063757272656E746C792073656C6563746564207461622E204D6179206265204E696C2E
+		#tag Getter
+			Get
+			  If mSelectedTabIndex < 0 Or mSelectedTabIndex > mTabs.LastIndex Then
+			    Return Nil
+			  Else
+			    Return mTabs(mSelectedTabIndex)
+			  End If
+			End Get
+		#tag EndGetter
+		SelectedTab As XUITabBarItem
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686520696E646578206F66207468652063757272656E746C792073656C6563746564207461622E2052656164206F6E6C792E20557365206053656C6563745461624174496E6465786020746F2073656C6563742061207461622E
 		#tag Getter
 			Get
 			  Return mSelectedTabIndex
 			End Get
 		#tag EndGetter
-		#tag Setter
-			Set
-			  If value > mTabs.LastIndex Then Return
-			  
-			  mSelectedTabIndex = value
-			  
-			  Redraw
-			End Set
-		#tag EndSetter
 		SelectedTabIndex As Integer
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865207374796C65732075736564206279207468697320746162206261722E
+	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6C6F7572207374796C6520746F2075736520666F722074686520746162206261722E
 		#tag Getter
 			Get
+			  If mStyle = Nil Then mStyle = New XUITabBarStyle
+			  
 			  Return mStyle
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
 			  mStyle = value
-			  Redraw
+			  If Self.Renderer <> Nil Then Refresh
 			End Set
 		#tag EndSetter
 		Style As XUITabBarStyle
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F66207461627320696E2074686520746162206261722E
+		#tag Getter
+			Get
+			  Return mTabs.Count
+			End Get
+		#tag EndGetter
+		TabCount As Integer
 	#tag EndComputedProperty
 
 
@@ -967,7 +927,7 @@ Inherits DesktopCanvas
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="200"
+			InitialValue="100"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -975,7 +935,7 @@ Inherits DesktopCanvas
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="28"
+			InitialValue="100"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -1020,6 +980,14 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="TabPanelIndex"
+			Visible=false
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="TabStop"
 			Visible=true
 			Group="Position"
@@ -1033,6 +1001,14 @@ Inherits DesktopCanvas
 			Group="Appearance"
 			InitialValue="True"
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Backdrop"
+			Visible=true
+			Group="Appearance"
+			InitialValue=""
+			Type="Picture"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -1055,7 +1031,7 @@ Inherits DesktopCanvas
 			Name="AllowFocusRing"
 			Visible=true
 			Group="Appearance"
-			InitialValue="False"
+			InitialValue="True"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -1076,59 +1052,19 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="AllowTabs"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Transparent"
 			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AllowDragReordering"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasAnchoredFirstTab"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="MinimumTabWidth"
-			Visible=true
-			Group="Behavior"
-			InitialValue="250"
-			Type="Double"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasLeftBorder"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasRightBorder"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Count"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -1140,7 +1076,7 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="IsHoveringOverTab"
+			Name="HasLeftMenuButton"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
@@ -1148,23 +1084,71 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HasMenuButton"
-			Visible=true
+			Name="HasRightMenuButton"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowDragReordering"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AvailableTabSpace"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasLeftBorder"
+			Visible=false
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="MenuButtonWidth"
-			Visible=true
+			Name="HasRightBorder"
+			Visible=false
 			Group="Behavior"
-			InitialValue="28"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MouseMoveX"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AllowTabs"
+			Name="MouseMoveY"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabCount"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsDraggingTab"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
@@ -1172,35 +1156,27 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Backdrop"
+			Name="MouseDragX"
 			Visible=false
-			Group="Appearance"
+			Group="Behavior"
 			InitialValue=""
-			Type="Picture"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TabPanelIndex"
-			Visible=false
-			Group="Position"
-			InitialValue="0"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="MenuButtonIcon"
+			Name="MouseDragY"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Picture"
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="MenuButtonHoverIcon"
+			Name="DraggingTabLeftEdgeXOffset"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Picture"
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

@@ -7,7 +7,7 @@ Protected Interface XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(owner As XUITabBar2)
+		Sub Constructor(owner As XUITabBar)
 		  
 		End Sub
 	#tag EndMethod
@@ -19,7 +19,7 @@ Protected Interface XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 546865207461622062617220746869732072656E6465726572206F70657261746573206F6E2E
-		Function Owner() As XUITabBar2
+		Function Owner() As XUITabBar
 		  
 		End Function
 	#tag EndMethod

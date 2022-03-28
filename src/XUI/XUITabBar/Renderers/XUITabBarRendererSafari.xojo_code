@@ -14,7 +14,7 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(owner As XUITabBar2)
+		Sub Constructor(owner As XUITabBar)
 		  /// Part of the XUITabBarRenderer interface.
 		  
 		  If owner = Nil Then
@@ -27,7 +27,7 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44726177732074686520636C6F73652069636F6E20666F72206074616260206174206078602E20416C736F2073657473207468652074616227732060436C6F736549636F6E426F756E6473602E
-		Private Sub DrawTabCloseIcon(tab As XUITabBar2Item, x As Integer, g As Graphics, style As XUITabBar2Style)
+		Private Sub DrawTabCloseIcon(tab As XUITabBarItem, x As Integer, g As Graphics, style As XUITabBarStyle)
 		  /// Draws the close icon for `tab` at `x`. Also sets the tab's `CloseIconBounds`.
 		  
 		  // Compute the mid height.
@@ -62,7 +62,7 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 546865207461622062617220746869732072656E6465726572206F70657261746573206F6E2E
-		Function Owner() As XUITabBar2
+		Function Owner() As XUITabBar
 		  /// The tab bar this renderer operates on.
 		  ///
 		  /// Part of the XUITabBarRenderer interface.
@@ -70,7 +70,7 @@ Implements XUITabBarRenderer
 		  If mOwner = Nil Or mOwner.Value = Nil Then
 		    Return Nil
 		  Else
-		    Return XUITabBar2(mOwner.Value)
+		    Return XUITabBar(mOwner.Value)
 		  End If
 		End Function
 	#tag EndMethod
@@ -101,7 +101,7 @@ Implements XUITabBarRenderer
 		  End If
 		  
 		  // We need the owner's current style.
-		  Var style As XUITabBar2Style = Owner.Style
+		  Var style As XUITabBarStyle = Owner.Style
 		  If style = Nil Then
 		    Raise New NilObjectException("Cannot render as the tab bar's style object is Nil.")
 		  End If
@@ -109,7 +109,7 @@ Implements XUITabBarRenderer
 		  // Create a buffer of the required size. We need to sum the widths of the individual tabs.
 		  // We'll also track the widest tab (since all tabs drawn by this renderer are the same width).
 		  Var w, widestTab, tabW As Double = 0 
-		  For Each tab As XUITabBar2Item In Owner.Tabs
+		  For Each tab As XUITabBarItem In Owner.Tabs
 		    tabW = TabWidth(tab, ownerGraphics, style)
 		    widestTab = If(tabW > widestTab, tabW, widestTab)
 		    w = w + tabW
@@ -132,9 +132,9 @@ Implements XUITabBarRenderer
 		  
 		  // Draw all tabs *except* the selected tab.
 		  Var x, selectedTabX As Double = 0
-		  Var tabs() As XUITabBar2Item = Owner.Tabs
+		  Var tabs() As XUITabBarItem = Owner.Tabs
 		  For i As Integer = 0 To tabs.LastIndex
-		    Var tab As XUITabBar2Item = tabs(i)
+		    Var tab As XUITabBarItem = tabs(i)
 		    If i <> Owner.SelectedTabIndex Then
 		      RenderTab(tab, g, x, style, widestTab)
 		      x = tab.Bounds.Right
@@ -174,7 +174,7 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52656E646572732060746162602077697468206077696474686020746F206067602C20706C6163696E6720697473206C65667420656467652061742060786020616E6420736574732069747320626F756E64732E
-		Private Sub RenderTab(tab As XUITabBar2Item, g As Graphics, x As Double, style As XUITabBar2Style, width As Double)
+		Private Sub RenderTab(tab As XUITabBarItem, g As Graphics, x As Double, style As XUITabBarStyle, width As Double)
 		  /// Renders `tab` with `width` to `g`, placing its left edge at `x` and sets its bounds.
 		  
 		  Var leftEdge As Double = x
@@ -274,7 +274,7 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 5365747320746865206261636B67726F756E642064726177696E6720636F6C6F7572206F662060676020746F2074686F736520726571756972656420666F722074686973207461622E
-		Private Sub SetGraphicsBackgroundColor(tab As XUITabBar2Item, g As Graphics, isSelected As Boolean, hoveredOver As Boolean, style As XUITabBar2Style)
+		Private Sub SetGraphicsBackgroundColor(tab As XUITabBarItem, g As Graphics, isSelected As Boolean, hoveredOver As Boolean, style As XUITabBarStyle)
 		  /// Sets the background drawing colour of `g` to those required for `tab`.
 		  
 		  If isSelected Then
@@ -294,10 +294,10 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 536574732074686520666F6E742070726F70657274696573206F662060676020746F2074686F736520726571756972656420666F722060746162602E
-		Private Sub SetGraphicsFontProperties(tab As XUITabBar2Item, g As Graphics, isSelected As Boolean, hoveredOver As Boolean)
+		Private Sub SetGraphicsFontProperties(tab As XUITabBarItem, g As Graphics, isSelected As Boolean, hoveredOver As Boolean)
 		  /// Sets the font properties of `g` to those required for `tab`.
 		  
-		  Var style As XUITabBar2Style = Owner.Style
+		  Var style As XUITabBarStyle = Owner.Style
 		  
 		  g.FontName = style.FontName
 		  g.FontSize = style.FontSize
@@ -351,7 +351,7 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52657475726E7320746865207769647468206F66206074616260206966206974207765726520647261776E20746F206067602E
-		Private Function TabWidth(tab As XUITabBar2Item, g As Graphics, style As XUITabBar2Style) As Double
+		Private Function TabWidth(tab As XUITabBarItem, g As Graphics, style As XUITabBarStyle) As Double
 		  /// Returns the width of `tab` if it were drawn to `g`.
 		  
 		  // Factor in the horizontal padding.

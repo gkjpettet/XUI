@@ -5,9 +5,6 @@ Protected Class XUITabBarStyle
 		  // Ensure that all color groups are initialised to avoid Nil object exceptions.
 		  // For conspicuousness we;ll set the colours to black and red.
 		  
-		  Me.ActiveTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
-		  Me.ActiveTabBorderColor = New ColorGroup(Color.Black, Color.Red)
-		  Me.ActiveTabTextColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.BackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.DisabledTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.DisabledTabTextColor = New ColorGroup(Color.Black, Color.Red)
@@ -21,6 +18,10 @@ Protected Class XUITabBarStyle
 		  Me.MenuButtonColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.MenuButtonHoverBackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.MenuButtonHoverColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.SelectedTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.SelectedTabBottomBorderColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.SelectedTabTextColor = New ColorGroup(Color.Black, Color.Red)
+		  Me.SelectedTabTopBorderColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.TabBorderColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.TabCloseColor = New ColorGroup(Color.Black, Color.Red)
 		End Sub
@@ -34,13 +35,6 @@ Protected Class XUITabBarStyle
 		  
 		  style.Name = "Safari"
 		  
-		  style.ActiveTabHasBottomBorder = True
-		  style.ActiveTabHasTopBorder = False
-		  style.ActiveTabHasThickTopBorder = False
-		  
-		  style.ActiveTabBackgroundColor = New ColorGroup(Color.White, &c1D1D1D)
-		  style.ActiveTabBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
-		  style.ActiveTabTextColor = New ColorGroup(&c606060, Color.White)
 		  style.BackgroundColor = New ColorGroup(&cEFEFEF, &c111111)
 		  style.DisabledTabBackgroundColor = New ColorGroup(&cEFEFEF, &c111111)
 		  style.DisabledTabTextColor = New ColorGroup(&c606060, &c7F7F7F)
@@ -54,6 +48,10 @@ Protected Class XUITabBarStyle
 		  style.MenuButtonColor = New ColorGroup(&c606060, &c7F7F7F)
 		  style.MenuButtonHoverBackgroundColor = New ColorGroup(Color.White, &c1D1D1D)
 		  style.MenuButtonHoverColor = New ColorGroup(&c2E2E2E, Color.White)
+		  style.SelectedTabBackgroundColor = New ColorGroup(Color.White, &c1D1D1D)
+		  style.SelectedTabBottomBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
+		  style.SelectedTabTextColor = New ColorGroup(&c606060, Color.White)
+		  style.SelectedTabTopBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
 		  style.TabBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
 		  style.TabCloseColor = New ColorGroup(&c626262, &c868686)
 		  
@@ -63,42 +61,6 @@ Protected Class XUITabBarStyle
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h0
-		ActiveTabBackgroundColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ActiveTabBorderColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ActiveTabHasBottomBorder As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 49662054727565207468656E2069662074686520616374697665207461622073686F756C642064726177206120626F74746F6D20626F72646572207468656E2069742077696C6C20626520746869636B6572207468616E2074686520626F74746F6D20626F72646572206F6E20696E61637469766520616E642064697361626C656420746162732E
-		ActiveTabHasThickBottomBorder As Boolean = False
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 49662054727565207468656E2069662074686520616374697665207461622073686F756C642064726177206120746F7020626F72646572207468656E2069742077696C6C20626520746869636B6572207468616E2074686520746F7020626F72646572206F6E20696E61637469766520616E642064697361626C656420746162732E
-		ActiveTabHasThickTopBorder As Boolean = False
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ActiveTabHasTopBorder As Boolean = True
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520616374697665207461622073686F756C6420626520626F6C642E
-		ActiveTabTextBold As Boolean = False
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ActiveTabTextColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520616374697665207461622073686F756C64206265206974616C69632E
-		ActiveTabTextItalic As Boolean = False
-	#tag EndProperty
-
 	#tag Property, Flags = &h0, Description = 54686520746162206261722773206261636B67726F756E6420636F6C6F75722E2049742069732076697369626C65207768656E20746162732061726520647261676765642061726F756E642E
 		BackgroundColor As ColorGroup
 	#tag EndProperty
@@ -107,16 +69,8 @@ Protected Class XUITabBarStyle
 		DisabledTabBackgroundColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F66207468652064697361626C6564207461622073686F756C6420626520626F6C642E
-		DisabledTabTextBold As Boolean = False
-	#tag EndProperty
-
 	#tag Property, Flags = &h0
 		DisabledTabTextColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F66207468652064697361626C6564207461622073686F756C64206265206974616C69632E
-		DisabledTabTextItalic As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -127,10 +81,6 @@ Protected Class XUITabBarStyle
 		FontSize As Integer = 12
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620706978656C7320746F20706164207468652074616220636F6E74656E7473202863617074696F6E2C2069636F6E2C20636C6F73652069636F6E2920686F72697A6F6E74616C6C7920746F20746865206C65667420616E642072696768742E
-		HorizontallPadding As Integer = 10
-	#tag EndProperty
-
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865206261636B67726F756E64206F662074686520746162206265696E6720686F7665726564206F7665722E
 		HoverTabBackgroundColor As ColorGroup
 	#tag EndProperty
@@ -139,32 +89,16 @@ Protected Class XUITabBarStyle
 		HoverTabCloseColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520746162206265696E6720686F7665726564206F7665722073686F756C6420626520626F6C642E
-		HoverTabTextBold As Boolean = False
-	#tag EndProperty
-
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865207465787420696E2074686520746162206265696E6720686F7665726564206F7665722E
 		HoverTabTextColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520746162206265696E6720686F7665726564206F7665722073686F756C64206265206974616C69632E
-		HoverTabTextItalic As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F6620696E61637469766520746162732E
 		InactiveTabBackgroundColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520696E616374697665207461622073686F756C6420626520626F6C642E
-		InactiveTabTextBold As Boolean = False
-	#tag EndProperty
-
 	#tag Property, Flags = &h0, Description = 546865207465787420636F6C6F757220666F7220696E61637469766520746162732E
 		InactiveTabTextColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 54727565206966207468652074657874206F662074686520696E616374697665207461622073686F756C64206265206974616C69632E
-		InactiveTabTextItalic As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F6620746865206F7074696F6E616C2074616220626172206D656E7520627574746F6E2E
@@ -179,10 +113,6 @@ Protected Class XUITabBarStyle
 		MenuButtonColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 57686574686572206F72206E6F7420746865206F7074696F6E616C206D656E7520627574746F6E20686173206120626F726465722E
-		MenuButtonHasBorder As Boolean = True
-	#tag EndProperty
-
 	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F6620746865206F7074696F6E616C2074616220626172206D656E7520627574746F6E207768656E20686F7665726564206F7665722E
 		MenuButtonHoverBackgroundColor As ColorGroup
 	#tag EndProperty
@@ -193,6 +123,22 @@ Protected Class XUITabBarStyle
 
 	#tag Property, Flags = &h0, Description = 416E206F7074696F6E616C206E616D6520666F722074686973207374796C652E
 		Name As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SelectedTabBackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SelectedTabBottomBorderColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SelectedTabTextColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SelectedTabTopBorderColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -250,7 +196,7 @@ Protected Class XUITabBarStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ActiveTabBackgroundColor"
+			Name="SelectedTabBackgroundColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
@@ -258,7 +204,7 @@ Protected Class XUITabBarStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ActiveTabTextColor"
+			Name="SelectedTabTextColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
@@ -306,27 +252,11 @@ Protected Class XUITabBarStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ActiveTabBorderColor"
+			Name="SelectedTabBottomBorderColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="ColorGroup"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ActiveTabHasBottomBorder"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ActiveTabHasTopBorder"
-			Visible=false
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -346,78 +276,6 @@ Protected Class XUITabBarStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ActiveTabTextBold"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="InactiveTabTextBold"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DisabledTabTextBold"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ActiveTabTextItalic"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="InactiveTabTextItalic"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DisabledTabTextItalic"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HorizontallPadding"
-			Visible=false
-			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ActiveTabHasThickTopBorder"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ActiveTabHasThickBottomBorder"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="HoverTabBackgroundColor"
 			Visible=false
 			Group="Behavior"
@@ -426,27 +284,11 @@ Protected Class XUITabBarStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HoverTabTextBold"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="HoverTabTextColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="ColorGroup"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HoverTabTextItalic"
-			Visible=false
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -490,14 +332,6 @@ Protected Class XUITabBarStyle
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="MenuButtonHasBorder"
-			Visible=false
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="MenuButtonHoverBackgroundColor"
 			Visible=false
 			Group="Behavior"
@@ -510,6 +344,22 @@ Protected Class XUITabBarStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SelectedTabTopBorderColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
 			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty

@@ -15,7 +15,7 @@ Begin DesktopWindow WinTabBar
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   0
+   MenuBar         =   583317503
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -30,30 +30,28 @@ Begin DesktopWindow WinTabBar
       AllowFocus      =   False
       AllowFocusRing  =   True
       AllowTabs       =   False
-      AvailableTabSpace=   0.0
       Backdrop        =   0
-      DraggingTabLeftEdgeXOffset=   0
+      Count           =   0
       Enabled         =   True
+      HasAnchoredFirstTab=   False
       HasLeftBorder   =   False
-      HasLeftMenuButton=   False
+      HasMenuButton   =   True
       HasRightBorder  =   False
-      HasRightMenuButton=   False
       Height          =   28
       Index           =   -2147483648
-      IsDraggingTab   =   False
+      IsHoveringOverTab=   False
       Left            =   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      MouseDragX      =   0
-      MouseDragY      =   0
-      MouseMoveX      =   0
-      MouseMoveY      =   0
+      MenuButtonHoverIcon=   0
+      MenuButtonIcon  =   0
+      MenuButtonWidth =   28
+      MinimumTabWidth =   200.0
       Scope           =   0
       SelectedTabIndex=   0
-      TabCount        =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -86,7 +84,7 @@ Begin DesktopWindow WinTabBar
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   316
+      Height          =   283
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -95,7 +93,7 @@ Begin DesktopWindow WinTabBar
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       RequiresSelection=   False
       RowSelectionType=   0
       Scope           =   0
@@ -103,7 +101,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   300
+      Top             =   333
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -124,11 +122,11 @@ Begin DesktopWindow WinTabBar
       InitialValue    =   ""
       Italic          =   False
       Left            =   132
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   2
       SelectedRowIndex=   0
       TabIndex        =   3
@@ -152,11 +150,11 @@ Begin DesktopWindow WinTabBar
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
@@ -173,180 +171,33 @@ Begin DesktopWindow WinTabBar
       Visible         =   True
       Width           =   100
    End
-   Begin DesktopGroupBox GroupBoxAddTag
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Caption         =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   206
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   2
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   72
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   434
-      Begin DesktopLabel LabelTagCaption
-         AllowAutoDeactivate=   True
-         Bold            =   False
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Height          =   20
-         Index           =   -2147483648
-         InitialParent   =   "GroupBoxAddTag"
-         Italic          =   False
-         Left            =   20
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Multiline       =   False
-         Scope           =   2
-         Selectable      =   False
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "Caption:"
-         TextAlignment   =   3
-         TextColor       =   &c000000
-         Tooltip         =   ""
-         Top             =   87
-         Transparent     =   False
-         Underline       =   False
-         Visible         =   True
-         Width           =   67
-      End
-      Begin DesktopTextField TagCaption
-         AllowAutoDeactivate=   True
-         AllowFocusRing  =   True
-         AllowSpellChecking=   False
-         AllowTabs       =   False
-         BackgroundColor =   &cFFFFFF
-         Bold            =   False
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Format          =   ""
-         HasBorder       =   True
-         Height          =   22
-         Hint            =   "Tag Caption"
-         Index           =   -2147483648
-         InitialParent   =   "GroupBoxAddTag"
-         Italic          =   False
-         Left            =   99
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         MaximumCharactersAllowed=   0
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   2
-         TabIndex        =   1
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   ""
-         TextAlignment   =   0
-         TextColor       =   &c000000
-         Tooltip         =   ""
-         Top             =   85
-         Transparent     =   False
-         Underline       =   False
-         ValidationMask  =   ""
-         Visible         =   True
-         Width           =   178
-      End
-      Begin DesktopCheckBox CheckBoxTagClosable
-         AllowAutoDeactivate=   True
-         Bold            =   False
-         Caption         =   "Closable"
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Height          =   20
-         Index           =   -2147483648
-         InitialParent   =   "GroupBoxAddTag"
-         Italic          =   False
-         Left            =   40
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   2
-         TabIndex        =   2
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   119
-         Transparent     =   False
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         VisualState     =   1
-         Width           =   100
-      End
-      Begin DesktopCheckBox CheckBoxTagEnabled
-         AllowAutoDeactivate=   True
-         Bold            =   False
-         Caption         =   "Enabled"
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Height          =   20
-         Index           =   -2147483648
-         InitialParent   =   "GroupBoxAddTag"
-         Italic          =   False
-         Left            =   40
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   2
-         TabIndex        =   3
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   151
-         Transparent     =   False
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         VisualState     =   1
-         Width           =   100
-      End
-   End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
 	#tag Event
-		Sub Opening()
-		  ResetTabs
+		Sub MenuBarSelected()
+		  If TabBar.Count > 0 Then
+		    FileCloseTab.Enabled = True
+		  Else
+		    FileCloseTab.Enabled = False
+		  End If
+		  
 		End Sub
 	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileCloseTab() As Boolean Handles FileCloseTab.Action
+			// Close the currently selected tab.
+			If TabBar.SelectedTabIndex <> - 1 Then
+			TabBar.RemoveTabAt(TabBar.SelectedTabIndex)
+			End If
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 
 	#tag Method, Flags = &h21, Description = 4563686F7320606D6573736167656020746F20746865206D65737361676573206C697374626F782E
@@ -357,18 +208,39 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657365747320746865207461622062617220746162732E
-		Private Sub ResetTabs()
-		  /// Resets the tab bar tabs.
+	#tag Method, Flags = &h21, Description = 4372656174657320612074616220626172207374796C652074686174206D696D6963732050616E69632773204E6F7661277320746162206261722E
+		Private Function NovaStyle() As XUITabBarStyle
+		  /// Creates a tab bar style that mimics Panic's Nova's tab bar.
 		  
-		  TabBar.AppendTab("Apple", FavIconApple)
-		  TabBar.AppendTab("Stack Overflow", FavIconStackOverflow)
-		  TabBar.AppendTab("Xojo", FavIconXojo)
-		  TabBar.AppendTab("hckr news", FavIconHckrNews)
-		  TabBar.AppendTab("Daring Fireball", FavIconDaringFireball)
+		  Var style As New XUITabBarStyle
 		  
-		  TabBar.SelectTabAtIndex(1)
-		End Sub
+		  style.Name = "Nova"
+		  
+		  style.ActiveTabHasBottomBorder = False
+		  style.ActiveTabHasTopBorder = True
+		  style.ActiveTabHasThickTopBorder = True
+		  
+		  style.ActiveTabBackgroundColor = New ColorGroup(Color.White, &c1B1C1D)
+		  style.ActiveTabBorderColor = New ColorGroup(&c00BCD4, &c00AFCA)
+		  style.ActiveTabTextColor = New ColorGroup(&c2B2C2C, &cDCDDDD)
+		  style.BackgroundColor = New ColorGroup(&cECECEC, &c323232)
+		  style.DisabledTabBackgroundColor = New ColorGroup(Color.Gray, &c323232)
+		  style.DisabledTabTextColor = New ColorGroup(&cA9AEAE, &cDCDDDD)
+		  style.HoverTabBackgroundColor = New ColorGroup(&cECECEC, &c323232)
+		  style.HoverTabCloseColor = New ColorGroup(&c2B2C2C, &cA2A3A3)
+		  style.HoverTabTextColor = New ColorGroup(&c2B2C2C, &cDCDDDD)
+		  style.InactiveTabBackgroundColor = New ColorGroup(&cECECEC, &c323232)
+		  style.InactiveTabTextColor = New ColorGroup(&c2B2C2C, &cDCDDDD)
+		  style.MenuButtonBackgroundColor = New ColorGroup(Color.White, &c1B1C1D)
+		  style.MenuButtonBorderColor = New ColorGroup(&cC8C8C8, &c454647)
+		  style.MenuButtonColor = New ColorGroup(&c2B2C2C,  &cDCDDDD)
+		  style.MenuButtonHoverBackgroundColor = New ColorGroup(Color.White, &c1B1C1D)
+		  style.MenuButtonHoverColor = New ColorGroup(&c131414)
+		  style.TabBorderColor = New ColorGroup(&cC8C8C8, &c454647)
+		  style.TabCloseColor = New ColorGroup(&c6D7070, &cA2A3A3)
+		  
+		  Return style
+		End Function
 	#tag EndMethod
 
 
@@ -377,13 +249,25 @@ End
 #tag Events TabBar
 	#tag Event
 		Sub Opening()
-		  Me.Renderer = New XUITabBarRendererSafari(Me)
+		  Me.AppendTab("Tab 1")
+		  Me.AppendTab("Tab 2")
+		  Me.AppendTab("Tab 3")
+		  Me.AppendTab("Tab 4")
+		  Me.AppendTab("Tab 5")
+		  Me.AppendTab("Tab 6")
+		  
+		  Me.SelectTabAtIndex(1)
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616220776173206A75737420616464656420746F2074686520746162206261722061742060696E646578602E
 		Sub DidAddTab(tab As XUITabBarItem, index As Integer)
 		  Echo("Added tab with caption `" + tab.Caption + "` at index " + index.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B65642920696E736964652074686520746162206261722061742074686520706173736564206C6F63616C20636F6F7264696E617465732E
+		Sub DidContextualClick(x As Integer, y As Integer)
+		  Echo("Contextual clicked at " + x.ToString + ", " + y.ToString)
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 412074616220686173206A757374206265656E2072656D6F7665642066726F6D2074686520746162206261722E
@@ -396,9 +280,9 @@ End
 		  Echo("Selected tab with caption `" + tab.Caption + "` at index " + index.ToString)
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 546865207573657220636F6E7465787574616C20636C69636B65642028726967687420636C69636B656429206F766572206120746162206174207468652070617373656420636F6F7264696E617465732E2054686520636F6F7264696E6174657320617265206C6F63616C20746F2074686520746F70206C65667420636F726E6572206F662074686520746162206261722E
-		Sub DidContextualClickTab(tab As XUITabBarItem, x As Integer, y As Integer)
-		  Echo("Contextual clicked tab """ + tab.Caption + """ at " + x.ToString + ", " + y.ToString)
+	#tag Event , Description = 5468652075736572206A75737420626567616E206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
+		Sub DidStartDragging(tab As XUITabBarItem, index As Integer)
+		  Echo("Began dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
 		End Sub
 	#tag EndEvent
 	#tag Event , Description = 5468652075736572206A7573742066696E6973686564206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
@@ -406,9 +290,9 @@ End
 		  Echo("Finished dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
 		End Sub
 	#tag EndEvent
-	#tag Event , Description = 5468652075736572206A75737420626567616E206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
-		Sub DidStartDragging(tab As XUITabBarItem, index As Integer)
-		  Echo("Began dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
+	#tag Event , Description = 546865207573657220686173206A757374206A757374207072657373656420746865206D656E7520627574746F6E2E
+		Sub PressedMenuButton()
+		  Echo("Pressed the menu button")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -417,6 +301,8 @@ End
 		Sub Opening()
 		  Me.AddRow("Safari")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = XUITabBarStyle.Safari
+		  Me.AddRow("Nova")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = NovaStyle
 		  
 		  // Start with Safari's style.
 		  Me.SelectedRowIndex = 0
