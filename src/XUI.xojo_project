@@ -200,6 +200,7 @@ Interface=XUINotificationListener;XUI/Required/NotificationCenter/XUINotificatio
 Module=XUINotificationCenter;XUI/Required/NotificationCenter/XUINotificationCenter.xojo_code;&h00000000505DA7FF;&h0000000056B12FFF;false
 Class=XUINotification;XUI/Required/NotificationCenter/XUINotification.xojo_code;&h000000002447A7FF;&h0000000056B12FFF;false
 Module=XUIDesktopDisplayExtensions;XUI/Required/Extensions/XUIDesktopDisplayExtensions.xojo_code;&h00000000459EB7FF;&h000000004A274FFF;false
+Module=XUIPictureExtensions;XUI/Required/Extensions/XUIPictureExtensions.xojo_code;&h00000000714027FF;&h000000004A274FFF;false
 Module=XUIRectExtensions;XUI/Required/Extensions/XUIRectExtensions.xojo_code;&h000000006A5DC7FF;&h000000004A274FFF;false
 Module=XUIStringExtensions;XUI/Required/Extensions/XUIStringExtensions.xojo_code;&h000000000F5A47FF;&h000000004A274FFF;false
 Module=XUIWindowExtensions;XUI/Required/Extensions/XUIWindowExtensions.xojo_code;&h0000000073963FFF;&h000000004A274FFF;false
