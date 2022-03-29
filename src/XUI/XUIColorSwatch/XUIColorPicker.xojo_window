@@ -1,15 +1,15 @@
 #tag DesktopWindow
-Begin DesktopWindow WinDebug
+Begin DesktopWindow XUIColorPicker
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
    DefaultLocation =   2
    FullScreen      =   False
    HasBackgroundColor=   False
-   HasCloseButton  =   True
+   HasCloseButton  =   False
    HasFullScreenButton=   False
-   HasMaximizeButton=   True
-   HasMinimizeButton=   True
+   HasMaximizeButton=   False
+   HasMinimizeButton=   False
    Height          =   400
    ImplicitInstance=   True
    MacProcID       =   0
@@ -19,43 +19,47 @@ Begin DesktopWindow WinDebug
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
-   Resizeable      =   True
-   Title           =   "Untitled"
-   Type            =   0
+   Resizeable      =   False
+   Title           =   "Choose A Color"
+   Type            =   1
    Visible         =   True
-   Width           =   600
-   Begin XUIColorSwatch ColorSwatch1
+   Width           =   350
+   Begin DesktopButton ButtonSelect
       AllowAutoDeactivate=   True
-      AllowFocus      =   False
-      AllowFocusRing  =   True
-      AllowTabs       =   False
-      Backdrop        =   0
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Select"
+      Default         =   True
       Enabled         =   True
-      Height          =   22
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
       Index           =   -2147483648
-      IsActive        =   False
-      Left            =   20
+      Italic          =   False
+      Left            =   250
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   20
-      Transparent     =   True
-      Value           =   &cFF930052
+      Top             =   360
+      Transparent     =   False
+      Underline       =   False
       Visible         =   True
-      Width           =   48
+      Width           =   80
    End
-   Begin DesktopButton Button1
+   Begin DesktopButton ButtonCancel
       AllowAutoDeactivate=   True
       Bold            =   False
-      Cancel          =   False
-      Caption         =   "Picker"
+      Cancel          =   True
+      Caption         =   "Cancel"
       Default         =   False
       Enabled         =   True
       FontName        =   "System"
@@ -64,7 +68,7 @@ Begin DesktopWindow WinDebug
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   158
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -86,26 +90,14 @@ End
 #tag EndDesktopWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Opening()
-		  Self.Center
-		End Sub
-	#tag EndEvent
-
-
 #tag EndWindowCode
 
-#tag Events ColorSwatch1
-	#tag Event
-		Sub Opening()
-		  Me.Renderer = New XUIColorSwatchRendererMacOS(Me)
-		End Sub
-	#tag EndEvent
+#tag Events ButtonSelect
 #tag EndEvents
-#tag Events Button1
+#tag Events ButtonCancel
 	#tag Event
 		Sub Pressed()
-		  XUIColorPicker.ShowModal(Self)
+		  Self.Close
 		End Sub
 	#tag EndEvent
 #tag EndEvents

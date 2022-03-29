@@ -8,6 +8,9 @@ Protected Module XUIPictureExtensions
 		  /// Thanks to Sam Rowlands: 
 		  /// https://forum.xojo.com/t/proportionally-resizing-a-picture/16732/11
 		  
+		  #Pragma Warning "BUG: Update to work with ImageSets"
+		  ' Update to use the largest size image in the ImageSet.ImageCount.
+		  
 		  Var newSize As Size
 		  
 		  Select Case scaleMode
