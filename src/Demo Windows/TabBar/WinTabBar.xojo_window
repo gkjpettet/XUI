@@ -139,7 +139,7 @@ Begin DesktopWindow WinTabBar
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   208
+      Width           =   219
    End
    Begin DesktopLabel LabelStyle
       AllowAutoDeactivate=   True
@@ -199,7 +199,7 @@ Begin DesktopWindow WinTabBar
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   434
+      Width           =   331
       Begin DesktopLabel LabelTagCaption
          AllowAutoDeactivate=   True
          Bold            =   False
@@ -211,7 +211,7 @@ Begin DesktopWindow WinTabBar
          Index           =   -2147483648
          InitialParent   =   "GroupBoxAddTag"
          Italic          =   False
-         Left            =   20
+         Left            =   40
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -251,7 +251,7 @@ Begin DesktopWindow WinTabBar
          Index           =   -2147483648
          InitialParent   =   "GroupBoxAddTag"
          Italic          =   False
-         Left            =   99
+         Left            =   119
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -268,12 +268,12 @@ Begin DesktopWindow WinTabBar
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   85
+         Top             =   87
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Visible         =   True
-         Width           =   178
+         Width           =   213
       End
       Begin DesktopCheckBox CheckBoxTagClosable
          AllowAutoDeactivate=   True
@@ -336,6 +336,73 @@ Begin DesktopWindow WinTabBar
          Visible         =   True
          VisualState     =   1
          Width           =   100
+      End
+      Begin XUIImageButton TagIcon
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         BorderColor     =   &c00000000
+         DefaultImage    =   0
+         DisabledImage   =   0
+         Enabled         =   True
+         HasBorder       =   True
+         Height          =   32
+         HoverImage      =   0
+         ImageScaleMode  =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Left            =   119
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         OnlyShrinkImages=   True
+         PressedImage    =   0
+         Scope           =   2
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   178
+         Transparent     =   True
+         Visible         =   True
+         Width           =   32
+      End
+      Begin DesktopLabel LabelTagIcon
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Italic          =   False
+         Left            =   40
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "Icon:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   183
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   67
       End
    End
 End

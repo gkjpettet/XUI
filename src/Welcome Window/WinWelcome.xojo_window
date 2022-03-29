@@ -3,7 +3,7 @@ Begin DesktopWindow WinWelcome
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
-   DefaultLocation =   2
+   DefaultLocation =   0
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
@@ -111,13 +111,14 @@ End
 	#tag Event
 		Sub Opening()
 		  // Centre this window on its display.
-		  Self.Center
+		  'Self.Center
 		  
 		  // Add our XUI products.
 		  Products.AddProduct("XUITabBar", "A customisable tab bar control.", WinTabBar)
 		  Products.AddProduct("XUITagCanvas", "An editable canvas that parses text into tags and supports autocompletion.", WinTagCanvas)
 		  Products.AddProduct("XUICodeEditor", "Full featured code editor supporting themes, custom formatters and autocompletion.", WinCodeEditor)
 		  Products.AddProduct("XUISourceList", "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
+		  Products.AddProduct("XUIImageButton", "A simple imaged-based button control.", WinImageButton)
 		End Sub
 	#tag EndEvent
 

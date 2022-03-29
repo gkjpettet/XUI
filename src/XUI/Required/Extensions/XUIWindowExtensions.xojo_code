@@ -4,7 +4,10 @@ Protected Module XUIWindowExtensions
 		Sub Center(Extends w As DesktopWindow)
 		  /// Centers this window on its current display by adjusting the window's `Left` and `Top` properties.
 		  
-		  #Pragma Warning "BUG: Not centering on external monitor on Linux VM"
+		  #If TargetLinux
+		    #Pragma Warning "BUG 68163: DesktopDisplay.AvailableWidth and AvailableHeight ignore ScaleFactor"
+		    #Pragma Warning "BUG 68162: Changing DesktopWindow.Top and DesktopWindow.Left have no effect on Linux"
+		  #EndIf
 		  
 		  Var display As DesktopDisplay = w.Display
 		  If display = Nil Then Return
