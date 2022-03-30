@@ -4,7 +4,8 @@ Inherits DesktopCanvas
 	#tag Event
 		Sub FocusLost()
 		  mMouseOverButton = False
-		  mIsPressed = False
+		  
+		  If Type = Types.PushButton Then mIsPressed = False
 		  
 		  Refresh
 		End Sub
@@ -17,7 +18,11 @@ Inherits DesktopCanvas
 		  
 		  mMouseOverButton = True
 		  
-		  mIsPressed = True
+		  If Type = Types.PushButton Then
+		    mIsPressed = True
+		  Else
+		    mIsPressed = Not mIsPressed
+		  End If
 		  
 		  Refresh
 		  
@@ -28,7 +33,8 @@ Inherits DesktopCanvas
 	#tag Event
 		Sub MouseExit()
 		  mMouseOverButton = False
-		  mIsPressed = False
+		  
+		  If Type = Types.PushButton Then mIsPressed = False
 		  
 		  Refresh
 		End Sub
@@ -50,7 +56,7 @@ Inherits DesktopCanvas
 		  #Pragma Unused x
 		  #Pragma Unused y
 		  
-		  mIsPressed = False
+		  If Type = Types.PushButton Then mIsPressed = False
 		  
 		  If mMouseOverButton Then RaiseEvent Pressed
 		  
@@ -62,32 +68,7 @@ Inherits DesktopCanvas
 		Sub Paint(g As Graphics, areas() As Rect)
 		  #Pragma Unused areas
 		  
-		  Var p As Picture
-		  If Me.Enabled And Not mMouseOverButton Then
-		    // Default image.
-		    p = mDefaultImage
-		  ElseIf Me.Enabled And mIsPressed Then
-		    // Pressed.
-		    If mPressedImage = Nil Then
-		      p = mDefaultImage
-		    Else
-		      p = mPressedImage
-		    End If
-		  ElseIf Me.Enabled And mMouseOverButton Then
-		    // Hovering.
-		    If mHoverImage = Nil Then
-		      p = mDefaultImage
-		    Else
-		      p = mHoverImage
-		    End If
-		  Else
-		    // Disabled.
-		    If mDisabledImage = Nil Then
-		      p = mDefaultImage
-		    Else
-		      p = mDisabledImage
-		    End If
-		  End If
+		  Var p As Picture = GetCorrectPicture
 		  
 		  If p <> Nil Then
 		    g.DrawPicture(p, (Me.Width / 2) - (p.Width / 2), (Me.Height / 2) - (p.Height / 2))
@@ -108,6 +89,81 @@ Inherits DesktopCanvas
 		  
 		End Sub
 	#tag EndEvent
+
+
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520636F7272656374207069637475726520746F2075736520666F722074686520627574746F6E27732063757272656E742073746174652E
+		Private Function GetCorrectPicture() As Picture
+		  /// Returns the correct picture to use for the button's current state.
+		  
+		  Select Case Me.Type
+		  Case Types.ToggleButton
+		    If Not Me.Enabled Then
+		      // Disabled.
+		      If mDisabledImage = Nil Then
+		        Return mDefaultImage
+		      Else
+		        Return mDisabledImage
+		      End If
+		      
+		    ElseIf mMouseOverButton Then
+		      // Hovering.
+		      If mHoverImage = Nil Then
+		        If mIsPressed And mPressedImage <> Nil Then
+		          Return mPressedImage
+		        Else
+		          Return mDefaultImage
+		        End If
+		      Else
+		        Return mHoverImage
+		      End If
+		      
+		    ElseIf mIsPressed Then
+		      // Pressed.
+		      If mPressedImage = Nil Then
+		        Return mDefaultImage
+		      Else
+		        Return mPressedImage
+		      End If
+		      
+		    Else
+		      Return mDefaultImage
+		    End If
+		    
+		  Case Types.PushButton
+		    If Not Me.Enabled Then
+		      // Disabled.
+		      If mDisabledImage = Nil Then
+		        Return mDefaultImage
+		      Else
+		        Return mDisabledImage
+		      End If
+		      
+		    ElseIf mIsPressed Then
+		      // Pressed.
+		      If mPressedImage = Nil Then
+		        Return mDefaultImage
+		      Else
+		        Return mPressedImage
+		      End If
+		      
+		    ElseIf mMouseOverButton Then
+		      // Hovering.
+		      If mHoverImage = Nil Then
+		        Return mDefaultImage
+		      Else
+		        Return mHoverImage
+		      End If
+		      
+		    Else
+		      Return mDefaultImage
+		    End If
+		    
+		  Else
+		    Raise New UnsupportedOperationException("Unknown button type.")
+		  End Select
+		  
+		End Function
+	#tag EndMethod
 
 
 	#tag Hook, Flags = &h0, Description = 54686520627574746F6E20686173206265656E20707265737365642E
@@ -163,11 +219,7 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  If value = Nil Then
-			    mDisabledImage = mDefaultImage
-			  Else
-			    mDisabledImage = value
-			  End If
+			  mDisabledImage = value
 			  
 			  Refresh
 			End Set
@@ -199,11 +251,7 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  If value = Nil Then
-			    mHoverImage = mDefaultImage
-			  Else
-			    mHoverImage = value
-			  End If
+			  mHoverImage = value
 			  
 			  Refresh
 			End Set
@@ -243,6 +291,10 @@ Inherits DesktopCanvas
 		Private mPressedImage As Picture
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 5468652074797065206F6620627574746F6E202870757368206F7220746F67676C65292E
+		Private mType As XUIImageButton.Types = XUIImageButton.Types.PushButton
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 54686520696D61676520746F2075736520666F722074686520627574746F6E207768656E20696E2069747320707265737365642073746174652E204966206E6F74207370656369666965642C207468652064656661756C7420696D61676520697320757365642E
 		#tag Getter
 			Get
@@ -251,17 +303,37 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  If value = Nil Then
-			    mPressedImage = mDefaultImage
-			  Else
-			    mPressedImage = value
-			  End If
+			  mPressedImage = value
 			  
 			  Refresh
 			End Set
 		#tag EndSetter
 		PressedImage As Picture
 	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 5468652074797065206F6620627574746F6E202870757368206F7220746F67676C65292E
+		#tag Getter
+			Get
+			  Return mType
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mType = value
+			  
+			  mIsPressed = False
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		Type As XUIImageButton.Types
+	#tag EndComputedProperty
+
+
+	#tag Enum, Name = Types, Type = Integer, Flags = &h0
+		PushButton
+		ToggleButton
+	#tag EndEnum
 
 
 	#tag ViewBehavior
@@ -496,6 +568,18 @@ Inherits DesktopCanvas
 			InitialValue="0"
 			Type="Integer"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Type"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="XUIImageButton.Types"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - PushButton"
+				"1 - ToggleButton"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

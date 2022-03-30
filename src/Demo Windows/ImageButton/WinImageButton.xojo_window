@@ -10,7 +10,7 @@ Begin DesktopWindow WinImageButton
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   362
+   Height          =   400
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -22,7 +22,7 @@ Begin DesktopWindow WinImageButton
    Resizeable      =   True
    Title           =   "ImageButton"
    Type            =   0
-   Visible         =   False
+   Visible         =   True
    Width           =   680
    Begin XUIImageButton Button
       AllowAutoDeactivate=   True
@@ -31,12 +31,12 @@ Begin DesktopWindow WinImageButton
       AllowTabs       =   False
       Backdrop        =   0
       BorderColor     =   &c00000000
-      DefaultImage    =   1817296895
-      DisabledImage   =   1509390335
+      DefaultImage    =   352882687
+      DisabledImage   =   77455359
       Enabled         =   True
       HasBorder       =   False
-      Height          =   64
-      HoverImage      =   706867199
+      Height          =   50
+      HoverImage      =   921319423
       Index           =   -2147483648
       Left            =   20
       LockBottom      =   False
@@ -44,7 +44,7 @@ Begin DesktopWindow WinImageButton
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      PressedImage    =   751177727
+      PressedImage    =   1710260223
       Scope           =   2
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -53,7 +53,7 @@ Begin DesktopWindow WinImageButton
       Top             =   20
       Transparent     =   True
       Visible         =   True
-      Width           =   64
+      Width           =   50
    End
    Begin DesktopButton ButtonReset
       AllowAutoDeactivate=   True
@@ -80,7 +80,7 @@ Begin DesktopWindow WinImageButton
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   256
+      Top             =   288
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -111,6 +111,7 @@ Begin DesktopWindow WinImageButton
       Top             =   96
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   1
       Width           =   100
@@ -159,7 +160,7 @@ Begin DesktopWindow WinImageButton
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   167
+      Left            =   182
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -190,7 +191,7 @@ Begin DesktopWindow WinImageButton
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   167
+      Left            =   182
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -221,7 +222,7 @@ Begin DesktopWindow WinImageButton
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   168
+      Left            =   183
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -265,7 +266,7 @@ Begin DesktopWindow WinImageButton
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   322
+      Top             =   360
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -275,7 +276,7 @@ Begin DesktopWindow WinImageButton
       AllowAutoDeactivate=   True
       Bold            =   False
       Caption         =   "Has Border"
-      Enabled         =   False
+      Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -296,6 +297,7 @@ Begin DesktopWindow WinImageButton
       Top             =   96
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   0
       Width           =   100
@@ -322,7 +324,7 @@ Begin DesktopWindow WinImageButton
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Customise the button with the options to the left. You can reset it back to its state at the start of this demo with the ""Reset"" button."
+      Text            =   "Customise the button with the options to the left. You can reset it back to its state at the start of this demo with the ""Reset"" button. Images must match the size of the button (in this case, 50 x 50)."
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
@@ -357,9 +359,10 @@ Begin DesktopWindow WinImageButton
       Top             =   160
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   1
-      Width           =   159
+      Width           =   150
    End
    Begin DesktopCheckBox CheckBoxHasHoverImage
       AllowAutoDeactivate=   True
@@ -386,9 +389,10 @@ Begin DesktopWindow WinImageButton
       Top             =   192
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   1
-      Width           =   159
+      Width           =   150
    End
    Begin DesktopCheckBox CheckBoxHasDisabledImage
       AllowAutoDeactivate=   True
@@ -415,14 +419,14 @@ Begin DesktopWindow WinImageButton
       Top             =   224
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   1
-      Width           =   159
+      Width           =   150
    End
-   Begin DesktopCheckBox CheckBoxHasPressedBackgroundColor
+   Begin DesktopLabel LabelButtonType
       AllowAutoDeactivate=   True
       Bold            =   False
-      Caption         =   "Has Pressed Background Color"
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -430,57 +434,86 @@ Begin DesktopWindow WinImageButton
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   330
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Scope           =   2
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Button Type:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   160
+      Top             =   256
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      VisualState     =   1
-      Width           =   229
+      Width           =   100
    End
-   Begin DesktopCheckBox CheckBoxHasHoverBackgroundColor
+   Begin DesktopPopupMenu PopupButtonType
       AllowAutoDeactivate=   True
       Bold            =   False
-      Caption         =   "Has Hover Background Color"
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
       Height          =   20
       Index           =   -2147483648
+      InitialValue    =   ""
       Italic          =   False
-      Left            =   330
+      Left            =   132
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Scope           =   2
+      Scope           =   0
+      SelectedRowIndex=   0
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   192
+      Top             =   256
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      VisualState     =   1
-      Width           =   229
+      Width           =   151
    End
-   Begin DesktopCheckBox CheckBoxHasDisabledBackgroundColor
+   Begin XUIColorSwatch BorderColorSwatch
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Enabled         =   True
+      Height          =   20
+      Index           =   -2147483648
+      Left            =   336
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   96
+      Transparent     =   True
+      Value           =   &c00000000
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopLabel Label3
       AllowAutoDeactivate=   True
       Bold            =   False
-      Caption         =   "Has Disabled Background Color"
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -488,23 +521,27 @@ Begin DesktopWindow WinImageButton
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   330
+      Left            =   224
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Scope           =   2
-      TabIndex        =   15
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Border Colour:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   224
+      Top             =   96
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      VisualState     =   1
-      Width           =   229
+      Width           =   100
    End
 End
 #tag EndDesktopWindow
@@ -527,6 +564,25 @@ End
 		  
 		  #Pragma Warning "TODO"
 		  
+		  Button.DefaultImage = PlayIconDefault
+		  Button.PressedImage = PlayIconPressed
+		  Button.HoverImage = PlayIconHover
+		  Button.DisabledImage = PlayIconDisabled
+		  
+		  CheckBoxEnabled.Value = True
+		  CheckBoxHasBorder.Value = False
+		  
+		  CheckBoxHasDisabledImage.Value = True
+		  CheckBoxHasHoverImage.Value = True
+		  CheckBoxHasPressedImage.Value = True
+		  
+		  PopupButtonType.RemoveAllRows
+		  PopupButtonType.AddRow("Push Button")
+		  PopupButtonType.RowTagAt(0) = XUIImageButton.Types.PushButton
+		  PopupButtonType.AddRow("Toggle Button")
+		  PopupButtonType.RowTagAt(1) = XUIImageButton.Types.ToggleButton
+		  PopupButtonType.SelectedRowIndex = 0
+		  
 		End Sub
 	#tag EndMethod
 
@@ -541,6 +597,11 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events ButtonReset
+	#tag Event
+		Sub Pressed()
+		  Reset
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events CheckBoxEnabled
 	#tag Event
@@ -550,12 +611,95 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events ButtonDefaultImage
+	#tag Event
+		Sub Pressed()
+		  // Get an image to use for the default state.
+		  
+		  Var f As FolderItem = FolderItem.ShowOpenFileDialog(ImageFileTypes.All)
+		  
+		  If f = Nil Then
+		    Button.DefaultImage = PlayIconDefault
+		    Return
+		  End If
+		  
+		  #Pragma BreakOnExceptions False
+		  Try
+		    Button.DefaultImage = Picture.Open(f)
+		  Catch e
+		    Button.DefaultImage = PlayIconDefault
+		  End Try
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonPressedImage
+	#tag Event
+		Sub Pressed()
+		  // Get an image to use for the pressed state.
+		  
+		  Var f As FolderItem = FolderItem.ShowOpenFileDialog(ImageFileTypes.All)
+		  
+		  If f = Nil Then Return
+		  
+		  #Pragma BreakOnExceptions False
+		  Try
+		    Button.PressedImage = Picture.Open(f)
+		  Catch e
+		    Return
+		  End Try
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonHoverImage
+	#tag Event
+		Sub Pressed()
+		  // Get an image to use for the hover state.
+		  
+		  Var f As FolderItem = FolderItem.ShowOpenFileDialog(ImageFileTypes.All)
+		  
+		  If f = Nil Then Return
+		  
+		  #Pragma BreakOnExceptions False
+		  Try
+		    Button.HoverImage = Picture.Open(f)
+		  Catch e
+		    Return
+		  End Try
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonDisabledImage
+	#tag Event
+		Sub Pressed()
+		  // Get an image to use for the disabled state.
+		  
+		  Var f As FolderItem = FolderItem.ShowOpenFileDialog(ImageFileTypes.All)
+		  
+		  If f = Nil Then Return
+		  
+		  #Pragma BreakOnExceptions False
+		  Try
+		    Button.DisabledImage = Picture.Open(f)
+		  Catch e
+		    Return
+		  End Try
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxHasBorder
+	#tag Event
+		Sub ValueChanged()
+		  Button.HasBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events CheckBoxHasPressedImage
 	#tag Event
 		Sub ValueChanged()
 		  ButtonPressedImage.Enabled = Me.Value
 		  
 		  If Not Me.Value Then Button.PressedImage = Nil
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -577,11 +721,12 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events CheckBoxHasPressedBackgroundColor
-#tag EndEvents
-#tag Events CheckBoxHasHoverBackgroundColor
-#tag EndEvents
-#tag Events CheckBoxHasDisabledBackgroundColor
+#tag Events PopupButtonType
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  Button.Type = Me.RowTagAt(Me.SelectedRowIndex)
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty

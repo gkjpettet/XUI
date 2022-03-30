@@ -5,11 +5,8 @@ Protected Module XUIPictureExtensions
 		  /// Returns a new picture that is a resized version of `p`.
 		  /// If `onlyShrink` is True then we will never enlarge `p`.
 		  ///
-		  /// Thanks to Sam Rowlands: 
+		  /// Based on code by Sam Rowlands: 
 		  /// https://forum.xojo.com/t/proportionally-resizing-a-picture/16732/11
-		  
-		  #Pragma Warning "BUG: Update to work with ImageSets"
-		  ' Update to use the largest size image in the ImageSet.ImageCount.
 		  
 		  Var newSize As Size
 		  
