@@ -549,7 +549,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  #Pragma Warning "TODO: finish this window"
+		  #Pragma Warning "TODO: Add border colour swatch to this window."
 		  
 		  Info.Text = ""
 		  
@@ -561,8 +561,6 @@ End
 	#tag Method, Flags = &h21
 		Private Sub Reset()
 		  /// Resets the controls to their default state.
-		  
-		  #Pragma Warning "TODO"
 		  
 		  Button.DefaultImage = PlayIconDefault
 		  Button.PressedImage = PlayIconPressed
@@ -724,6 +722,8 @@ End
 #tag Events PopupButtonType
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma Unused item
+		  
 		  Button.Type = Me.RowTagAt(Me.SelectedRowIndex)
 		End Sub
 	#tag EndEvent
