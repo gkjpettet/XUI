@@ -259,6 +259,22 @@ Inherits DesktopCanvas
 		HoverImage As Picture
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 547275652069662074686520627574746F6E2069732063757272656E746C792070726573736564206F7220746F67676C65642E
+		#tag Getter
+			Get
+			  Return mIsPressed
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mIsPressed = value
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		IsPressed As Boolean
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21, Description = 49662074686520627574746F6E20686173206120626F726465722C20746869732069732069747320636F6C6F75722E
 		Private mBorderColor As ColorGroup
 	#tag EndProperty
@@ -530,6 +546,26 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Type"
+			Visible=true
+			Group="Behavior"
+			InitialValue="0"
+			Type="XUIImageButton.Types"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - PushButton"
+				"1 - ToggleButton"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsPressed"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DefaultImage"
 			Visible=true
 			Group="Images"
@@ -568,18 +604,6 @@ Inherits DesktopCanvas
 			InitialValue="0"
 			Type="Integer"
 			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Type"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="XUIImageButton.Types"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - PushButton"
-				"1 - ToggleButton"
-			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

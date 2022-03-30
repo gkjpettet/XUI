@@ -22,7 +22,7 @@ Begin DesktopWindow WinImageButton
    Resizeable      =   True
    Title           =   "ImageButton"
    Type            =   0
-   Visible         =   True
+   Visible         =   False
    Width           =   680
    Begin XUIImageButton Button
       AllowAutoDeactivate=   True

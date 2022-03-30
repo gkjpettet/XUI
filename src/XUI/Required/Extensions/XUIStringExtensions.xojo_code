@@ -533,6 +533,35 @@ Protected Module XUIStringExtensions
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662060736020697320612076616C696420524742412068657820737472696E672E
+		Function IsRGBA(Extends s As String) As Boolean
+		  /// Returns True if `s` is a valid RGBA hex string.
+		  ///
+		  /// Valid formats are:
+		  //  RGB
+		  //  RGBA
+		  //  RRGGBB
+		  //  RRGGBBAA
+		  
+		  // Correct number of characters?
+		  Select Case s.CharacterCount
+		  Case Is < 3, 5, 7, Is > 8
+		    Return False
+		  End Select
+		  
+		  // Assert that we only have hex digits in the string.
+		  Var chars() As String = s.CharacterArray
+		  For Each char As String In chars
+		    If Not char.IsHexDigit Then
+		      Return False
+		    End If
+		  Next char
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 54727565206966205B6368617261637465725D2069732061207370616365206F7220686F72697A6F6E74616C207461622E
 		Function IsSpaceOrTab(Extends character As String) As Boolean
 		  /// True if [character] is a space or horizontal tab.

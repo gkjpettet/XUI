@@ -22,7 +22,7 @@ Begin DesktopWindow WinDebug
    Resizeable      =   True
    Title           =   "Untitled"
    Type            =   0
-   Visible         =   False
+   Visible         =   True
    Width           =   600
    Begin XUIColorSwatch ColorSwatch1
       AllowAutoDeactivate=   True
