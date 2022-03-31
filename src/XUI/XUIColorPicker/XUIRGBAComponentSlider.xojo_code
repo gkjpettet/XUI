@@ -3,9 +3,12 @@ Protected Class XUIRGBAComponentSlider
 Inherits DesktopCanvas
 	#tag Event
 		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  #Pragma Warning "TODO: Support clicking on a location in addition to dragging"
+		  
 		  mMouseDownX = x
 		  mMouseDownY = y
 		  mMouseDownTicks = System.Ticks
+		  
 		  If mScrubberBounds <> Nil Then
 		    mClickedScrubberOnMouseDown = mScrubberBounds.Contains(x, y)
 		  End If
@@ -17,6 +20,8 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub MouseDrag(x As Integer, y As Integer)
+		  #Pragma Warning "BUG: Dragging to either end of the slider causing the value to wrap around (byte boundary?)"
+		  
 		  If System.Ticks - mMouseDownTicks > DRAG_THRESHOLD_TICKS Then
 		    
 		    mMouseDownTicks = System.Ticks
@@ -40,6 +45,9 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub MouseUp(x As Integer, y As Integer)
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
 		  If mIsDragging Then RaiseEvent FinishedDraggingScrubber
 		  mIsDragging = False
 		  
@@ -48,6 +56,8 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
+		  #Pragma Unused areas
+		  
 		  // ===========
 		  // SLIDER
 		  // ===========
@@ -59,10 +69,19 @@ Inherits DesktopCanvas
 		    g.FillRoundRectangle(0, 0, g.Width, g.Height, g.Height, g.Height)
 		  Else
 		    Var pb As New PictureBrush
-		    pb.Image = CheckerboardPattern
 		    pb.Mode = PictureBrush.Modes.Tile
+		    // Thanks to Feedback case 68166, PictureBrush causes a hard crash on Windows & Linux.
+		    #If TargetMacOS
+		      pb.Image = CheckerboardPattern
+		    #Else
+		      #Pragma Warning "BUG: Feedback 68166 prevents us drawing the checkerboard pattern"
+		      // We therefore need to compute the best representation ourselves.
+		      pb.Image = CheckerboardPattern.BestRepresentation(16, 16, g.ScaleX)
+		    #EndIf
 		    g.Brush = pb
 		    g.FillRoundRectangle(0, 0, g.Width, g.Height, g.Height, g.Height)
+		    
+		    // Draw the linear opacity.
 		    g.Brush = mLinearBrush
 		    g.FillRoundRectangle(0, 0, g.Width, g.Height, g.Height, g.Height)
 		  End If

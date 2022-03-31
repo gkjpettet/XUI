@@ -11,7 +11,7 @@ Begin DesktopWindow XUIColorPicker
    HasMaximizeButton=   False
    HasMinimizeButton=   False
    Height          =   400
-   ImplicitInstance=   True
+   ImplicitInstance=   False
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
@@ -119,7 +119,7 @@ Begin DesktopWindow XUIColorPicker
       Visible         =   True
       Width           =   40
    End
-   Begin DesktopPagePanel Panel
+   Begin DesktopPagePanel PanelMain
       AllowAutoDeactivate=   True
       Enabled         =   True
       Height          =   301
@@ -151,7 +151,7 @@ Begin DesktopWindow XUIColorPicker
          Enabled         =   True
          Height          =   80
          Index           =   -2147483648
-         InitialParent   =   "Panel"
+         InitialParent   =   "PanelMain"
          Left            =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -184,7 +184,7 @@ Begin DesktopWindow XUIColorPicker
          Height          =   22
          Hint            =   ""
          Index           =   -2147483648
-         InitialParent   =   "Panel"
+         InitialParent   =   "PanelMain"
          Italic          =   False
          Left            =   13
          LockBottom      =   False
@@ -210,289 +210,344 @@ Begin DesktopWindow XUIColorPicker
          Visible         =   True
          Width           =   80
       End
-      Begin XUIRGBAComponentSlider SliderRed
+      Begin DesktopPopupMenu Popup
          AllowAutoDeactivate=   True
-         AllowFocus      =   False
-         AllowFocusRing  =   True
-         AllowTabs       =   False
-         Backdrop        =   0
-         CompleteColor   =   &cFF930000
-         ComponentType   =   3
-         ComponentValue  =   200.0
-         Enabled         =   True
-         Height          =   16
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Left            =   13
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   2
-         TabPanelIndex   =   1
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   177
-         Transparent     =   True
-         Visible         =   True
-         Width           =   247
-      End
-      Begin XUIRGBAComponentSlider SliderGreen
-         AllowAutoDeactivate=   True
-         AllowFocus      =   False
-         AllowFocusRing  =   True
-         AllowTabs       =   False
-         Backdrop        =   0
-         CompleteColor   =   &cFF930000
-         ComponentType   =   2
-         ComponentValue  =   50.0
-         Enabled         =   True
-         Height          =   16
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Left            =   13
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   3
-         TabPanelIndex   =   1
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   205
-         Transparent     =   True
-         Visible         =   True
-         Width           =   247
-      End
-      Begin XUIRGBAComponentSlider SliderBlue
-         AllowAutoDeactivate=   True
-         AllowFocus      =   False
-         AllowFocusRing  =   True
-         AllowTabs       =   False
-         Backdrop        =   0
-         CompleteColor   =   &cFF930000
-         ComponentType   =   1
-         ComponentValue  =   125.0
-         Enabled         =   True
-         Height          =   16
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Left            =   13
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   4
-         TabPanelIndex   =   1
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   233
-         Transparent     =   True
-         Visible         =   True
-         Width           =   247
-      End
-      Begin XUIRGBAComponentSlider SliderAlpha
-         AllowAutoDeactivate=   True
-         AllowFocus      =   False
-         AllowFocusRing  =   True
-         AllowTabs       =   False
-         Backdrop        =   0
-         CompleteColor   =   &cFF930000
-         ComponentType   =   "XUIColorComponentSlider.Types.Red"
-         ComponentValue  =   255.0
-         Enabled         =   True
-         Height          =   16
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Left            =   13
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   5
-         TabPanelIndex   =   1
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   261
-         Transparent     =   True
-         Visible         =   True
-         Width           =   247
-      End
-      Begin DesktopTextField SliderRedValue
-         AllowAutoDeactivate=   True
-         AllowFocusRing  =   True
-         AllowSpellChecking=   False
-         AllowTabs       =   False
-         BackgroundColor =   &cFFFFFF
          Bold            =   False
          Enabled         =   True
          FontName        =   "System"
          FontSize        =   0.0
          FontUnit        =   0
-         Format          =   ""
-         HasBorder       =   True
-         Height          =   22
-         Hint            =   "R"
+         Height          =   20
          Index           =   -2147483648
-         InitialParent   =   "Panel"
+         InitialParent   =   "PanelMain"
+         InitialValue    =   "CMY\nRGB\nHSV"
          Italic          =   False
-         Left            =   272
+         Left            =   240
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
-         MaximumCharactersAllowed=   3
-         Password        =   False
-         ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   10
+         SelectedRowIndex=   1
+         TabIndex        =   14
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "255"
-         TextAlignment   =   0
-         TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   174
+         Top             =   137
          Transparent     =   False
          Underline       =   False
-         ValidationMask  =   "###"
          Visible         =   True
-         Width           =   35
+         Width           =   67
       End
-      Begin DesktopTextField SliderGreenValue
+      Begin DesktopPagePanel PanelSliders
          AllowAutoDeactivate=   True
-         AllowFocusRing  =   True
-         AllowSpellChecking=   False
-         AllowTabs       =   False
-         BackgroundColor =   &cFFFFFF
-         Bold            =   False
          Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Format          =   ""
-         HasBorder       =   True
-         Height          =   22
-         Hint            =   "G"
+         Height          =   127
          Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Italic          =   False
-         Left            =   272
-         LockBottom      =   False
+         InitialParent   =   "PanelMain"
+         Left            =   0
+         LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   False
+         LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         MaximumCharactersAllowed=   3
-         Password        =   False
-         ReadOnly        =   False
+         PanelCount      =   2
+         Panels          =   ""
          Scope           =   2
-         TabIndex        =   11
+         TabIndex        =   15
          TabPanelIndex   =   1
-         TabStop         =   True
-         Text            =   "255"
-         TextAlignment   =   0
-         TextColor       =   &c000000
+         TabStop         =   False
          Tooltip         =   ""
-         Top             =   202
+         Top             =   169
          Transparent     =   False
-         Underline       =   False
-         ValidationMask  =   "###"
+         Value           =   0
          Visible         =   True
-         Width           =   35
-      End
-      Begin DesktopTextField SliderBlueValue
-         AllowAutoDeactivate=   True
-         AllowFocusRing  =   True
-         AllowSpellChecking=   False
-         AllowTabs       =   False
-         BackgroundColor =   &cFFFFFF
-         Bold            =   False
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Format          =   ""
-         HasBorder       =   True
-         Height          =   22
-         Hint            =   "B"
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Italic          =   False
-         Left            =   272
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   True
-         MaximumCharactersAllowed=   3
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   2
-         TabIndex        =   12
-         TabPanelIndex   =   1
-         TabStop         =   True
-         Text            =   "255"
-         TextAlignment   =   0
-         TextColor       =   &c000000
-         Tooltip         =   ""
-         Top             =   230
-         Transparent     =   False
-         Underline       =   False
-         ValidationMask  =   "###"
-         Visible         =   True
-         Width           =   35
-      End
-      Begin DesktopTextField SliderAlphaValue
-         AllowAutoDeactivate=   True
-         AllowFocusRing  =   True
-         AllowSpellChecking=   False
-         AllowTabs       =   False
-         BackgroundColor =   &cFFFFFF
-         Bold            =   False
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Format          =   ""
-         HasBorder       =   True
-         Height          =   22
-         Hint            =   "A"
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Italic          =   False
-         Left            =   272
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   True
-         MaximumCharactersAllowed=   3
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   2
-         TabIndex        =   13
-         TabPanelIndex   =   1
-         TabStop         =   True
-         Text            =   "255"
-         TextAlignment   =   0
-         TextColor       =   &c000000
-         Tooltip         =   ""
-         Top             =   258
-         Transparent     =   False
-         Underline       =   False
-         ValidationMask  =   "###"
-         Visible         =   True
-         Width           =   35
+         Width           =   320
+         Begin DesktopTextField SliderRedValue
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "R"
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Italic          =   False
+            Left            =   272
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   3
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   2
+            TabIndex        =   0
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "255"
+            TextAlignment   =   0
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   180
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   "###"
+            Visible         =   True
+            Width           =   35
+         End
+         Begin DesktopTextField SliderGreenValue
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "G"
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Italic          =   False
+            Left            =   272
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   3
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   2
+            TabIndex        =   1
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "255"
+            TextAlignment   =   0
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   208
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   "###"
+            Visible         =   True
+            Width           =   35
+         End
+         Begin DesktopTextField SliderBlueValue
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "B"
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Italic          =   False
+            Left            =   272
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   3
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   2
+            TabIndex        =   2
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "255"
+            TextAlignment   =   0
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   236
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   "###"
+            Visible         =   True
+            Width           =   35
+         End
+         Begin DesktopTextField SliderAlphaValue
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "A"
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Italic          =   False
+            Left            =   272
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   3
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   2
+            TabIndex        =   3
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "255"
+            TextAlignment   =   0
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   264
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   "###"
+            Visible         =   True
+            Width           =   35
+         End
+         Begin XUIRGBAComponentSlider SliderAlpha
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            CompleteColor   =   &cFF930000
+            ComponentType   =   "XUIColorComponentSlider.Types.Red"
+            ComponentValue  =   255.0
+            Enabled         =   True
+            Height          =   16
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Left            =   13
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   4
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   267
+            Transparent     =   True
+            Visible         =   True
+            Width           =   247
+         End
+         Begin XUIRGBAComponentSlider SliderBlue
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            CompleteColor   =   &cFF930000
+            ComponentType   =   1
+            ComponentValue  =   125.0
+            Enabled         =   True
+            Height          =   16
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Left            =   13
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   5
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   239
+            Transparent     =   True
+            Visible         =   True
+            Width           =   247
+         End
+         Begin XUIRGBAComponentSlider SliderGreen
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            CompleteColor   =   &cFF930000
+            ComponentType   =   2
+            ComponentValue  =   50.0
+            Enabled         =   True
+            Height          =   16
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Left            =   13
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   6
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   211
+            Transparent     =   True
+            Visible         =   True
+            Width           =   247
+         End
+         Begin XUIRGBAComponentSlider SliderRed
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            CompleteColor   =   &cFF930000
+            ComponentType   =   3
+            ComponentValue  =   200.0
+            Enabled         =   True
+            Height          =   16
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Left            =   13
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   7
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   183
+            Transparent     =   True
+            Visible         =   True
+            Width           =   247
+         End
       End
    End
 End
@@ -501,6 +556,10 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
+		  // Start on the sliders panel.
+		  PanelMain.SelectedPanelIndex = PANEL_MAIN_SLIDERS
+		  PanelSliders.SelectedPanelIndex = PANEL_SLIDERS_RGB
+		  
 		  CurrentColor = mCurrentColor
 		  
 		  // Hook into the slider's dragging events.
@@ -514,6 +573,15 @@ End
 		End Sub
 	#tag EndEvent
 
+
+	#tag Method, Flags = &h0
+		Sub Constructor(startingColor As Color)
+		  // Calling the overridden superclass constructor.
+		  Super.Constructor
+		  
+		  CurrentColor = startingColor
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F662074686520616C70686120736C696465722073637275626265722E
 		Private Sub DraggingAlphaSliderScrubber(sender As XUIRGBAComponentSlider)
@@ -596,6 +664,11 @@ End
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0, Description = 5468652073656C656374656420636F6C6F757220696E20746865207069636B657220686173206368616E6765642E
+		Event ColorChanged(newColor As Color)
+	#tag EndHook
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063757272656E746C792073656C656374656420636F6C6F75722E
 		#tag Getter
 			Get
@@ -612,6 +685,8 @@ End
 			  SliderAlpha.ComponentValue = mCurrentColor.Alpha
 			  
 			  Update
+			  
+			  RaiseEvent ColorChanged(mCurrentColor)
 			End Set
 		#tag EndSetter
 		CurrentColor As Color
@@ -622,12 +697,24 @@ End
 	#tag EndProperty
 
 
-	#tag Constant, Name = PANEL_SLIDERS, Type = Double, Dynamic = False, Default = \"0", Scope = Private
+	#tag Constant, Name = PANEL_MAIN_SLIDERS, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E672074686520736C69646572732E
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_SLIDERS_RGB, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E67207468652052474220736C69646572732E
 	#tag EndConstant
 
 
 #tag EndWindowCode
 
+#tag Events ButtonSelect
+	#tag Event
+		Sub Pressed()
+		  RaiseEvent ColorChanged(CurrentColor)
+		  
+		  Self.Close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events ButtonCancel
 	#tag Event
 		Sub Pressed()
@@ -668,6 +755,8 @@ End
 		  
 		End Function
 	#tag EndEvent
+#tag EndEvents
+#tag Events Popup
 #tag EndEvents
 #tag Events SliderRedValue
 	#tag Event
@@ -952,6 +1041,14 @@ End
 		Group="Deprecated"
 		InitialValue="False"
 		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CurrentColor"
+		Visible=false
+		Group="Behavior"
+		InitialValue="&c000000"
+		Type="Color"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

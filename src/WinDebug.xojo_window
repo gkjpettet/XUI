@@ -24,7 +24,7 @@ Begin DesktopWindow WinDebug
    Type            =   0
    Visible         =   True
    Width           =   600
-   Begin XUIColorSwatch ColorSwatch1
+   Begin XUIColorSwatch Swatch1
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   True
@@ -47,40 +47,36 @@ Begin DesktopWindow WinDebug
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
-      Value           =   &cFF930052
+      Value           =   &cFF7E7900
       Visible         =   True
       Width           =   48
    End
-   Begin DesktopButton Button1
+   Begin XUIColorSwatch Swatch2
       AllowAutoDeactivate=   True
-      Bold            =   False
-      Cancel          =   False
-      Caption         =   "Picker"
-      Default         =   False
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
+      Height          =   22
       Index           =   -2147483648
-      Italic          =   False
+      IsActive        =   False
       Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   360
-      Transparent     =   False
-      Underline       =   False
+      Top             =   54
+      Transparent     =   True
+      Value           =   &c0433FF00
       Visible         =   True
-      Width           =   80
+      Width           =   48
    End
 End
 #tag EndDesktopWindow
@@ -95,17 +91,17 @@ End
 
 #tag EndWindowCode
 
-#tag Events ColorSwatch1
+#tag Events Swatch1
 	#tag Event
 		Sub Opening()
 		  Me.Renderer = New XUIColorSwatchRendererMacOS(Me)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Button1
+#tag Events Swatch2
 	#tag Event
-		Sub Pressed()
-		  XUIColorPicker.ShowModal(Self)
+		Sub Opening()
+		  Me.Renderer = New XUIColorSwatchRendererMacOS(Me)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

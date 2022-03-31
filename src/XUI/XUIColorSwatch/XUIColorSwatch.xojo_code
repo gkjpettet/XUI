@@ -6,6 +6,9 @@ Inherits DesktopCanvas
 		  #Pragma Unused x
 		  #Pragma Unused y
 		  
+		  // If the swatch is already active then do nothing.
+		  If mIsActive Then Return False
+		  
 		  mIsActive = True
 		  
 		  Refresh
@@ -16,7 +19,19 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub MouseUp(x As Integer, y As Integer)
-		  #Pragma Warning "TODO: Show the colour picker. Do I need to build my own modal panel?"
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  If Self.Window = Nil Then Return
+		  
+		  If Not mColorPickerVisible Then
+		    Var cp As New XUIColorPicker(Self.Value)
+		    AddHandler cp.ColorChanged, AddressOf PickerColorChanged
+		    AddHandler cp.Closing, AddressOf PickerClosing
+		    cp.CurrentColor = Self.Value
+		    mColorPickerVisible = True
+		    cp.ShowModal(Self.Window)
+		  End If
 		  
 		End Sub
 	#tag EndEvent
@@ -31,6 +46,30 @@ Inherits DesktopCanvas
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h21
+		Private Sub PickerClosing(picker As XUIColorPicker)
+		  /// Delegate called when this swatch's color picker is closing.
+		  
+		  #Pragma Unused picker
+		  
+		  mColorPickerVisible = False
+		  mIsActive = False
+		  Refresh
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 44656C656761746520746861742069732063616C6C6564207768656E207468697320737761746368277320636F6C6F72207069636B6572277320636F6C6F7572206973206368616E6765642E
+		Private Sub PickerColorChanged(picker As XUIColorPicker, newColor As Color)
+		  /// Delegate that is called when this swatch's color picker's colour is changed.
+		  
+		  #Pragma Unused picker
+		  
+		  Self.Value = newColor
+		  
+		End Sub
+	#tag EndMethod
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746865207377617463682069732063757272656E746C79206163746976652028692E652E207072657373656420616E642074686520636F6C6F72207069636B65722069732076697369626C65292E2052656164206F6E6C792E
 		#tag Getter
 			Get
@@ -40,6 +79,10 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		IsActive As Boolean
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21, Description = 547275652069662074686520636F6C6F72207069636B65722069732076697369626C652E
+		Private mColorPickerVisible As Boolean = False
+	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5472756520696620746865207377617463682069732063757272656E746C79206163746976652028692E652E207072657373656420616E642074686520636F6C6F72207069636B65722069732076697369626C65292E
 		Private mIsActive As Boolean = False
