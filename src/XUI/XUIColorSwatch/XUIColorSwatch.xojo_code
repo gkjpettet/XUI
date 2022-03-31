@@ -46,6 +46,17 @@ Inherits DesktopCanvas
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h0
+		Sub Constructor()
+		  // Calling the overridden superclass constructor.
+		  Super.Constructor
+		  
+		  // Default to the macOS renderer. This can be overriden if desired.
+		  Self.Renderer = New XUIColorSwatchRendererMacOS(Self)
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub PickerClosing(picker As XUIColorPicker)
 		  /// Delegate called when this swatch's color picker is closing.
@@ -68,6 +79,11 @@ Inherits DesktopCanvas
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Hook, Flags = &h0, Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Event ColorChanged(newColor As Color)
+	#tag EndHook
 
 
 	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746865207377617463682069732063757272656E746C79206163746976652028692E652E207072657373656420616E642074686520636F6C6F72207069636B65722069732076697369626C65292E2052656164206F6E6C792E
@@ -123,6 +139,8 @@ Inherits DesktopCanvas
 			  mValue = value
 			  
 			  Refresh
+			  
+			  RaiseEvent ColorChanged(value)
 			End Set
 		#tag EndSetter
 		Value As Color

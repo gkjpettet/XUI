@@ -38,6 +38,7 @@ Begin DesktopWindow WinImageButton
       Height          =   50
       HoverImage      =   921319423
       Index           =   -2147483648
+      IsPressed       =   False
       Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
@@ -52,6 +53,7 @@ Begin DesktopWindow WinImageButton
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
+      Type            =   0
       Visible         =   True
       Width           =   50
    End
@@ -494,6 +496,7 @@ Begin DesktopWindow WinImageButton
       Enabled         =   True
       Height          =   20
       Index           =   -2147483648
+      IsActive        =   False
       Left            =   336
       LockBottom      =   False
       LockedInPosition=   False
@@ -569,6 +572,7 @@ End
 		  
 		  CheckBoxEnabled.Value = True
 		  CheckBoxHasBorder.Value = False
+		  BorderColorSwatch.Value = Color.Black
 		  
 		  CheckBoxHasDisabledImage.Value = True
 		  CheckBoxHasHoverImage.Value = True
@@ -725,6 +729,13 @@ End
 		  #Pragma Unused item
 		  
 		  Button.Type = Me.RowTagAt(Me.SelectedRowIndex)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BorderColorSwatch
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  Button.BorderColor = BorderColorSwatch.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents
