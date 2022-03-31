@@ -95,8 +95,6 @@ Inherits DesktopCanvas
 		Private Function GetCorrectPicture() As Picture
 		  /// Returns the correct picture to use for the button's current state.
 		  
-		  #Pragma Warning "TODO: Support different images for light and dark mode?"
-		  
 		  Select Case Me.Type
 		  Case Types.ToggleButton
 		    If Not Me.Enabled Then

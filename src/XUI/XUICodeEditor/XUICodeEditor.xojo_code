@@ -2848,8 +2848,9 @@ Implements XUINotificationListener
 		Private Sub RegisterForNotifications()
 		  /// Registers the editor for desired notifications.
 		  
-		  Self.ListenForKey(App.NOTIFICATION_APPEARANCE_CHANGED)
-		  
+		  If App IsA XUIApp Then
+		    Self.ListenForKey(App.NOTIFICATION_APPEARANCE_CHANGED)
+		  End If
 		End Sub
 	#tag EndMethod
 

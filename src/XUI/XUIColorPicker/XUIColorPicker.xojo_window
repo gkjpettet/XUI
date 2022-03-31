@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow XUIColorPicker
+Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
@@ -556,6 +556,8 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
+		  RegisterForNotifications
+		  
 		  // Start on the sliders panel.
 		  PanelMain.SelectedPanelIndex = PANEL_MAIN_SLIDERS
 		  PanelSliders.SelectedPanelIndex = PANEL_SLIDERS_RGB
@@ -578,6 +580,25 @@ End
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h21, Description = 48616E646C657320616E204F5320617070656172616E6365206368616E67652028652E672E206C6967687420746F206461726B206D6F646520737769746368292E
+		Private Sub AppearanceChanged()
+		  /// Handles an OS appearance change (e.g. light to dark mode switch).
+		  
+		  // Ensure we use the correct button images.
+		  If Color.IsDarkMode Then
+		    
+		    ButtonSliders.DefaultImage = XUIColorSwatchIconSlidersDark
+		    ButtonSliders.PressedImage = XUIColorSwatchIconSlidersSelectedDark
+		    
+		  Else
+		    
+		    ButtonSliders.DefaultImage = XUIColorSwatchIconSliders
+		    ButtonSliders.PressedImage = XUIColorSwatchIconSlidersSelected
+		    
+		  End If
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Constructor(startingColor As Color)
 		  // Calling the overridden superclass constructor.
@@ -585,6 +606,8 @@ End
 		  
 		  CurrentColor = startingColor
 		  mStartingColor = startingColor
+		  
+		  AppearanceChanged
 		End Sub
 	#tag EndMethod
 
@@ -636,6 +659,21 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 41206E6F74696669636174696F6E20686173206265656E2072656365697665642066726F6D20746865204E6F74696669636174696F6E2043656E7465722E
+		Sub NotificationReceived(n As XUINotification)
+		  /// A notification has been received from the Notification Center.
+		  ///
+		  /// Part of the XUINotificationListener interface.
+		  
+		  Select Case n.Key
+		  Case App.NOTIFICATION_APPEARANCE_CHANGED
+		    // A light/dark mode switch has occurred. 
+		    AppearanceChanged
+		  End Select
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub RefreshRGBASlidersPanel()
 		  /// Refreshes all the controls on the RGBA sliders panel to reflect `mCurrentColor`.
@@ -657,6 +695,16 @@ End
 		  SliderGreenValue.Text = mCurrentColor.Green.ToString
 		  SliderBlueValue.Text = mCurrentColor.Blue.ToString
 		  SliderAlphaValue.Text = mCurrentColor.Alpha.ToString
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5265676973746572732074686520656469746F7220666F722064657369726564206E6F74696669636174696F6E732E
+		Private Sub RegisterForNotifications()
+		  /// Registers the color picker for desired notifications.
+		  
+		  If App IsA XUIApp Then
+		    Self.ListenForKey(App.NOTIFICATION_APPEARANCE_CHANGED)
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -780,6 +828,11 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events Popup
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma Warning "TODO: Handle changing the different slider types"
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events SliderRedValue
 	#tag Event

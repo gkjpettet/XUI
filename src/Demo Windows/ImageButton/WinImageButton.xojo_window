@@ -735,7 +735,7 @@ End
 #tag Events BorderColorSwatch
 	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
 		Sub ColorChanged(newColor As Color)
-		  Button.BorderColor = BorderColorSwatch.Value
+		  Button.BorderColor = newColor
 		End Sub
 	#tag EndEvent
 #tag EndEvents
