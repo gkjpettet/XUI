@@ -216,8 +216,9 @@ Begin DesktopWindow XUIColorPicker
          AllowFocusRing  =   True
          AllowTabs       =   False
          Backdrop        =   0
-         CompleteColor   =   &c00000000
-         Component       =   3
+         CompleteColor   =   &cFF930000
+         ComponentType   =   3
+         ComponentValue  =   200.0
          Enabled         =   True
          Height          =   16
          Index           =   -2147483648
@@ -236,7 +237,262 @@ Begin DesktopWindow XUIColorPicker
          Top             =   177
          Transparent     =   True
          Visible         =   True
-         Width           =   200
+         Width           =   247
+      End
+      Begin XUIRGBAComponentSlider SliderGreen
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         CompleteColor   =   &cFF930000
+         ComponentType   =   2
+         ComponentValue  =   50.0
+         Enabled         =   True
+         Height          =   16
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   13
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   205
+         Transparent     =   True
+         Visible         =   True
+         Width           =   247
+      End
+      Begin XUIRGBAComponentSlider SliderBlue
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         CompleteColor   =   &cFF930000
+         ComponentType   =   1
+         ComponentValue  =   125.0
+         Enabled         =   True
+         Height          =   16
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   13
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   233
+         Transparent     =   True
+         Visible         =   True
+         Width           =   247
+      End
+      Begin XUIRGBAComponentSlider SliderAlpha
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         CompleteColor   =   &cFF930000
+         ComponentType   =   "XUIColorComponentSlider.Types.Red"
+         ComponentValue  =   255.0
+         Enabled         =   True
+         Height          =   16
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   13
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   5
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   261
+         Transparent     =   True
+         Visible         =   True
+         Width           =   247
+      End
+      Begin DesktopTextField SliderRedValue
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "R"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   272
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   3
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   10
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "255"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   174
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "###"
+         Visible         =   True
+         Width           =   35
+      End
+      Begin DesktopTextField SliderGreenValue
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "G"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   272
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   3
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   11
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "255"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   202
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "###"
+         Visible         =   True
+         Width           =   35
+      End
+      Begin DesktopTextField SliderBlueValue
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "B"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   272
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   3
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   12
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "255"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   230
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "###"
+         Visible         =   True
+         Width           =   35
+      End
+      Begin DesktopTextField SliderAlphaValue
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "A"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   272
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   3
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   13
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "255"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   258
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "###"
+         Visible         =   True
+         Width           =   35
       End
    End
 End
@@ -245,25 +501,65 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  RefreshSlidersPanel
-		  
-		  ButtonSelect.SetFocus
+		  CurrentColor = mCurrentColor
+		  Update
 		End Sub
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h21
-		Private Sub RefreshSlidersPanel()
-		  /// Refreshes all the controls on the sliders panel to reflect `mCurrentColor`.
+		Private Sub RefreshRGBASlidersPanel()
+		  /// Refreshes all the controls on the RGBA sliders panel to reflect `mCurrentColor`.
 		  
-		  #Pragma Warning "TODO"
-		  
+		  /// RGB value.
 		  SlidersRGBHexValue.Text = mCurrentColor.ToRGBString
 		  
+		  // Main colour canvas.
 		  SlidersColorCanvas.Refresh
+		  
+		  // Component sliders.
+		  SliderRed.CompleteColor = mCurrentColor
+		  SliderGreen.CompleteColor = mCurrentColor
+		  SliderBlue.CompleteColor = mCurrentColor
+		  SliderAlpha.CompleteColor = mCurrentColor
+		  
+		  // Component values.
+		  SliderRedValue.Text = mCurrentColor.Red.ToString
+		  SliderGreenValue.Text = mCurrentColor.Green.ToString
+		  SliderBlueValue.Text = mCurrentColor.Blue.ToString
+		  SliderAlphaValue.Text = mCurrentColor.Alpha.ToString
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 5570646174657320616C6C20636F6E74726F6C7320746F206D61746368207468652063757272656E7420636F6C6F75722E
+		Private Sub Update()
+		  /// Updates all controls to match the current colour.
+		  
+		  RefreshRGBASlidersPanel
+		End Sub
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h0, Description = 5468652063757272656E746C792073656C656374656420636F6C6F75722E
+		#tag Getter
+			Get
+			  Return mCurrentColor
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mCurrentColor = value
+			  
+			  SliderRed.ComponentValue = mCurrentColor.Red
+			  SliderGreen.ComponentValue = mCurrentColor.Green
+			  SliderBlue.ComponentValue = mCurrentColor.Blue
+			  SliderAlpha.ComponentValue = mCurrentColor.Alpha
+			  
+			  Update
+			End Set
+		#tag EndSetter
+		CurrentColor As Color
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21, Description = 5468652063757272656E746C792073656C656374656420636F6C6F75722E
 		Private mCurrentColor As Color
@@ -300,8 +596,8 @@ End
 		  // If the user pressed Return then update the colour controls if we have a valid hex string.
 		  If Key = Chr(13) Then
 		    If Me.Text.IsRGBA Then
-		      mCurrentColor = XUIColors.FromRGBAString(Me.Text)
-		      RefreshSlidersPanel
+		      CurrentColor = XUIColors.FromRGBAString(Me.Text)
+		      Update
 		    End If
 		    Return True
 		  End If
@@ -313,6 +609,54 @@ End
 		  End Select
 		  
 		  If Not Key.IsHexDigit Then Return True
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderRedValue
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Key = Chr(13) Then
+		    CurrentColor = _
+		    Color.RGB(Integer.FromString(Me.Text), mCurrentColor.Green, mCurrentColor.Blue, mCurrentColor.Alpha)
+		    Return True
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderGreenValue
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Key = Chr(13) Then
+		    CurrentColor = _
+		    Color.RGB(mCurrentColor.Red, Integer.FromString(Me.Text), mCurrentColor.Blue, mCurrentColor.Alpha)
+		    Return True
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderBlueValue
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Key = Chr(13) Then
+		    CurrentColor = _
+		    Color.RGB(mCurrentColor.Red, mCurrentColor.Green, Integer.FromString(Me.Text), mCurrentColor.Alpha)
+		    Return True
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderAlphaValue
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Key = Chr(13) Then
+		    CurrentColor = _
+		    Color.RGB(mCurrentColor.Red, mCurrentColor.Green, mCurrentColor.Blue, Integer.FromString(Me.Text))
+		    Return True
+		  End If
 		  
 		End Function
 	#tag EndEvent

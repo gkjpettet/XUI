@@ -241,6 +241,7 @@ MultiImage=XUIColorSwatchIconSliders;XUI/XUIColorSwatch/Images/XUIColorSwatchIco
 MultiImage=XUIColorSwatchIconSlidersSelected;XUI/XUIColorSwatch/Images/XUIColorSwatchIconSlidersSelected.xojo_image;&h00000000309677FF;&h0000000052CD97FF;false
 Module=XUIColors;XUI/Required/XUIColors.xojo_code;&h0000000006D5CFFF;&h0000000049AEC7FF;false
 Class=XUIRGBAComponentSlider;XUI/XUIColorSwatch/XUIRGBAComponentSlider.xojo_code;&h0000000079F8CFFF;&h00000000348B5FFF;false
+MultiImage=CheckerboardPattern;XUI/XUIColorSwatch/Images/CheckerboardPattern.xojo_image;&h0000000070B2EFFF;&h0000000052CD97FF;false
 DefaultWindow=XUIColorPicker
 MajorVersion=1
 MinorVersion=0
