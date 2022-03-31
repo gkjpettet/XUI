@@ -24,12 +24,12 @@ Begin DesktopWindow XUIColorPicker
    Type            =   1
    Visible         =   True
    Width           =   320
-   Begin DesktopButton ButtonSelect
+   Begin DesktopButton ButtonOK
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Select"
-      Default         =   True
+      Caption         =   "OK"
+      Default         =   False
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -440,7 +440,7 @@ Begin DesktopWindow XUIColorPicker
             Backdrop        =   0
             CompleteColor   =   &cFF930000
             ComponentType   =   "XUIColorComponentSlider.Types.Red"
-            ComponentValue  =   255.0
+            ComponentValue  =   255
             Enabled         =   True
             Height          =   16
             Index           =   -2147483648
@@ -469,7 +469,7 @@ Begin DesktopWindow XUIColorPicker
             Backdrop        =   0
             CompleteColor   =   &cFF930000
             ComponentType   =   1
-            ComponentValue  =   125.0
+            ComponentValue  =   125
             Enabled         =   True
             Height          =   16
             Index           =   -2147483648
@@ -498,7 +498,7 @@ Begin DesktopWindow XUIColorPicker
             Backdrop        =   0
             CompleteColor   =   &cFF930000
             ComponentType   =   2
-            ComponentValue  =   50.0
+            ComponentValue  =   50
             Enabled         =   True
             Height          =   16
             Index           =   -2147483648
@@ -527,7 +527,7 @@ Begin DesktopWindow XUIColorPicker
             Backdrop        =   0
             CompleteColor   =   &cFF930000
             ComponentType   =   3
-            ComponentValue  =   200.0
+            ComponentValue  =   200
             Enabled         =   True
             Height          =   16
             Index           =   -2147483648
@@ -562,11 +562,15 @@ End
 		  
 		  CurrentColor = mCurrentColor
 		  
-		  // Hook into the slider's dragging events.
+		  // Hook into the various slider's events.
 		  AddHandler SliderRed.IsDraggingScrubber, AddressOf DraggingRedSliderScrubber
+		  AddHandler SliderRed.PressedSlider, AddressOf RGBASliderPressed
 		  AddHandler SliderGreen.IsDraggingScrubber, AddressOf DraggingGreenSliderScrubber
+		  AddHandler SliderGreen.PressedSlider, AddressOf RGBASliderPressed
 		  AddHandler SliderBlue.IsDraggingScrubber, AddressOf DraggingBlueSliderScrubber
+		  AddHandler SliderBlue.PressedSlider, AddressOf RGBASliderPressed
 		  AddHandler SliderAlpha.IsDraggingScrubber, AddressOf DraggingAlphaSliderScrubber
+		  AddHandler SliderAlpha.PressedSlider, AddressOf RGBASliderPressed
 		  
 		  Update
 		  
@@ -580,14 +584,15 @@ End
 		  Super.Constructor
 		  
 		  CurrentColor = startingColor
+		  mStartingColor = startingColor
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F662074686520616C70686120736C696465722073637275626265722E
-		Private Sub DraggingAlphaSliderScrubber(sender As XUIRGBAComponentSlider)
+		Private Sub DraggingAlphaSliderScrubber(slider As XUIRGBAComponentSlider)
 		  /// Delegate for handling the dragging of the alpha slider scrubber.
 		  
-		  #Pragma Unused sender
+		  #Pragma Unused slider
 		  
 		  CurrentColor = _
 		  Color.RGB(mCurrentColor.Red, mCurrentColor.Green, mCurrentColor.Blue, SliderAlpha.ComponentValue)
@@ -596,10 +601,10 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F662074686520626C756520736C696465722073637275626265722E
-		Private Sub DraggingBlueSliderScrubber(sender As XUIRGBAComponentSlider)
+		Private Sub DraggingBlueSliderScrubber(slider As XUIRGBAComponentSlider)
 		  /// Delegate for handling the dragging of the blue slider scrubber.
 		  
-		  #Pragma Unused sender
+		  #Pragma Unused slider
 		  
 		  CurrentColor = _
 		  Color.RGB(mCurrentColor.Red, mCurrentColor.Green, SliderBlue.ComponentValue, mCurrentColor.Alpha)
@@ -608,10 +613,10 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F66207468652072656420736C696465722073637275626265722E
-		Private Sub DraggingGreenSliderScrubber(sender As XUIRGBAComponentSlider)
+		Private Sub DraggingGreenSliderScrubber(slider As XUIRGBAComponentSlider)
 		  /// Delegate for handling the dragging of the green slider scrubber.
 		  
-		  #Pragma Unused sender
+		  #Pragma Unused slider
 		  
 		  CurrentColor = _
 		  Color.RGB(mCurrentColor.Red, SliderGreen.ComponentValue, mCurrentColor.Blue, mCurrentColor.Alpha)
@@ -620,10 +625,10 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F66207468652072656420736C696465722073637275626265722E
-		Private Sub DraggingRedSliderScrubber(sender As XUIRGBAComponentSlider)
+		Private Sub DraggingRedSliderScrubber(slider As XUIRGBAComponentSlider)
 		  /// Delegate for handling the dragging of the red slider scrubber.
 		  
-		  #Pragma Unused sender
+		  #Pragma Unused slider
 		  
 		  CurrentColor = _
 		  Color.RGB(SliderRed.ComponentValue, mCurrentColor.Green, mCurrentColor.Blue, mCurrentColor.Alpha)
@@ -652,6 +657,17 @@ End
 		  SliderGreenValue.Text = mCurrentColor.Green.ToString
 		  SliderBlueValue.Text = mCurrentColor.Blue.ToString
 		  SliderAlphaValue.Text = mCurrentColor.Alpha.ToString
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865207072657373696E67206F662061205247424120736C696465722E
+		Private Sub RGBASliderPressed(slider As XUIRGBAComponentSlider, newColor As Color)
+		  /// Delegate for handling the pressing of a RGBA slider.
+		  
+		  #Pragma Unused slider
+		  
+		  CurrentColor = newColor
+		  
 		End Sub
 	#tag EndMethod
 
@@ -696,6 +712,10 @@ End
 		Private mCurrentColor As Color
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865207374617274696E6720636F6C6F72207768656E20746865207069636B6572206669727374206F70656E732E
+		Private mStartingColor As Color
+	#tag EndProperty
+
 
 	#tag Constant, Name = PANEL_MAIN_SLIDERS, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E672074686520736C69646572732E
 	#tag EndConstant
@@ -706,7 +726,7 @@ End
 
 #tag EndWindowCode
 
-#tag Events ButtonSelect
+#tag Events ButtonOK
 	#tag Event
 		Sub Pressed()
 		  RaiseEvent ColorChanged(CurrentColor)
@@ -718,6 +738,9 @@ End
 #tag Events ButtonCancel
 	#tag Event
 		Sub Pressed()
+		  // The user wants to cancel changing the colour. Revert back to the starting colour.
+		  RaiseEvent ColorChanged(mStartingColor)
+		  
 		  Self.Close
 		End Sub
 	#tag EndEvent

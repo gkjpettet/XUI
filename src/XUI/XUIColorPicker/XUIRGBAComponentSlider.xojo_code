@@ -3,14 +3,13 @@ Protected Class XUIRGBAComponentSlider
 Inherits DesktopCanvas
 	#tag Event
 		Function MouseDown(x As Integer, y As Integer) As Boolean
-		  #Pragma Warning "TODO: Support clicking on a location in addition to dragging"
-		  
 		  mMouseDownX = x
 		  mMouseDownY = y
 		  mMouseDownTicks = System.Ticks
 		  
 		  If mScrubberBounds <> Nil Then
 		    mClickedScrubberOnMouseDown = mScrubberBounds.Contains(x, y)
+		    Return True
 		  End If
 		  
 		  Return True
@@ -20,8 +19,6 @@ Inherits DesktopCanvas
 
 	#tag Event
 		Sub MouseDrag(x As Integer, y As Integer)
-		  #Pragma Warning "BUG: Dragging to either end of the slider causing the value to wrap around (byte boundary?)"
-		  
 		  If System.Ticks - mMouseDownTicks > DRAG_THRESHOLD_TICKS Then
 		    
 		    mMouseDownTicks = System.Ticks
@@ -51,6 +48,12 @@ Inherits DesktopCanvas
 		  If mIsDragging Then RaiseEvent FinishedDraggingScrubber
 		  mIsDragging = False
 		  
+		  If Not mClickedScrubberOnMouseDown Then
+		    // Clicked on the slider bar but not the scrubber.
+		    // Update the component value.
+		    Self.ComponentValue = (x / Self.Width) * 255
+		    RaiseEvent PressedSlider(CompleteColor)
+		  End If
 		End Sub
 	#tag EndEvent
 
@@ -242,11 +245,16 @@ Inherits DesktopCanvas
 		Event IsDraggingScrubber()
 	#tag EndHook
 
+	#tag Hook, Flags = &h0, Description = 54686520757365722068617320707265737365642074686520736C6964657220286E6F7420746865207363727562626572292C206368616E67696E672069747320636F6C6F722E
+		Event PressedSlider(newColor As Color)
+	#tag EndHook
+
 
 	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6D706C65746520636F6C6F75722074686174207468697320636F6D706F6E656E7420726570726573656E74732070617274206F662E
 		#tag Getter
 			Get
 			  Return mCompleteColor
+			  
 			End Get
 		#tag EndGetter
 		#tag Setter
@@ -271,12 +279,28 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mComponentValue = value
+			  mComponentValue = XUIMaths.Clamp(value, 0, 255)
+			  
+			  Select Case ComponentType
+			  Case ComponentTypes.Red
+			    mCompleteColor = Color.RGB(mComponentValue, mCompleteColor.Green, mCompleteColor.Blue, mCompleteColor.Alpha)
+			    
+			  Case ComponentTypes.Green
+			    mCompleteColor = Color.RGB(mCompleteColor.Red, mComponentValue, mCompleteColor.Blue, mCompleteColor.Alpha)
+			    
+			  Case ComponentTypes.Blue
+			    mCompleteColor = Color.RGB(mCompleteColor.Red, mCompleteColor.Green, mComponentValue, mCompleteColor.Alpha)
+			    
+			  Case ComponentTypes.Alpha
+			    mCompleteColor = Color.RGB(mCompleteColor.Red, mCompleteColor.Green, mCompleteColor.Blue, mComponentValue)
+			    
+			  End Select
+			  
 			  Refresh
 			  
 			End Set
 		#tag EndSetter
-		ComponentValue As Byte
+		ComponentValue As Integer
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21, Description = 54727565206966207468652073637275626265722077617320636C69636B656420647572696E6720746865206C61737420604D6F757365446F776E60206576656E742E
@@ -288,7 +312,7 @@ Inherits DesktopCanvas
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5468652076616C7565206F66207468697320636F6D706F6E656E742E
-		Private mComponentValue As Byte = 255
+		Private mComponentValue As Integer = 255
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54727565206966207468652073637275626265722069732063757272656E746C79206265696E6720647261676765642E
@@ -551,7 +575,7 @@ Inherits DesktopCanvas
 			Visible=true
 			Group="Behavior"
 			InitialValue=""
-			Type="Byte"
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
