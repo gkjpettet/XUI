@@ -2,6 +2,51 @@
 Protected Class XUIRGBAComponentSlider
 Inherits DesktopCanvas
 	#tag Event
+		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  mMouseDownX = x
+		  mMouseDownY = y
+		  mMouseDownTicks = System.Ticks
+		  If mScrubberBounds <> Nil Then
+		    mClickedScrubberOnMouseDown = mScrubberBounds.Contains(x, y)
+		  End If
+		  
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseDrag(x As Integer, y As Integer)
+		  If System.Ticks - mMouseDownTicks > DRAG_THRESHOLD_TICKS Then
+		    
+		    mMouseDownTicks = System.Ticks
+		    
+		    If Abs(x - mMouseDownX) > DRAG_THRESHOLD_DISTANCE Or _
+		      Abs(y - mMouseDownY) > DRAG_THRESHOLD_DISTANCE Then
+		      
+		      If Not mClickedScrubberOnMouseDown Then Return
+		      
+		      Self.ComponentValue = (x / Self.Width) * 255
+		      
+		      mIsDragging = True
+		      
+		      RaiseEvent IsDraggingScrubber
+		      
+		    End If
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseUp(x As Integer, y As Integer)
+		  If mIsDragging Then RaiseEvent FinishedDraggingScrubber
+		  mIsDragging = False
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
 		  // ===========
 		  // SLIDER
@@ -37,11 +82,15 @@ Inherits DesktopCanvas
 		  // Compute the x position of the scrubber along the spectrum. -1 is a fudge.
 		  Var x As Double = XUIMaths.Clamp((ComponentValue / 255) * g.Width, 0, g.Width - scrubberDiameter - 1)
 		  
+		  // Set the scrubber's bounds.
+		  mScrubberBounds = _
+		  New Rect(x, (g.Height / 2) - (scrubberDiameter / 2), scrubberDiameter, scrubberDiameter)
+		  
 		  // Draw the scrubber.
 		  g.ShadowBrush = mScrubberShadowBrush
 		  g.DrawingColor = mScrubberColor
 		  g.PenSize = 2
-		  g.DrawOval(x, (g.Height / 2) - (scrubberDiameter / 2), scrubberDiameter, scrubberDiameter)
+		  g.DrawOval(x, mScrubberBounds.Top, scrubberDiameter, scrubberDiameter)
 		  g.ShadowBrush = Nil
 		  
 		  mNeedsFullRedraw = False
@@ -166,6 +215,15 @@ Inherits DesktopCanvas
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0, Description = 546865207363727562626572206861732066696E6973686564206265696E6720647261676765642E
+		Event FinishedDraggingScrubber()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0, Description = 54686520736C696465722773207363727562626572206973206265696E6720647261676765642E
+		Event IsDraggingScrubber()
+	#tag EndHook
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6D706C65746520636F6C6F75722074686174207468697320636F6D706F6E656E7420726570726573656E74732070617274206F662E
 		#tag Getter
 			Get
@@ -202,6 +260,10 @@ Inherits DesktopCanvas
 		ComponentValue As Byte
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h21, Description = 54727565206966207468652073637275626265722077617320636C69636B656420647572696E6720746865206C61737420604D6F757365446F776E60206576656E742E
+		Private mClickedScrubberOnMouseDown As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 54686520636F6D706C65746520636F6C6F75722074686174207468697320636F6D706F6E656E7420726570726573656E74732070617274206F662E
 		Private mCompleteColor As Color
 	#tag EndProperty
@@ -210,12 +272,32 @@ Inherits DesktopCanvas
 		Private mComponentValue As Byte = 255
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 54727565206966207468652073637275626265722069732063757272656E746C79206265696E6720647261676765642E
+		Private mIsDragging As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 546865206C696E65617220627275736820746F2075736520666F72207468652063757272656E742060436F6D706C657465436F6C6F726020736C69646572206772616469656E7420696E2074686520605061696E7460206576656E742E20436F6D707574656420696E20605570646174654C696E65617242727573682829602E
 		Private mLinearBrush As LinearGradientBrush
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865207469636B73207768656E20746865206C61737420604D6F757365446F776E60206F722022616374696F6E65642220604D6F7573654472616760206576656E74206F636375727265642E
+		Private mMouseDownTicks As Double
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652060586020636F6F7264696E61746520696E20746865206C61737420604D6F757365446F776E60206576656E742E2053657420746F20602D316020696E2074686520604D6F757365557060206576656E742E
+		Private mMouseDownX As Integer = -1
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652060596020636F6F7264696E61746520696E20746865206C61737420604D6F757365446F776E60206576656E742E2053657420746F20602D316020696E2074686520604D6F757365557060206576656E742E
+		Private mMouseDownY As Integer = -1
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 547275652069662074686520736C69646572206E6565647320612066756C6C207265647261772E
 		Private mNeedsFullRedraw As Boolean = True
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F66207468652073637275626265722C206C6F63616C20746F20746869732063616E7661732E
+		Private mScrubberBounds As Rect
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -229,6 +311,13 @@ Inherits DesktopCanvas
 	#tag Property, Flags = &h21, Description = 54686520636F6C6F7572206F662074686520736C6964657220626F726465722E
 		Private mSliderBorderColor As ColorGroup
 	#tag EndProperty
+
+
+	#tag Constant, Name = DRAG_THRESHOLD_DISTANCE, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320646966666572656E6365206265747765656E207468652063757272656E74206D6F75736520706F736974696F6E20616E6420746865206C61737420746F207472696767657220612064726167206F7065726174696F6E2E
+	#tag EndConstant
+
+	#tag Constant, Name = DRAG_THRESHOLD_TICKS, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F66207469636B732074686174206D757374206861766520656C6170736564206265747765656E20746865206C6173742064726167206F7065726174696F6E20746F207472696767657220616E6F7468657220647261672E
+	#tag EndConstant
 
 
 	#tag Enum, Name = ComponentTypes, Type = Integer, Flags = &h0

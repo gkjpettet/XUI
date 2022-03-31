@@ -502,10 +502,66 @@ End
 	#tag Event
 		Sub Opening()
 		  CurrentColor = mCurrentColor
+		  
+		  // Hook into the slider's dragging events.
+		  AddHandler SliderRed.IsDraggingScrubber, AddressOf DraggingRedSliderScrubber
+		  AddHandler SliderGreen.IsDraggingScrubber, AddressOf DraggingGreenSliderScrubber
+		  AddHandler SliderBlue.IsDraggingScrubber, AddressOf DraggingBlueSliderScrubber
+		  AddHandler SliderAlpha.IsDraggingScrubber, AddressOf DraggingAlphaSliderScrubber
+		  
 		  Update
+		  
 		End Sub
 	#tag EndEvent
 
+
+	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F662074686520616C70686120736C696465722073637275626265722E
+		Private Sub DraggingAlphaSliderScrubber(sender As XUIRGBAComponentSlider)
+		  /// Delegate for handling the dragging of the alpha slider scrubber.
+		  
+		  #Pragma Unused sender
+		  
+		  CurrentColor = _
+		  Color.RGB(mCurrentColor.Red, mCurrentColor.Green, mCurrentColor.Blue, SliderAlpha.ComponentValue)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F662074686520626C756520736C696465722073637275626265722E
+		Private Sub DraggingBlueSliderScrubber(sender As XUIRGBAComponentSlider)
+		  /// Delegate for handling the dragging of the blue slider scrubber.
+		  
+		  #Pragma Unused sender
+		  
+		  CurrentColor = _
+		  Color.RGB(mCurrentColor.Red, mCurrentColor.Green, SliderBlue.ComponentValue, mCurrentColor.Alpha)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F66207468652072656420736C696465722073637275626265722E
+		Private Sub DraggingGreenSliderScrubber(sender As XUIRGBAComponentSlider)
+		  /// Delegate for handling the dragging of the green slider scrubber.
+		  
+		  #Pragma Unused sender
+		  
+		  CurrentColor = _
+		  Color.RGB(mCurrentColor.Red, SliderGreen.ComponentValue, mCurrentColor.Blue, mCurrentColor.Alpha)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 44656C656761746520666F722068616E646C696E6720746865206472616767696E67206F66207468652072656420736C696465722073637275626265722E
+		Private Sub DraggingRedSliderScrubber(sender As XUIRGBAComponentSlider)
+		  /// Delegate for handling the dragging of the red slider scrubber.
+		  
+		  #Pragma Unused sender
+		  
+		  CurrentColor = _
+		  Color.RGB(SliderRed.ComponentValue, mCurrentColor.Green, mCurrentColor.Blue, mCurrentColor.Alpha)
+		  
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub RefreshRGBASlidersPanel()
