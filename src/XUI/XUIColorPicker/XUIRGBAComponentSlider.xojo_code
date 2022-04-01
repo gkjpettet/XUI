@@ -77,9 +77,8 @@ Inherits DesktopCanvas
 		    #If TargetMacOS
 		      pb.Image = CheckerboardPattern
 		    #Else
-		      #Pragma Warning "BUG: Feedback 68166 prevents us drawing the checkerboard pattern"
-		      // We therefore need to compute the best representation ourselves.
-		      pb.Image = CheckerboardPattern.BestRepresentation(16, 16, g.ScaleX)
+		      #Pragma Warning "HACK: Feedback 68166 requires this"
+		      pb.Image = CheckerboardPattern.BestRepresentation(16, 16, 1.0)
 		    #EndIf
 		    g.Brush = pb
 		    g.FillRoundRectangle(0, 0, g.Width, g.Height, g.Height, g.Height)

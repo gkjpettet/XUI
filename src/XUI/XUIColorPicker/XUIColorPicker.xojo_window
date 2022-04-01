@@ -133,6 +133,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       PanelCount      =   2
       Panels          =   ""
       Scope           =   2
+      SelectedPanelIndex=   0
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   False
@@ -255,6 +256,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          PanelCount      =   2
          Panels          =   ""
          Scope           =   2
+         SelectedPanelIndex=   0
          TabIndex        =   15
          TabPanelIndex   =   1
          TabStop         =   False
@@ -573,6 +575,8 @@ End
 		  AddHandler SliderBlue.PressedSlider, AddressOf RGBASliderPressed
 		  AddHandler SliderAlpha.IsDraggingScrubber, AddressOf DraggingAlphaSliderScrubber
 		  AddHandler SliderAlpha.PressedSlider, AddressOf RGBASliderPressed
+		  
+		  AppearanceChanged
 		  
 		  Update
 		  
