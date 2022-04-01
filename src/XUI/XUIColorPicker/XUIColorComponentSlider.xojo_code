@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUIRGBAComponentSlider
+Protected Class XUIColorComponentSlider
 Inherits DesktopCanvas
 	#tag Event
 		Function MouseDown(x As Integer, y As Integer) As Boolean
@@ -28,7 +28,7 @@ Inherits DesktopCanvas
 		      
 		      If Not mClickedScrubberOnMouseDown Then Return
 		      
-		      Self.ComponentValue = (x / Self.Width) * 255
+		      UpdateComponentValueFromXCoord(x)
 		      
 		      mIsDragging = True
 		      
@@ -49,9 +49,8 @@ Inherits DesktopCanvas
 		  mIsDragging = False
 		  
 		  If Not mClickedScrubberOnMouseDown Then
-		    // Clicked on the slider bar but not the scrubber.
-		    // Update the component value.
-		    Self.ComponentValue = (x / Self.Width) * 255
+		    // Clicked on the slider bar but not the scrubber. Update the component value.
+		    UpdateComponentValueFromXCoord(x)
 		    RaiseEvent PressedSlider(CompleteColor)
 		  End If
 		End Sub
@@ -100,8 +99,7 @@ Inherits DesktopCanvas
 		  // ===========
 		  Var scrubberDiameter As Double = g.Height - 2
 		  
-		  // Compute the x position of the scrubber along the spectrum. -1 is a fudge.
-		  Var x As Double = XUIMaths.Clamp((ComponentValue / 255) * g.Width, 0, g.Width - scrubberDiameter - 1)
+		  Var x As Double = ComponentValueToXCoord(g.Width, scrubberDiameter)
 		  
 		  // Set the scrubber's bounds.
 		  mScrubberBounds = _
@@ -119,6 +117,23 @@ Inherits DesktopCanvas
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h21, Description = 52657475726E7320746865205820636F6F7264696E61746520616C6F6E672074686520736C6964657220746F2075736520666F72207468697320736C6964657227732063757272656E7420636F6D706F6E656E742076616C75652E
+		Private Function ComponentValueToXCoord(graphicsWidth As Double, scrubberDiameter As Double) As Double
+		  /// Returns the X coordinate along the slider to use for this slider's current component value.
+		  
+		  Select Case ComponentType
+		  Case ComponentTypes.Alpha, ComponentTypes.Red, ComponentTypes.Green, ComponentTypes.Blue
+		    // These component types are integers 0 - 255.
+		    Return XUIMaths.Clamp((ComponentValue / 255) * graphicsWidth, 0, graphicsWidth - scrubberDiameter - 1)
+		    
+		  Else
+		    // All other component types are doubles 0 - 1.0.
+		    Return XUIMaths.Clamp(ComponentValue * graphicsWidth, 0, graphicsWidth - scrubberDiameter - 1)
+		  End Select
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Constructor()
 		  Super.Constructor
@@ -134,17 +149,34 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 55706461746573206F757220636163686564206C696E65617220627275736820606D4C696E65617242727573686020666F72207468652063757272656E742060436F6D706C657465436F6C6F72602E
-		Private Sub UpdateLinearBrush(g As Graphics)
-		  /// Updates our cached linear brush `mLinearBrush` for the current `CompleteColor`.
-		  ///
-		  /// The gradient runs from &h00 on the left to &hFF on the right of this slider's component type.
-		  /// For example, if the current colour is &c48ADEF and this is a red component slider then the left hand
-		  /// gradient will be &c00ADEF and the right hand gradient will be &cFFADEF.
-		  /// So for a red component slider, we vary the red component between &h00 and &hFF but keep the green, blue and 
-		  /// alpha components the same.
+	#tag Method, Flags = &h21, Description = 536574732074686520636F6D706F6E656E742076616C7565206261736564206F6E20746865206C6F63616C205820636F6F7264696E617465207061737365642E
+		Private Sub UpdateComponentValueFromXCoord(x As Integer)
+		  /// Sets the component value based on the local X coordinate passed.
 		  
-		  mLinearBrush = New LinearGradientBrush
+		  If ComponentType = ComponentTypes.Alpha Then
+		    // Always 0 - 255.
+		    Self.ComponentValue = (x / Self.Width) * 255
+		    Return
+		  End If
+		  
+		  Select Case ColorMode
+		  Case ColorModes.RGB
+		    // Integers 0 - 255.
+		    Self.ComponentValue = (x / Self.Width) * 255
+		  Case ColorModes.CMY, ColorModes.HSV
+		    // Doubles 0 - 1.0.
+		    Self.ComponentValue = x / Self.Width
+		  Else
+		    Raise New UnsupportedOperationException("Unknown color mode.")
+		  End Select
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 55706461746573206F757220636163686564206C696E65617220627275736820606D4C696E65617242727573686020666F72207468652063757272656E742060436F6D706C657465436F6C6F726020646570656E64696E67206F6E2074686520736C69646572277320436F6C6F724D6F64652E
+		Private Sub UpdateLinearBrush(g As Graphics)
+		  /// Updates our cached linear brush `mLinearBrush` for the current `CompleteColor` depending on the 
+		  /// slider's ColorMode.
 		  
 		  Var startPoint, endPoint As Point
 		  If ComponentType = ComponentTypes.Alpha Then
@@ -154,6 +186,120 @@ Inherits DesktopCanvas
 		    startPoint = New Point(0, 0)
 		    endPoint = New Point(g.Width, g.Height)
 		  End If
+		  
+		  Select Case ColorMode
+		  Case ColorModes.RGB
+		    UpdateLinearBrushRGB(startPoint, endPoint)
+		    
+		  Case ColorModes.CMY
+		    #Pragma Warning "TODO"
+		    
+		  Case ColorModes.HSV
+		    UpdateLinearBrushHSV(startPoint, endPoint)
+		    
+		  Else
+		    Raise New UnsupportedOperationException("Unknown color mode.")
+		  End Select
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 55706461746573206F757220636163686564206C696E65617220627275736820606D4C696E65617242727573686020666F72207468652063757272656E742060436F6D706C657465436F6C6F726020666F722048535620636F6D706F6E656E7420736C69646572732E
+		Private Sub UpdateLinearBrushHSV(startPoint As Point, endPoint As Point)
+		  /// Updates our cached linear brush `mLinearBrush` for the current `CompleteColor` for HSV component sliders.
+		  
+		  mLinearBrush = New LinearGradientBrush
+		  
+		  mLinearBrush.StartPoint = startPoint
+		  mLinearBrush.EndPoint = endPoint
+		  
+		  Var hue As Double = CompleteColor.Hue
+		  Var sat As Double = CompleteColor.Saturation
+		  Var value As Double = CompleteColor.Value
+		  Var alpha As Integer = CompleteColor.Alpha
+		  
+		  // Compute the gradient points.
+		  Var stop0, stop1, stop2, stop3, stop4, stop5, stop6, stop7, stop8, stop9, stop10 As Color
+		  Select Case Self.ComponentType
+		  Case ComponentTypes.Hue
+		    stop0 = Color.HSV(0, sat, value, alpha)
+		    stop1 = Color.HSV(0.1, sat, value, alpha)
+		    stop2 = Color.HSV(0.2, sat, value, alpha)
+		    stop3 = Color.HSV(0.3, sat, value, alpha)
+		    stop4 = Color.HSV(0.4, sat, value, alpha)
+		    stop5 = Color.HSV(0.5, sat, value, alpha)
+		    stop6 = Color.HSV(0.6, sat, value, alpha)
+		    stop7 = Color.HSV(0.7, sat, value, alpha)
+		    stop8 = Color.HSV(0.8, sat, value, alpha)
+		    stop9 = Color.HSV(0.9, sat, value, alpha)
+		    stop10 = Color.HSV(1.0, sat, value, alpha)
+		    
+		  Case ComponentTypes.Saturation
+		    stop0 = Color.HSV(hue, 0, value, alpha)
+		    stop1 = Color.HSV(hue, 0.1, value, alpha)
+		    stop2 = Color.HSV(hue, 0.2, value, alpha)
+		    stop3 = Color.HSV(hue, 0.3, value, alpha)
+		    stop4 = Color.HSV(hue, 0.4, value, alpha)
+		    stop5 = Color.HSV(hue, 0.5, value, alpha)
+		    stop6 = Color.HSV(hue, 0.6, value, alpha)
+		    stop7 = Color.HSV(hue, 0.7, value, alpha)
+		    stop8 = Color.HSV(hue, 0.8, value, alpha)
+		    stop9 = Color.HSV(hue, 0.9, value, alpha)
+		    stop10 = Color.HSV(hue, 1.0, value, alpha)
+		    
+		  Case ComponentTypes.Value
+		    stop0 = Color.HSV(hue, sat, 0, alpha)
+		    stop1 = Color.HSV(hue, sat, 0.1, alpha)
+		    stop2 = Color.HSV(hue, sat, 0.2, alpha)
+		    stop3 = Color.HSV(hue, sat, 0.3, alpha)
+		    stop4 = Color.HSV(hue, sat, 0.4, alpha)
+		    stop5 = Color.HSV(hue, sat, 0.5, alpha)
+		    stop6 = Color.HSV(hue, sat, 0.6, alpha)
+		    stop7 = Color.HSV(hue, sat, 0.7, alpha)
+		    stop8 = Color.HSV(hue, sat, 0.8, alpha)
+		    stop9 = Color.HSV(hue, sat, 0.9, alpha)
+		    stop10 = Color.HSV(hue, sat, 1.0, alpha)
+		    
+		  Case ComponentTypes.Alpha
+		    stop0 = Color.HSV(hue, sat, value, 255)
+		    stop1 = Color.HSV(hue, sat, value, 225)
+		    stop2 = Color.HSV(hue, sat, value, 200)
+		    stop3 = Color.HSV(hue, sat, value, 175)
+		    stop4 = Color.HSV(hue, sat, value, 150)
+		    stop5 = Color.HSV(hue, sat, value, 125)
+		    stop6 = Color.HSV(hue, sat, value, 100)
+		    stop7 = Color.HSV(hue, sat, value, 75)
+		    stop8 = Color.HSV(hue, sat, value, 50)
+		    stop9 = Color.HSV(hue, sat, value, 25)
+		    stop10 = Color.HSV(hue, sat, value, 0)
+		  End Select
+		  
+		  // Add the gradient stops.
+		  mLinearBrush.GradientStops.Add(New Pair(0.0, stop0))
+		  mLinearBrush.GradientStops.Add(New Pair(0.1, stop1))
+		  mLinearBrush.GradientStops.Add(New Pair(0.2, stop2))
+		  mLinearBrush.GradientStops.Add(New Pair(0.3, stop3))
+		  mLinearBrush.GradientStops.Add(New Pair(0.4, stop4))
+		  mLinearBrush.GradientStops.Add(New Pair(0.5, stop5))
+		  mLinearBrush.GradientStops.Add(New Pair(0.6, stop6))
+		  mLinearBrush.GradientStops.Add(New Pair(0.7, stop7))
+		  mLinearBrush.GradientStops.Add(New Pair(0.8, stop8))
+		  mLinearBrush.GradientStops.Add(New Pair(0.9, stop9))
+		  mLinearBrush.GradientStops.Add(New Pair(1.0, stop10))
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 55706461746573206F757220636163686564206C696E65617220627275736820606D4C696E65617242727573686020666F72207468652063757272656E742060436F6D706C657465436F6C6F726020666F722052474220636F6D706F6E656E7420736C69646572732E
+		Private Sub UpdateLinearBrushRGB(startPoint As Point, endPoint As Point)
+		  /// Updates our cached linear brush `mLinearBrush` for the current `CompleteColor` for RGB component sliders.
+		  ///
+		  /// The gradient runs from &h00 on the left to &hFF on the right of this slider's component type.
+		  /// For example, if the current colour is &c48ADEF and this is a red component slider then the left hand
+		  /// gradient will be &c00ADEF and the right hand gradient will be &cFFADEF.
+		  /// So for a red component slider, we vary the red component between &h00 and &hFF but keep the green, blue and 
+		  /// alpha components the same.mLinearBrush = New LinearGradientBrush
+		  
+		  mLinearBrush = New LinearGradientBrush
 		  
 		  mLinearBrush.StartPoint = startPoint
 		  mLinearBrush.EndPoint = endPoint
@@ -249,6 +395,10 @@ Inherits DesktopCanvas
 	#tag EndHook
 
 
+	#tag Property, Flags = &h0
+		ColorMode As XUIColorComponentSlider.ColorModes = XUIColorComponentSlider.ColorModes.RGB
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6D706C65746520636F6C6F75722074686174207468697320636F6D706F6E656E7420726570726573656E74732070617274206F662E
 		#tag Getter
 			Get
@@ -267,7 +417,7 @@ Inherits DesktopCanvas
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
-		ComponentType As XUIRGBAComponentSlider.ComponentTypes = XUIRGBAComponentSlider.ComponentTypes.Red
+		ComponentType As XUIColorComponentSlider.ComponentTypes = XUIColorComponentSlider.ComponentTypes.Red
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 5468652076616C7565206F66207468697320636F6D706F6E656E742E
@@ -278,8 +428,24 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mComponentValue = XUIMaths.Clamp(value, 0, 255)
+			  // Clamp the value as required.
+			  If ComponentType = ComponentTypes.Alpha Then
+			    // Alpha is always an integer value between 0 - 255.
+			    Var i As Integer = XUIMaths.Clamp(value, 0, 255)
+			    mComponentValue = i
+			  Else
+			    Select Case ColorMode
+			    Case ColorModes.RGB
+			      // Only allow integer values between 0 - 255.
+			      Var i As Integer = XUIMaths.Clamp(value, 0, 255)
+			      mComponentValue = i
+			    Case ColorModes.HSV, ColorModes.CMY
+			      // Only allow double values between 0 - 1.0.
+			      mComponentValue = XUIMaths.Clamp(value, 0, 1.0)
+			    End Select
+			  End If
 			  
+			  // Update the complete colour based on this new component value.
 			  Select Case ComponentType
 			  Case ComponentTypes.Red
 			    mCompleteColor = Color.RGB(mComponentValue, mCompleteColor.Green, mCompleteColor.Blue, mCompleteColor.Alpha)
@@ -291,15 +457,39 @@ Inherits DesktopCanvas
 			    mCompleteColor = Color.RGB(mCompleteColor.Red, mCompleteColor.Green, mComponentValue, mCompleteColor.Alpha)
 			    
 			  Case ComponentTypes.Alpha
-			    mCompleteColor = Color.RGB(mCompleteColor.Red, mCompleteColor.Green, mCompleteColor.Blue, mComponentValue)
+			    Select Case ColorMode
+			    Case ColorModes.RGB
+			      mCompleteColor = Color.RGB(mCompleteColor.Red, mCompleteColor.Green, mCompleteColor.Blue, mComponentValue)
+			    Case ColorModes.HSV
+			      mCompleteColor = Color.HSV(mCompleteColor.Hue, mCompleteColor.Saturation, mCompleteColor.Value, mComponentValue)
+			    Case ColorModes.CMY
+			      mCompleteColor = Color.CMY(mCompleteColor.Cyan, mCompleteColor.Magenta, mCompleteColor.Yellow, mComponentValue)
+			    End Select
 			    
+			  Case ComponentTypes.Hue
+			    mCompleteColor = Color.HSV(mComponentValue, mCompleteColor.Saturation, mCompleteColor.Value, mCompleteColor.Alpha)
+			    
+			  Case ComponentTypes.Saturation
+			    mCompleteColor = Color.HSV(mCompleteColor.Hue, mComponentValue, mCompleteColor.Value, mCompleteColor.Alpha)
+			    
+			  Case ComponentTypes.Value
+			    mCompleteColor = Color.HSV(mCompleteColor.Hue, mCompleteColor.Saturation, mComponentValue, mCompleteColor.Alpha)
+			    
+			  Case ComponentTypes.Cyan
+			    mCompleteColor = Color.CMY(mComponentValue, mCompleteColor.Magenta, mCompleteColor.Yellow, mCompleteColor.Alpha)
+			    
+			  Case ComponentTypes.Magenta
+			    mCompleteColor = Color.CMY(mCompleteColor.Cyan, mComponentValue, mCompleteColor.Yellow, mCompleteColor.Alpha)
+			    
+			  Case ComponentTypes.Yellow
+			    mCompleteColor = Color.CMY(mCompleteColor.Cyan, mCompleteColor.Magenta, mComponentValue, mCompleteColor.Alpha)
 			  End Select
 			  
 			  Refresh
 			  
 			End Set
 		#tag EndSetter
-		ComponentValue As Integer
+		ComponentValue As Double
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21, Description = 54727565206966207468652073637275626265722077617320636C69636B656420647572696E6720746865206C61737420604D6F757365446F776E60206576656E742E
@@ -311,7 +501,7 @@ Inherits DesktopCanvas
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5468652076616C7565206F66207468697320636F6D706F6E656E742E
-		Private mComponentValue As Integer = 255
+		Private mComponentValue As Double = 0
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54727565206966207468652073637275626265722069732063757272656E746C79206265696E6720647261676765642E
@@ -362,11 +552,23 @@ Inherits DesktopCanvas
 	#tag EndConstant
 
 
+	#tag Enum, Name = ColorModes, Type = Integer, Flags = &h0
+		RGB
+		  CMY
+		HSV
+	#tag EndEnum
+
 	#tag Enum, Name = ComponentTypes, Type = Integer, Flags = &h0
 		Alpha
 		  Blue
 		  Green
-		Red
+		  Red
+		  Hue
+		  Saturation
+		  Value
+		  Cyan
+		  Magenta
+		Yellow
 	#tag EndEnum
 
 
@@ -552,13 +754,19 @@ Inherits DesktopCanvas
 			Visible=true
 			Group="Behavior"
 			InitialValue="XUIColorComponentSlider.Types.Red"
-			Type="XUIRGBAComponentSlider.ComponentTypes"
+			Type="XUIColorComponentSlider.ComponentTypes"
 			EditorType="Enum"
 			#tag EnumValues
 				"0 - Alpha"
 				"1 - Blue"
 				"2 - Green"
 				"3 - Red"
+				"4 - Hue"
+				"5 - Saturation"
+				"6 - Value"
+				"7 - Cyan"
+				"8 - Magenta"
+				"9 - Yellow"
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -574,8 +782,21 @@ Inherits DesktopCanvas
 			Visible=true
 			Group="Behavior"
 			InitialValue=""
-			Type="Integer"
+			Type="Double"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ColorMode"
+			Visible=true
+			Group="Behavior"
+			InitialValue="XUIColorComponentSlider.ColorModes.RGB"
+			Type="XUIColorComponentSlider.ColorModes"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - RGB"
+				"1 - CMY"
+				"2 - HSV"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabPanelIndex"
