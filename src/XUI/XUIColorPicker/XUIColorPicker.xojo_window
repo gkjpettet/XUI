@@ -44,7 +44,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       LockRight       =   True
       LockTop         =   False
       MacButtonStyle  =   0
-      Scope           =   0
+      Scope           =   2
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -75,7 +75,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       LockRight       =   True
       LockTop         =   False
       MacButtonStyle  =   0
-      Scope           =   0
+      Scope           =   2
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
@@ -263,7 +263,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          Tooltip         =   ""
          Top             =   169
          Transparent     =   False
-         Value           =   1
+         Value           =   0
          Visible         =   True
          Width           =   320
          Begin DesktopTextField SliderRedValue
@@ -454,7 +454,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             LockLeft        =   True
             LockRight       =   False
             LockTop         =   True
-            Scope           =   0
+            Scope           =   2
             TabIndex        =   4
             TabPanelIndex   =   1
             TabStop         =   True
@@ -484,7 +484,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             LockLeft        =   True
             LockRight       =   False
             LockTop         =   True
-            Scope           =   0
+            Scope           =   2
             TabIndex        =   5
             TabPanelIndex   =   1
             TabStop         =   True
@@ -514,7 +514,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             LockLeft        =   True
             LockRight       =   False
             LockTop         =   True
-            Scope           =   0
+            Scope           =   2
             TabIndex        =   6
             TabPanelIndex   =   1
             TabStop         =   True
@@ -544,7 +544,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             LockLeft        =   True
             LockRight       =   False
             LockTop         =   True
-            Scope           =   0
+            Scope           =   2
             TabIndex        =   7
             TabPanelIndex   =   1
             TabStop         =   True
