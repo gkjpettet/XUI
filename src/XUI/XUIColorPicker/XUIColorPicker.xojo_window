@@ -23,7 +23,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
    Title           =   "Choose A Color"
    Type            =   1
    Visible         =   True
-   Width           =   320
+   Width           =   321
    Begin DesktopButton ButtonOK
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -37,7 +37,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   166
+      Left            =   167
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -68,7 +68,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   74
+      Left            =   75
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -93,7 +93,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       AllowTabs       =   False
       Backdrop        =   0
       BorderColor     =   &c00000000
-      DefaultImage    =   2118187007
+      DefaultImage    =   1502371839
       DisabledImage   =   0
       Enabled         =   True
       HasBorder       =   False
@@ -101,13 +101,13 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       HoverImage      =   0
       Index           =   -2147483648
       IsPressed       =   True
-      Left            =   270
+      Left            =   271
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      PressedImage    =   815167487
+      PressedImage    =   1694777343
       Scope           =   2
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -122,7 +122,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
    Begin DesktopPagePanel PanelMain
       AllowAutoDeactivate=   True
       Enabled         =   True
-      Height          =   301
+      Height          =   215
       Index           =   -2147483648
       Left            =   0
       LockBottom      =   True
@@ -138,37 +138,11 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       TabPanelIndex   =   0
       TabStop         =   False
       Tooltip         =   ""
-      Top             =   45
+      Top             =   131
       Transparent     =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
-      Width           =   320
-      Begin DesktopCanvas SlidersColorCanvas
-         AllowAutoDeactivate=   True
-         AllowFocus      =   False
-         AllowFocusRing  =   True
-         AllowTabs       =   False
-         Backdrop        =   0
-         Enabled         =   True
-         Height          =   80
-         Index           =   -2147483648
-         InitialParent   =   "PanelMain"
-         Left            =   0
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   2
-         TabIndex        =   0
-         TabPanelIndex   =   1
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   45
-         Transparent     =   True
-         Visible         =   True
-         Width           =   320
-      End
+      Width           =   321
       Begin DesktopTextField SlidersRGBHexValue
          AllowAutoDeactivate=   True
          AllowFocusRing  =   True
@@ -204,7 +178,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   137
+         Top             =   143
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -223,7 +197,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          InitialParent   =   "PanelMain"
          InitialValue    =   "CMY\nRGB\nHSV"
          Italic          =   False
-         Left            =   240
+         Left            =   241
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -235,7 +209,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   137
+         Top             =   143
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -244,7 +218,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       Begin DesktopPagePanel PanelSliders
          AllowAutoDeactivate=   True
          Enabled         =   True
-         Height          =   127
+         Height          =   125
          Index           =   -2147483648
          InitialParent   =   "PanelMain"
          Left            =   0
@@ -261,11 +235,11 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          TabPanelIndex   =   1
          TabStop         =   False
          Tooltip         =   ""
-         Top             =   169
+         Top             =   171
          Transparent     =   False
-         Value           =   0
+         Value           =   2
          Visible         =   True
-         Width           =   320
+         Width           =   321
          Begin DesktopTextField SliderRedValue
             AllowAutoDeactivate=   True
             AllowFocusRing  =   True
@@ -287,8 +261,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   272
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   3
             Password        =   False
@@ -329,8 +303,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   272
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   3
             Password        =   False
@@ -371,8 +345,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   272
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   3
             Password        =   False
@@ -413,8 +387,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   272
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   3
             Password        =   False
@@ -695,8 +669,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   262
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   4
             Password        =   False
@@ -737,8 +711,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   262
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   4
             Password        =   False
@@ -779,8 +753,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   262
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   4
             Password        =   False
@@ -821,8 +795,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   262
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   3
             Password        =   False
@@ -983,8 +957,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   262
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   4
             Password        =   False
@@ -1025,8 +999,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   262
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   4
             Password        =   False
@@ -1067,8 +1041,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   262
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   4
             Password        =   False
@@ -1109,8 +1083,8 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Left            =   262
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
+            LockLeft        =   True
+            LockRight       =   False
             LockTop         =   True
             MaximumCharactersAllowed=   3
             Password        =   False
@@ -1131,6 +1105,94 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Width           =   45
          End
       End
+      Begin XUIColorPickerSwatchCanvas Swatches
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         DotDiameter     =   16
+         Enabled         =   True
+         GapWidth        =   6
+         Height          =   26
+         Index           =   -2147483648
+         InitialParent   =   "PanelMain"
+         Left            =   15
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         SelectedIndex   =   3
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   143
+         Transparent     =   True
+         Visible         =   True
+         Width           =   291
+      End
+   End
+   Begin DesktopCanvas ColorCanvas
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Enabled         =   True
+      Height          =   90
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   44
+      Transparent     =   True
+      Visible         =   True
+      Width           =   321
+   End
+   Begin XUIImageButton ButtonSwatches
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      BorderColor     =   &c00000000
+      DefaultImage    =   1752608767
+      DisabledImage   =   0
+      Enabled         =   True
+      HasBorder       =   False
+      Height          =   28
+      HoverImage      =   0
+      Index           =   -2147483648
+      IsPressed       =   False
+      Left            =   225
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      PressedImage    =   1233405951
+      Scope           =   2
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   8
+      Transparent     =   True
+      Type            =   1
+      Visible         =   True
+      Width           =   40
    End
 End
 #tag EndDesktopWindow
@@ -1194,13 +1256,19 @@ End
 		  // Ensure we use the correct button images.
 		  If Color.IsDarkMode Then
 		    
-		    ButtonSliders.DefaultImage = XUIColorSwatchIconSlidersDark
-		    ButtonSliders.PressedImage = XUIColorSwatchIconSlidersSelectedDark
+		    ButtonSwatches.DefaultImage = XUIColorPickerIconSwatchesDark
+		    ButtonSwatches.PressedImage = XUIColorPickerIconSwatchesSelectedDark
+		    
+		    ButtonSliders.DefaultImage = XUIColorPickerIconSlidersDark
+		    ButtonSliders.PressedImage = XUIColorPickerIconSlidersSelectedDark
 		    
 		  Else
 		    
-		    ButtonSliders.DefaultImage = XUIColorSwatchIconSliders
-		    ButtonSliders.PressedImage = XUIColorSwatchIconSlidersSelected
+		    ButtonSwatches.DefaultImage = XUIColorPickerIconSwatches
+		    ButtonSwatches.PressedImage = XUIColorPickerIconSwatchesSelected
+		    
+		    ButtonSliders.DefaultImage = XUIColorPickerIconSliders
+		    ButtonSliders.PressedImage = XUIColorPickerIconSlidersSelected
 		    
 		  End If
 		End Sub
@@ -1318,7 +1386,7 @@ End
 		  SlidersRGBHexValue.Text = mCurrentColor.ToRGBString
 		  
 		  // Main colour canvas.
-		  SlidersColorCanvas.Refresh
+		  ColorCanvas.Refresh
 		  
 		  // Component sliders.
 		  SliderCyan.CompleteColor = mCurrentColor
@@ -1343,7 +1411,7 @@ End
 		  SlidersRGBHexValue.Text = mCurrentColor.ToRGBString
 		  
 		  // Main colour canvas.
-		  SlidersColorCanvas.Refresh
+		  ColorCanvas.Refresh
 		  
 		  // Component sliders.
 		  SliderHue.CompleteColor = mCurrentColor
@@ -1368,7 +1436,7 @@ End
 		  SlidersRGBHexValue.Text = mCurrentColor.ToRGBString
 		  
 		  // Main colour canvas.
-		  SlidersColorCanvas.Refresh
+		  ColorCanvas.Refresh
 		  
 		  // Component sliders.
 		  SliderRed.CompleteColor = mCurrentColor
@@ -1458,6 +1526,9 @@ End
 	#tag Constant, Name = PANEL_MAIN_SLIDERS, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E672074686520736C69646572732E
 	#tag EndConstant
 
+	#tag Constant, Name = PANEL_MAIN_SWATCHES, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag EndConstant
+
 	#tag Constant, Name = PANEL_SLIDERS_CMY, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E67207468652052474220736C69646572732E
 	#tag EndConstant
 
@@ -1489,13 +1560,11 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SlidersColorCanvas
-	#tag Event
-		Sub Paint(g As Graphics, areas() As Rect)
-		  #Pragma Unused areas
-		  
-		  g.DrawingColor = mCurrentColor
-		  g.FillRectangle(0, 0, g.Width, g.Height)
+#tag Events ButtonSliders
+	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
+		Sub Pressed()
+		  ButtonSwatches.IsPressed = False
+		  PanelMain.SelectedPanelIndex = PANEL_MAIN_SLIDERS
 		  
 		End Sub
 	#tag EndEvent
@@ -1689,6 +1758,25 @@ End
 		  End If
 		  
 		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events ColorCanvas
+	#tag Event
+		Sub Paint(g As Graphics, areas() As Rect)
+		  #Pragma Unused areas
+		  
+		  g.DrawingColor = mCurrentColor
+		  g.FillRectangle(0, 0, g.Width, g.Height)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonSwatches
+	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
+		Sub Pressed()
+		  ButtonSliders.IsPressed = False
+		  PanelMain.SelectedPanelIndex = PANEL_MAIN_SWATCHES
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior

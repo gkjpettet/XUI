@@ -111,7 +111,7 @@ End
 	#tag Event
 		Sub Opening()
 		  // Centre this window on its display.
-		  'Self.Center
+		  Self.Center
 		  
 		  // Add our XUI products.
 		  Products.AddProduct("XUITabBar", "A customisable tab bar control.", WinTabBar)
