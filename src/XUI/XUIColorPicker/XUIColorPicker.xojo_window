@@ -253,7 +253,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         PanelCount      =   2
+         PanelCount      =   3
          Panels          =   ""
          Scope           =   2
          SelectedPanelIndex=   0
@@ -751,7 +751,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             TextAlignment   =   0
             TextColor       =   &c000000
             Tooltip         =   ""
-            Top             =   211
+            Top             =   208
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   "#.###"
@@ -842,6 +842,294 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Visible         =   True
             Width           =   45
          End
+         Begin XUIColorComponentSlider SliderCyan
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            ColorMode       =   1
+            CompleteColor   =   &c00000000
+            ComponentType   =   7
+            ComponentValue  =   0.0
+            Enabled         =   True
+            Height          =   16
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Left            =   13
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   0
+            TabPanelIndex   =   3
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   183
+            Transparent     =   True
+            Visible         =   True
+            Width           =   237
+         End
+         Begin XUIColorComponentSlider SliderMagenta
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            ColorMode       =   1
+            CompleteColor   =   &c00000000
+            ComponentType   =   8
+            ComponentValue  =   0.0
+            Enabled         =   True
+            Height          =   16
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Left            =   13
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   1
+            TabPanelIndex   =   3
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   211
+            Transparent     =   True
+            Visible         =   True
+            Width           =   237
+         End
+         Begin XUIColorComponentSlider SliderYellow
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            ColorMode       =   1
+            CompleteColor   =   &c00000000
+            ComponentType   =   9
+            ComponentValue  =   0.0
+            Enabled         =   True
+            Height          =   16
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Left            =   13
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   2
+            TabPanelIndex   =   3
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   239
+            Transparent     =   True
+            Visible         =   True
+            Width           =   237
+         End
+         Begin XUIColorComponentSlider SliderAlphaCMY
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            ColorMode       =   1
+            CompleteColor   =   &c00000000
+            ComponentType   =   0
+            ComponentValue  =   0.0
+            Enabled         =   True
+            Height          =   16
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Left            =   13
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   3
+            TabPanelIndex   =   3
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   267
+            Transparent     =   True
+            Visible         =   True
+            Width           =   237
+         End
+         Begin DesktopTextField SliderCyanValue
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "C"
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Italic          =   False
+            Left            =   262
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   4
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   2
+            TabIndex        =   4
+            TabPanelIndex   =   3
+            TabStop         =   True
+            Text            =   "1"
+            TextAlignment   =   0
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   180
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   "#.###"
+            Visible         =   True
+            Width           =   45
+         End
+         Begin DesktopTextField SliderMagentaValue
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "M"
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Italic          =   False
+            Left            =   262
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   4
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   2
+            TabIndex        =   5
+            TabPanelIndex   =   3
+            TabStop         =   True
+            Text            =   "1"
+            TextAlignment   =   0
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   208
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   "#.###"
+            Visible         =   True
+            Width           =   45
+         End
+         Begin DesktopTextField SliderYellowValue
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "Y"
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Italic          =   False
+            Left            =   262
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   4
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   2
+            TabIndex        =   6
+            TabPanelIndex   =   3
+            TabStop         =   True
+            Text            =   "1"
+            TextAlignment   =   0
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   236
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   "#.###"
+            Visible         =   True
+            Width           =   45
+         End
+         Begin DesktopTextField SliderAlphaCMYValue
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "A"
+            Index           =   -2147483648
+            InitialParent   =   "PanelSliders"
+            Italic          =   False
+            Left            =   262
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   3
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   2
+            TabIndex        =   7
+            TabPanelIndex   =   3
+            TabStop         =   True
+            Text            =   "255"
+            TextAlignment   =   0
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   264
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   "###"
+            Visible         =   True
+            Width           =   45
+         End
       End
    End
 End
@@ -880,6 +1168,16 @@ End
 		  AddHandler SliderValue.PressedSlider, AddressOf ColorComponentSliderPressed
 		  AddHandler SliderAlphaHSV.IsDraggingScrubber, AddressOf DraggingColorComponentSliderScrubber
 		  AddHandler SliderAlphaHSV.PressedSlider, AddressOf ColorComponentSliderPressed
+		  
+		  // CMY sliders.
+		  AddHandler SliderCyan.IsDraggingScrubber, AddressOf DraggingColorComponentSliderScrubber
+		  AddHandler SliderCyan.PressedSlider, AddressOf ColorComponentSliderPressed
+		  AddHandler SliderMagenta.IsDraggingScrubber, AddressOf DraggingColorComponentSliderScrubber
+		  AddHandler SliderMagenta.PressedSlider, AddressOf ColorComponentSliderPressed
+		  AddHandler SliderYellow.IsDraggingScrubber, AddressOf DraggingColorComponentSliderScrubber
+		  AddHandler SliderYellow.PressedSlider, AddressOf ColorComponentSliderPressed
+		  AddHandler SliderAlphaCMY.IsDraggingScrubber, AddressOf DraggingColorComponentSliderScrubber
+		  AddHandler SliderAlphaCMY.PressedSlider, AddressOf ColorComponentSliderPressed
 		  
 		  AppearanceChanged
 		  
@@ -1012,6 +1310,31 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52656672657368657320616C6C2074686520636F6E74726F6C73206F6E2074686520434D5920736C69646572732070616E656C20746F207265666C65637420606D43757272656E74436F6C6F72602E
+		Private Sub RefreshCMYSlidersPanel()
+		  /// Refreshes all the controls on the CMY sliders panel to reflect `mCurrentColor`.
+		  
+		  /// RGB value.
+		  SlidersRGBHexValue.Text = mCurrentColor.ToRGBString
+		  
+		  // Main colour canvas.
+		  SlidersColorCanvas.Refresh
+		  
+		  // Component sliders.
+		  SliderCyan.CompleteColor = mCurrentColor
+		  SliderMagenta.CompleteColor = mCurrentColor
+		  SliderYellow.CompleteColor = mCurrentColor
+		  SliderAlphaCMY.CompleteColor = mCurrentColor
+		  
+		  // Component values.
+		  SliderCyanValue.Text = mCurrentColor.Cyan.ToString(Locale.Current, "#.###")
+		  SliderMagentaValue.Text = mCurrentColor.Magenta.ToString(Locale.Current, "#.###")
+		  SliderYellowValue.Text = mCurrentColor.Yellow.ToString(Locale.Current, "#.###")
+		  SliderAlphaCMYValue.Text = mCurrentColor.Alpha.ToString
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52656672657368657320616C6C2074686520636F6E74726F6C73206F6E207468652048535620736C69646572732070616E656C20746F207265666C65637420606D43757272656E74436F6C6F72602E
 		Private Sub RefreshHSVSlidersPanel()
 		  /// Refreshes all the controls on the HSV sliders panel to reflect `mCurrentColor`.
@@ -1077,6 +1400,7 @@ End
 		  
 		  RefreshRGBASlidersPanel
 		  RefreshHSVSlidersPanel
+		  RefreshCMYSlidersPanel
 		End Sub
 	#tag EndMethod
 
@@ -1109,7 +1433,10 @@ End
 			  SliderAlphaHSV.ComponentValue = mCurrentColor.Alpha
 			  
 			  // CMY sliders.
-			  #Pragma Warning "TODO"
+			  SliderCyan.ComponentValue = mCurrentColor.Cyan
+			  SliderMagenta.ComponentValue = mCurrentColor.Magenta
+			  SliderYellow.ComponentValue = mCurrentColor.Yellow
+			  SliderAlphaCMY.ComponentValue = mCurrentColor.Alpha
 			  
 			  Update
 			  
@@ -1129,6 +1456,9 @@ End
 
 
 	#tag Constant, Name = PANEL_MAIN_SLIDERS, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E672074686520736C69646572732E
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_SLIDERS_CMY, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E67207468652052474220736C69646572732E
 	#tag EndConstant
 
 	#tag Constant, Name = PANEL_SLIDERS_HSV, Type = Double, Dynamic = False, Default = \"1", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E67207468652052474220736C69646572732E
@@ -1196,6 +1526,8 @@ End
 #tag Events Popup
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  #Pragma Unused item
+		  
 		  Select Case Me.SelectedRowValue
 		  Case "RGB"
 		    PanelSliders.SelectedPanelIndex = PANEL_SLIDERS_RGB
@@ -1204,8 +1536,7 @@ End
 		    PanelSliders.SelectedPanelIndex = PANEL_SLIDERS_HSV
 		    
 		  Case "CMY"
-		    #Pragma Warning "TODO"
-		    Raise New UnsupportedOperationException("Need to implement this!")
+		    PanelSliders.SelectedPanelIndex = PANEL_SLIDERS_CMY
 		    
 		  Else
 		    Raise New UnsupportedOperationException("Unknown color mode in panel popup")
@@ -1305,7 +1636,55 @@ End
 		Function KeyDown(key As String) As Boolean
 		  If Key = Chr(13) Then
 		    CurrentColor = _
-		    Color.HSV(mCurrentColor.Hue, mCurrentColor.Saturation, mCurrentColor.Value, Double.FromString(Me.Text))
+		    Color.HSV(mCurrentColor.Hue, mCurrentColor.Saturation, mCurrentColor.Value, Integer.FromString(Me.Text))
+		    Return True
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderCyanValue
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Key = Chr(13) Then
+		    CurrentColor = _
+		    Color.CMY(Double.FromString(Me.Text), mCurrentColor.Magenta, mCurrentColor.Yellow, mCurrentColor.Alpha)
+		    Return True
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderMagentaValue
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Key = Chr(13) Then
+		    CurrentColor = _
+		    Color.CMY(mCurrentColor.Cyan, Double.FromString(Me.Text), mCurrentColor.Yellow, mCurrentColor.Alpha)
+		    Return True
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderYellowValue
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Key = Chr(13) Then
+		    CurrentColor = _
+		    Color.CMY(mCurrentColor.Cyan, mCurrentColor.Magenta, Double.FromString(Me.Text), mCurrentColor.Alpha)
+		    Return True
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderAlphaCMYValue
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  If Key = Chr(13) Then
+		    CurrentColor = _
+		    Color.CMY(mCurrentColor.Cyan, mCurrentColor.Magenta, mCurrentColor.Yellow, Integer.FromString(Me.Text))
 		    Return True
 		  End If
 		  

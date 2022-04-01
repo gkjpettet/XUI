@@ -192,7 +192,7 @@ Inherits DesktopCanvas
 		    UpdateLinearBrushRGB(startPoint, endPoint)
 		    
 		  Case ColorModes.CMY
-		    #Pragma Warning "TODO"
+		    UpdateLinearBrushCMY(startPoint, endPoint)
 		    
 		  Case ColorModes.HSV
 		    UpdateLinearBrushHSV(startPoint, endPoint)
@@ -200,6 +200,92 @@ Inherits DesktopCanvas
 		  Else
 		    Raise New UnsupportedOperationException("Unknown color mode.")
 		  End Select
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 55706461746573206F757220636163686564206C696E65617220627275736820606D4C696E65617242727573686020666F72207468652063757272656E742060436F6D706C657465436F6C6F726020666F7220434D5920636F6D706F6E656E7420736C69646572732E
+		Private Sub UpdateLinearBrushCMY(startPoint As Point, endPoint As Point)
+		  /// Updates our cached linear brush `mLinearBrush` for the current `CompleteColor` for CMY component sliders.
+		  
+		  mLinearBrush = New LinearGradientBrush
+		  
+		  mLinearBrush.StartPoint = startPoint
+		  mLinearBrush.EndPoint = endPoint
+		  
+		  Var cyan As Double = CompleteColor.Cyan
+		  Var magenta As Double = CompleteColor.Magenta
+		  Var yellow As Double = CompleteColor.Yellow
+		  Var alpha As Integer = CompleteColor.Alpha
+		  
+		  // Compute the gradient points.
+		  Var stop0, stop1, stop2, stop3, stop4, stop5, stop6, stop7, stop8, stop9, stop10 As Color
+		  Select Case Self.ComponentType
+		  Case ComponentTypes.Cyan
+		    stop0 = Color.CMY(0, magenta, yellow, alpha)
+		    stop1 = Color.CMY(0.1, magenta, yellow, alpha)
+		    stop2 = Color.CMY(0.2, magenta, yellow, alpha)
+		    stop3 = Color.CMY(0.3, magenta, yellow, alpha)
+		    stop4 = Color.CMY(0.4, magenta, yellow, alpha)
+		    stop5 = Color.CMY(0.5, magenta, yellow, alpha)
+		    stop6 = Color.CMY(0.6, magenta, yellow, alpha)
+		    stop7 = Color.CMY(0.7, magenta, yellow, alpha)
+		    stop8 = Color.CMY(0.8, magenta, yellow, alpha)
+		    stop9 = Color.CMY(0.9, magenta, yellow, alpha)
+		    stop10 = Color.CMY(1.0, magenta, yellow, alpha)
+		    
+		  Case ComponentTypes.Magenta
+		    stop0 = Color.CMY(cyan, 0, yellow, alpha)
+		    stop1 = Color.CMY(cyan, 0.1, yellow, alpha)
+		    stop2 = Color.CMY(cyan, 0.2, yellow, alpha)
+		    stop3 = Color.CMY(cyan, 0.3, yellow, alpha)
+		    stop4 = Color.CMY(cyan, 0.4, yellow, alpha)
+		    stop5 = Color.CMY(cyan, 0.5, yellow, alpha)
+		    stop6 = Color.CMY(cyan, 0.6, yellow, alpha)
+		    stop7 = Color.CMY(cyan, 0.7, yellow, alpha)
+		    stop8 = Color.CMY(cyan, 0.8, yellow, alpha)
+		    stop9 = Color.CMY(cyan, 0.9, yellow, alpha)
+		    stop10 = Color.CMY(cyan, 1.0, yellow, alpha)
+		    
+		  Case ComponentTypes.Yellow
+		    stop0 = Color.CMY(cyan, magenta, 0, alpha)
+		    stop1 = Color.CMY(cyan, magenta, 0.1, alpha)
+		    stop2 = Color.CMY(cyan, magenta, 0.2, alpha)
+		    stop3 = Color.CMY(cyan, magenta, 0.3, alpha)
+		    stop4 = Color.CMY(cyan, magenta, 0.4, alpha)
+		    stop5 = Color.CMY(cyan, magenta, 0.5, alpha)
+		    stop6 = Color.CMY(cyan, magenta, 0.6, alpha)
+		    stop7 = Color.CMY(cyan, magenta, 0.7, alpha)
+		    stop8 = Color.CMY(cyan, magenta, 0.8, alpha)
+		    stop9 = Color.CMY(cyan, magenta, 0.9, alpha)
+		    stop10 = Color.CMY(cyan, magenta, 1.0, alpha)
+		    
+		  Case ComponentTypes.Alpha
+		    stop0 = Color.CMY(cyan, magenta, yellow, 255)
+		    stop1 = Color.CMY(cyan, magenta, yellow, 225)
+		    stop2 = Color.CMY(cyan, magenta, yellow, 200)
+		    stop3 = Color.CMY(cyan, magenta, yellow, 175)
+		    stop4 = Color.CMY(cyan, magenta, yellow, 150)
+		    stop5 = Color.CMY(cyan, magenta, yellow, 125)
+		    stop6 = Color.CMY(cyan, magenta, yellow, 100)
+		    stop7 = Color.CMY(cyan, magenta, yellow, 75)
+		    stop8 = Color.CMY(cyan, magenta, yellow, 50)
+		    stop9 = Color.CMY(cyan, magenta, yellow, 25)
+		    stop10 = Color.CMY(cyan, magenta, yellow, 0)
+		  End Select
+		  
+		  // Add the gradient stops.
+		  mLinearBrush.GradientStops.Add(New Pair(0.0, stop0))
+		  mLinearBrush.GradientStops.Add(New Pair(0.1, stop1))
+		  mLinearBrush.GradientStops.Add(New Pair(0.2, stop2))
+		  mLinearBrush.GradientStops.Add(New Pair(0.3, stop3))
+		  mLinearBrush.GradientStops.Add(New Pair(0.4, stop4))
+		  mLinearBrush.GradientStops.Add(New Pair(0.5, stop5))
+		  mLinearBrush.GradientStops.Add(New Pair(0.6, stop6))
+		  mLinearBrush.GradientStops.Add(New Pair(0.7, stop7))
+		  mLinearBrush.GradientStops.Add(New Pair(0.8, stop8))
+		  mLinearBrush.GradientStops.Add(New Pair(0.9, stop9))
+		  mLinearBrush.GradientStops.Add(New Pair(1.0, stop10))
+		  
 		End Sub
 	#tag EndMethod
 
