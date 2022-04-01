@@ -552,8 +552,6 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  #Pragma Warning "TODO: Add border colour swatch to this window."
-		  
 		  Info.Text = ""
 		  
 		  Reset
