@@ -120,6 +120,8 @@ End
 		  Products.AddProduct("XUISourceList", "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
 		  Products.AddProduct("XUIImageButton", "A simple imaged-based button control.", WinImageButton)
 		  Products.AddProduct("XUIColorSwatch & XUIColorPicker", "Easy to use colour swatches and a custom colour picker.", WinColors)
+		  Products.AddProduct("XUITextButton", "A minimalist text button providing full colour customisation.", WinTextButton)
+		  
 		End Sub
 	#tag EndEvent
 

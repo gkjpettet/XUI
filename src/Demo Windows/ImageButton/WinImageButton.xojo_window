@@ -326,7 +326,7 @@ Begin DesktopWindow WinImageButton
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Customise the button with the options to the left. You can reset it back to its state at the start of this demo with the ""Reset"" button. Images must match the size of the button (in this case, 50 x 50)."
+      Text            =   "Customise the button with the options below. You can reset it back to its state at the start of this demo with the ""Reset"" button. Images must match the size of the button (in this case, 50 x 50)."
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""

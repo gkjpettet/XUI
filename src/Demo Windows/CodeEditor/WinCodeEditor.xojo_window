@@ -23,12 +23,14 @@ Begin DesktopWindow WinCodeEditor
    Title           =   "XUICodeEditor Demo"
    Type            =   0
    Visible         =   False
-   Width           =   968
+   Width           =   1100
    Begin XUICodeEditor Editor
       AllowAutocomplete=   True
       AllowAutoCompleteInComments=   True
       AllowInertialScrolling=   True
       AutocompleteCombo=   "XUICodeEditor.AutocompleteCombos.Tab"
+      AutocompletePopupFontName=   ""
+      AutocompletePopupFontSize=   0
       AutoDeactivate  =   True
       BackgroundColor =   &c00000000
       BlinkCaret      =   True
@@ -52,7 +54,7 @@ Begin DesktopWindow WinCodeEditor
       HasFocus        =   False
       HasHorizontalScrollbar=   True
       HasVerticalScrollbar=   True
-      Height          =   583
+      Height          =   588
       HighlightCurrentLine=   False
       HighlightDelimitersAroundCaret=   True
       Index           =   -2147483648
@@ -67,6 +69,7 @@ Begin DesktopWindow WinCodeEditor
       LockRight       =   True
       LockTop         =   True
       LongestLineChanged=   False
+      MinimumAutocompletionLength=   0
       NeedsFullRedraw =   False
       ReadOnly        =   False
       Scope           =   0
@@ -82,37 +85,7 @@ Begin DesktopWindow WinCodeEditor
       Top             =   0
       VerticalLinePadding=   0
       Visible         =   True
-      Width           =   968
-   End
-   Begin DesktopPopupMenu PopupFormatters
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   812
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   2
-      SelectedRowIndex=   0
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   595
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   136
+      Width           =   700
    End
    Begin DesktopLabel Info
       AllowAutoDeactivate=   True
@@ -124,7 +97,7 @@ Begin DesktopWindow WinCodeEditor
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   549
+      Left            =   9
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -137,10 +110,10 @@ Begin DesktopWindow WinCodeEditor
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Info"
-      TextAlignment   =   3
+      TextAlignment   =   1
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   595
+      Top             =   600
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -154,6 +127,67 @@ Begin DesktopWindow WinCodeEditor
       RunMode         =   2
       Scope           =   2
       TabPanelIndex   =   0
+   End
+   Begin DesktopLabel Label1
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   712
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Formatter:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   45
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin DesktopPopupMenu PopupFormatters
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   824
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   2
+      SelectedRowIndex=   0
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   45
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   138
    End
 End
 #tag EndDesktopWindow
@@ -347,6 +381,14 @@ End
 		End Function
 	#tag EndEvent
 #tag EndEvents
+#tag Events InfoTimer
+	#tag Event
+		Sub Action()
+		  Info.Text = "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
+		  Editor.CaretColumn.ToString
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events PopupFormatters
 	#tag Event
 		Sub Opening()
@@ -367,14 +409,6 @@ End
 		  Editor.Formatter = Me.RowTagAt(Me.SelectedRowIndex)
 		  
 		  If UndoManager <> Nil Then UndoManager.RemoveAll
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events InfoTimer
-	#tag Event
-		Sub Action()
-		  Info.Text = "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
-		  Editor.CaretColumn.ToString
 		End Sub
 	#tag EndEvent
 #tag EndEvents
