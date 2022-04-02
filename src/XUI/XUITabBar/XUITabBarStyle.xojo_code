@@ -27,6 +27,39 @@ Protected Class XUITabBarStyle
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 4372656174657320616E642072657475726E732061206E6577207374796C652074686174206D696D696373207468652074616273207365656E20696E204D6963726F736F6674277320456467652E
+		Shared Function Edge() As XUITabBarStyle
+		  /// Creates and returns a new style that mimics the tabs seen in Microsoft's Edge.
+		  
+		  Var style As New XUITabBarStyle
+		  
+		  style.Name = "Edge"
+		  
+		  style.BackgroundColor = New ColorGroup(&cC2C1C2, &c181818)
+		  style.DisabledTabBackgroundColor = New ColorGroup(Color.Red, Color.Red)
+		  style.DisabledTabTextColor = New ColorGroup(&c2C2C2C, &cDFDFDF)
+		  style.HoverTabBackgroundColor = New ColorGroup(&cCCCECB, &c1F201F)
+		  style.HoverTabCloseColor = New ColorGroup(&cAAA8AB, &cE0DFDF)
+		  style.HoverTabTextColor = New ColorGroup(&c2C2C2C, &cDFDFDF)
+		  style.InactiveTabBackgroundColor = New ColorGroup(&cC2C1C2, &c181818)
+		  style.InactiveTabTextColor = New ColorGroup(&c2C2C2C, &cDFDFDF)
+		  style.MenuButtonBackgroundColor = New ColorGroup(&cC2C1C2, &c181818)
+		  style.MenuButtonBorderColor = New ColorGroup(Color.Red, Color.Red)
+		  style.MenuButtonColor = New ColorGroup(Color.Red, Color.Red)
+		  style.MenuButtonHoverBackgroundColor = New ColorGroup(&cAAA8AB, &c3A3A3A)
+		  style.MenuButtonHoverColor = New ColorGroup(&cAAA8AB, &c3A3A3A)
+		  style.SelectedTabBackgroundColor = New ColorGroup(&cF5F5F5, &c2C2D2D)
+		  style.SelectedTabBottomBorderColor = New ColorGroup(Color.Red, Color.Red)
+		  style.SelectedTabTextColor = New ColorGroup(&c2C2C2C, &cDFDFDF)
+		  style.SelectedTabTopBorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
+		  style.TabBorderColor = New ColorGroup(&c5E5F5F, &c575658)
+		  style.TabCloseColor = New ColorGroup(&c2C2C2C, &cDFDFDF)
+		  
+		  Return style
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 4372656174657320616E642072657475726E732061206E6577207374796C652074686174206D696D696373207468652074616273207365656E20696E205361666172692E
 		Shared Function Safari() As XUITabBarStyle
 		  /// Creates and returns a new style that mimics the tabs seen in Safari.

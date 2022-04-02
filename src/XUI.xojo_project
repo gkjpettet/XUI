@@ -259,6 +259,7 @@ DesktopWindow=WinColors;Demo Windows/ColorPicker/WinColors.xojo_window;&h0000000
 Folder=TextButton;Demo Windows/TextButton;&h000000000DA0C7FF;&h0000000048B8BFFF;false
 DesktopWindow=WinTextButton;Demo Windows/TextButton/WinTextButton.xojo_window;&h0000000004AB37FF;&h000000000DA0C7FF;false
 Class=XUITabBar;XUI/XUITabBar/XUITabBar.xojo_code;&h00000000217067FF;&h00000000006F5FFF;false
+Class=XUITabBarRendererEdge;XUI/XUITabBar/Renderers/XUITabBarRendererEdge.xojo_code;&h00000000596EAFFF;&h000000002FA067FF;false
 DefaultWindow=WinTabBar
 MajorVersion=1
 MinorVersion=0

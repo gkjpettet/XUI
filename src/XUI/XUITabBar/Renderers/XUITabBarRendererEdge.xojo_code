@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUITabBarRendererSafari
+Protected Class XUITabBarRendererEdge
 Implements XUITabBarRenderer
 	#tag Method, Flags = &h0, Description = 5468652063757272656E74207769647468206F66207468652062756666657220696E20706F696E74732E
 		Function BufferWidth() As Integer
@@ -13,7 +13,7 @@ Implements XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 50617274206F66207468652058554954616242617252656E646572657220696E746572666163652E
 		Sub Constructor(owner As XUITabBar)
 		  /// Part of the XUITabBarRenderer interface.
 		  
@@ -26,38 +26,13 @@ Implements XUITabBarRenderer
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 44726177732074686520636C6F73652069636F6E20666F72206074616260206174206078602E20416C736F2073657473207468652074616227732060436C6F736549636F6E426F756E6473602E
-		Private Sub DrawTabCloseIcon(tab As XUITabBarItem, x As Integer, g As Graphics, style As XUITabBarStyle)
-		  /// Draws the close icon for `tab` at `x`. Also sets the tab's `CloseIconBounds`.
-		  
-		  // Compute the mid height.
-		  Var midY As Double = g.Height / 2
-		  
-		  // Set the bounds.
-		  tab.CloseIconBounds = New Rect(x, midY - (CLOSE_ICON_HEIGHT / 2), CLOSE_ICON_WIDTH, CLOSE_ICON_HEIGHT)
-		  
-		  // The colour depends on whether the mouse is hovering over the close icon or not.
-		  If tab.CloseIconBounds.Contains(Owner.MouseMoveX, Owner.MouseMoveY) Then
-		    g.DrawingColor = style.HoverTabCloseColor
-		  Else
-		    g.DrawingColor = style.TabCloseColor
-		  End If
-		  
-		  // Draw a cross.
-		  g.PenSize = 2
-		  g.DrawLine(x, midY - (CLOSE_ICON_HEIGHT / 2), x + CLOSE_ICON_WIDTH, midY + (CLOSE_ICON_HEIGHT / 2))
-		  g.DrawLine(x, midY + (CLOSE_ICON_HEIGHT / 2), x + CLOSE_ICON_WIDTH, midY - (CLOSE_ICON_HEIGHT / 2))
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0, Description = 546865207769647468206F6620746865206C656674206D656E7520627574746F6E2028696620737570706F7274656420627920746869732072656E6465726572292E
 		Function LeftMenuButtonWidth() As Double
 		  /// The width of the left menu button (if supported by this renderer).
 		  ///
 		  /// Part of the XUITabBarRenderer interface.
 		  
-		  Return 0
+		  Return 45
 		End Function
 	#tag EndMethod
 
@@ -65,7 +40,7 @@ Implements XUITabBarRenderer
 		Function Name() As String
 		  /// The name of this renderer.
 		  
-		  Return "Safari"
+		  Return "Edge"
 		End Function
 	#tag EndMethod
 
@@ -83,7 +58,7 @@ Implements XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520696D61676520746F20626520647261776E20746F207468652074616220626172277320677261706869637320636F6E7465787420696E20697473205061696E74206576656E742E
+	#tag Method, Flags = &h0, Description = 52656E6465727320746865207461622062617220746F207468652070617373656420677261706869637320636F6E7465787420617420607363726F6C6C506F7358602E
 		Sub Render(ownerGraphics As Graphics, scrollPosX As Integer, needsFullRedraw As Boolean = True)
 		  /// Renders the tab bar to the passed graphics context at `scrollPosX`.
 		  ///
@@ -115,21 +90,20 @@ Implements XUITabBarRenderer
 		  End If
 		  
 		  // Create a buffer of the required size. We need to sum the widths of the individual tabs.
-		  // We'll also track the widest tab (since all tabs drawn by this renderer are the same width).
-		  Var w, widestTab, tabW As Double = 0 
+		  Var w As Double = 0 
 		  For Each tab As XUITabBarItem In Owner.Tabs
-		    tabW = TabWidth(tab, ownerGraphics, style)
-		    widestTab = If(tabW > widestTab, tabW, widestTab)
-		    w = w + tabW
+		    w = w + TabWidth(tab, ownerGraphics, style)
 		  Next tab
+		  
+		  // Add in left and right menus (if enabled).
+		  If Owner.HasLeftMenuButton Then
+		    w = w + LeftMenuButtonWidth
+		  End If
+		  If Owner.HasRightMenuButton Then
+		    w = w + RightMenuButtonWidth
+		  End If
 		  w = Max(Owner.Width, w)
 		  mBuffer = Owner.Window.BitmapForCaching(w, TabBarHeight)
-		  
-		  // Ensure that the widest tab is widest enough to fill the tab bar and is wider than the minimum.
-		  If widestTab * Owner.TabCount < mBuffer.Graphics.Width Then
-		    widestTab = mBuffer.Graphics.Width / Owner.TabCount
-		  End If
-		  widestTab = Max(widestTab, MIN_TAB_WIDTH)
 		  
 		  // For brevity, grab a reference to the buffer's graphics context.
 		  Var g As Graphics = mBuffer.Graphics
@@ -139,41 +113,33 @@ Implements XUITabBarRenderer
 		  g.FillRectangle(0, 0, g.Width, g.Height)
 		  
 		  // Draw all tabs *except* the selected tab.
-		  Var x, selectedTabX As Double = 0
+		  Var x, selectedTabX As Double = If(Owner.HasLeftMenuButton, LeftMenuButtonWidth, 0)
 		  Var tabs() As XUITabBarItem = Owner.Tabs
 		  For i As Integer = 0 To tabs.LastIndex
 		    Var tab As XUITabBarItem = tabs(i)
+		    Var currentTabWidth As Double = TabWidth(tab, g, style)
 		    If i <> Owner.SelectedTabIndex Then
-		      RenderTab(tab, g, x, style, widestTab)
+		      RenderTab(tab, g, x, style, currentTabWidth)
 		      x = tab.Bounds.Right
 		    Else
 		      // Need to store the left edge of the selected tab as we'll draw it shortly.
 		      If i = 0 Then
 		        selectedTabX = 0
 		        // Need to increment `x` to skip over this tab.
-		        x = widestTab
+		        x = currentTabWidth
 		      Else
 		        selectedTabX = tabs(i - 1).Bounds.Right
 		        // Need to increment `x` to skip over this tab.
-		        x = selectedTabX + widestTab
+		        x = selectedTabX + TabWidth(tabs(i - 1), g, style)
 		      End If
 		    End If
 		  Next i
 		  
 		  // Draw the selected tab.
-		  If Owner.SelectedTabIndex <> -1 Then
-		    If Owner.IsDraggingTab Then
-		      // The selected tab is being dragged.
-		      RenderTab(tabs(Owner.SelectedTabIndex), g, _
-		      Owner.MouseDragX - Owner.DraggingTabLeftEdgeXOffset, style, widestTab)
-		    Else
-		      RenderTab(tabs(Owner.SelectedTabIndex), g, selectedTabX, style, widestTab)
-		    End If
-		  End If
+		  #Pragma Warning "TODO: Draw the selected tab"
 		  
-		  // Set the left and right menu button bounds to Nil (since this renderer doesn's support them).
-		  Owner.LeftMenuButtonBounds = Nil
-		  Owner.RightMenuButtonBounds = Nil
+		  #Pragma Warning "TODO: Draw left / right menu buttons"
+		  #Pragma Warning "TODO: Set left/right menu button bounds"
 		  
 		  // Draw the buffer to the owner's graphics context.
 		  ownerGraphics.DrawPicture(mBuffer, -scrollPosX, 0)
@@ -185,6 +151,8 @@ Implements XUITabBarRenderer
 		Private Sub RenderTab(tab As XUITabBarItem, g As Graphics, x As Double, style As XUITabBarStyle, width As Double)
 		  /// Renders `tab` with `width` to `g`, placing its left edge at `x` and sets its bounds.
 		  
+		  #Pragma Warning "TODO: Finish"
+		  
 		  Var leftEdge As Double = x
 		  Var rightEdge As Double = x + width
 		  
@@ -195,78 +163,6 @@ Implements XUITabBarRenderer
 		  SetGraphicsBackgroundColor(tab, g, isSelected, hoveredOver, style)
 		  g.FillRectangle(x, 0, width, g.Height)
 		  
-		  // ==================================================
-		  // BORDERS
-		  // ==================================================
-		  If isSelected Then
-		    // Bottom border.
-		    g.DrawingColor = style.SelectedTabBottomBorderColor
-		    g.DrawLine(x, g.Height - 1, x + width, g.Height - 1)
-		  Else
-		    g.DrawingColor = style.TabBorderColor
-		    
-		    // Top border.
-		    g.DrawLine(x, 0, x + width, 0)
-		    
-		    // Bottom border.
-		    g.DrawLine(x, g.Height - 1, x + width, g.Height - 1)
-		  End If
-		  
-		  // Left border.
-		  If x > 0 Or Owner.HasLeftBorder Then
-		    g.DrawingColor = style.TabBorderColor
-		    g.DrawLine(x, 0, x, g.Height)
-		  End If
-		  
-		  // Right border.
-		  If x < g.Width Or Owner.HasRightBorder Then
-		    g.DrawingColor = style.TabBorderColor
-		    g.DrawLine(x + width, 0, x + width, g.Height)
-		  End If
-		  
-		  x = x + TAB_HORIZONTAL_PADDING
-		  
-		  // ==================================================
-		  // CLOSE ICON
-		  // ==================================================
-		  If tab.Enabled And tab.Closable And hoveredOver Then
-		    DrawTabCloseIcon(tab, x, g, style)
-		    x = x + CLOSE_ICON_WIDTH + CLOSE_ICON_RIGHT_PADDING
-		  End If
-		  
-		  // ==================================================
-		  // CONTENT AREA
-		  // ==================================================
-		  // Compute the width of the icon and caption area.
-		  SetGraphicsFontProperties(tab, g, isSelected, hoveredOver)
-		  Var contentWidth As Double
-		  If tab.Icon <> Nil Then
-		    contentWidth = tab.Icon.Width + ICON_RIGHT_PADDING + g.TextWidth(tab.Caption)
-		  Else
-		    contentWidth = g.TextWidth(tab.Caption)
-		  End If
-		  
-		  // Compute where the content area should be drawn at.
-		  x = leftEdge + (width / 2) - (contentWidth / 2)
-		  
-		  // ==================================================
-		  // ICON
-		  // ==================================================
-		  If tab.Icon <> Nil Then
-		    g.DrawPicture(tab.Icon, x, (g.Height / 2) - (tab.Icon.Height / 2))
-		    x = x + tab.Icon.Width + ICON_RIGHT_PADDING
-		  End If
-		  
-		  // ==================================================
-		  // CAPTION
-		  // ==================================================
-		  Var baseline As Double = g.FontAscent + (g.Height - g.TextHeight) / 2
-		  g.DrawText(tab.Caption, x, baseline)
-		  
-		  // ==================================================
-		  // TAB BOUNDS
-		  // ==================================================
-		  tab.Bounds = New Rect(leftEdge, 0, width, TabBarHeight)
 		  
 		End Sub
 	#tag EndMethod
@@ -277,7 +173,7 @@ Implements XUITabBarRenderer
 		  ///
 		  /// Part of the XUITabBarRenderer interface.
 		  
-		  Return 0
+		  Return 30
 		End Function
 	#tag EndMethod
 
@@ -301,39 +197,13 @@ Implements XUITabBarRenderer
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 536574732074686520666F6E742070726F70657274696573206F662060676020746F2074686F736520726571756972656420666F722060746162602E
-		Private Sub SetGraphicsFontProperties(tab As XUITabBarItem, g As Graphics, isSelected As Boolean, hoveredOver As Boolean)
-		  /// Sets the font properties of `g` to those required for `tab`.
-		  
-		  Var style As XUITabBarStyle = Owner.Style
-		  
-		  g.FontName = style.FontName
-		  g.FontSize = style.FontSize
-		  g.Bold = False
-		  g.Italic = False
-		  
-		  If isSelected Then
-		    g.DrawingColor = style.SelectedTabTextColor
-		    
-		  ElseIf tab.Enabled = False Then
-		    g.DrawingColor = style.DisabledTabTextColor
-		    
-		  ElseIf hoveredOver Then
-		    g.DrawingColor = style.HoverTabTextColor
-		    
-		  Else
-		    g.DrawingColor = style.InactiveTabTextColor
-		  End If
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0, Description = 5472756520696620746869732072656E646572657220737570706F7274732074686520636F6E63657074206F662061206C656674206D656E7520627574746F6E2E
 		Function SupportsLeftMenuButton() As Boolean
 		  /// True if this renderer supports the concept of a left menu button.
 		  ///
 		  /// Part of the XUITabBarRenderer interface.
 		  
-		  Return False
+		  Return True
 		End Function
 	#tag EndMethod
 
@@ -343,7 +213,7 @@ Implements XUITabBarRenderer
 		  ///
 		  /// Part of the XUITabBarRenderer interface.
 		  
-		  Return False
+		  Return True
 		End Function
 	#tag EndMethod
 
@@ -353,7 +223,7 @@ Implements XUITabBarRenderer
 		  ///
 		  /// Part of the XUITabBarRenderer interface.
 		  
-		  Return 28
+		  Return 30
 		  
 		End Function
 	#tag EndMethod
@@ -368,11 +238,6 @@ Implements XUITabBarRenderer
 		  g.FontName = style.FontName
 		  g.FontSize = style.FontSize
 		  
-		  // Close icon.
-		  If tab.Enabled And tab.Closable Then
-		    w = w + CLOSE_ICON_WIDTH + CLOSE_ICON_RIGHT_PADDING
-		  End If
-		  
 		  // Icon & caption widths.
 		  If tab.Icon <> Nil Then
 		    w = w + tab.Icon.Width + ICON_RIGHT_PADDING + g.TextWidth(tab.Caption)
@@ -380,9 +245,13 @@ Implements XUITabBarRenderer
 		    w = w + g.TextWidth(tab.Caption)
 		  End If
 		  
-		  // Ensure the tab is at least the minimal width.
-		  Return Max(MIN_TAB_WIDTH, w)
+		  // Close icon.
+		  If tab.Enabled And tab.Closable Then
+		    w = w + CLOSE_ICON_WIDTH + CLOSE_ICON_LEFT_PADDING
+		  End If
 		  
+		  // Ensure the tab is between the min and max widths.
+		  Return XUIMaths.Clamp(w, MAX_TAB_WIDTH, MAX_TAB_WIDTH)
 		End Function
 	#tag EndMethod
 
@@ -396,10 +265,7 @@ Implements XUITabBarRenderer
 	#tag EndProperty
 
 
-	#tag Constant, Name = CLOSE_ICON_HEIGHT, Type = Double, Dynamic = False, Default = \"6", Scope = Private, Description = 54686520686569676874206F662074686520636C6F73652069636F6E2E
-	#tag EndConstant
-
-	#tag Constant, Name = CLOSE_ICON_RIGHT_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 486F77206D75636820746F2070616420746865207269676874206F662074686520636C6F73652069636F6E20286966207468652074616220697320636C6F7361626C65292E
+	#tag Constant, Name = CLOSE_ICON_LEFT_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 486F77206D75636820746F2070616420746865206C656674206F662074686520636C6F73652069636F6E20286966207468652074616220697320636C6F7361626C65292E
 	#tag EndConstant
 
 	#tag Constant, Name = CLOSE_ICON_WIDTH, Type = Double, Dynamic = False, Default = \"6", Scope = Private, Description = 546865207769647468206F662074686520636C6F73652069636F6E2E
@@ -408,57 +274,15 @@ Implements XUITabBarRenderer
 	#tag Constant, Name = CONTENTS_HORIZONTAL_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 486F77206D75636820746F20706164206C65667420616E64207269676874206F662074686520636F6E74656E7473206F6620746865207461622028636C6F73652069636F6E2C2069636F6E20616E642063617074696F6E292E
 	#tag EndConstant
 
-	#tag Constant, Name = ICON_RIGHT_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 686F77206D75636820746F20706164207468652072696768742073696465206F66207468652069636F6E2066726F6D207468652074616227732063617074696F6E2E
+	#tag Constant, Name = ICON_RIGHT_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 686F77206D75636820746F20706164207468652072696768742073696465206F66207468652069636F6E2066726F6D207468652074616227732063617074696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = MIN_TAB_WIDTH, Type = Double, Dynamic = False, Default = \"120", Scope = Private, Description = 546865206D696E696D756D2077696474682061207461622073686F756C642062652E
+	#tag Constant, Name = MAX_TAB_WIDTH, Type = Double, Dynamic = False, Default = \"240", Scope = Private, Description = 546865206D6178696D756D2077696474682061207461622063616E2062652E
 	#tag EndConstant
 
-	#tag Constant, Name = TAB_HORIZONTAL_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private
+	#tag Constant, Name = MIN_TAB_WIDTH, Type = Double, Dynamic = False, Default = \"50", Scope = Private, Description = 546865206D696E696D756D2077696474682061207461622063616E2062652E
 	#tag EndConstant
 
 
-	#tag ViewBehavior
-		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Index"
-			Visible=true
-			Group="ID"
-			InitialValue="-2147483648"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Left"
-			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Top"
-			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-	#tag EndViewBehavior
 End Class
 #tag EndClass

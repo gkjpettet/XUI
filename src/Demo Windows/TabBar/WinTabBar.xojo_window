@@ -86,7 +86,7 @@ Begin DesktopWindow WinTabBar
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   314
+      Height          =   284
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -103,7 +103,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   270
+      Top             =   300
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -135,7 +135,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   40
+      Top             =   70
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -167,7 +167,7 @@ Begin DesktopWindow WinTabBar
       TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   40
+      Top             =   70
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -195,7 +195,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   72
+      Top             =   102
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -227,7 +227,7 @@ Begin DesktopWindow WinTabBar
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   87
+         Top             =   117
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -268,7 +268,7 @@ Begin DesktopWindow WinTabBar
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   87
+         Top             =   117
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -298,7 +298,7 @@ Begin DesktopWindow WinTabBar
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   119
+         Top             =   149
          Transparent     =   False
          Underline       =   False
          Value           =   False
@@ -329,7 +329,7 @@ Begin DesktopWindow WinTabBar
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   151
+         Top             =   181
          Transparent     =   False
          Underline       =   False
          Value           =   False
@@ -358,7 +358,7 @@ Begin DesktopWindow WinTabBar
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   178
+         Top             =   208
          Transparent     =   True
          Visible         =   True
          Width           =   32
@@ -390,7 +390,7 @@ Begin DesktopWindow WinTabBar
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   183
+         Top             =   213
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -422,7 +422,7 @@ Begin DesktopWindow WinTabBar
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   183
+         Top             =   213
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -454,7 +454,7 @@ Begin DesktopWindow WinTabBar
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   183
+         Top             =   213
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -486,7 +486,7 @@ Begin DesktopWindow WinTabBar
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   222
+         Top             =   252
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -518,7 +518,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   40
+      Top             =   70
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -577,7 +577,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   100
+      Top             =   130
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -610,7 +610,7 @@ Begin DesktopWindow WinTabBar
       TextAlignment   =   0
       TextColor       =   &c5E5E5E00
       Tooltip         =   ""
-      Top             =   119
+      Top             =   149
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -638,7 +638,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   151
+      Top             =   181
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -671,7 +671,7 @@ Begin DesktopWindow WinTabBar
       TextAlignment   =   0
       TextColor       =   &c5E5E5E00
       Tooltip         =   ""
-      Top             =   170
+      Top             =   200
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -699,7 +699,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   202
+      Top             =   232
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -729,7 +729,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   40
+      Top             =   70
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -761,7 +761,7 @@ Begin DesktopWindow WinTabBar
       TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   40
+      Top             =   70
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -848,11 +848,14 @@ End
 #tag Events PopupRenderer
 	#tag Event
 		Sub Opening()
+		  Me.AddRow("Edge")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUITabBarRendererEdge(TabBar)
 		  Me.AddRow("Safari")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUITabBarRendererSafari(TabBar)
 		  
 		  // Start with the Safari renderer.
-		  Me.SelectedRowIndex = 0
+		  Me.SelectedRowIndex = 1
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -883,6 +886,9 @@ End
 		    CheckBoxEnableRightMenuButton.Enabled = True
 		    LabelEnableRightMenuButton.Text = ""
 		  End If
+		  
+		  // Adjust the height of the tab bar to suit the renderer.
+		  TabBar.Height = renderer.TabBarHeight
 		  
 		  Echo("Switched to the " + renderer.Name + " renderer.")
 		End Sub
@@ -995,11 +1001,14 @@ End
 #tag Events PopupStyle
 	#tag Event
 		Sub Opening()
+		  Me.AddRow("Edge")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUITabBarStyle.Edge
 		  Me.AddRow("Safari")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = XUITabBarStyle.Safari
 		  
 		  // Start with Safari's style.
-		  Me.SelectedRowIndex = 0
+		  Me.SelectedRowIndex = 1
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
