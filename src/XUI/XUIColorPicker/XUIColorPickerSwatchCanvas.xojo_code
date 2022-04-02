@@ -64,6 +64,12 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub ScaleFactorChanged()
+		  mShouldRecomputeBounds = True
+		End Sub
+	#tag EndEvent
+
 
 	#tag Method, Flags = &h0, Description = 416464732061206E657720636F6C6F757220746F207468652063616E7661732E
 		Sub AddColor(c As Color, shouldRefresh As Boolean = True)

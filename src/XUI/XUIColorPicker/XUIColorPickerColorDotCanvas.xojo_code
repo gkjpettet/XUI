@@ -67,6 +67,12 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub ScaleFactorChanged()
+		  mShouldRecomputeBounds = True
+		End Sub
+	#tag EndEvent
+
 
 	#tag Method, Flags = &h0
 		Sub AddDot(dot As XUIColorPickerColorDot)

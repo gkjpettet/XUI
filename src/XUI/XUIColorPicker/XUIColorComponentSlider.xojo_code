@@ -116,6 +116,12 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub ScaleFactorChanged()
+		  mNeedsFullRedraw = True
+		End Sub
+	#tag EndEvent
+
 
 	#tag Method, Flags = &h21, Description = 52657475726E7320746865205820636F6F7264696E61746520616C6F6E672074686520736C6964657220746F2075736520666F72207468697320736C6964657227732063757272656E7420636F6D706F6E656E742076616C75652E
 		Private Function ComponentValueToXCoord(graphicsWidth As Double, scrubberDiameter As Double) As Double
