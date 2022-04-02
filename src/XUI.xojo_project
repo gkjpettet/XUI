@@ -234,7 +234,6 @@ Interface=XUIColorSwatchRenderer;XUI/XUIColorSwatch/Renderers/XUIColorSwatchRend
 Class=XUIColorSwatchRendererMacOS;XUI/XUIColorSwatch/Renderers/XUIColorSwatchRendererMacOS.xojo_code;&h00000000474387FF;&h000000003BAE37FF;false
 Class=XUIColorSwatchRendererGnome;XUI/XUIColorSwatch/Renderers/XUIColorSwatchRendererGnome.xojo_code;&h000000005ADC8FFF;&h000000003BAE37FF;false
 Class=XUIColorSwatchRendererWindows11;XUI/XUIColorSwatch/Renderers/XUIColorSwatchRendererWindows11.xojo_code;&h000000001245C7FF;&h000000003BAE37FF;false
-DesktopWindow=WinDebug;WinDebug.xojo_window;&h00000000305377FF;&h0000000000000000;false
 Folder=Images;Demo Windows/ImageButton/Images;&h0000000076E747FF;&h0000000069B6C7FF;false
 MultiImage=PlayIconDefault;Demo Windows/ImageButton/Images/PlayIconDefault.xojo_image;&h0000000015088FFF;&h0000000076E747FF;false
 MultiImage=PlayIconDisabled;Demo Windows/ImageButton/Images/PlayIconDisabled.xojo_image;&h00000000049DDFFF;&h0000000076E747FF;false
