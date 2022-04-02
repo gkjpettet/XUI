@@ -22,7 +22,7 @@ Begin DesktopWindow WinTabBar
    Resizeable      =   True
    Title           =   "TabBar Demo"
    Type            =   0
-   Visible         =   False
+   Visible         =   True
    Width           =   1000
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
@@ -86,7 +86,7 @@ Begin DesktopWindow WinTabBar
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   316
+      Height          =   314
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -103,7 +103,7 @@ Begin DesktopWindow WinTabBar
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   300
+      Top             =   270
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -111,7 +111,7 @@ Begin DesktopWindow WinTabBar
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin DesktopPopupMenu PopupStyle
+   Begin DesktopPopupMenu PopupRenderer
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -141,7 +141,7 @@ Begin DesktopWindow WinTabBar
       Visible         =   True
       Width           =   219
    End
-   Begin DesktopLabel LabelStyle
+   Begin DesktopLabel LabelRenderer
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -163,7 +163,7 @@ Begin DesktopWindow WinTabBar
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Style:"
+      Text            =   "Renderer:"
       TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
@@ -181,7 +181,7 @@ Begin DesktopWindow WinTabBar
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   206
+      Height          =   186
       Index           =   -2147483648
       Italic          =   False
       Left            =   20
@@ -233,7 +233,7 @@ Begin DesktopWindow WinTabBar
          Visible         =   True
          Width           =   67
       End
-      Begin DesktopTextField TagCaption
+      Begin DesktopTextField TabCaption
          AllowAutoDeactivate=   True
          AllowFocusRing  =   True
          AllowSpellChecking=   False
@@ -247,11 +247,11 @@ Begin DesktopWindow WinTabBar
          Format          =   ""
          HasBorder       =   True
          Height          =   22
-         Hint            =   "Tag Caption"
+         Hint            =   "Tab Caption"
          Index           =   -2147483648
          InitialParent   =   "GroupBoxAddTag"
          Italic          =   False
-         Left            =   119
+         Left            =   122
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -264,7 +264,7 @@ Begin DesktopWindow WinTabBar
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   ""
+         Text            =   "New Tab"
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
@@ -275,7 +275,7 @@ Begin DesktopWindow WinTabBar
          Visible         =   True
          Width           =   213
       End
-      Begin DesktopCheckBox CheckBoxTagClosable
+      Begin DesktopCheckBox CheckBoxTabClosable
          AllowAutoDeactivate=   True
          Bold            =   False
          Caption         =   "Closable"
@@ -306,7 +306,7 @@ Begin DesktopWindow WinTabBar
          VisualState     =   1
          Width           =   100
       End
-      Begin DesktopCheckBox CheckBoxTagEnabled
+      Begin DesktopCheckBox CheckBoxTabEnabled
          AllowAutoDeactivate=   True
          Bold            =   False
          Caption         =   "Enabled"
@@ -337,20 +337,14 @@ Begin DesktopWindow WinTabBar
          VisualState     =   1
          Width           =   100
       End
-      Begin XUIImageButton TagIcon
+      Begin DesktopCanvas TabIcon
          AllowAutoDeactivate=   True
          AllowFocus      =   False
          AllowFocusRing  =   True
          AllowTabs       =   False
          Backdrop        =   0
-         BorderColor     =   &c00000000
-         DefaultImage    =   0
-         DisabledImage   =   0
          Enabled         =   True
-         HasBorder       =   True
          Height          =   32
-         HoverImage      =   0
-         ImageScaleMode  =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBoxAddTag"
          Left            =   119
@@ -359,8 +353,6 @@ Begin DesktopWindow WinTabBar
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         OnlyShrinkImages=   True
-         PressedImage    =   0
          Scope           =   2
          TabIndex        =   4
          TabPanelIndex   =   0
@@ -371,7 +363,7 @@ Begin DesktopWindow WinTabBar
          Visible         =   True
          Width           =   32
       End
-      Begin DesktopLabel LabelTagIcon
+      Begin DesktopLabel LabelTabIcon
          AllowAutoDeactivate=   True
          Bold            =   False
          Enabled         =   True
@@ -404,6 +396,376 @@ Begin DesktopWindow WinTabBar
          Visible         =   True
          Width           =   67
       End
+      Begin DesktopButton ButtonSelectIcon
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Cancel          =   False
+         Caption         =   "Select..."
+         Default         =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Italic          =   False
+         Left            =   163
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MacButtonStyle  =   0
+         Scope           =   0
+         TabIndex        =   6
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   183
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
+      End
+      Begin DesktopButton ButtonClearIcon
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Cancel          =   False
+         Caption         =   "Clear"
+         Default         =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Italic          =   False
+         Left            =   255
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MacButtonStyle  =   0
+         Scope           =   0
+         TabIndex        =   7
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   183
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
+      End
+      Begin DesktopButton ButtonAddTab
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Cancel          =   False
+         Caption         =   "Add Tab"
+         Default         =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBoxAddTag"
+         Italic          =   False
+         Left            =   27
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MacButtonStyle  =   0
+         Scope           =   0
+         TabIndex        =   8
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   222
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
+      End
+   End
+   Begin DesktopButton ButtonResetTabs
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Reset Tabs"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   880
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MacButtonStyle  =   0
+      Scope           =   2
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   40
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin DesktopButton ButtonClearEvents
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Clear Events"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   873
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      MacButtonStyle  =   0
+      Scope           =   2
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   596
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   107
+   End
+   Begin DesktopCheckBox CheckBoxEnableLeftMenuButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Enable Left Menu Button"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   363
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   100
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   185
+   End
+   Begin DesktopLabel LabelEnableLeftMenuButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   363
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Left menu button message"
+      TextAlignment   =   0
+      TextColor       =   &c5E5E5E00
+      Tooltip         =   ""
+      Top             =   119
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   329
+   End
+   Begin DesktopCheckBox CheckBoxEnableRightMenuButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Enable Right Menu Button"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   363
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   151
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   185
+   End
+   Begin DesktopLabel LabelEnableRightMenuButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   363
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Right menu button message"
+      TextAlignment   =   0
+      TextColor       =   &c5E5E5E00
+      Tooltip         =   ""
+      Top             =   170
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   329
+   End
+   Begin DesktopCheckBox CheckBoxAllowDragReordering
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Allow Drag Reordering"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   363
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   202
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   1
+      Width           =   185
+   End
+   Begin DesktopPopupMenu PopupStyle
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   475
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      SelectedRowIndex=   0
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   40
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   219
+   End
+   Begin DesktopLabel LabelStyle
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   391
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Style:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   40
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   72
    End
 End
 #tag EndDesktopWindow
@@ -411,7 +773,10 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
+		  #Pragma Warning "TODO: Add more example renderers"
+		  
 		  ResetTabs
+		  
 		End Sub
 	#tag EndEvent
 
@@ -428,6 +793,8 @@ End
 		Private Sub ResetTabs()
 		  /// Resets the tab bar tabs.
 		  
+		  TabBar.RemoveAll
+		  
 		  TabBar.AppendTab("Apple", FavIconApple)
 		  TabBar.AppendTab("Stack Overflow", FavIconStackOverflow)
 		  TabBar.AppendTab("Xojo", FavIconXojo)
@@ -439,15 +806,14 @@ End
 	#tag EndMethod
 
 
+	#tag Property, Flags = &h21, Description = 5468652069636F6E20746F2061646420746F20746865206E65787420746162207468617420697320637265617465642E
+		Private mIcon As Picture
+	#tag EndProperty
+
+
 #tag EndWindowCode
 
 #tag Events TabBar
-	#tag Event
-		Sub Opening()
-		  Me.Renderer = New XUITabBarRendererSafari(Me)
-		  
-		End Sub
-	#tag EndEvent
 	#tag Event , Description = 412074616220776173206A75737420616464656420746F2074686520746162206261722061742060696E646578602E
 		Sub DidAddTab(tab As XUITabBarItem, index As Integer)
 		  Echo("Added tab with caption `" + tab.Caption + "` at index " + index.ToString)
@@ -479,6 +845,153 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events PopupRenderer
+	#tag Event
+		Sub Opening()
+		  Me.AddRow("Safari")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUITabBarRendererSafari(TabBar)
+		  
+		  // Start with the Safari renderer.
+		  Me.SelectedRowIndex = 0
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  /// Set the style of the tab bar to the style stored as this row's tag.
+		  
+		  #Pragma Unused item
+		  
+		  Var renderer As XUITabBarRenderer = Me.RowTagAt(Me.SelectedRowIndex)
+		  
+		  TabBar.Renderer = renderer
+		  
+		  // Does the selected renderer support left/right menus?
+		  If Not renderer.SupportsLeftMenuButton Then
+		    CheckBoxEnableLeftMenuButton.Enabled = False
+		    CheckBoxEnableLeftMenuButton.Value = False
+		    LabelEnableLeftMenuButton.Text = "The " + renderer.Name + " renderer does not support left menus"
+		  Else
+		    CheckBoxEnableLeftMenuButton.Enabled = True
+		    LabelEnableLeftMenuButton.Text = ""
+		  End If
+		  
+		  If Not renderer.SupportsRightMenuButton Then
+		    CheckBoxEnableRightMenuButton.Enabled = False
+		    CheckBoxEnableRightMenuButton.Value = False
+		    LabelEnableRightMenuButton.Text = "The " + renderer.Name + " renderer does not support right menus"
+		  Else
+		    CheckBoxEnableRightMenuButton.Enabled = True
+		    LabelEnableRightMenuButton.Text = ""
+		  End If
+		  
+		  Echo("Switched to the " + renderer.Name + " renderer.")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TabIcon
+	#tag Event
+		Sub Paint(g As Graphics, areas() As Rect)
+		  #Pragma Unused areas
+		  
+		  // Draw the icon (if there is one).
+		  If mIcon <> Nil Then
+		    Var p As Picture = mIcon.ResizeToFit(32, 32, XUIPictureScaleModes.ToFit, True)
+		    g.DrawPicture(p, (g.Width / 2) - (p.Width / 2), (g.Height / 2) - (p.Height / 2))
+		  End If
+		  
+		  // Border.
+		  g.DrawingColor = Color.Black
+		  g.DrawRectangle(0, 0, g.Width, g.Height)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonSelectIcon
+	#tag Event
+		Sub Pressed()
+		  // Show the open file dialog. 
+		  // I'm being lazy here - you should choose 16 x 16 pixel icons.
+		  Var f As FolderItem = FolderItem.ShowOpenFileDialog(ImageFileTypes.All)
+		  
+		  If f = Nil Then
+		    mIcon = Nil
+		    Return
+		  End If
+		  
+		  mIcon = Picture.Open(f)
+		  
+		  // Update the icon control.
+		  TabIcon.Refresh
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonClearIcon
+	#tag Event
+		Sub Pressed()
+		  mIcon = Nil
+		  
+		  TabIcon.Refresh
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonAddTab
+	#tag Event
+		Sub Pressed()
+		  TabBar.AppendTab(TabCaption.Text, mIcon, Nil, CheckBoxTabClosable.Value, CheckBoxTabEnabled.Value)
+		  
+		  // Clear out the icon.
+		  mIcon = Nil
+		  TabIcon.Refresh
+		  
+		  // Reset the tab caption.
+		  TabCaption.Text = "New Tab"
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonResetTabs
+	#tag Event
+		Sub Pressed()
+		  ResetTabs
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonClearEvents
+	#tag Event
+		Sub Pressed()
+		  MessagesListbox.RemoveAllRows
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxEnableLeftMenuButton
+	#tag Event
+		Sub ValueChanged()
+		  TabBar.HasLeftMenuButton = Me.Value
+		  
+		  Echo(If(Me.Value, "Enabled", "Disabled") + " the left menu button.")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxEnableRightMenuButton
+	#tag Event
+		Sub ValueChanged()
+		  TabBar.HasRightMenuButton = Me.Value
+		  
+		  Echo(If(Me.Value, "Enabled", "Disabled") + " the right menu button.")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxAllowDragReordering
+	#tag Event
+		Sub ValueChanged()
+		  TabBar.AllowDragReordering = Me.Value
+		  
+		  Echo(If(Me.Value, "Enabled", "Disabled") + " drag reordering.")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events PopupStyle
 	#tag Event
 		Sub Opening()
@@ -499,6 +1012,7 @@ End
 		  
 		  TabBar.Style = style
 		  
+		  Echo("Switched to the " + style.Name + " style.")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

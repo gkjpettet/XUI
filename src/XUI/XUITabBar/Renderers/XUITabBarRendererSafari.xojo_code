@@ -61,6 +61,14 @@ Implements XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 546865206E616D65206F6620746869732072656E64657265722E
+		Function Name() As String
+		  /// The name of this renderer.
+		  
+		  Return "Safari"
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 546865207461622062617220746869732072656E6465726572206F70657261746573206F6E2E
 		Function Owner() As XUITabBar
 		  /// The tab bar this renderer operates on.
