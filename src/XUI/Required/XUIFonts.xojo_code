@@ -1,5 +1,19 @@
 #tag Module
 Protected Module XUIFonts
+	#tag Method, Flags = &h1, Description = 52657475726E7320616E206172726179206F6620746865206E616D6573206F6620616C6C20666F6E747320617661696C61626C65206F6E20746869732073797374656D2E
+		Protected Function All() As String()
+		  /// Returns an array of the names of all fonts available on this system.
+		  
+		  Var fonts() As String
+		  
+		  For i As Integer = 0 To System.LastFontIndex
+		    fonts.Add(System.FontAt(i))
+		  Next i
+		  
+		  Return fonts
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1, Description = 52657475726E732054727565206966207468657265206973206120666F6E74206E616D65642060666F6E744E616D656020617661696C61626C6520666F7220757365206F6E207468652073797374656D2E
 		Protected Function FontAvailable(fontName As String) As Boolean
 		  /// Returns True if there is a font named `fontName` available for use on the system.
@@ -27,6 +41,23 @@ Protected Module XUIFonts
 		  
 		  // The size of two different string with the same number of characters will be the same for monospace fonts.
 		  Return tmpPic.Graphics.TextWidth("abc") = tmpPic.Graphics.TextWidth("XYZ")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1, Description = 52657475726E7320616E206172726179206F6620746865206E616D6573206F6620616C6C206D6F6E6F737061636520666F6E747320617661696C61626C65206F6E20746869732073797374656D2E
+		Protected Function Monospace() As String()
+		  /// Returns an array of the names of all monospace fonts available on this system.
+		  
+		  Var fonts() As String
+		  
+		  For i As Integer = 0 To System.LastFontIndex
+		    If IsMonospaceFont(System.FontAt(i)) Then
+		      fonts.Add(System.FontAt(i))
+		    End If
+		  Next i
+		  
+		  Return fonts
 		  
 		End Function
 	#tag EndMethod

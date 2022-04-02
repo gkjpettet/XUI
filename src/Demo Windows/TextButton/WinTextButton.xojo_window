@@ -10,7 +10,7 @@ Begin DesktopWindow WinTextButton
    HasFullScreenButton=   False
    HasMaximizeButton=   False
    HasMinimizeButton=   True
-   Height          =   400
+   Height          =   325
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -53,38 +53,6 @@ Begin DesktopWindow WinTextButton
       Visible         =   True
       VisualState     =   1
       Width           =   100
-   End
-   Begin DesktopLabel Info
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Info"
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   360
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   640
    End
    Begin DesktopCheckBox CheckBoxHasBackgroundColor
       AllowAutoDeactivate=   True
@@ -248,7 +216,7 @@ Begin DesktopWindow WinTextButton
       Backdrop        =   0
       BackgroundColor =   &cFFFFFF
       Enabled         =   True
-      FontName        =   "System"
+      FontName        =   "Source Code Pro"
       FontSize        =   12
       HasBackgroundColor=   False
       Height          =   22
@@ -916,14 +884,146 @@ Begin DesktopWindow WinTextButton
       Visible         =   True
       Width           =   40
    End
+   Begin DesktopLabel LabelFontName
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   203
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   40
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Font Name:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   121
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   76
+   End
+   Begin DesktopPopupMenu PopupFontName
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   291
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      SelectedRowIndex=   0
+      TabIndex        =   41
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   120
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   160
+   End
+   Begin DesktopTextField ButtonFontSize
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   22
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   536
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   2
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   42
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "12"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   118
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   "##"
+      Visible         =   True
+      Width           =   44
+   End
+   Begin DesktopLabel LabelFontSize
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   463
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   43
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Font Size:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   120
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   64
+   End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  #Pragma Warning "TODO: Add font size and family controls"
-		  
 		  CheckBoxHasBackgroundColor.Value = Button.HasBackgroundColor
 		  
 		  BackgroundColorLightSwatch.Value = Button.BackgroundColor.Light
@@ -948,7 +1048,7 @@ End
 	#tag Event
 		Sub ValueChanged()
 		  Button.Enabled = Me.Value
-		  Info.Text = If(Me.Value, "Enabled ", "Disabled ") + "the button."
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -973,11 +1073,6 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events Button
-	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
-		Sub Pressed()
-		  Info.Text = "Pressed the button"
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events TextColorLightSwatch
 	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
@@ -1042,6 +1137,38 @@ End
 	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
 		Sub ColorChanged(newColor As Color)
 		  Button.PressedColor = New ColorGroup(Button.PressedColor.Light, newColor)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PopupFontName
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  Button.FontName = item.Text
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Var fonts() As String = XUIFonts.All
+		  
+		  Me.AddRow("System")
+		  Me.AddSeparator
+		  
+		  Var iMax As Integer = fonts.LastIndex
+		  Var indexToSelect As Integer = 0
+		  For i As Integer = 0 To iMax
+		    If fonts(i) = Button.FontName Then indexToSelect = i + 2 // +2 accounts for "System" and the separator.
+		    Me.AddRow(fonts(i))
+		  Next i
+		  
+		  Me.SelectedRowIndex = indexToSelect
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonFontSize
+	#tag Event
+		Sub TextChanged()
+		  Button.FontSize = Integer.FromString(Me.Text)
 		  
 		End Sub
 	#tag EndEvent
