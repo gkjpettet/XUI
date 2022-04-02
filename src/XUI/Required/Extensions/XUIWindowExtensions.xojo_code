@@ -12,10 +12,26 @@ Protected Module XUIWindowExtensions
 		  Var display As DesktopDisplay = w.Display
 		  If display = Nil Then Return
 		  
-		  w.Left = (display.AvailableWidth / 2) - (w.Width / 2)
-		  w.Top = (display.AvailableHeight / 2) - (w.Height / 2)
+		  Var displayBounds As New Rect(display.AvailableLeft, display.AvailableTop, _
+		  display.AvailableWidth, display.AvailableHeight)
+		  
+		  w.Left = displayBounds.Center.X - (w.Width / 2)
+		  W.Top = displayBounds.Center.Y - (w.Height / 2) + (w.ChromeHeight / 2)
+		  
+		  ' w.Left = (display.AvailableWidth / 2) - (w.Width / 2)
+		  ' w.Top = (display.AvailableHeight / 2) - (w.Height / 2)
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520686569676874206F6620746865207061737365642077696E646F772773206368726F6D652E204F6E2057696E646F7773207468697320697320746865207469746C652062617220616E64206D656E752E204F6E206D61634F53206974277320746865207469746C65206261722E
+		Function ChromeHeight(Extends w As DesktopWindow) As Double
+		  /// Returns the height of the passed window's chrome. On Windows this is the title bar and menu. On macOS
+		  /// it's the title bar.
+		  
+		  Return w.Bounds.Height - w.Height
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52657475726E732074686520646973706C6179207468617420636F6E7461696E73207468652067726561746573742070726F706F7274696F6E206F6620607760206F72204E696C206966206E6F20646973706C617920636F6E7461696E732069742E

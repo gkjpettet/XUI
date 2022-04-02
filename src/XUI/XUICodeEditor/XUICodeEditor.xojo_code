@@ -746,6 +746,9 @@ Implements XUINotificationListener
 		  // Draw the back buffer to the screen.
 		  g.DrawPicture(mBackBuffer, -ScrollPosX, 0)
 		  
+		  // Borders?
+		  DrawBorders(g)
+		  
 		  // On macOS we need to update the document size to get fancy scrollbars.
 		  #If TargetMacOS
 		    SetDocumentSize(mBackBuffer.Graphics.Width, LineManager.LineCount * mLineHeight)
@@ -1148,6 +1151,31 @@ Implements XUINotificationListener
 		  
 		  Return New Rect(0, 0, RequiredBufferWidth, LineManager.LineCount * mLineHeight)
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 447261777320616E7920656E61626C656420626F72646572732E
+		Private Sub DrawBorders(g As Graphics)
+		  /// Draws any enabled borders.
+		  
+		  g.DrawingColor = BorderColor
+		  g.PenSize = 1
+		  
+		  If HasTopBorder Then
+		    g.DrawLine(0, 0, g.Width, 0)
+		  End If
+		  
+		  If HasBottomBorder Then
+		    g.DrawLine(0, g.Height - 1, g.Width, g.Height - 1)
+		  End If
+		  
+		  If HasLeftBorder Then
+		    g.DrawLine(0, 0, 0, g.Height)
+		  End If
+		  
+		  If HasRightBorder Then
+		    g.DrawLine(g.Width - 1, 0, g.Width - 1, g.Height)
+		  End If
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 5265717565737473206175746F636F6D706C657465206461746120666F722074686520776F726420696D6D6564696174656C7920696E2066726F6E74206F66207468652063617265742E
@@ -3500,6 +3528,27 @@ Implements XUINotificationListener
 		BlinkCaret As Boolean = True
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6C6F7572206F662074686520656469746F72277320626F726465722028696620656E61626C6564292E
+		#tag Getter
+			Get
+			  // Prevent a Nil object exception.
+			  If mBorderColor = Nil Then
+			    mBorderColor = New ColorGroup(Color.Black, Color.Black)
+			  End If
+			  
+			  Return mBorderColor
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mBorderColor = value
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		BorderColor As ColorGroup
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 54686520636172657420636F6C6F75722E
 		#tag Getter
 			Get
@@ -3790,6 +3839,25 @@ Implements XUINotificationListener
 		Formatter As XUICEFormatter
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F726465722077696C6C20626520647261776E2061742074686520626F74746F6D206F662074686520656469746F722E
+		#tag Getter
+			Get
+			  Return mHasBottomBorder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasBottomBorder = value
+			  
+			  NeedsFullRedraw = True
+			  
+			  Refresh
+			  
+			End Set
+		#tag EndSetter
+		HasBottomBorder As Boolean
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 547275652069662074686520656469746F722063757272656E746C79206861732074686520666F6375732E
 		#tag Getter
 			Get
@@ -3798,6 +3866,63 @@ Implements XUINotificationListener
 			End Get
 		#tag EndGetter
 		HasFocus As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F726465722077696C6C20626520647261776E20617420746865206C6566742065646765206F662074686520656469746F722E
+		#tag Getter
+			Get
+			  Return mHasLeftBorder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasLeftBorder = value
+			  
+			  NeedsFullRedraw = True
+			  
+			  Refresh
+			  
+			End Set
+		#tag EndSetter
+		HasLeftBorder As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F726465722077696C6C20626520647261776E206174207468652072696768742065646765206F662074686520656469746F722E
+		#tag Getter
+			Get
+			  Return mHasRightBorder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasRightBorder = value
+			  
+			  NeedsFullRedraw = True
+			  
+			  Refresh
+			  
+			End Set
+		#tag EndSetter
+		HasRightBorder As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F726465722077696C6C20626520647261776E2061742074686520746F70206F662074686520656469746F722E
+		#tag Getter
+			Get
+			  Return mHasTopBorder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasTopBorder = value
+			  
+			  NeedsFullRedraw = True
+			  
+			  Refresh
+			  
+			End Set
+		#tag EndSetter
+		HasTopBorder As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E20746865206C696E65207468652063617265742069732063757272656E746C79206F6E2077696C6C20626520686967686C6967687465642E
@@ -3871,6 +3996,10 @@ Implements XUINotificationListener
 
 	#tag Property, Flags = &h21, Description = 5468652062756666657220776520647261772074686520656469746F7220636F6E74656E747320746F20616E64207468656E20626C697420746F207468652073637265656E2065616368206672616D652E
 		Private mBackBuffer As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520636F6C6F7572206F662074686520656469746F72277320626F726465722028696620656E61626C6564292E
+		Private mBorderColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 41206361636865206F66207468652072657175697265642062756666657220776964746820636F6D707574656420696E20746865206C61737420605061696E7460206576656E742E
@@ -3957,8 +4086,24 @@ Implements XUINotificationListener
 		Private mGutterWidth As Double
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F726465722077696C6C20626520647261776E2061742074686520626F74746F6D206F662074686520656469746F722E
+		Private mHasBottomBorder As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060486173466F6375736020636F6D70757465642070726F70657274792E
 		Private mHasFocus As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F726465722077696C6C20626520647261776E20617420746865206C6566742065646765206F662074686520656469746F722E
+		Private mHasLeftBorder As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F726465722077696C6C20626520647261776E206174207468652072696768742065646765206F662074686520656469746F722E
+		Private mHasRightBorder As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F726465722077696C6C20626520647261776E2061742074686520746F70206F662074686520656469746F722E
+		Private mHasTopBorder As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060486967686C6967687443757272656E744C696E656020636F6D70757465642070726F70657274792E
@@ -4297,22 +4442,6 @@ Implements XUINotificationListener
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="HasVerticalScrollbar"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasHorizontalScrollbar"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
@@ -4465,8 +4594,24 @@ Implements XUINotificationListener
 			EditorType="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="HasVerticalScrollbar"
+			Visible=true
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasHorizontalScrollbar"
+			Visible=true
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="BlinkCaret"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -4562,9 +4707,9 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CaretType"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="1"
 			Type="CaretTypes"
 			EditorType="Enum"
 			#tag EnumValues
@@ -4607,7 +4752,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HighlightCurrentLine"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
@@ -4687,7 +4832,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SpacesPerTab"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="4"
 			Type="Integer"
@@ -4695,7 +4840,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowInertialScrolling"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -4711,7 +4856,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HighlightDelimitersAroundCaret"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -4719,9 +4864,9 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DrawBlockLines"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="True"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -4752,7 +4897,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutocompleteCombo"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="XUICodeEditor.AutocompleteCombos.Tab"
 			Type="XUICodeEditor.AutocompleteCombos"
@@ -4764,7 +4909,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowAutocomplete"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -4772,7 +4917,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowAutoCompleteInComments"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -4780,9 +4925,9 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MinimumAutocompletionLength"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="2"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -4800,6 +4945,46 @@ Implements XUINotificationListener
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BorderColor"
+			Visible=true
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasTopBorder"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasBottomBorder"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasLeftBorder"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasRightBorder"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

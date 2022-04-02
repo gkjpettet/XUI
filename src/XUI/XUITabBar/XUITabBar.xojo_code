@@ -190,10 +190,13 @@ Inherits DesktopCanvas
 		  
 		  If Renderer = Nil Then Return
 		  
-		  // If the tab bar has resized since the last paint we need to do a full redraw and reset the scrolling.
-		  If mPaintWidth <> Self.Width Then
+		  // If the tab bar has resized or been repositioned since the last paint we need to do a full 
+		  // redraw and reset the scrolling.
+		  If (mPaintWidth <> Self.Width) Or (mPaintTop <> Self.Top) Or (mPaintLeft <> Self.Left) Then
 		    mNeedsFullRedraw = True
 		    ScrollPosX = 0
+		    mPaintLeft = Self.Left
+		    mPaintTop = Self.Top
 		    mPaintWidth = Self.Width
 		  End If
 		  
@@ -748,6 +751,14 @@ Inherits DesktopCanvas
 		MouseMoveY As Integer
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h21, Description = 546865206C656674206F662074686520636F6E74726F6C20647572696E6720746865206C61737420605061696E7460206576656E742E
+		Private mPaintLeft As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520746F70206F662074686520636F6E74726F6C20647572696E6720746865206C61737420605061696E7460206576656E742E
+		Private mPaintTop As Integer
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 546865207769647468206F662074686520636F6E74726F6C20647572696E6720746865206C61737420605061696E7460206576656E742E
 		Private mPaintWidth As Integer
 	#tag EndProperty
@@ -927,7 +938,7 @@ Inherits DesktopCanvas
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="200"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -935,7 +946,7 @@ Inherits DesktopCanvas
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="28"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -974,14 +985,6 @@ Inherits DesktopCanvas
 		#tag ViewProperty
 			Name="TabIndex"
 			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TabPanelIndex"
-			Visible=false
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
@@ -1045,17 +1048,17 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowFocus"
-			Visible=true
+			Visible=false
 			Group="Behavior"
-			InitialValue="False"
+			InitialValue=""
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowTabs"
-			Visible=true
+			Visible=false
 			Group="Behavior"
-			InitialValue="False"
+			InitialValue=""
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -1077,23 +1080,23 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasLeftMenuButton"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasRightMenuButton"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowDragReordering"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="True"
 			Type="Boolean"
@@ -1109,17 +1112,17 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasLeftBorder"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue="False"
+			InitialValue="True"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasRightBorder"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue="False"
+			InitialValue="True"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -1176,6 +1179,14 @@ Inherits DesktopCanvas
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabPanelIndex"
+			Visible=false
+			Group="Position"
+			InitialValue="0"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

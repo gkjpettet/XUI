@@ -10,7 +10,7 @@ Begin DesktopWindow WinCodeEditor
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   628
+   Height          =   680
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -22,8 +22,175 @@ Begin DesktopWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   False
-   Width           =   1100
+   Visible         =   True
+   Width           =   1260
+   Begin XUITabBar TabBar
+      AllowAutoDeactivate=   True
+      AllowDragReordering=   False
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      AvailableTabSpace=   0.0
+      Backdrop        =   0
+      DraggingTabLeftEdgeXOffset=   0
+      Enabled         =   True
+      HasLeftBorder   =   False
+      HasLeftMenuButton=   False
+      HasRightBorder  =   False
+      HasRightMenuButton=   False
+      Height          =   28
+      Index           =   -2147483648
+      IsDraggingTab   =   False
+      Left            =   859
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MouseDragX      =   0
+      MouseDragY      =   0
+      MouseMoveX      =   0
+      MouseMoveY      =   0
+      Scope           =   0
+      SelectedTabIndex=   0
+      TabCount        =   0
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Transparent     =   True
+      Visible         =   True
+      Width           =   401
+   End
+   Begin DesktopLabel Info
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   998
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Info"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   656
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   251
+   End
+   Begin Timer InfoTimer
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   False
+      Period          =   500
+      RunMode         =   2
+      Scope           =   2
+      TabPanelIndex   =   0
+   End
+   Begin DesktopPagePanel Panel
+      AllowAutoDeactivate=   True
+      Enabled         =   True
+      Height          =   623
+      Index           =   -2147483648
+      Left            =   859
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      PanelCount      =   2
+      Panels          =   ""
+      Scope           =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   False
+      Tooltip         =   ""
+      Top             =   28
+      Transparent     =   False
+      Value           =   0
+      Visible         =   True
+      Width           =   401
+      Begin DesktopPopupMenu PopupFormatters
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   972
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         SelectedRowIndex=   0
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   38
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   138
+      End
+      Begin DesktopLabel Label1
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   867
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Formatter:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   38
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   93
+      End
+   End
    Begin XUICodeEditor Editor
       AllowAutocomplete=   True
       AllowAutoCompleteInComments=   True
@@ -34,11 +201,12 @@ Begin DesktopWindow WinCodeEditor
       AutoDeactivate  =   True
       BackgroundColor =   &c00000000
       BlinkCaret      =   True
+      BorderColor     =   &c00000000
       CaretColour     =   &c00000000
       CaretColumn     =   0
       CaretLineNumber =   0
       CaretPosition   =   0
-      CaretType       =   ""
+      CaretType       =   2
       CaretXCoordinate=   0
       Contents        =   ""
       ContentType     =   "XUICodeEditor.ContentTypes.SourceCode"
@@ -46,16 +214,20 @@ Begin DesktopWindow WinCodeEditor
       CurrentLineNumberColor=   &c00000000
       CurrentUndoID   =   0
       DisplayLineNumbers=   False
-      DrawBlockLines  =   False
+      DrawBlockLines  =   True
       Enabled         =   True
       FirstVisibleLine=   0
       FontName        =   ""
       FontSize        =   0
+      HasBottomBorder =   False
       HasFocus        =   False
       HasHorizontalScrollbar=   True
+      HasLeftBorder   =   False
+      HasRightBorder  =   True
+      HasTopBorder    =   False
       HasVerticalScrollbar=   True
-      Height          =   588
-      HighlightCurrentLine=   False
+      Height          =   680
+      HighlightCurrentLine=   True
       HighlightDelimitersAroundCaret=   True
       Index           =   -2147483648
       InitialParent   =   ""
@@ -69,7 +241,7 @@ Begin DesktopWindow WinCodeEditor
       LockRight       =   True
       LockTop         =   True
       LongestLineChanged=   False
-      MinimumAutocompletionLength=   0
+      MinimumAutocompletionLength=   2
       NeedsFullRedraw =   False
       ReadOnly        =   False
       Scope           =   0
@@ -85,109 +257,7 @@ Begin DesktopWindow WinCodeEditor
       Top             =   0
       VerticalLinePadding=   0
       Visible         =   True
-      Width           =   700
-   End
-   Begin DesktopLabel Info
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "SmallSystem"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   9
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   3
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Info"
-      TextAlignment   =   1
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   600
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   251
-   End
-   Begin Timer InfoTimer
-      Enabled         =   True
-      Index           =   -2147483648
-      LockedInPosition=   False
-      Period          =   500
-      RunMode         =   2
-      Scope           =   2
-      TabPanelIndex   =   0
-   End
-   Begin DesktopLabel Label1
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   712
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   4
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Formatter:"
-      TextAlignment   =   3
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   45
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   100
-   End
-   Begin DesktopPopupMenu PopupFormatters
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   824
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   2
-      SelectedRowIndex=   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   45
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   138
+      Width           =   860
    End
 End
 #tag EndDesktopWindow
@@ -218,6 +288,8 @@ End
 
 	#tag Event
 		Sub Opening()
+		  Self.Center
+		  
 		  // Create an undo manager.
 		  UndoManager = New XUIUndoManager
 		  
@@ -233,6 +305,8 @@ End
 		  
 		  // Initialise a basic autocompletion engine.
 		  InitialiseAutocomplete
+		  
+		  ConstructTabBar
 		  
 		End Sub
 	#tag EndEvent
@@ -332,6 +406,17 @@ End
 	#tag EndMenuHandler
 
 
+	#tag Method, Flags = &h21, Description = 436F6E737472756374732074686520746162206261722E
+		Private Sub ConstructTabBar()
+		  /// Constructs the tab bar.
+		  
+		  TabBar.Renderer = New XUITabBarRendererSafari(TabBar)
+		  TabBar.Style = XUITabBarStyle.Safari
+		  
+		  TabBar.AppendTab("Syntax", Nil, Nil, False)
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub InitialiseAutocomplete()
 		  AutocompleteEngine = New CodeEngineDemoAutocompleteEngine(False)
@@ -355,32 +440,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events Editor
-	#tag Event , Description = 54686520656469746F722069732061626F757420746F20626520646973706C617965642E
-		Sub Opening()
-		  Me.Theme = XUICETheme.FromFile(SpecialFolder.Resource("Nova.toml"))
-		  
-		  Me.Formatter = New XUICETextFormatter
-		  
-		  Me.HighlightDelimitersAroundCaret = True
-		  
-		  Editor.ContentType = XUICodeEditor.ContentTypes.SourceCode
-		  
-		  Editor.AutocompleteCombo = XUICodeEditor.AutocompleteCombos.CtrlSpace
-		  
-		  Me.HighlightCurrentLine = True
-		End Sub
-	#tag EndEvent
-	#tag Event , Description = 54686520636F646520656469746F722069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F72207468652073706563696669656420607072656669786020617420606361726574436F6C756D6E60206F6E206C696E65206E756D626572206063617265744C696E65602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
-		Function AutocompleteDataForPrefix(prefix As String, caretLine As Integer, caretColumn As Integer) As XUICEAutocompleteData
-		  #Pragma Unused caretLine
-		  #Pragma Unused caretColumn
-		  
-		  Return AutocompleteEngine.DataForPrefix(prefix)
-		  
-		End Function
-	#tag EndEvent
-#tag EndEvents
 #tag Events InfoTimer
 	#tag Event
 		Sub Action()
@@ -410,6 +469,32 @@ End
 		  
 		  If UndoManager <> Nil Then UndoManager.RemoveAll
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Editor
+	#tag Event , Description = 54686520656469746F722069732061626F757420746F20626520646973706C617965642E
+		Sub Opening()
+		  Me.Theme = XUICETheme.FromFile(SpecialFolder.Resource("Nova.toml"))
+		  
+		  Me.HighlightDelimitersAroundCaret = True
+		  
+		  Editor.ContentType = XUICodeEditor.ContentTypes.SourceCode
+		  
+		  Editor.AutocompleteCombo = XUICodeEditor.AutocompleteCombos.CtrlSpace
+		  
+		  Me.HighlightCurrentLine = True
+		  
+		  Me.BorderColor = New ColorGroup(&cD7D9D9, &c2A2A2A)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 54686520636F646520656469746F722069732061736B696E6720666F72206175746F636F6D706C6574696F6E206F7074696F6E7320666F72207468652073706563696669656420607072656669786020617420606361726574436F6C756D6E60206F6E206C696E65206E756D626572206063617265744C696E65602E20596F752073686F756C642072657475726E204E696C20696620746865726520617265206E6F6E652E
+		Function AutocompleteDataForPrefix(prefix As String, caretLine As Integer, caretColumn As Integer) As XUICEAutocompleteData
+		  #Pragma Unused caretLine
+		  #Pragma Unused caretColumn
+		  
+		  Return AutocompleteEngine.DataForPrefix(prefix)
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
