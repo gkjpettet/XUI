@@ -10,7 +10,7 @@ Begin DesktopWindow WinWelcome
    HasFullScreenButton=   False
    HasMaximizeButton=   False
    HasMinimizeButton=   True
-   Height          =   400
+   Height          =   460
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -79,7 +79,7 @@ Begin DesktopWindow WinWelcome
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   287
+      Height          =   347
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
@@ -119,6 +119,7 @@ End
 		  Products.AddProduct("XUICodeEditor", "Full featured code editor supporting themes, custom formatters and autocompletion.", WinCodeEditor)
 		  Products.AddProduct("XUISourceList", "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
 		  Products.AddProduct("XUIImageButton", "A simple imaged-based button control.", WinImageButton)
+		  Products.AddProduct("XUIColorSwatch & XUIColorPicker", "Easy to use colour swatches and a custom colour picker.", WinColors)
 		End Sub
 	#tag EndEvent
 

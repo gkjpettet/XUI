@@ -28,7 +28,6 @@ Inherits DesktopCanvas
 		    Var cp As New XUIColorPicker(Self.Value)
 		    AddHandler cp.ColorChanged, AddressOf PickerColorChanged
 		    AddHandler cp.Closing, AddressOf PickerClosing
-		    cp.CurrentColor = Self.Value
 		    mColorPickerVisible = True
 		    cp.ShowModal(Self.Window)
 		  End If
