@@ -10,7 +10,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
    HasFullScreenButton=   False
    HasMaximizeButton=   False
    HasMinimizeButton=   False
-   Height          =   530
+   Height          =   364
    ImplicitInstance=   False
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -49,7 +49,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   490
+      Top             =   324
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -80,7 +80,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   490
+      Top             =   324
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -122,7 +122,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
    Begin DesktopPagePanel PanelMain
       AllowAutoDeactivate=   True
       Enabled         =   True
-      Height          =   345
+      Height          =   179
       Index           =   -2147483648
       Left            =   0
       LockBottom      =   True
@@ -140,7 +140,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       Tooltip         =   ""
       Top             =   131
       Transparent     =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   321
       Begin DesktopTextField SlidersRGBHexValue
@@ -218,7 +218,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       Begin DesktopPagePanel PanelSliders
          AllowAutoDeactivate=   True
          Enabled         =   True
-         Height          =   255
+         Height          =   125
          Index           =   -2147483648
          InitialParent   =   "PanelMain"
          Left            =   0
@@ -1141,7 +1141,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          AllowTabs       =   False
          Backdrop        =   0
          Enabled         =   True
-         Height          =   295
+         Height          =   129
          Index           =   -2147483648
          InitialParent   =   "PanelMain"
          Left            =   15
@@ -1601,6 +1601,8 @@ End
 		  Else
 		    Raise New InvalidArgumentException("Unknown panel index (" + panelIndex.ToString + ").")
 		  End Select
+		  
+		  Me.Refresh(True)
 		End Sub
 	#tag EndMethod
 
@@ -1665,7 +1667,7 @@ End
 	#tag EndProperty
 
 
-	#tag Constant, Name = HEIGHT_SLIDERS, Type = Double, Dynamic = False, Default = \"400", Scope = Private, Description = 5468652068656967687420746865207069636B65722077696E646F772073686F756C64206265207768656E20646973706C6179696E672074686520736C69646572732070616E656C2E
+	#tag Constant, Name = HEIGHT_SLIDERS, Type = Double, Dynamic = False, Default = \"364", Scope = Private, Description = 5468652068656967687420746865207069636B65722077696E646F772073686F756C64206265207768656E20646973706C6179696E672074686520736C69646572732070616E656C2E
 	#tag EndConstant
 
 	#tag Constant, Name = HEIGHT_SWATCHES, Type = Double, Dynamic = False, Default = \"530", Scope = Private, Description = 5468652068656967687420746865207069636B65722077696E646F772073686F756C64206265207768656E20646973706C6179696E67207468652073776174636865732070616E656C2E
