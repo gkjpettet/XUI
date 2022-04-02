@@ -1,5 +1,14 @@
 #tag Module
 Protected Module XUIColorExtensions
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520636F6D706C656D656E7461727920286F70706F736974652920636F6C6F7220746F206063602E
+		Function Complementary(Extends c As Color) As Color
+		  /// Returns the complementary (opposite) color to `c`.
+		  
+		  Return Color.RGB(255 - c.Red, 255 - c.Green, 255 - c.Blue)
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E7320606360206173206120736978206469676974205247422068657820737472696E6720696E2074686520666F726D6174205252474742422E
 		Function ToRGBString(Extends c As Color) As String
 		  /// Returns `c` as a six digit RGB hex string in the format RRGGBB.

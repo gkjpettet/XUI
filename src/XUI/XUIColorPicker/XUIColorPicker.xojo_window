@@ -10,7 +10,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
    HasFullScreenButton=   False
    HasMaximizeButton=   False
    HasMinimizeButton=   False
-   Height          =   400
+   Height          =   530
    ImplicitInstance=   False
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -49,7 +49,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   360
+      Top             =   490
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -80,7 +80,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   360
+      Top             =   490
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -122,7 +122,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
    Begin DesktopPagePanel PanelMain
       AllowAutoDeactivate=   True
       Enabled         =   True
-      Height          =   215
+      Height          =   345
       Index           =   -2147483648
       Left            =   0
       LockBottom      =   True
@@ -218,7 +218,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       Begin DesktopPagePanel PanelSliders
          AllowAutoDeactivate=   True
          Enabled         =   True
-         Height          =   125
+         Height          =   255
          Index           =   -2147483648
          InitialParent   =   "PanelMain"
          Left            =   0
@@ -1105,7 +1105,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
             Width           =   45
          End
       End
-      Begin XUIColorPickerSwatchCanvas Swatches
+      Begin XUIColorPickerColorDotCanvas ColorDots
          AllowAutoDeactivate=   True
          AllowFocus      =   False
          AllowFocusRing  =   True
@@ -1130,6 +1130,35 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          TabStop         =   True
          Tooltip         =   ""
          Top             =   143
+         Transparent     =   True
+         Visible         =   True
+         Width           =   291
+      End
+      Begin XUIColorPickerSwatchCanvas Swatches
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   295
+         Index           =   -2147483648
+         InitialParent   =   "PanelMain"
+         Left            =   15
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         SelectedColor   =   &c00000000
+         SwatchHeight    =   25
+         SwatchVerticalPadding=   5
+         TabIndex        =   1
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   181
          Transparent     =   True
          Visible         =   True
          Width           =   291
@@ -1203,7 +1232,7 @@ End
 		  RegisterForNotifications
 		  
 		  // Start on the sliders panel.
-		  PanelMain.SelectedPanelIndex = PANEL_MAIN_SLIDERS
+		  SwitchMainPanel(PANEL_MAIN_SLIDERS)
 		  PanelSliders.SelectedPanelIndex = PANEL_SLIDERS_RGB
 		  
 		  CurrentColor = mCurrentColor
@@ -1294,6 +1323,93 @@ End
 		  mStartingColor = startingColor
 		  
 		  AppearanceChanged
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 416464732074686520636F6C6F757220646F747320616E642074686569722070616C65747465732E
+		Private Sub ConstructPalettes()
+		  // Constructs the colour dots and their palettes.
+		  
+		  ColorDots.RemoveAllDots
+		  
+		  // =============
+		  // GREY
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&c737C84, "Grey", _
+		  &cF8F9FA, &cF1F3F5, &cE9ECEF, &cDEE2E6, &cCED4DA, &cADB5BD, &c868E96, &c495057, &c343A40, &c212529))
+		  
+		  // =============
+		  // RED
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&cF53843, "Red", _
+		  &cFFF5F5, &cFFE3E3, &cFFC9C9, &cFFA8A8, &cFF8787, &cFF6B6B, &cFA5252, &cF03E3E, &cE03131, &cC92A2A))
+		  
+		  // =============
+		  // PINK
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&cDD2F6D, "Pink", _
+		  &cFFF0F6, &cFFDEEB, &cFCC2D7, &cFAA2C1, &cF783AC, &cF06595, &cE64980, &cD6336C, &cC2255C, &cA61E4D))
+		  
+		  // =============
+		  // GRAPE
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&cAF2BD2, "Grape", _
+		  &cF8F0FC, &cF3D9FA, &cF3D9FA, &cE599F7, &cDA77F2, &cCC5DE8, &cBE4BDB, &cAE3EC9, &c9C36B5, &c9C36B5))
+		  
+		  // =============
+		  // VIOLET
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&c6431EE, "Violet", _
+		  &cF3F0FF, &cE5DBFF, &cD0BFFF, &cB197FC, &c9775FA, &c845EF7, &c7950F2, &c7048E8, &c6741D9, &c5F3DC4))
+		  
+		  // =============
+		  // INDIGO
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&c3B53F1, "Indigo", _
+		  &cEDF2FF, &cDBE4FF, &cBAC8FF, &c91A7FF, &c748FFC, &c5C7CFA, &c4C6EF5, &c4263EB, &c3B5BDB, &c364FC7))
+		  
+		  // =============
+		  // BLUE
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&c1F74DF, "Blue", _
+		  &cE7F5FF, &cD0EBFF, &cA5D8FF, &c74C0FC, &c4DABF7, &c339AF0, &c228BE6, &c1C7ED6, &c1971C2, &c1864AB))
+		  
+		  // =============
+		  // CYAN
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&c1C9AB1, "Cyan", _
+		  &cE3FAFC, &cC5F6FA, &c99E9F2, &c66D9E8, &c3BC9DB, &c22B8CF, &c15AABF, &c1098AD, &c0C8599, &c0B7285))
+		  
+		  // =============
+		  // TEAL
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&c1BAD74, "Teal", _
+		  &cE6FCF5, &cC3FAE8, &c96F2D7, &c63E6BE, &c38D9A9, &c20C997, &c12B886, &c0CA678, &c099268, &c087F5B))
+		  
+		  // =============
+		  // GREEN
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&c38B745, "Green", _
+		  &cEBFBEE, &cD3F9D8, &cB2F2BB, &c8CE99A, &c69DB7C, &c51CF66, &c40C057, &c37B24D, &c2F9E44, &c2B8A3E))
+		  
+		  // =============
+		  // LIME
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&c72C218, "Lime", _
+		  &cF4FCE3, &cE9FAC8, &cD8F5A2, &cC0EB75, &cA9E34B, &c94D82D, &c82C91E, &c74B816, &c66A80F, &c5C940D))
+		  
+		  // =============
+		  // YELLOW
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&cF8A109, "Yellow", _
+		  &cFFF9DB, &cFFF3BF, &cFFEC99, &cFFE066, &cFFD43B, &cFCC419, &cFAB005, &cF59F00, &cF08C00, &cE67700))
+		  
+		  // =============
+		  // ORANGE
+		  // =============
+		  ColorDots.AddDot(New XUIColorPickerColorDot(&cF96713, "Orange", _
+		  &CFFF4E6, &cFFE8CC, &cFFD8A8, &cFFC078, &cFFA94D, &cFF922B, &cFD7E14, &cF76707, &cE8590C, &cD9480F))
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1462,6 +1578,32 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 537769746368657320746F2074686520737065636966696564206D61696E2070616E656C2E
+		Private Sub SwitchMainPanel(panelIndex As Integer)
+		  /// Switches to the specified main panel.
+		  
+		  Select Case panelIndex
+		  Case PANEL_MAIN_SLIDERS
+		    PanelMain.SelectedPanelIndex = PANEL_MAIN_SLIDERS
+		    Self.Height = HEIGHT_SLIDERS
+		    
+		  Case PANEL_MAIN_SWATCHES
+		    PanelMain.SelectedPanelIndex = PANEL_MAIN_SWATCHES
+		    Self.Height = HEIGHT_SWATCHES
+		    ColorDots.SelectedIndex = 4
+		    Swatches.RemoveAllColors
+		    For Each c As Color In ColorDots.SelectedDot.Palette
+		      Swatches.AddColor(c, False)
+		    Next c
+		    Swatches.SelectedIndex = 3
+		    CurrentColor = Swatches.SelectedColor
+		    
+		  Else
+		    Raise New InvalidArgumentException("Unknown panel index (" + panelIndex.ToString + ").")
+		  End Select
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 5570646174657320616C6C20636F6E74726F6C7320746F206D61746368207468652063757272656E7420636F6C6F75722E
 		Private Sub Update()
 		  /// Updates all controls to match the current colour.
@@ -1523,6 +1665,12 @@ End
 	#tag EndProperty
 
 
+	#tag Constant, Name = HEIGHT_SLIDERS, Type = Double, Dynamic = False, Default = \"400", Scope = Private, Description = 5468652068656967687420746865207069636B65722077696E646F772073686F756C64206265207768656E20646973706C6179696E672074686520736C69646572732070616E656C2E
+	#tag EndConstant
+
+	#tag Constant, Name = HEIGHT_SWATCHES, Type = Double, Dynamic = False, Default = \"530", Scope = Private, Description = 5468652068656967687420746865207069636B65722077696E646F772073686F756C64206265207768656E20646973706C6179696E67207468652073776174636865732070616E656C2E
+	#tag EndConstant
+
 	#tag Constant, Name = PANEL_MAIN_SLIDERS, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E672074686520736C69646572732E
 	#tag EndConstant
 
@@ -1564,7 +1712,8 @@ End
 	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
 		Sub Pressed()
 		  ButtonSwatches.IsPressed = False
-		  PanelMain.SelectedPanelIndex = PANEL_MAIN_SLIDERS
+		  SwitchMainPanel(PANEL_MAIN_SLIDERS)
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -1760,6 +1909,38 @@ End
 		End Function
 	#tag EndEvent
 #tag EndEvents
+#tag Events ColorDots
+	#tag Event , Description = 5468652075736572206A7573742070726573736564206120636F6C6F7220646F742E
+		Sub PressedColorDot(dot As XUIColorPickerColorDot)
+		  Swatches.RemoveAllColors
+		  
+		  For Each c As Color In dot.Palette
+		    Swatches.AddColor(c, False)
+		  Next c
+		  
+		  Swatches.SelectedIndex = 0
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  ConstructPalettes
+		  
+		  Me.SelectedIndex = 0
+		  
+		  Swatches.RemoveAllColors
+		  Swatches.AddColors(Me.SelectedDot.Palette)
+		  Swatches.SelectedIndex = 0
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Swatches
+	#tag Event , Description = 546865207573657220636C69636B6564206120636F6C6F7572207377617463682E
+		Sub PressedSwatch(selectedColor As Color)
+		  CurrentColor = selectedColor
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events ColorCanvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
@@ -1775,7 +1956,8 @@ End
 	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
 		Sub Pressed()
 		  ButtonSliders.IsPressed = False
-		  PanelMain.SelectedPanelIndex = PANEL_MAIN_SWATCHES
+		  SwitchMainPanel(PANEL_MAIN_SWATCHES)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

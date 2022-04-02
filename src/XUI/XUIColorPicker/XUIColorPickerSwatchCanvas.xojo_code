@@ -2,31 +2,62 @@
 Protected Class XUIColorPickerSwatchCanvas
 Inherits DesktopCanvas
 	#tag Event
+		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  For i As Integer = 0 To mPalette.LastIndex
+		    Var bounds As Rect = mPalette(i).Right
+		    If bounds <> Nil And bounds.Contains(x, y) Then
+		      SelectedIndex = i
+		      mDidMouseDownOverSwatch = True
+		      Return true
+		    End If
+		  Next i
+		  
+		  mDidMouseDownOverSwatch = False
+		  Return True
+		  
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseUp(x As Integer, y As Integer)
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  If mDidMouseDownOverSwatch Then
+		    RaiseEvent PressedSwatch(SelectedColor)
+		    mDidMouseDownOverSwatch = False
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
+		  #Pragma Unused areas
+		  
 		  If mShouldRecomputeBounds Then
 		    ComputeBounds(g)
 		    mShouldRecomputeBounds = False
 		  End If
 		  
-		  // Sanity check.
-		  If mDots.LastIndex <> mBounds.LastIndex Then Return
-		  
-		  // Draw the dots.
-		  For i As Integer = 0 To mDots.LastIndex
-		    Var dotBounds As Rect = mBounds(i)
-		    If dotBounds = Nil Then Continue
-		    g.DrawingColor = mDots(i).Left
+		  For i As Integer = 0 To mPalette.LastIndex
+		    Var bounds As Rect = mPalette(i).Right
+		    If bounds = Nil Then Continue
+		    
+		    Var swatchColor As Color = mPalette(i).Left
+		    g.DrawingColor = swatchColor
+		    
+		    // Content.
+		    g.FillRoundRectangle(bounds.Left, bounds.Top, bounds.Width, bounds.Height, 5, 5)
+		    
+		    // Border.
+		    g.DrawingColor = mSwatchBorderColor
+		    g.DrawRoundRectangle(bounds.Left, bounds.Top, bounds.Width, bounds.Height, 5, 5)
+		    
+		    // Selected?
 		    If i = mSelectedIndex Then
-		      // Draw the dot.
-		      g.FillOval(dotBounds.Left, dotBounds.Top, DotDiameter, DotDiameter)
-		      
-		      // Draw a selection dot in the centre.
-		      g.ShadowBrush = mSelectedDotShadowBrush
-		      g.DrawingColor = mSelectedDotCentreColor
-		      g.FillOval(dotBounds.Center.X - 2, dotBounds.Center.Y - 2, 4, 4)
-		      g.ShadowBrush = Nil
-		    Else
-		      g.FillOval(dotBounds.Left, dotBounds.Top, DotDiameter, DotDiameter)
+		      g.DrawingColor = swatchColor.Complementary
+		      g.FillOval(bounds.Center.X - 3, bounds.Center.Y - 3, SELECTION_DOT_DIAMETER, SELECTION_DOT_DIAMETER)
 		    End If
 		  Next i
 		  
@@ -34,25 +65,40 @@ Inherits DesktopCanvas
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21, Description = 436F6D70757465732074686520626F756E6473206F662065616368206F662074686520636F6C6F757220646F74732E
+	#tag Method, Flags = &h0, Description = 416464732061206E657720636F6C6F757220746F207468652063616E7661732E
+		Sub AddColor(c As Color, shouldRefresh As Boolean = True)
+		  /// Adds a new colour to the canvas. By default the canvas is refreshed.
+		  
+		  mPalette.Add(c : Nil)
+		  
+		  mShouldRecomputeBounds = True
+		  
+		  If shouldRefresh Then Refresh
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 41646473206D756C7469706C6520636F6C6F75727320746F207468652063616E7661732E205468652063616E766173206973206E6F74206175746F6D61746963616C6C79207265667265736865642E
+		Sub AddColors(colours() As Color)
+		  /// Adds multiple colours to the canvas. The canvas is automatically refreshed.
+		  
+		  For Each c As Color In colours
+		    AddColor(c, False)
+		  Next c
+		  
+		  Refresh
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 436F6D70757465732074686520626F756E6473206F662065616368206F662074686520636F6C6F7572207377617463686573
 		Private Sub ComputeBounds(g As Graphics)
-		  /// Computes the bounds of each of the colour dots.
+		  /// Computes the bounds of each of the colour swatches
 		  
-		  mBounds.RemoveAll
-		  
-		  // Compute total width of the dots including the gaps.
-		  Var totalW As Double = (mDots.Count * DotDiameter) + (mDots.LastIndex * GapWidth)
-		  
-		  // Try to centre the dots.
-		  Var x As Double = 0
-		  If totalW < g.Width Then
-		    x = Max((g.Width / 2) - (totalW / 2), 0)
-		  End If
-		  
-		  Var y As Double = (g.Height / 2) - (DotDiameter / 2)
-		  For i As Integer = 0 To mDots.LastIndex
-		    mBounds.Add(New Rect(x, y, DotDiameter, DotDiameter))
-		    x = mBounds(i).Right + GapWidth
+		  Var x, y As Double = 0
+		  For i As Integer = 0 To mPalette.LastIndex
+		    Var p As Pair = mPalette(i)
+		    mPalette(i) = p.Left : New Rect(x, y, g.Width, SwatchHeight)
+		    y = Rect(mPalette(i).Right).Bottom + SwatchVerticalPadding
 		  Next i
 		  
 		End Sub
@@ -63,105 +109,76 @@ Inherits DesktopCanvas
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
-		  // Add our twelve base colours.
-		  mDots.Add(&c737C84 : "Grey")
-		  mDots.Add(&cF53843 : "Red")
-		  mDots.Add(&cDD2F6D : "Pink")
-		  mDots.Add(&cAF2BD2 : "Grape")
-		  mDots.Add(&c6431EE : "Violet")
-		  mDots.Add(&c3B53F1 : "Indigo")
-		  mDots.Add(&c1F74DF : "Blue")
-		  mDots.Add(&c1C9AB1 : "Cyan")
-		  mDots.Add(&c1BAD74 : "Teal")
-		  mDots.Add(&c38B745 : "Green")
-		  mDots.Add(&c72C218 : "Lime")
-		  mDots.Add(&cF8A109 : "Yellow")
-		  mDots.Add(&cF96713 : "Orange")
+		  mSwatchBorderColor = New ColorGroup(Color.Black, Color.Gray)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52656D6F76657320616C6C20636F6C6F7572732066726F6D207468652063616E7661732E
+		Sub RemoveAllColors()
+		  /// Removes all colours from the canvas.
 		  
-		  mSelectedDotCentreColor = New ColorGroup(Color.White, Color.Black)
+		  mPalette.RemoveAll
 		  
-		  mSelectedDotShadowBrush = New ShadowBrush
-		  mSelectedDotShadowBrush.BlurAmount = 3
-		  mSelectedDotShadowBrush.ShadowColor = Color.White
-		  mSelectedDotShadowBrush.Offset = New Point(0, 0)
+		  Refresh
 		  
-		  mShouldRecomputeBounds = True
 		End Sub
 	#tag EndMethod
 
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865206469616D65746572206F66206561636820636F6C6F757220646F742E
-		#tag Getter
-			Get
-			  Return mDotDiameter
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  // Clamp above 0.
-			  mDotDiameter = Max(value, 0)
-			  
-			  mShouldRecomputeBounds = True
-			  
-			  Refresh
-			End Set
-		#tag EndSetter
-		DotDiameter As Integer
-	#tag EndComputedProperty
+	#tag Hook, Flags = &h0, Description = 546865207573657220636C69636B6564206120636F6C6F7572207377617463682E
+		Event PressedSwatch(selectedColor As Color)
+	#tag EndHook
 
-	#tag ComputedProperty, Flags = &h0, Description = 54686520676170206265747765656E2074686520636F6C6F7220646F74732E
-		#tag Getter
-			Get
-			  Return mGapWidth
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  // Clamp above 0.
-			  mGapWidth = Max(value, 0)
-			  
-			  mShouldRecomputeBounds = True
-			  
-			  Refresh
-			  
-			End Set
-		#tag EndSetter
-		GapWidth As Integer
-	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686520636F6C6F757220646F74732E
-		Private mBounds() As Rect
+	#tag Property, Flags = &h21, Description = 5472756520696620746865207573657220636C69636B6564206120636F6C6F75722073776174636820647572696E6720746865206C61737420604D6F757365446F776E60206576656E742E
+		Private mDidMouseDownOverSwatch As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865206469616D65746572206F66206561636820636F6C6F757220646F742E
-		Private mDotDiameter As Integer = 16
+	#tag Property, Flags = &h21, Description = 54686520636F6C6F75727320746F20647261772061732073776174636865732E204C656674203D20436F6C6F722C205269676874203D20426F756E64732E
+		Private mPalette() As Pair
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 417661696C61626C6520636F6C6F7220646F74732E204C656674203D20436F6C6F722C205269676874203D204E616D65
-		Private mDots() As Pair
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 54686520676170206265747765656E2074686520636F6C6F7220646F74732E
-		Private mGapWidth As Integer = 3
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 54686520636F6C6F757220746F2075736520666F72207468652073656C656374696F6E206D61726B657220696E207468652063656E747265206F662073656C656374656420646F74732E
-		Private mSelectedDotCentreColor As ColorGroup
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 4120707265636F6D707574656420736861646F7720627275736820666F72207468652073656C656374656420636F6C6F757220646F742E
-		Private mSelectedDotShadowBrush As ShadowBrush
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 54686520696E646578206F66207468652063757272656E746C792073656C656374656420646F742E
+	#tag Property, Flags = &h21, Description = 5468652063757272656E746C792073656C65637465642073776174636820696E6465782E
 		Private mSelectedIndex As Integer = 0
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 49662054727565207468656E2074686520626F756E6473206F662074686520636F6C6F757220646F74732077696C6C206265207265636F6D707574656420647572696E6720746865206E657874207061696E206576656E742E
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E2074686520626F756E6473206F662074686520737761746368657320696E207468652070616C657474652077696C6C206265207265636F6D707574656420647572696E6720746865206E65787420605061696E7460206576656E742E
 		Private mShouldRecomputeBounds As Boolean = True
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 54686520696E646578206F66207468652063757272656E746C792073656C656374656420636F6C6F757220646F742E
+	#tag Property, Flags = &h21, Description = 54686520636F6C6F757220746F2075736520666F722074686520626F72646572206F66207468652073776174636865732E
+		Private mSwatchBorderColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520686569676874206F662061207377617463682E
+		Private mSwatchHeight As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520616D6F756E74206F662070616464696E67206265747765656E2073776174636865732E
+		Private mSwatchVerticalPadding As Integer
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 5468652063757272656E746C792073656C656374656420636F6C6F75722E
+		#tag Getter
+			Get
+			  // In case of an error, we just return black.
+			  
+			  If mPalette.Count = 0 Then
+			    Return Color.Black
+			  End If
+			  
+			  If mSelectedIndex < 0 Or mSelectedIndex > mPalette.LastIndex Then
+			    Return Color.Black
+			  Else
+			    Return mPalette(mSelectedIndex).Left
+			  End If
+			  
+			End Get
+		#tag EndGetter
+		SelectedColor As Color
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686520696E646578206F66207468652063757272656E746C792073656C6563746564207377617463682E
 		#tag Getter
 			Get
 			  Return mSelectedIndex
@@ -169,12 +186,15 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  If mDots.Count = 0 Then mSelectedIndex = -1
+			  If mPalette.Count = 0 Then
+			    mSelectedIndex = -1
+			    Return
+			  End If
 			  
 			  If value < 0 Then
 			    mSelectedIndex = 0
-			  ElseIf value > mDots.LastIndex Then
-			    mSelectedIndex = mDots.LastIndex
+			  ElseIf value > mPalette.LastIndex Then
+			    mSelectedIndex = mPalette.LastIndex
 			  Else
 			    mSelectedIndex = value
 			  End If
@@ -185,6 +205,48 @@ Inherits DesktopCanvas
 		#tag EndSetter
 		SelectedIndex As Integer
 	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686520686569676874206F662061207377617463682E
+		#tag Getter
+			Get
+			  Return mSwatchHeight
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  // Minimum height of 2.
+			  mSwatchHeight = Max(value, 2)
+			  
+			  mShouldRecomputeBounds = True
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		SwatchHeight As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686520616D6F756E74206F662070616464696E67206265747765656E2073776174636865732E
+		#tag Getter
+			Get
+			  Return mSwatchVerticalPadding
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mSwatchVerticalPadding = value
+			  
+			  mShouldRecomputeBounds = True
+			  
+			  Refresh
+			  
+			End Set
+		#tag EndSetter
+		SwatchVerticalPadding As Integer
+	#tag EndComputedProperty
+
+
+	#tag Constant, Name = SELECTION_DOT_DIAMETER, Type = Double, Dynamic = False, Default = \"6", Scope = Private, Description = 546865206469616D65746572206F662074686520646F7420647261776E20696E207468652063656E747265206F66207468652073656C6563746564207377617463682E
+	#tag EndConstant
 
 
 	#tag ViewBehavior
@@ -232,7 +294,7 @@ Inherits DesktopCanvas
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="291"
+			InitialValue="100"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -240,7 +302,7 @@ Inherits DesktopCanvas
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="26"
+			InitialValue="100"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -365,26 +427,18 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="DotDiameter"
+			Name="SwatchHeight"
 			Visible=true
 			Group="Behavior"
-			InitialValue="16"
+			InitialValue="25"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="GapWidth"
+			Name="SwatchVerticalPadding"
 			Visible=true
 			Group="Behavior"
 			InitialValue="5"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SelectedIndex"
-			Visible=true
-			Group="Behavior"
-			InitialValue="0"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -394,6 +448,22 @@ Inherits DesktopCanvas
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SelectedIndex"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SelectedColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
