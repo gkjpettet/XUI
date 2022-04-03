@@ -41,10 +41,10 @@ Begin DesktopWindow WinCodeEditor
       Height          =   28
       Index           =   -2147483648
       IsDraggingTab   =   False
-      Left            =   790
+      Left            =   766
       LeftMenuButtonIcon=   0
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
@@ -63,7 +63,7 @@ Begin DesktopWindow WinCodeEditor
       Top             =   0
       Transparent     =   True
       Visible         =   True
-      Width           =   470
+      Width           =   494
    End
    Begin DesktopLabel Info
       AllowAutoDeactivate=   True
@@ -75,9 +75,9 @@ Begin DesktopWindow WinCodeEditor
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   800
+      Left            =   778
       LockBottom      =   True
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
@@ -95,7 +95,7 @@ Begin DesktopWindow WinCodeEditor
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   450
+      Width           =   472
    End
    Begin Timer InfoTimer
       Enabled         =   True
@@ -111,13 +111,13 @@ Begin DesktopWindow WinCodeEditor
       Enabled         =   True
       Height          =   623
       Index           =   -2147483648
-      Left            =   790
+      Left            =   766
       LockBottom      =   True
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      PanelCount      =   2
+      PanelCount      =   4
       Panels          =   ""
       Scope           =   0
       TabIndex        =   8
@@ -128,7 +128,7 @@ Begin DesktopWindow WinCodeEditor
       Transparent     =   False
       Value           =   0
       Visible         =   True
-      Width           =   470
+      Width           =   494
       Begin DesktopPopupMenu PopupFormatters
          AllowAutoDeactivate=   True
          Bold            =   False
@@ -141,7 +141,7 @@ Begin DesktopWindow WinCodeEditor
          InitialParent   =   "Panel"
          InitialValue    =   ""
          Italic          =   False
-         Left            =   972
+         Left            =   879
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -170,7 +170,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   867
+         Left            =   786
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -190,7 +190,475 @@ Begin DesktopWindow WinCodeEditor
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   93
+         Width           =   81
+      End
+      Begin DesktopCheckBox CheckBoxBlinkCaret
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Blink Caret"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   780
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   37
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   100
+      End
+      Begin DesktopPopupMenu PopupCaretType
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   892
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         SelectedRowIndex=   0
+         TabIndex        =   1
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   37
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   133
+      End
+      Begin DesktopCheckBox CheckBoxHighlightCurrentLine
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Highlight Current Line"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   780
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   2
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   69
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   167
+      End
+      Begin DesktopLabel LabelFont
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   3
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Font:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   101
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   73
+      End
+      Begin DesktopPopupMenu PopupFont
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   871
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         SelectedRowIndex=   0
+         TabIndex        =   4
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   101
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   181
+      End
+      Begin DesktopLabel LabelFontSize
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   5
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Font Size:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   133
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   103
+      End
+      Begin DesktopTextField TextFieldFontSize
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   901
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   2
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   6
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "12"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   131
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "##"
+         Visible         =   True
+         Width           =   40
+      End
+      Begin DesktopLabel LabelLineNumberFontSize
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   953
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   7
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "LineNumber Font Size:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   131
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   153
+      End
+      Begin DesktopTextField TextFieldLineNumberFontSize
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1118
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   2
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   8
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "12"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   131
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "##"
+         Visible         =   True
+         Width           =   40
+      End
+      Begin DesktopLabel LabelSpacesPerTab
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   9
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Spaces Per Tab:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   165
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   103
+      End
+      Begin DesktopTextField TextFieldSpacesPerTab
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   901
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   10
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "4"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   "The number of space characters to use when inserting a tab."
+         Top             =   165
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "#"
+         Visible         =   True
+         Width           =   40
+      End
+      Begin DesktopCheckBox CheckBoxAllowInertialScrolling
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Inertial Scrolling"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   780
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   11
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   "If enabled then inertia will be added to scrolling the canvas on Windows & Linux. It's always enabled on macOS."
+         Top             =   199
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   135
+      End
+      Begin DesktopCheckBox CheckBoxHighlightDelimiters
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Highlight Delimiters Around Caret"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   780
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   12
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   "If True then delimiters (such as `{` and `}`) will be highlighted around the caret. Only supported by some formatters."
+         Top             =   231
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   235
+      End
+      Begin DesktopCheckBox CheckBoxDrawBlockLines
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Draw Block Lines"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1023
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   13
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   "If True then block lines will be drawn. Only supported by some formatters."
+         Top             =   231
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   135
       End
    End
    Begin XUICodeEditor Editor
@@ -236,7 +704,7 @@ Begin DesktopWindow WinCodeEditor
       LineNumberColor =   &c00000000
       LineNumberFontSize=   0
       LockBottom      =   True
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
@@ -257,7 +725,7 @@ Begin DesktopWindow WinCodeEditor
       Top             =   0
       VerticalLinePadding=   0
       Visible         =   True
-      Width           =   790
+      Width           =   766
    End
 End
 #tag EndDesktopWindow
@@ -307,6 +775,11 @@ End
 		  InitialiseAutocomplete
 		  
 		  ConstructTabBar
+		  
+		  // Cache the monospace fonts on the system (used in a few popup menus).
+		  mMonospaceFontCache = XUIFonts.AllMonospace
+		  
+		  UpdateAllControls
 		  
 		  // Start on the "General" setting panel.
 		  Panel.SelectedPanelIndex = PANEL_GENERAL
@@ -408,6 +881,27 @@ End
 	#tag EndMenuHandler
 
 
+	#tag Method, Flags = &h21, Description = 4164647320746865206D6F6E6F737061636520666F6E7473206F6E20746869732073797374656D20746F2060706F707570602E
+		Private Sub AddFontsToPopup(popup As DesktopPopupMenu)
+		  /// Adds the monospace fonts on this system to `popup`.
+		  
+		  popup.RemoveAllRows
+		  
+		  For Each font As String In mMonospaceFontCache
+		    popup.AddRow(font)
+		  Next font
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor()
+		  // Calling the overridden superclass constructor.
+		  Super.Constructor
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 436F6E737472756374732074686520746162206261722E
 		Private Sub ConstructTabBar()
 		  /// Constructs the tab bar.
@@ -416,7 +910,9 @@ End
 		  TabBar.Style = XUITabBarStyle.Safari
 		  
 		  TabBar.AppendTab("General", Nil, Nil, False)
-		  TabBar.AppendTab("Syntax", Nil, Nil, False)
+		  TabBar.AppendTab("Formatter", Nil, Nil, False)
+		  TabBar.AppendTab("Theme", Nil, Nil, False)
+		  TabBar.AppendTab("Autocomplete", Nil, Nil, False)
 		End Sub
 	#tag EndMethod
 
@@ -431,9 +927,47 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 5570646174657320616C6C20636F6E74726F6C7320746F206D61746368207468652073657474696E677320696E2074686520656469746F722E
+		Private Sub UpdateAllControls()
+		  /// Updates all controls to match the settings in the editor.
+		  
+		  // ================
+		  // GENERAL
+		  // ================
+		  // Caret.
+		  CheckBoxBlinkCaret.Value = Editor.BlinkCaret
+		  PopupCaretType.SelectRowWithTag(editor.CaretType)
+		  CheckBoxHighlightCurrentLine.Value = Editor.HighlightCurrentLine
+		  
+		  // Font family and sizes.
+		  If PopupFont.RowCount = 0 Then AddFontsToPopup(PopupFont)
+		  PopupFont.SelectRowWithValue(Editor.FontName)
+		  TextFieldFontSize.Text = Editor.FontSize.ToString
+		  TextFieldLineNumberFontSize.Text = Editor.LineNumberFontSize.ToString
+		  
+		  TextFieldSpacesPerTab.Text = Editor.SpacesPerTab.ToString
+		  
+		  #If TargetMacOS
+		    // Inertial scrolling is always enabled on macOS so we'll disable the toggle.
+		    CheckBoxAllowInertialScrolling.Value = True
+		    CheckBoxAllowInertialScrolling.Enabled = False
+		  #Else
+		    CheckBoxAllowInertialScrolling.Enabled = True
+		    CheckBoxAllowInertialScrolling.Value = Editor.AllowInertialScrolling
+		  #EndIf
+		  
+		  CheckBoxHighlightDelimiters.Value = Editor.HighlightDelimitersAroundCaret
+		  CheckBoxDrawBlockLines.Value = Editor.DrawBlockLines
+		End Sub
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h21, Description = 4F75722064656D6F206175746F636F6D706C65746520656E67696E652E
 		Private AutocompleteEngine As CodeEngineDemoAutocompleteEngine
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 436163686564206C697374206F6620616C6C206D6F6E6F737061636520666F6E7473206F6E207468652073797374656D2E
+		Private mMonospaceFontCache() As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520756E646F206D616E6167657220666F72207468652064656D6F20656469746F722E
@@ -441,10 +975,16 @@ End
 	#tag EndProperty
 
 
+	#tag Constant, Name = PANEL_AUTOCOMPLETE, Type = Double, Dynamic = False, Default = \"3", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_FORMATTER, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag EndConstant
+
 	#tag Constant, Name = PANEL_GENERAL, Type = Double, Dynamic = False, Default = \"0", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = PANEL_SYNTAX, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag Constant, Name = PANEL_THEME, Type = Double, Dynamic = False, Default = \"2", Scope = Private
 	#tag EndConstant
 
 
@@ -453,12 +993,20 @@ End
 #tag Events TabBar
 	#tag Event , Description = 54686520746162206174207468652073706563696669656420696E64657820776173206A7573742073656C65637465642E
 		Sub DidSelectTab(tab As XUITabBarItem, index As Integer)
+		  #Pragma Unused index
+		  
 		  Select Case tab.Caption
 		  Case "General"
 		    Panel.SelectedPanelIndex = PANEL_GENERAL
 		    
-		  Case "Syntax"
-		    Panel.SelectedPanelIndex = PANEL_SYNTAX
+		  Case "Formatter"
+		    Panel.SelectedPanelIndex = PANEL_FORMATTER
+		    
+		  Case "Theme"
+		    Panel.SelectedPanelIndex = PANEL_THEME
+		    
+		  Case "Autocomplete"
+		    Panel.SelectedPanelIndex = PANEL_AUTOCOMPLETE
 		    
 		  Else
 		    Raise New UnsupportedOperationException("Unknown panel")
@@ -494,6 +1042,115 @@ End
 		  Editor.Formatter = Me.RowTagAt(Me.SelectedRowIndex)
 		  
 		  If UndoManager <> Nil Then UndoManager.RemoveAll
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxBlinkCaret
+	#tag Event
+		Sub ValueChanged()
+		  Editor.BlinkCaret = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PopupCaretType
+	#tag Event
+		Sub Opening()
+		  Me.AddRow("Block")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUICodeEditor.CaretTypes.Block
+		  Me.AddRow("Underscore")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUICodeEditor.CaretTypes.Underscore
+		  Me.AddRow("Vertical Bar")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUICodeEditor.CaretTypes.VerticalBar
+		  
+		  Me.SelectRowWithTag(Editor.CaretType)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  Editor.CaretType = item.Tag
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxHighlightCurrentLine
+	#tag Event
+		Sub ValueChanged()
+		  Editor.HighlightCurrentLine = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PopupFont
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  Editor.FontName = item.Text
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldFontSize
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  Const MIN_PERMITTED_FONT_SIZE = 6
+		  
+		  If Key = Chr(13) Then
+		    Var i As Integer = Integer.FromString(Me.Text)
+		    If i >= MIN_PERMITTED_FONT_SIZE Then
+		      Editor.FontSize = i
+		      Return True
+		    End If
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldLineNumberFontSize
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  Const MIN_PERMITTED_FONT_SIZE = 6
+		  
+		  If Key = Chr(13) Then
+		    Var i As Integer = Integer.FromString(Me.Text)
+		    If i >= MIN_PERMITTED_FONT_SIZE Then
+		      Editor.LineNumberFontSize = i
+		      Return True
+		    End If
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldSpacesPerTab
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  Const MIN_PERMITTED_SPACES = 1
+		  
+		  If Key = Chr(13) Then
+		    Var i As Integer = Integer.FromString(Me.Text)
+		    If i >= MIN_PERMITTED_SPACES Then
+		      Editor.SpacesPerTab = i
+		      Return True
+		    End If
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxAllowInertialScrolling
+	#tag Event
+		Sub ValueChanged()
+		  Editor.AllowInertialScrolling = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxHighlightDelimiters
+	#tag Event
+		Sub ValueChanged()
+		  Editor.HighlightDelimitersAroundCaret = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxDrawBlockLines
+	#tag Event
+		Sub ValueChanged()
+		  Editor.DrawBlockLines = Me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -3763,7 +3763,7 @@ Implements XUINotificationListener
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mDrawBlockLines = True
+			  mDrawBlockLines = value
 			  NeedsFullRedraw = True
 			  Refresh
 			End Set
@@ -3941,9 +3941,21 @@ Implements XUINotificationListener
 		HighlightCurrentLine As Boolean
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0, Description = 49662054727565207468656E2064656C696D697465727320287375636820617320607B6020616E6420607D60292077696C6C20626520686967686C6967687465642061726F756E64207468652063617265742E
-		HighlightDelimitersAroundCaret As Boolean = True
-	#tag EndProperty
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E2064656C696D697465727320287375636820617320607B6020616E6420607D60292077696C6C20626520686967686C6967687465642061726F756E64207468652063617265742E204F6E6C7920737570706F7274656420627920736F6D6520666F726D6174746572732E
+		#tag Getter
+			Get
+			  Return mHighlightDelimitersAroundCaret
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHighlightDelimitersAroundCaret = value
+			  NeedsFullRedraw = True
+			  Refresh
+			End Set
+		#tag EndSetter
+		HighlightDelimitersAroundCaret As Boolean
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206C696E65206E756D626572206F6620746865206C617374202A66756C6C792A2076697369626C65206C696E652E
 		#tag Getter
@@ -4110,6 +4122,10 @@ Implements XUINotificationListener
 		Private mHighlightCurrentLine As Boolean
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E2064656C696D697465727320287375636820617320607B6020616E6420607D60292077696C6C20626520686967686C6967687465642061726F756E64207468652063617265742E204F6E6C7920737570706F7274656420627920736F6D6520666F726D6174746572732E
+		Private mHighlightDelimitersAroundCaret As Boolean = True
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C62617220696D61676520746F20647261772E204D6179206265204E696C206966206E6F742072657175697265642E
 		Private mHorizontalScrollbar As Picture
 	#tag EndProperty
@@ -4213,6 +4229,10 @@ Implements XUINotificationListener
 		Private mScrollPosY As Integer
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865206E756D626572206F662073706163657320746F20696E7365727420696E20706C616365206F662074686520746162206368617261637465722E
+		Private mSpacesPerTab As Integer = 4
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 49662054727565207468656E20746865206175746F636F6D706C65746520706F7075702069732073757070726573736564206576656E206966207468657265206973206175746F636F6D706C657465206461746120617661696C61626C652E20536574206166746572207468652075736572206861732063616E63656C6C6564206F72206163636570746564206175746F636F6D706C6574652E
 		Private mSuppressAutocompletePopup As Boolean = False
 	#tag EndProperty
@@ -4284,9 +4304,20 @@ Implements XUINotificationListener
 		SelectionColour As Color
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0, Description = 546865206E756D626572206F662073706163657320746F20696E7365727420696E20706C616365206F662074686520746162206368617261637465722E
-		SpacesPerTab As Integer = 4
-	#tag EndProperty
+	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F662073706163657320746F20696E7365727420696E20706C616365206F662074686520746162206368617261637465722E
+		#tag Getter
+			Get
+			  Return mSpacesPerTab
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mSpacesPerTab = value
+			  Refresh
+			End Set
+		#tag EndSetter
+		SpacesPerTab As Integer
+	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746865726520697320616E7920746578742063757272656E746C792073656C65637465642E
 		#tag Getter
@@ -4627,23 +4658,23 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FontName"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="System"
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FontSize"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="12"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DisplayLineNumbers"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
@@ -4651,7 +4682,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="VerticalLinePadding"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue=""
 			Type="Integer"
@@ -4675,9 +4706,9 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LineNumberFontSize"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="12"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -4744,7 +4775,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CurrentLineHighlightColor"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
@@ -4752,7 +4783,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BackgroundColor"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
@@ -4760,7 +4791,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CaretColour"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
@@ -4768,7 +4799,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SelectionColour"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
@@ -4776,7 +4807,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CurrentLineNumberColor"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
@@ -4784,7 +4815,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LineNumberColor"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
@@ -4815,14 +4846,6 @@ Implements XUINotificationListener
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="SpacesPerTab"
-			Visible=true
-			Group="Behavior"
-			InitialValue="4"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="AllowInertialScrolling"
 			Visible=true
 			Group="Behavior"
@@ -4839,14 +4862,6 @@ Implements XUINotificationListener
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HighlightDelimitersAroundCaret"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="DrawBlockLines"
 			Visible=true
 			Group="Behavior"
@@ -4856,7 +4871,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ContentType"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="XUICodeEditor.ContentTypes.SourceCode"
 			Type="XUICodeEditor.ContentTypes"
@@ -4868,7 +4883,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TokeniseMode"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="XUICodeEditor.TokeniseModes.All"
 			Type="XUICodeEditor.TokeniseModes"
@@ -4917,17 +4932,17 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutocompletePopupFontName"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="System"
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutocompletePopupFontSize"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue="0"
+			InitialValue="12"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -4968,6 +4983,22 @@ Implements XUINotificationListener
 			Visible=true
 			Group="Behavior"
 			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SpacesPerTab"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HighlightDelimitersAroundCaret"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
