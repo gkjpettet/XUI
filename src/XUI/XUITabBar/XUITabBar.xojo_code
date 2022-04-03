@@ -860,8 +860,6 @@ Inherits DesktopCanvas
 			Set
 			  /// Update how much the tab bar is horizontally scrolled.
 			  
-			  #Pragma Warning "BUG: Not permitting full scrolling to show right hand side of tab bar"
-			  
 			  If Renderer = Nil Then Return
 			  
 			  // Compute the maximum allowed X scroll position.

@@ -79,7 +79,8 @@ Implements XUITabBarRenderer
 		  tab.CloseIconBounds = New Rect(x, midY - (CLOSE_ICON_HEIGHT / 2), CLOSE_ICON_WIDTH, CLOSE_ICON_HEIGHT)
 		  
 		  // The appearance depends on whether the mouse is hovering over the close icon or not.
-		  Var hoveringOverCloseIcon As Boolean = tab.CloseIconBounds.Contains(Owner.MouseMoveX, Owner.MouseMoveY)
+		  Var hoveringOverCloseIcon As Boolean = _
+		  tab.CloseIconBounds.Contains(Owner.MouseMoveX + Owner.ScrollPosX, Owner.MouseMoveY)
 		  
 		  // Draw a rounded rect background if hovered over.
 		  If hoveringOverCloseIcon Then
@@ -274,8 +275,8 @@ Implements XUITabBarRenderer
 		    
 		  Else
 		    // Hovered over?
-		    Var hovering As Boolean = Owner.MouseMoveX >= LEFT_MENU_BUTTON_PADDING And _
-		    Owner.MouseMoveX <= LEFT_MENU_BUTTON_PADDING + LEFT_MENU_BUTTON_HOVER_WIDTH
+		    Var hovering As Boolean = Owner.MouseMoveX + Owner.ScrollPosX >= LEFT_MENU_BUTTON_PADDING And _
+		    Owner.MouseMoveX + Owner.ScrollPosX <= LEFT_MENU_BUTTON_PADDING + LEFT_MENU_BUTTON_HOVER_WIDTH
 		    
 		    If hovering Then
 		      // Draw the hovering background.
@@ -336,8 +337,8 @@ Implements XUITabBarRenderer
 		    
 		  Else
 		    // Hovered over?
-		    Var hovering As Boolean = Owner.MouseMoveX >= x + RIGHT_MENU_BUTTON_PADDING And _
-		    Owner.MouseMoveX <= x + RIGHT_MENU_BUTTON_PADDING + RIGHT_MENU_BUTTON_HOVER_WIDTH
+		    Var hovering As Boolean = Owner.MouseMoveX + Owner.ScrollPosX >= x + RIGHT_MENU_BUTTON_PADDING And _
+		    Owner.MouseMoveX + Owner.ScrollPosX <= x + RIGHT_MENU_BUTTON_PADDING + RIGHT_MENU_BUTTON_HOVER_WIDTH
 		    
 		    If hovering Then
 		      // Draw the hovering background.

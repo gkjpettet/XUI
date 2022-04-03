@@ -37,7 +37,7 @@ Implements XUITabBarRenderer
 		  tab.CloseIconBounds = New Rect(x, midY - (CLOSE_ICON_HEIGHT / 2), CLOSE_ICON_WIDTH, CLOSE_ICON_HEIGHT)
 		  
 		  // The colour depends on whether the mouse is hovering over the close icon or not.
-		  If tab.CloseIconBounds.Contains(Owner.MouseMoveX, Owner.MouseMoveY) Then
+		  If tab.CloseIconBounds.Contains(Owner.MouseMoveX + Owner.ScrollPosX, Owner.MouseMoveY) Then
 		    g.DrawingColor = style.HoverTabCloseColor
 		  Else
 		    g.DrawingColor = style.TabCloseColor
@@ -120,9 +120,9 @@ Implements XUITabBarRenderer
 		  For Each tab As XUITabBarItem In Owner.Tabs
 		    tabW = TabWidth(tab, ownerGraphics, style)
 		    widestTab = If(tabW > widestTab, tabW, widestTab)
-		    w = w + tabW
 		  Next tab
-		  w = Max(Owner.Width, w)
+		  w = Max(Owner.Width, Owner.TabCount * widestTab)
+		  
 		  mBuffer = Owner.Window.BitmapForCaching(w, TabBarHeight)
 		  
 		  // Ensure that the widest tab is widest enough to fill the tab bar and is wider than the minimum.
