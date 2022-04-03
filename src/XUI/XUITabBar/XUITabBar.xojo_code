@@ -643,6 +643,22 @@ Inherits DesktopCanvas
 		LeftMenuButtonBounds As Rect
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 496620746865206C656674206D656E7520627574746F6E20697320656E61626C65642C2074686973206973207468652069636F6E20746F207573652E
+		#tag Getter
+			Get
+			  Return mLeftMenuButtonIcon
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mLeftMenuButtonIcon = value
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		LeftMenuButtonIcon As Picture
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21, Description = 546865206F66667365742066726F6D20746865206C6566742065646765206F66207468652074616220746861742773206265696E6720647261676765642E
 		Private mDraggingTabLeftEdgeXOffset As Integer = 0
 	#tag EndProperty
@@ -665,6 +681,10 @@ Inherits DesktopCanvas
 
 	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F75736520636C69636B2074686174206A757374206F6363757272656420696E2074686520604D6F757365446F776E60206576656E7420776173206120636F6E7465787475616C20636C69636B2E
 		Private mLastClickWasContextual As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 496620746865206C656674206D656E7520627574746F6E20697320656E61626C65642C2074686973206973207468652069636F6E20746F207573652E
+		Private mLeftMenuButtonIcon As Picture
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520696E646578206F66207468652074616220756E64657220746865206D6F75736520647572696E6720746865206C61737420604D6F757365446F776E60206576656E742E20602D3160206966207468657265207761736E2774206F6E652E
@@ -767,6 +787,10 @@ Inherits DesktopCanvas
 		Private mRenderer As XUITabBarRenderer
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 496620746865207269676874206D656E7520627574746F6E20697320656E61626C65642C2074686973206973207468652069636F6E20746F207573652E
+		Private mRightMenuButtonIcon As Picture
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 4361636865642076616C7565206F662060672E5363616C6558602066726F6D20746865206C61737420605061696E7460206576656E742E
 		Private mScaleX As Double
 	#tag EndProperty
@@ -809,7 +833,23 @@ Inherits DesktopCanvas
 		RightMenuButtonBounds As Rect
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h21, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E
+	#tag ComputedProperty, Flags = &h0, Description = 496620746865207269676874206D656E7520627574746F6E20697320656E61626C65642C2074686973206973207468652069636F6E20746F207573652E
+		#tag Getter
+			Get
+			  Return mRightMenuButtonIcon
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mRightMenuButtonIcon = value
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		RightMenuButtonIcon As Picture
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686520686F72697A6F6E74616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720746F207468652072696768742E
 		#tag Getter
 			Get
 			  Return mScrollPosX
@@ -819,6 +859,8 @@ Inherits DesktopCanvas
 		#tag Setter
 			Set
 			  /// Update how much the tab bar is horizontally scrolled.
+			  
+			  #Pragma Warning "BUG: Not permitting full scrolling to show right hand side of tab bar"
 			  
 			  If Renderer = Nil Then Return
 			  
@@ -831,7 +873,7 @@ Inherits DesktopCanvas
 			  Refresh
 			End Set
 		#tag EndSetter
-		Private ScrollPosX As Integer
+		ScrollPosX As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063757272656E746C792073656C6563746564207461622E204D6179206265204E696C2E
@@ -1187,6 +1229,30 @@ Inherits DesktopCanvas
 			Visible=false
 			Group="Position"
 			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LeftMenuButtonIcon"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RightMenuButtonIcon"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ScrollPosX"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

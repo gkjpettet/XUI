@@ -189,7 +189,8 @@ Implements XUITabBarRenderer
 		  Var rightEdge As Double = x + width
 		  
 		  Var isSelected As Boolean = (tab = Owner.SelectedTab)
-		  Var hoveredOver As Boolean = (Owner.MouseMoveX >= leftEdge And Owner.MouseMoveX <= rightEdge)
+		  Var hoveredOver As Boolean = _
+		  (Owner.MouseMoveX + Owner.ScrollPosX >= leftEdge And Owner.MouseMoveX + Owner.ScrollPosX <= rightEdge)
 		  
 		  // Background colour.
 		  SetGraphicsBackgroundColor(tab, g, isSelected, hoveredOver, style)

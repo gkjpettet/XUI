@@ -42,6 +42,7 @@ Begin DesktopWindow WinTabBar
       Index           =   -2147483648
       IsDraggingTab   =   False
       Left            =   0
+      LeftMenuButtonIcon=   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -51,6 +52,7 @@ Begin DesktopWindow WinTabBar
       MouseDragY      =   0
       MouseMoveX      =   0
       MouseMoveY      =   0
+      RightMenuButtonIcon=   0
       Scope           =   0
       SelectedTabIndex=   0
       TabCount        =   0
@@ -773,7 +775,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  #Pragma Warning "TODO: Add more example renderers"
+		  #Pragma Warning "TODO: Add ability to specify left and right menu button icons"
 		  
 		  ResetTabs
 		  
@@ -842,6 +844,16 @@ End
 	#tag Event , Description = 5468652075736572206A75737420626567616E206472616767696E67206074616260202877686963682068617320612063757272656E7420696E646578206F662060696E64657860292E
 		Sub DidStartDragging(tab As XUITabBarItem, index As Integer)
 		  Echo("Began dragging tab with caption `" + tab.Caption + "` at index " + index.ToString)
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 546865207573657220686173206A757374206A757374207072657373656420746865206C656674206D656E7520627574746F6E2E
+		Sub PressedLeftMenuButton()
+		  Echo("Pressed the left menu button")
+		End Sub
+	#tag EndEvent
+	#tag Event , Description = 546865207573657220686173206A757374206A757374207072657373656420746865207269676874206D656E7520627574746F6E2E
+		Sub PressedRightMenuButton()
+		  Echo("Pressed the right menu button")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
