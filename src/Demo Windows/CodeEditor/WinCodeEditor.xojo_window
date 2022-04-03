@@ -22,7 +22,7 @@ Begin DesktopWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   False
+   Visible         =   True
    Width           =   1260
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
@@ -41,7 +41,8 @@ Begin DesktopWindow WinCodeEditor
       Height          =   28
       Index           =   -2147483648
       IsDraggingTab   =   False
-      Left            =   859
+      Left            =   790
+      LeftMenuButtonIcon=   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -51,6 +52,7 @@ Begin DesktopWindow WinCodeEditor
       MouseDragY      =   0
       MouseMoveX      =   0
       MouseMoveY      =   0
+      RightMenuButtonIcon=   0
       Scope           =   0
       SelectedTabIndex=   0
       TabCount        =   0
@@ -61,7 +63,7 @@ Begin DesktopWindow WinCodeEditor
       Top             =   0
       Transparent     =   True
       Visible         =   True
-      Width           =   401
+      Width           =   470
    End
    Begin DesktopLabel Info
       AllowAutoDeactivate=   True
@@ -73,7 +75,7 @@ Begin DesktopWindow WinCodeEditor
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   998
+      Left            =   800
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -93,7 +95,7 @@ Begin DesktopWindow WinCodeEditor
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   251
+      Width           =   450
    End
    Begin Timer InfoTimer
       Enabled         =   True
@@ -109,7 +111,7 @@ Begin DesktopWindow WinCodeEditor
       Enabled         =   True
       Height          =   623
       Index           =   -2147483648
-      Left            =   859
+      Left            =   790
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -126,7 +128,7 @@ Begin DesktopWindow WinCodeEditor
       Transparent     =   False
       Value           =   0
       Visible         =   True
-      Width           =   401
+      Width           =   470
       Begin DesktopPopupMenu PopupFormatters
          AllowAutoDeactivate=   True
          Bold            =   False
@@ -148,7 +150,7 @@ Begin DesktopWindow WinCodeEditor
          Scope           =   2
          SelectedRowIndex=   0
          TabIndex        =   0
-         TabPanelIndex   =   1
+         TabPanelIndex   =   2
          TabStop         =   True
          Tooltip         =   ""
          Top             =   38
@@ -178,7 +180,7 @@ Begin DesktopWindow WinCodeEditor
          Scope           =   0
          Selectable      =   False
          TabIndex        =   1
-         TabPanelIndex   =   1
+         TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "Formatter:"
          TextAlignment   =   3
@@ -221,11 +223,9 @@ Begin DesktopWindow WinCodeEditor
       FontSize        =   0
       HasBottomBorder =   False
       HasFocus        =   False
-      HasHorizontalScrollbar=   True
       HasLeftBorder   =   False
       HasRightBorder  =   True
       HasTopBorder    =   False
-      HasVerticalScrollbar=   True
       Height          =   680
       HighlightCurrentLine=   True
       HighlightDelimitersAroundCaret=   True
@@ -257,7 +257,7 @@ Begin DesktopWindow WinCodeEditor
       Top             =   0
       VerticalLinePadding=   0
       Visible         =   True
-      Width           =   860
+      Width           =   790
    End
 End
 #tag EndDesktopWindow
@@ -308,6 +308,8 @@ End
 		  
 		  ConstructTabBar
 		  
+		  // Start on the "General" setting panel.
+		  Panel.SelectedPanelIndex = PANEL_GENERAL
 		End Sub
 	#tag EndEvent
 
@@ -413,6 +415,7 @@ End
 		  TabBar.Renderer = New XUITabBarRendererSafari(TabBar)
 		  TabBar.Style = XUITabBarStyle.Safari
 		  
+		  TabBar.AppendTab("General", Nil, Nil, False)
 		  TabBar.AppendTab("Syntax", Nil, Nil, False)
 		End Sub
 	#tag EndMethod
@@ -438,8 +441,31 @@ End
 	#tag EndProperty
 
 
+	#tag Constant, Name = PANEL_GENERAL, Type = Double, Dynamic = False, Default = \"0", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_SYNTAX, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag EndConstant
+
+
 #tag EndWindowCode
 
+#tag Events TabBar
+	#tag Event , Description = 54686520746162206174207468652073706563696669656420696E64657820776173206A7573742073656C65637465642E
+		Sub DidSelectTab(tab As XUITabBarItem, index As Integer)
+		  Select Case tab.Caption
+		  Case "General"
+		    Panel.SelectedPanelIndex = PANEL_GENERAL
+		    
+		  Case "Syntax"
+		    Panel.SelectedPanelIndex = PANEL_SYNTAX
+		    
+		  Else
+		    Raise New UnsupportedOperationException("Unknown panel")
+		  End Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events InfoTimer
 	#tag Event
 		Sub Action()

@@ -4594,22 +4594,6 @@ Implements XUINotificationListener
 			EditorType="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HasVerticalScrollbar"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasHorizontalScrollbar"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="BlinkCaret"
 			Visible=true
 			Group="Behavior"

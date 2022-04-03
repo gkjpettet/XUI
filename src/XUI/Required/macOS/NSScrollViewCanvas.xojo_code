@@ -405,12 +405,12 @@ Inherits DesktopTextInputCanvas
 	#tag EndHook
 
 
-	#tag Property, Flags = &h0
-		HasHorizontalScrollbar As Boolean = True
+	#tag Property, Flags = &h1
+		Protected HasHorizontalScrollbar As Boolean = True
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		HasVerticalScrollbar As Boolean = True
+	#tag Property, Flags = &h1
+		Protected HasVerticalScrollbar As Boolean = True
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -618,22 +618,6 @@ Inherits DesktopTextInputCanvas
 			InitialValue="True"
 			Type="Boolean"
 			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasVerticalScrollbar"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasHorizontalScrollbar"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabPanelIndex"
