@@ -29,6 +29,15 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657475726E73207468652063757272656E7420646F74207261646975732E
+		Private Function DotRadius() As Double
+		  /// Returns the current dot radius.
+		  
+		  Return DotDiameter / 2
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 4472617773207468652063617074696F6E20746F20606760207374617274696E67206174206078602E
 		Private Sub DrawCaption(g As Graphics, x As Double)
 		  /// Draws the caption to `g` starting at `x`.
@@ -41,7 +50,7 @@ Inherits DesktopCanvas
 		  
 		  Var wrapWidth As Double = 0
 		  If CondenseCaption Then
-		    wrapWidth = g.Width - DOT_DIAMETER - DotPadding
+		    wrapWidth = g.Width - DotDiameter - DotPadding
 		  End If
 		  
 		  Var baseline As Double = (g.FontAscent + (g.Height - g.TextHeight)/2)
@@ -60,15 +69,15 @@ Inherits DesktopCanvas
 		  /// Draws the dot to `g` starting at `x`. Returns the X coordinate after the dot, including padding.
 		  
 		  g.DrawingColor = If(Me.Enabled, DotColor, mDisabledDotColor)
-		  g.FillOval(0, (g.Height / 2) - DOT_RADIUS, DOT_DIAMETER, DOT_DIAMETER)
+		  g.FillOval(0, (g.Height / 2) - DotRadius, DotDiameter, DotDiameter)
 		  
 		  // Border?
 		  If DotHasBorder And DotBorderColor <> Nil Then
 		    g.DrawingColor = If(Me.Enabled, DotBorderColor, mDisabledDotColor)
-		    g.DrawOval(0, (g.Height / 2) - DOT_RADIUS, DOT_DIAMETER, DOT_DIAMETER)
+		    g.DrawOval(0, (g.Height / 2) - DotRadius, DotDiameter, DotDiameter)
 		  End If
 		  
-		  Return x + DOT_DIAMETER + DotPadding
+		  Return x + DotDiameter + DotPadding
 		  
 		End Function
 	#tag EndMethod
@@ -155,6 +164,23 @@ Inherits DesktopCanvas
 		DotColor As ColorGroup
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 546865206469616D65746572206F662074686520646F7420696E20706978656C732E
+		#tag Getter
+			Get
+			  Return mDotDiameter
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mDotDiameter = Max(value, MIN_DOT_DIAMETER)
+			  
+			  Refresh
+			  
+			End Set
+		#tag EndSetter
+		DotDiameter As Double
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 547275652069662074686520646F7420686173206120626F726465722E
 		#tag Getter
 			Get
@@ -214,7 +240,7 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mFontSize = value
+			  mFontSize = Max(value, MIN_CAPTION_FONT_SIZE)
 			  
 			  Refresh
 			End Set
@@ -250,6 +276,10 @@ Inherits DesktopCanvas
 		Private mDotColor As ColorGroup
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865206469616D65746572206F662074686520646F7420696E20706978656C732E
+		Private mDotDiameter As Double = 16
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 547275652069662074686520646F7420686173206120626F726465722E
 		Private mDotHasBorder As Boolean = False
 	#tag EndProperty
@@ -279,10 +309,10 @@ Inherits DesktopCanvas
 	#tag Constant, Name = DISABLED_COLOR_DOT_LIGHT, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = DOT_DIAMETER, Type = Double, Dynamic = False, Default = \"16", Scope = Private
+	#tag Constant, Name = MIN_CAPTION_FONT_SIZE, Type = Double, Dynamic = False, Default = \"6", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = DOT_RADIUS, Type = Double, Dynamic = False, Default = \"8", Scope = Private
+	#tag Constant, Name = MIN_DOT_DIAMETER, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 546865206D696E696D756D207065726D6974746564206469616D65746572206F662074686520646F742E
 	#tag EndConstant
 
 
@@ -400,14 +430,6 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Backdrop"
-			Visible=false
-			Group="Appearance"
-			InitialValue=""
-			Type="Picture"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Enabled"
 			Visible=true
 			Group="Appearance"
@@ -422,14 +444,6 @@ Inherits DesktopCanvas
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AllowFocusRing"
-			Visible=false
-			Group="Appearance"
-			InitialValue=""
-			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Visible"
@@ -533,6 +547,30 @@ Inherits DesktopCanvas
 			Group="Behavior"
 			InitialValue="5"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DotDiameter"
+			Visible=true
+			Group="Behavior"
+			InitialValue="16"
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Backdrop"
+			Visible=false
+			Group="Appearance"
+			InitialValue=""
+			Type="Picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowFocusRing"
+			Visible=false
+			Group="Appearance"
+			InitialValue=""
+			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty

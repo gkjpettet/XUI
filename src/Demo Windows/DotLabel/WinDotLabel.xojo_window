@@ -8,9 +8,9 @@ Begin DesktopWindow WinDotLabel
    HasBackgroundColor=   False
    HasCloseButton  =   True
    HasFullScreenButton=   False
-   HasMaximizeButton=   True
+   HasMaximizeButton=   False
    HasMinimizeButton=   True
-   Height          =   400
+   Height          =   338
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -19,28 +19,29 @@ Begin DesktopWindow WinDotLabel
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "Dot Label Demo"
    Type            =   0
    Visible         =   False
-   Width           =   600
-   Begin XUIDotLabel DotLabelGreen
+   Width           =   526
+   Begin XUIDotLabel DotLabel
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   True
       AllowTabs       =   False
       Backdrop        =   0
-      Caption         =   "Enabled"
+      Caption         =   "Caption"
       CaptionColor    =   &c000000
       CondenseCaption =   True
       DotBorderColor  =   &c008F0000
       DotColor        =   &c00F90000
+      DotDiameter     =   16.0
       DotHasBorder    =   True
       DotPadding      =   5
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0
-      Height          =   20
+      FontName        =   ""
+      FontSize        =   12
+      Height          =   40
       Index           =   -2147483648
       Left            =   20
       LockBottom      =   False
@@ -56,48 +57,997 @@ Begin DesktopWindow WinDotLabel
       Top             =   20
       Transparent     =   True
       Visible         =   True
-      Width           =   120
+      Width           =   150
    End
-   Begin XUIDotLabel DotLabelRed
+   Begin DesktopLabel LabelDotColor
       AllowAutoDeactivate=   True
-      AllowFocus      =   False
-      AllowFocusRing  =   True
-      AllowTabs       =   False
-      Backdrop        =   0
-      Caption         =   ""
-      CaptionColor    =   &c00000000
-      CondenseCaption =   True
-      DotBorderColor  =   &cFF260000
-      DotColor        =   &cFF7E7900
-      DotHasBorder    =   True
-      DotPadding      =   5
+      Bold            =   False
       Enabled         =   True
       FontName        =   "System"
-      FontSize        =   0
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
       Index           =   -2147483648
+      Italic          =   False
       Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+      Multiline       =   False
       Scope           =   2
+      Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Dot Colour:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   52
-      Transparent     =   True
+      Top             =   80
+      Transparent     =   False
+      Underline       =   False
       Visible         =   True
-      Width           =   120
+      Width           =   100
+   End
+   Begin XUIColorSwatch DotColorLightSwatch
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Enabled         =   True
+      Height          =   20
+      Index           =   -2147483648
+      IsActive        =   False
+      Left            =   132
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   80
+      Transparent     =   True
+      Value           =   &c00F90000
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopLabel LabelDotColorLight
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   132
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Light"
+      TextAlignment   =   2
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   103
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   40
+   End
+   Begin XUIColorSwatch DotColorDarkSwatch
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Enabled         =   True
+      Height          =   20
+      Index           =   -2147483648
+      IsActive        =   False
+      Left            =   193
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   80
+      Transparent     =   True
+      Value           =   &cFF7E7900
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopLabel LabelDotColorDark
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   193
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Dark"
+      TextAlignment   =   2
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   103
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopLabel LabelDotBorderColor
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   264
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Dot Border Colour:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   80
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   129
+   End
+   Begin XUIColorSwatch DotBorderColorLightSwatch
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Enabled         =   True
+      Height          =   20
+      Index           =   -2147483648
+      IsActive        =   False
+      Left            =   405
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   80
+      Transparent     =   True
+      Value           =   &c008F0000
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopLabel LabelDotBorderColorLight
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   405
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Light"
+      TextAlignment   =   2
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   103
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   40
+   End
+   Begin XUIColorSwatch DotBorderColorDarkSwatch
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Enabled         =   True
+      Height          =   20
+      Index           =   -2147483648
+      IsActive        =   False
+      Left            =   466
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   80
+      Transparent     =   True
+      Value           =   &cFF260000
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopLabel LabelDotBorderColorDark
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   466
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Dark"
+      TextAlignment   =   2
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   103
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopCheckBox CheckBoxDotHasBorder
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Dot Has Border"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   135
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   129
+   End
+   Begin DesktopTextField TextFieldCaption
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   22
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   132
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   167
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Visible         =   True
+      Width           =   184
+   End
+   Begin DesktopLabel LabelCaption
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Caption:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   167
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin DesktopCheckBox CheckBoxCondenseCaption
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Condense Caption"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   328
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   167
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   1
+      Width           =   149
+   End
+   Begin DesktopPopupMenu PopupMenuFonts
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   132
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      SelectedRowIndex=   0
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   201
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   184
+   End
+   Begin DesktopLabel LabelFont
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Font:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   199
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin DesktopLabel LabelFontSize
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   380
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Font:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   199
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   65
+   End
+   Begin DesktopTextField TextFieldFontSize
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   22
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   457
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   2
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   2
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "12"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   199
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   "##"
+      Visible         =   True
+      Width           =   49
+   End
+   Begin DesktopLabel LabelCaptionColor
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Caption Colour:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   233
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin XUIColorSwatch CaptionColorLightSwatch
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Enabled         =   True
+      Height          =   20
+      Index           =   -2147483648
+      IsActive        =   False
+      Left            =   132
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   233
+      Transparent     =   True
+      Value           =   &c00000000
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopLabel LabelCaptionColorLight
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   132
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   21
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Light"
+      TextAlignment   =   2
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   256
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   40
+   End
+   Begin XUIColorSwatch CaptionColorDarkSwatch
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Enabled         =   True
+      Height          =   20
+      Index           =   -2147483648
+      IsActive        =   False
+      Left            =   193
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   22
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   233
+      Transparent     =   True
+      Value           =   &cD6D6D600
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopLabel LabelCaptionColorDark
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   193
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   23
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Dark"
+      TextAlignment   =   2
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   256
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   40
+   End
+   Begin DesktopSlider SliderDotDiameter
+      AllowAutoDeactivate=   True
+      AllowLiveScrolling=   True
+      Enabled         =   True
+      Height          =   30
+      Index           =   -2147483648
+      Left            =   132
+      LineStep        =   1
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumValue    =   40
+      MinimumValue    =   2
+      PageStep        =   10
+      Scope           =   0
+      TabIndex        =   24
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TickMarkStyle   =   0
+      Tooltip         =   ""
+      Top             =   288
+      Transparent     =   False
+      Value           =   0
+      Visible         =   True
+      Width           =   184
+   End
+   Begin DesktopLabel LabelDotDiameter
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   25
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Dot Diameter:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   288
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin DesktopLabel LabelDotPadding
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   348
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   26
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Dot Padding:"
+      TextAlignment   =   3
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   288
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   97
+   End
+   Begin DesktopTextField TextFieldDotPadding
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   22
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   457
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   2
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   2
+      TabIndex        =   27
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "5"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   288
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   "##"
+      Visible         =   True
+      Width           =   49
    End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Opening()
+		  DotLabel.DotColor = New ColorGroup(DotColorLightSwatch.Value, DotColorDarkSwatch.Value)
+		  DotLabel.DotBorderColor = New ColorGroup(DotBorderColorLightSwatch.Value, DotBorderColorDarkSwatch.Value)
+		  
+		  CheckBoxDotHasBorder.Value = DotLabel.DotHasBorder
+		  
+		  TextFieldCaption.Text = DotLabel.Caption
+		  CheckBoxCondenseCaption.Value = DotLabel.CondenseCaption
+		  
+		  If DotLabel.FontName = "" Then
+		    PopupMenuFonts.SelectRowWithValue("System")
+		  Else
+		    PopupMenuFonts.SelectRowWithValue(DotLabel.FontName)
+		  End If
+		  TextFieldFontSize.Text = DotLabel.FontSize.ToString
+		  
+		  DotLabel.CaptionColor = New ColorGroup(CaptionColorLightSwatch.Value, CaptionColorDarkSwatch.Value)
+		  
+		  SliderDotDiameter.Value = DotLabel.DotDiameter
+		  
+		  TextFieldDotPadding.Text = DotLabel.DotPadding.ToString
+		  
+		End Sub
+	#tag EndEvent
+
+
 #tag EndWindowCode
 
+#tag Events DotColorLightSwatch
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  DotLabel.DotColor = New ColorGroup(newColor, DotLabel.DotColor.Dark)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DotColorDarkSwatch
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  DotLabel.DotColor = New ColorGroup(DotLabel.DotColor.Light, newColor)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DotBorderColorLightSwatch
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  DotLabel.DotBorderColor = New ColorGroup(newColor, DotLabel.DotBorderColor.Dark)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DotBorderColorDarkSwatch
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  DotLabel.DotBorderColor = New ColorGroup(DotLabel.DotBorderColor.Light, newColor)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxDotHasBorder
+	#tag Event
+		Sub ValueChanged()
+		  DotLabel.DotHasBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldCaption
+	#tag Event
+		Sub TextChanged()
+		  DotLabel.Caption = Me.Text
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxCondenseCaption
+	#tag Event
+		Sub ValueChanged()
+		  DotLabel.CondenseCaption = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PopupMenuFonts
+	#tag Event
+		Sub Opening()
+		  Var fonts() As String = XUIFonts.All
+		  
+		  Me.AddRow("System")
+		  Me.AddSeparator
+		  For Each font As String In fonts
+		    Me.AddRow(font)
+		  Next font
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  DotLabel.FontName = item.Text
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldFontSize
+	#tag Event
+		Sub TextChanged()
+		  If Me.Text <> "" Then DotLabel.FontSize = Integer.FromString(Me.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CaptionColorLightSwatch
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  DotLabel.CaptionColor = New ColorGroup(newColor, DotLabel.CaptionColor.Dark)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CaptionColorDarkSwatch
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  DotLabel.CaptionColor = New ColorGroup(DotLabel.CaptionColor.Light, newColor)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SliderDotDiameter
+	#tag Event
+		Sub ValueChanged()
+		  DotLabel.DotDiameter = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldDotPadding
+	#tag Event
+		Sub TextChanged()
+		  If Me.Text <> "" Then DotLabel.DotPadding = Integer.FromString(Me.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="Name"
