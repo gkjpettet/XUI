@@ -53,7 +53,7 @@ Begin DesktopWindow WinCodeEditor
       MouseMoveX      =   0
       MouseMoveY      =   0
       RightMenuButtonIcon=   0
-      Scope           =   0
+      Scope           =   2
       SelectedTabIndex=   0
       TabCount        =   0
       TabIndex        =   7
@@ -119,7 +119,7 @@ Begin DesktopWindow WinCodeEditor
       LockTop         =   True
       PanelCount      =   4
       Panels          =   ""
-      Scope           =   0
+      Scope           =   2
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   False
@@ -159,7 +159,7 @@ Begin DesktopWindow WinCodeEditor
          Visible         =   True
          Width           =   138
       End
-      Begin DesktopLabel Label1
+      Begin DesktopLabel LabelFormatter
          AllowAutoDeactivate=   True
          Bold            =   False
          Enabled         =   True
@@ -177,7 +177,7 @@ Begin DesktopWindow WinCodeEditor
          LockRight       =   True
          LockTop         =   True
          Multiline       =   False
-         Scope           =   0
+         Scope           =   2
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   2
@@ -845,14 +845,14 @@ Begin DesktopWindow WinCodeEditor
          AllowAutoDeactivate=   True
          AllowAutoHideScrollbars=   True
          AllowExpandableRows=   False
-         AllowFocusRing  =   True
+         AllowFocusRing  =   False
          AllowResizableColumns=   False
          AllowRowDragging=   False
          AllowRowReordering=   False
          Bold            =   False
          ColumnCount     =   1
          ColumnWidths    =   ""
-         DefaultRowHeight=   -1
+         DefaultRowHeight=   22
          DropIndicatorVisible=   False
          Enabled         =   True
          FontName        =   "System"
@@ -877,7 +877,7 @@ Begin DesktopWindow WinCodeEditor
          LockTop         =   True
          RequiresSelection=   False
          RowSelectionType=   0
-         Scope           =   0
+         Scope           =   2
          TabIndex        =   2
          TabPanelIndex   =   2
          TabStop         =   True
@@ -907,7 +907,7 @@ Begin DesktopWindow WinCodeEditor
          LockRight       =   True
          LockTop         =   True
          Multiline       =   True
-         Scope           =   0
+         Scope           =   2
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   2
@@ -1010,7 +1010,7 @@ Begin DesktopWindow WinCodeEditor
       MinimumAutocompletionLength=   2
       NeedsFullRedraw =   False
       ReadOnly        =   False
-      Scope           =   0
+      Scope           =   2
       ScrollPosX      =   0
       SelectionColour =   &c00000000
       SpacesPerTab    =   4
@@ -1231,6 +1231,7 @@ End
 		Private Sub UpdateFormatterTabControls()
 		  /// Updates all the controls on the "Formatter" tab.
 		  
+		  // Delimiter support checkbox.
 		  If Editor.Formatter.SupportsDelimiterHighlighting Then
 		    DotLabelSupportsDelimiterHighlighting.Caption = "Supports highlighting delimiters"
 		    DotLabelSupportsDelimiterHighlighting.DotColor = GREEN_DOT_COLOR
@@ -1240,6 +1241,28 @@ End
 		    DotLabelSupportsDelimiterHighlighting.DotColor = RED_DOT_COLOR
 		    DotLabelSupportsDelimiterHighlighting.DotBorderColor = RED_DOT_BORDER_COLOR
 		  End If
+		  
+		  UpdateFormatterTokensListBox
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5570646174657320604C697374426F78466F726D6174746572546F6B656E54797065736020776974682074686520746F6B656E2074797065732075736564206279207468652063757272656E746C792073656C656374656420666F726D61747465722E
+		Private Sub UpdateFormatterTokensListBox()
+		  /// Updates `ListBoxFormatterTokenTypes` with the token types used by the currently selected formatter.
+		  
+		  ListBoxFormatterTokenTypes.RemoveAllRows
+		  
+		  Var tokenTypes() As String = Editor.Formatter.TokenTypes
+		  
+		  // Sort alphabetically.
+		  tokenTypes.Sort
+		  
+		  For Each token As String In tokenTypes
+		    ListBoxFormatterTokenTypes.AddRow(token)
+		  Next token
+		  
 		End Sub
 	#tag EndMethod
 

@@ -1023,6 +1023,7 @@ Implements XUICEFormatter
 		  
 		  Return Array( _
 		  TOKEN_COMMENT, _
+		  TOKEN_DEFAULT, _
 		  TOKEN_ERROR, _
 		  TOKEN_ESCAPE, _
 		  TOKEN_IDENTIFIER, _
@@ -1063,6 +1064,9 @@ Implements XUICEFormatter
 
 
 	#tag Constant, Name = TOKEN_COMMENT, Type = String, Dynamic = False, Default = \"comment", Scope = Public, Description = 5573656420666F7220636F6D6D656E74732E
+	#tag EndConstant
+
+	#tag Constant, Name = TOKEN_DEFAULT, Type = String, Dynamic = False, Default = \"default", Scope = Public, Description = 5573656420666F722064656661756C7420746578742E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_ERROR, Type = String, Dynamic = False, Default = \"error", Scope = Public, Description = 5573656420666F72206572726F72732E
