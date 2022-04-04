@@ -529,7 +529,7 @@ Inherits DesktopCanvas
 			Name="FontSize"
 			Visible=true
 			Group="Behavior"
-			InitialValue="0"
+			InitialValue="12"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

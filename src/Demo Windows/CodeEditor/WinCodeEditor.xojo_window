@@ -22,7 +22,7 @@ Begin DesktopWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   False
+   Visible         =   True
    Width           =   1260
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
@@ -922,35 +922,41 @@ Begin DesktopWindow WinCodeEditor
          Visible         =   True
          Width           =   454
       End
-      Begin DesktopCheckBox CheckBox1
+      Begin XUIDotLabel DotLabelSupportsDelimiterHighlighting
          AllowAutoDeactivate=   True
-         Bold            =   False
-         Caption         =   "Untitled"
+         AllowFocus      =   False
+         AllowFocusRing  =   False
+         AllowTabs       =   False
+         Backdrop        =   0
+         Caption         =   "Delimiter Support"
+         CaptionColor    =   &c000000
+         CondenseCaption =   True
+         DotBorderColor  =   &c000000
+         DotColor        =   &c00FF00
+         DotDiameter     =   16.0
+         DotHasBorder    =   True
+         DotPadding      =   5
          Enabled         =   True
          FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
+         FontSize        =   12
          Height          =   20
          Index           =   -2147483648
          InitialParent   =   "Panel"
-         Italic          =   False
          Left            =   786
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
-         Scope           =   0
+         Scope           =   2
          TabIndex        =   4
          TabPanelIndex   =   2
          TabStop         =   True
          Tooltip         =   ""
          Top             =   309
-         Transparent     =   False
-         Underline       =   False
+         Transparent     =   True
          Visible         =   True
-         VisualState     =   0
-         Width           =   100
+         Width           =   355
       End
    End
    Begin XUICodeEditor Editor
@@ -1186,14 +1192,6 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub Constructor()
-		  // Calling the overridden superclass constructor.
-		  Super.Constructor
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21, Description = 436F6E737472756374732074686520746162206261722E
 		Private Sub ConstructTabBar()
 		  /// Constructs the tab bar.
@@ -1223,9 +1221,32 @@ End
 		Private Sub UpdateAllControls()
 		  /// Updates all controls to match the settings in the editor.
 		  
-		  // ================
-		  // GENERAL
-		  // ================
+		  UpdateGeneralTabControls
+		  UpdateFormatterTabControls
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5570646174657320616C6C2074686520636F6E74726F6C73206F6E207468652022466F726D617474657222207461622E
+		Private Sub UpdateFormatterTabControls()
+		  /// Updates all the controls on the "Formatter" tab.
+		  
+		  If Editor.Formatter.SupportsDelimiterHighlighting Then
+		    DotLabelSupportsDelimiterHighlighting.Caption = "Supports highlighting delimiters"
+		    DotLabelSupportsDelimiterHighlighting.DotColor = GREEN_DOT_COLOR
+		    DotLabelSupportsDelimiterHighlighting.DotBorderColor = GREEN_DOT_BORDER_COLOR
+		  Else
+		    DotLabelSupportsDelimiterHighlighting.Caption = "Does not support highlighting delimiters"
+		    DotLabelSupportsDelimiterHighlighting.DotColor = RED_DOT_COLOR
+		    DotLabelSupportsDelimiterHighlighting.DotBorderColor = RED_DOT_BORDER_COLOR
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5570646174657320616C6C2074686520636F6E74726F6C73206F6E20746865202247656E6572616C22207461622E
+		Private Sub UpdateGeneralTabControls()
+		  /// Updates all the controls on the "General" tab.
+		  
 		  // Caret.
 		  CheckBoxBlinkCaret.Value = Editor.BlinkCaret
 		  PopupCaretType.SelectRowWithTag(editor.CaretType)
@@ -1256,7 +1277,6 @@ End
 		  CheckBoxBottomBorder.Value = Editor.HasBottomBorder
 		  CheckBoxLeftBorder.Value = Editor.HasLeftBorder
 		  CheckBoxRightBorder.Value = Editor.HasRightBorder
-		  
 		End Sub
 	#tag EndMethod
 
@@ -1264,6 +1284,18 @@ End
 	#tag Property, Flags = &h21, Description = 4F75722064656D6F206175746F636F6D706C65746520656E67696E652E
 		Private AutocompleteEngine As CodeEngineDemoAutocompleteEngine
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h21, Description = 54686520436F6C6F7247726F757020746F2075736520666F722063617074696F6E20746578742E
+		#tag Getter
+			Get
+			  Static cg As New ColorGroup(Color.Black, &cd6d6d6)
+			  
+			  Return cg
+			  
+			End Get
+		#tag EndGetter
+		Private mCaptionColor As ColorGroup
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21, Description = 436163686564206C697374206F6620616C6C206D6F6E6F737061636520666F6E7473206F6E207468652073797374656D2E
 		Private mMonospaceFontCache() As String
@@ -1273,6 +1305,12 @@ End
 		UndoManager As XUIUndoManager
 	#tag EndProperty
 
+
+	#tag Constant, Name = GREEN_DOT_BORDER_COLOR, Type = Color, Dynamic = False, Default = \"&c008F00", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = GREEN_DOT_COLOR, Type = Color, Dynamic = False, Default = \"&c00F900", Scope = Private
+	#tag EndConstant
 
 	#tag Constant, Name = PANEL_AUTOCOMPLETE, Type = Double, Dynamic = False, Default = \"3", Scope = Private
 	#tag EndConstant
@@ -1284,6 +1322,12 @@ End
 	#tag EndConstant
 
 	#tag Constant, Name = PANEL_THEME, Type = Double, Dynamic = False, Default = \"2", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = RED_DOT_BORDER_COLOR, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = RED_DOT_COLOR, Type = Color, Dynamic = False, Default = \"&cFF7E79", Scope = Private
 	#tag EndConstant
 
 
@@ -1341,6 +1385,8 @@ End
 		  Editor.Formatter = Me.RowTagAt(Me.SelectedRowIndex)
 		  
 		  If UndoManager <> Nil Then UndoManager.RemoveAll
+		  
+		  UpdateFormatterTabControls
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1485,6 +1531,13 @@ End
 	#tag Event
 		Sub ValueChanged()
 		  Editor.HasRightBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DotLabelSupportsDelimiterHighlighting
+	#tag Event
+		Sub Opening()
+		  Me.CaptionColor = mCaptionColor
 		End Sub
 	#tag EndEvent
 #tag EndEvents
