@@ -1,16 +1,16 @@
 #tag DesktopWindow
-Begin DesktopWindow WinWelcome
+Begin DesktopWindow WinDotLabel
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
-   DefaultLocation =   0
+   DefaultLocation =   2
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
    HasFullScreenButton=   False
-   HasMaximizeButton=   False
+   HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   460
+   Height          =   400
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -19,114 +19,83 @@ Begin DesktopWindow WinWelcome
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
-   Resizeable      =   False
-   Title           =   "XUI Welcome"
+   Resizeable      =   True
+   Title           =   "Dot Label Demo"
    Type            =   0
-   Visible         =   True
-   Width           =   656
-   Begin DesktopLabel Label1
+   Visible         =   False
+   Width           =   600
+   Begin XUIDotLabel DotLabelGreen
       AllowAutoDeactivate=   True
-      Bold            =   False
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Caption         =   "Enabled"
+      CaptionColor    =   &c000000
+      CondenseCaption =   True
+      DotBorderColor  =   &c008F0000
+      DotColor        =   &c00F90000
+      DotHasBorder    =   True
+      DotPadding      =   5
       Enabled         =   True
       FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   61
+      FontSize        =   0
+      Height          =   20
       Index           =   -2147483648
-      Italic          =   False
-      Left            =   32
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
-      Multiline       =   True
-      Scope           =   0
-      Selectable      =   False
+      Scope           =   2
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "XUI is a collection of beautiful user interface controls, helper methods and utilities for your apps. Double click a product in the list below to see a demo of it in action."
-      TextAlignment   =   2
-      TextColor       =   &c000000
       Tooltip         =   ""
       Top             =   20
-      Transparent     =   False
-      Underline       =   False
+      Transparent     =   True
       Visible         =   True
-      Width           =   591
+      Width           =   120
    End
-   Begin WelcomeListBox Products
+   Begin XUIDotLabel DotLabelRed
       AllowAutoDeactivate=   True
-      AllowAutoHideScrollbars=   True
-      AllowExpandableRows=   False
-      AllowFocusRing  =   False
-      AllowResizableColumns=   False
-      AllowRowDragging=   False
-      AllowRowReordering=   False
-      Bold            =   False
-      ColumnCount     =   1
-      ColumnWidths    =   ""
-      DefaultRowHeight=   56
-      DropIndicatorVisible=   False
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      Caption         =   ""
+      CaptionColor    =   &c00000000
+      CondenseCaption =   True
+      DotBorderColor  =   &cFF260000
+      DotColor        =   &cFF7E7900
+      DotHasBorder    =   True
+      DotPadding      =   5
       Enabled         =   True
       FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      GridLineStyle   =   0
-      HasBorder       =   True
-      HasHeader       =   False
-      HasHorizontalScrollbar=   False
-      HasVerticalScrollbar=   True
-      HeadingIndex    =   -1
-      Height          =   347
+      FontSize        =   0
+      Height          =   20
       Index           =   -2147483648
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   32
-      LockBottom      =   True
+      Left            =   20
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
-      RequiresSelection=   False
-      RowSelectionType=   0
-      Scope           =   0
+      Scope           =   2
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   93
-      Transparent     =   False
-      Underline       =   False
+      Top             =   52
+      Transparent     =   True
       Visible         =   True
-      Width           =   591
-      _ScrollOffset   =   0
-      _ScrollWidth    =   -1
+      Width           =   120
    End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Opening()
-		  // Centre this window on its display.
-		  Self.Center
-		  
-		  // Add our XUI products.
-		  Products.AddProduct("XUITabBar", "A customisable tab bar control.", WinTabBar)
-		  Products.AddProduct("XUITagCanvas", "An editable canvas that parses text into tags and supports autocompletion.", WinTagCanvas)
-		  Products.AddProduct("XUICodeEditor", "Full featured code editor supporting themes, custom formatters and autocompletion.", WinCodeEditor)
-		  Products.AddProduct("XUISourceList", "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
-		  Products.AddProduct("XUIImageButton", "A simple imaged-based button control.", WinImageButton)
-		  Products.AddProduct("XUIColorSwatch & XUIColorPicker", "Easy to use colour swatches and a custom colour picker.", WinColors)
-		  Products.AddProduct("XUITextButton", "A minimalist text button providing full colour customisation.", WinTextButton)
-		  Products.AddProduct("XUIDotLabel", "Displays a colour-customisable dot with an optional caption.", WinDotLabel)
-		  
-		End Sub
-	#tag EndEvent
-
-
 #tag EndWindowCode
 
 #tag ViewBehavior

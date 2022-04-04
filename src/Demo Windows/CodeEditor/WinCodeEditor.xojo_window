@@ -22,7 +22,7 @@ Begin DesktopWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   True
+   Visible         =   False
    Width           =   1260
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
@@ -126,7 +126,7 @@ Begin DesktopWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -153,7 +153,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   2
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   38
+         Top             =   43
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -186,7 +186,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   38
+         Top             =   43
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -215,7 +215,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   37
+         Top             =   43
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -246,7 +246,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   37
+         Top             =   43
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -275,7 +275,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   69
+         Top             =   75
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -309,7 +309,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   101
+         Top             =   107
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -339,7 +339,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   101
+         Top             =   107
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -372,7 +372,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   133
+         Top             =   139
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -413,7 +413,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   131
+         Top             =   137
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   "##"
@@ -447,7 +447,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   131
+         Top             =   137
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -488,7 +488,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   131
+         Top             =   137
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   "##"
@@ -522,7 +522,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   165
+         Top             =   171
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -563,7 +563,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   "The number of space characters to use when inserting a tab."
-         Top             =   165
+         Top             =   171
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   "#"
@@ -593,7 +593,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   "If enabled then inertia will be added to scrolling the canvas on Windows & Linux. It's always enabled on macOS."
-         Top             =   199
+         Top             =   205
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -623,7 +623,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   "If True then delimiters (such as `{` and `}`) will be highlighted around the caret. Only supported by some formatters."
-         Top             =   231
+         Top             =   237
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -653,12 +653,304 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   "If True then block lines will be drawn. Only supported by some formatters."
-         Top             =   231
+         Top             =   237
          Transparent     =   False
          Underline       =   False
          Visible         =   True
          VisualState     =   0
          Width           =   135
+      End
+      Begin DesktopLabel LabelSpacesPerTab1
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1037
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   14
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Border Colour:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   269
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   103
+      End
+      Begin XUIColorSwatch SwatchBorderColor
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         IsActive        =   False
+         Left            =   1152
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   15
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   269
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin DesktopCheckBox CheckBoxTopBorder
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Top Border"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   780
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   16
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   "If enabled then inertia will be added to scrolling the canvas on Windows & Linux. It's always enabled on macOS."
+         Top             =   269
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   111
+      End
+      Begin DesktopCheckBox CheckBoxBottomBorder
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Bottom Border"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   780
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   17
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   "If enabled then inertia will be added to scrolling the canvas on Windows & Linux. It's always enabled on macOS."
+         Top             =   301
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   123
+      End
+      Begin DesktopCheckBox CheckBoxLeftBorder
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Left Border"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   915
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   18
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   "If enabled then inertia will be added to scrolling the canvas on Windows & Linux. It's always enabled on macOS."
+         Top             =   269
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   111
+      End
+      Begin DesktopCheckBox CheckBoxRightBorder
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Right Border"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   915
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   19
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   "If enabled then inertia will be added to scrolling the canvas on Windows & Linux. It's always enabled on macOS."
+         Top             =   301
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   111
+      End
+      Begin DesktopListBox ListBoxFormatterTokenTypes
+         AllowAutoDeactivate=   True
+         AllowAutoHideScrollbars=   True
+         AllowExpandableRows=   False
+         AllowFocusRing  =   True
+         AllowResizableColumns=   False
+         AllowRowDragging=   False
+         AllowRowReordering=   False
+         Bold            =   False
+         ColumnCount     =   1
+         ColumnWidths    =   ""
+         DefaultRowHeight=   -1
+         DropIndicatorVisible=   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         GridLineStyle   =   0
+         HasBorder       =   True
+         HasHeader       =   False
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
+         HeadingIndex    =   -1
+         Height          =   178
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         RequiresSelection=   False
+         RowSelectionType=   0
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   119
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   454
+         _ScrollWidth    =   -1
+      End
+      Begin DesktopLabel LabelTokenTypes
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "SmallSystem"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   32
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   3
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   "Below are the token types used by this formatter. This is helpful information when creating your own editor themes."
+         TextAlignment   =   0
+         TextColor       =   &c5E5E5E00
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   454
+      End
+      Begin DesktopCheckBox CheckBox1
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Untitled"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   309
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   100
       End
    End
    Begin XUICodeEditor Editor
@@ -694,7 +986,7 @@ Begin DesktopWindow WinCodeEditor
       HasLeftBorder   =   False
       HasRightBorder  =   True
       HasTopBorder    =   False
-      Height          =   680
+      Height          =   681
       HighlightCurrentLine=   True
       HighlightDelimitersAroundCaret=   True
       Index           =   -2147483648
@@ -958,6 +1250,13 @@ End
 		  
 		  CheckBoxHighlightDelimiters.Value = Editor.HighlightDelimitersAroundCaret
 		  CheckBoxDrawBlockLines.Value = Editor.DrawBlockLines
+		  
+		  SwatchBorderColor.Value = Editor.BorderColor
+		  CheckBoxTopBorder.Value = Editor.HasTopBorder
+		  CheckBoxBottomBorder.Value = Editor.HasBottomBorder
+		  CheckBoxLeftBorder.Value = Editor.HasLeftBorder
+		  CheckBoxRightBorder.Value = Editor.HasRightBorder
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1151,6 +1450,41 @@ End
 	#tag Event
 		Sub ValueChanged()
 		  Editor.DrawBlockLines = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchBorderColor
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  Editor.BorderColor = newColor
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxTopBorder
+	#tag Event
+		Sub ValueChanged()
+		  Editor.HasTopBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxBottomBorder
+	#tag Event
+		Sub ValueChanged()
+		  Editor.HasBottomBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxLeftBorder
+	#tag Event
+		Sub ValueChanged()
+		  Editor.HasLeftBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxRightBorder
+	#tag Event
+		Sub ValueChanged()
+		  Editor.HasRightBorder = Me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents

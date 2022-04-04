@@ -135,6 +135,11 @@ Inherits DesktopCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
+			  If mValue = value Then
+			    // The colour hasn't changed.
+			    Return
+			  End If
+			  
 			  mValue = value
 			  
 			  Refresh
@@ -191,7 +196,7 @@ Inherits DesktopCanvas
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="48"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -199,7 +204,7 @@ Inherits DesktopCanvas
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="100"
+			InitialValue="22"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
