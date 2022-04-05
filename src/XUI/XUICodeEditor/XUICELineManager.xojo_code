@@ -35,6 +35,22 @@ Protected Class XUICELineManager
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E756D626572206F66206C696E6573206F6620636F646520286578636C7564657320656D707479206C696E657320616E6420636F6D6D656E742D6F6E6C79206C696E6573292E
+		Function CodeLineCount() As Integer
+		  /// Returns the number of lines of code (excludes empty lines and comment-only lines).
+		  
+		  Var count As Integer = 0
+		  For Each line As XUICELine In Lines
+		    If Not line.IsEmpty And Not Formatter.IsCommentLine(line) Then
+		      count = count + 1
+		    End If
+		  Next line
+		  
+		  Return count
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Constructor(owner As XUICodeEditor)
 		  mOwnerRef = New WeakRef(owner)

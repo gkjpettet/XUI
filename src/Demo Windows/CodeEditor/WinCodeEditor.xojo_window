@@ -297,7 +297,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   786
+         Left            =   776
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -331,7 +331,7 @@ Begin DesktopWindow WinCodeEditor
          InitialParent   =   "Panel"
          InitialValue    =   ""
          Italic          =   False
-         Left            =   871
+         Left            =   861
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -360,7 +360,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   786
+         Left            =   776
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -400,7 +400,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   901
+         Left            =   891
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -510,7 +510,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   786
+         Left            =   776
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -550,7 +550,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   901
+         Left            =   891
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -2285,7 +2285,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   959
+         Left            =   1033
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -2301,7 +2301,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   73
+         Top             =   75
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -2317,7 +2317,7 @@ Begin DesktopWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
-         Left            =   1064
+         Left            =   1138
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -2328,7 +2328,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   73
+         Top             =   75
          Transparent     =   True
          Value           =   &c00000000
          Visible         =   True
@@ -2344,7 +2344,7 @@ Begin DesktopWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
-         Left            =   1118
+         Left            =   1192
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -2355,11 +2355,747 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   73
+         Top             =   75
          Transparent     =   True
          Value           =   &c00000000
          Visible         =   True
          Width           =   48
+      End
+      Begin DesktopGroupBox GroupBoxScrollbars
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   114
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   780
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   54
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   462
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   210
+         Begin XUIColorSwatch SwatchScrollbarBackgroundDark
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Left            =   932
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   0
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   473
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin XUIColorSwatch SwatchScrollbarBackgroundLight
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Left            =   878
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   1
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   473
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin XUIColorSwatch SwatchScrollbarBorderColorLight
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Left            =   878
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   3
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   507
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin DesktopLabel LabelScrollbarBorder
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Italic          =   False
+            Left            =   773
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   2
+            Selectable      =   False
+            TabIndex        =   4
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "Border:"
+            TextAlignment   =   3
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   507
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   93
+         End
+         Begin XUIColorSwatch SwatchScrollbarBorderColorDark
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Left            =   932
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   5
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   507
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin XUIColorSwatch SwatchScrollbarThumbColorLight
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Left            =   878
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   6
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   541
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin XUIColorSwatch SwatchScrollbarThumbColorDark
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Left            =   932
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   8
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   541
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin DesktopLabel LabelScrollbarBackground
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Italic          =   False
+            Left            =   773
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   2
+            Selectable      =   False
+            TabIndex        =   2
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "Background:"
+            TextAlignment   =   3
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   473
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   93
+         End
+         Begin DesktopLabel LabelScrollbarThumb
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxScrollbars"
+            Italic          =   False
+            Left            =   773
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   2
+            Selectable      =   False
+            TabIndex        =   7
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "Thumb:"
+            TextAlignment   =   3
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   541
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   93
+         End
+      End
+      Begin DesktopLabel LabelScrollbars
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   55
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Scrollbars (Windows && Linux):"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   437
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   196
+      End
+      Begin DesktopGroupBox GroupBoxDelimiters
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   114
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1013
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   56
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   462
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   227
+         Begin XUIColorSwatch SwatchDelimitersBorderColorDark
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Left            =   1156
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   0
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   473
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin XUIColorSwatch SwatchDelimitersBorderColorLight
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Left            =   1102
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   1
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   473
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin XUIColorSwatch SwatchDelimitersFillColorLight
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Left            =   1102
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   2
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   507
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin DesktopLabel LabelDelimitersFillColor
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Italic          =   False
+            Left            =   1018
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   2
+            Selectable      =   False
+            TabIndex        =   3
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "Fill:"
+            TextAlignment   =   3
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   507
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   72
+         End
+         Begin XUIColorSwatch SwatchDelimitersFillColorDark
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Left            =   1156
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   4
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   507
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin XUIColorSwatch SwatchDelimitersUnderlineColorLight
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Left            =   1102
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   5
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   541
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin XUIColorSwatch SwatchDelimitersUnderlineColorDark
+            AllowAutoDeactivate=   True
+            AllowFocus      =   False
+            AllowFocusRing  =   True
+            AllowTabs       =   False
+            Backdrop        =   0
+            Enabled         =   True
+            Height          =   22
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Left            =   1156
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   6
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   541
+            Transparent     =   True
+            Value           =   &c00000000
+            Visible         =   True
+            Width           =   48
+         End
+         Begin DesktopLabel LabelDelimitersBorderColor
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Italic          =   False
+            Left            =   1018
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   2
+            Selectable      =   False
+            TabIndex        =   7
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "Border:"
+            TextAlignment   =   3
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   473
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   72
+         End
+         Begin DesktopLabel LabelDelimitersUnderlineColor
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Italic          =   False
+            Left            =   1018
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   False
+            LockRight       =   True
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   2
+            Selectable      =   False
+            TabIndex        =   8
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "Underline:"
+            TextAlignment   =   3
+            TextColor       =   &c000000
+            Tooltip         =   ""
+            Top             =   541
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   72
+         End
+         Begin DesktopCheckBox CheckBoxDelimitersHaveBorder
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Caption         =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Italic          =   False
+            Left            =   1211
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   9
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   473
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            VisualState     =   0
+            Width           =   22
+         End
+         Begin DesktopCheckBox CheckBoxDelimitersHaveFillColor
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Caption         =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Italic          =   False
+            Left            =   1211
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   10
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   507
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            VisualState     =   0
+            Width           =   22
+         End
+         Begin DesktopCheckBox CheckBoxDelimitersHaveUnderline
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            Caption         =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBoxDelimiters"
+            Italic          =   False
+            Left            =   1211
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   2
+            TabIndex        =   11
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   541
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            VisualState     =   0
+            Width           =   22
+         End
+      End
+      Begin DesktopLabel LabelDelimiters
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1013
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   57
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Delimiters:"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   437
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   86
       End
    End
    Begin XUICodeEditor Editor
@@ -2741,6 +3477,33 @@ End
 		    // Current line number colour.
 		    SwatchCurrentLineNumberColorLight.Value = Editor.Theme.CurrentLineNumberColor.Light
 		    SwatchCurrentLineNumberColorDark.Value = Editor.Theme.CurrentLineNumberColor.Dark
+		    
+		    // Scrollbar background colour.
+		    SwatchScrollbarBackgroundLight.Value = Editor.Theme.ScrollbarBackgroundColor.Light
+		    SwatchScrollbarBackgroundDark.Value = Editor.Theme.ScrollbarBackgroundColor.Dark
+		    
+		    // Scrollbar border colour.
+		    SwatchScrollbarBorderColorLight.Value = Editor.Theme.ScrollbarBorderColor.Light
+		    SwatchScrollbarBorderColorDark.Value = Editor.Theme.ScrollbarBorderColor.Dark
+		    
+		    // Scrollbar thumb colour.
+		    SwatchScrollbarThumbColorLight.Value = Editor.Theme.ScrollbarThumbColor.Light
+		    SwatchScrollbarThumbColorDark.Value = Editor.Theme.ScrollbarThumbColor.Dark
+		    
+		    // Delimiters border colour.
+		    SwatchDelimitersBorderColorLight.Value = Editor.Theme.DelimitersBorderColor.Light
+		    SwatchDelimitersBorderColorDark.Value = Editor.Theme.DelimitersBorderColor.Dark
+		    CheckBoxDelimitersHaveBorder.Value = Editor.Theme.DelimitersHaveBorder
+		    
+		    // Delimiters fill colour.
+		    SwatchDelimitersFillColorLight.Value = Editor.Theme.DelimitersFillColor.Light
+		    SwatchDelimitersFillColorDark.Value = Editor.Theme.DelimitersFillColor.Dark
+		    CheckBoxDelimitersHaveFillColor.Value = Editor.Theme.DelimitersHaveFillColor
+		    
+		    // Delimiters underline colour.
+		    SwatchDelimitersUnderlineColorLight.Value = Editor.Theme.DelimitersUnderlineColor.Light
+		    SwatchDelimitersUnderlineColorDark.Value = Editor.Theme.DelimitersUnderlineColor.Dark
+		    CheckBoxDelimitersHaveUnderline.Value = Editor.Theme.DelimitersHaveUnderline
 		  End If
 		End Sub
 	#tag EndMethod
@@ -2842,7 +3605,8 @@ End
 #tag Events InfoTimer
 	#tag Event
 		Sub Action()
-		  Info.Text = "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
+		  Info.Text = "SLOC: " + Editor.LineManager.CodeLineCount.ToString + ", " + _
+		  "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
 		  Editor.CaretColumn.ToString
 		End Sub
 	#tag EndEvent
@@ -3274,6 +4038,159 @@ End
 		  Editor.Theme.CurrentLineHighlightColor = New ColorGroup(Editor.Theme.CurrentLineHighlightColor.Light, newColor)
 		  
 		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchScrollbarBackgroundDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.ScrollbarBackgroundColor = New ColorGroup(Editor.Theme.ScrollbarBackgroundColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchScrollbarBackgroundLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.ScrollbarBackgroundColor = New ColorGroup(newColor, Editor.Theme.ScrollbarBackgroundColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchScrollbarBorderColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.ScrollbarBorderColor = New ColorGroup(newColor, Editor.Theme.ScrollbarBorderColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchScrollbarBorderColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.ScrollbarBorderColor = New ColorGroup(Editor.Theme.ScrollbarBorderColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchScrollbarThumbColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.ScrollbarThumbColor = New ColorGroup(newColor, Editor.Theme.ScrollbarThumbColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchScrollbarThumbColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.ScrollbarThumbColor = New ColorGroup(Editor.Theme.ScrollbarThumbColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchDelimitersBorderColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.DelimitersBorderColor = New ColorGroup(Editor.Theme.DelimitersBorderColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchDelimitersBorderColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.DelimitersBorderColor = New ColorGroup(newColor, Editor.Theme.DelimitersBorderColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchDelimitersFillColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.DelimitersFillColor = New ColorGroup(newColor, Editor.Theme.DelimitersFillColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchDelimitersFillColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.DelimitersFillColor = New ColorGroup(Editor.Theme.DelimitersFillColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchDelimitersUnderlineColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.DelimitersUnderlineColor = New ColorGroup(newColor, Editor.Theme.DelimitersUnderlineColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchDelimitersUnderlineColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.DelimitersUnderlineColor = New ColorGroup(Editor.Theme.DelimitersUnderlineColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxDelimitersHaveBorder
+	#tag Event
+		Sub ValueChanged()
+		  If Editor.Theme <> Nil Then Editor.Theme.DelimitersHaveBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxDelimitersHaveFillColor
+	#tag Event
+		Sub ValueChanged()
+		  If Editor.Theme <> Nil Then Editor.Theme.DelimitersHaveFillColor = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxDelimitersHaveUnderline
+	#tag Event
+		Sub ValueChanged()
+		  If Editor.Theme <> Nil Then Editor.Theme.DelimitersHaveUnderline = Me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents

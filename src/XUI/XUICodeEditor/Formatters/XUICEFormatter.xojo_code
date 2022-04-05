@@ -1,5 +1,11 @@
 #tag Interface
 Protected Interface XUICEFormatter
+	#tag Method, Flags = &h0, Description = 54727565206966207468697320656E74697265206C696E65206973206120636F6D6D656E742E
+		Function IsCommentLine(line As XUICELine) As Boolean
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E6561726573742064656C696D69746572732061742074686520676976656E205B6361726574506F735D2E204D6179206265204E696C2E
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
 		  

@@ -72,6 +72,18 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54727565206966207468697320656E74697265206C696E65206973206120636F6D6D656E742E
+		Function IsCommentLine(line As XUICELine) As Boolean
+		  /// True if this entire line is a comment.
+		  ///
+		  /// There are no comment lines in the plain text formatter.
+		  
+		  #Pragma Unused line
+		  
+		  Return False
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 446F6573206E6F7468696E6720696E204D61726B646F776E20646F63756D656E74732E
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
 		  /// Does nothing in Markdown documents.

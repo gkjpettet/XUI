@@ -680,6 +680,14 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54727565206966207468697320656E74697265206C696E65206973206120636F6D6D656E742E
+		Function IsCommentLine(line As XUICELine) As Boolean
+		  /// True if this entire line is a comment.
+		  
+		  Return TokenIsComment(line.FirstToken)
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 54727565206966205B746F6B656E5D206973206120636F6D6D656E742E
 		Private Function IsCommentToken(token As XUICELineToken) As Boolean
 		  /// True if [token] is a comment.
