@@ -1,0 +1,18 @@
+#tag FileTypeSet
+	#tag FileType
+		CodeName=TOML
+		Extension=.toml
+		Flags=&h2
+		MacCreator=
+		MacType=TEXT
+		Name=application/toml
+		UTI=public.text
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+#tag EndFileTypeSet

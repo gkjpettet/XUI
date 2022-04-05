@@ -428,7 +428,7 @@ Protected Class XUICETheme
 		  theme.SelectedAutocompleteOptionColor = _
 		  XUIColorGroups.FromString(autocomplete.Value("selectedOptionColor"))
 		  
-		  // Prefix styles.
+		  // Prefix styles
 		  Var autocompletePrefix As Dictionary = autocomplete.Value("prefix")
 		  theme.AddTokenStyle("autocompletePrefix", New XUICETokenStyle(autocompletePrefix))
 		  
@@ -552,6 +552,163 @@ Protected Class XUICETheme
 		  Next entry
 		  
 		  Return names
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 436F6E76657274732074686973207468656D6520746F20544F4D4C20746861742063616E206265207772697474656E20746F206469736B2E
+		Function ToTOML() As String
+		  /// Converts this theme to TOML that can be written to disk.
+		  
+		  Var s() As String
+		  
+		  // =========================
+		  // META
+		  // =========================
+		  s.Add("[meta]")
+		  s.Add("name = " + GenerateJSON(Self.Name))
+		  s.Add("version = " + Self.Version.ToJSON)
+		  s.Add("author = " + GenerateJSON(Self.Author))
+		  s.Add("description = " + GenerateJSON(Self.Description))
+		  
+		  s.Add("")
+		  
+		  // =========================
+		  // EDITOR
+		  // =========================
+		  s.Add("[editor]")
+		  
+		  // backgroundColor
+		  s.Add("backgroundColor = " + Self.BackgroundColor.ToTOML)
+		  
+		  // blockLineColor
+		  s.Add("blockLineColor = " + Self.BlockLineColor.ToTOML)
+		  
+		  // caretColor
+		  s.Add("caretColor = " + Self.CaretColor.ToTOML)
+		  
+		  // currentLineHighlightColor
+		  s.Add("currentLineHighlightColor = " + Self.CurrentLineHighlightColor.ToTOML)
+		  
+		  // currentLineNumberColor
+		  s.Add("currentLineNumberColor = " + Self.CurrentLineNumberColor.ToTOML)
+		  
+		  // lineNumberColor
+		  s.Add("lineNumberColor = " + Self.LineNumberColor.ToTOML)
+		  
+		  // selectionColor
+		  s.Add("selectionColor = " + Self.SelectionColor.ToTOML)
+		  
+		  // unmatchedBlockLineColor
+		  s.Add("unmatchedBlockLineColor = " + Self.UnmatchedBlockLineColor.ToTOML)
+		  
+		  s.Add("")
+		  
+		  // =========================
+		  // SCROLLBARS
+		  // =========================
+		  s.Add("[scrollbars]")
+		  
+		  // backgroundColor
+		  s.Add("backgroundColor = " + Self.ScrollbarBackgroundColor.ToTOML)
+		  
+		  // borderColor
+		  s.Add("borderColor = " + Self.ScrollbarBorderColor.ToTOML)
+		  
+		  // thumbColor
+		  s.Add("thumbColor = " + Self.ScrollbarThumbColor.ToTOML)
+		  
+		  s.Add("")
+		  
+		  // =========================
+		  // DELIMITERS
+		  // =========================
+		  s.Add("[delimiters]")
+		  
+		  // hasBorderColor
+		  s.Add("hasBorderColor = " + GenerateJSON(Self.DelimitersHaveBorder))
+		  
+		  // borderColor
+		  s.Add("borderColor = " + Self.DelimitersBorderColor.ToTOML)
+		  
+		  // hasFillColor
+		  s.Add("hasFillColor = " + GenerateJSON(Self.DelimitersHaveFillColor))
+		  
+		  // fillColor
+		  s.Add("fillColor = " + Self.DelimitersFillColor.ToTOML)
+		  
+		  // hasUnderlineColor
+		  s.Add("hasUnderlineColor = " + GenerateJSON(Self.DelimitersHaveUnderline))
+		  
+		  // underlineColor
+		  s.Add("underlineColor = " + Self.DelimitersUnderlineColor.ToTOML)
+		  
+		  s.Add("")
+		  
+		  // =========================
+		  // AUTOCOMPLETE
+		  // =========================
+		  s.Add("[autocomplete]")
+		  
+		  // hasPopupBorder
+		  s.Add("hasPopupBorder = " + GenerateJSON(Self.HasAutocompletePopupBorder))
+		  
+		  // popupBackgroundColor
+		  s.Add("popupBackgroundColor = " + Self.AutocompletePopupBackgroundColor.ToTOML)
+		  
+		  // popupBorderColor
+		  s.Add("popupBorderColor = " + Self.AutocompletePopupBorderColor.ToTOML)
+		  
+		  // optionColor
+		  s.Add("optionColor = " + Self.AutocompleteOptionColor.ToTOML)
+		  
+		  // selectedOptionBackgroundColor
+		  s.Add("selectedOptionBackgroundColor = " + Self.SelectedAutocompleteOptionBackgroundColor.ToTOML)
+		  
+		  // selectedOptionColor
+		  s.Add("selectedOptionColor = " + Self.SelectedAutocompleteOptionColor.ToTOML)
+		  
+		  // horizontalPadding
+		  s.Add("horizontalPadding = " + Self.AutocompleteHorizontalPadding.ToString)
+		  
+		  // optionVerticalPadding
+		  s.Add("optionVerticalPadding = " + Self.AutocompleteOptionVerticalPadding.ToString)
+		  
+		  // popupBorderRadius
+		  s.Add("popupBorderRadius = " + Self.AutocompletePopupBorderRadius.ToString)
+		  
+		  // verticalPadding
+		  s.Add("verticalPadding = " + Self.AutocompleteVerticalPadding.ToString)
+		  
+		  s.Add("")
+		  
+		  // =========================
+		  // AUTOCOMPLETE PREFIX STYLE
+		  // =========================
+		  s.Add("[autocomplete.prefix]")
+		  s.Add(AutocompletePrefixStyle.ToTOML)
+		  
+		  s.Add("")
+		  s.Add("###################")
+		  s.Add("# TOKENS")
+		  s.Add("###################")
+		  
+		  // =========================
+		  // TOKEN STYLES
+		  // =========================
+		  For Each entry As DictionaryEntry In Styles
+		    Var name As String = entry.Key
+		    Var style As XUICETokenStyle = entry.Value
+		    If name <> "autocompletePrefix" Then // Already added this above.
+		      s.Add("[tokens." + name + "]")
+		      s.Add(style.ToToml)
+		      s.Add("")
+		    End If
+		  Next entry
+		  
+		  If s(s.LastIndex) = "" Then Call s.Pop
+		  
+		  Return String.FromArray(s, &u0A)
 		  
 		End Function
 	#tag EndMethod

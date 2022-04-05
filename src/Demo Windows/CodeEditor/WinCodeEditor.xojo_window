@@ -1532,7 +1532,7 @@ Begin DesktopWindow WinCodeEditor
          Visible         =   True
          Width           =   30
       End
-      Begin TokenStyleListBox ListBoxThemeTokens
+      Begin CodeDemoWindowTokenStyleListBox ListBoxThemeTokens
          AllowAutoDeactivate=   True
          AllowAutoHideScrollbars=   True
          AllowExpandableRows=   False
@@ -1579,6 +1579,38 @@ Begin DesktopWindow WinCodeEditor
          Visible         =   True
          Width           =   450
          _ScrollWidth    =   -1
+      End
+      Begin DesktopButton ButtonExportTheme
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Cancel          =   False
+         Caption         =   "Export..."
+         Default         =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1160
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MacButtonStyle  =   0
+         Scope           =   2
+         TabIndex        =   15
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   620
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
       End
    End
    Begin XUICodeEditor Editor
@@ -2212,7 +2244,6 @@ End
 		  
 		  // Start using the Nova theme.
 		  Me.SelectRowWithValue("Nova")
-		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -2224,10 +2255,52 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events BevelButtonDeleteToken
+	#tag Event
+		Sub Pressed()
+		  #Pragma Warning "TODO"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BevelButtonAddToken
+	#tag Event
+		Sub Pressed()
+		  #Pragma Warning "TODO"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events ListBoxThemeTokens
 	#tag Event , Description = 4F6E65206F6620746865207468656D652773207374796C657320686173206368616E6765642E
 		Sub DidChangeStyle()
 		  Editor.Refresh(True)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonExportTheme
+	#tag Event
+		Sub Pressed()
+		  /// Exports the current editor's theme as a TOML theme file.
+		  
+		  Var f As FolderItem = FolderItem.ShowSaveFileDialog(TOMLFileType.TOML, TextFieldThemeName.Text + ".toml")
+		  
+		  If f = Nil Then Return
+		  
+		  Editor.Theme.Name = TextFieldThemeName.Text
+		  Editor.Theme.Author = TextFieldThemeAuthor.Text
+		  Editor.Theme.Version = _
+		  New XUISemanticVersion(Integer.FromString(TextFieldThemeVersionMajor.Text), _
+		  Integer.FromString(TextFieldThemeVersionMinor.Text), Integer.FromString(TextFieldThemeVersionPatch.Text))
+		  Editor.Theme.Description = TextAreaThemeDescription.Text
+		  
+		  Var tout As TextOutputStream
+		  Try
+		    tout = TextOutputStream.Create(f)
+		    tout.Write(Editor.Theme.ToTOML)
+		    tout.Close
+		  Catch e As IOException
+		    MessageBox("Unable to save the current theme to a TOML file.")
+		  End Try
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -75,6 +75,19 @@ Protected Module XUIColorGroups
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 436F6E7665727473206063676020746F206120544F4D4C2076616C75652E
+		Function ToTOML(Extends cg As ColorGroup) As String
+		  /// Converts `cg` to a TOML value.
+		  ///
+		  /// The resultant string will be in the format
+		  ///   &hAARRGGBB, &hAARRGGBB (light colour, dark colour).
+		  /// This is the case even if only a single colour is specified (the light colour will be duplicated).
+		  
+		  Return """" + cg.Light.ToString + ", " + cg.Dark.ToString  + """"
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		This module contains helper methods for dealing with ColorGroups.

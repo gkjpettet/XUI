@@ -82,6 +82,24 @@ Protected Class XUICETokenStyle
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E73206120544F4D4C20726570726573656E746174696F6E206F662074686973207374796C652E
+		Function ToTOML() As String
+		  /// Returns a TOML representation of this style.
+		  
+		  Var s() As String
+		  
+		  s.Add("hasBackgroundColor = " + GenerateJSON(HasBackgroundColour))
+		  s.Add("backgroundColor = " + BackgroundColour.ToTOML)
+		  s.Add("color = " + Colour.ToTOML)
+		  s.Add("bold = " + GenerateJSON(Bold))
+		  s.Add("italic = " + GenerateJSON(Italic))
+		  s.Add("underline = " + GenerateJSON(Underline))
+		  
+		  Return String.FromArray(s, &u0A)
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468697320746F6B656E2773206261636B67726F756E642028696620656E61626C6564292E
 		BackgroundColour As ColorGroup
@@ -181,7 +199,7 @@ Protected Class XUICETokenStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -205,7 +223,7 @@ Protected Class XUICETokenStyle
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
