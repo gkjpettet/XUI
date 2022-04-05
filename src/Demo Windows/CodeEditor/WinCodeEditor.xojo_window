@@ -126,7 +126,7 @@ Begin DesktopWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   1
+      Value           =   2
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -958,6 +958,628 @@ Begin DesktopWindow WinCodeEditor
          Visible         =   True
          Width           =   355
       End
+      Begin DesktopLabel LabelExampleThemes
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   "Example Themes:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   123
+      End
+      Begin DesktopLabel Label2
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Autocomplete panel"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   48
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   153
+      End
+      Begin DesktopPopupMenu PopupExampleThemes
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   921
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         SelectedRowIndex=   0
+         TabIndex        =   1
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   162
+      End
+      Begin DesktopLabel LabelThemeName
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   2
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   "Name:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   84
+      End
+      Begin DesktopLabel LabelThemeDescription
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   3
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   "Description:"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   84
+      End
+      Begin DesktopTextField TextFieldThemeName
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "Theme Name"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   882
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   4
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   133
+      End
+      Begin DesktopLabel LabelThemeAuthor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1027
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   5
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   "Author:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   68
+      End
+      Begin DesktopTextField TextFieldThemeAuthor
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "Theme Author"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1107
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   6
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   133
+      End
+      Begin DesktopTextArea TextAreaThemeDescription
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   True
+         AllowStyledText =   True
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
+         Height          =   100
+         HideSelection   =   True
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LineHeight      =   0.0
+         LineSpacing     =   1.0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Multiline       =   True
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   7
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   139
+         Transparent     =   False
+         Underline       =   False
+         UnicodeMode     =   1
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   454
+      End
+      Begin DesktopLabel LabelThemeVersion
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1001
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   8
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   "Version:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   68
+      End
+      Begin DesktopTextField TextFieldThemeVersionMajor
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "Major"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1081
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MaximumCharactersAllowed=   3
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   9
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "###"
+         Visible         =   True
+         Width           =   45
+      End
+      Begin DesktopTextField TextFieldThemeVersionMinor
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "Minor"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1138
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MaximumCharactersAllowed=   3
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   10
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "###"
+         Visible         =   True
+         Width           =   45
+      End
+      Begin DesktopTextField TextFieldThemeVersionPatch
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   "Patch"
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1195
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MaximumCharactersAllowed=   3
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   11
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "###"
+         Visible         =   True
+         Width           =   45
+      End
+      Begin DesktopBevelButton BevelButtonDeleteToken
+         AllowAutoDeactivate=   True
+         AllowFocus      =   True
+         BackgroundColor =   &c00000000
+         BevelStyle      =   0
+         Bold            =   False
+         ButtonStyle     =   0
+         Caption         =   ""
+         CaptionAlignment=   3
+         CaptionDelta    =   0
+         CaptionPosition =   1
+         Enabled         =   False
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         HasBackgroundColor=   False
+         Height          =   22
+         Icon            =   1964765183
+         IconAlignment   =   1
+         IconDeltaX      =   0
+         IconDeltaY      =   0
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   820
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MenuStyle       =   0
+         Scope           =   2
+         TabIndex        =   12
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   620
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         Width           =   30
+      End
+      Begin DesktopBevelButton BevelButtonAddToken
+         AllowAutoDeactivate=   True
+         AllowFocus      =   True
+         BackgroundColor =   &c00000000
+         BevelStyle      =   0
+         Bold            =   False
+         ButtonStyle     =   0
+         Caption         =   ""
+         CaptionAlignment=   3
+         CaptionDelta    =   0
+         CaptionPosition =   1
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         HasBackgroundColor=   False
+         Height          =   22
+         Icon            =   1603276799
+         IconAlignment   =   1
+         IconDeltaX      =   0
+         IconDeltaY      =   0
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MenuStyle       =   0
+         Scope           =   2
+         TabIndex        =   13
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   620
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         Width           =   30
+      End
+      Begin TokenStyleListBox ListBoxThemeTokens
+         AllowAutoDeactivate=   True
+         AllowAutoHideScrollbars=   True
+         AllowExpandableRows=   False
+         AllowFocusRing  =   False
+         AllowResizableColumns=   False
+         AllowRowDragging=   False
+         AllowRowReordering=   False
+         Bold            =   False
+         ColumnCount     =   7
+         ColumnWidths    =   "*, 25, 25, 25, 70, 45, 70"
+         DefaultRowHeight=   28
+         DropIndicatorVisible=   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         GridLineStyle   =   0
+         HasBorder       =   True
+         HasHeader       =   True
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
+         HeadingIndex    =   -1
+         Height          =   357
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   "Token	B	I	U	Color	Back?	Back"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         RequiresSelection=   False
+         RowSelectionType=   0
+         Scope           =   2
+         TabIndex        =   14
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   251
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   450
+         _ScrollWidth    =   -1
+      End
    End
    Begin XUICodeEditor Editor
       AllowAutocomplete=   True
@@ -1074,9 +1696,6 @@ End
 		  
 		  ConstructTabBar
 		  
-		  // Cache the monospace fonts on the system (used in a few popup menus).
-		  mMonospaceFontCache = XUIFonts.AllMonospace
-		  
 		  UpdateAllControls
 		  
 		  // Start on the "General" setting panel.
@@ -1185,7 +1804,8 @@ End
 		  
 		  popup.RemoveAllRows
 		  
-		  For Each font As String In mMonospaceFontCache
+		  Var monospaceFonts() As String = XUIFonts.AllMonospace
+		  For Each font As String In monospaceFonts
 		    popup.AddRow(font)
 		  Next font
 		  
@@ -1223,7 +1843,7 @@ End
 		  
 		  UpdateGeneralTabControls
 		  UpdateFormatterTabControls
-		  
+		  UpdateThemeTabControls
 		End Sub
 	#tag EndMethod
 
@@ -1303,6 +1923,27 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 5570646174657320616C6C2074686520636F6E74726F6C73206F6E207468652022466F726D617474657222207461622E
+		Private Sub UpdateThemeTabControls()
+		  /// Updates all the controls on the "Theme" tab.
+		  
+		  // Sanity check.
+		  If Editor.Theme = Nil Then Return
+		  
+		  TextFieldThemeName.Text = Editor.Theme.Name
+		  TextFieldThemeAuthor.Text = Editor.Theme.Author
+		  TextFieldThemeVersionMajor.Text = Editor.Theme.Version.Major.ToString
+		  TextFieldThemeVersionMinor.Text = Editor.Theme.Version.Minor.ToString
+		  TextFieldThemeVersionPatch.Text = Editor.Theme.Version.Patch.ToString
+		  TextAreaThemeDescription.Text = Editor.Theme.Description
+		  
+		  ListBoxThemeTokens.Update(Editor.Theme)
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h21, Description = 4F75722064656D6F206175746F636F6D706C65746520656E67696E652E
 		Private AutocompleteEngine As CodeEngineDemoAutocompleteEngine
@@ -1319,10 +1960,6 @@ End
 		#tag EndGetter
 		Private mCaptionColor As ColorGroup
 	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21, Description = 436163686564206C697374206F6620616C6C206D6F6E6F737061636520666F6E7473206F6E207468652073797374656D2E
-		Private mMonospaceFontCache() As String
-	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520756E646F206D616E6167657220666F72207468652064656D6F20656469746F722E
 		UndoManager As XUIUndoManager
@@ -1564,11 +2201,39 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events PopupExampleThemes
+	#tag Event
+		Sub Opening()
+		  // Add our example themes.
+		  
+		  // Nova.
+		  Me.AddRow("Nova")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = SpecialFolder.Resource("Nova.toml")
+		  
+		  // Start using the Nova theme.
+		  Me.SelectRowWithValue("Nova")
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  // Update the editor's theme to the one selected.
+		  Editor.Theme = XUICETheme.FromFile(item.Tag)
+		  
+		  UpdateThemeTabControls
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ListBoxThemeTokens
+	#tag Event , Description = 4F6E65206F6620746865207468656D652773207374796C657320686173206368616E6765642E
+		Sub DidChangeStyle()
+		  Editor.Refresh(True)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events Editor
 	#tag Event , Description = 54686520656469746F722069732061626F757420746F20626520646973706C617965642E
 		Sub Opening()
-		  Me.Theme = XUICETheme.FromFile(SpecialFolder.Resource("Nova.toml"))
-		  
 		  Me.HighlightDelimitersAroundCaret = True
 		  
 		  Editor.ContentType = XUICodeEditor.ContentTypes.SourceCode

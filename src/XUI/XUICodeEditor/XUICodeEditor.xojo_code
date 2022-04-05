@@ -709,6 +709,8 @@ Implements XUINotificationListener
 		Sub Paint(g As Graphics, areas() As Xojo.Rect)
 		  #Pragma Unused areas
 		  
+		  If Me.Theme = Nil Then Return
+		  
 		  #If TargetWindows
 		    // Anti-aliasing needs to be off on Windows.
 		    g.AntiAliased = False
@@ -2652,6 +2654,8 @@ Implements XUINotificationListener
 	#tag Method, Flags = &h21, Description = 52656275696C64732074686520656E74697265206261636B206275666665722062792064726177696E6720616C6C2076697369626C6520636F6E74656E7420746F2069742E
 		Private Sub RebuildBackBuffer()
 		  /// Rebuilds the entire back buffer by drawing all visible content to it.
+		  
+		  If Me.Theme = Nil Then Return
 		  
 		  // Cache the required back buffer width.
 		  mCachedRequiredBufferWidth = RequiredBufferWidth

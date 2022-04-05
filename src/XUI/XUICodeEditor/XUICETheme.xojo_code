@@ -6,7 +6,7 @@ Protected Class XUICETheme
 		  ///
 		  /// Assumes [styleName] is not empty and [style] is not Nil.
 		  
-		  Self.Styles.Value(styleName) = style
+		  Styles.Value(styleName) = style
 		  
 		End Sub
 	#tag EndMethod
@@ -313,7 +313,7 @@ Protected Class XUICETheme
 
 	#tag Method, Flags = &h0
 		Sub Constructor()
-		  Self.Styles = _
+		  Styles = _
 		  New Dictionary("default" : New XUICETokenStyle, "autocompletePrefix" : New XUICETokenStyle)
 		  
 		  // Initialise all ColorGroups to prevent Nil object exceptions in themes that don't stipulate them.
@@ -355,7 +355,7 @@ Protected Class XUICETheme
 		  
 		  // Required meta values.
 		  theme.Name = meta.Value("name")
-		  theme.Version = meta.Value("version")
+		  theme.Version = New XUISemanticVersion(meta.Value("version").StringValue)
 		  theme.Author = meta.Value("author")
 		  
 		  // Optional meta values.
@@ -506,6 +506,31 @@ Protected Class XUICETheme
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52656D6F76657320746865207374796C6520607374796C654E616D65602066726F6D2074686973207468656D65206966206974206578697374732E2052657475726E732054727565206966207375636365737366756C206F722046616C7365206966207468657265206973206E6F74207374796C6520776974682074686174206E616D652E
+		Function RemoveTokenStyle(styleName As String) As Boolean
+		  /// Removes the style `styleName` from this theme if it exists. Returns True if successful or False if 
+		  /// there is not style with that name.
+		  
+		  // Forbid removing the essential "default" and "autocompletePrefix" styles.
+		  If styleName <> "default" And styleName <> "autocompletePrefix" And Styles.HasKey(styleName) Then
+		    Styles.Remove(styleName)
+		    Return True
+		  Else
+		    Return False
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865207374796C6520776974682074686520737065636966696564206E616D65206F72204E696C20696620697420646F65736E27742065786973742E
+		Function StyleForName(styleName As String) As XUICETokenStyle
+		  /// Returns the style with the specified name or Nil if it doesn't exist.
+		  
+		  Return Styles.Lookup(styleName, Nil)
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E7320746865207374796C6520746F2075736520666F72207468652070617373656420746F6B656E20747970652E
 		Function StyleForToken(token As XUICELineToken) As XUICETokenStyle
 		  /// Returns the style to use for the passed token type.
@@ -513,6 +538,20 @@ Protected Class XUICETheme
 		  /// If the requested token type style is not found then the default style is returned.
 		  
 		  Return Styles.Lookup(token.Type, DefaultStyle)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StyleNames() As String()
+		  /// Returns an array of all the styles defined in this theme.
+		  
+		  Var names() As String
+		  For Each entry As DictionaryEntry In Styles
+		    names.Add(entry.Key)
+		  Next entry
+		  
+		  Return names
 		  
 		End Function
 	#tag EndMethod
@@ -652,8 +691,8 @@ Protected Class XUICETheme
 		SelectionColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 54686973207468656D652773207374796C65732E204B6579203D205374796C65206E616D652C2056616C7565203D204D4345546F6B656E5374796C652E
-		Styles As Dictionary
+	#tag Property, Flags = &h21, Description = 54686973207468656D652773207374796C65732E204B6579203D205374796C65206E616D652C2056616C7565203D204D4345546F6B656E5374796C652E
+		Private Styles As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220626C6F636B206C696E657320746861742061726520756E6D6174636865642E
@@ -661,7 +700,7 @@ Protected Class XUICETheme
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686973207468656D6527732076657273696F6E2E
-		Version As String
+		Version As XUISemanticVersion
 	#tag EndProperty
 
 
