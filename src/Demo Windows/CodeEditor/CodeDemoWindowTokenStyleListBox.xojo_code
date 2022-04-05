@@ -1,5 +1,5 @@
 #tag Class
-Protected Class TokenStyleListBox
+Protected Class CodeDemoWindowTokenStyleListBox
 Inherits DesktopListBox
 	#tag Event
 		Sub CellAction(row As Integer, column As Integer)
