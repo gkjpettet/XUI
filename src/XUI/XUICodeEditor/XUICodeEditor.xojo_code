@@ -1231,6 +1231,8 @@ Implements XUINotificationListener
 		Sub ForceRedraw()
 		  /// Immediately redraws the canvas.
 		  
+		  NeedsFullRedraw = True
+		  
 		  Self.Refresh(True)
 		End Sub
 	#tag EndMethod

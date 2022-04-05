@@ -54,6 +54,7 @@ Begin DesktopWindow WinCodeEditor
       MouseMoveY      =   0
       RightMenuButtonIcon=   0
       Scope           =   2
+      ScrollPosX      =   0
       SelectedTabIndex=   0
       TabCount        =   0
       TabIndex        =   7
@@ -120,13 +121,14 @@ Begin DesktopWindow WinCodeEditor
       PanelCount      =   4
       Panels          =   ""
       Scope           =   2
+      SelectedPanelIndex=   0
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   False
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   2
+      Value           =   0
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -218,6 +220,7 @@ Begin DesktopWindow WinCodeEditor
          Top             =   43
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   100
@@ -278,6 +281,7 @@ Begin DesktopWindow WinCodeEditor
          Top             =   75
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   167
@@ -596,6 +600,7 @@ Begin DesktopWindow WinCodeEditor
          Top             =   205
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   135
@@ -626,6 +631,7 @@ Begin DesktopWindow WinCodeEditor
          Top             =   237
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   235
@@ -656,11 +662,12 @@ Begin DesktopWindow WinCodeEditor
          Top             =   237
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   135
       End
-      Begin DesktopLabel LabelSpacesPerTab1
+      Begin DesktopLabel LabelBorderColor
          AllowAutoDeactivate=   True
          Bold            =   False
          Enabled         =   True
@@ -671,7 +678,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   1037
+         Left            =   1064
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -683,7 +690,7 @@ Begin DesktopWindow WinCodeEditor
          TabIndex        =   14
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "Border Colour:"
+         Text            =   "Border:"
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
@@ -691,35 +698,7 @@ Begin DesktopWindow WinCodeEditor
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   103
-      End
-      Begin XUIColorSwatch SwatchBorderColor
-         AllowAutoDeactivate=   True
-         AllowFocus      =   False
-         AllowFocusRing  =   True
-         AllowTabs       =   False
-         Backdrop        =   0
-         Enabled         =   True
-         Height          =   22
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         IsActive        =   False
-         Left            =   1152
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   2
-         TabIndex        =   15
-         TabPanelIndex   =   1
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   269
-         Transparent     =   True
-         Value           =   &c00000000
-         Visible         =   True
-         Width           =   48
+         Width           =   62
       End
       Begin DesktopCheckBox CheckBoxTopBorder
          AllowAutoDeactivate=   True
@@ -747,6 +726,7 @@ Begin DesktopWindow WinCodeEditor
          Top             =   269
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   111
@@ -777,6 +757,7 @@ Begin DesktopWindow WinCodeEditor
          Top             =   301
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   123
@@ -807,6 +788,7 @@ Begin DesktopWindow WinCodeEditor
          Top             =   269
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   111
@@ -837,6 +819,7 @@ Begin DesktopWindow WinCodeEditor
          Top             =   301
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   111
@@ -887,6 +870,7 @@ Begin DesktopWindow WinCodeEditor
          Underline       =   False
          Visible         =   True
          Width           =   454
+         _ScrollOffset   =   0
          _ScrollWidth    =   -1
       End
       Begin DesktopLabel LabelTokenTypes
@@ -1253,7 +1237,7 @@ Begin DesktopWindow WinCodeEditor
          HasBorder       =   True
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
-         Height          =   100
+         Height          =   60
          HideSelection   =   True
          Index           =   -2147483648
          InitialParent   =   "Panel"
@@ -1445,8 +1429,10 @@ Begin DesktopWindow WinCodeEditor
          Width           =   45
       End
       Begin DesktopBevelButton BevelButtonDeleteToken
+         Active          =   False
          AllowAutoDeactivate=   True
          AllowFocus      =   True
+         AllowTabStop    =   False
          BackgroundColor =   &c00000000
          BevelStyle      =   0
          Bold            =   False
@@ -1475,22 +1461,29 @@ Begin DesktopWindow WinCodeEditor
          LockRight       =   True
          LockTop         =   False
          MenuStyle       =   0
+         PanelIndex      =   0
          Scope           =   2
          TabIndex        =   12
          TabPanelIndex   =   3
          TabStop         =   True
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   620
+         Top             =   418
          Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
          Width           =   30
+         _mIndex         =   0
+         _mInitialParent =   ""
+         _mName          =   ""
+         _mPanelIndex    =   0
       End
       Begin DesktopBevelButton BevelButtonAddToken
+         Active          =   False
          AllowAutoDeactivate=   True
          AllowFocus      =   True
+         AllowTabStop    =   False
          BackgroundColor =   &c00000000
          BevelStyle      =   0
          Bold            =   False
@@ -1519,18 +1512,23 @@ Begin DesktopWindow WinCodeEditor
          LockRight       =   True
          LockTop         =   False
          MenuStyle       =   0
+         PanelIndex      =   0
          Scope           =   2
          TabIndex        =   13
          TabPanelIndex   =   3
          TabStop         =   True
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   620
+         Top             =   418
          Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
          Width           =   30
+         _mIndex         =   0
+         _mInitialParent =   ""
+         _mName          =   ""
+         _mPanelIndex    =   0
       End
       Begin CodeDemoWindowTokenStyleListBox ListBoxThemeTokens
          AllowAutoDeactivate=   True
@@ -1555,7 +1553,7 @@ Begin DesktopWindow WinCodeEditor
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
          HeadingIndex    =   -1
-         Height          =   357
+         Height          =   202
          Index           =   -2147483648
          InitialParent   =   "Panel"
          InitialValue    =   "Token	B	I	U	Color	Back?	Back"
@@ -1573,11 +1571,12 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   3
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   251
+         Top             =   211
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   450
+         Width           =   454
+         _ScrollOffset   =   0
          _ScrollWidth    =   -1
       End
       Begin DesktopButton ButtonExportTheme
@@ -1611,6 +1610,756 @@ Begin DesktopWindow WinCodeEditor
          Underline       =   False
          Visible         =   True
          Width           =   80
+      End
+      Begin DesktopLabel LabelCaretColor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1037
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   21
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Caret:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   89
+      End
+      Begin DesktopLabel LabelCurrentLineNumberColor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   987
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   22
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Current Line Number:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   397
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   139
+      End
+      Begin DesktopLabel LabelUnmatchedBlockLinesColor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   995
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   24
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Unmatched Blocks:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   365
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   134
+      End
+      Begin DesktopLabel LabelBlockLinesColor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   776
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   25
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Block Lines:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   365
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   93
+      End
+      Begin XUIColorSwatch SwatchBackgroundColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   881
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   26
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   333
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchBackgroundColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   935
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   27
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   333
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchUnmatchedBlockLineColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1138
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   28
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   365
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchUnmatchedBlockLineColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1192
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   29
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   365
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchBlockLinesColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   881
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   30
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   365
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchBlockLinesColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   935
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   31
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   365
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin DesktopLabel LabelSelectionColor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   995
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   38
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Selection:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   333
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   130
+      End
+      Begin XUIColorSwatch SwatchSelectionColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1137
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   39
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   333
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchSelectionColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1191
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   40
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   333
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchCaretColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1138
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   41
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchCaretColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1192
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   42
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin DesktopLabel LabelLineNumberColor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   776
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   43
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Line Numbers:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   395
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   93
+      End
+      Begin XUIColorSwatch SwatchLineNumberColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   881
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   44
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   395
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchLineNumberColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   935
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   45
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   395
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchCurrentLineNumberColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1138
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   46
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   395
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchCurrentLineNumberColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1192
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   47
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   395
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchBorderColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1138
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   48
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   269
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchBorderColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1192
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   49
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   269
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin DesktopLabel LabelBackground
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   776
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   50
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Background:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   333
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   93
+      End
+      Begin DesktopLabel LabelCurrentLineColour
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   959
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   51
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Current Line:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   73
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   93
+      End
+      Begin XUIColorSwatch SwatchCurrentLineColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1064
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   52
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   73
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchCurrentLineColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1118
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   53
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   73
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
       End
    End
    Begin XUICodeEditor Editor
@@ -1929,7 +2678,12 @@ End
 		  
 		  // Font family and sizes.
 		  If PopupFont.RowCount = 0 Then AddFontsToPopup(PopupFont)
-		  PopupFont.SelectRowWithValue(Editor.FontName)
+		  #Pragma BreakOnExceptions False
+		  Try
+		    PopupFont.SelectRowWithValue(Editor.FontName)
+		  Catch
+		  End Try
+		  #Pragma BreakOnExceptions Default
 		  TextFieldFontSize.Text = Editor.FontSize.ToString
 		  TextFieldLineNumberFontSize.Text = Editor.LineNumberFontSize.ToString
 		  
@@ -1947,11 +2701,47 @@ End
 		  CheckBoxHighlightDelimiters.Value = Editor.HighlightDelimitersAroundCaret
 		  CheckBoxDrawBlockLines.Value = Editor.DrawBlockLines
 		  
-		  SwatchBorderColor.Value = Editor.BorderColor
+		  SwatchBorderColorLight.Value = Editor.BorderColor.Light
+		  SwatchBorderColorDark.Value = Editor.BorderColor.Dark
 		  CheckBoxTopBorder.Value = Editor.HasTopBorder
 		  CheckBoxBottomBorder.Value = Editor.HasBottomBorder
 		  CheckBoxLeftBorder.Value = Editor.HasLeftBorder
 		  CheckBoxRightBorder.Value = Editor.HasRightBorder
+		  
+		  // Themeable general properties. These all require a theme to have been assigned to the editor.
+		  If Editor.Theme <> Nil Then
+		    // Caret colour.
+		    SwatchCaretColorLight.Value = Editor.Theme.CaretColor.Light
+		    SwatchCaretColorDark.Value = Editor.Theme.CaretColor.Dark
+		    
+		    // Current line highlight colour.
+		    SwatchCurrentLineColorLight.Value = Editor.Theme.CurrentLineHighlightColor.Light
+		    SwatchCurrentLineColorDark.Value = Editor.Theme.CurrentLineHighlightColor.Dark
+		    
+		    // Background.
+		    SwatchBackgroundColorLight.Value = Editor.Theme.BackgroundColor.Light
+		    SwatchBackgroundColorDark.Value = Editor.Theme.BackgroundColor.Dark
+		    
+		    // Selection colour.
+		    SwatchSelectionColorLight.Value = Editor.Theme.SelectionColor.Light
+		    SwatchSelectionColorDark.Value = Editor.Theme.SelectionColor.Dark
+		    
+		    // Block line colour.
+		    SwatchBlockLinesColorLight.Value = Editor.Theme.BlockLineColor.Light
+		    SwatchBlockLinesColorDark.Value = Editor.Theme.BlockLineColor.Dark
+		    
+		    // Unmatched block line colour.
+		    SwatchUnmatchedBlockLineColorLight.Value = Editor.Theme.UnmatchedBlockLineColor.Light
+		    SwatchUnmatchedBlockLineColorDark.Value = Editor.Theme.UnmatchedBlockLineColor.Dark
+		    
+		    // Line number colours.
+		    SwatchLineNumberColorLight.Value = Editor.Theme.LineNumberColor.Light
+		    SwatchLineNumberColorDark.Value = Editor.Theme.LineNumberColor.Dark
+		    
+		    // Current line number colour.
+		    SwatchCurrentLineNumberColorLight.Value = Editor.Theme.CurrentLineNumberColor.Light
+		    SwatchCurrentLineNumberColorDark.Value = Editor.Theme.CurrentLineNumberColor.Dark
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -2191,13 +2981,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SwatchBorderColor
-	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
-		Sub ColorChanged(newColor As Color)
-		  Editor.BorderColor = newColor
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events CheckBoxTopBorder
 	#tag Event
 		Sub ValueChanged()
@@ -2251,6 +3034,8 @@ End
 		  // Update the editor's theme to the one selected.
 		  Editor.Theme = XUICETheme.FromFile(item.Tag)
 		  
+		  // Update the panels that have properties affected by the loaded theme.
+		  UpdateGeneralTabControls
 		  UpdateThemeTabControls
 		End Sub
 	#tag EndEvent
@@ -2301,6 +3086,194 @@ End
 		    MessageBox("Unable to save the current theme to a TOML file.")
 		  End Try
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchBackgroundColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.BackgroundColor = New ColorGroup(newColor, Editor.Theme.BackgroundColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchBackgroundColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.BackgroundColor = New ColorGroup(Editor.Theme.BackgroundColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchUnmatchedBlockLineColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.UnmatchedBlockLineColor = New ColorGroup(newColor, Editor.Theme.UnmatchedBlockLineColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchUnmatchedBlockLineColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.UnmatchedBlockLineColor = New ColorGroup(Editor.Theme.UnmatchedBlockLineColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchBlockLinesColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.BlockLineColor = New ColorGroup(newColor, Editor.Theme.BlockLineColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchBlockLinesColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.BlockLineColor = New ColorGroup(Editor.Theme.BlockLineColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchSelectionColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.SelectionColor = New ColorGroup(newColor, Editor.Theme.SelectionColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchSelectionColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.SelectionColor = New ColorGroup(Editor.Theme.SelectionColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchCaretColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.CaretColor = New ColorGroup(newColor, Editor.Theme.CaretColor.Dark)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchCaretColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.CaretColor = New ColorGroup(Editor.Theme.CaretColor.Light, newColor)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchLineNumberColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.LineNumberColor = New ColorGroup(newColor, Editor.Theme.LineNumberColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchLineNumberColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.LineNumberColor = New ColorGroup(Editor.Theme.LineNumberColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchCurrentLineNumberColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.CurrentLineNumberColor = New ColorGroup(newColor, Editor.Theme.CurrentLineNumberColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchCurrentLineNumberColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.CurrentLineNumberColor = New ColorGroup(Editor.Theme.CurrentLineNumberColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchBorderColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  Editor.BorderColor = New ColorGroup(newColor, Editor.BorderColor.Dark)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchBorderColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  Editor.BorderColor = New ColorGroup(Editor.BorderColor.Light, newColor)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchCurrentLineColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.CurrentLineHighlightColor = New ColorGroup(newColor, Editor.Theme.CurrentLineHighlightColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchCurrentLineColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.CurrentLineHighlightColor = New ColorGroup(Editor.Theme.CurrentLineHighlightColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
 		End Sub
 	#tag EndEvent
 #tag EndEvents
