@@ -3807,7 +3807,7 @@ Begin DesktopWindow WinCodeEditor
          TabIndex        =   23
          TabPanelIndex   =   4
          TabStop         =   True
-         Text            =   "Min Autocomplete Len:"
+         Text            =   "Minimum Autocomplete Length:"
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   ""
@@ -3815,7 +3815,7 @@ Begin DesktopWindow WinCodeEditor
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   150
+         Width           =   202
       End
       Begin DesktopTextField TextFieldMinAutocompleteLength
          AllowAutoDeactivate=   True
@@ -3835,7 +3835,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   930
+         Left            =   976
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -4120,7 +4120,6 @@ Begin DesktopWindow WinCodeEditor
       TabPanelIndex   =   0
       TabStop         =   True
       TextSelected    =   False
-      TokeniseMode    =   "XUICodeEditor.TokeniseModes.All"
       Tooltip         =   ""
       Top             =   0
       VerticalLinePadding=   0

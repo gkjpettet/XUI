@@ -4351,10 +4351,6 @@ Implements XUINotificationListener
 		Theme As XUICETheme
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0, Description = 54686520746F6B656E69736174696F6E206D6F64652028692E652E207768696368206C696E65732067657420746F6B656E69736564207768656E206C696E6520636F6E74656E7473206368616E6765292E
-		TokeniseMode As XUICodeEditor.TokeniseModes = XUICodeEditor.TokeniseModes.All
-	#tag EndProperty
-
 	#tag ComputedProperty, Flags = &h21, Description = 546865206E756D626572206F66207469636B73207468617420726570726573656E747320746865207374617274206F662061206E657720756E646F206576656E7420626C6F636B2E
 		#tag Getter
 			Get
@@ -4468,12 +4464,6 @@ Implements XUINotificationListener
 	#tag Enum, Name = ContentTypes, Type = Integer, Flags = &h0
 		Markdown
 		SourceCode
-	#tag EndEnum
-
-	#tag Enum, Name = TokeniseModes, Type = Integer, Flags = &h0
-		All
-		  SingleLine
-		VisibleLines
 	#tag EndEnum
 
 
@@ -4885,19 +4875,6 @@ Implements XUINotificationListener
 			#tag EnumValues
 				"0 - Markdown"
 				"1 - SourceCode"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TokeniseMode"
-			Visible=true
-			Group="Behavior"
-			InitialValue="XUICodeEditor.TokeniseModes.All"
-			Type="XUICodeEditor.TokeniseModes"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - All"
-				"1 - SingleLine"
-				"2 - VisibleLines"
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
