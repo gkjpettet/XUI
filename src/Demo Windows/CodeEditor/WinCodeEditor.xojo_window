@@ -128,7 +128,7 @@ Begin DesktopWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -975,7 +975,7 @@ Begin DesktopWindow WinCodeEditor
          Visible         =   True
          Width           =   123
       End
-      Begin DesktopLabel Label2
+      Begin DesktopLabel LabelPopupBackground
          AllowAutoDeactivate=   True
          Bold            =   False
          Enabled         =   True
@@ -986,7 +986,7 @@ Begin DesktopWindow WinCodeEditor
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Italic          =   False
-         Left            =   786
+         Left            =   776
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -998,15 +998,15 @@ Begin DesktopWindow WinCodeEditor
          TabIndex        =   0
          TabPanelIndex   =   4
          TabStop         =   True
-         Text            =   "Autocomplete panel"
-         TextAlignment   =   0
+         Text            =   "Popup Background:"
+         TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   48
+         Top             =   43
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   153
+         Width           =   128
       End
       Begin DesktopPopupMenu PopupExampleThemes
          AllowAutoDeactivate=   True
@@ -3097,6 +3097,633 @@ Begin DesktopWindow WinCodeEditor
          Visible         =   True
          Width           =   86
       End
+      Begin DesktopLabel LabelPopupBorder
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1027
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Popup Border:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   99
+      End
+      Begin XUIColorSwatch SwatchAutoCompletePopupBackgroundLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   916
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   2
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchAutoCompletePopupBackgroundDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   970
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   3
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchAutoCompletePopupBorderLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1138
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   4
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchAutoCompletePopupBorderDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1192
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   5
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin DesktopLabel LabelAutocompleteOption
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   776
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   6
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Option:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   128
+      End
+      Begin XUIColorSwatch SwatchAutoCompleteOptionColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   916
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   7
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   77
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchAutoCompleteOptionColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   970
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   8
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   77
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin DesktopLabel LabelSelectedAutocompleteOptionColor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1027
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   9
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Selected Option:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   99
+      End
+      Begin XUIColorSwatch SwatchAutoCompleteSelectedOptionColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1138
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   10
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchAutoCompleteSelectedOptionColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   1192
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   11
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin DesktopLabel LabelSelectedAutocompleteBackgroundColor
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   776
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   12
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Selected Option:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   128
+      End
+      Begin XUIColorSwatch SwatchSelectedAutocompleteOptionBackgroundColorLight
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   916
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   13
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin XUIColorSwatch SwatchSelectedAutocompleteOptionBackgroundColorDark
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   970
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   14
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   True
+         Value           =   &c00000000
+         Visible         =   True
+         Width           =   48
+      End
+      Begin DesktopLabel LabelAutocompleteHPadding
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   15
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "H Padding:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   "The number of pixels to pad to the left and right of autocomplete options in the autocomplete popup."
+         Top             =   139
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   85
+      End
+      Begin DesktopTextField TextFieldAutocompleteHPadding
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   883
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   2
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   16
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   "The number of pixels to pad to the left and right of autocomplete options in the autocomplete popup."
+         Top             =   139
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "##"
+         Visible         =   True
+         Width           =   35
+      End
+      Begin DesktopLabel LabelAutocompleteVPadding
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   929
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   17
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "V Padding:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   "The number of pixels to pad above the first and below the last autocomplete options in the autocomplete popup."
+         Top             =   139
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   85
+      End
+      Begin DesktopTextField TextFieldAutocompleteVPadding
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1026
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   2
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   18
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   "The number of pixels to pad above the first and below the last autocomplete options in the autocomplete popup."
+         Top             =   139
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "##"
+         Visible         =   True
+         Width           =   35
+      End
+      Begin DesktopLabel LabelAutocompleteOptionVPadding
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1076
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   19
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Option V Padding:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   "The number of pixels to pad above and below autocomplete options in the autocomplete popup."
+         Top             =   139
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   117
+      End
+      Begin DesktopTextField TextFieldAutocompleteOptionVPadding
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1205
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   2
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   20
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   "The number of pixels to pad above and below autocomplete options in the autocomplete popup."
+         Top             =   139
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "##"
+         Visible         =   True
+         Width           =   35
+      End
    End
    Begin XUICodeEditor Editor
       AllowAutocomplete=   True
@@ -3361,6 +3988,40 @@ End
 		  UpdateGeneralTabControls
 		  UpdateFormatterTabControls
 		  UpdateThemeTabControls
+		  UpdateAutocompleteTabControls
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5570646174657320616C6C2074686520636F6E74726F6C73206F6E2074686520224175746F636F6D706C65746522207461622E
+		Private Sub UpdateAutocompleteTabControls()
+		  /// Updates all the controls on the "Autocomplete" tab.
+		  
+		  // Sanity check.
+		  If Editor.Theme = Nil Then Return
+		  
+		  SwatchAutoCompletePopupBackgroundLight.Value = Editor.Theme.AutocompletePopupBackgroundColor.Light
+		  SwatchAutoCompletePopupBackgroundDark.Value = Editor.Theme.AutocompletePopupBackgroundColor.Dark
+		  
+		  SwatchAutoCompletePopupBorderLight.Value = Editor.Theme.AutocompletePopupBorderColor.Light
+		  SwatchAutoCompletePopupBorderDark.Value = Editor.Theme.AutocompletePopupBorderColor.Dark
+		  
+		  SwatchAutoCompleteOptionColorLight.Value = Editor.Theme.AutocompleteOptionColor.Light
+		  SwatchAutoCompleteOptionColorDark.Value = Editor.Theme.AutocompleteOptionColor.Dark
+		  
+		  SwatchAutoCompleteSelectedOptionColorLight.Value = Editor.Theme.SelectedAutocompleteOptionColor.Light
+		  SwatchAutoCompleteSelectedOptionColorDark.Value = Editor.Theme.SelectedAutocompleteOptionColor.Dark
+		  
+		  SwatchSelectedAutocompleteOptionBackgroundColorLight.Value = _
+		  Editor.Theme.SelectedAutocompleteOptionBackgroundColor.Light
+		  
+		  SwatchSelectedAutocompleteOptionBackgroundColorDark.Value = _
+		  Editor.Theme.SelectedAutocompleteOptionBackgroundColor.Dark
+		  
+		  TextFieldAutocompleteHPadding.Text = Editor.Theme.AutocompleteHorizontalPadding.ToString
+		  TextFieldAutocompleteVPadding.Text = Editor.Theme.AutocompleteVerticalPadding.ToString
+		  TextFieldAutocompleteOptionVPadding.Text = Editor.Theme.AutocompleteOptionVerticalPadding.ToString
+		  
 		End Sub
 	#tag EndMethod
 
@@ -3801,6 +4462,7 @@ End
 		  // Update the panels that have properties affected by the loaded theme.
 		  UpdateGeneralTabControls
 		  UpdateThemeTabControls
+		  UpdateAutocompleteTabControls
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -4191,6 +4853,157 @@ End
 	#tag Event
 		Sub ValueChanged()
 		  If Editor.Theme <> Nil Then Editor.Theme.DelimitersHaveUnderline = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchAutoCompletePopupBackgroundLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.AutocompletePopupBackgroundColor = New ColorGroup(newColor, Editor.Theme.AutocompletePopupBackgroundColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchAutoCompletePopupBackgroundDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.AutocompletePopupBackgroundColor = New ColorGroup(Editor.Theme.AutocompletePopupBackgroundColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchAutoCompletePopupBorderLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.AutocompletePopupBorderColor = New ColorGroup(newColor, Editor.Theme.AutocompletePopupBorderColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchAutoCompletePopupBorderDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.AutocompletePopupBorderColor = New ColorGroup(Editor.Theme.AutocompletePopupBorderColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchAutoCompleteOptionColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.AutocompleteOptionColor = New ColorGroup(newColor, Editor.Theme.AutocompleteOptionColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchAutoCompleteOptionColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.AutocompleteOptionColor = New ColorGroup(Editor.Theme.AutocompleteOptionColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchAutoCompleteSelectedOptionColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.SelectedAutocompleteOptionColor = New ColorGroup(newColor, Editor.Theme.SelectedAutocompleteOptionColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchAutoCompleteSelectedOptionColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.SelectedAutocompleteOptionColor = New ColorGroup(Editor.Theme.SelectedAutocompleteOptionColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchSelectedAutocompleteOptionBackgroundColorLight
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.SelectedAutocompleteOptionBackgroundColor = _
+		  New ColorGroup(newColor, Editor.Theme.SelectedAutocompleteOptionBackgroundColor.Dark)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SwatchSelectedAutocompleteOptionBackgroundColorDark
+	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
+		Sub ColorChanged(newColor As Color)
+		  If Editor.Theme = Nil Then Return
+		  
+		  Editor.Theme.SelectedAutocompleteOptionBackgroundColor = _
+		  New ColorGroup(Editor.Theme.SelectedAutocompleteOptionBackgroundColor.Light, newColor)
+		  
+		  Editor.ForceRedraw
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldAutocompleteHPadding
+	#tag Event
+		Sub TextChanged()
+		  If Editor.Theme = Nil Then Return
+		  
+		  If Me.Text = "" Then
+		    Editor.Theme.AutocompleteHorizontalPadding = 0
+		  Else
+		    Editor.Theme.AutocompleteHorizontalPadding = Integer.FromString(Me.Text)
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldAutocompleteVPadding
+	#tag Event
+		Sub TextChanged()
+		  If Editor.Theme = Nil Then Return
+		  
+		  If Me.Text = "" Then
+		    Editor.Theme.AutocompleteVerticalPadding = 0
+		  Else
+		    Editor.Theme.AutocompleteVerticalPadding = Integer.FromString(Me.Text)
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldAutocompleteOptionVPadding
+	#tag Event
+		Sub TextChanged()
+		  If Editor.Theme = Nil Then Return
+		  
+		  If Me.Text = "" Then
+		    Editor.Theme.AutocompleteOptionVerticalPadding = 0
+		  Else
+		    Editor.Theme.AutocompleteOptionVerticalPadding = Integer.FromString(Me.Text)
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents

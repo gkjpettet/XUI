@@ -1077,14 +1077,6 @@ Protected Class XUICETheme
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Version"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="ScrollbarBackgroundColor"
 			Visible=false
 			Group="Behavior"
