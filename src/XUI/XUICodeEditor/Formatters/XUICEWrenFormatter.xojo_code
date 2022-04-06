@@ -735,6 +735,14 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 546865206E616D65206F66207468697320666F726D61747465722E
+		Function Name() As String
+		  /// The name of this formatter.
+		  
+		  Return "Wren"
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E6561726573742064656C696D69746572732061742074686520676976656E205B6361726574506F735D2E204D6179206265204E696C2E
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
 		  /// Returns the nearest delimiters at the given [caretPos]. May be Nil.

@@ -84,6 +84,14 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 546865206E616D65206F66207468697320666F726D61747465722E
+		Function Name() As String
+		  /// The name of this formatter.
+		  
+		  Return "Markdown"
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 446F6573206E6F7468696E6720696E204D61726B646F776E20646F63756D656E74732E
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
 		  /// Does nothing in Markdown documents.

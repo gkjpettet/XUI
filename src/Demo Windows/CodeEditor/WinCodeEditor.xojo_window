@@ -128,7 +128,7 @@ Begin DesktopWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   2
+      Value           =   1
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -847,7 +847,7 @@ Begin DesktopWindow WinCodeEditor
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
          HeadingIndex    =   -1
-         Height          =   178
+         Height          =   242
          Index           =   -2147483648
          InitialParent   =   "Panel"
          InitialValue    =   ""
@@ -937,7 +937,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   2
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   309
+         Top             =   373
          Transparent     =   True
          Visible         =   True
          Width           =   355
@@ -4861,7 +4861,7 @@ End
 		Sub Action()
 		  Info.Text = "SLOC: " + Editor.LineManager.CodeLineCount.ToString + ", " + _
 		  "Ln " + Editor.CaretLineNumber.ToString + ", Col " + _
-		  Editor.CaretColumn.ToString
+		  Editor.CaretColumn.ToString + ", " + Editor.Formatter.Name
 		End Sub
 	#tag EndEvent
 #tag EndEvents
