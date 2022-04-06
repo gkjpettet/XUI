@@ -3265,7 +3265,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   75
+         Top             =   77
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -3352,7 +3352,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   75
+         Top             =   77
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -3379,7 +3379,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   4
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   75
+         Top             =   77
          Transparent     =   True
          Value           =   &c00000000
          Visible         =   True
@@ -3406,7 +3406,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   4
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   75
+         Top             =   77
          Transparent     =   True
          Value           =   &c00000000
          Visible         =   True
@@ -3439,7 +3439,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   ""
-         Top             =   107
+         Top             =   111
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -3466,7 +3466,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   4
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   107
+         Top             =   111
          Transparent     =   True
          Value           =   &c00000000
          Visible         =   True
@@ -3493,7 +3493,7 @@ Begin DesktopWindow WinCodeEditor
          TabPanelIndex   =   4
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   107
+         Top             =   111
          Transparent     =   True
          Value           =   &c00000000
          Visible         =   True
@@ -3526,7 +3526,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   "The number of pixels to pad to the left and right of autocomplete options in the autocomplete popup."
-         Top             =   139
+         Top             =   143
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -3567,7 +3567,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   "The number of pixels to pad to the left and right of autocomplete options in the autocomplete popup."
-         Top             =   139
+         Top             =   143
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   "##"
@@ -3601,7 +3601,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   "The number of pixels to pad above the first and below the last autocomplete options in the autocomplete popup."
-         Top             =   139
+         Top             =   143
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -3642,7 +3642,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   "The number of pixels to pad above the first and below the last autocomplete options in the autocomplete popup."
-         Top             =   139
+         Top             =   143
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   "##"
@@ -3676,7 +3676,7 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   3
          TextColor       =   &c000000
          Tooltip         =   "The number of pixels to pad above and below autocomplete options in the autocomplete popup."
-         Top             =   139
+         Top             =   143
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -3717,12 +3717,348 @@ Begin DesktopWindow WinCodeEditor
          TextAlignment   =   0
          TextColor       =   &c000000
          Tooltip         =   "The number of pixels to pad above and below autocomplete options in the autocomplete popup."
-         Top             =   139
+         Top             =   143
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   "##"
          Visible         =   True
          Width           =   35
+      End
+      Begin DesktopCheckBox CheckBoxAllowAutocomplete
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Autocomplete"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   21
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   175
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   118
+      End
+      Begin DesktopCheckBox CheckBoxAllowAutocompleteInComments
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Autocomplete In Comments"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   916
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   22
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   175
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   202
+      End
+      Begin DesktopLabel LabelMinAutocompleteLength
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   776
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   23
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Min Autocomplete Len:"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   207
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   150
+      End
+      Begin DesktopTextField TextFieldMinAutocompleteLength
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   930
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   2
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   24
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   207
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "##"
+         Visible         =   True
+         Width           =   35
+      End
+      Begin DesktopPopupMenu PopupAutocompleteFont
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   839
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         SelectedRowIndex=   0
+         TabIndex        =   25
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   241
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   181
+      End
+      Begin DesktopLabel LabelAutocompleteFont
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   776
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   26
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Font:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   241
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   51
+      End
+      Begin DesktopTextField TextFieldAutocompleteFontSize
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1108
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   2
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   27
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "12"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   239
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   "##"
+         Visible         =   True
+         Width           =   40
+      End
+      Begin DesktopLabel LabelAutocompleteFontSize
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1027
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   28
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Font Size:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   241
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   69
+      End
+      Begin DesktopLabel LabelAutocompleteCombo
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   776
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   29
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "Autocomplete Combo:"
+         TextAlignment   =   3
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   273
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   142
+      End
+      Begin DesktopPopupMenu PopupAutocompleteCombo
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   930
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         SelectedRowIndex=   0
+         TabIndex        =   30
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   273
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   126
       End
    End
    Begin XUICodeEditor Editor
@@ -4021,6 +4357,27 @@ End
 		  TextFieldAutocompleteHPadding.Text = Editor.Theme.AutocompleteHorizontalPadding.ToString
 		  TextFieldAutocompleteVPadding.Text = Editor.Theme.AutocompleteVerticalPadding.ToString
 		  TextFieldAutocompleteOptionVPadding.Text = Editor.Theme.AutocompleteOptionVerticalPadding.ToString
+		  
+		  CheckBoxAllowAutocomplete.Value = Editor.AllowAutocomplete
+		  CheckBoxAllowAutocompleteInComments.Value = Editor.AllowAutoCompleteInComments
+		  
+		  TextFieldMinAutocompleteLength.Text = Editor.MinimumAutocompletionLength.ToString
+		  
+		  If PopupAutocompleteFont.RowCount = 0 Then AddFontsToPopup(PopupAutocompleteFont)
+		  #Pragma BreakOnExceptions False
+		  Try
+		    PopupAutocompleteFont.SelectRowWithValue(Editor.AutocompletePopupFontName)
+		  Catch
+		  End Try
+		  #Pragma BreakOnExceptions Default
+		  TextFieldAutocompleteFontSize.Text = Editor.AutocompletePopupFontSize.ToString
+		  
+		  #Pragma BreakOnExceptions False
+		  Try
+		    PopupAutocompleteCombo.SelectRowWithTag(Editor.AutocompleteCombo)
+		  Catch
+		  End Try
+		  #Pragma BreakOnExceptions Default
 		  
 		End Sub
 	#tag EndMethod
@@ -5004,6 +5361,73 @@ End
 		  Else
 		    Editor.Theme.AutocompleteOptionVerticalPadding = Integer.FromString(Me.Text)
 		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxAllowAutocomplete
+	#tag Event
+		Sub ValueChanged()
+		  Editor.AllowAutocomplete = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxAllowAutocompleteInComments
+	#tag Event
+		Sub ValueChanged()
+		  Editor.AllowAutoCompleteInComments = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldMinAutocompleteLength
+	#tag Event
+		Sub TextChanged()
+		  If Me.Text = "" Then
+		    Editor.MinimumAutocompletionLength = 0
+		  Else
+		    Editor.MinimumAutocompletionLength = Integer.FromString(Me.Text)
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PopupAutocompleteFont
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  Editor.AutocompletePopupFontName = item.Text
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextFieldAutocompleteFontSize
+	#tag Event
+		Function KeyDown(key As String) As Boolean
+		  Const MIN_PERMITTED_FONT_SIZE = 6
+		  
+		  If Key = Chr(13) Then
+		    Var i As Integer = Integer.FromString(Me.Text)
+		    If i >= MIN_PERMITTED_FONT_SIZE Then
+		      Editor.AutocompletePopupFontSize = i
+		      Return True
+		    End If
+		  End If
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events PopupAutocompleteCombo
+	#tag Event
+		Sub Opening()
+		  Me.AddRow("Ctrl+Space")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUICodeEditor.AutocompleteCombos.CtrlSpace
+		  Me.AddRow("Tab")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = XUICodeEditor.AutocompleteCombos.Tab
+		  
+		  // Default to Ctrl+Space for autocomplete.
+		  Me.SelectedRowIndex = 0
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub SelectionChanged(item As DesktopMenuItem)
+		  Editor.AutocompleteCombo = item.Tag
 		End Sub
 	#tag EndEvent
 #tag EndEvents
