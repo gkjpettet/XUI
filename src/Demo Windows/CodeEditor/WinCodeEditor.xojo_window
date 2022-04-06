@@ -22,7 +22,7 @@ Begin DesktopWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   True
+   Visible         =   False
    Width           =   1260
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
