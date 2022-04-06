@@ -1468,7 +1468,7 @@ Begin DesktopWindow WinCodeEditor
          TabStop         =   True
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   418
+         Top             =   620
          Transparent     =   False
          Underline       =   False
          Value           =   False
@@ -1519,7 +1519,7 @@ Begin DesktopWindow WinCodeEditor
          TabStop         =   True
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   418
+         Top             =   620
          Transparent     =   False
          Underline       =   False
          Value           =   False
@@ -1553,7 +1553,7 @@ Begin DesktopWindow WinCodeEditor
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
          HeadingIndex    =   -1
-         Height          =   202
+         Height          =   397
          Index           =   -2147483648
          InitialParent   =   "Panel"
          InitialValue    =   "Token	B	I	U	Color	Back?	Back"
@@ -4060,6 +4060,221 @@ Begin DesktopWindow WinCodeEditor
          Visible         =   True
          Width           =   126
       End
+      Begin DesktopLabel LabelAutocompleteExplanation
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   40
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   31
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Text            =   "You can use your own autocomplete engine with the editor. For the demo however, the following words will be autocompleted if enabled."
+         TextAlignment   =   2
+         TextColor       =   &c5E5E5E00
+         Tooltip         =   ""
+         Top             =   318
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   454
+      End
+      Begin DesktopListBox ListBoxAutocompleteOptions
+         AllowAutoDeactivate=   True
+         AllowAutoHideScrollbars=   True
+         AllowExpandableRows=   False
+         AllowFocusRing  =   False
+         AllowResizableColumns=   False
+         AllowRowDragging=   False
+         AllowRowReordering=   False
+         Bold            =   False
+         ColumnCount     =   1
+         ColumnWidths    =   ""
+         DefaultRowHeight=   22
+         DropIndicatorVisible=   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         GridLineStyle   =   0
+         HasBorder       =   True
+         HasHeader       =   False
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
+         HeadingIndex    =   -1
+         Height          =   238
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         RequiresSelection=   False
+         RowSelectionType=   0
+         Scope           =   2
+         TabIndex        =   32
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   370
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   454
+         _ScrollWidth    =   -1
+      End
+      Begin DesktopBevelButton BevelButtonDeleteAutocompleteOption
+         Active          =   False
+         AllowAutoDeactivate=   True
+         AllowFocus      =   True
+         AllowTabStop    =   False
+         BackgroundColor =   &c00000000
+         BevelStyle      =   0
+         Bold            =   False
+         ButtonStyle     =   0
+         Caption         =   ""
+         CaptionAlignment=   3
+         CaptionDelta    =   0
+         CaptionPosition =   1
+         Enabled         =   False
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         HasBackgroundColor=   False
+         Height          =   22
+         Icon            =   1964765183
+         IconAlignment   =   1
+         IconDeltaX      =   0
+         IconDeltaY      =   0
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   820
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MenuStyle       =   0
+         PanelIndex      =   0
+         Scope           =   2
+         TabIndex        =   33
+         TabPanelIndex   =   4
+         TabStop         =   True
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   620
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         Width           =   30
+         _mIndex         =   0
+         _mInitialParent =   ""
+         _mName          =   ""
+         _mPanelIndex    =   0
+      End
+      Begin DesktopBevelButton BevelButtonAddAutocompleteOption
+         Active          =   False
+         AllowAutoDeactivate=   True
+         AllowFocus      =   True
+         AllowTabStop    =   False
+         BackgroundColor =   &c00000000
+         BevelStyle      =   0
+         Bold            =   False
+         ButtonStyle     =   0
+         Caption         =   ""
+         CaptionAlignment=   3
+         CaptionDelta    =   0
+         CaptionPosition =   1
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         HasBackgroundColor=   False
+         Height          =   22
+         Icon            =   1603276799
+         IconAlignment   =   1
+         IconDeltaX      =   0
+         IconDeltaY      =   0
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   786
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MenuStyle       =   0
+         PanelIndex      =   0
+         Scope           =   2
+         TabIndex        =   34
+         TabPanelIndex   =   4
+         TabStop         =   True
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   620
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         Width           =   30
+         _mIndex         =   0
+         _mInitialParent =   ""
+         _mName          =   ""
+         _mPanelIndex    =   0
+      End
+      Begin DesktopButton ButtonClearAutocompleteOptions
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Cancel          =   False
+         Caption         =   "Clear"
+         Default         =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   1160
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MacButtonStyle  =   0
+         Scope           =   2
+         TabIndex        =   35
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   620
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
+      End
    End
    Begin XUICodeEditor Editor
       AllowAutocomplete=   True
@@ -4316,6 +4531,22 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52656275696C647320746865206175746F636F6D706C657465206F7074696F6E73206C697374626F782E
+		Private Sub RebuildAutocompleteListbox()
+		  /// Rebuilds the autocomplete options listbox.
+		  
+		  ListBoxAutocompleteOptions.RemoveAllRows
+		  If Self.AutocompleteEngine <> Nil Then
+		    Var options() As XUICEAutocompleteOption = Self.AutocompleteEngine.Options
+		    For Each option As XUICEAutocompleteOption In options
+		      ListBoxAutocompleteOptions.AddRow(option.Value)
+		      ListBoxAutocompleteOptions.CellTypeAt(ListBoxAutocompleteOptions.LastAddedRowIndex, 0) = _
+		      DesktopListBox.CellTypes.TextField
+		    Next option
+		  End If
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 5570646174657320616C6C20636F6E74726F6C7320746F206D61746368207468652073657474696E677320696E2074686520656469746F722E
 		Private Sub UpdateAllControls()
 		  /// Updates all controls to match the settings in the editor.
@@ -4377,6 +4608,8 @@ End
 		  Catch
 		  End Try
 		  #Pragma BreakOnExceptions Default
+		  
+		  RebuildAutocompleteListbox
 		  
 		End Sub
 	#tag EndMethod
@@ -4562,6 +4795,10 @@ End
 		#tag EndGetter
 		Private mCaptionColor As ColorGroup
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21, Description = 53657420746F2054727565207768656E207765206164642061206E6577206175746F636F6D706C657465206F7074696F6E206D616E75616C6C792076696120746865206C697374626F782E
+		Private mJustInsertedNewAutocompleteOption As Boolean = False
+	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520756E646F206D616E6167657220666F72207468652064656D6F20656469746F722E
 		UndoManager As XUIUndoManager
@@ -5427,6 +5664,72 @@ End
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
 		  Editor.AutocompleteCombo = item.Tag
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ListBoxAutocompleteOptions
+	#tag Event
+		Sub SelectionChanged()
+		  BevelButtonDeleteAutocompleteOption.Enabled = Me.SelectedRowIndex <> -1
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub CellAction(row As Integer, column As Integer)
+		  #Pragma Unused column
+		  
+		  If mJustInsertedNewAutocompleteOption Then
+		    mJustInsertedNewAutocompleteOption = False
+		    // We have just edited a newly inserted option. We need to add it to the autocomplete engine.
+		    Self.AutocompleteEngine.AddOption(Me.CellTextAt(row, 0))
+		    RebuildAutocompleteListbox
+		    Return
+		  Else
+		    // Since we have no way of knowing what the previous value of this cell was, we'll rebuild the
+		    // autocomplete engine from the contents of the listbox.
+		    Self.AutocompleteEngine.Reset
+		    For i As Integer = 0 To ListBoxAutocompleteOptions.RowCount - 1
+		      Self.AutocompleteEngine.AddOption(ListBoxAutocompleteOptions.CellTextAt(i, 0))
+		    Next i
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BevelButtonDeleteAutocompleteOption
+	#tag Event
+		Sub Pressed()
+		  If ListBoxAutocompleteOptions.SelectedRowIndex = -1 Then Return
+		  
+		  Self.AutocompleteEngine.RemoveOption(ListBoxAutocompleteOptions.SelectedRowValue)
+		  
+		  RebuildAutocompleteListbox
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BevelButtonAddAutocompleteOption
+	#tag Event
+		Sub Pressed()
+		  // Make sure we add a unique value.
+		  Var value As String = "NewOption"
+		  
+		  Var i As Integer
+		  While Self.AutocompleteEngine.HasOptionWithValue(value)
+		    value = value + i.ToString
+		  Wend
+		  
+		  mJustInsertedNewAutocompleteOption = True
+		  ListBoxAutocompleteOptions.AddRow(value)
+		  ListBoxAutocompleteOptions.EditCellAt(ListBoxAutocompleteOptions.LastAddedRowIndex, 0)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonClearAutocompleteOptions
+	#tag Event
+		Sub Pressed()
+		  Self.AutocompleteEngine.Reset
+		  RebuildAutocompleteListbox
 		End Sub
 	#tag EndEvent
 #tag EndEvents

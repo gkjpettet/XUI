@@ -93,6 +93,23 @@ Protected Class CodeEngineDemoAutocompleteEngine
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620746865206175746F636F6D706C65746520656E67696E6520636F6E7461696E7320616E206F7074696F6E207769746820612076616C7565206F66206076616C7565602E
+		Function HasOptionWithValue(value As String) As Boolean
+		  /// Returns True if the autocomplete engine contains an option with a value of `value`.
+		  
+		  For Each option As XUICEAutocompleteOption In mOptions
+		    If IsCaseSensitive Then
+		      If option.Value.Compare(value, ComparisonOptions.CaseSensitive) = 0 Then Return True
+		    Else
+		      If option.Value = value Then Return True
+		    End If
+		  Next option
+		  
+		  Return False
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E7320616E206172726179206F6620616C6C206175746F636F6D706C657465206F7074696F6E73206B6E6F776E20746F2074686520656E67696E652C20736F7274656420616C7068616265746963616C6C792E
 		Function Options() As XUICEAutocompleteOption()
 		  /// Returns an array of all autocomplete options known to the engine, sorted alphabetically.
