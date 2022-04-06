@@ -128,7 +128,7 @@ Begin DesktopWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   3
+      Value           =   2
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -5062,7 +5062,19 @@ End
 #tag Events BevelButtonDeleteToken
 	#tag Event
 		Sub Pressed()
-		  #Pragma Warning "TODO"
+		  If ListBoxThemeTokens.SelectedRowIndex = -1 Then Return
+		  If Editor.Theme = Nil Then Return
+		  
+		  Var styleName As String = ListBoxThemeTokens.CellTextAt(ListBoxThemeTokens.SelectedRowIndex, 0)
+		  
+		  // Prohibit the removal of "default" and "autocompletePrefix" styles.
+		  If styleName = "default" Or styleName = "autocompletePrefix" Then Return
+		  
+		  Call Editor.Theme.RemoveTokenStyle(styleName)
+		  
+		  ListBoxThemeTokens.Update(Editor.Theme)
+		  
+		  Editor.ForceRedraw
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -5077,6 +5089,11 @@ End
 	#tag Event , Description = 4F6E65206F6620746865207468656D652773207374796C657320686173206368616E6765642E
 		Sub DidChangeStyle()
 		  Editor.Refresh(True)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub SelectionChanged()
+		  BevelButtonDeleteToken.Enabled = Me.SelectedRowIndex <> -1
 		End Sub
 	#tag EndEvent
 #tag EndEvents
