@@ -342,7 +342,8 @@ End
 		  // Utilities.
 		  Utilities.AddProduct("XUIDictionary", _
 		  "A case-sensitive Dictionary that properly handles Xojo Text and String datatypes.", WinDictionary)
-		  
+		  Utilities.AddProduct("XUISemanticVersion", _
+		  "A class to represent the semantic version of an object.", WinSemanticVersion)
 		End Sub
 	#tag EndEvent
 

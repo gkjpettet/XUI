@@ -273,6 +273,7 @@ Class=XUISemanticVersion;XUI/Required/XUISemanticVersion.xojo_code;&h000000002D0
 Class=CodeDemoWindowTokenStyleListBox;Demo Windows/UI Controls/CodeEditor/CodeDemoWindowTokenStyleListBox.xojo_code;&h00000000667B27FF;&h0000000074E41FFF;false
 Folder=Utilities;Demo Windows/Utilities;&h0000000020B8E7FF;&h0000000048B8BFFF;false
 DesktopWindow=WinDictionary;Demo Windows/Utilities/WinDictionary.xojo_window;&h0000000039CFF7FF;&h0000000020B8E7FF;false
+DesktopWindow=WinSemanticVersion;Demo Windows/Utilities/WinSemanticVersion.xojo_window;&h00000000176437FF;&h0000000020B8E7FF;false
 DefaultWindow=WinWelcome
 MajorVersion=1
 MinorVersion=0
