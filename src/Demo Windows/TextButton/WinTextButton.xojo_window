@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow WinTextButton
+Begin DemoWindow WinTextButton
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
@@ -212,16 +212,17 @@ Begin DesktopWindow WinTextButton
    Begin XUITextButton Button
       AllowAutoDeactivate=   True
       AllowFocus      =   False
+      AllowFocusRing  =   False
       AllowTabs       =   False
       Backdrop        =   0
       BackgroundColor =   &cFFFFFF
       Enabled         =   True
-      FontName        =   "Source Code Pro"
-      FontSize        =   12
+      FontName        =   ""
+      FontSize        =   13
       HasBackgroundColor=   False
       Height          =   22
       Index           =   -2147483648
-      IsPressed       =   False
+      IsPressed       =   True
       Left            =   250
       LockBottom      =   False
       LockedInPosition=   False
@@ -1071,8 +1072,6 @@ End
 		  
 		End Sub
 	#tag EndEvent
-#tag EndEvents
-#tag Events Button
 #tag EndEvents
 #tag Events TextColorLightSwatch
 	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E

@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow WinSourceList
+Begin DemoWindow WinSourceList
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False

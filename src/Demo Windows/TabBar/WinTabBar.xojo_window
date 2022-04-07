@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow WinTabBar
+Begin DemoWindow WinTabBar
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
@@ -54,6 +54,7 @@ Begin DesktopWindow WinTabBar
       MouseMoveY      =   0
       RightMenuButtonIcon=   0
       Scope           =   0
+      ScrollPosX      =   0
       SelectedTabIndex=   0
       TabCount        =   0
       TabIndex        =   0
@@ -582,6 +583,7 @@ Begin DesktopWindow WinTabBar
       Top             =   130
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   0
       Width           =   185
@@ -643,6 +645,7 @@ Begin DesktopWindow WinTabBar
       Top             =   181
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   0
       Width           =   185
@@ -704,6 +707,7 @@ Begin DesktopWindow WinTabBar
       Top             =   232
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   1
       Width           =   185

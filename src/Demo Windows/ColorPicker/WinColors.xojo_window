@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow WinColors
+Begin DemoWindow WinColors
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
@@ -33,6 +33,7 @@ Begin DesktopWindow WinColors
       Enabled         =   True
       Height          =   22
       Index           =   -2147483648
+      IsActive        =   False
       Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
@@ -123,6 +124,7 @@ Begin DesktopWindow WinColors
       Enabled         =   True
       Height          =   50
       Index           =   -2147483648
+      IsActive        =   False
       Left            =   167
       LockBottom      =   False
       LockedInPosition=   False
@@ -213,6 +215,7 @@ Begin DesktopWindow WinColors
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
+      IsActive        =   False
       Left            =   326
       LockBottom      =   False
       LockedInPosition=   False

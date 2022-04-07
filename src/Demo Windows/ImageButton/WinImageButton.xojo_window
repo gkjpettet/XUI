@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow WinImageButton
+Begin DemoWindow WinImageButton
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False

@@ -92,7 +92,7 @@ Begin DesktopWindow WinWelcome
       Visible         =   True
       Width           =   100
    End
-   Begin XUITextButton ButtonUExtensions
+   Begin XUITextButton ButtonExtensions
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowTabs       =   False
@@ -149,7 +149,7 @@ Begin DesktopWindow WinWelcome
       Value           =   0
       Visible         =   True
       Width           =   700
-      Begin WelcomeListBox Products
+      Begin WelcomeListBox UIControls
          AllowAutoDeactivate=   True
          AllowAutoHideScrollbars=   True
          AllowExpandableRows=   False
@@ -172,7 +172,7 @@ Begin DesktopWindow WinWelcome
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
          HeadingIndex    =   -1
-         Height          =   426
+         Height          =   374
          Index           =   -2147483648
          InitialParent   =   "Panel"
          InitialValue    =   ""
@@ -190,12 +190,126 @@ Begin DesktopWindow WinWelcome
          TabPanelIndex   =   1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   54
+         Top             =   106
          Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   660
          _ScrollOffset   =   0
+         _ScrollWidth    =   -1
+      End
+      Begin DesktopLabel LabelUIControls
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   40
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "XUI is first and foremost a collection of beautiful and powerful UI controls. Double click on an control in the list below for a demo."
+         TextAlignment   =   2
+         TextColor       =   &c5E5E5E00
+         Tooltip         =   ""
+         Top             =   54
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   660
+      End
+      Begin DesktopLabel LabelUtilities
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   40
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   2
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   "XUI contains many useful utilities. These are classes and modules that provide helpful functionality for your apps. Some are used internally within our UI controls. Double click for more details."
+         TextAlignment   =   2
+         TextColor       =   &c5E5E5E00
+         Tooltip         =   ""
+         Top             =   54
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   660
+      End
+      Begin WelcomeListBox Utilities
+         AllowAutoDeactivate=   True
+         AllowAutoHideScrollbars=   True
+         AllowExpandableRows=   False
+         AllowFocusRing  =   True
+         AllowResizableColumns=   False
+         AllowRowDragging=   False
+         AllowRowReordering=   False
+         Bold            =   False
+         ColumnCount     =   1
+         ColumnWidths    =   ""
+         DefaultRowHeight=   40
+         DropIndicatorVisible=   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         GridLineStyle   =   0
+         HasBorder       =   True
+         HasHeader       =   False
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
+         HeadingIndex    =   -1
+         Height          =   374
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         RequiresSelection=   False
+         RowSelectionType=   0
+         Scope           =   2
+         TabIndex        =   1
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   106
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   660
          _ScrollWidth    =   -1
       End
    End
@@ -208,22 +322,76 @@ End
 		  // Centre this window on its display.
 		  Self.Center
 		  
-		  // Add our XUI products.
-		  Products.AddProduct("XUITabBar", "A customisable tab bar control.", WinTabBar)
-		  Products.AddProduct("XUITagCanvas", "An editable canvas that parses text into tags and supports autocompletion.", WinTagCanvas)
-		  Products.AddProduct("XUICodeEditor", "Full featured code editor supporting themes, custom formatters and autocompletion.", WinCodeEditor)
-		  Products.AddProduct("XUISourceList", "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
-		  Products.AddProduct("XUIImageButton", "A simple imaged-based button control.", WinImageButton)
-		  Products.AddProduct("XUIColorSwatch & XUIColorPicker", "Easy to use colour swatches and a custom colour picker.", WinColors)
-		  Products.AddProduct("XUITextButton", "A minimalist text button providing full colour customisation.", WinTextButton)
-		  Products.AddProduct("XUIDotLabel", "Displays a colour-customisable dot with an optional caption.", WinDotLabel)
+		  // UI Controls.
+		  UIControls.AddProduct("XUITabBar", "A customisable tab bar control.", WinTabBar)
+		  UIControls.AddProduct("XUITagCanvas", "An editable canvas that parses text into tags and supports autocompletion.", WinTagCanvas)
+		  UIControls.AddProduct("XUICodeEditor", "Full featured code editor supporting themes, custom formatters and autocompletion.", WinCodeEditor)
+		  UIControls.AddProduct("XUISourceList", "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
+		  UIControls.AddProduct("XUIImageButton", "A simple imaged-based button control.", WinImageButton)
+		  UIControls.AddProduct("XUIColorSwatch & XUIColorPicker", "Easy to use colour swatches and a custom colour picker.", WinColors)
+		  UIControls.AddProduct("XUITextButton", "A minimalist text button providing full colour customisation.", WinTextButton)
+		  UIControls.AddProduct("XUIDotLabel", "Displays a colour-customisable dot with an optional caption.", WinDotLabel)
 		  
+		  // Utilities.
+		  Utilities.AddProduct("XUIDictionary", "A case-sensitive Dictionary that properly handles Xojo Text and String datatypes.", Nil)
 		End Sub
 	#tag EndEvent
 
 
+	#tag Constant, Name = PANEL_EXTENSIONS, Type = Double, Dynamic = False, Default = \"2", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_UI_CONTROLS, Type = Double, Dynamic = False, Default = \"0", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_UTILITIES, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag EndConstant
+
+
 #tag EndWindowCode
 
+#tag Events ButtonUIControls
+	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
+		Sub Pressed()
+		  // If this button is pressed, ensure all other buttons are not pressed.
+		  
+		  If Me.IsPressed Then
+		    ButtonExtensions.IsPressed = False
+		    ButtonUtilites.IsPressed = False
+		  End If
+		  
+		  Panel.SelectedPanelIndex = PANEL_UI_CONTROLS
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonUtilites
+	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
+		Sub Pressed()
+		  // If this button is pressed, ensure all other buttons are not pressed.
+		  
+		  If Me.IsPressed Then
+		    ButtonExtensions.IsPressed = False
+		    ButtonUIControls.IsPressed = False
+		  End If
+		  
+		  Panel.SelectedPanelIndex = PANEL_UTILITIES
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ButtonExtensions
+	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
+		Sub Pressed()
+		  // If this button is pressed, ensure all other buttons are not pressed.
+		  
+		  If Me.IsPressed Then
+		    ButtonUIControls.IsPressed = False
+		    ButtonUtilites.IsPressed = False
+		  End If
+		  
+		  Panel.SelectedPanelIndex = PANEL_EXTENSIONS
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="Name"

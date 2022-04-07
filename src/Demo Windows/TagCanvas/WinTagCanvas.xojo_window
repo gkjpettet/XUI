@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow WinTagCanvas
+Begin DemoWindow WinTagCanvas
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
@@ -74,7 +74,7 @@ Begin DesktopWindow WinTagCanvas
       Tooltip         =   ""
       Top             =   84
       Transparent     =   False
-      Value           =   2
+      Value           =   1
       Visible         =   True
       Width           =   762
       Begin XUITagCanvas CountryCodesTagCanvas
@@ -183,10 +183,12 @@ Begin DesktopWindow WinTagCanvas
          CaretBlinkPeriod=   250
          Enabled         =   True
          HasBorder       =   True
+         HasFocus        =   False
          Height          =   120
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Left            =   20
+         LineHeight      =   0
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -254,11 +256,11 @@ Begin DesktopWindow WinTagCanvas
          InitialParent   =   "Panel"
          Italic          =   False
          Left            =   20
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
-         LockTop         =   True
+         LockTop         =   False
          Multiline       =   False
          Scope           =   2
          Selectable      =   False
@@ -281,10 +283,12 @@ Begin DesktopWindow WinTagCanvas
          CaretBlinkPeriod=   250
          Enabled         =   True
          HasBorder       =   True
+         HasFocus        =   False
          Height          =   120
          Index           =   -2147483648
          InitialParent   =   "Panel"
          Left            =   20
+         LineHeight      =   0
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -363,7 +367,7 @@ Begin DesktopWindow WinTagCanvas
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
          HeadingIndex    =   -1
-         Height          =   205
+         Height          =   236
          Index           =   -2147483648
          InitialParent   =   "Panel"
          InitialValue    =   "Alter Ego	Super Hero Name"
@@ -386,6 +390,7 @@ Begin DesktopWindow WinTagCanvas
          Underline       =   False
          Visible         =   True
          Width           =   722
+         _ScrollOffset   =   0
          _ScrollWidth    =   -1
       End
       Begin DesktopLabel InfoSuperHeroes
@@ -404,7 +409,7 @@ Begin DesktopWindow WinTagCanvas
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   True
-         LockTop         =   True
+         LockTop         =   False
          Multiline       =   False
          Scope           =   2
          Selectable      =   False
@@ -658,6 +663,29 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub SwitchToPanel(index As Integer)
+		  /// Switches to the specified panel and adjusts the height of the window.
+		  
+		  Select Case index
+		  Case PANEL_COUNTRY_CODES
+		    Self.Height = HEIGHT_COUNTRY_CODES
+		    
+		  Case PANEL_EMAIL
+		    Self.Height = HEIGHT_EMAIL
+		    
+		  Case PANEL_SUPER_HEROES
+		    Self.Height = HEIGHT_SUPER_HEROES
+		    
+		  Else
+		    Raise New InvalidArgumentException("Unknown panel index.")
+		  End Select
+		  
+		  Panel.SelectedPanelIndex = index
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h21, Description = 41206261736963206175746F636F6D706C6574696F6E20656E67696E6520666F7220636F756E74727920636F6465732E
 		Private CountryCodesAutocompleteEngine As TagCanvasDemoAutocompleteEngine
@@ -667,6 +695,15 @@ End
 		SuperHeroAutocompleteEngine As TagCanvasDemoAutocompleteEngine
 	#tag EndProperty
 
+
+	#tag Constant, Name = HEIGHT_COUNTRY_CODES, Type = Double, Dynamic = False, Default = \"380", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = HEIGHT_EMAIL, Type = Double, Dynamic = False, Default = \"380", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = HEIGHT_SUPER_HEROES, Type = Double, Dynamic = False, Default = \"616", Scope = Private
+	#tag EndConstant
 
 	#tag Constant, Name = PANEL_COUNTRY_CODES, Type = Double, Dynamic = False, Default = \"1", Scope = Private
 	#tag EndConstant
@@ -691,14 +728,16 @@ End
 		  Me.RowTagAt(Me.LastAddedRowIndex) = PANEL_SUPER_HEROES
 		  
 		  // Start on the country codes demo.
-		  Me.SelectedRowIndex = 1
+		  Me.SelectRowWithTag(PANEL_COUNTRY_CODES)
+		  
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
 		  #Pragma Unused item
 		  
-		  Panel.SelectedPanelIndex = Me.RowTagAt(Me.SelectedRowIndex)
+		  SwitchToPanel(Me.RowTagAt(Me.SelectedRowIndex))
 		End Sub
 	#tag EndEvent
 #tag EndEvents

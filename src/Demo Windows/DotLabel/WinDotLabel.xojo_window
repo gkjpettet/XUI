@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow WinDotLabel
+Begin DemoWindow WinDotLabel
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
@@ -384,6 +384,7 @@ Begin DesktopWindow WinDotLabel
       Top             =   135
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   0
       Width           =   129
@@ -486,6 +487,7 @@ Begin DesktopWindow WinDotLabel
       Top             =   167
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   1
       Width           =   149

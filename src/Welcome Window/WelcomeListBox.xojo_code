@@ -8,8 +8,10 @@ Inherits DesktopListBox
 		  If row < 0 Or row >= Me.RowCount Then Return
 		  
 		  Var product As WelcomeListBoxItem = Me.RowTagAt(row)
-		  product.DemoWindow.Center
-		  product.DemoWindow.Show
+		  If product.DemoWindow <> Nil Then
+		    product.DemoWindow.Center
+		    product.DemoWindow.Show
+		  End If
 		End Sub
 	#tag EndEvent
 
@@ -18,6 +20,13 @@ Inherits DesktopListBox
 		  mLastClickX = x
 		  mLastClickY = y
 		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub Opening()
+		  Me.DefaultRowHeight = 56
+		  Me.AllowFocusRing = False
+		End Sub
 	#tag EndEvent
 
 	#tag Event
@@ -66,12 +75,12 @@ Inherits DesktopListBox
 
 
 	#tag Method, Flags = &h0, Description = 4164647320612070726F647563742064656D6F20746F20746865206C697374626F782E
-		Sub AddProduct(productName As String, description As String, demoWindow As DesktopWindow)
+		Sub AddProduct(productName As String, description As String, demo As DemoWindow)
 		  /// Adds a product demo to the listbox.
 		  ///
 		  /// The product name is column 0. The product item is stored as a row tag.
 		  
-		  Var product As New WelcomeListBoxItem(productName, description, demoWindow)
+		  Var product As New WelcomeListBoxItem(productName, description, demo)
 		  
 		  Self.AddRow(product.Name)
 		  Self.RowTagAt(Self.LastAddedRowIndex) = product
