@@ -146,7 +146,7 @@ Begin DesktopWindow WinWelcome
       Tooltip         =   ""
       Top             =   54
       Transparent     =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   700
       Begin WelcomeListBox UIControls
@@ -324,16 +324,25 @@ End
 		  
 		  // UI Controls.
 		  UIControls.AddProduct("XUITabBar", "A customisable tab bar control.", WinTabBar)
-		  UIControls.AddProduct("XUITagCanvas", "An editable canvas that parses text into tags and supports autocompletion.", WinTagCanvas)
-		  UIControls.AddProduct("XUICodeEditor", "Full featured code editor supporting themes, custom formatters and autocompletion.", WinCodeEditor)
-		  UIControls.AddProduct("XUISourceList", "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
-		  UIControls.AddProduct("XUIImageButton", "A simple imaged-based button control.", WinImageButton)
-		  UIControls.AddProduct("XUIColorSwatch & XUIColorPicker", "Easy to use colour swatches and a custom colour picker.", WinColors)
-		  UIControls.AddProduct("XUITextButton", "A minimalist text button providing full colour customisation.", WinTextButton)
-		  UIControls.AddProduct("XUIDotLabel", "Displays a colour-customisable dot with an optional caption.", WinDotLabel)
+		  UIControls.AddProduct("XUITagCanvas", _
+		  "An editable canvas that parses text into tags and supports autocompletion.", WinTagCanvas)
+		  UIControls.AddProduct("XUICodeEditor", _
+		  "Full featured code editor supporting themes, custom formatters and autocompletion.", WinCodeEditor)
+		  UIControls.AddProduct("XUISourceList", _
+		  "Powerful source list control. Similar to that seen in the macOS Finder or Window's Explorer.", WinSourceList)
+		  UIControls.AddProduct("XUIImageButton", _
+		  "A simple imaged-based button control.", WinImageButton)
+		  UIControls.AddProduct("XUIColorSwatch & XUIColorPicker", _
+		  "Easy to use colour swatches and a custom colour picker.", WinColors)
+		  UIControls.AddProduct("XUITextButton", _
+		  "A minimalist text button providing full colour customisation.", WinTextButton)
+		  UIControls.AddProduct("XUIDotLabel", _
+		  "Displays a colour-customisable dot with an optional caption.", WinDotLabel)
 		  
 		  // Utilities.
-		  Utilities.AddProduct("XUIDictionary", "A case-sensitive Dictionary that properly handles Xojo Text and String datatypes.", Nil)
+		  Utilities.AddProduct("XUIDictionary", _
+		  "A case-sensitive Dictionary that properly handles Xojo Text and String datatypes.", WinDictionary)
+		  
 		End Sub
 	#tag EndEvent
 
