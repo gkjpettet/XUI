@@ -146,7 +146,7 @@ Begin DesktopWindow WinWelcome
       Tooltip         =   ""
       Top             =   54
       Transparent     =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   700
       Begin WelcomeListBox UIControls
@@ -221,7 +221,7 @@ Begin DesktopWindow WinWelcome
          TabIndex        =   1
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "XUI is first and foremost a collection of beautiful and powerful UI controls. Double click on an control in the list below for a demo."
+         Text            =   "XUI is first and foremost a collection of beautiful and powerful UI controls. Double click on a control in the list below for a demo."
          TextAlignment   =   2
          TextColor       =   &c5E5E5E00
          Tooltip         =   ""
@@ -344,6 +344,9 @@ End
 		  "A case-sensitive Dictionary that properly handles Xojo Text and String datatypes.", WinDictionary)
 		  Utilities.AddProduct("XUISemanticVersion", _
 		  "A class to represent the semantic version of an object.", WinSemanticVersion)
+		  Utilities.AddProduct("XUIStopWatch", _
+		  "A super useful class for timing an action with a number of methods for expressing the time elapsed", _
+		  WinStopWatch)
 		End Sub
 	#tag EndEvent
 

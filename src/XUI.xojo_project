@@ -274,6 +274,7 @@ Class=CodeDemoWindowTokenStyleListBox;Demo Windows/UI Controls/CodeEditor/CodeDe
 Folder=Utilities;Demo Windows/Utilities;&h0000000020B8E7FF;&h0000000048B8BFFF;false
 DesktopWindow=WinDictionary;Demo Windows/Utilities/WinDictionary.xojo_window;&h0000000039CFF7FF;&h0000000020B8E7FF;false
 DesktopWindow=WinSemanticVersion;Demo Windows/Utilities/WinSemanticVersion.xojo_window;&h00000000176437FF;&h0000000020B8E7FF;false
+DesktopWindow=WinStopWatch;Demo Windows/Utilities/WinStopWatch.xojo_window;&h00000000324A27FF;&h0000000020B8E7FF;false
 DefaultWindow=WinWelcome
 MajorVersion=1
 MinorVersion=0

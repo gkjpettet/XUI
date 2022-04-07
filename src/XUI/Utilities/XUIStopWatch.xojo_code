@@ -84,6 +84,27 @@ Protected Class XUIStopWatch
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54686520746F74616C20656C61707365642074696D65206D65617375726564206279207468652063757272656E7420696E7374616E63652C20696E207365636F6E64732E
+		Function ElapsedSeconds() As Integer
+		  /// The total elapsed time measured by the current instance, in seconds.
+		  /// 
+		  /// If the stopwatch has been running for > 28 days then an 
+		  /// UnsupportedOperationException is raised.
+		  
+		  Var di As DateInterval = Elapsed
+		  
+		  // Validate.
+		  If di.Months > 0 Or di.Years > 0 Then
+		    Raise New _
+		    UnsupportedOperationException("The stopwatch has been running too long.")
+		  End If
+		  
+		  Return (di.Days * SECS_IN_DAY) + (di.Hours * SECS_IN_HOUR) + _
+		  (di.Minutes * 60) + di.Seconds
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 54686520746F74616C20656C61707365642074696D65206D65617375726564206279207468652063757272656E7420696E7374616E63652C20696E207469636B732E
 		Function ElapsedTicks() As Integer
 		  /// The total elapsed time measured by the current instance, in ticks.
@@ -129,9 +150,10 @@ Protected Class XUIStopWatch
 		Sub Stop()
 		  /// Stops timing.
 		  
-		  mIsRunning = False
-		  mEnd = DateTime.Now
-		  
+		  If mIsRunning Then
+		    mIsRunning = False
+		    mEnd = DateTime.Now
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -178,6 +200,12 @@ Protected Class XUIStopWatch
 	#tag EndConstant
 
 	#tag Constant, Name = NS_IN_TICK, Type = Double, Dynamic = False, Default = \"16666666.67", Scope = Private, Description = 546865206E756D626572206F66206E616E6F7365636F6E647320696E2061207469636B2E
+	#tag EndConstant
+
+	#tag Constant, Name = SECS_IN_DAY, Type = Double, Dynamic = False, Default = \"86400", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = SECS_IN_HOUR, Type = Double, Dynamic = False, Default = \"3600", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = TICKS_IN_DAY, Type = Double, Dynamic = False, Default = \"5184000", Scope = Private, Description = 546865206E756D626572206F66207469636B7320696E2061206461792E
