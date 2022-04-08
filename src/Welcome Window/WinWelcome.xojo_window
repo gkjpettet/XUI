@@ -347,6 +347,8 @@ End
 		  Utilities.AddProduct("XUIStopWatch", _
 		  "A super useful class for timing an action with a number of methods for expressing the time elapsed", _
 		  WinStopWatch)
+		  Utilities.AddProduct("MarkdownKit", _
+		  "A cross-platform 100% CommonMark compliant Markdown parser.", WinMarkdownKit)
 		End Sub
 	#tag EndEvent
 
