@@ -286,6 +286,16 @@ End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag MenuHandler
+		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
+			Self.Hide
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Property, Flags = &h21
 		Private mStopWatch As XUIStopWatch
 	#tag EndProperty

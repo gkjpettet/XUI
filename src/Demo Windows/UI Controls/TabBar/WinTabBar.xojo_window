@@ -15,7 +15,7 @@ Begin DemoWindow WinTabBar
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   0
+   MenuBar         =   1647693823
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -778,6 +778,17 @@ End
 
 #tag WindowCode
 	#tag Event
+		Sub MenuBarSelected()
+		  If TabBar.TabCount > 1 Then
+		    FileCloseWindow.Text = "Close Tab"
+		  Else
+		    FileCloseWindow.Text = "Close Window"
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Opening()
 		  #Pragma Warning "TODO: Add ability to specify left and right menu button icons"
 		  
@@ -785,6 +796,23 @@ End
 		  
 		End Sub
 	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
+			If TabBar.TabCount > 1 And TabBar.SelectedTabIndex <> - 1 Then
+			// Remove the currently selected tab.
+			TabBar.RemoveTabAt(TabBar.SelectedTabIndex)
+			Else
+			// "Close" the demo window.
+			ResetTabs
+			Self.Hide
+			End If
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 
 	#tag Method, Flags = &h21, Description = 4563686F7320606D6573736167656020746F20746865206D65737361676573206C697374626F782E

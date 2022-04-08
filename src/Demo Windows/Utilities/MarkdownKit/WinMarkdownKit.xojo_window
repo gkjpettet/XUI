@@ -340,6 +340,16 @@ End
 	#tag EndEvent
 
 
+	#tag MenuHandler
+		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
+			Self.Hide
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h21, Description = 5061727365732074686520636F6E74656E7473206F662060536F757263656020746F2048544D4C2E
 		Private Sub Parse()
 		  /// Parses the contents of `Source` to HTML.

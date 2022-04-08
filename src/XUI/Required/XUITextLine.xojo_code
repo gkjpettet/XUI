@@ -18,7 +18,7 @@ Protected Class XUITextLine
 
 	#tag Note, Name = About
 		Represents a line of text. 
-		Required by XUIMarkdown and XUICodeEditor.
+		Required by MarkdownKit and XUICodeEditor.
 		
 	#tag EndNote
 

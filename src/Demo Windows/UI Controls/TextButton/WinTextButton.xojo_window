@@ -15,7 +15,7 @@ Begin DemoWindow WinTextButton
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   ""
+   MenuBar         =   1647693823
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -1041,6 +1041,16 @@ End
 		  
 		End Sub
 	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
+			Self.Hide
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 
 #tag EndWindowCode

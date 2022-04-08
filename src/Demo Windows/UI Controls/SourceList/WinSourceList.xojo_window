@@ -15,7 +15,7 @@ Begin DemoWindow WinSourceList
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   ""
+   MenuBar         =   1647693823
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -453,6 +453,16 @@ End
 		  
 		End Sub
 	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
+			Self.Hide
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 
 	#tag Method, Flags = &h21, Description = 5265736574732074686520636F6E74656E7473206F662074686520736F75726365206C69737420746F20636F6E7461696E206974656D7320796F7527642065787065637420746F2073656520696E207468652057696E646F7773204578706C6F7265722E

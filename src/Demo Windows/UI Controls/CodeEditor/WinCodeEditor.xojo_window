@@ -15,7 +15,7 @@ Begin DemoWindow WinCodeEditor
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   1717981183
+   MenuBar         =   1647693823
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -4485,6 +4485,15 @@ End
 			If UndoManager.CanUndo Then
 			UndoManager.Undo
 			End If
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
+			Self.Hide
 			
 			Return True
 			

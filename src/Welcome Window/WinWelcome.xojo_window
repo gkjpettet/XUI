@@ -15,7 +15,7 @@ Begin DesktopWindow WinWelcome
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   ""
+   MenuBar         =   1647693823
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -85,40 +85,6 @@ Begin DesktopWindow WinWelcome
       TabStop         =   True
       TextColor       =   &c6D6D6D
       Title           =   "Utilities"
-      Tooltip         =   ""
-      Top             =   20
-      Transparent     =   True
-      Type            =   1
-      Visible         =   True
-      Width           =   100
-   End
-   Begin XUITextButton ButtonExtensions
-      AllowAutoDeactivate=   True
-      AllowFocus      =   False
-      AllowTabs       =   False
-      Backdrop        =   0
-      BackgroundColor =   &cFFFFFF
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   12
-      HasBackgroundColor=   False
-      Height          =   22
-      Index           =   -2147483648
-      IsPressed       =   False
-      Left            =   224
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      PressedColor    =   &cD0D0D0
-      PressedTextColor=   &c313131
-      Scope           =   0
-      TabIndex        =   4
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextColor       =   &c6D6D6D
-      Title           =   "Extensions"
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
@@ -355,8 +321,17 @@ End
 	#tag EndEvent
 
 
-	#tag Constant, Name = PANEL_EXTENSIONS, Type = Double, Dynamic = False, Default = \"2", Scope = Private
-	#tag EndConstant
+	#tag MenuHandler
+		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
+			Self.Close
+			
+			Quit
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
 
 	#tag Constant, Name = PANEL_UI_CONTROLS, Type = Double, Dynamic = False, Default = \"0", Scope = Private
 	#tag EndConstant
@@ -373,7 +348,6 @@ End
 		  // If this button is pressed, ensure all other buttons are not pressed.
 		  
 		  If Me.IsPressed Then
-		    ButtonExtensions.IsPressed = False
 		    ButtonUtilites.IsPressed = False
 		  End If
 		  
@@ -387,25 +361,10 @@ End
 		  // If this button is pressed, ensure all other buttons are not pressed.
 		  
 		  If Me.IsPressed Then
-		    ButtonExtensions.IsPressed = False
 		    ButtonUIControls.IsPressed = False
 		  End If
 		  
 		  Panel.SelectedPanelIndex = PANEL_UTILITIES
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events ButtonExtensions
-	#tag Event , Description = 54686520627574746F6E20686173206265656E20707265737365642E
-		Sub Pressed()
-		  // If this button is pressed, ensure all other buttons are not pressed.
-		  
-		  If Me.IsPressed Then
-		    ButtonUIControls.IsPressed = False
-		    ButtonUtilites.IsPressed = False
-		  End If
-		  
-		  Panel.SelectedPanelIndex = PANEL_EXTENSIONS
 		End Sub
 	#tag EndEvent
 #tag EndEvents

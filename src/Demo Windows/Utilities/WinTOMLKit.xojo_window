@@ -125,6 +125,16 @@ End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag MenuHandler
+		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
+			Self.Hide
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 #tag EndWindowCode
 
 #tag Events LabelTOMLLink
