@@ -7,7 +7,7 @@
 		MacType=TEXT
 		Name=application/toml
 		UTI=public.text
-		UTIConformsTo=,public.data
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True

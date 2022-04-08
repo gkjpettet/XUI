@@ -143,6 +143,14 @@ Begin Menu BasicMenuBar
       AutoEnabled = True
       AutoEnable = True
       Visible = True
+      Begin DesktopApplicationMenuItem FileAboutXUI
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "About XUI"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
    End
 End
 #tag EndMenu
