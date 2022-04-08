@@ -27,6 +27,7 @@ Begin DesktopWindow WinWelcome
    Begin XUITextButton ButtonUIControls
       AllowAutoDeactivate=   True
       AllowFocus      =   False
+      AllowFocusRing  =   False
       AllowTabs       =   False
       Backdrop        =   0
       BackgroundColor =   &cFFFFFF
@@ -61,6 +62,7 @@ Begin DesktopWindow WinWelcome
    Begin XUITextButton ButtonUtilites
       AllowAutoDeactivate=   True
       AllowFocus      =   False
+      AllowFocusRing  =   False
       AllowTabs       =   False
       Backdrop        =   0
       BackgroundColor =   &cFFFFFF
@@ -106,6 +108,7 @@ Begin DesktopWindow WinWelcome
       PanelCount      =   2
       Panels          =   ""
       Scope           =   0
+      SelectedPanelIndex=   0
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   False
@@ -276,6 +279,7 @@ Begin DesktopWindow WinWelcome
          Underline       =   False
          Visible         =   True
          Width           =   660
+         _ScrollOffset   =   0
          _ScrollWidth    =   -1
       End
    End
@@ -316,6 +320,9 @@ End
 		  Utilities.AddProduct("MarkdownKit", _
 		  "A cross-platform 100% CommonMark compliant Markdown parser.", WinMarkdownKit)
 		  Utilities.AddProduct("TOMLKit", "A cross-platform TOML 1.0.0 compliant parser.", WinTOMLKit)
+		  
+		  // Ensure that the UI controls button is pressed.
+		  ButtonUIControls.IsPressed = True
 		  
 		End Sub
 	#tag EndEvent
