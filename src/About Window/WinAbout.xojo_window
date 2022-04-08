@@ -249,6 +249,12 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
+		  #If TargetMacOS
+		    Self.MenuBar = BasicMenuBar
+		  #Else
+		    Self.MenuBar = Nil
+		  #EndIf
+		  
 		  Self.Center
 		End Sub
 	#tag EndEvent
