@@ -24,62 +24,224 @@ Begin DesktopWindow WinAbout
    Type            =   0
    Visible         =   True
    Width           =   534
-   Begin DesktopCanvas CanvasIcon
-      AllowAutoDeactivate=   True
-      AllowFocus      =   False
-      AllowFocusRing  =   True
-      AllowTabs       =   False
-      Backdrop        =   0
+   BeginDesktopSegmentedButton DesktopSegmentedButton SegmentedButton1
       Enabled         =   True
-      Height          =   128
+      Height          =   24
       Index           =   -2147483648
-      Left            =   203
-      LockBottom      =   False
+      Left            =   186
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
+      MacButtonStyle  =   0
       Scope           =   0
-      TabIndex        =   0
+      Segments        =   "About\n\nTrue\rEULA\n\nFalse"
+      SelectionStyle  =   0
+      TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   False
       Tooltip         =   ""
-      Top             =   31
-      Transparent     =   True
+      Top             =   356
       Visible         =   True
-      Width           =   128
+      Width           =   162
    End
-   Begin DesktopLabel Label1
+   Begin DesktopPagePanel Panel
       AllowAutoDeactivate=   True
-      Bold            =   True
       Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   24.0
-      FontUnit        =   0
-      Height          =   42
+      Height          =   344
       Index           =   -2147483648
-      Italic          =   False
-      Left            =   217
-      LockBottom      =   False
+      Left            =   0
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
-      Multiline       =   False
+      PanelCount      =   2
+      Panels          =   ""
       Scope           =   0
-      Selectable      =   False
-      TabIndex        =   1
+      TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "XUI"
-      TextAlignment   =   2
-      TextColor       =   &c000000
+      TabStop         =   False
       Tooltip         =   ""
-      Top             =   171
+      Top             =   0
       Transparent     =   False
-      Underline       =   False
+      Value           =   1
       Visible         =   True
-      Width           =   100
+      Width           =   534
+      Begin DesktopLabel LabelXUI
+         AllowAutoDeactivate=   True
+         Bold            =   True
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   24.0
+         FontUnit        =   0
+         Height          =   42
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   217
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "XUI"
+         TextAlignment   =   2
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   160
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   100
+      End
+      Begin DesktopCanvas CanvasIcon
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         AllowFocusRing  =   True
+         AllowTabs       =   False
+         Backdrop        =   0
+         Enabled         =   True
+         Height          =   128
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Left            =   203
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   20
+         Transparent     =   True
+         Visible         =   True
+         Width           =   128
+      End
+      Begin DesktopLabel LabelVersion
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   2
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Info"
+         TextAlignment   =   2
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   204
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   494
+      End
+      Begin DesktopLabel LabelInfo
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   108
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   3
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Info"
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   236
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   494
+      End
+      Begin DesktopTextArea TextAreaEULA
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   False
+         AllowSpellChecking=   False
+         AllowStyledText =   True
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF
+         Bold            =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
+         Height          =   344
+         HideSelection   =   True
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   0
+         LineHeight      =   0.0
+         LineSpacing     =   1.0
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Multiline       =   True
+         ReadOnly        =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c000000
+         Tooltip         =   ""
+         Top             =   0
+         Transparent     =   False
+         Underline       =   False
+         UnicodeMode     =   1
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   534
+      End
    End
 End
 #tag EndDesktopWindow
@@ -102,12 +264,94 @@ End
 	#tag EndMenuHandler
 
 
+	#tag Constant, Name = PANEL_ABOUT, Type = Double, Dynamic = False, Default = \"0", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = PANEL_EULA, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = SEGMENT_ABOUT, Type = Double, Dynamic = False, Default = \"0", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = SEGMENT_EULA, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag EndConstant
+
+
 #tag EndWindowCode
 
+#tag Events SegmentedButton1
+	#tag Event
+		Sub Pressed(segmentIndex as integer)
+		  Select Case segmentIndex
+		  Case SEGMENT_ABOUT
+		    Panel.SelectedPanelIndex = PANEL_ABOUT
+		    
+		  Case SEGMENT_EULA
+		    Panel.SelectedPanelIndex = PANEL_EULA
+		    
+		  Else
+		    Raise New UnsupportedOperationException("Unknown segment index.")
+		  End Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events CanvasIcon
 	#tag Event
 		Sub Paint(g As Graphics, areas() As Rect)
 		  g.DrawPicture(AboutIcon, 0, 0)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events LabelVersion
+	#tag Event
+		Sub Opening()
+		  Me.Text = "Version " + App.SemanticVersion.ToString
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events LabelInfo
+	#tag Event
+		Sub Opening()
+		  Var now As DateTime = DateTime.Now
+		  Var copyright As String = If(now.Year = 2022, "2022", "2022 - " + now.Year.ToString)
+		  
+		  Var s() As String
+		  
+		  s.Add("Copyright © " + copyright + " Dr Garry Pettet. All rights reserved.")
+		  s.Add("")
+		  s.Add("Use of the UI controls, utilities and other components of XUI is subject to the terms of the " + _
+		  "End User License Agreement.")
+		  
+		  Me.Text = String.FromArray(s, EndOfLine)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextAreaEULA
+	#tag Event
+		Sub Opening()
+		  TextAreaEULA.Text = ""
+		  
+		  // Load the two EULAs.
+		  Var simpleFile As FolderItem = SpecialFolder.Resource("XUI Simple EULA.md")
+		  Var fullFile As FolderItem = SpecialFolder.Resource("XUI EULA.md")
+		  
+		  Var simple, full As String
+		  
+		  Var tin As TextInputStream = TextInputStream.Open(simpleFile)
+		  simple = tin.ReadAll
+		  tin.Close
+		  
+		  tin = TextInputStream.Open(fullFile)
+		  full = tin.ReadAll
+		  tin.Close
+		  
+		  Var eula As String = simple + EndOfLine + EndOfLine + full
+		  
+		  TextAreaEULA.Text = eula.Trim
+		  
+		  Exception e
+		    // Ignore.
 		End Sub
 	#tag EndEvent
 #tag EndEvents
