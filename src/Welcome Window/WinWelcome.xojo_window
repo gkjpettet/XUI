@@ -349,6 +349,8 @@ End
 		  WinStopWatch)
 		  Utilities.AddProduct("MarkdownKit", _
 		  "A cross-platform 100% CommonMark compliant Markdown parser.", WinMarkdownKit)
+		  Utilities.AddProduct("TOMLKit", "A cross-platform TOML 1.0.0 compliant parser.", WinTOMLKit)
+		  
 		End Sub
 	#tag EndEvent
 

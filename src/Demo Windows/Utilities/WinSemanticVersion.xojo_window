@@ -15,7 +15,7 @@ Begin DemoWindow WinSemanticVersion
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   ""
+   MenuBar         =   1647693823
    MenuBarVisible  =   False
    MinimumHeight   =   64
    MinimumWidth    =   64
