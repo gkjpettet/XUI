@@ -1002,15 +1002,26 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 546F6B656E697365732065766572797468696E6720696E205B6C696E65735D2E
+	#tag Method, Flags = &h0, Description = 546F6B656E69736573206120706F7274696F6E206F6620606C696E6573602E
 		Sub Tokenise(lines() As XUICELine, firstVisibleLineNumber As Integer, lastVisibleLineNumber As Integer)
-		  /// Tokenises everything in [lines].
+		  /// Tokenises a portion of `lines`.
 		  ///
 		  /// Note that we tokenise all lines, even though this method is passed the visible line numbers.
 		  /// Part of the XUICEFormatter interface.
 		  
 		  #Pragma Unused firstVisibleLineNumber
 		  #Pragma Unused lastVisibleLineNumber
+		  
+		  TokeniseAll(lines)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 546F6B656E6973657320616E206172726179206F66206C696E65732E
+		Sub TokeniseAll(lines() As XUICELine)
+		  /// Tokenises an array of lines.
+		  ///
+		  /// Part of the XUICEFormatter interface.
 		  
 		  If lines.Count = 0 Then Return
 		  
@@ -1029,7 +1040,6 @@ Implements XUICEFormatter
 		  // PARSE
 		  // =============
 		  ParseSimple
-		  
 		End Sub
 	#tag EndMethod
 

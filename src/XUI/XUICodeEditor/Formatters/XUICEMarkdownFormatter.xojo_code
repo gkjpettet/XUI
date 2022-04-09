@@ -128,15 +128,28 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 546F6B656E697365732065766572797468696E6720696E20606C696E6573602E
+	#tag Method, Flags = &h0, Description = 546F6B656E69736573206120706F7274696F6E206F6620606C696E6573602E
 		Sub Tokenise(lines() As XUICELine, firstVisibleLineNumber As Integer, lastVisibleLineNumber As Integer)
-		  /// Tokenises everything in `lines`.
+		  /// Tokenises a portion of `lines`.
 		  ///
 		  /// Note that we tokenise all lines, even though this method is passed the visible line numbers.
 		  /// Part of the XUIFormatter interface.
 		  
+		  #Pragma Warning "TODO: Actually just parse the passed lines."
+		  
 		  #Pragma Unused firstVisibleLineNumber
 		  #Pragma Unused lastVisibleLineNumber
+		  
+		  TokeniseAll(lines)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 546F6B656E6973657320616E206172726179206F66206C696E65732E
+		Sub TokeniseAll(lines() As XUICELine)
+		  /// Tokenises an array of lines.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  // Parse the entire contents to an AST.
 		  If mParser = Nil Then mParser = New MarkdownKit.MKParser
@@ -151,8 +164,6 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		  
 		  // Walk the AST.
 		  Call VisitDocument(mDoc)
-		  
-		  
 		End Sub
 	#tag EndMethod
 

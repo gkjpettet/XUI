@@ -891,7 +891,8 @@ Protected Class XUICELineManager
 		  
 		  If Owner = Nil Or Owner.Formatter = Nil Then Return
 		  
-		  Owner.Formatter.Tokenise(Lines, 1, Lines.Count)
+		  ' Owner.Formatter.Tokenise(Lines, 1, Lines.Count)
+		  Owner.Formatter.TokeniseAll(Lines)
 		  
 		  Owner.NeedsFullRedraw = True
 		End Sub

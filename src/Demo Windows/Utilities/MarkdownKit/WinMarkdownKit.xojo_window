@@ -38,6 +38,7 @@ Begin DemoWindow WinMarkdownKit
       PanelCount      =   2
       Panels          =   ""
       Scope           =   0
+      SelectedPanelIndex=   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   False
@@ -231,8 +232,12 @@ Begin DemoWindow WinMarkdownKit
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
       AllowDragReordering=   False
+      AllowFocus      =   False
       AllowFocusRing  =   True
+      AllowTabs       =   False
+      AvailableTabSpace=   0.0
       Backdrop        =   0
+      DraggingTabLeftEdgeXOffset=   0
       Enabled         =   True
       HasLeftBorder   =   False
       HasLeftMenuButton=   False
@@ -240,6 +245,7 @@ Begin DemoWindow WinMarkdownKit
       HasRightMenuButton=   False
       Height          =   28
       Index           =   -2147483648
+      IsDraggingTab   =   False
       Left            =   650
       LeftMenuButtonIcon=   0
       LockBottom      =   False
@@ -247,8 +253,15 @@ Begin DemoWindow WinMarkdownKit
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
+      MouseDragX      =   0
+      MouseDragY      =   0
+      MouseMoveX      =   0
+      MouseMoveY      =   0
       RightMenuButtonIcon=   0
       Scope           =   0
+      ScrollPosX      =   0
+      SelectedTabIndex=   0
+      TabCount        =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
@@ -283,6 +296,7 @@ Begin DemoWindow WinMarkdownKit
       Top             =   594
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   0
       Width           =   100
@@ -406,6 +420,8 @@ End
 #tag Events TabBar
 	#tag Event , Description = 54686520746162206174207468652073706563696669656420696E64657820776173206A7573742073656C65637465642E
 		Sub DidSelectTab(tab As XUITabBarItem, index As Integer)
+		  #Pragma Unused index
+		  
 		  Panel.SelectedPanelIndex = tab.Tag
 		End Sub
 	#tag EndEvent

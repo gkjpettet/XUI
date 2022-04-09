@@ -30,8 +30,14 @@ Protected Interface XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 546F6B656E6973657320616E206172726179206F66206C696E65732E
+	#tag Method, Flags = &h0, Description = 546F6B656E69736573206120706F7274696F6E206F6620616E206172726179206F66206C696E65732E
 		Sub Tokenise(lines() As XUICELine, firstVisibleLineNumber As Integer, lastVisibleLineNumber As Integer)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 546F6B656E6973657320616E206172726179206F66206C696E65732E
+		Sub TokeniseAll(lines() As XUICELine)
 		  
 		End Sub
 	#tag EndMethod

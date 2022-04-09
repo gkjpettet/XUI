@@ -145,6 +145,9 @@ End
 #tag Events LabelSemverLink
 	#tag Event
 		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
 		  System.GotoURL(Me.Text)
 		End Function
 	#tag EndEvent
