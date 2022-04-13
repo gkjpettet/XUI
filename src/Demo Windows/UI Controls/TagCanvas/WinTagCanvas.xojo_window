@@ -636,6 +636,7 @@ End
 		  SuperHeroAutocompleteEngine.AddOption("Bruce Wayne", New XUITagData("Batman"))
 		  SuperHeroAutocompleteEngine.AddOption("Bucky Barnes", New XUITagData("Winter Soldier"))
 		  SuperHeroAutocompleteEngine.AddOption("Carol Danvers", New XUITagData("Captain Marvel"))
+		  SuperHeroAutocompleteEngine.AddOption("Clark Kent", New XUITagData("Superman"))
 		  SuperHeroAutocompleteEngine.AddOption("Clint Barton", New XUITagData("Hawkeye"))
 		  SuperHeroAutocompleteEngine.AddOption("Diana Prince", New XUITagData("Wonder Woman"))
 		  SuperHeroAutocompleteEngine.AddOption("Flint Marko", New XUITagData("Sandman"))
