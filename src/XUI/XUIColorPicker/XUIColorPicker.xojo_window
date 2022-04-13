@@ -1152,6 +1152,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          LockTop         =   True
          Scope           =   2
          SelectedColor   =   &c00000000
+         SelectedIndex   =   0
          SwatchHeight    =   25
          SwatchVerticalPadding=   5
          TabIndex        =   1
@@ -1232,6 +1233,7 @@ End
 		  RegisterForNotifications
 		  
 		  // Start on the sliders panel.
+		  ButtonSliders.IsPressed = True
 		  SwitchMainPanel(PANEL_MAIN_SLIDERS)
 		  PanelSliders.SelectedPanelIndex = PANEL_SLIDERS_RGB
 		  
