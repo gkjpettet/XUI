@@ -846,9 +846,9 @@ Implements XUINotificationListener
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 546F67676C657320746865207669736962696C697479206F66207468652063617265742E2043616C6C6564206279205B6D4361726574426C696E6B65722E416374696F6E5D2E
+	#tag Method, Flags = &h21, Description = 546F67676C657320746865207669736962696C697479206F66207468652063617265742E2043616C6C656420627920606D4361726574426C696E6B65722E416374696F6E602E
 		Private Sub CaretBlinkerAction(caretBlinker As Timer)
-		  /// Toggles the visibility of the caret. Called by [mCaretBlinker.Action].
+		  /// Toggles the visibility of the caret. Called by `mCaretBlinker.Action`.
 		  
 		  #Pragma Unused caretBlinker
 		  
@@ -871,10 +871,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6D70757465732074686520776964746820696E20706978656C73206F662074686520677574746572207573696E672074686520706173736564205B6C696E654E756D62657257696474685D2E
+	#tag Method, Flags = &h21, Description = 436F6D70757465732074686520776964746820696E20706978656C73206F662074686520677574746572207573696E67207468652070617373656420606C696E654E756D6265725769647468602E
 		Private Function ComputeGutterWidth(lineNumberWidth As Double) As Double
-		  /// Computes the width in pixels of the gutter using the 
-		  /// passed [lineNumberWidth].
+		  /// Computes the width in pixels of the gutter using the passed `lineNumberWidth`.
 		  ///
 		  /// Gutter structure:
 		  /// ________________
@@ -934,8 +933,8 @@ Implements XUINotificationListener
 		Sub DeleteBackward(allowUndo As Boolean, raiseContentsDidChange As Boolean = True)
 		  /// Deletes the character before the caret and invalidates the canvas.
 		  ///
-		  /// If [allowUndo] is True then this action will be undoable.
-		  /// If [raiseContentsDidChange] is True then we will also raise the `ContentsDidChange` event.
+		  /// If `allowUndo` is True then this action will be undoable.
+		  /// If `raiseContentsDidChange` is True then we will also raise the `ContentsDidChange` event.
 		  /// By default, `ContentsDidChange` is raised but sometimes (e.g. when this method is called internally
 		  /// by other methods) we don't.
 		  
@@ -1040,11 +1039,10 @@ Implements XUINotificationListener
 
 	#tag Method, Flags = &h0, Description = 44656C65746573207468652063686172616374657220696D6D6564696174656C7920696E2066726F6E74206F662074686520636172657420616E6420696E76616C696461746573207468652063616E7661732E
 		Sub DeleteForward(allowUndo As Boolean, raiseContentsDidChange As Boolean = True)
-		  /// Deletes the character immediately in front of the caret and invalidates 
-		  /// the canvas.
+		  /// Deletes the character immediately in front of the caret and invalidates the canvas.
 		  ///
-		  /// If [allowUndo] is True then this action will be undoable.
-		  /// If [raiseContentsDidChange] is True then we will also raise the `ContentsDidChange` event.
+		  /// If `allowUndo` is True then this action will be undoable.
+		  /// If `raiseContentsDidChange` is True then we will also raise the `ContentsDidChange` event.
 		  /// By default, `ContentsDidChange` is raised but sometimes (e.g. when this method is called internally
 		  /// by other methods) we don't.
 		  
@@ -1112,10 +1110,10 @@ Implements XUINotificationListener
 		Sub DeleteSelection(allowUndo As Boolean, shouldInvalidate As Boolean = True, raiseContentsDidChange As Boolean = True, undoMessage As String)
 		  /// Deletes the current selection.
 		  ///
-		  /// If [allowUndo] is True then this action will be pushed to the undo manager.
-		  /// If [shouldInvalidate] is True then the canvas will immediately invalidate.
-		  /// If [raiseContentsDidChange] is True then we will raise the `ContentsDidChange` event.
-		  /// [undoMessage] is an optional override message for undoable actions.
+		  /// If `allowUndo` is True then this action will be pushed to the undo manager.
+		  /// If `shouldInvalidate` is True then the canvas will immediately invalidate.
+		  /// If `raiseContentsDidChange` is True then we will raise the `ContentsDidChange` event.
+		  /// `undoMessage` is an optional override message for undoable actions.
 		  
 		  CurrentUndoID = System.Ticks
 		  
@@ -1132,9 +1130,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5570646174657320746865206E6561726573742064656C696D697465727320746F2074686520636172657420706572696F646963616C6C792E2043616C6C6564206279205B6D44656C696D6974657254696D65722E416374696F6E5D2E
+	#tag Method, Flags = &h21, Description = 5570646174657320746865206E6561726573742064656C696D697465727320746F2074686520636172657420706572696F646963616C6C792E2043616C6C656420627920606D44656C696D6974657254696D65722E416374696F6E602E
 		Private Sub DelimiterTimerAction(delimiterTimer As Timer)
-		  /// Updates the nearest delimiters to the caret periodically. Called by [mDelimiterTimer.Action].
+		  /// Updates the nearest delimiters to the caret periodically. Called by `mDelimiterTimer.Action`.
 		  
 		  #Pragma Unused delimiterTimer
 		  
@@ -1337,9 +1335,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 48616E646C6573206120646F75626C6520636C69636B206F6363757272696E67206174207468652070617373656420782C2079206D6F75736520636F6F7264696E617465732E
+	#tag Method, Flags = &h21, Description = 48616E646C6573206120646F75626C6520636C69636B206F6363757272696E672061742074686520706173736564206078602C20607960206D6F75736520636F6F7264696E617465732E
 		Private Sub HandleDoubleClick(x As Integer, y As Integer)
-		  /// Handles a double click occurring at the passed [x], [y] mouse coordinates.
+		  /// Handles a double click occurring at the passed `x`, `y` mouse coordinates.
 		  ///
 		  /// 1. Double-clicking when not over a line highlights the last word of the last line.
 		  /// 2. Double-clicking at the end of a line highlights the last word of that line.
@@ -1485,8 +1483,8 @@ Implements XUINotificationListener
 		Sub HandleReturnKey(allowUndo As Boolean, raiseContentsDidChange As Boolean = True)
 		  /// Handles a Return key press at the current caret position.
 		  ///
-		  /// If [allowUndo] is True then this action will be undoable.
-		  /// If [raiseContentsDidChange] is True then we will raise the `ContentsDidChange` event.
+		  /// If `allowUndo` is True then this action will be undoable.
+		  /// If `raiseContentsDidChange` is True then we will raise the `ContentsDidChange` event.
 		  ///
 		  /// Three Scenarios:
 		  /// 1. The caret is at the end of the line (blank line inserted below with caret at its start).
@@ -1562,9 +1560,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 48616E646C6573206120747269706C6520636C69636B206F6363757272696E672061742074686520706173736564205B785D2C205B795D206D6F75736520636F6F7264696E617465732E2053656C6563747320746865206C696E6520756E6465722074686520636C69636B2E
+	#tag Method, Flags = &h21, Description = 48616E646C6573206120747269706C6520636C69636B206F6363757272696E672061742074686520706173736564206078602C20607960206D6F75736520636F6F7264696E617465732E2053656C6563747320746865206C696E6520756E6465722074686520636C69636B2E
 		Private Sub HandleTripleClick(x As Integer, y As Integer)
-		  /// Handles a triple click occurring at the passed [x], [y] mouse coordinates.
+		  /// Handles a triple click occurring at the passed `x`, `y` mouse coordinates.
 		  /// Selects the line under the click.
 		  ///
 		  /// This will always occur after a double click so `HandleDoubleClick` will 
@@ -1635,12 +1633,12 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 496E7365727473205B735D206174207468652073706563696669656420636172657420706F736974696F6E2E
+	#tag Method, Flags = &h0, Description = 496E736572747320607360206174207468652073706563696669656420636172657420706F736974696F6E2E
 		Sub Insert(s As String, pos As Integer, allowUndo As Boolean, shouldInvalidate As Boolean = True, raiseContentsDidChange As Boolean = True)
-		  /// Inserts [s] at the specified caret position.
+		  /// Inserts `s` at the specified caret position.
 		  ///
-		  /// If [allowUndo] is True then this action will be undoable.
-		  /// If [raiseContentsDidChange] then we will also raise the `ContentsDidChange` event.
+		  /// If `allowUndo` is True then this action will be undoable.
+		  /// If `raiseContentsDidChange` then we will also raise the `ContentsDidChange` event.
 		  
 		  CurrentUndoID = System.Ticks
 		  
@@ -1675,7 +1673,7 @@ Implements XUINotificationListener
 		Sub InsertCharacter(char As String, raiseContentsDidChange As Boolean = True, range As TextRange = Nil)
 		  /// Inserts a single character at the current caret position.
 		  ///
-		  /// Assumes [char] is only one character. For longer strings, use `Insert()`.
+		  /// Assumes `char` is only one character. For longer strings, use `Insert()`.
 		  
 		  If Not Typing Or System.Ticks > UndoIDThreshold Then
 		    CurrentUndoID = System.Ticks
@@ -1768,7 +1766,7 @@ Implements XUINotificationListener
 		Private Function IsTripleClick(x As Integer, y As Integer) As Boolean
 		  /// If a triple click just happened, this method handles it and returns True. Otherwise it returns False.
 		  ///
-		  /// If a triple click occurs, calls the [HandleTripleClick] method.
+		  /// If a triple click occurs, calls the `HandleTripleClick()` method.
 		  
 		  Const SPACE_DELTA = 4
 		  
@@ -1841,9 +1839,9 @@ Implements XUINotificationListener
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B6C696E655D2069732066756C6C792076697369626C65206F6E207468652063616E7661732E
+	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620606C696E65602069732066756C6C792076697369626C65206F6E207468652063616E7661732E
 		Private Function LineFullyVisible(line As XUICELine) As Boolean
-		  /// Returns True if [line] is fully visible on the canvas.
+		  /// Returns True if `line` is fully visible on the canvas.
 		  
 		  If line.Number < FirstVisibleLine Then Return False
 		  
@@ -1899,11 +1897,11 @@ Implements XUINotificationListener
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E7320746865206C696E65206C6F636174696F6E20617420636F6F7264696E61746573205B785D2C205B795D206F7220604E696C60206966207468657265206973206E6F206C696E652061742074686F736520636F6F7264696E617465732E
+	#tag Method, Flags = &h21, Description = 52657475726E7320746865206C696E65206C6F636174696F6E20617420636F6F7264696E61746573206078602C20607960206F7220604E696C60206966207468657265206973206E6F206C696E652061742074686F736520636F6F7264696E617465732E
 		Private Function LocationAtXY(x As Integer, y As Integer) As XUICELocation
-		  /// Returns the line location at coordinates [x], [y] or `Nil` if there is no line at those coordinates.
+		  /// Returns the line location at coordinates `x`, `y` or `Nil` if there is no line at those coordinates.
 		  ///
-		  /// If [x] is beyond the end of a line then the last column for that line is 
+		  /// If `x` is beyond the end of a line then the last column for that line is 
 		  /// specified in the returned line location.
 		  
 		  // Adjust `x` to account for horizontal scrolling.
@@ -2034,10 +2032,10 @@ Implements XUINotificationListener
 		Private Sub MoveCaretToColumn(lineNumber As Integer, column As Integer, shouldInvalidate As Boolean = True)
 		  /// Moves the caret to the column on the specified line.
 		  ///
-		  /// If [shouldInvalidate] is False then the canvas will not be immediately invalidated.
+		  /// If `shouldInvalidate` is False then the canvas will not be immediately invalidated.
 		  /// 
-		  /// Raises an `InvalidArgumentException` if [lineNumber] is out of range.
-		  /// If [column] is greater than the number of columns in the target line then 
+		  /// Raises an `InvalidArgumentException` if `lineNumber` is out of range.
+		  /// If `column` is greater than the number of columns in the target line then 
 		  /// it moves the caret to the end of the target line.
 		  
 		  // Sanity checks.
@@ -2084,11 +2082,11 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 4D6F7665732074686520636172657420746F2074686520302D6261736564205B6E6577506F735D2C20636C616D706564206265747765656E2074686520737461727420616E6420656E64206F662074686520746578742E
+	#tag Method, Flags = &h0, Description = 4D6F7665732074686520636172657420746F2074686520302D626173656420606E6577506F73602C20636C616D706564206265747765656E2074686520737461727420616E6420656E64206F662074686520746578742E
 		Sub MoveCaretToPos(newPos As Integer, shouldInvalidate As Boolean = True)
-		  /// Moves the caret to the 0-based [newPos], clamped between the start and end of the text.
+		  /// Moves the caret to the 0-based `newPos`, clamped between the start and end of the text.
 		  ///
-		  /// If [shouldInvalidate] is False then the canvas will not be immediately invalidated.
+		  /// If `shouldInvalidate` is False then the canvas will not be immediately invalidated.
 		  /// If `newPos < 0` then the caret is moved to the start of the text.
 		  /// If `newPos` > last valid caret position then the caret is moved to the end of the text.
 		  
@@ -2593,12 +2591,12 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5061696E74732074686520626C6F636B206361726574206F6E205B675D206174205B785D2C205B795D2E
+	#tag Method, Flags = &h21, Description = 5061696E74732074686520626C6F636B206361726574206F6E20606760206174206078602C206079602E
 		Private Sub PaintBlockCaret(g As Graphics, x As Double, y As Double)
-		  /// Paints the block caret on [g] at [x], [y].
+		  /// Paints the block caret on `g` at `x`, `y`.
 		  ///
-		  /// Assumes the drawing colour of [g] has been set to the correct colour for the caret.
-		  /// Assumes that the font properties of [g] object have been set to the correct style.
+		  /// Assumes the drawing colour of `g` has been set to the correct colour for the caret.
+		  /// Assumes that the font properties of `g` object have been set to the correct style.
 		  
 		  // Draw the block.
 		  g.FillRectangle(x, y - VerticalLinePadding, g.TextWidth("_"), _
@@ -2621,9 +2619,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5061696E74732074686520636172657420746F205B675D2061742074686520302D6261736564205B706F735D2E
+	#tag Method, Flags = &h21, Description = 5061696E74732074686520636172657420746F206067602061742074686520302D62617365642060706F73602E
 		Private Sub PaintCaret(g As Graphics, pos As Integer)
-		  /// Paints the caret to [g] at the 0-based [pos].
+		  /// Paints the caret to `g` at the 0-based `pos`.
 		  
 		  // Whilst dragging, the CaretPosition may be temporarily inaccurate.
 		  // To prevent a hard crash caused by an OutOfBoundsError we will 
@@ -2888,9 +2886,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5265706C61636573207468652063757272656E742073656C656374696F6E2077697468205B735D2E
+	#tag Method, Flags = &h0, Description = 5265706C61636573207468652063757272656E742073656C656374696F6E2077697468206073602E
 		Sub ReplaceCurrentSelection(s As String)
-		  /// Replaces the current selection with [s].
+		  /// Replaces the current selection with `s`.
 		  
 		  CurrentUndoID = System.Ticks
 		  
@@ -2963,12 +2961,12 @@ Implements XUINotificationListener
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5363726F6C6C73207468652063616E76617320646F776E205B6C696E6573546F5363726F6C6C5D206C696E65732E
+	#tag Method, Flags = &h0, Description = 5363726F6C6C73207468652063616E76617320646F776E20606C696E6573546F5363726F6C6C60206C696E65732E
 		Sub ScrollDown(linesToScroll As Integer, moveCaret As Boolean, shouldInvalidate As Boolean = True)
-		  /// Scrolls the canvas down [linesToScroll] lines.
+		  /// Scrolls the canvas down `linesToScroll` lines.
 		  ///
-		  /// If [moveCaret] is True then the caret will be moved down by the number of lines we scroll down.
-		  /// If [shouldInvalidate] is False then the canvas will not be immediately invalidated.
+		  /// If `moveCaret` is True then the caret will be moved down by the number of lines we scroll down.
+		  /// If `shouldInvalidate` is False then the canvas will not be immediately invalidated.
 		  
 		  // Cache the last fully visible line number as it's computed.
 		  Var lastVisible As Integer = LastFullyVisibleLineNumber
@@ -3010,10 +3008,8 @@ Implements XUINotificationListener
 		Sub ScrollPageDown(moveCaret As Boolean, shouldInvalidate As Boolean = True)
 		  /// Scrolls the canvas down a page and optionally moves the caret down as well.
 		  ///
-		  /// If [moveCaret] is True then the caret will be moved down by the number of 
-		  /// lines we scroll down.
-		  /// If [shouldInvalidate] is False then the canvas will **not** be 
-		  /// immediately invalidated.
+		  /// If `moveCaret` is True then the caret will be moved down by the number of lines we scroll down.
+		  /// If `shouldInvalidate` is False then the canvas will **not** be immediately invalidated.
 		  
 		  // Cache the last fully visible line number as it's computed.
 		  Var lastVisible As Integer = LastFullyVisibleLineNumber
@@ -3058,9 +3054,8 @@ Implements XUINotificationListener
 		Sub ScrollPageUp(moveCaret As Boolean, shouldInvalidate As Boolean = True)
 		  /// Scrolls the canvas up a page and optionally moves the caret up as well.
 		  ///
-		  /// If [moveCaret] is True then the caret will be moved up by the number of 
-		  /// lines we scroll up.
-		  /// If [shouldInvalidate] is False then the canvas will not be immediately invalidated.
+		  /// If `moveCaret` is True then the caret will be moved up by the number of lines we scroll up.
+		  /// If `shouldInvalidate` is False then the canvas will not be immediately invalidated.
 		  
 		  // No need to scroll if the first line is already visible.
 		  If FirstVisibleLine = 1 Then
@@ -3101,7 +3096,7 @@ Implements XUINotificationListener
 		Sub ScrollToCaretPos(shouldInvalidate As Boolean = False)
 		  /// Scrolls the canvas (if necessary) to the current caret position.
 		  ///
-		  /// If [shouldInvalidate] is True then the canvas will immediately redraw.
+		  /// If `shouldInvalidate` is True then the canvas will immediately redraw.
 		  
 		  #If TargetMacOS
 		    // Get the absolute X coordinate of the caret.
@@ -3189,10 +3184,10 @@ Implements XUINotificationListener
 
 	#tag Method, Flags = &h0, Description = 5363726F6C6C73207468652063616E766173207570205B6C696E6573546F5363726F6C6C5D206C696E65732E
 		Sub ScrollUp(linesToScroll As Integer, moveCaret As Boolean, shouldInvalidate As Boolean = True)
-		  /// Scrolls the canvas up [linesToScroll] lines.
+		  /// Scrolls the canvas up `linesToScroll` lines.
 		  ///
-		  /// If [moveCaret] is True then the caret will be moved up by the number of lines we scroll up.
-		  /// If [shouldInvalidate] is False then the canvas will not be immediately invalidated.
+		  /// If `moveCaret` is True then the caret will be moved up by the number of lines we scroll up.
+		  /// If `shouldInvalidate` is False then the canvas will not be immediately invalidated.
 		  
 		  // No need to scroll if the first line is already visible.
 		  If FirstVisibleLine = 1 Then
@@ -3228,7 +3223,7 @@ Implements XUINotificationListener
 		Sub SelectAll(shouldInvalidate As Boolean = True)
 		  /// Selects everythin in the editor.
 		  ///
-		  /// If [shouldInvalidate] is True then the editor will immediately refresh.
+		  /// If `shouldInvalidate` is True then the editor will immediately refresh.
 		  
 		  CurrentUndoID = System.Ticks
 		  
@@ -3244,7 +3239,7 @@ Implements XUINotificationListener
 		Private Sub SelectWhitespaceAroundCaret(shouldInvalidate As Boolean)
 		  /// Selects all whitespace around the current caret position on the caret's current line.
 		  ///
-		  /// If [shouldInvalidate] is True then the canvas will be invalidated. If False 
+		  /// If `shouldInvalidate` is True then the canvas will be invalidated. If False 
 		  /// then it's merely marked for a full redraw.
 		  
 		  // Clear the current selection and mark for redrawing.
@@ -3301,7 +3296,7 @@ Implements XUINotificationListener
 		Private Sub SelectWordAtCaret(shouldInvalidate As Boolean)
 		  /// Selects the word the caret is within and marks the canvas for redrawing.
 		  /// 
-		  /// If [shouldInvalidate] is True then the canvas will be invalidated. 
+		  /// If `shouldInvalidate` is True then the canvas will be invalidated. 
 		  /// If False then it is merely marked for a full redraw.
 		  
 		  // Clear the current selection and mark for redrawing.
@@ -3350,9 +3345,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 536574732074686520666F6E742070726F70657274696573206F66205B675D20746F207468652073706563696669656420746F6B656E205B7374796C655D2E
+	#tag Method, Flags = &h0, Description = 536574732074686520666F6E742070726F70657274696573206F662060676020746F207468652073706563696669656420746F6B656E20607374796C65602E
 		Sub SetGraphicsStyle(g As Graphics, style As XUICETokenStyle)
-		  /// Sets the font properties of [g] to the specified token [style].
+		  /// Sets the font properties of `g` to the specified token `style`.
 		  
 		  g.Bold = style.Bold
 		  g.DrawingColor = style.Colour
@@ -3458,9 +3453,9 @@ Implements XUINotificationListener
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6D70757465732028427952656629207468652063616E76617320782C207920636F6F7264696E617465732061742074686520302D6261736564205B6361726574506F735D2E
+	#tag Method, Flags = &h21, Description = 436F6D70757465732028427952656629207468652063616E76617320782C207920636F6F7264696E617465732061742074686520302D626173656420606361726574506F73602E
 		Private Sub XYAtCaretPos(caretPos As Integer, ByRef x As Double, ByRef y As Double)
-		  /// Computes (ByRef) the canvas x, y coordinates at the 0-based [caretPos].
+		  /// Computes (ByRef) the canvas x, y coordinates at the 0-based `caretPos`.
 		  
 		  Var line As XUICELine = LineManager.LineAt(LineManager.LineNumberForCaretPos(caretPos))
 		  
