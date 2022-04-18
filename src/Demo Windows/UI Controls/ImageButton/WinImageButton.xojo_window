@@ -34,6 +34,9 @@ Begin DemoWindow WinImageButton
       DefaultImage    =   352882687
       DisabledImage   =   77455359
       Enabled         =   True
+      HasBottomBorder =   False
+      HasLeftBorder   =   False
+      HasRightBorder  =   False
       HasTopBorder    =   False
       Height          =   50
       HoverImage      =   921319423
