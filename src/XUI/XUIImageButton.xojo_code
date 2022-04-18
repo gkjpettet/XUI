@@ -602,14 +602,6 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HasTopBorder"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="BorderColor"
 			Visible=true
 			Group="Behavior"
@@ -631,6 +623,14 @@ Inherits DesktopCanvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsPressed"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasTopBorder"
 			Visible=true
 			Group="Behavior"
 			InitialValue="False"
