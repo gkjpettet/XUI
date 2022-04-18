@@ -34,7 +34,7 @@ Begin DemoWindow WinImageButton
       DefaultImage    =   352882687
       DisabledImage   =   77455359
       Enabled         =   True
-      HasBorder       =   False
+      HasTopBorder    =   False
       Height          =   50
       HoverImage      =   921319423
       Index           =   -2147483648
@@ -274,10 +274,10 @@ Begin DemoWindow WinImageButton
       Visible         =   True
       Width           =   640
    End
-   Begin DesktopCheckBox CheckBoxHasBorder
+   Begin DesktopCheckBox CheckBoxHasTopBorder
       AllowAutoDeactivate=   True
       Bold            =   False
-      Caption         =   "Has Border"
+      Caption         =   "Has Top Border"
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -285,7 +285,7 @@ Begin DemoWindow WinImageButton
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   112
+      Left            =   295
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -296,13 +296,13 @@ Begin DemoWindow WinImageButton
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   96
+      Top             =   160
       Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
       VisualState     =   0
-      Width           =   100
+      Width           =   150
    End
    Begin DesktopLabel Label1
       AllowAutoDeactivate=   True
@@ -546,6 +546,96 @@ Begin DemoWindow WinImageButton
       Visible         =   True
       Width           =   100
    End
+   Begin DesktopCheckBox CheckBoxHasBottomBorder
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Has Bottom Border"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   295
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   192
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   150
+   End
+   Begin DesktopCheckBox CheckBoxHasLeftBorder
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Has Left Border"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   293
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   224
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   150
+   End
+   Begin DesktopCheckBox CheckBoxHasRightBorder
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Has Right Border"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   293
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   256
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   150
+   End
 End
 #tag EndDesktopWindow
 
@@ -579,7 +669,10 @@ End
 		  Button.DisabledImage = PlayIconDisabled
 		  
 		  CheckBoxEnabled.Value = True
-		  CheckBoxHasBorder.Value = False
+		  CheckBoxHasTopBorder.Value = False
+		  CheckBoxHasBottomBorder.Value = False
+		  CheckBoxHasLeftBorder.Value = False
+		  CheckBoxHasRightBorder.Value = False
 		  BorderColorSwatch.Value = Color.Black
 		  
 		  CheckBoxHasDisabledImage.Value = True
@@ -696,10 +789,10 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events CheckBoxHasBorder
+#tag Events CheckBoxHasTopBorder
 	#tag Event
 		Sub ValueChanged()
-		  Button.HasBorder = Me.Value
+		  Button.HasTopBorder = Me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -744,6 +837,27 @@ End
 	#tag Event , Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
 		Sub ColorChanged(newColor As Color)
 		  Button.BorderColor = newColor
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxHasBottomBorder
+	#tag Event
+		Sub ValueChanged()
+		  Button.HasBottomBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxHasLeftBorder
+	#tag Event
+		Sub ValueChanged()
+		  Button.HasLeftBorder = Me.Value
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxHasRightBorder
+	#tag Event
+		Sub ValueChanged()
+		  Button.HasRightBorder = Me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents

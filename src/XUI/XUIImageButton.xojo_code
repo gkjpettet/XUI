@@ -74,11 +74,23 @@ Inherits DesktopCanvas
 		    g.DrawPicture(p, (Me.Width / 2) - (p.Width / 2), (Me.Height / 2) - (p.Height / 2))
 		  End If
 		  
-		  // Border?
-		  If HasBorder And mBorderColor <> Nil Then
+		  // Borders?
+		  If mBorderColor <> Nil Then
 		    g.DrawingColor = mBorderColor
-		    g.DrawRectangle(0, 0, g.Width, g.Height)
+		    If HasTopBorder Then
+		      g.DrawLine(0, 0, g.Width, 0)
+		    End If
+		    If HasBottomBorder Then
+		      g.DrawLine(0, g.Height - 1, g.Width, g.Height - 1)
+		    End If
+		    If HasLeftBorder Then
+		      g.DrawLine(0, 0, 0, g.Height - 1)
+		    End If
+		    If HasRightBorder Then
+		      g.DrawLine(g.Width - 1, 0, g.Width - 1, g.Height - 1)
+		    End If
 		  End If
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -227,20 +239,68 @@ Inherits DesktopCanvas
 		DisabledImage As Picture
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F7264657220697320647261776E2061726F756E642074686520627574746F6E2E
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F7264657220697320647261776E20616C6F6E672074686520626F74746F6D2065646765206F662074686520627574746F6E2E
 		#tag Getter
 			Get
-			  Return mHasBorder
+			  Return mHasBottomBorder
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mHasBorder = value
+			  mHasBottomBorder = value
 			  
 			  Refresh
 			End Set
 		#tag EndSetter
-		HasBorder As Boolean
+		HasBottomBorder As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F7264657220697320647261776E20616C6F6E6720746865206C6566742065646765206F662074686520627574746F6E2E
+		#tag Getter
+			Get
+			  Return mHasLeftBorder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasLeftBorder = value
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		HasLeftBorder As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F7264657220697320647261776E20616C6F6E67207468652072696768742065646765206F662074686520627574746F6E2E
+		#tag Getter
+			Get
+			  Return mHasRightBorder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasRightBorder = value
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		HasRightBorder As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E206120626F7264657220697320647261776E20616C6F6E672074686520746F702065646765206F662074686520627574746F6E2E
+		#tag Getter
+			Get
+			  Return mHasTopBorder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mHasTopBorder = value
+			  
+			  Refresh
+			End Set
+		#tag EndSetter
+		HasTopBorder As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 54686520696D61676520746F2075736520666F722074686520627574746F6E207768656E20746865206D6F75736520697320686F766572696E67206F7665722069742E204966206E6F74207370656369666965642C207468652064656661756C7420696D61676520697320757365642E
@@ -287,8 +347,20 @@ Inherits DesktopCanvas
 		Private mDisabledImage As Picture
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F7264657220697320647261776E2061726F756E642074686520627574746F6E2E
-		Private mHasBorder As Boolean = False
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F7264657220697320647261776E20616C6F6E672074686520626F74746F6D2065646765206F662074686520627574746F6E2E
+		Private mHasBottomBorder As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F7264657220697320647261776E20616C6F6E6720746865206C6566742065646765206F662074686520627574746F6E2E
+		Private mHasLeftBorder As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F7264657220697320647261776E20616C6F6E67207468652072696768742065646765206F662074686520627574746F6E2E
+		Private mHasRightBorder As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 49662054727565207468656E206120626F7264657220697320647261776E20616C6F6E672074686520746F702065646765206F662074686520627574746F6E2E
+		Private mHasTopBorder As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520696D61676520746F2075736520666F722074686520627574746F6E207768656E20746865206D6F75736520697320686F766572696E67206F7665722069742E204966206E6F74207370656369666965642C207468652064656661756C7420696D61676520697320757365642E
@@ -530,7 +602,7 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="HasBorder"
+			Name="HasTopBorder"
 			Visible=true
 			Group="Behavior"
 			InitialValue="False"
