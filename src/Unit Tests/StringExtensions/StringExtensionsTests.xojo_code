@@ -1,9 +1,20 @@
 #tag Class
 Protected Class StringExtensionsTests
 Inherits TOMLKitTestGroupBase
+	#tag Event
+		Sub Setup()
+		  #Pragma Warning "TODO: Finish adding tests for all string extension methods"
+		  
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
-		Sub Example1Test()
-		  Assert.Pass
+		Sub ContainsTest()
+		  Var s1 As String = "Hello World"
+		  Assert.IsTrue(s1.Contains("World", True))
+		  Assert.IsTrue(s1.Contains("world", False))
+		  Assert.IsFalse(s1.Contains("world", True))
 		End Sub
 	#tag EndMethod
 
