@@ -78,6 +78,7 @@ End
 	#tag Event
 		Sub Opening()
 		  Tests.AddTest("TOML", WinTOMLKitUnitTests)
+		  Tests.AddTest("StringExtensions", WinStringExtensionsUnitTests)
 		End Sub
 	#tag EndEvent
 

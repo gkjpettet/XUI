@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DemoWindow WinTOMLKitUnitTests
+Begin DemoWindow WinStringExtensionsUnitTests
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
@@ -766,7 +766,7 @@ Begin DemoWindow WinTOMLKitUnitTests
       TabPanelIndex   =   0
       Visible         =   True
    End
-   Begin TOMLKitTestController Controller
+   Begin StringExtensionsTestController Controller
       AllTestCount    =   0
       Duration        =   0.0
       FailedCount     =   0
@@ -870,67 +870,7 @@ End
 		  
 		  PopulateTestGroups
 		  
-		  // Run unit tests now and exit?
-		  //
-		  // Note:
-		  //   The '--rununittests path' argument must be last
-		  
-		  Var argString As String = System.CommandLine
-		  
-		  Var rx As New RegEx
-		  rx.SearchPattern = "(?mi-Us)\s?--rununittests\b( (.+))?"
-		  
-		  Var match As RegExMatch = rx.Search(argString)
-		  
-		  If match IsA Object Then
-		    Try
-		      #Pragma BreakOnExceptions False
-		      ExportFilePath = match.SubExpressionString(2) // Let it raise an exception if needed
-		      #Pragma BreakOnExceptions Default 
-		    Catch err As OutOfBoundsException
-		      err.Message = "A valid export file path was not provided"
-		      Raise err
-		    End Try
-		    
-		    If ExportFilePath.Encoding Is Nil Then
-		      ExportFilePath = ExportFilePath.DefineEncoding(Encodings.UTF8)
-		    Else
-		      ExportFilePath = ExportFilePath.ConvertEncoding(Encodings.UTF8)
-		    End If
-		    
-		    RunTests
-		  End
-		  
-		  //
-		  // Alternative: Include or Exclude unit tests with
-		  //
-		  //  --includeunittests or --excludeunitttests
-		  //
-		  // Multiple patterns can be specified with commas.
-		  //
-		  // Note:
-		  //  These must also be last.
-		  //
-		  
-		  rx.SearchPattern = "(?mi-Us)(?<=\s)--(include|exclude)unittests\b (.+)"
-		  match = rx.Search(argString)
-		  
-		  If match IsA Object Then
-		    Var type As String = match.SubExpressionString(1)
-		    Var pattern As String = match.SubExpressionString(2)
-		    Var patterns() As String = pattern.Split(",")
-		    
-		    Select Case type
-		    Case "include"
-		      Controller.FilterTests(patterns, Nil)
-		    Case "exclude"
-		      Controller.FilterTests(Nil, patterns)
-		    End Select
-		  End If
-		  
-		  //
 		  // Force a resize to accommodate the toolbar
-		  //
 		  Self.Height = Self.Height
 		  
 		End Sub

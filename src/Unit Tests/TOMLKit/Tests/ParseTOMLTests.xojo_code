@@ -148,44 +148,47 @@ Inherits TOMLKitTestGroupBase
 		  toml = "a=" + DateString
 		  d = ParseTOML(toml)
 		  dt = d.Value( "a" )
-		  Assert.AreEqual(DateString.Replace( "T", " " ), dt.SQLDateTime)
-		  Assert.AreEqual(0, dt.Nanosecond)
-		  Assert.AreEqual(currentTimeZone.SecondsFromGMT, dt.Timezone.SecondsFromGMT)
+		  Assert.AreEqual(DateString.Replace( "T", " " ), dt.SQLDateTime, "1a")
+		  Assert.AreEqual(0, dt.Nanosecond, "1b")
+		  
+		  Var expectedDT1 As New DateTime(1987, 1, 6, 3, 46, 24, 0, currentTimeZone)
+		  Assert.AreEqual(expectedDT1.Timezone.SecondsFromGMT, dt.Timezone.SecondsFromGMT, "1c")
 		  
 		  dateString = "2001-11-15 15:46:01.88698"
 		  toml = "a=" + DateString
 		  d = ParseTOML(toml)
 		  dt = d.Value( "a" )
-		  Assert.AreEqual(DateString.Replace( "T", " " ).Left( dt.SQLDateTime.Length ), dt.SQLDateTime)
-		  Assert.AreEqual(886980000, dt.Nanosecond)
-		  Assert.AreEqual(currentTimeZone.SecondsFromGMT, dt.Timezone.SecondsFromGMT)
+		  Assert.AreEqual(DateString.Replace( "T", " " ).Left( dt.SQLDateTime.Length ), dt.SQLDateTime, "2a")
+		  Assert.AreEqual(886980000, dt.Nanosecond, "2b")
+		  Var expectedDT2 As New DateTime(2001, 11, 15, 15, 46, 1, 88698, currentTimeZone)
+		  Assert.AreEqual(expectedDT2.Timezone.SecondsFromGMT, dt.Timezone.SecondsFromGMT, "2c")
 		  
 		  dateString = "2005-09-22T12:01:59.776Z"
 		  toml = "a=" + DateString
 		  d = ParseTOML(toml)
 		  dt = d.Value( "a" )
-		  Assert.AreEqual(DateString.Replace( "T", " " ).Left( dt.SQLDateTime.Length ), dt.SQLDateTime)
-		  Assert.IsTrue(dt.Nanosecond > 775000000 And dt.Nanosecond < 1000000000)
-		  Assert.AreEqual(0, dt.Timezone.SecondsFromGMT)
+		  Assert.AreEqual(DateString.Replace( "T", " " ).Left( dt.SQLDateTime.Length ), dt.SQLDateTime, "3a")
+		  Assert.IsTrue(dt.Nanosecond > 775000000 And dt.Nanosecond < 1000000000, "3b")
+		  Assert.AreEqual(0, dt.Timezone.SecondsFromGMT, "3c")
 		  
 		  dateString = "2011-11-02 18:23:03-07:00"
 		  toml = "a=" + DateString
 		  d = ParseTOML(toml)
 		  dt = d.Value( "a" )
-		  Assert.AreEqual(DateString.Replace( "T", " " ).Left( dt.SQLDateTime.Length ), dt.SQLDateTime)
-		  Assert.AreEqual(-7 * 60 * 60 , dt.Timezone.SecondsFromGMT)
+		  Assert.AreEqual(DateString.Replace( "T", " " ).Left( dt.SQLDateTime.Length ), dt.SQLDateTime, "4a")
+		  Assert.AreEqual(-7 * 60 * 60 , dt.Timezone.SecondsFromGMT, "4b")
 		  
 		  dateString = "2011-11-02 18:23:03+07:00"
 		  toml = "a=" + DateString
 		  d = ParseTOML(toml)
 		  dt = d.Value( "a" )
-		  Assert.AreEqual(7 * 60 * 60 , dt.Timezone.SecondsFromGMT)
+		  Assert.AreEqual(7 * 60 * 60 , dt.Timezone.SecondsFromGMT, "5a")
 		  
 		  dateString = "1979-05-27T07:32:00-08:00#First class dates"
 		  toml = "a=" + DateString
 		  d = ParseTOML(toml)
 		  dt = d.Value( "a" )
-		  Assert.AreEqual(DateString.Replace( "T", " " ).Left( dt.SQLDateTime.Length ), dt.SQLDateTime)
+		  Assert.AreEqual(DateString.Replace( "T", " " ).Left( dt.SQLDateTime.Length ), dt.SQLDateTime, "5a")
 		  
 		End Sub
 	#tag EndMethod
@@ -584,6 +587,86 @@ Inherits TOMLKitTestGroupBase
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Duration"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FailedTestCount"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IncludeGroup"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsRunning"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="NotImplementedCount"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PassedTestCount"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RunTestCount"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SkippedTestCount"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StopTestOnFail"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TestCount"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true

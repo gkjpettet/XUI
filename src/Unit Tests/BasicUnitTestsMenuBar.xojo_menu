@@ -1,5 +1,5 @@
 #tag Menu
-Begin Menu TOMLKitUnitTestsMenuBar
+Begin Menu BasicUnitTestsMenuBar
    Begin DesktopMenuItem FileMenu
       SpecialMenu = 0
       Index = -2147483648

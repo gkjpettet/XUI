@@ -41,10 +41,6 @@ Inherits DesktopListBox
 		  Var test As TestsListBoxItem = Self.RowTagAt(row)
 		  
 		  g.FontSize = TEST_NAME_FONT_SIZE
-		  Var nameH As Double = g.TextHeight
-		  Var nameW As Double = g.TextWidth(test.Name)
-		  
-		  Var nameY As Double = (g.Height / 2) - (nameH / 2) + FUDGE
 		  
 		  // Test name.
 		  g.FontSize = TEST_NAME_FONT_SIZE
@@ -54,7 +50,6 @@ Inherits DesktopListBox
 		    g.DrawingColor = mTestNameColor
 		  End If
 		  g.DrawText(test.Name, x, y)
-		  'g.DrawText(test.Name, (g.Width / 2) - (nameW / 2), nameY)
 		  
 		  Return True
 		End Function
