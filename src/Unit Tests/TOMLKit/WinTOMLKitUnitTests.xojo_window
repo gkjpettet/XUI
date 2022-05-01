@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow WinTOMLKitUnitTests
+Begin DemoWindow WinTOMLKitUnitTests
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
@@ -22,7 +22,7 @@ Begin DesktopWindow WinTOMLKitUnitTests
    Resizeable      =   True
    Title           =   "TOMLKit Unit Tests"
    Type            =   0
-   Visible         =   True
+   Visible         =   False
    Width           =   800
    Begin DesktopGroupBox GroupBoxes
       AllowAutoDeactivate=   True
@@ -767,13 +767,25 @@ Begin DesktopWindow WinTOMLKitUnitTests
       Visible         =   True
    End
    Begin TOMLKitTestController Controller
+      AllTestCount    =   0
+      Duration        =   0.0
+      FailedCount     =   0
+      GroupCount      =   0
       Index           =   -2147483648
+      IsRunning       =   False
       LockedInPosition=   False
+      NotImplementedCount=   0
+      PassedCount     =   0
+      RunGroupCount   =   0
+      RunTestCount    =   0
       Scope           =   0
+      SkippedCount    =   0
       TabPanelIndex   =   0
    End
    Begin DesktopProgressWheel ProgressWheel1
+      Active          =   False
       AllowAutoDeactivate=   True
+      AllowTabStop    =   False
       Enabled         =   True
       Height          =   16
       Index           =   -2147483648
@@ -784,6 +796,7 @@ Begin DesktopWindow WinTOMLKitUnitTests
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
+      PanelIndex      =   0
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -793,6 +806,10 @@ Begin DesktopWindow WinTOMLKitUnitTests
       Transparent     =   False
       Visible         =   False
       Width           =   16
+      _mIndex         =   0
+      _mInitialParent =   ""
+      _mName          =   ""
+      _mPanelIndex    =   0
    End
    Begin DesktopListBox TestGroupList
       AllowAutoDeactivate=   True
@@ -1776,8 +1793,8 @@ End
 		Visible=true
 		Group="Background"
 		InitialValue="&hFFFFFF"
-		Type="Color"
-		EditorType="Color"
+		Type="ColorGroup"
+		EditorType="ColorGroup"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Backdrop"
@@ -1840,7 +1857,7 @@ End
 		Visible=true
 		Group="Appearance"
 		InitialValue=""
-		Type="MenuBar"
+		Type="DesktopMenuBar"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
