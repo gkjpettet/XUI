@@ -637,6 +637,48 @@ Protected Module XUIStringExtensions
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 4C656674206A75737469666965732060736020746F20607769647468602063686172616374657273207573696E672060636861726020746F207061642074686520726967687420656467652069662072657175697265642E
+		Function JustifyLeft(Extends s As String, width As Integer, char As String = " ") As String
+		  /// Left justifies `s` to `width` characters using `char` to pad the right edge if required.
+		  ///
+		  /// E.g: "Hello".JustifyLeft(10) becomes "Hello     "
+		  
+		  Var padCount As Integer = width - s.CharacterCount
+		  
+		  // Quick escape?
+		  If padCount <= 0 Then Return s
+		  
+		  Var padding() As String
+		  For i As Integer = 1 To padCount
+		    padding.Add(char)
+		  Next i
+		  
+		  Return s + String.FromArray(padding, "")
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 5269676874206A75737469666965732060736020746F20607769647468602063686172616374657273207573696E672060636861726020746F2070616420746865206C65667420656467652069662072657175697265642E
+		Function JustifyRight(Extends s As String, width As Integer, char As String = " ") As String
+		  /// Right justifies `s` to `width` characters using `char` to pad the left edge if required.
+		  ///
+		  /// E.g: "Hello".JustifyRight(10) becomes "     Hello"
+		  
+		  Var padCount As Integer = width - s.CharacterCount
+		  
+		  // Quick escape?
+		  If padCount <= 0 Then Return s
+		  
+		  Var padding() As String
+		  For i As Integer = 1 To padCount
+		    padding.Add(char)
+		  Next i
+		  
+		  Return String.FromArray(padding, "") + s
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E73205B636F756E745D206C6566742D6D6F737420636861726163746572732066726F6D205B735D2E
 		Function LeftCharacters(Extends s As String, count As Integer) As String
 		  /// Returns [count] left-most characters from [s].

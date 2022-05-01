@@ -18,6 +18,28 @@ Inherits TOMLKitTestGroupBase
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub JustifyLeftTest()
+		  Var s As String = "Hello World"
+		  Assert.AreEqual(s.JustifyLeft(14), "Hello World   ")
+		  
+		  s = "Hello"
+		  Assert.AreEqual(s.JustifyLeft(5), "Hello")
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub JustifyRightTest()
+		  Var s As String = "Hello World"
+		  Assert.AreEqual(s.JustifyRight(14), "   Hello World")
+		  
+		  s = "Hello"
+		  Assert.AreEqual(s.JustifyRight(5), "Hello")
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag ViewBehavior
 		#tag ViewProperty
