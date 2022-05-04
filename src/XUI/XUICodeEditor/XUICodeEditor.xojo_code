@@ -3488,6 +3488,13 @@ Implements XUINotificationListener
 	#tag EndHook
 
 
+	#tag Note, Name = About
+		A powerful and highly customisable code editor control based on the open source `TextInputCanvas` control.
+		The control supports themes, multiple languages, autocompletion and a robust undo engine.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 547275652069662074686520656469746F7220737570706F727473206175746F636F6D706C6574696F6E2E
 		AllowAutocomplete As Boolean = True
 	#tag EndProperty
@@ -4456,7 +4463,7 @@ Implements XUINotificationListener
 		VerticalBar
 	#tag EndEnum
 
-	#tag Enum, Name = ContentTypes, Type = Integer, Flags = &h0
+	#tag Enum, Name = ContentTypes, Type = Integer, Flags = &h0, Description = 5468652074797065206F6620636F6E74656E742074686520656469746F722069732070726F63657373696E672E
 		Markdown
 		SourceCode
 	#tag EndEnum

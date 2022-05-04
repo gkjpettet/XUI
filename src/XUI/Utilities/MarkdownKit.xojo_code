@@ -641,6 +641,16 @@ Protected Module MarkdownKit
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A 100% CommonMark compliant Markdown parser. I needed a fast and robust parser that not only would reliably 
+		generate the correct output but would also run on iOS. After looking around I realised that there was no other 
+		solution available for Xojo and so I decided to write one myself.
+		
+		`MarkdownKit` takes Markdown as input and generates a `MKDocument` which is essentially an 
+		abstract syntax tree (AST). From the AST, it is then able to render the input as HTML.
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h1, Description = 4120636173652D73656E7369746976652064696374696F6E61727920636F6E7461696E696E67207468652048544D4C20656E74697479207265666572656E63657320616E6420746865697220636F72726573706F6E64696E6720756E69636F646520636F6465706F696E74732E204B6579203D20656E746974792C2056616C7565203D20636F6465706F696E742E
 		#tag Getter
 			Get
