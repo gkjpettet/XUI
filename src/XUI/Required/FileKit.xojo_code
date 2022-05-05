@@ -1,7 +1,7 @@
 #tag Module
 Protected Module FileKit
-	#tag Method, Flags = &h1, Description = 436F706965732060736F757263656020746F206064657374696E6174696F6E602E
-		Protected Function CopyTo(Extends source As FolderItem, destination As FolderItem, overwrite As Boolean = False) As FileKit.Errors
+	#tag Method, Flags = &h0, Description = 436F706965732060736F757263656020746F206064657374696E6174696F6E602E
+		Function CopyTo(Extends source As FolderItem, destination As FolderItem, overwrite As Boolean = False) As FileKit.Errors
 		  /// Copies `source` to `destination`.
 		  ///
 		  /// `source` is the file or folder to copy.
@@ -11,8 +11,8 @@ Protected Module FileKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 436F706965732060736F757263656020746F206064657374696E6174696F6E602E
-		Protected Function CopyTo(source As FolderItem, destination As FolderItem, overwrite As Boolean = False) As FileKit.Errors
+	#tag Method, Flags = &h0, Description = 436F706965732060736F757263656020746F206064657374696E6174696F6E602E
+		Function CopyTo(source As FolderItem, destination As FolderItem, overwrite As Boolean = False) As FileKit.Errors
 		  /// Copies `source` to `destination`.
 		  ///
 		  /// `source` is the file or folder to copy.
@@ -107,18 +107,8 @@ Protected Module FileKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 496E697469616C6973657320746865206D6F64756C652E
-		Protected Sub Initialise()
-		  /// Initialises the module.
-		  
-		  SetupProtectedFiles
-		  
-		  mInitialised = True
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1, Description = 4D6D6F7665732060736F757263656020746F206064657374696E6174696F6E602E
-		Protected Function MoveTo(Extends source As FolderItem, destination As FolderItem, overwrite As Boolean = False) As FileKit.Errors
+	#tag Method, Flags = &h0, Description = 4D6D6F7665732060736F757263656020746F206064657374696E6174696F6E602E
+		Function MoveTo(Extends source As FolderItem, destination As FolderItem, overwrite As Boolean = False) As FileKit.Errors
 		  /// Mmoves `source` to `destination`.
 		  ///
 		  /// `source` is the file or folder to move.
@@ -128,8 +118,8 @@ Protected Module FileKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 4D6D6F7665732060736F757263656020746F206064657374696E6174696F6E602E
-		Protected Function MoveTo(source As FolderItem, destination As FolderItem, overwrite As Boolean = False) As FileKit.Errors
+	#tag Method, Flags = &h0, Description = 4D6D6F7665732060736F757263656020746F206064657374696E6174696F6E602E
+		Function MoveTo(source As FolderItem, destination As FolderItem, overwrite As Boolean = False) As FileKit.Errors
 		  /// Mmoves `source` to `destination`.
 		  ///
 		  /// `source` is the file or folder to move.
@@ -224,22 +214,20 @@ Protected Module FileKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 436F6D706C6574656C792064656C6574657320607768617460206576656E206966206974206973206120666F6C646572207769746820636F6E74656E74732E2052657475726E732054727565206966207375636365737366756C2E
-		Protected Function ReallyDelete(Extends what As FolderItem, safeMode As Boolean = True) As Boolean
+	#tag Method, Flags = &h0, Description = 436F6D706C6574656C792064656C6574657320607768617460206576656E206966206974206973206120666F6C646572207769746820636F6E74656E74732E2052657475726E732054727565206966207375636365737366756C2E
+		Function ReallyDelete(Extends what As FolderItem, safeMode As Boolean = True) As Boolean
 		  /// Completely deletes `what` even if it is a folder with contents. Returns True if successful.
 		  
 		  Return ReallyDelete(what, safeMode)
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 436F6D706C6574656C792064656C6574657320607768617460206576656E206966206974206973206120666F6C646572207769746820636F6E74656E74732E2052657475726E732054727565206966207375636365737366756C2E
-		Protected Function ReallyDelete(what As FolderItem, safeMode As Boolean = True) As Boolean
+	#tag Method, Flags = &h0, Description = 436F6D706C6574656C792064656C6574657320607768617460206576656E206966206974206973206120666F6C646572207769746820636F6E74656E74732E2052657475726E732054727565206966207375636365737366756C2E
+		Function ReallyDelete(what As FolderItem, safeMode As Boolean = True) As Boolean
 		  /// Completely deletes `what` even if it is a folder with contents. Returns True if successful.
 		  
-		  If Not mInitialised Then Initialise
-		  
 		  // Do NOT permit the deletion of important special folders if in safe mode.
-		  If safeMode And protectedFolderItems.HasKey(what.NativePath) Then
+		  If safeMode And ProtectedFolderItems.HasKey(what.NativePath) Then
 		    Var err As New RuntimeException
 		    err.Message = "An attempt to delete the protected FolderItem `" + _
 		    what.NativePath + "` was made. Deletion aborted."
@@ -305,9 +293,9 @@ Protected Module FileKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 496E697469616C69736573207468652044696374696F6E61727920746861742073746F7265732074686520466F6C6465724974656D732074686174206D757374206E657665722062652064656C6574656420627920605265616C6C7944656C657465282960
-		Private Sub SetupProtectedFiles()
-		  /// Initialises the Dictionary that stores the FolderItems that must never be deleted by `ReallyDelete()`
+	#tag Method, Flags = &h21, Description = 52657475726E73207468652044696374696F6E61727920746861742073746F7265732074686520466F6C6465724974656D732074686174206D757374206E657665722062652064656C6574656420627920605265616C6C7944656C657465282960
+		Private Function SetupProtectedFiles() As Dictionary
+		  /// Returns the Dictionary that stores the FolderItems that must never be deleted by `ReallyDelete()`
 		  ///
 		  /// Which locations are protected depends upon the platform that the app is currently running on.
 		  ///
@@ -325,75 +313,77 @@ Protected Module FileKit
 		  /// ApplicationData, Bin, Desktop, Documents, Etc, Home, Library, Mount, Movies, Music, Pictures, 
 		  /// SBin, UserBin, UserHome, UserLibrary, UsersBin
 		  
-		  protectedFolderItems = New Dictionary
+		  Var d As New Dictionary
 		  
 		  #If TargetWindows
-		    protectedFolderItems.Value(SpecialFolder.ApplicationData.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Applications.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Desktop.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Documents.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Extensions.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Favorites.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Fonts.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Movies.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Music.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Pictures.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Printers.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.SharedApplicationData.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.SharedDocuments.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.System.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserHome.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Windows.NativePath) = True
+		    d.Value(SpecialFolder.ApplicationData.NativePath) = True
+		    d.Value(SpecialFolder.Applications.NativePath) = True
+		    d.Value(SpecialFolder.Desktop.NativePath) = True
+		    d.Value(SpecialFolder.Documents.NativePath) = True
+		    d.Value(SpecialFolder.Extensions.NativePath) = True
+		    d.Value(SpecialFolder.Favorites.NativePath) = True
+		    d.Value(SpecialFolder.Fonts.NativePath) = True
+		    d.Value(SpecialFolder.Movies.NativePath) = True
+		    d.Value(SpecialFolder.Music.NativePath) = True
+		    d.Value(SpecialFolder.Pictures.NativePath) = True
+		    d.Value(SpecialFolder.Printers.NativePath) = True
+		    d.Value(SpecialFolder.SharedApplicationData.NativePath) = True
+		    d.Value(SpecialFolder.SharedDocuments.NativePath) = True
+		    d.Value(SpecialFolder.System.NativePath) = True
+		    d.Value(SpecialFolder.UserHome.NativePath) = True
+		    d.Value(SpecialFolder.Windows.NativePath) = True
 		  #ElseIf TargetMacOS
-		    protectedFolderItems.Value(SpecialFolder.ApplicationData.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Applications.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Bin.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Desktop.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Documents.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Etc.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Favorites.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Fonts.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Home.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Library.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Mount.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Movies.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Music.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Pictures.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Preferences.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Printers.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.SBin.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.SharedApplicationData.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.SharedDocuments.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.SharedPreferences.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.System.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserBin.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserHome.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserLibrary.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserSBin.NativePath) = True
+		    d.Value(SpecialFolder.ApplicationData.NativePath) = True
+		    d.Value(SpecialFolder.Applications.NativePath) = True
+		    d.Value(SpecialFolder.Bin.NativePath) = True
+		    d.Value(SpecialFolder.Desktop.NativePath) = True
+		    d.Value(SpecialFolder.Documents.NativePath) = True
+		    d.Value(SpecialFolder.Etc.NativePath) = True
+		    d.Value(SpecialFolder.Favorites.NativePath) = True
+		    d.Value(SpecialFolder.Fonts.NativePath) = True
+		    d.Value(SpecialFolder.Home.NativePath) = True
+		    d.Value(SpecialFolder.Library.NativePath) = True
+		    d.Value(SpecialFolder.Mount.NativePath) = True
+		    d.Value(SpecialFolder.Movies.NativePath) = True
+		    d.Value(SpecialFolder.Music.NativePath) = True
+		    d.Value(SpecialFolder.Pictures.NativePath) = True
+		    d.Value(SpecialFolder.Preferences.NativePath) = True
+		    d.Value(SpecialFolder.Printers.NativePath) = True
+		    d.Value(SpecialFolder.SBin.NativePath) = True
+		    d.Value(SpecialFolder.SharedApplicationData.NativePath) = True
+		    d.Value(SpecialFolder.SharedDocuments.NativePath) = True
+		    d.Value(SpecialFolder.SharedPreferences.NativePath) = True
+		    d.Value(SpecialFolder.System.NativePath) = True
+		    d.Value(SpecialFolder.UserBin.NativePath) = True
+		    d.Value(SpecialFolder.UserHome.NativePath) = True
+		    d.Value(SpecialFolder.UserLibrary.NativePath) = True
+		    d.Value(SpecialFolder.UserSBin.NativePath) = True
 		  #Else
-		    protectedFolderItems.Value(SpecialFolder.ApplicationData.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Bin.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Desktop.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Documents.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Etc.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Home.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Library.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Mount.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Movies.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Music.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.Pictures.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.SBin.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserBin.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserHome.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserLibrary.NativePath) = True
-		    protectedFolderItems.Value(SpecialFolder.UserSBin.NativePath) = True
+		    d.Value(SpecialFolder.ApplicationData.NativePath) = True
+		    d.Value(SpecialFolder.Bin.NativePath) = True
+		    d.Value(SpecialFolder.Desktop.NativePath) = True
+		    d.Value(SpecialFolder.Documents.NativePath) = True
+		    d.Value(SpecialFolder.Etc.NativePath) = True
+		    d.Value(SpecialFolder.Home.NativePath) = True
+		    d.Value(SpecialFolder.Library.NativePath) = True
+		    d.Value(SpecialFolder.Mount.NativePath) = True
+		    d.Value(SpecialFolder.Movies.NativePath) = True
+		    d.Value(SpecialFolder.Music.NativePath) = True
+		    d.Value(SpecialFolder.Pictures.NativePath) = True
+		    d.Value(SpecialFolder.SBin.NativePath) = True
+		    d.Value(SpecialFolder.UserBin.NativePath) = True
+		    d.Value(SpecialFolder.UserHome.NativePath) = True
+		    d.Value(SpecialFolder.UserLibrary.NativePath) = True
+		    d.Value(SpecialFolder.UserSBin.NativePath) = True
 		  #EndIf
 		  
-		End Sub
+		  Return d
+		  
+		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F66206572726F72206065602E
-		Protected Function ToString(Extends e As FileKit.Errors) As String
+	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F66206572726F72206065602E
+		Function ToString(Extends e As FileKit.Errors) As String
 		  /// Returns a string representation of error `e`.
 		  
 		  Select Case e
@@ -710,27 +700,21 @@ Protected Module FileKit
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21
-		Private mInitialised As Boolean = False
+	#tag ComputedProperty, Flags = &h1, Description = 412064696374696F6E61727920636F6E7461696E696E672070617468732074686174206172652070726F7465637465642E204B6579203D204E617469766520706174682C2056616C7565203D20426F6F6C65616E2E
+		#tag Getter
+			Get
+			  Static d As Dictionary = SetupProtectedFiles
+			  
+			  Return d
+			End Get
+		#tag EndGetter
+		Protected ProtectedFolderItems As Dictionary
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h1, Description = 547275652069662046696C654B69742073686F756C642072756E20696E2073616665206D6F64652077686963682070726576656E7473206365727461696E2070617468732066726F6D206265696E672064656C657465642E
+		Protected SafeMode As Boolean = True
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected protectedFolderItems As Dictionary
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected safeMode As Boolean = True
-	#tag EndProperty
-
-
-	#tag Constant, Name = kVersionBug, Type = Double, Dynamic = False, Default = \"0", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = kVersionMajor, Type = Double, Dynamic = False, Default = \"1", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = kVersionMinor, Type = Double, Dynamic = False, Default = \"0", Scope = Protected
-	#tag EndConstant
 
 	#tag Constant, Name = QUOTE, Type = String, Dynamic = False, Default = \"\"", Scope = Private
 	#tag EndConstant
