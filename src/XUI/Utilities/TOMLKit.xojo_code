@@ -95,13 +95,14 @@ Protected Module TOMLKit
 
 
 	#tag Note, Name = Acknowledgements
-		's M_TOML module which can be found:
+		Ported from `M_TOML`, written by Kem Tekinay which can be found at:
 		
-		https://github.com/ktekinay/Xojo-TOML
+		[https://github.com/ktekinay/Xojo-TOML][1]
 		
 		I have renamed and rewritten small parts to better fit with my preferred coding style but all 
 		credit is due to Kem.
 		
+		[1]: https://github.com/ktekinay/Xojo-TOML
 	#tag EndNote
 
 

@@ -437,9 +437,9 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		  /// Part of the MKRenderer interface.
 		  ///
 		  /// Link types:
-		  /// Shortcut: ![foo]
-		  /// Collapsed: ![foo][]
-		  /// Full: ![foo](foo.com)
+		  /// Shortcut: `![foo]`
+		  /// Collapsed: `![foo][]`
+		  /// Full: `![foo](foo.com)`
 		  
 		  Var line As XUICELine
 		  
@@ -555,9 +555,9 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		  /// Part of the MKRenderer interface.
 		  ///
 		  /// Link types:
-		  /// Shortcut: [foo]
-		  /// Collapsed: [foo][]
-		  /// Full: [foo](foo.com)
+		  /// Shortcut: `[foo]`
+		  /// Collapsed: `[foo][]`
+		  /// Full: `[foo](foo.com)`
 		  
 		  Var line As XUICELine
 		  

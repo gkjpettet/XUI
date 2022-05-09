@@ -1,11 +1,11 @@
 #tag Class
 Protected Class XUICELineManager
-	#tag Method, Flags = &h0, Description = 41646A757374732074686520737461727420616E6420656E6420706F736974696F6E73206F66206576657279206C696E6520626567696E6E696E67206174205B66697273744C696E654E756D6265725D206279205B76616C75655D2E
+	#tag Method, Flags = &h0, Description = 41646A757374732074686520737461727420616E6420656E6420706F736974696F6E73206F66206576657279206C696E6520626567696E6E696E67206174206066697273744C696E654E756D62657260206279206076616C7565602E
 		Sub AdjustLineOffsets(firstLineNumber As Integer, value As Integer, lineNumberDelta As Integer)
 		  /// Adjusts the start and end positions of every line beginning at 
-		  /// [firstLineNumber] by [value].
+		  /// `firstLineNumber` by `value`.
 		  ///
-		  /// [lineNumberDelta] is the number to adjust the line numbers by.
+		  /// `lineNumberDelta` is the number to adjust the line numbers by.
 		  
 		  // Sanity check.
 		  If firstLineNumber < 1 Then
@@ -81,9 +81,9 @@ Protected Class XUICELineManager
 		Function ContentsFrom(startLineNumber As Integer, endLineNum As Integer = -1) As String
 		  /// Returns the contents of every line in the passed range (inclusive).
 		  ///
-		  /// [startLineNum] is the 1-based number of the line to start at.
-		  /// [endLineNum] is the 1-based number of the line to end at.
-		  /// If [endLineNum] = -1 then we get all contents from [startLineNum] to the last line.
+		  /// `startLineNum` is the 1-based number of the line to start at.
+		  /// `endLineNum` is the 1-based number of the line to end at.
+		  /// If `endLineNum` = -1 then we get all contents from `startLineNum` to the last line.
 		  
 		  If endLineNum = -1 Then endLineNum = Lines.Count
 		  
@@ -108,8 +108,8 @@ Protected Class XUICELineManager
 		Sub DeleteAllLines(allowUndo As Boolean, shouldInvalidate As Boolean, raiseContentsDidChange As Boolean = True)
 		  /// Deletes all lines and updates the caret position.
 		  ///
-		  /// If [allowUndo] is True then this action will be undoable.
-		  /// If [shouldInvalidate] is False then the canvas will not be immediately invalidated.
+		  /// If `allowUndo` is True then this action will be undoable.
+		  /// If `shouldInvalidate` is False then the canvas will not be immediately invalidated.
 		  
 		  mLastChanged = System.Microseconds
 		  
@@ -129,12 +129,12 @@ Protected Class XUICELineManager
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 44656C6574657320746865206C696E65206174205B6C696E654E756D6265725D20616E642061646A757374732073756273657175656E74206C696E65206F666673657473206279205B61646A75737442795D2E20446F6573206E6F74206D6F7665207468652063617265742E
+	#tag Method, Flags = &h0, Description = 44656C6574657320746865206C696E6520617420606C696E654E756D6265726020616E642061646A757374732073756273657175656E74206C696E65206F666673657473206279206061646A7573744279602E20446F6573206E6F74206D6F7665207468652063617265742E
 		Sub DeleteLineAt(lineNumber As Integer, adjustBy As Integer)
-		  /// Deletes the line at [lineNumber] and adjusts subsequent line offsets by [adjustBy]. 
+		  /// Deletes the line at `lineNumber` and adjusts subsequent line offsets by `adjustBy`. 
 		  /// Does not move the caret.
 		  ///
-		  /// Raises an [InvalidArgumentException] if [lineNumber] is out of range.
+		  /// Raises an `InvalidArgumentException` if `lineNumber` is out of range.
 		  
 		  mLastChanged = System.Microseconds
 		  
@@ -169,10 +169,10 @@ Protected Class XUICELineManager
 		Sub DeleteSelection(allowUndo As Boolean, shouldInvalidate As Boolean, raiseContentsDidChange As Boolean = True, undoMessage As String = "")
 		  /// Deletes the current text selection and updates the caret position.
 		  ///
-		  /// If [allowUndo] is True then this action should be pushed to the undo manager.
-		  /// If [shouldInvalidate] is True then the canvas will be invalidated after the deletion.
-		  /// If [raiseContentsDidChange] is True then we will raise the editor's `ContentsDidChange event`.
-		  /// [undoMessage] is an optional override message for undoable actions.
+		  /// If `allowUndo` is True then this action should be pushed to the undo manager.
+		  /// If `shouldInvalidate` is True then the canvas will be invalidated after the deletion.
+		  /// If `raiseContentsDidChange` is True then we will raise the editor's `ContentsDidChange event`.
+		  /// `undoMessage` is an optional override message for undoable actions.
 		  ///
 		  /// There are 6 scenarios:
 		  /// 1. A single whole line is selected.
@@ -402,17 +402,17 @@ Protected Class XUICELineManager
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 496E7365727473205B636861725D206174205B6361726574506F735D20616E6420757064617465732074686520746865206F776E696E6720656469746F72277320636172657420706F736974696F6E2E
+	#tag Method, Flags = &h0, Description = 496E73657274732060636861726020617420606361726574506F736020616E6420757064617465732074686520746865206F776E696E6720656469746F72277320636172657420706F736974696F6E2E
 		Sub InsertCharacter(caretPos As Integer, char As String, allowUndo As Boolean, raiseContentsDidChange As Boolean = True)
-		  /// Inserts [char] at [caretPos] and updates the the owning editor's caret position.
+		  /// Inserts `char` at `caretPos` and updates the the owning editor's caret position.
 		  ///
-		  /// If [allowUndo] is True then this action will be undoable.
-		  /// If [raiseContentsDidChange] is True then we raise the editor's `ContentsDidChange` event.
+		  /// If `allowUndo` is True then this action will be undoable.
+		  /// If `raiseContentsDidChange` is True then we raise the editor's `ContentsDidChange` event.
 		  ///
 		  /// For performance, we make a number of assumptions:
-		  /// - Assumes that [char] is a single character.
+		  /// - Assumes that `char` is a single character.
 		  /// - Assumes `0 <= caretPos > (LastLine.EndPosition + 1)`.
-		  /// - Assumes [char] is not a newline character.
+		  /// - Assumes `char` is not a newline character.
 		  
 		  mLastChanged = System.Microseconds
 		  
@@ -462,12 +462,12 @@ Protected Class XUICELineManager
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 4372656174657320616E6420696E73657274732061206E6577206C696E65206174205B6C696E654E756D6265725D20636F6E7461696E696E67205B636F6E74656E74735D2C2072657475726E696E6720746865206E6577206C696E652E
+	#tag Method, Flags = &h0, Description = 4372656174657320616E6420696E73657274732061206E6577206C696E6520617420606C696E654E756D6265726020636F6E7461696E696E672060636F6E74656E7473602C2072657475726E696E6720746865206E6577206C696E652E
 		Function InsertLineAt(lineNumber As Integer, contents As String, adjustBy As Integer = 0) As XUICELine
-		  /// Creates and inserts a new line at [lineNumber] containing [contents], returning the new line.
+		  /// Creates and inserts a new line at `lineNumber` containing `contents`, returning the new line.
 		  ///
-		  /// [adjustBy] is an (additional) value to adjust all subsequent line offsets by.
-		  /// Raises an [InvalidArgumentException] if [lineNumber] is out of range.
+		  /// `adjustBy` is an (additional) value to adjust all subsequent line offsets by.
+		  /// Raises an `InvalidArgumentException` if `lineNumber` is out of range.
 		  
 		  mLastChanged = System.Microseconds
 		  
@@ -523,16 +523,16 @@ Protected Class XUICELineManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 496E7365727473205B735D20696E746F2074686520656469746F72206174205B6361726574506F735D2E205B735D206D617920636F6E7461696E206E65776C696E65732E20557064617465732074686520636172657420706F736974696F6E2E
+	#tag Method, Flags = &h0, Description = 496E73657274732060736020696E746F2074686520656469746F7220617420606361726574506F73602E20607360206D617920636F6E7461696E206E65776C696E65732E20557064617465732074686520636172657420706F736974696F6E2E
 		Sub InsertText(caretPos As Integer, s As String, allowUndo As Boolean, shouldInvalidate As Boolean, raiseContentsDidChange As Boolean)
-		  /// Inserts [s] into the editor at [caretPos]. [s] may contain newlines. Updates the caret position.
+		  /// Inserts `s` into the editor at `caretPos`. `s` may contain newlines. Updates the caret position.
 		  ///
-		  /// If [allowUndo] is True then push this action to the undo manager.
-		  /// If [shouldInvalidate] is False then the canvas will not immediately invalidate.
-		  /// If [raiseContentsDidChange] is True then we'll raise the editor's `ContentsDidChange` event.
+		  /// If `allowUndo` is True then push this action to the undo manager.
+		  /// If `shouldInvalidate` is False then the canvas will not immediately invalidate.
+		  /// If `raiseContentsDidChange` is True then we'll raise the editor's `ContentsDidChange` event.
 		  ///
-		  /// Assumes that [s] is not empty.
-		  /// [s] may contain newlines. If present they must have been standardised to `&u0A`.
+		  /// Assumes that `s` is not empty.
+		  /// `s` may contain newlines. If present they must have been standardised to `&u0A`.
 		  /// Clears any selection present prior to the insertion.
 		  ///
 		  /// There are three scenarios:
@@ -683,9 +683,9 @@ Protected Class XUICELineManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206C696E65206174205B6C696E654E756D6265725D206F72204E696C2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206C696E6520617420606C696E654E756D62657260206F72204E696C2E
 		Function LineAt(lineNumber As Integer) As XUICELine
-		  /// Returns the line at [lineNumber] or Nil.
+		  /// Returns the line at `lineNumber` or Nil.
 		  
 		  If lineNumber < 1 Or (lineNumber - 1) > Lines.LastIndex Then
 		    Return Nil
@@ -696,11 +696,11 @@ Protected Class XUICELineManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206C696E65207468617420776F756C6420636F6E7461696E2074686520302D6261736564205B6361726574506F735D2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206C696E65207468617420776F756C6420636F6E7461696E2074686520302D626173656420606361726574506F73602E
 		Function LineForCaretPos(caretPos As Integer) As XUICELine
-		  /// Returns the line that would contain the 0-based [caretPos].
+		  /// Returns the line that would contain the 0-based `caretPos`.
 		  ///
-		  /// Raises an [InvalidArgumentException] if [caretPos] is out of range.
+		  /// Raises an `InvalidArgumentException` if `caretPos` is out of range.
 		  
 		  Return LineAt(LineNumberForCaretPos(caretPos))
 		  
@@ -711,7 +711,7 @@ Protected Class XUICELineManager
 		Function LineNumberForCaretPos(pos As Integer) As Integer
 		  /// Returns the line number for the specified caret position.
 		  ///
-		  /// Raises an [InvalidArgumentException] if [pos] is out of range.
+		  /// Raises an `InvalidArgumentException` if `pos` is out of range.
 		  
 		  // Easy if there's only one line.
 		  If Lines.Count = 1 Then Return 1
@@ -743,11 +743,11 @@ Protected Class XUICELineManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420706F736974696F6E206F662074686520656E64206F662074686520776F726420616674657220746865205B6361726574506F735D2E
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420706F736974696F6E206F662074686520656E64206F662074686520776F72642061667465722074686520606361726574506F73602E
 		Function NextWordEnd(caretPos As Integer) As Integer
-		  /// Returns the caret position of the end of the word after the [caretPos].
+		  /// Returns the caret position of the end of the word after the `caretPos`.
 		  ///
-		  /// Raises an [InvalidArgumentException] if [caretPos] is out of range for this line.
+		  /// Raises an `InvalidArgumentException` if `caretPos` is out of range for this line.
 		  
 		  // Sanity checks.
 		  If caretPos < 0 Or caretPos > LastLine.Finish Then
@@ -786,11 +786,11 @@ Protected Class XUICELineManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420706F73206F6620746865207374617274206F662074686520776F7264206265666F726520746865205B6361726574506F735D2E
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420706F73206F6620746865207374617274206F662074686520776F7264206265666F72652074686520606361726574506F73602E
 		Function PreviousWordStart(caretPos As Integer) As Integer
-		  /// Returns the caret pos of the start of the word before the [caretPos].
+		  /// Returns the caret pos of the start of the word before the `caretPos`.
 		  ///
-		  /// Raises an [InvalidArgumentException] if [caretPos] is out of range for this line.
+		  /// Raises an `InvalidArgumentException` if `caretPos` is out of range for this line.
 		  
 		  // Sanity checks.
 		  If caretPos < 0 Or caretPos > LastLine.Finish Then
@@ -828,15 +828,15 @@ Protected Class XUICELineManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5265706C616365732074686520746578742073656C656374696F6E20696E20746865206F776E696E672063616E7661732077697468205B735D20616E6420757064617465732074686520636172657420706F736974696F6E2E
+	#tag Method, Flags = &h0, Description = 5265706C616365732074686520746578742073656C656374696F6E20696E20746865206F776E696E672063616E76617320776974682060736020616E6420757064617465732074686520636172657420706F736974696F6E2E
 		Sub ReplaceSelection(s As String, allowUndo As Boolean, shouldInvalidate As Boolean, raiseContentsDidChange As Boolean = True)
-		  /// Replaces the text selection in the owning canvas with [s] and updates the caret position.
+		  /// Replaces the text selection in the owning canvas with `s` and updates the caret position.
 		  ///
-		  /// If [allowUndo] is True then this replacement will be undoable.
-		  /// If [shouldInvalidate] is False then the canvas will not be immediately invalidated.
-		  /// If [raiseContentsDidChange] is True then we raise the editor's `ContentsDidChange` event.
+		  /// If `allowUndo` is True then this replacement will be undoable.
+		  /// If `shouldInvalidate` is False then the canvas will not be immediately invalidated.
+		  /// If `raiseContentsDidChange` is True then we raise the editor's `ContentsDidChange` event.
 		  ///
-		  /// Assumes that if [s] contains newlines that they have been 
+		  /// Assumes that if `s` contains newlines that they have been 
 		  /// standardised to UNIX (`&u0A`).
 		  
 		  // Quick exit if there is no text selected in the canvas presently.
@@ -915,9 +915,9 @@ Protected Class XUICELineManager
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5570646174657320746865206E6561726573742064656C696D697465727320746F2074686520737065636966696564205B6361726574506F735D2E
+	#tag Method, Flags = &h0, Description = 5570646174657320746865206E6561726573742064656C696D697465727320746F207468652073706563696669656420606361726574506F73602E
 		Sub UpdateNearestDelimiters(caretPos As Integer)
-		  /// Updates the nearest delimiters to the specified [caretPos].
+		  /// Updates the nearest delimiters to the specified `caretPos`.
 		  
 		  // If the caret hasn't move since we last called this method then there's nothing to do.
 		  If caretPos = mCaretPosCache Then

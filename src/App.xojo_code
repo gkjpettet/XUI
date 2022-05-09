@@ -86,14 +86,6 @@ Inherits XUIApp
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TestMode"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="AllowAutoQuit"
 			Visible=false
 			Group="Behavior"
