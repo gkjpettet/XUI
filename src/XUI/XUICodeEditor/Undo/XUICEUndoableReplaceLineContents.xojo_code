@@ -1,6 +1,6 @@
 #tag Class
 Protected Class XUICEUndoableReplaceLineContents
-Implements  XUIUndoableAction
+Implements XUIUndoableAction
 	#tag Method, Flags = &h0
 		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, lineNumber As Integer, originalContents As String, newContents As String, caretPos As Integer)
 		  mEditor = editor
@@ -38,8 +38,8 @@ Implements  XUIUndoableAction
 		Sub Redo()
 		  /// Redo the replacement of the contents of the specified line.
 		  ///
-		  /// Assumes that there are no new lines in [mNewContents].
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Assumes that there are no new lines in `mNewContents`.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  // Get the line to modify.
 		  Var line As XUICELine = mEditor.LineManager.LineAt(mlineNumber)
@@ -66,8 +66,8 @@ Implements  XUIUndoableAction
 		Sub Undo()
 		  /// Undo the replacement of the contents of this line.
 		  ///
-		  /// Assumes that there are no new lines in [mOriginalContents].
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Assumes that there are no new lines in `mOriginalContents`.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  // Get the line to modify.
 		  Var line As XUICELine = mEditor.LineManager.LineAt(mlineNumber)

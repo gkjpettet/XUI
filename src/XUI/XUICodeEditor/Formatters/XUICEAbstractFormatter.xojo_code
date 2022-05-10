@@ -73,11 +73,11 @@ Protected Class XUICEAbstractFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 437265617465732061206E657720746F6B656E207374617274696E67206174205B6D546F6B656E53746172744C6F63616C5D20616E6420656E64696E67206174205B6D43757272656E745D2E
+	#tag Method, Flags = &h1, Description = 437265617465732061206E657720746F6B656E207374617274696E6720617420606D546F6B656E53746172744C6F63616C6020616E6420656E64696E6720617420606D43757272656E74602077697468206F7074696F6E616C206B65792D76616C756520646174612E
 		Protected Function MakeToken(type As String, paramArray keyValues() As Pair) As XUICELineToken
-		  /// Creates a new token starting at [mTokenStartLocal] and ending at [mCurrent] with optional key-value data.
+		  /// Creates a new token starting at `mTokenStartLocal` and ending at `mCurrent` with optional key-value data.
 		  ///
-		  /// Optional key-values can be added to the token's data. Each item in [keyValues] is a Pair in the format:
+		  /// Optional key-values can be added to the token's data. Each item in `keyValues` is a Pair in the format:
 		  ///  Left = String key
 		  ///  Right = Variant value
 		  
@@ -93,10 +93,10 @@ Protected Class XUICEAbstractFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 4D6F7665732074686520746F6B656E6973657220746F20746865207374617274206F66206C696E65205B6C696E654E756D6265725D20616E6420636C6561727320616E7920746F6B656E73206F6E2069742E20417373756D65732074686174205B6C696E654E756D6265725D2069732076616C69642E
+	#tag Method, Flags = &h1, Description = 4D6F7665732074686520746F6B656E6973657220746F20746865207374617274206F66206C696E6520606C696E654E756D6265726020616E6420636C6561727320616E7920746F6B656E73206F6E2069742E20417373756D6573207468617420606C696E654E756D626572602069732076616C69642E
 		Protected Sub MoveToLine(lineNumber As Integer)
-		  /// Moves the tokeniser to the start of line [lineNumber] and clears any tokens on it. 
-		  /// Assumes that [lineNumber] is valid.
+		  /// Moves the tokeniser to the start of line `lineNumber` and clears any tokens on it. 
+		  /// Assumes that `lineNumber` is valid.
 		  
 		  mCurrent = 0
 		  mTokenStartLocal = 0
@@ -108,12 +108,12 @@ Protected Class XUICEAbstractFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732074686520636861726163746572205B706C616365735D206265796F6E64207468652063757272656E742063686172616374657220776974686F757420636F6E73756D696E672069742E2052657475726E7320222220696620776527766520726561636865642074686520656E64206F662074686520736F7572636520636F6465206F7220267530412069662061742074686520656E64206F662061206C696E652E
+	#tag Method, Flags = &h1, Description = 52657475726E7320746865206368617261637465722060706C616365735D60206265796F6E64207468652063757272656E742063686172616374657220776974686F757420636F6E73756D696E672069742E2052657475726E7320222220696620776527766520726561636865642074686520656E64206F662074686520736F7572636520636F6465206F7220267530412069662061742074686520656E64206F662061206C696E652E
 		Protected Function Peek(places As Integer = 1) As String
-		  /// Returns the character [places] beyond the current character without consuming it. 
+		  /// Returns the character `places]` beyond the current character without consuming it. 
 		  /// Returns "" if we've reached the end of the source code or &u0A if at the end of a line.
 		  ///
-		  /// Assumes [places] > 0
+		  /// Assumes `places` > 0
 		  
 		  Var charactersLastIndex As Integer = mLine.Characters.LastIndex
 		  

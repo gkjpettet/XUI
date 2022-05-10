@@ -1,6 +1,6 @@
 #tag Class
 Protected Class XUICEUndoableDelete
-Implements  XUIUndoableAction
+Implements XUIUndoableAction
 	#tag Method, Flags = &h0
 		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, deletedText As String, selection As XUICETextSelection)
 		  mEditor = editor
@@ -36,7 +36,7 @@ Implements  XUIUndoableAction
 		Sub Redo()
 		  /// Redo the deletion of a selection in the editor canvas.
 		  ///
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  mEditor.CurrentSelection = mSelection.Clone
 		  mEditor.LineManager.DeleteSelection(False, True, True)
@@ -48,7 +48,7 @@ Implements  XUIUndoableAction
 		Sub Undo()
 		  /// Undo the deletion of a selection in the editor canvas.
 		  ///
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  mEditor.LineManager.InsertText(mSelection.StartLocation, mDeletedText, False, True, True)
 		  

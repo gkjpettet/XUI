@@ -49,13 +49,13 @@ Protected Class XUITagCanvasLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 44726177732074686973206C696E6520746F205B675D2E
+	#tag Method, Flags = &h0, Description = 44726177732074686973206C696E6520746F206067602E
 		Sub Draw(g As Graphics, x As Double, topLeftY As Double, lineH As Double)
-		  /// Draws this line to [g].
+		  /// Draws this line to `g`.
 		  ///
-		  /// [x] is the X coord of the top left corner of the line.
-		  /// [topLeftY] is the Y coord of the top left corner of the line.
-		  /// [lineH] is the height of the line.
+		  /// `x` is the X coord of the top left corner of the line.
+		  /// `topLeftY` is the Y coord of the top left corner of the line.
+		  /// `lineH` is the height of the line.
 		  ///
 		  /// Anti-aliasing needs to be disabled whenever we draw on Windows _except_ for 
 		  /// text (which looks rubbish if anti-aliasing is off).

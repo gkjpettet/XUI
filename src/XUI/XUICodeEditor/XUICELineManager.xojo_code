@@ -175,6 +175,7 @@ Protected Class XUICELineManager
 		  /// `undoMessage` is an optional override message for undoable actions.
 		  ///
 		  /// There are 6 scenarios:
+		  ///
 		  /// 1. A single whole line is selected.
 		  /// 2. Only text on a single line is selected.
 		  /// 3. Contiguous complete lines are selected.
@@ -536,6 +537,7 @@ Protected Class XUICELineManager
 		  /// Clears any selection present prior to the insertion.
 		  ///
 		  /// There are three scenarios:
+		  ///
 		  /// 1. A solitary newline character is being inserted.
 		  /// 2. The text to insert does not contain newlines.
 		  /// 3. The text to insert contains at least one newline.

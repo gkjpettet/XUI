@@ -13,10 +13,10 @@ Protected Class XUICETextSelection
 		Sub Constructor(anchor As Integer, startPos As Integer, endPos As Integer, editor As XUICodeEditor)
 		  /// Default constructor.
 		  ///
-		  /// [anchor] is the 0-based location of the anchor.
-		  /// [startPos] is the 0-based start position of this selection.
-		  /// [endPos] is the 0-based end position of this selection.
-		  /// [editor] is the editor that owns this selection.
+		  /// `anchor` is the 0-based location of the anchor.
+		  /// `startPos` is the 0-based start position of this selection.
+		  /// `endPos` is the 0-based end position of this selection.
+		  /// `editor` is the editor that owns this selection.
 		  ///
 		  /// The anchor marks the position that the selection began. Typically this 
 		  /// will be the caret position when the selection begins but it's not 
@@ -30,9 +30,9 @@ Protected Class XUICETextSelection
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B636F6C756D6E5D2069732077697468696E20746869732073656C656374696F6E2E
+	#tag Method, Flags = &h0, Description = 547275652069662060636F6C756D6E602069732077697468696E20746869732073656C656374696F6E2E
 		Function ContainsColumn(column As Integer) As Boolean
-		  /// True if [column] is within this selection.
+		  /// True if `column` is within this selection.
 		  
 		  Return column >= StartLocation And column <= EndLocation
 		  
@@ -41,7 +41,7 @@ Protected Class XUICETextSelection
 
 	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620746869732073656C656374696F6E20656E746972656C7920636F6E7461696E73205B6C696E655D2E
 		Function ContainsLine(line As XUICELine) As Boolean
-		  /// Returns True if this selection entirely contains [line].
+		  /// Returns True if this selection entirely contains `line`.
 		  ///
 		  /// A line is considered to be contained by a selection if both its start and end 
 		  /// locations are within this selection.
@@ -52,9 +52,9 @@ Protected Class XUICETextSelection
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B76616C75655D2069732077697468696E207468652070617373656420626F756E64732E
+	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966206076616C7565602069732077697468696E207468652070617373656420626F756E64732E
 		Private Function InRange(value As Integer, lower As Integer, upper As Integer) As Boolean
-		  /// Returns True if [value] is within the passed bounds.
+		  /// Returns True if `value` is within the passed bounds.
 		  
 		  Return value >= lower And value <= upper
 		  
@@ -63,7 +63,7 @@ Protected Class XUICETextSelection
 
 	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620616E79206F6620746869732073656C656374696F6E20696E7465727365637473205B6C696E655D2E
 		Function IntersectsLine(line As XUICELine) As Boolean
-		  /// Returns True if any of this selection intersects [line].
+		  /// Returns True if any of this selection intersects `line`.
 		  ///
 		  /// A line is intersected by a selection if any character of the line is within it.
 		  
@@ -75,15 +75,15 @@ Protected Class XUICETextSelection
 
 	#tag Method, Flags = &h0, Description = 4966205B6C696E655D2069732077686F6C6C79206F7220706172746C7920636F6E7461696E65642077697468696E20746869732073656C656374696F6E207468656E2072657475726E732074686520636F6C756D6E732073656C6563746564206F72204E696C2E
 		Function SelectedColumnsInLine(line As XUICELine) As XUICESelectedColumns
-		  /// If [line] is wholly or partly contained within this selection then 
+		  /// If `line` is wholly or partly contained within this selection then 
 		  /// returns the columns selected or Nil.
 		  ///
 		  /// Returns an object representing the start and end columns contained by this selection or Nil if 
-		  /// this selection does not intersect [line]. 
+		  /// this selection does not intersect `line`. 
 		  /// If this selection extends beyond the length of this line then the returned 
-		  /// [TextSelection] will have its [EndLocation] set to `-1`.
-		  /// If this selection begins before this line then the returned [TextSelection] will have 
-		  /// its [Anchor] set to `-1`. Otherwise it's set to `0`.
+		  /// `TextSelection` will have its `EndLocation` set to `-1`.
+		  /// If this selection begins before this line then the returned `TextSelection` will have 
+		  /// its `Anchor` set to `-1`. Otherwise it's set to `0`.
 		  
 		  Var selectionBeginsBeforeLine As Boolean = If(Self.StartLocation < line.Start, True, False)
 		  

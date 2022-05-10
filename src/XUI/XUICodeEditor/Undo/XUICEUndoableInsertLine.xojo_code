@@ -1,6 +1,6 @@
 #tag Class
 Protected Class XUICEUndoableInsertLine
-Implements  XUIUndoableAction
+Implements XUIUndoableAction
 	#tag Method, Flags = &h0
 		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, lineNumber As Integer, caretPos As Integer, contents As String)
 		  mEditor = editor
@@ -37,7 +37,7 @@ Implements  XUIUndoableAction
 		Sub Redo()
 		  /// Redo the insertion of a line at the specified line number.
 		  /// 
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  mEditor.CaretPosition = mCaretPos
 		  mEditor.HandleReturnKey(False, False)
@@ -54,7 +54,7 @@ Implements  XUIUndoableAction
 		Sub Undo()
 		  /// Undo the insertion of a line at the specified line number.
 		  ///
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  Var lineToDelete As XUICELine = mEditor.LineManager.LineAt(mLineNumber)
 		  

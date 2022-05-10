@@ -1,8 +1,8 @@
 #tag Module
 Protected Module XUIMaths
-	#tag Method, Flags = &h21, Description = 417373657274732074686174205B636F6E646974696F6E5D20697320547275652C206F74686572776973652072616973657320616E20657863657074696F6E2E
+	#tag Method, Flags = &h21, Description = 4173736572747320746861742060636F6E646974696F6E6020697320547275652C206F74686572776973652072616973657320616E20657863657074696F6E2E
 		Private Sub Assert(condition As Boolean, message As String = "")
-		  /// Asserts that [condition] is True, otherwise raises an exception.
+		  /// Asserts that `condition` is True, otherwise raises an exception.
 		  
 		  If Not condition Then Raise New RuntimeException(message)
 		End Sub
@@ -61,9 +61,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E7320746865207061737365642076616C756520636C616D706564206265747765656E205B6D696E696D756D5D20616E64205B6D6178696D756D5D2E
+	#tag Method, Flags = &h1, Description = 52657475726E7320746865207061737365642076616C756520636C616D706564206265747765656E20606D696E696D756D6020616E6420606D6178696D756D602E
 		Protected Function Clamp(value As Double, minimum As Double, maximum As Double) As Double
-		  /// Returns the passed value clamped between [minimum] and [maximum].
+		  /// Returns the passed value clamped between `minimum` and `maximum`.
 		  
 		  If value > maximum Then Return maximum
 		  If value < minimum Then Return minimum
@@ -77,7 +77,7 @@ Protected Module XUIMaths
 		  /// Returns True or False.
 		  /// 
 		  /// Simulates a coin toss by returning a random boolean. The optional 
-		  /// [trueBias] determines the chance of True being returned. This value
+		  /// `trueBias` determines the chance of True being returned. This value
 		  /// should be between `0` and `1`. If `0` then there is a 0% chance that True
 		  /// will be returned, if `1` then the chance is 100%.
 		  
@@ -88,13 +88,13 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 436F6D7061726573207468652074776F2073706563696669656420646F75626C652076616C7565732E20
+	#tag Method, Flags = &h1, Description = 436F6D7061726573207468652074776F2073706563696669656420646F75626C652076616C7565732E
 		Protected Function Compare(d1 As Double, d2 As Double) As Integer
 		  /// Compares the two specified double values. 
 		  /// 
-		  /// The value `0` if [d1] is numerically equal to [d2], a value 
-		  /// less than `0` if [d1] is numerically less than [d2] and a value 
-		  /// greater than `0` if [d1] is numerically greater than [d2].
+		  /// The value `0` if `d1` is numerically equal to `d2`, a value 
+		  /// less than `0` if `d1` is numerically less than `d2` and a value 
+		  /// greater than `0` if `d1` is numerically greater than `d2`.
 		  
 		  If d1 < d2 Then
 		    Return -1 // Neither val is NaN, thisVal is smaller.
@@ -127,18 +127,18 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73205B6D61676E69747564655D207769746820746865207369676E206F66205B7369676E5D2E
+	#tag Method, Flags = &h1, Description = 52657475726E7320606D61676E697475646560207769746820746865207369676E206F6620607369676E602E
 		Protected Function CopySign(magnitude As Double, sign As Double) As Double
-		  /// Returns [magnitude] with the sign of [sign].
+		  /// Returns `magnitude` with the sign of `sign`.
 		  
 		  Return If(sign < 0, -Abs(magnitude), Abs(magnitude))
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E7320746865206375626520726F6F74206F66205B645D2E
+	#tag Method, Flags = &h1, Description = 52657475726E7320746865206375626520726F6F74206F66206064602E
 		Protected Function CubeRoot(d As Double) As Double
-		  /// Returns the cube root of [d].
+		  /// Returns the cube root of `d`.
 		  /// 
 		  /// If the argument is NaN, then the result Is NaN.
 		  /// If the argument is infinite, Then the result is an infinity
@@ -174,9 +174,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73206120726570726573656E746174696F6E206F66205B645D206163636F7264696E6720746F2074686520494545452037353420666C6F6174696E672D706F696E742022646F75626C6520666F726D61742220626974206C61796F75742E
+	#tag Method, Flags = &h1, Description = 52657475726E73206120726570726573656E746174696F6E206F6620606460206163636F7264696E6720746F2074686520494545452037353420666C6F6174696E672D706F696E742022646F75626C6520666F726D61742220626974206C61796F75742E
 		Protected Function DoubleToBits(d As Double) As Int64
-		  /// Returns a representation of [d] according to the IEEE 754 floating-point 
+		  /// Returns a representation of `d` according to the IEEE 754 floating-point 
 		  /// "double format" bit layout.
 		  /// 
 		  /// Bit 63 (the bit that is selected by the mask `0x8000000000000000`) 
@@ -192,8 +192,8 @@ Protected Module XUIMaths
 		  /// If the argument is NaN, the result is `&h7ff8000000000000`.
 		  /// 
 		  /// In all cases, the result is an `Int64` integer that, when given to 
-		  /// the [BitsToDouble(UInt64)] method, will produce a `Double` the same as the 
-		  // argument to [DoubleToBits] (except all NaN values are collapsed to a 
+		  /// the `BitsToDouble(UInt64)` method, will produce a `Double` the same as the 
+		  // argument to `DoubleToBits` (except all NaN values are collapsed to a 
 		  /// single "canonical" NaN value).
 		  
 		  // Check for NaN.
@@ -206,9 +206,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73206120726570726573656E746174696F6E206F66205B645D206163636F7264696E6720746F2074686520494545452037353420666C6F6174696E672D706F696E742022646F75626C6520666F726D61742220626974206C61796F75742C2070726573657276696E67204E614E2076616C7565732E
+	#tag Method, Flags = &h1, Description = 52657475726E73206120726570726573656E746174696F6E206F6620606460206163636F7264696E6720746F2074686520494545452037353420666C6F6174696E672D706F696E742022646F75626C6520666F726D61742220626974206C61796F75742C2070726573657276696E67204E614E2076616C7565732E
 		Protected Function DoubleToRawBits(d As Double) As Int64
-		  /// Returns a representation of [d] according to the IEEE 754 floating-point 
+		  /// Returns a representation of `d` according to the IEEE 754 floating-point 
 		  /// "double format" bit layout, preserving NaN values.
 		  /// 
 		  /// Bit 63 (the bit that is selected by the mask `&h8000000000000000`) 
@@ -223,12 +223,12 @@ Protected Module XUIMaths
 		  /// If the argument is negative infinity, the result is `&hfff0000000000000`.
 		  /// If the argument is NaN, the result is the `Int64` integer representing 
 		  /// the actual NaN value.
-		  /// Unlike the [DoubleToBits] method, this method does not collapse 
+		  /// Unlike the `DoubleToBits` method, this method does not collapse 
 		  /// all the bit patterns encoding a NaN to a single "canonical" NaN value.
 		  /// 
 		  /// In all cases, the result is a `UInt64` integer that, when given to the 
-		  /// [BitsToDouble(Int64)] method, will produce a floating-point value the 
-		  /// same as [d].
+		  /// `BitsToDouble(Int64)` method, will produce a floating-point value the 
+		  /// same as `d`.
 		  
 		  Var m As MemoryBlock = New MemoryBlock(8)
 		  m.LittleEndian = False
@@ -238,9 +238,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732074686520756E626961736564206578706F6E656E74207573656420696E2074686520726570726573656E746174696F6E206F66205B645D2E
+	#tag Method, Flags = &h1, Description = 52657475726E732074686520756E626961736564206578706F6E656E74207573656420696E2074686520726570726573656E746174696F6E206F66206064602E
 		Protected Function GetExponent(d As Double) As Int32
-		  /// Returns the unbiased exponent used in the representation of [d].
+		  /// Returns the unbiased exponent used in the representation of `d`.
 		  ///
 		  /// - If the argument is NaN or infinite, then the result is `MAX_EXPONENT` + 1.
 		  /// - If the argument is zero or subnormal, then the result is `MIN_EXPONENT` - 1.
@@ -253,9 +253,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 50617274206F6620746865205B506F696E74496E547269616E676C655D20616C676F726974686D2E
+	#tag Method, Flags = &h21, Description = 50617274206F66207468652060506F696E74496E547269616E676C656020616C676F726974686D2E
 		Private Function HalfPlaneSign(p1 As Point, p2 As Point, p3 As Point) As Double
-		  /// Part of the [PointInTriangle] algorithm.
+		  /// Part of the `PointInTriangle` algorithm.
 		  /// 
 		  /// See: https://stackoverflow.com/a/2049593/278816
 		  
@@ -271,9 +271,11 @@ Protected Module XUIMaths
 		  /// 
 		  /// Adapted from: https://stackoverflow.com/a/30809216/278816
 		  /// Special cases:
+		  ///
 		  ///   1. If either argument is infinite, then the result is positive infinity.
 		  ///   2. If either argument is NaN and neither argument is infinite, 
 		  ///      then the result is NaN.
+		  ///
 		  /// The computed result must be within 1 ulp of the exact result. 
 		  /// If one parameter is held constant, the results must be semi-monotonic 
 		  /// in the other parameter.
@@ -331,48 +333,48 @@ Protected Module XUIMaths
 		  /// Returns True if the arguments are "close enough" to be considered equal.
 		  /// 
 		  /// Thanks to Graham Busch: https://forum.xojo.com/t/double-equals-help/56862/6
-		  /// [decimalPoints] is the number of decimal points of accuracy.
+		  /// `decimalPoints` is the number of decimal points of accuracy.
 		  
 		  Return Round(d1 * Pow(10, decimalPoints)) = Round(d2 * Pow(10, DecimalPoints))
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732054727565206966205B695D206973206576656E2E
+	#tag Method, Flags = &h1, Description = 52657475726E73205472756520696620606960206973206576656E2E
 		Protected Function IsEven(i As Integer) As Boolean
-		  /// Returns True if [i] is even.
+		  /// Returns True if `i` is even.
 		  
 		  Return i Mod 2 = 0
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732054727565206966205B645D20697320612077686F6C65206E756D6265722E
+	#tag Method, Flags = &h1, Description = 52657475726E7320547275652069662060646020697320612077686F6C65206E756D6265722E
 		Protected Function IsInteger(d As Double) As Boolean
-		  /// Returns True if [d] is a whole number.
+		  /// Returns True if `d` is a whole number.
 		  
 		  Return d = Floor(d)
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732054727565206966205B695D206973206F64642E
+	#tag Method, Flags = &h1, Description = 52657475726E73205472756520696620606960206973206F64642E
 		Protected Function IsOdd(i As Integer) As Boolean
-		  /// Returns True if [i] is odd.
+		  /// Returns True if `i` is odd.
 		  
 		  Return i Mod 2 <> 0
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732054727565206966205B645D20697320636F6E7369646572656420746F206265207A65726F2E
+	#tag Method, Flags = &h1, Description = 52657475726E7320547275652069662060646020697320636F6E7369646572656420746F206265207A65726F2E
 		Protected Function IsZero(d As Double) As Boolean
-		  /// Returns True if [d] is considered to be zero.
+		  /// Returns True if `d` is considered to be zero.
 		  /// 
 		  /// Exists as a workaround to the buggy Xojo `Double.Equals` method.
-		  /// Returns True if [d] is within `Tolerance` of 0.0.
+		  /// Returns True if `d` is within `Tolerance` of 0.0.
 		  /// Based on code by Graham Busch: https://forum.xojo.com/t/double-equals-help/56862/6
-		  /// (modified from the code in [IsCloseTo]).
+		  /// (modified from the code in `IsCloseTo`).
 		  
 		  If Round(d * Pow(10, 16)) = 0 Then
 		    Return True
@@ -383,20 +385,20 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 4C696E6561726C7920696E746572706F6C61746573206265747765656E205B615D20616E64205B625D20627920746865206672616374696F6E205B665D2E
+	#tag Method, Flags = &h1, Description = 4C696E6561726C7920696E746572706F6C61746573206265747765656E2060616020616E642060626020627920746865206672616374696F6E206066602E
 		Protected Function Lerp(a As Double, b As Double, f As Double) As Double
-		  /// Linearly interpolates between [a] and [b] by the fraction [f].
+		  /// Linearly interpolates between `a` and `b` by the fraction `f`.
 		  /// 
-		  /// Assumes [f] is clamped between 0 and 1.
+		  /// Assumes `f` is clamped between 0 and 1.
 		  
 		  Return (a * (1.0 - f)) + (b * f)
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 536869667473206C656674207468652033322D62697420626974207061747465726E206F66205B765D206279205B735D20626974732E20
+	#tag Method, Flags = &h1, Description = 536869667473206C656674207468652033322D62697420626974207061747465726E206F66206076602062792060736020626974732E
 		Protected Function LShift32(v As Int32, s As Integer) As Int32
-		  /// Shifts left the 32-bit bit pattern of [v] by [s] bits. 
+		  /// Shifts left the 32-bit bit pattern of `v` by `s` bits. 
 		  ///
 		  /// Equivalent to Java's `int << x` operator.
 		  
@@ -405,9 +407,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 536869667473206C656674207468652036342D62697420626974207061747465726E206F66205B765D206279205B735D20626974732E
+	#tag Method, Flags = &h1, Description = 536869667473206C656674207468652036342D62697420626974207061747465726E206F66206076602062792060736020626974732E
 		Protected Function LShift64(v As Int64, s As Integer) As Int64
-		  /// Shifts left the 64-bit bit pattern of [v] by [s] bits.
+		  /// Shifts left the 64-bit bit pattern of `v` by `s` bits.
 		  ///
 		  /// Equivalent to Java's `int << x` operator.
 		  
@@ -416,9 +418,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73207468652072656D61696E646572206F662060612F6260207969656C64696E67206120726573756C742077697468207468652073616D65207369676E206173205B625D2E
+	#tag Method, Flags = &h1, Description = 52657475726E73207468652072656D61696E646572206F662060612F6260207969656C64696E67206120726573756C742077697468207468652073616D65207369676E206173206062602E
 		Protected Function Modulo(a As Integer, b As Integer) As Integer
-		  /// Returns the remainder of `a/b` yielding a result with the same sign as [b].
+		  /// Returns the remainder of `a/b` yielding a result with the same sign as `b`.
 		  /// 
 		  /// Credit: https://stackoverflow.com/a/42131495/278816
 		  /// Functions like Python's `%` operator.
@@ -428,9 +430,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732074686520666C6F6174696E672D706F696E742076616C75652061646A6163656E7420746F205B645D20696E2074686520646972656374696F6E206F66206E6567617469766520696E66696E6974792E20
+	#tag Method, Flags = &h1, Description = 52657475726E732074686520666C6F6174696E672D706F696E742076616C75652061646A6163656E7420746F2060646020696E2074686520646972656374696F6E206F66206E6567617469766520696E66696E6974792E
 		Protected Function NextDown(d As Double) As Double
-		  /// Returns the floating-point value adjacent to [d] in the direction of 
+		  /// Returns the floating-point value adjacent to `d` in the direction of 
 		  /// negative infinity. 
 		  /// 
 		  /// If the argument is NaN, the result is NaN.
@@ -450,9 +452,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732074686520666C6F6174696E672D706F696E742076616C75652061646A6163656E7420746F205B645D20696E2074686520646972656374696F6E206F6620706F73697469766520696E66696E6974792E
+	#tag Method, Flags = &h1, Description = 52657475726E732074686520666C6F6174696E672D706F696E742076616C75652061646A6163656E7420746F2060646020696E2074686520646972656374696F6E206F6620706F73697469766520696E66696E6974792E
 		Protected Function NextUp(d As Double) As Double
-		  /// Returns the floating-point value adjacent to [d] in the direction of 
+		  /// Returns the floating-point value adjacent to `d` in the direction of 
 		  /// positive infinity.
 		  ///
 		  /// If the argument is NaN, the result is NaN.
@@ -469,12 +471,12 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E7320746865206E756D626572206F66207A65726F206269747320707265636564696E672074686520686967686573742D6F726465722028226C6566746D6F73742229206F6E652D62697420696E207468652074776F277320636F6D706C656D656E742062696E61727920726570726573656E746174696F6E206F66205B695D2E2052657475726E73203634206966206069203D2030602E
+	#tag Method, Flags = &h1, Description = 52657475726E7320746865206E756D626572206F66207A65726F206269747320707265636564696E672074686520686967686573742D6F726465722028226C6566746D6F73742229206F6E652D62697420696E207468652074776F277320636F6D706C656D656E742062696E61727920726570726573656E746174696F6E206F66206069602E
 		Protected Function NumberOfLeadingZeros(i As Int64) As Int32
 		  /// Returns the number of zero bits preceding the highest-order 
-		  /// ("leftmost") one-bit in the two's complement binary representation of [i].
+		  /// ("leftmost") one-bit in the two's complement binary representation of `i`.
 		  /// 
-		  /// Returns `64` if [i] has no one-bits in its two's complement 
+		  /// Returns `64` if `i` has no one-bits in its two's complement 
 		  /// representation, in other words if it is equal to zero.
 		  /// This method is closely related to the logarithm base 2.
 		  ///
@@ -521,12 +523,12 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E7320746865206E756D626572206F66207A65726F206269747320666F6C6C6F77696E6720746865206C6F776573742D6F7264657220282272696768746D6F737422290A2F2F2F206F6E652D62697420696E207468652074776F277320636F6D706C656D656E742062696E61727920726570726573656E746174696F6E206F66205B695D2E
+	#tag Method, Flags = &h1, Description = 52657475726E7320746865206E756D626572206F66207A65726F206269747320666F6C6C6F77696E6720746865206C6F776573742D6F7264657220282272696768746D6F73742229206F6E652D62697420696E207468652074776F277320636F6D706C656D656E742062696E61727920726570726573656E746174696F6E206F66206069602E
 		Protected Function NumberOfTrailingZeros(i As Int64) As Int32
 		  /// Returns the number of zero bits following the lowest-order ("rightmost")
-		  /// one-bit in the two's complement binary representation of [i].
+		  /// one-bit in the two's complement binary representation of `i`.
 		  /// 
-		  /// Returns `64` if [i] has no one-bits in 
+		  /// Returns `64` if `i` has no one-bits in 
 		  /// its two's complement representation, in other words if it is equal to zero.
 		  
 		  If i = 0 Then Return 64
@@ -571,9 +573,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732054727565206966205B705D20697320696E736964652074686520747269616E676C6520666F726D656420627920746865207061737365642076657274696365732E
+	#tag Method, Flags = &h1, Description = 52657475726E7320547275652069662060706020697320696E736964652074686520747269616E676C6520666F726D656420627920746865207061737365642076657274696365732E
 		Protected Function PointInTriangle(p As Point, v1 As Point, v2 As Point, v3 As Point) As Boolean
-		  /// Returns True if [p] is inside the triangle formed by the passed vertices.
+		  /// Returns True if `p` is inside the triangle formed by the passed vertices.
 		  ///
 		  /// Adapted from this StackOverflow answer:
 		  /// https://stackoverflow.com/a/2049593/278816
@@ -606,18 +608,18 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E7320612070737565646F2072616E646F6D206E756D626572206265747765656E205B6C6F775D20616E64205B686967685D2E
+	#tag Method, Flags = &h1, Description = 52657475726E7320612070737565646F2072616E646F6D206E756D626572206265747765656E20606C6F776020616E64206068696768602E
 		Protected Function Random(low As Double, high As Double) As Double
-		  /// Returns a psuedo random number between [low] and [high].
+		  /// Returns a psuedo random number between `low` and `high`.
 		  
 		  Return System.Random.Number * Abs(low - high) + low
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 536869667473205B765D205B735D20706C6163657320746F207468652072696768742C2070726573657276696E6720746865207369676E206269742E
+	#tag Method, Flags = &h1, Description = 536869667473206076602060736020706C6163657320746F207468652072696768742C2070726573657276696E6720746865207369676E206269742E
 		Protected Function RShift(v As Int64, s As Integer) As Int64
-		  /// Shifts [v] [s] places to the right, preserving the sign bit.
+		  /// Shifts `v` `s` places to the right, preserving the sign bit.
 		  /// 
 		  /// Equivalent to Java's `>>` operator.
 		  /// Thanks to code form the Xojo forum by Rick Araujo:
@@ -635,9 +637,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 536869667473205B765D205B735D206269747320746F207468652072696768742E205368696674732061207A65726F20696E746F20746865206C6566742D6D6F737420706F736974696F6E2E
+	#tag Method, Flags = &h1, Description = 5368696674732060766020607360206269747320746F207468652072696768742E205368696674732061207A65726F20696E746F20746865206C6566742D6D6F737420706F736974696F6E2E
 		Protected Function RShiftU32(v As Int32, s As Integer) As Int32
-		  /// Shifts [v] [s] bits to the right. Shifts a zero into the left-most position.
+		  /// Shifts `v` `s` bits to the right. Shifts a zero into the left-most position.
 		  /// 
 		  /// Equivalent to Java's `int >>> x` operation.
 		  
@@ -646,9 +648,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 536869667473205B765D205B735D206269747320746F207468652072696768742E205368696674732061207A65726F20696E746F20746865206C6566742D6D6F737420706F736974696F6E2E
+	#tag Method, Flags = &h1, Description = 5368696674732060766020607360206269747320746F207468652072696768742E205368696674732061207A65726F20696E746F20746865206C6566742D6D6F737420706F736974696F6E2E
 		Protected Function RShiftU64(v As Int64, shift As Integer) As Int64
-		  /// Shifts [v] [s] bits to the right. Shifts a zero into the left-most position.
+		  /// Shifts `v` `s` bits to the right. Shifts a zero into the left-most position.
 		  /// 
 		  /// Equivalent to Java's `long >>> x` operation.
 		  
@@ -657,14 +659,14 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
+	#tag Method, Flags = &h1, Description = 52657475726E7320606420C39720325E7363616C65466163746F726020726F756E64656420617320696620706572666F726D656420627920612073696E676C6520636F72726563746C7920726F756E64656420666C6F6174696E672D706F696E74206D756C7469706C7920746F2061206D656D626572206F662074686520646F75626C652076616C7565207365742E
 		Protected Function Scalb(d As Double, scaleFactor As Integer) As Double
 		  /// Returns `d × 2^scaleFactor` rounded as if performed by a single correctly
 		  /// rounded floating-point multiply to a member of the double value set. 
 		  /// 
-		  /// If the exponent of the result is between [MIN_EXPONENT] and [MAX_EXPONENT], 
+		  /// If the exponent of the result is between `MIN_EXPONENT` and `MAX_EXPONENT`, 
 		  /// the answer is calculated exactly. If the exponent of the result
-		  /// would be larger than [MAX_EXPONENT] then infinity is returned. 
+		  /// would be larger than `MAX_EXPONENT` then infinity is returned. 
 		  /// If the result is subnormal, precision may be lost. That is, when 
 		  /// `Scalb(x, n)` is subnormal, `Scalb(scalb(x, n), -n) may not equal x. 
 		  /// When the result is non-NaN, the result has the same sign as `d`.
@@ -703,7 +705,7 @@ Protected Module XUIMaths
 		  ///
 		  /// Since exact reproducibility of this method can be achieved
 		  /// without any undue performance burden, there is no
-		  /// compelling reason to allow double rounding on underflow in [scalb].
+		  /// compelling reason to allow double rounding on underflow in `scalb`.
 		  
 		  // Magnitude of a power of two so large that scaling a finite
 		  // non-zero value by it would be guaranteed to over or
@@ -744,9 +746,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E7320746865207369676E206F66205B645D2E
+	#tag Method, Flags = &h1, Description = 52657475726E7320746865207369676E206F66206064602E
 		Protected Function Signum(d As Double) As Double
-		  /// Returns the sign of [d].
+		  /// Returns the sign of `d`.
 		  /// 
 		  ///  Returns:
 		  ///  * Zero if the argument is zero
@@ -906,9 +908,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73205B72616469616E735D20696E20646567726565732E
+	#tag Method, Flags = &h1, Description = 52657475726E73206072616469616E736020696E20646567726565732E
 		Protected Function ToDegrees(radians As Double) As Double
-		  /// Returns [radians] in degrees.
+		  /// Returns `radians` in degrees.
 		  
 		  Static m180_OVER_PI As Double = 180 / PI
 		  
@@ -917,9 +919,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73205B646567726565735D20696E2072616469616E732E
+	#tag Method, Flags = &h1, Description = 52657475726E732060646567726565736020696E2072616469616E732E
 		Protected Function ToRadians(degrees As Double) As Double
-		  /// Returns [degrees] in radians.
+		  /// Returns `degrees` in radians.
 		  
 		  Static mPI_OVER_180 As Double = PI / 180
 		  
@@ -928,9 +930,9 @@ Protected Module XUIMaths
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 5772617073205B695D206265747765656E207A65726F20616E64205B6D617856616C75655D2E
+	#tag Method, Flags = &h1, Description = 577261707320606960206265747765656E207A65726F20616E6420606D617856616C7565602E
 		Protected Function WrapInteger(i As Integer, maxValue As Integer) As Integer
-		  /// Wraps [i] between zero and [maxValue].
+		  /// Wraps `i` between zero and `maxValue`.
 		  
 		  // Easy exit.
 		  If i >= 0 And i <= maxValue Then Return i

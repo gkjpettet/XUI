@@ -1,6 +1,6 @@
 #tag Class
 Protected Class XUICEUndoableInsertLineBreak
-Implements  XUIUndoableAction
+Implements XUIUndoableAction
 	#tag Method, Flags = &h0
 		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, caretPos As Integer)
 		  mEditor = editor
@@ -35,7 +35,7 @@ Implements  XUIUndoableAction
 		Sub Redo()
 		  /// Redo the creation of a line break.
 		  ///
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  mEditor.CaretPosition = mCaretPos
 		  mEditor.HandleReturnKey(False, True)
@@ -47,7 +47,7 @@ Implements  XUIUndoableAction
 		Sub Undo()
 		  /// Undo the creation of a line break.
 		  ///
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  // Position the caret at the start of the line after the line break.
 		  mEditor.CaretPosition = mCaretPos + 1

@@ -1282,6 +1282,7 @@ Protected Class MKInlineScanner
 		  /// If the URL is flanked by "<>" (scenario 1) they are removed from the URL before returning.
 		  
 		  // Two kinds of link destinations:
+		  //
 		  // 1. A sequence of zero or more characters between an opening < and a closing > 
 		  //    that contains no line breaks or unescaped < or > characters.
 		  // 2. A non-empty sequence of characters that does not start with <, does not 
@@ -1381,6 +1382,7 @@ Protected Class MKInlineScanner
 		  /// Mutates [pos] to the position after the closing title delimiter.
 		  ///
 		  /// There are 3 valid types of link title:
+		  ///
 		  /// 1. >= 0 characters between straight " characters including a " character only if it is backslash-escaped.
 		  /// 2. >= 0 characters between ' characters, including a ' character only if it is backslash-escaped.
 		  /// 3. >= 0 characters between matching parentheses ((...)), including a ( or ) character only if 

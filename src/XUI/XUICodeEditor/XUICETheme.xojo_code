@@ -4,7 +4,7 @@ Protected Class XUICETheme
 		Sub AddTokenStyle(styleName As String, style As XUICETokenStyle)
 		  /// Adds a token style to this theme.
 		  ///
-		  /// Assumes [styleName] is not empty and [style] is not Nil.
+		  /// Assumes `styleName` is not empty and `style` is not Nil.
 		  
 		  Styles.Value(styleName) = style
 		  

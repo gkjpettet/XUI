@@ -1,9 +1,9 @@
 #tag Class
 Protected Class XUICELine
 Inherits XUITextLine
-	#tag Method, Flags = &h0, Description = 52657475726E73205B636F756E745D20636861726163746572732066726F6D2074686973206C696E65207374617274696E67206174205B7374617274506F735D2E
+	#tag Method, Flags = &h0, Description = 52657475726E732060636F756E746020636861726163746572732066726F6D2074686973206C696E65207374617274696E6720617420607374617274506F73602E
 		Function CharactersFromCaretPos(startPos As Integer, count As Integer) As String
-		  /// Returns [count] characters from this line starting at [startPos].
+		  /// Returns `count` characters from this line starting at `startPos`.
 		  
 		  // Convert the passed caret position to a column.
 		  Var col As Integer = startPos - Self.Start
@@ -17,17 +17,17 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205B636F756E745D20636861726163746572732066726F6D2074686973206C696E65207374617274696E672061742074686520302D6261736564205B7374617274436F6C5D2E
+	#tag Method, Flags = &h0, Description = 52657475726E732060636F756E746020636861726163746572732066726F6D2074686973206C696E65207374617274696E672061742074686520302D626173656420607374617274436F6C602E
 		Function CharactersFromColumn(startCol As Integer, count As Integer) As String
-		  /// Returns [count] characters from this line starting at the 0-based [startCol].
+		  /// Returns `count` characters from this line starting at the 0-based `startCol`.
 		  
 		  Return mContents.MiddleCharacters(startCol, count)
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206368617261637465727320656E636C6F7365642062792074686520706173736564205B73656C656374696F6E5D2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206368617261637465727320656E636C6F7365642062792074686520706173736564206073656C656374696F6E602E
 		Function CharactersInSelection(selection As XUICETextSelection) As String
-		  /// Returns the characters enclosed by the passed [selection].
+		  /// Returns the characters enclosed by the passed `selection`.
 		  
 		  Var portion As XUICESelectedColumns = selection.SelectedColumnsInLine(Self)
 		  
@@ -42,9 +42,9 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206368617261637465727320757020746F205B636F6C756D6E5D2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206368617261637465727320757020746F20627574206E6F7420696E636C7564696E672060636F6C756D6E602E
 		Function CharactersToColumn(column As Integer) As String
-		  /// Returns the characters up to but not including [column].
+		  /// Returns the characters up to but not including `column`.
 		  
 		  If column = 0 Then Return ""
 		  
@@ -59,9 +59,9 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 43686F7073202872656D6F76657329205B636F756E745D20636861726163746572732066726F6D2074686520656E64206F6620746865206C696E6520616E642072657475726E73207468656D2E
+	#tag Method, Flags = &h0, Description = 43686F7073202872656D6F766573292060636F756E746020636861726163746572732066726F6D2074686520656E64206F6620746865206C696E6520616E642072657475726E73207468656D2E
 		Function ChopCharacters(count As Integer) As String
-		  /// Chops (removes) [count] characters from the end of the line and returns them.
+		  /// Chops (removes) `count` characters from the end of the line and returns them.
 		  
 		  If count = 0 Then Return ""
 		  
@@ -72,9 +72,9 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 43686F7073202872656D6F766573292074686520636861726163746572732066726F6D205B636F6C756D6E5D20746F2074686520656E64206F6620746865206C696E6520616E642072657475726E73207468656D2E
+	#tag Method, Flags = &h0, Description = 43686F7073202872656D6F766573292074686520636861726163746572732066726F6D2060636F6C756D6E6020746F2074686520656E64206F6620746865206C696E6520616E642072657475726E73207468656D2E
 		Function ChopCharactersFrom(column As Integer, shouldTokenise As Boolean = True) As String
-		  /// Chops (removes) the characters from [column] to the end of the line and returns them.
+		  /// Chops (removes) the characters from `column` to the end of the line and returns them.
 		  
 		  Var chopped As String = mContents.MiddleCharacters(column)
 		  SetContents(mContents.LeftCharacters(column), shouldTokenise)
@@ -83,13 +83,13 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520636F6C756D6E20617420706978656C20706F736974696F6E205B785D2077686572652060306020697320746865206C696E652073746172742E2052657475726E7320602D3160206966206F7574206F662072616E67652E
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520636F6C756D6E20617420706978656C20706F736974696F6E206078602077686572652060306020697320746865206C696E652073746172742E2052657475726E7320602D3160206966206F7574206F662072616E67652E
 		Function ColumnAtX(x As Integer, g As Graphics) As Integer
-		  /// Returns the column at pixel position [x] where `0` is the line start.
+		  /// Returns the column at pixel position `x` where `0` is the line start.
 		  /// Returns `-1` if out of range.
 		  ///
-		  /// [x] is relative to this line's `TextStartX` property.
-		  /// [g] is the graphics context used to measure text width.
+		  /// `x` is relative to this line's `TextStartX` property.
+		  /// `g` is the graphics context used to measure text width.
 		  
 		  // The fudge factor accounts for the width of the caret
 		  Const FUDGE = 2
@@ -121,11 +121,11 @@ Inherits XUITextLine
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 44656C657465732074686520636861726163746572206174205B6361726574506F735D2066726F6D2074686973206C696E652E
+	#tag Method, Flags = &h0, Description = 44656C65746573207468652063686172616374657220617420606361726574506F73602066726F6D2074686973206C696E652E
 		Sub DeleteCharacterAtCaretPos(caretPos As Integer, shouldTokenise As Boolean = True)
-		  /// Deletes the character at [caretPos] from this line.
+		  /// Deletes the character at `caretPos` from this line.
 		  ///
-		  /// Raises an [InvalidArgumentException] if [caretPos] is out of range.
+		  /// Raises an `InvalidArgumentException` if `caretPos` is out of range.
 		  
 		  // Sanity check.
 		  If caretPos < 0 Then
@@ -148,9 +148,9 @@ Inherits XUITextLine
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 44656C65746573205B636F756E745D20636861726163746572732066726F6D2074686973206C696E6520626567696E6E696E67206174205B6361726574506F735D2E
+	#tag Method, Flags = &h0, Description = 44656C657465732060636F756E746020636861726163746572732066726F6D2074686973206C696E6520626567696E6E696E6720617420606361726574506F73602E
 		Sub DeleteCharactersFromCaretPos(caretPos As Integer, count As Integer, shouldTokenise As Boolean = True)
-		  /// Deletes [count] characters from this line beginning at [caretPos].
+		  /// Deletes `count` characters from this line beginning at `caretPos`.
 		  
 		  // Sanity check.
 		  If caretPos < Start Or caretPos + count > Finish Then
@@ -170,9 +170,9 @@ Inherits XUITextLine
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 44656C65746573205B636F756E745D20636861726163746572732066726F6D2074686520656E64206F6620746865206C696E652E
+	#tag Method, Flags = &h0, Description = 44656C657465732060636F756E746020636861726163746572732066726F6D2074686520656E64206F6620746865206C696E652E
 		Sub DeleteCharactersFromEnd(count As Integer, shouldTokenise As Boolean = True)
-		  /// Deletes [count] characters from the end of the line.
+		  /// Deletes `count` characters from the end of the line.
 		  
 		  If count > 0 And count <= Length Then
 		    SetContents(mContents.LeftCharacters(Length - count), shouldTokenise)
@@ -181,15 +181,15 @@ Inherits XUITextLine
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 44726177732074686973206C696E6520746F205B675D2E
+	#tag Method, Flags = &h0, Description = 44726177732074686973206C696E6520746F206067602E
 		Sub Draw(g As Graphics, topLeftX As Double, topLeftY As Double, lineH As Double, gutterWidth As Double, containsCaret As Boolean, maxLineNumWidth As Double)
-		  /// Draws this line to [g].
+		  /// Draws this line to `g`.
 		  ///
-		  /// [topLeftX] is the X coord of the top left corner of the line.
-		  /// [topLeftY] is the Y coord of the top left corner of the line.
-		  /// [lineH] is the height of the line.
-		  /// [gutterWidth] is the width of the gutter.
-		  /// [maxLineNumWidth] is the width of the bounding rectangle around the longest 
+		  /// `topLeftX` is the X coord of the top left corner of the line.
+		  /// `topLeftY` is the Y coord of the top left corner of the line.
+		  /// `lineH` is the height of the line.
+		  /// `gutterWidth` is the width of the gutter.
+		  /// `maxLineNumWidth` is the width of the bounding rectangle around the longest 
 		  /// line number in the gutter.
 		  ///
 		  /// A line includes the gutter, any spacing for indentation and the line 
@@ -399,13 +399,13 @@ Inherits XUITextLine
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4472617773206120746865206C696E65206E756D62657220746F207468652067757474657220696E205B675D2E
+	#tag Method, Flags = &h21, Description = 4472617773206120746865206C696E65206E756D62657220746F207468652067757474657220696E206067602E
 		Private Sub DrawLineNumber(g As Graphics, topLeftY As Double, gutterWidth As Double, lineH As Double)
-		  /// Draws a the line number to the gutter in [g].
+		  /// Draws a the line number to the gutter in `g`.
 		  ///
-		  /// [gutterWidth] is the width of the this line's canvas' gutter.
-		  /// [topLeftY] is the top left corner of the line.
-		  /// [lineH] is the height of the line.
+		  /// `gutterWidth` is the width of the this line's canvas' gutter.
+		  /// `topLeftY` is the top left corner of the line.
+		  /// `lineH` is the height of the line.
 		  
 		  #If TargetWindows
 		    // Since we're drawing text, we need to temporarily enable anti-aliasing on 
@@ -489,15 +489,15 @@ Inherits XUITextLine
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 447261777320616E20616E74692D616C696173656420737472696E672061742074686520737065636966696564206C6F636174696F6E20696E205B675D2E
+	#tag Method, Flags = &h21, Description = 447261777320616E20616E74692D616C696173656420737472696E67206073602061742074686520737065636966696564206C6F636174696F6E20696E206067602E
 		Private Sub DrawText(g As Graphics, s As String, x As Double, y As Double, wrapWidth As Double = 0, condense As Boolean = False)
-		  /// Draws an anti-aliased string [s] at the specified location in [g].
+		  /// Draws an anti-aliased string `s` at the specified location in `g`.
 		  ///
-		  /// [s] is the string to draw.
-		  /// [x] is the x coordinate.
-		  /// [y] is the y coordinate of the text baseline.
-		  /// [wrapWidth] is the width the text will wrap at.
-		  /// If [condense] is True then the string may be truncated with an ellipsis.
+		  /// `s` is the string to draw.
+		  /// `x` is the x coordinate.
+		  /// `y` is the y coordinate of the text baseline.
+		  /// `wrapWidth` is the width the text will wrap at.
+		  /// If `condense` is True then the string may be truncated with an ellipsis.
 		  ///
 		  /// This is essentially a wrapper to the `Graphics.DrawText` method. 
 		  /// It exists because we need to disable anti-aliasing in the graphics contexts 
@@ -529,9 +529,9 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 486967686C69676874732074686520706173736564206064656C696D6974657260206F6E2074686973206C696E652E
 		Private Sub HighlightDelimiter(delimiter As XUICELineToken, g As Graphics, topLeftX As Double, topLeftY As Double, lineH As Double, gutterWidth As Double)
-		  /// Highlights the passed [delimiter] on this line.
+		  /// Highlights the passed `delimiter` on this line.
 		  
 		  Var editor As XUICodeEditor = LineManager.Owner
 		  
@@ -574,20 +574,20 @@ Inherits XUITextLine
 		Function IndentWidth(charWidth As Double) As Double
 		  /// Returns the width of the indentation at the front of this line.
 		  ///
-		  /// [charWidth] is the current width of a character in the editor.
+		  /// `charWidth` is the current width of a character in the editor.
 		  
 		  Return (IndentLevel * charWidth * COLUMNS_PER_INDENT) + If(IsContinuation, charWidth * COLUMNS_PER_INDENT, 0)
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 496E7365727473205B735D20696E746F2074686973206C696E65206174205B636F6C756D6E5D2E2052657475726E732074686520636172657420706F736974696F6E20666F6C6C6F77696E672074686520696E73657274696F6E2E
+	#tag Method, Flags = &h0, Description = 496E73657274732060736020696E746F2074686973206C696E652061742060636F6C756D6E602E2052657475726E732074686520636172657420706F736974696F6E20666F6C6C6F77696E672074686520696E73657274696F6E2E
 		Function Insert(column As Integer, s As String) As Integer
-		  /// Inserts [s] into this line at [column].
+		  /// Inserts `s` into this line at `column`.
 		  /// Returns the caret position following the insertion.
 		  ///
-		  /// Raises an [InvalidArgumentException] if [column] is out of range.
-		  /// Assumes that [s] is not empty and does not contain newlines.
+		  /// Raises an `InvalidArgumentException` if `column` is out of range.
+		  /// Assumes that `s` is not empty and does not contain newlines.
 		  
 		  // Sanity checks.
 		  If column < 0 Then 
@@ -633,22 +633,22 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205B636F756E745D206C6566742D6D6F737420636861726163746572732066726F6D2074686973206C696E652E
+	#tag Method, Flags = &h0, Description = 52657475726E732060636F756E7460206C6566742D6D6F737420636861726163746572732066726F6D2074686973206C696E652E
 		Function Left(count As Integer) As String
-		  /// Returns [count] left-most characters from this line.
+		  /// Returns `count` left-most characters from this line.
 		  
 		  Return mContents.LeftCharacters(count)
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420706F736974696F6E206F662074686520656E64206F662074686520776F726420616674657220746865205B6361726574506F735D2E
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420706F736974696F6E206F662074686520656E64206F662074686520776F72642061667465722074686520606361726574506F73602E
 		Function NextWordEnd(caretPos As Integer) As Integer
-		  /// Returns the caret position of the end of the word after the [caretPos].
+		  /// Returns the caret position of the end of the word after the `caretPos`.
 		  ///
 		  /// If the caret is within the last word on this line then it returns the 
 		  /// end position for the line.
 		  ///
-		  /// Raises an [InvalidArgumentException] if [caretPos] is out of range for this line.
+		  /// Raises an `InvalidArgumentException` if `caretPos` is out of range for this line.
 		  
 		  If caretPos < Start Or caretPos > Finish Then
 		    Raise New InvalidArgumentException("Invalid `caretPos`")
@@ -699,13 +699,13 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420706F73206F6620746865207374617274206F662074686520776F7264206265666F72652074686520302D6261736564205B6361726574506F735D2E
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420706F73206F6620746865207374617274206F662074686520776F7264206265666F72652074686520606361726574506F73602E
 		Function PreviousWordStart(caretPos As Integer) As Integer
-		  /// Returns the caret pos of the start of the word before the [caretPos].
+		  /// Returns the caret pos of the start of the word before the `caretPos`.
 		  ///
-		  /// If [caretPos] is within the first word on the line then it returns the 
+		  /// If `caretPos` is within the first word on the line then it returns the 
 		  /// line start position.
-		  /// Raises an [InvalidArgumentException] if [caretPos] is out of range for this line.
+		  /// Raises an `InvalidArgumentException` if `caretPos` is out of range for this line.
 		  
 		  If caretPos < Start Or caretPos > Finish Then
 		    Raise New InvalidArgumentException("Invalid `caretPos`")
@@ -738,19 +738,19 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205B636F756E745D206C6566742D6D6F737420636861726163746572732066726F6D2074686973206C696E652E
+	#tag Method, Flags = &h0, Description = 52657475726E732060636F756E74602072696768742D6D6F737420636861726163746572732066726F6D2074686973206C696E652E
 		Function Right(count As Integer) As String
-		  /// Returns [count] right-most characters from this line.
+		  /// Returns `count` right-most characters from this line.
 		  
 		  Return mContents.RightCharacters(count)
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 536574732074686520636F6E74656E7473206F662074686973206C696E6520746F205B76616C75655D2C206D61726B7320746865206C696E6520617320646972747920616E64206F7074696F6E616C6C7920747269676765727320746F6B656E69736174696F6E2E
+	#tag Method, Flags = &h0, Description = 536574732074686520636F6E74656E7473206F662074686973206C696E6520746F206076616C7565602C206D61726B7320746865206C696E6520617320646972747920616E64206F7074696F6E616C6C7920747269676765727320746F6B656E69736174696F6E2E
 		Sub SetContents(value As String, shouldTokenise As Boolean = True)
-		  /// Sets the contents of this line to [value], marks the line as dirty and optionally triggers tokenisation.
+		  /// Sets the contents of this line to `value`, marks the line as dirty and optionally triggers tokenisation.
 		  ///
-		  /// Assumes that there are no newline characters in [value].
+		  /// Assumes that there are no newline characters in `value`.
 		  
 		  mContents = value
 		  Characters = mContents.CharacterArray
@@ -801,13 +801,13 @@ Inherits XUITextLine
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732061205B506169725D20636F6E7461696E696E672074686520666972737420616E64206C61737420636F6C756D6E73206F662074686520746F6B656E20636F6E7461696E6564206279207468652073656C656374696F6E206F72205B4E696C5D2069662074686520746F6B656E206973206E6F742073656C65637465642E
+	#tag Method, Flags = &h21, Description = 52657475726E7320612060506169726020636F6E7461696E696E672074686520666972737420616E64206C61737420636F6C756D6E73206F662074686520746F6B656E20636F6E7461696E6564206279207468652073656C656374696F6E206F7220604E696C602069662074686520746F6B656E206973206E6F742073656C65637465642E
 		Private Function TokenSelectionOverlap(t As XUICELineToken, selection As XUICESelectedColumns) As Pair
-		  /// Returns a [Pair] containing the first and last columns of the token 
-		  /// contained by the selection or [Nil] if the token is not selected.
+		  /// Returns a `Pair` containing the first and last columns of the token 
+		  /// contained by the selection or `Nil` if the token is not selected.
 		  ///
-		  /// [t] is the token we want to check if enclosed by the passed selection.
-		  /// [selection] is a selection representing the columns in this line that are selected.
+		  /// `t` is the token we want to check if enclosed by the passed selection.
+		  /// `selection` is a selection representing the columns in this line that are selected.
 		  ///
 		  /// The returned pair's structure is:
 		  /// `Left` = 0-based column of this token where the selection starts
@@ -864,14 +864,14 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865207769647468206F66207468652074657874206F662074686973206C696E6520757020616E6420696E636C7564696E672074686520636861726163746572206174205B6361726574506F735D20696E205B675D2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865207769647468206F66207468652074657874206F662074686973206C696E6520757020616E6420696E636C7564696E67207468652063686172616374657220617420606361726574506F736020696E206067602E
 		Function WidthToCaretPos(caretPos As Integer, g As Graphics) As Double
 		  /// Returns the width of the text of this line up and including the character 
-		  /// at [caretPos] in [g].
+		  /// at `caretPos` in `g`.
 		  ///
-		  /// [caretPos] is the 0-based caret position, **not** the offset of the 
+		  /// `caretPos` is the 0-based caret position, **not** the offset of the 
 		  /// character in this line.
-		  /// Assumes the [g] has the correct font size and family set.
+		  /// Assumes the `g` has the correct font size and family set.
 		  
 		  // Beginning of the line?
 		  If caretPos = Start Then Return 0
@@ -885,11 +885,11 @@ Inherits XUITextLine
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 546865207769647468206F662074686973206C696E6520757020746F205B636F6C756D6E5D2E
+	#tag Method, Flags = &h0, Description = 546865207769647468206F662074686973206C696E6520757020746F2060636F6C756D6E602E
 		Function WidthToColumn(column As Integer, g As Graphics, ignoreIdentation As Boolean = False) As Double
-		  /// The width of this line up to [column].
+		  /// The width of this line up to `column`.
 		  ///
-		  /// [g] is required to compute the width of the string.
+		  /// `g` is required to compute the width of the string.
 		  ///
 		  /// Does not include the gutter width.
 		  /// Does not factor in padding around the text or the gutter.

@@ -92,11 +92,11 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6E73756D657320616E642061646473206120686578206E756D62657220746F6B656E207374617274696E67206174205B6D43757272656E745D2E
+	#tag Method, Flags = &h21, Description = 436F6E73756D657320616E642061646473206120686578206E756D62657220746F6B656E207374617274696E6720617420606D43757272656E74602E
 		Private Sub AddHexNumberToken()
-		  /// Consumes and adds a hex number token starting at [mCurrent].
+		  /// Consumes and adds a hex number token starting at `mCurrent`.
 		  ///
-		  /// Assumes that [mCurrent] points at the first hex digit (which has been verified to exist).
+		  /// Assumes that `mCurrent` points at the first hex digit (which has been verified to exist).
 		  /// ```
 		  /// 0xFF
 		  ///   ^
@@ -115,12 +115,12 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 416464732065697468657220616E206964656E746966696572206F72206B6579776F726420626567696E6E696E67206174205B6D546F6B656E53746172744C6F63616C5D2E
+	#tag Method, Flags = &h21, Description = 416464732065697468657220616E206964656E746966696572206F72206B6579776F726420626567696E6E696E6720617420606D546F6B656E53746172744C6F63616C602E
 		Private Sub AddIdentifierOrKeywordToken()
-		  /// Adds either an identifier or keyword beginning at [mTokenStartLocal].
+		  /// Adds either an identifier or keyword beginning at `mTokenStartLocal`.
 		  ///
-		  /// Assumes that [mTokenStartLocal] is a valid identifier or keyword starting 
-		  /// character and that [mCurrent] is pointing to the character immediately following the starting character.
+		  /// Assumes that `mTokenStartLocal` is a valid identifier or keyword starting 
+		  /// character and that `mCurrent` is pointing to the character immediately following the starting character.
 		  
 		  While Peek.IsASCIILetterOrDigitOrUnderscore
 		    Call Advance
@@ -160,10 +160,10 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4164647320636F6E746967756F757320746F6B656E73206F66205B747970655D20626567696E6E696E67206174205B73746172744C696E655D205B73746172744C6F63616C5D20616C6C207468652077617920746F205B656E644C696E655D205B656E64506F734C6F63616C5D2E2052657475726E7320746865206C61737420746F6B656E2061646465642E20746865206C61737420746F6B656E2E
+	#tag Method, Flags = &h21, Description = 4164647320636F6E746967756F757320746F6B656E73206F662060747970656020626567696E6E696E67206174206073746172744C696E656020616E64206073746172744C6F63616C6020616C6C207468652077617920746F2060656E644C696E65602060656E64506F734C6F63616C602E2052657475726E7320746865206C61737420746F6B656E2061646465642E20746865206C61737420746F6B656E2E
 		Private Function AddMultilineTokens(type As String, startLine As Integer, startLocal As Integer, endLine As Integer, endPosLocal As Integer) As XUICELineToken
-		  /// Adds contiguous tokens of [type] beginning at [startLine] [startLocal] all the 
-		  /// way to [endLine] [endPosLocal]. Returns the last token added.
+		  /// Adds contiguous tokens of `type` beginning at `startLine` and `startLocal` all the 
+		  /// way to `endLine` `endPosLocal`. Returns the last token added.
 		  /// the last token.
 		  ///
 		  /// Assumes that all arguments are valid.
@@ -202,11 +202,11 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6E73756D657320616E6420616464732061206E756D62657220746F6B656E207374617274696E67206174205B6D43757272656E745D2E
+	#tag Method, Flags = &h21, Description = 436F6E73756D657320616E6420616464732061206E756D62657220746F6B656E207374617274696E6720617420606D43757272656E745D602E
 		Private Sub AddNumberToken()
-		  /// Consumes and adds a number token starting at [mCurrent].
+		  /// Consumes and adds a number token starting at `mCurrent]`.
 		  ///
-		  /// Assumes that [mCurrent] points at a digit.
+		  /// Assumes that `mCurrent` points at a digit.
 		  
 		  While Peek.IsDigit
 		    Advance
@@ -255,7 +255,8 @@ Implements XUICEFormatter
 		Private Sub AddRawStringToken()
 		  /// Attempts to consume and add a raw string token.
 		  ///
-		  /// Assumes that [mCurrent] points here:
+		  /// Assumes that `mCurrent` points here:
+		  ///
 		  /// ```
 		  ' """Hello """
 		  '    ^
@@ -287,11 +288,12 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 417474656D70747320746F20636F6E73756D6520616E6420616464206120737472696E6720746F6B656E207374617274696E67206174205B6D43757272656E745D2E
+	#tag Method, Flags = &h21, Description = 417474656D70747320746F20636F6E73756D6520616E6420616464206120737472696E6720746F6B656E207374617274696E6720617420606D43757272656E74602E
 		Private Sub AddStringToken()
-		  /// Attempts to consume and add a string token starting at [mCurrent].
+		  /// Attempts to consume and add a string token starting at `mCurrent`.
 		  ///
 		  /// Assumes we have just consumed a double quote (`"`):
+		  ///
 		  /// ```
 		  /// name = "Hello"
 		  ///         ^
@@ -379,11 +381,11 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732074686520666972737420746F6B656E206F6E205B6C696E655D2074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865206C696E6520746865726520617265206E6F6E652E
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520666972737420746F6B656E206F6E20606C696E65602074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865206C696E6520746865726520617265206E6F6E652E
 		Private Function FirstNonCommentToken(line As XUICELine) As XUICELineToken
-		  /// Returns the first token on [line] that is not a comment or Nil if the line there are none.
+		  /// Returns the first token on `line` that is not a comment or Nil if the line there are none.
 		  ///
-		  /// Assumes [line] is not Nil.
+		  /// Assumes `line` is not Nil.
 		  
 		  If line.Tokens.Count = 0 Then Return Nil
 		  
@@ -405,8 +407,8 @@ Implements XUICEFormatter
 		  /// System.write("age \tcool")
 		  ///                   ^
 		  ///
-		  /// [stringStartLine] is the number of the line that the preceding open string begins at.
-		  /// [mTokenStartLocal] points to the local position of the start of the preceding string.
+		  /// `stringStartLine` is the number of the line that the preceding open string begins at.
+		  /// `mTokenStartLocal` points to the local position of the start of the preceding string.
 		  
 		  Var isPrecedingString As Boolean = stringStartLine < mLineNumber Or mTokenStartLocal < mCurrent
 		  Var escapeStartLocal As Integer = mCurrent
@@ -496,8 +498,8 @@ Implements XUICEFormatter
 		  /// System.write("age %(25 + 15)"
 		  ///                   ^
 		  ///
-		  /// [stringStartLine] is the number of the line that the preceding open string begins at.
-		  /// [mTokenStartLocal] points to the local position of the start of the preceding string.
+		  /// `stringStartLine` is the number of the line that the preceding open string begins at.
+		  /// `mTokenStartLocal` points to the local position of the start of the preceding string.
 		  
 		  Var nestingLevel As Integer = 0
 		  Var isPrecedingString As Boolean = stringStartLine < mLineNumber Or mTokenStartLocal < mCurrent
@@ -543,7 +545,7 @@ Implements XUICEFormatter
 		Private Sub IndentLines()
 		  /// Sets the indentation and continuation levels for each line.
 		  ///
-		  /// Assumes [ProcessDelimiters()] has been called prior to this method.
+		  /// Assumes `ProcessDelimiters()` has been called prior to this method.
 		  
 		  If mLines.Count = 0 Then Return
 		  
@@ -662,11 +664,11 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 54727565206966205B745D206973206120636C6F73696E672064656C696D69746572206C696B6520607D602C20602960206F7220605D602E
+	#tag Method, Flags = &h21, Description = 5472756520696620607460206973206120636C6F73696E672064656C696D69746572206C696B6520607D602C20602960206F7220605D602E
 		Private Function IsClosingDelimiter(t As XUICELineToken) As Boolean
-		  /// True if [t] is a closing delimiter like `}`, `)` or `]`.
+		  /// True if `t` is a closing delimiter like `}`, `)` or `]`.
 		  ///
-		  /// Assumes [t] is not Nil.
+		  /// Assumes `t` is not Nil.
 		  
 		  If t.Type <> TOKEN_OPERATOR Then Return False
 		  
@@ -688,22 +690,22 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 54727565206966205B746F6B656E5D206973206120636F6D6D656E742E
+	#tag Method, Flags = &h21, Description = 547275652069662060746F6B656E60206973206120636F6D6D656E742E
 		Private Function IsCommentToken(token As XUICELineToken) As Boolean
-		  /// True if [token] is a comment.
+		  /// True if `token` is a comment.
 		  ///
-		  /// Assumes [token] is not Nil.
+		  /// Assumes `token` is not Nil.
 		  
 		  Return token.Type = TOKEN_COMMENT
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 54727565206966205B745D20697320616E206F70656E696E672064656C696D69746572206C696B6520607B602C20602860206F7220605B602E
+	#tag Method, Flags = &h21, Description = 547275652069662060746020697320616E206F70656E696E672064656C696D69746572206C696B6520607B602C20602860206F7220605B602E
 		Private Function IsOpeningDelimiter(t As XUICELineToken) As Boolean
-		  /// True if [t] is an opening delimiter like `{`, `(` or `[`.
+		  /// True if `t` is an opening delimiter like `{`, `(` or `[`.
 		  ///
-		  /// Assumes [t] is not Nil.
+		  /// Assumes `t` is not Nil.
 		  
 		  If t.Type <> TOKEN_OPERATOR Then Return False
 		  
@@ -717,11 +719,11 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E7320746865206C61737420746F6B656E206F6E205B6C696E655D2074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865206C696E6520746865726520617265206E6F6E652E
+	#tag Method, Flags = &h21, Description = 52657475726E7320746865206C61737420746F6B656E206F6E20606C696E65602074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865206C696E6520746865726520617265206E6F6E652E
 		Private Function LastNonCommentToken(line As XUICELine) As XUICELineToken
-		  /// Returns the last token on [line] that is not a comment or Nil if the line there are none.
+		  /// Returns the last token on `line` that is not a comment or Nil if the line there are none.
 		  ///
-		  /// Assumes [line] is not Nil.
+		  /// Assumes `line` is not Nil.
 		  
 		  If line.Tokens.Count = 0 Then Return Nil
 		  
@@ -743,9 +745,9 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E6561726573742064656C696D69746572732061742074686520676976656E205B6361726574506F735D2E204D6179206265204E696C2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E6561726573742064656C696D69746572732061742074686520676976656E20606361726574506F73602E204D6179206265204E696C2E
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
-		  /// Returns the nearest delimiters at the given [caretPos]. May be Nil.
+		  /// Returns the nearest delimiters at the given `caretPos`. May be Nil.
 		  ///
 		  /// Part of the XUICEFormatter interface.
 		  
@@ -766,9 +768,9 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 47656E65726174657320746865206E65787420746F6B656E20616E6420617070656E647320697420746F20606D4C696E652E546F6B656E73602E
 		Private Sub NextToken()
-		  /// Generates the next token and appends it to [mLine.Tokens].
+		  /// Generates the next token and appends it to `mLine.Tokens`.
 		  
 		  // Have we reached the end?
 		  If AtEnd Then Return
@@ -879,7 +881,7 @@ Implements XUICEFormatter
 		Private Sub ParseSimple()
 		  /// Performs a simple parse of the lines, setting line indentation, line continuations and computing delimiters.
 		  ///
-		  /// Assumes the lines in [mLines] have just been tokenised.
+		  /// Assumes the lines in `mLines` have just been tokenised.
 		  
 		  ProcessDelimiters
 		  IndentLines
@@ -887,10 +889,10 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 46696E647320746865206C6F636174696F6E73206F66206D61746368696E672064656C696D69746572732028652E673A206272616365732C20706172656E7468657365732C206574632920616E642061646473207468656D20746F205B4D61746368656444656C696D69746572735D2E
+	#tag Method, Flags = &h21, Description = 46696E647320746865206C6F636174696F6E73206F66206D61746368696E672064656C696D69746572732028652E673A206272616365732C20706172656E7468657365732C206574632920616E642061646473207468656D20746F20604D61746368656444656C696D6974657273602E
 		Private Sub ProcessDelimiters()
 		  /// Finds the locations of matching delimiters (e.g: braces, parentheses, etc) and 
-		  /// adds them to [MatchedDelimiters].
+		  /// adds them to `MatchedDelimiters`.
 		  
 		  MatchedOpeningDelimiters.RemoveAll
 		  MatchedDelimiters = New Dictionary
@@ -936,12 +938,12 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 53657473205B6C696E652E4973436F6E74696E756174696F6E5D206261736564206F6E20746865206C61737420746F6B656E206F66207468652070726576696F7573206C696E652E
+	#tag Method, Flags = &h21, Description = 5365747320606C696E652E4973436F6E74696E756174696F6E60206261736564206F6E20746865206C61737420746F6B656E206F66207468652070726576696F7573206C696E652E
 		Private Sub SetContinuationStatus(line As XUICELine, previousLineLastToken As XUICELineToken)
-		  /// Sets [line.IsContinuation] based on the last token of the previous line.
+		  /// Sets `line.IsContinuation` based on the last token of the previous line.
 		  ///
-		  /// Assumes [line] is not Nil.
-		  /// [previousLineLastToken] may be Nil.
+		  /// Assumes `line` is not Nil.
+		  /// `previousLineLastToken` may be Nil.
 		  
 		  If previousLineLastToken = Nil Then
 		    line.IsContinuation = False

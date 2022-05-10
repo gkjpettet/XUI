@@ -20,11 +20,11 @@ Implements XUINotificationListener
 		End Function
 	#tag EndEvent
 
-	#tag Event
+	#tag Event , Description = 48616E646C65732060636F6D6D616E64602E
 		Function DoCommand(command As String) As Boolean
-		  /// Handles [command].
+		  /// Handles `command`.
 		  ///
-		  /// [command] is a string constant telling us which command we need to handle.
+		  /// `command` is a string constant telling us which command we need to handle.
 		  
 		  // Are we still typing? Most of these commands are considered as "not typing" 
 		  // for the purposes of our undo engine.
@@ -423,8 +423,8 @@ Implements XUINotificationListener
 		Sub MouseMove(x As Integer, y As Integer)
 		  /// The mouse has moved over the canvas.
 		  ///
-		  /// [x] is the X coordinate of the mouse local to the canvas.
-		  /// [y] is the Y coordinate of the mouse local to the canvas.
+		  /// `x` is the X coordinate of the mouse local to the canvas.
+		  /// `y` is the Y coordinate of the mouse local to the canvas.
 		  
 		  // Update the current location (line number and column) the mouse is over.
 		  mLocationUnderMouse = LocationAtXY(x, y)
@@ -533,15 +533,15 @@ Implements XUINotificationListener
 		Function MouseWheel(x As Integer, y As Integer, deltaX As Integer, deltaY As Integer) As Boolean
 		  /// The mouse has wheeled on Windows or Linux.
 		  ///
-		  /// [x] is the X coord relative to the control that has received the event.
-		  /// [y] is the Y coord relative to the control that has received the event.
-		  /// [deltaX] is the number of horizontal scroll lines moved.
-		  /// [deltaY] is the number of vertical scroll lines moved.
+		  /// `x` is the X coord relative to the control that has received the event.
+		  /// `y` is the Y coord relative to the control that has received the event.
+		  /// `deltaX` is the number of horizontal scroll lines moved.
+		  /// `deltaY` is the number of vertical scroll lines moved.
 		  ///
 		  /// Returns True to prevent propagating the event further.
 		  ///
-		  /// [deltaX] is positive when the user scrolls right and negative when scrolling left. 
-		  /// [deltaY] is positive when the user scrolls down and negative when scrolling up.
+		  /// `deltaX` is positive when the user scrolls right and negative when scrolling left. 
+		  /// `deltaY` is positive when the user scrolls down and negative when scrolling up.
 		  ///
 		  /// Never called on macOS (handled instead within `NSScrollViewBoundsChanged`).
 		  
@@ -876,15 +876,19 @@ Implements XUINotificationListener
 		  /// Computes the width in pixels of the gutter using the passed `lineNumberWidth`.
 		  ///
 		  /// Gutter structure:
+		  ///
+		  /// ```no-highlight
 		  /// ________________
 		  /// |           |  |
 		  /// |           |  |
 		  /// ----------------
 		  ///   ↑          ↑  
 		  ///  LNW         BG
+		  /// ```
 		  ///
-		  /// LNW LineNumberWidth: The width of the rectangle containing the line number.
-		  /// BG Block gutter min width: The minimal width of the gutter containing 
+		  /// _LNW (Line number width)_: The width of the rectangle containing the line number.
+		  ///
+		  /// _BG (Block gutter min width)_: The minimal width of the gutter containing 
 		  ///                            the block indicators. This is variable but must be a minimal width.
 		  
 		  Return lineNumberWidth + BLOCK_GUTTER_MIN_WIDTH
@@ -1486,10 +1490,12 @@ Implements XUINotificationListener
 		  /// If `allowUndo` is True then this action will be undoable.
 		  /// If `raiseContentsDidChange` is True then we will raise the `ContentsDidChange` event.
 		  ///
-		  /// Three Scenarios:
+		  /// Three Scenarios: 
+		  ///
 		  /// 1. The caret is at the end of the line (blank line inserted below with caret at its start).
 		  /// 2. The caret is at the beginning of the line (blank line inserted above with caret at start of this line).
 		  /// 3. The caret is in the middle of the line (line is broken and caret is placed at start of new line below).
+		  ///
 		  /// We then need to scroll to the current caret position.
 		  
 		  // Ending a line starts a new undoable event block.
@@ -3219,9 +3225,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 53656C656374732065766572797468696E20696E2074686520656469746F722E
+	#tag Method, Flags = &h0, Description = 53656C656374732065766572797468696E6720696E2074686520656469746F722E
 		Sub SelectAll(shouldInvalidate As Boolean = True)
-		  /// Selects everythin in the editor.
+		  /// Selects everything in the editor.
 		  ///
 		  /// If `shouldInvalidate` is True then the editor will immediately refresh.
 		  

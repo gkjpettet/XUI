@@ -282,6 +282,7 @@ Protected Class MKBlock
 		  /// link labels. A link label can have at most 999 characters inside the square brackets.
 		  ///
 		  /// A "link destination" consists of either:
+		  ///
 		  /// 1. >= 0 characters between an opening `<` and a closing `>` that contains no line endings or 
 		  ///    unescaped `<` or `>` characters, or
 		  /// 2. > 0 characters that does not start with `<`, does not include ASCII control characters or space 
@@ -290,6 +291,7 @@ Protected Class MKBlock
 		  ///    (b) they are part of a balanced pair of unescaped parentheses. At least 3 levels must be supported.
 		  ///
 		  /// A "link title" consists of either:
+		  ///
 		  /// 1. >= 0 characters between `"` characters, including a `"` character only if it is backslash-escaped.
 		  /// 2. >= 0 characters between `'` characters, including a `'` character only if it is backslash-escaped
 		  /// 3. >= 0 characters between matching parentheses, including a `(` or `)` only if it's backslash-escaped.
@@ -729,6 +731,14 @@ Protected Class MKBlock
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Type"
+			Visible=false
+			Group="Behavior"
+			InitialValue="MKBlockTypes.Block"
+			Type="MarkdownKit.MKBlockTypes"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

@@ -1,6 +1,6 @@
 #tag Class
 Protected Class XUICEUndoableInsertText
-Implements  XUIUndoableAction
+Implements XUIUndoableAction
 	#tag Method, Flags = &h0
 		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, caretPos As Integer, s As String)
 		  mEditor = editor
@@ -44,7 +44,7 @@ Implements  XUIUndoableAction
 		Sub Redo()
 		  /// Redo the insertion of the text in the editor.
 		  ///
-		  /// Part of the [UndoEngine.UndoableAction] interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  mEditor.Insert(mText, mCaretPos, False, True, True)
 		  

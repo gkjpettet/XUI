@@ -7,9 +7,9 @@ Protected Class XUICEDelimiter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B6F746865725D20697320636F6E73696465726564206571756976616C656E7420746F20746869732064656C696D697465722E
+	#tag Method, Flags = &h0, Description = 5472756520696620606F746865726020697320636F6E73696465726564206571756976616C656E7420746F20746869732064656C696D697465722E
 		Function EquivalentTo(other As XUICEDelimiter) As Boolean
-		  /// True if [other] is considered equivalent to this delimiter.
+		  /// True if `other` is considered equivalent to this delimiter.
 		  
 		  If other = Nil Then Return False
 		  

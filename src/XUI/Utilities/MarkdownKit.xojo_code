@@ -4,7 +4,7 @@ Protected Module MarkdownKit
 		Protected Function CollapseInternalWhitespace(s As String) As String
 		  /// Reduces consecutive internal whitespace to a single space.
 		  
-		  // Exit early if there's no whitespace in [s].
+		  // Exit early if there's no whitespace in `s`.
 		  If s.IndexOf(" ") = -1 And s.IndexOf(&u0009) = -1 And s.IndexOf(&u0A) = -1 Then Return s
 		  
 		  Var chars() As String = s.CharacterArray
@@ -56,14 +56,14 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73206120737472696E672066726F6D205B63686172735D20626567696E6E696E6720617420696E646578205B73746172745D20666F72205B6C656E6774685D20636861726163746572732E20417373756D6573205B63686172735D20697320616E206172726179206F6620696E646976696475616C20636861726163746572732E
+	#tag Method, Flags = &h1, Description = 52657475726E73206120737472696E672066726F6D206063686172736020626567696E6E696E6720617420696E646578206073746172746020666F7220606C656E6774686020636861726163746572732E20417373756D6573206063686172736020697320616E206172726179206F6620696E646976696475616C20636861726163746572732E
 		Protected Function FromMKCharacterArray(chars() As String, start As Integer, length As Integer = -1) As String
-		  /// Returns a string from [chars] beginning at index [start] for [length] characters. 
-		  /// Assumes [chars] is an array of individual characters.
+		  /// Returns a string from `chars` beginning at index `start` for `length` characters. 
+		  /// Assumes `chars` is an array of individual characters.
 		  ///
-		  /// If `start + length` > the number of remaining characters then all characters from [start] to the
-		  /// end of [chars] are returned.
-		  /// If [length] = `-1` then all characters from [start] to the end of [chars] are returned.
+		  /// If `start + length` > the number of remaining characters then all characters from `start` to the
+		  /// end of `chars` are returned.
+		  /// If `length` = `-1` then all characters from `start` to the end of `chars` are returned.
 		  
 		  Var tmp() As String
 		  Var charsLastIndex As Integer = chars.LastIndex
@@ -84,9 +84,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 54727565206966205B636861725D2069732061206261636B736C6173682D657363617061626C65206368617261637465722E
+	#tag Method, Flags = &h21, Description = 54727565206966206063686172602069732061206261636B736C6173682D657363617061626C65206368617261637465722E
 		Private Function IsEscapable(char As String) As Boolean
-		  /// True if [char] is a backslash-escapable character.
+		  /// True if `char` is a backslash-escapable character.
 		  
 		  Return EscapableCharacters.HasKey(char)
 		End Function
@@ -94,7 +94,9 @@ Protected Module MarkdownKit
 
 	#tag Method, Flags = &h0, Description = 547275652069662074686520636861726163746572206174205B706F736974696F6E5D2069732065736361706564202870726563656465642062792061206E6F6E2D65736361706564206261636B736C61736820636861726163746572292E496620706F73203E2063686172732E4C617374496E646578206F7220706F73203D2030205468656E2052657475726E2046616C7365
 		Function IsEscaped(Extends chars() As MKCharacter, position As Integer) As Boolean
-		  /// True if the character at [position] is escaped (preceded by a non-escaped backslash character).If pos > chars.LastIndex or pos = 0 Then Return False
+		  /// True if the character at `position` is escaped (preceded by a non-escaped backslash character).
+		  
+		  'If pos > chars.LastIndex or pos = 0 Then Return False
 		  
 		  If position <= 0 Then Return False
 		  
@@ -106,9 +108,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 547275652069662074686520636861726163746572206174205B706F735D2069732065736361706564202870726563656465642062792061206E6F6E2D65736361706564206261636B736C61736820636861726163746572292E
+	#tag Method, Flags = &h0, Description = 5472756520696620746865206368617261637465722061742060706F73602069732065736361706564202870726563656465642062792061206E6F6E2D65736361706564206261636B736C61736820636861726163746572292E
 		Function IsMarkdownEscaped(chars() As MKCharacter, pos As Integer) As Boolean
-		  /// True if the character at [pos] is escaped (preceded by a non-escaped backslash character).
+		  /// True if the character at `pos` is escaped (preceded by a non-escaped backslash character).
 		  
 		  If pos > chars.LastIndex or pos = 0 Then Return False
 		  
@@ -121,9 +123,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 547275652069662074686520636861726163746572206174205B706F735D2069732065736361706564202870726563656465642062792061206E6F6E2D65736361706564206261636B736C61736820636861726163746572292E
+	#tag Method, Flags = &h0, Description = 5472756520696620746865206368617261637465722061742060706F73602069732065736361706564202870726563656465642062792061206E6F6E2D65736361706564206261636B736C61736820636861726163746572292E
 		Function IsMarkdownEscaped(chars() As String, pos As Integer) As Boolean
-		  /// True if the character at [pos] is escaped (preceded by a non-escaped backslash character).
+		  /// True if the character at `pos` is escaped (preceded by a non-escaped backslash character).
 		  
 		  If pos > chars.LastIndex or pos = 0 Then Return False
 		  
@@ -136,11 +138,11 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B636861725D20697320636F6E73696465726564204D61726B646F776E20776869746573706163652E
+	#tag Method, Flags = &h0, Description = 547275652069662060636861726020697320636F6E73696465726564204D61726B646F776E20776869746573706163652E
 		Function IsMarkdownWhitespace(Extends char As MKCharacter, lineEndingIsWhitespace As Boolean = False) As Boolean
-		  /// True if [char] is considered Markdown whitespace.
+		  /// True if `char` is considered Markdown whitespace.
 		  ///
-		  /// If the optional [lineEndingIsWhitespace] is True then we also consider a line ending to be whitespace.
+		  /// If the optional `lineEndingIsWhitespace` is True then we also consider a line ending to be whitespace.
 		  
 		  Select Case char.Value
 		  Case &u0020, &u0009, &uA0
@@ -156,9 +158,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B636861725D20697320776869746573706163652E
+	#tag Method, Flags = &h0, Description = 547275652069662060636861726020697320636F6E73696465726564204D61726B646F776E20776869746573706163652E
 		Function IsMarkdownWhitespace(Extends char As String) As Boolean
-		  /// True if [char] is considered Markdown whitespace.
+		  /// True if `char` is considered Markdown whitespace.
 		  
 		  Select Case char
 		  Case &u0020, &u0009, ""
@@ -170,9 +172,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B636861725D206973204D61726B646F776E2070756E6374756174696F6E2E
+	#tag Method, Flags = &h0, Description = 5472756520696620606368617260206973204D61726B646F776E2070756E6374756174696F6E2E
 		Function IsPunctuation(Extends char As MKCharacter) As Boolean
-		  /// True if [char] is Markdown punctuation.
+		  /// True if `char` is Markdown punctuation.
 		  
 		  Select Case char.Value
 		  Case "!", """", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", _
@@ -186,9 +188,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205B735D20617320616E206172726179206F66204D4B43686172616374657220696E7374616E6365732E
+	#tag Method, Flags = &h0, Description = 52657475726E732060736020617320616E206172726179206F66204D4B43686172616374657220696E7374616E6365732E
 		Function MKCharacters(Extends s As String, line As XUITextLine, localStartOffset As Integer = 0) As MKCharacter()
-		  /// Returns [s] as an array of MKCharacter instances. 
+		  /// Returns `s` as an array of MKCharacter instances. 
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -207,9 +209,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
+	#tag Method, Flags = &h1, Description = 5265706C6163657320616E792048544D4C20656E74697469657320646566696E656420696E2060636861727360207769746820746865697220636F72726573706F6E64696E6720756E69636F6465206368617261637465722E
 		Protected Sub ReplaceEntities(chars() As String)
-		  /// Replaces any HTML entities defined in [chars] with their corresponding unicode character.
+		  /// Replaces any HTML entities defined in `chars` with their corresponding unicode character.
 		  ///
 		  /// The document https://html.spec.whatwg.org/multipage/entities.json is used as an authoritative 
 		  /// source for the valid entity references and their corresponding code points.
@@ -461,9 +463,9 @@ Protected Module MarkdownKit
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 5265706C6163657320616E792048544D4C20656E74697469657320696E205B735D207769746820746865697220636F72726573706F6E64696E6720756E69636F6465206368617261637465722E
+	#tag Method, Flags = &h1, Description = 5265706C6163657320616E792048544D4C20656E74697469657320696E20607360207769746820746865697220636F72726573706F6E64696E6720756E69636F6465206368617261637465722E
 		Protected Function ReplaceEntities(s As String) As String
-		  /// Replaces any HTML entities in [s] with their corresponding unicode character.
+		  /// Replaces any HTML entities in `s` with their corresponding unicode character.
 		  
 		  If s.IndexOf("&") = -1 Or s.IndexOf(";") = -1 Then
 		    Return s
@@ -476,9 +478,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E7320746865205B6D61726B646F776E5D20737472696E672061732061204D61726B646F776E20646F63756D656E74202861736274726163742073796E7461782074726565292E
+	#tag Method, Flags = &h1, Description = 52657475726E732074686520606D61726B646F776E6020737472696E672061732061204D61726B646F776E20646F63756D656E74202861627374726163742073796E7461782074726565292E
 		Protected Function ToDocument(markdown As String) As MarkdownKit.MKDocument
-		  /// Returns the [markdown] string as a Markdown document (asbtract syntax tree).
+		  /// Returns the `markdown` string as a Markdown document (abstract syntax tree).
 		  
 		  If mParser = Nil Then mParser = New MarkdownKit.MKParser
 		  
@@ -487,9 +489,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E7320746865205B6D61726B646F776E5D20737472696E672061732048544D4C2E
+	#tag Method, Flags = &h1, Description = 52657475726E732074686520606D61726B646F776E6020737472696E672061732048544D4C2E
 		Protected Function ToHTML(markdown As String) As String
-		  /// Returns the [markdown] string as HTML.
+		  /// Returns the `markdown` string as HTML.
 		  
 		  If mParser = Nil Then mParser = New MarkdownKit.MKParser
 		  
@@ -567,13 +569,13 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E672066726F6D205B63686172735D20626567696E6E696E6720617420696E646578205B73746172745D20666F72205B6C656E6774685D20636861726163746572732E
+	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E672066726F6D206063686172736020626567696E6E696E6720617420696E646578206073746172746020666F7220606C656E6774686020636861726163746572732E
 		Function ToString(Extends chars() As MKCharacter, start As Integer, length As Integer) As String
-		  /// Returns a string from [chars] beginning at index [start] for [length] characters. 
+		  /// Returns a string from `chars` beginning at index `start` for `length` characters. 
 		  ///
-		  /// If `start + length` > the number of remaining characters then all characters from [start] to the
-		  /// end of [chars] are returned.
-		  /// If [length] = `-1` then all characters from [start] to the end of [chars] are returned.
+		  /// If `start + length` > the number of remaining characters then all characters from `start` to the
+		  /// end of `chars` are returned.
+		  /// If `length` = `-1` then all characters from `start` to the end of `chars` are returned.
 		  
 		  Var tmp() As String
 		  Var charsLastIndex As Integer = chars.LastIndex
@@ -597,9 +599,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 436F6E7665727473206261636B736C6173682065736361706564206368617261637465727320696E205B735D20746F207468656972206C69746572616C206368617261637465722076616C75652E204D757461746573205B735D2E
+	#tag Method, Flags = &h0, Description = 436F6E7665727473206261636B736C6173682065736361706564206368617261637465727320696E2060736020746F207468656972206C69746572616C206368617261637465722076616C75652E204D757461746573206073602E
 		Sub Unescape(ByRef s As String)
-		  /// Converts backslash escaped characters in [s] to their literal character value. Mutates [s].
+		  /// Converts backslash escaped characters in `s` to their literal character value. Mutates `s`.
 		  
 		  If s.IndexOf("\") = -1 Then Return
 		  
@@ -620,9 +622,9 @@ Protected Module MarkdownKit
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 436F6E7665727473206261636B736C6173682065736361706564206368617261637465727320746F207468656972206C69746572616C206368617261637465722076616C75652E204D757461746573205B63686172735D2E
+	#tag Method, Flags = &h1, Description = 436F6E7665727473206261636B736C6173682065736361706564206368617261637465727320746F207468656972206C69746572616C206368617261637465722076616C75652E204D75746174657320606368617273602E
 		Protected Sub Unescape(chars() As String)
-		  /// Converts backslash escaped characters to their literal character value. Mutates [chars].
+		  /// Converts backslash escaped characters to their literal character value. Mutates `chars`.
 		  
 		  If chars.IndexOf("\") = -1 Then Return
 		  

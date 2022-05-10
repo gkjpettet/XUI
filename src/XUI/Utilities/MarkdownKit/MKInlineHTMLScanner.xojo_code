@@ -1,15 +1,15 @@
 #tag Class
 Protected Class MKInlineHTMLScanner
-	#tag Method, Flags = &h0, Description = 46696E64732074686520302D626173656420696E64657820696E205B63686172735D206F6620612076616C69642048544D4C20636C6F73696E6754616720626567696E6E696E67206174205B706F735D2E2052657475726E7320603060206966206E6F2076616C696420636C6F73696E6754616720697320666F756E642E
+	#tag Method, Flags = &h0, Description = 46696E64732074686520302D626173656420696E64657820696E2060636861727360206F6620612076616C69642048544D4C20636C6F73696E6754616720626567696E6E696E672061742060706F73602E2052657475726E7320603060206966206E6F2076616C696420636C6F73696E6754616720697320666F756E642E
 		Shared Function FindClosingTag(chars() As MKCharacter, pos As integer, ByRef tagName As String) As Integer
-		  /// Finds the 0-based index in [chars] of a valid HTML closingTag beginning at [pos].
+		  /// Finds the 0-based index in `chars` of a valid HTML closingTag beginning at `pos`.
 		  /// Returns `0` if no valid closingTag is found.
 		  ///
-		  /// Assumes that [pos] points to the character immediately following "</"
+		  /// Assumes that `pos` points to the character immediately following "</"
 		  ///
 		  /// closingTag: </, tagName, optional whitespace, >
 		  /// tagName: ASCII letter, >= 0 ASCII letter|digit|-
-		  /// Also sets the ByRef [tagName] parameter to the detected tagName (if present) or "" if no 
+		  /// Also sets the ByRef `tagName` parameter to the detected tagName (if present) or "" if no 
 		  /// valid tagName is found.
 		  ///
 		  /// The return value is the 0-based index immediately after the closing `>`.
@@ -44,13 +44,13 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520302D626173656420696E64657820696E20606C696E6560206F662074686520656E64206F6620612076616C69642048544D4C206F70656E696E67207461672C20626567696E6E696E672061742060706F7360206F7220603060206966206E6F7420666F756E642E20607461674E616D65602069732073657420746F207468652074616720666F756E64206F722022222E
 		Shared Function FindOpenTag(chars() As MKCharacter, pos As Integer, ByRef tagName As String) As Integer
-		  /// Returns the 0-based index in [line] of the end of a valid HTML opening tag, beginning at [pos] 
-		  /// or `0` if not found. [tagName] is set to the tag found or "".
+		  /// Returns the 0-based index in `line` of the end of a valid HTML opening tag, beginning at `pos` 
+		  /// or `0` if not found. `tagName` is set to the tag found or "".
 		  ///
-		  /// Assumes that [pos] points to the character immediately following "<"
-		  /// Sets the ByRef parameter [tagName] to the detected tag name (if present) or "" if none is found.
+		  /// Assumes that `pos` points to the character immediately following "<"
+		  /// Sets the ByRef parameter `tagName` to the detected tag name (if present) or "" if none is found.
 		  ///
 		  /// openTag: "<", a tagname, >= 0 attributes, optional whitespace, optional "/", and a ">".
 		  /// tagName: ASCII letter, >= 0 ASCII letter|digit|-
@@ -149,10 +149,10 @@ Protected Class MKInlineHTMLScanner
 
 	#tag Method, Flags = &h0, Description = 5374617274696E67206174205B706F735D2C20726561647320612048544D4C20746167206E616D652066726F6D205B63686172735D20616E642072657475726E732069742E2041646A75737473205B706F735D20746F20706F696E7420746F207468652063686172616374657220696D6D6564696174656C792061667465722074686520746167206E616D652E204D61792072657475726E2022222E
 		Shared Function GetHtmlTagName(chars() As MKCharacter, ByRef pos As Integer) As String
-		  /// Starting at [pos], reads a HTML tag name from [chars] and returns it. Adjusts [pos] to point to the 
+		  /// Starting at `pos`, reads a HTML tag name from `chars` and returns it. Adjusts `pos` to point to the 
 		  /// character immediately after the tag name. May return "".
 		  ///
-		  /// Note: [pos] is passed ByRef.
+		  /// Note: `pos` is passed ByRef.
 		  /// tagName: ASCII letter, >= 0 ASCII letter|digit|-
 		  /// Returns "" If no valid tagName is found.
 		  

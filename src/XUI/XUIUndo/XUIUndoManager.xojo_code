@@ -1,8 +1,8 @@
 #tag Class
 Protected Class XUIUndoManager
-	#tag Method, Flags = &h21, Description = 41646473205B616374696F6E5D20746F2074686520737461636B206F66207265646F61626C6520616374696F6E732E
+	#tag Method, Flags = &h21, Description = 416464732060616374696F6E6020746F2074686520737461636B206F66207265646F61626C6520616374696F6E732E
 		Private Sub AddActionToRedoStack(action As XUIUndoableAction)
-		  /// Adds [action] to the stack of redoable actions.
+		  /// Adds `action` to the stack of redoable actions.
 		  
 		  If action = Nil Then Return
 		  mRedoStack.Add(action)
@@ -10,9 +10,9 @@ Protected Class XUIUndoManager
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 41646473205B616374696F6E5D20746F2074686520737461636B206F6620756E646F61626C6520616374696F6E732E
+	#tag Method, Flags = &h21, Description = 416464732060616374696F6E6020746F2074686520737461636B206F6620756E646F61626C6520616374696F6E732E
 		Private Sub AddActionToUndoStack(action As XUIUndoableAction)
-		  /// Adds [action] to the stack of undoable actions.
+		  /// Adds `action` to the stack of undoable actions.
 		  
 		  If action = Nil Then Return
 		  mUndoStack.Add(action)
@@ -47,9 +47,9 @@ Protected Class XUIUndoManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 50757368657320616E20756E646F61626C65205B616374696F6E5D206F6E20746F2074686520556E646F4D616E61676572277320737461636B2E
+	#tag Method, Flags = &h0, Description = 50757368657320616E20756E646F61626C652060616374696F6E60206F6E20746F2074686520556E646F4D616E61676572277320737461636B2E
 		Sub Push(action As XUIUndoableAction)
-		  /// Pushes an undoable [action] on to the UndoManager's stack.
+		  /// Pushes an undoable `action` on to the UndoManager's stack.
 		  
 		  // Sanity check.
 		  If action = Nil Then Return
@@ -75,9 +75,9 @@ Protected Class XUIUndoManager
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5265646F732074686520616374696F6E20776974682074686520737065636966696564205B69645D2E
+	#tag Method, Flags = &h0, Description = 5265646F732074686520616374696F6E2077697468207468652073706563696669656420606964602E
 		Sub Redo(id As Integer)
-		  /// Redos the action with the specified [id].
+		  /// Redos the action with the specified `id`.
 		  
 		  If Not CanRedo Then Return
 		  
@@ -127,7 +127,7 @@ Protected Class XUIUndoManager
 
 	#tag Method, Flags = &h0, Description = 556E646F732074686520616374696F6E20776974682074686520737065636966696564205B69645D2E
 		Sub Undo(ID as integer)
-		  /// Undos the action with the specified [id].
+		  /// Undos the action with the specified `id`.
 		  
 		  If Not CanUndo Then Return
 		  

@@ -16,6 +16,7 @@ Protected Class MKLinkScanner
 		  /// Note that [pos] is passed ByRef.
 		  ///
 		  /// A "link destination" consists of either:
+		  ///
 		  /// 1. >= 0 characters between an opening `<` and a closing `>` that contains no line endings or 
 		  ///    unescaped `<` or `>` characters, or
 		  /// 2. > 0 characters that does not start with `<`, does not include ASCII control characters or space 
@@ -190,6 +191,7 @@ Protected Class MKLinkScanner
 		  /// Note that [pos] is passed ByRef.
 		  ///
 		  /// A "link title" consists of either:
+		  ///
 		  /// 1. >= 0 characters between `"` characters, including a `"` character only if it is backslash-escaped.
 		  /// 2. >= 0 characters between `'` characters, including a `'` character only if it is backslash-escaped
 		  /// 3. >= 0 characters between matching parentheses, including a `(` or `)` only if it's backslash-escaped.
