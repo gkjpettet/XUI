@@ -7,8 +7,11 @@ Protected Class MKInlineHTMLScanner
 		  ///
 		  /// Assumes that `pos` points to the character immediately following "</"
 		  ///
+		  /// ```
 		  /// closingTag: </, tagName, optional whitespace, >
 		  /// tagName: ASCII letter, >= 0 ASCII letter|digit|-
+		  /// ```
+		  ///
 		  /// Also sets the ByRef `tagName` parameter to the detected tagName (if present) or "" if no 
 		  /// valid tagName is found.
 		  ///
@@ -52,6 +55,7 @@ Protected Class MKInlineHTMLScanner
 		  /// Assumes that `pos` points to the character immediately following "<"
 		  /// Sets the ByRef parameter `tagName` to the detected tag name (if present) or "" if none is found.
 		  ///
+		  /// ``` nohighlight
 		  /// openTag: "<", a tagname, >= 0 attributes, optional whitespace, optional "/", and a ">".
 		  /// tagName: ASCII letter, >= 0 ASCII letter|digit|-
 		  /// attribute: whitespace, attributeName, optional attributeValueSpec
@@ -61,6 +65,7 @@ Protected Class MKInlineHTMLScanner
 		  /// unQuotedAttValue: > 0 characters NOT including whitespace, ", ', =, <, >, or `.
 		  /// singleQuotedAttValue: ', >= 0 characters NOT including ', then a final '
 		  /// doubleQuotedAttValue: ", >= 0 characters NOT including ", then a final "
+		  /// ```
 		  
 		  tagName = ""
 		  
@@ -291,9 +296,11 @@ Protected Class MKInlineHTMLScanner
 		  /// Assumes `chars(startPos - 1) = "<"`
 		  ///
 		  /// Valid autolink:
+		  /// ```
 		  ///      "<", absolute URI, ">"
 		  /// Absolute URI = scheme, :, >=0 characters (not WS, <, >)
 		  /// Scheme = [A-Za-z]{1}[A-Za-z0-9\+\.\-]{1, 31}
+		  /// ```
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -653,11 +660,7 @@ Protected Class MKInlineHTMLScanner
 	#tag EndMethod
 
 
-	#tag ComputedProperty, Flags = &h21, Description = 53746F7265732074686520636861726163746572732074686174206172652076616C696420666F72207468652066697273742070617274206F6620616E20656D61696C206175746F6C696E6B3A20612D7A412D5A302D392E2123242526272A2B5C2F3D3F5E5F607B7C7D7E2D
-		#tag Note
-			Stores the characters that are valid for the first part of an email autolink:
-			a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-
-		#tag EndNote
+	#tag ComputedProperty, Flags = &h21, Description = 53746F7265732074686520636861726163746572732074686174206172652076616C696420666F72207468652066697273742070617274206F6620616E20656D61696C206175746F6C696E6B3A206020612D7A412D5A302D392E2123242526272A2B5C2F3D3F5E5F607B7C7D7E2D60
 		#tag Getter
 			Get
 			  Static d As New Dictionary( _

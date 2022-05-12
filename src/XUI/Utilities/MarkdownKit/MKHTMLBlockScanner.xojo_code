@@ -11,10 +11,13 @@ Protected Class MKHTMLBlockScanner
 		  /// Finds the 0-based index in `line` of a valid HTML closingTag beginning at `pos`.
 		  /// Returns `0` if no valid closingTag is found.
 		  ///
-		  /// Assumes that `pos` points to the character immediately following "</"
+		  /// Assumes that `pos` points to the character immediately following `</`
 		  ///
+		  /// ```
 		  /// closingTag: </, tagName, optional whitespace, >
 		  /// tagName: ASCII letter, >= 0 ASCII letter|digit|-
+		  /// ```
+		  ///
 		  /// Also sets the ByRef `tagName` parameter to the detected tagName (if present) or "" if no 
 		  /// valid tagName is found.
 		  
@@ -56,6 +59,7 @@ Protected Class MKHTMLBlockScanner
 		  /// Assumes that `pos` points to the character immediately following "<"
 		  /// Sets the ByRef parameter `tagName` to the detected tag name (if present) or "" if none is found.
 		  ///
+		  /// ```
 		  /// openTag: "<", a tagname, >= 0 attributes, optional whitespace, optional "/", and a ">".
 		  /// tagName: ASCII letter, >= 0 ASCII letter|digit|-
 		  /// attribute: whitespace, attributeName, optional attributeValueSpec
@@ -65,6 +69,7 @@ Protected Class MKHTMLBlockScanner
 		  /// unQuotedAttValue: > 0 characters NOT including whitespace, ", ', =, <, >, or `.
 		  /// singleQuotedAttValue: ', >= 0 characters NOT including ', then a final '
 		  /// doubleQuotedAttValue: ", >= 0 characters NOT including ", then a final "
+		  /// ```
 		  
 		  tagName = ""
 		  
