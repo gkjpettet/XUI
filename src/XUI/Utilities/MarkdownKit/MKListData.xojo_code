@@ -1,8 +1,8 @@
 #tag Class
 Protected Class MKListData
-	#tag Method, Flags = &h0, Description = 436F6D70617265732074686973206C6973742077697468205B6F746865725D2E2052657475726E732060306020696620746865792061726520636F6E7369646572656420657175616C2C206F74686572776973652072657475726E7320602D31602E
+	#tag Method, Flags = &h0, Description = 436F6D70617265732074686973206C697374207769746820606F74686572602E2052657475726E732060306020696620746865792061726520636F6E7369646572656420657175616C2C206F74686572776973652072657475726E7320602D31602E
 		Function Operator_Compare(other As MKListData) As Integer
-		  /// Compares this list with [other]. Returns `0` if they are considered equal, otherwise returns `-1`.
+		  /// Compares this list with `other`. Returns `0` if they are considered equal, otherwise returns `-1`.
 		  
 		  If Self.ListType = other.ListType And Self.ListDelimiter = other.ListDelimiter And _
 		    Self.BulletCharacter = other.BulletCharacter Then
@@ -159,6 +159,22 @@ Protected Class MKListData
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ListDelimiter"
+			Visible=false
+			Group="Behavior"
+			InitialValue="MKListDelimiters.Period"
+			Type="MKListDelimiters"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ListType"
+			Visible=false
+			Group="Behavior"
+			InitialValue="MKListTypes.Bullet"
+			Type="MKListTypes"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

@@ -176,10 +176,10 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 416476616E636573207061737420746865206368617261637465727320696E205B63686172735D207374617274696E67206174205B706F735D20756E74696C205B696E76616C6964436861725D2E2052657475726E73205472756520696620776520616476616E6365642E205B706F735D20616E64205B63757272656E74436861725D20617265206D7574617465642E
+	#tag Method, Flags = &h0, Description = 416476616E636573207061737420746865206368617261637465727320696E2060636861727360207374617274696E672061742060706F736020756E74696C2060696E76616C696443686172602E2052657475726E73205472756520696620776520616476616E6365642E2060706F736020616E64206063757272656E74436861726020617265206D7574617465642E
 		Shared Function MatchAnythingExcept(chars() As MKCharacter, ByRef pos As Integer, ByRef currentChar As String, invalidChar As String) As Boolean
-		  /// Advances past the characters in [chars] starting at [pos] until [invalidChar]. 
-		  /// Returns True if we advanced. [pos] and [currentChar] are mutated.
+		  /// Advances past the characters in `chars` starting at `pos` until `invalidChar`. 
+		  /// Returns True if we advanced. `pos` and `currentChar` are mutated.
 		  
 		  Var matched As Boolean = False
 		  
@@ -196,10 +196,10 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 416476616E636573207061737420746865206368617261637465727320696E205B63686172735D207374617274696E67206174205B706F735D20756E74696C2077686974657370616365206F7220616E20696E76616C69642063686172616374657220697320666F756E642E2052657475726E73205472756520696620776520616476616E6365642E205B706F735D20616E64205B63757272656E74436861725D20617265206D7574617465642E
+	#tag Method, Flags = &h0, Description = 416476616E636573207061737420746865206368617261637465727320696E2060636861727360207374617274696E672061742060706F736020756E74696C2077686974657370616365206F7220616E20696E76616C69642063686172616374657220697320666F756E642E2052657475726E73205472756520696620776520616476616E6365642E2060706F736020616E64206063757272656E74436861726020617265206D7574617465642E
 		Shared Function MatchAnythingExceptInvalidAndWhitespace(chars() As MKCharacter, ByRef pos As Integer, ByRef currentChar As String, ParamArray invalidChars() As String) As Boolean
-		  /// Advances past the characters in [chars] starting at [pos] until whitespace or an invalid character is 
-		  /// found. Returns True if we advanced. [pos] and [currentChar] are mutated.
+		  /// Advances past the characters in `chars` starting at `pos` until whitespace or an invalid character is 
+		  /// found. Returns True if we advanced. `pos` and `currentChar` are mutated.
 		  
 		  Var matched As Boolean = False
 		  
@@ -219,10 +219,10 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 416476616E636573207468726F756768205B63686172735D207374617274696E67206174205B706F735D206173206C6F6E67206173207468652063686172616374657220697320616E204153434949206C65747465722C206469676974206F72205B76616C696443686172735D2E204D757461746573205B706F735D20616E64205B63757272656E74436861725D2E2054727565206966205B706F735D206368616E6765642E
+	#tag Method, Flags = &h0, Description = 416476616E636573207468726F7567682060636861727360207374617274696E672061742060706F7360206173206C6F6E67206173207468652063686172616374657220697320616E204153434949206C65747465722C206469676974206F72206076616C69644368617273602E204D7574617465732060706F736020616E64206063757272656E7443686172602E20547275652069662060706F7360206368616E6765642E
 		Shared Function MatchASCIILetterOrDigit(chars() As MKCharacter, ByRef pos As Integer, ByRef currentChar As String, ParamArray validChars() As String) As Boolean
-		  /// Advances through [chars] starting at [pos] as long as the character is an ASCII letter, digit or 
-		  /// [validChars]. Mutates [pos] and [currentChar]. True if [pos] changed.
+		  /// Advances through `chars` starting at `pos` as long as the character is an ASCII letter, digit or 
+		  /// `validChars`. Mutates `pos` and `currentChar`. True if `pos` changed.
 		  
 		  Var matched As Boolean = False
 		  
@@ -240,10 +240,10 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 416476616E636573207468726F756768205B63686172735D206173206C6F6E67206173206974206D61746368657320616E204153434949206C65747465722C206469676974206F722068797068656E2E2052657475726E7320746865206E756D626572206F66206D61746368656420636861726163746572732E2053746F7073206966207765206D61746368205B6D6178436F756E745D20636861726163746572732E
+	#tag Method, Flags = &h21, Description = 416476616E636573207468726F7567682060636861727360206173206C6F6E67206173206974206D61746368657320616E204153434949206C65747465722C206469676974206F722068797068656E2E2052657475726E7320746865206E756D626572206F66206D61746368656420636861726163746572732E2053746F7073206966207765206D6174636820606D6178436F756E746020636861726163746572732E
 		Private Shared Function MatchASCIILetterOrDigitOrHyphen(chars() As MKCharacter, pos As Integer, maxCount As Integer) As Integer
-		  /// Advances through [chars] as long as it matches an ASCII letter, digit or hyphen. Returns the number 
-		  /// of matched characters. Stops if we match [maxCount] characters.
+		  /// Advances through `chars` as long as it matches an ASCII letter, digit or hyphen. Returns the number 
+		  /// of matched characters. Stops if we match `maxCount` characters.
 		  
 		  Var charsLastIndex As Integer = chars.LastIndex
 		  
@@ -262,10 +262,10 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 416476616E636573207468726F756768205B63686172735D207374617274696E67206174205B706F735D206173206C6F6E67206173207468652063686172616374657220697320616E204153434949206C6574746572206F72205B76616C696443686172735D2E204D757461746573205B706F735D20616E64205B63757272656E74436861725D2E2054727565206966205B706F735D206368616E6765642E
+	#tag Method, Flags = &h0, Description = 416476616E636573207468726F7567682060636861727360207374617274696E672061742060706F7360206173206C6F6E67206173207468652063686172616374657220697320616E204153434949206C6574746572206F72206076616C69644368617273602E204D7574617465732060706F736020616E64206063757272656E7443686172602E20547275652069662060706F7360206368616E6765642E
 		Shared Function MatchASCIILetterOrValidCharacter(chars() As MKCharacter, ByRef pos As Integer, ByRef currentChar As String, ParamArray validChars() As String) As Boolean
-		  /// Advances through [chars] starting at [pos] as long as the character is an ASCII letter or 
-		  /// [validChars]. Mutates [pos] and [currentChar]. True if [pos] changed.
+		  /// Advances through `chars` starting at `pos` as long as the character is an ASCII letter or 
+		  /// `validChars`. Mutates `pos` and `currentChar`. True if `pos` changed.
 		  
 		  Var matched As Boolean = False
 		  
@@ -285,8 +285,8 @@ Protected Class MKInlineHTMLScanner
 
 	#tag Method, Flags = &h0, Description = 5363616E73205B63686172735D20666F7220612076616C6964206175746F6C696E6B2072657475726E696E672074686520696E646578206F66207468652063686172616374657220696D6D6564696174656C7920666F6C6C6F77696E6720612076616C6964206175746F6C696E6B206F7220603060206966206E6F6E6520697320666F756E642E2053657473205B7572695D20746F20746865206162736F6C757465205552492E
 		Shared Function ScanAutoLink(chars() As MKCharacter, startPos As Integer, ByRef uri As String) As Integer
-		  /// Scans [chars] for a valid autolink returning the index of the character immediately following a valid 
-		  /// autolink or `0` if none is found. Sets [uri] to the absolute URI.
+		  /// Scans `chars` for a valid autolink returning the index of the character immediately following a valid 
+		  /// autolink or `0` if none is found. Sets `uri` to the absolute URI.
 		  ///
 		  /// Assumes `chars(startPos - 1) = "<"`
 		  ///
@@ -340,13 +340,14 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5363616E73205B63686172735D20666F7220612076616C69642048544D4C206465636C61726174696F6E2C20636F6D6D656E74206F722043444154412073656374696F6E2E2052657475726E732074686520696E646578206F6620746865206368617261637465722061667465722074686520636C6F73696E6720636861726163746572206F7220603060206966206E6F7420666F756E642E
+	#tag Method, Flags = &h0, Description = 5363616E73206063686172736020666F7220612076616C69642048544D4C206465636C61726174696F6E2C20636F6D6D656E74206F722043444154412073656374696F6E2E2052657475726E732074686520696E646578206F6620746865206368617261637465722061667465722074686520636C6F73696E6720636861726163746572206F7220603060206966206E6F7420666F756E642E
 		Shared Function ScanDeclarationCommentOrCData(chars() As MKCharacter, startPos As Integer) As Integer
-		  /// Scans [chars] for a valid HTML declaration, comment or CDATA section. Returns the index of the 
+		  /// Scans `chars` for a valid HTML declaration, comment or CDATA section. Returns the index of the 
 		  /// character after the closing character or `0` if not found.
 		  ///
-		  /// Assumes [startPos] points at the index of the character immediately following `<!`.
+		  /// Assumes `startPos` points at the index of the character immediately following `<!`.
 		  ///
+		  /// ```nohighlight
 		  /// CDATA:
 		  /// -----
 		  ///   "<![CDATA[", >= 0 characters, then "]]>
@@ -372,6 +373,7 @@ Protected Class MKInlineHTMLScanner
 		  ///   <!--a-->
 		  ///   01234567
 		  ///     ^
+		  /// ```
 		  
 		  Var charsLastIndex As Integer = chars.LastIndex
 		  
@@ -443,19 +445,22 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5363616E73205B63686172735D2066726F6D205B7374617274506F735D20666F7220612076616C696420656D61696C206175746F6C696E6B2C2072657475726E696E672074686520696E646578206F66207468652063686172616374657220616674657220612076616C6964206175746F6C696E6B206F7220603060206966206E6F6E6520697320666F756E642E2053657473205B7572695D20746F20746865206162736F6C757465205552492E
+	#tag Method, Flags = &h0, Description = 5363616E7320606368617273602066726F6D20607374617274506F736020666F7220612076616C696420656D61696C206175746F6C696E6B2C2072657475726E696E672074686520696E646578206F66207468652063686172616374657220616674657220612076616C6964206175746F6C696E6B206F7220603060206966206E6F6E6520697320666F756E642E205365747320607572696020746F20746865206162736F6C757465205552492E
 		Shared Function ScanEmailLink(chars() As MKCharacter, startPos As Integer, ByRef uri As String) As Integer
-		  /// Scans [chars] from [startPos] for a valid email autolink, returning the index of the character
-		  /// after a valid autolink or `0` if none is found. Sets [uri] to the absolute URI.
+		  /// Scans `chars` from `startPos` for a valid email autolink, returning the index of the character
+		  /// after a valid autolink or `0` if none is found. Sets `uri` to the absolute URI.
 		  ///
 		  /// Assumes `chars(startPos - 1) = "<"`
 		  /// Sets the ByRef parameter `uri` to the absolute URI.
 		  /// 
 		  /// Valid email autolink:
+		  ///
+		  /// ```nohighlight
 		  ///  "<", email address, ">"
 		  ///   Email address:
 		  ///      [a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?
 		  ///      (?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*
+		  /// ```
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -555,9 +560,9 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5363616E73205B63686172735D20626567696E6E696E67206174205B706F735D20666F7220616E20696E6C696E65206C696E6B20736368656D652C2072657475726E696E672074686520696E646578206F66207468652063686172616374657220666F6C6C6F77696E672074686520736368656D65206F7220603060206966206E6F6E6520697320666F756E642E
+	#tag Method, Flags = &h21, Description = 5363616E73206063686172736020626567696E6E696E672061742060706F736020666F7220616E20696E6C696E65206C696E6B20736368656D652C2072657475726E696E672074686520696E646578206F66207468652063686172616374657220666F6C6C6F77696E672074686520736368656D65206F7220603060206966206E6F6E6520697320666F756E642E
 		Private Shared Function ScanLinkScheme(chars() As MKCharacter, pos As Integer) As Integer
-		  /// Scans [chars] beginning at [pos] for an inline link scheme, returning the index of the character 
+		  /// Scans `chars` beginning at `pos` for an inline link scheme, returning the index of the character 
 		  /// following the scheme or `0` if none is found.
 		  ///
 		  /// Valid scheme = [A-Za-z]{1}[A-Za-z0-9\+\.\-]{1, 31}
@@ -599,14 +604,14 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5363616E7320666F7220616E20696E6C696E652048544D4C202270726F63657373696E6720696E737472756374696F6E222E2052657475726E732074686520696E64657820696E205B63686172735D206F6620746865206368617261637465722061667465722074686520636C6F73696E6720603F3E60206F7220603060206966206E6F7420666F756E642E
+	#tag Method, Flags = &h0, Description = 5363616E7320666F7220616E20696E6C696E652048544D4C202270726F63657373696E6720696E737472756374696F6E222E2052657475726E732074686520696E64657820696E2060636861727360206F6620746865206368617261637465722061667465722074686520636C6F73696E6720603F3E60206F7220603060206966206E6F7420666F756E642E
 		Shared Function ScanProcessingInstruction(chars() As MKCharacter, startPos As Integer) As Integer
-		  /// Scans for an inline HTML "processing instruction". Returns the index in [chars] of the character after
+		  /// Scans for an inline HTML "processing instruction". Returns the index in `chars` of the character after
 		  /// the closing `?>` or `0` if not found.
 		  ///
 		  /// A processing instruction consists of the string `<?`, a string of characters not including the 
 		  /// string `?>` and the string `?>`.
-		  /// Assumes [startPos] points at the index in [chars] of the character immediately following an 
+		  /// Assumes `startPos` points at the index in `chars` of the character immediately following an 
 		  /// opening `<?`.
 		  
 		  Var charsLastIndex As Integer = chars.LastIndex
@@ -627,9 +632,9 @@ Protected Class MKInlineHTMLScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 536B697073206F766572207768697465737061636520696E205B63686172735D20626567696E6E696E67206174205B706F735D207570646174696E67205B706F735D20616E64205B63757272656E74436861725D2E2052657475726E73205472756520696620616E7920776869746573706163652077617320736B69707065642E
+	#tag Method, Flags = &h0, Description = 536B697073206F766572207768697465737061636520696E206063686172736020626567696E6E696E672061742060706F7360207570646174696E672060706F736020616E64206063757272656E7443686172602E2052657475726E73205472756520696620616E7920776869746573706163652077617320736B69707065642E
 		Shared Function SkipWhitespace(chars() As MKCharacter, ByRef pos As Integer, ByRef currentChar As String) As Boolean
-		  /// Skips over whitespace in [chars] beginning at [pos] updating [pos] and [currentChar]. Returns True if
+		  /// Skips over whitespace in `chars` beginning at `pos` updating `pos` and `currentChar`. Returns True if
 		  /// any whitespace was skipped.
 		  
 		  Var matched As Boolean = False

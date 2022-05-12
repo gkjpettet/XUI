@@ -6,14 +6,14 @@ Protected Class MKLinkScanner
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 547269657320746F2070617273652061206C696E6B2064657374696E6174696F6E20696E205B63686172735D20626567696E6E696E67206174205B706F735D2E2049662061626C652069742072657475726E7320547275652C2075706461746573205B706F735D20746F207468652063686172616374657220696D6D6564696174656C79206166746572207468652064657374696E6174696F6E20616E6420706F70756C61746573205B646174615D2E
+	#tag Method, Flags = &h0, Description = 547269657320746F2070617273652061206C696E6B2064657374696E6174696F6E20696E206063686172736020626567696E6E696E672061742060706F73602E2049662061626C652069742072657475726E7320547275652C20757064617465732060706F736020746F207468652063686172616374657220696D6D6564696174656C79206166746572207468652064657374696E6174696F6E20616E6420706F70756C61746573206064617461602E
 		Shared Function ParseLinkDestination(chars() As MKCharacter, ByRef pos As Integer, ByRef data As Dictionary) As Boolean
-		  /// Tries to parse a link destination in [chars] beginning at [pos]. If able it returns True, 
-		  /// updates [pos] to the character immediately after the destination and populates [data].
+		  /// Tries to parse a link destination in `chars` beginning at `pos`. If able it returns True, 
+		  /// updates `pos` to the character immediately after the destination and populates `data`.
 		  ///
-		  /// Sets [data.Value("linkDestination")] to the link destination (if found).
-		  /// Sets [data.Value("linkDestinationLength")] to the length of the destination.
-		  /// Note that [pos] is passed ByRef.
+		  /// Sets `data.Value("linkDestination")` to the link destination (if found).
+		  /// Sets `data.Value("linkDestinationLength")` to the length of the destination.
+		  /// Note that `pos` is passed ByRef.
 		  ///
 		  /// A "link destination" consists of either:
 		  ///
@@ -110,17 +110,17 @@ Protected Class MKLinkScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 547269657320746F2070617273652061206C696E6B206C6162656C20696E205B63686172735D20626567696E6E696E67206174205B706F735D2E2049662061626C652069742072657475726E7320547275652C2075706461746573205B706F735D20746F2074686520656E64206F6620746865206C6162656C20616E6420706F70756C61746573205B646174615D2E
+	#tag Method, Flags = &h0, Description = 547269657320746F2070617273652061206C696E6B206C6162656C20696E206063686172736020626567696E6E696E672061742060706F73602E2049662061626C652069742072657475726E7320547275652C20757064617465732060706F736020746F2074686520656E64206F6620746865206C6162656C20616E6420706F70756C61746573206064617461602E
 		Shared Function ParseLinkLabel(chars() As MKCharacter, ByRef pos As Integer, ByRef data As Dictionary) As Boolean
-		  /// Tries to parse a link label in [chars] beginning at [pos]. If able it returns True, updates [pos] to 
-		  /// the end of the label and populates [data].
+		  /// Tries to parse a link label in `chars` beginning at `pos`. If able it returns True, updates `pos` to 
+		  /// the end of the label and populates `data`.
 		  ///
-		  /// Sets [data.Value("linkLabel")] to the link label (if found).
-		  /// Sets [data.Value("linkLabelStart")] to the original [pos] value.
-		  /// Sets [data.Value("linkLabelLength")] to the length of the trimmed label before any 
-		  /// Sets [data.Value("linkLabelStartChar")] to the starting character of the label.
+		  /// Sets `data.Value("linkLabel")` to the link label (if found).
+		  /// Sets `data.Value("linkLabelStart")` to the original `pos` value.
+		  /// Sets `data.Value("linkLabelLength")` to the length of the trimmed label before any 
+		  /// Sets `data.Value("linkLabelStartChar")` to the starting character of the label.
 		  /// consecutive internal whitespace is collapsed.
-		  /// Note that [pos] is passed ByRef.
+		  /// Note that `pos` is passed ByRef.
 		  ///
 		  /// A "link label" begins with a left bracket (`[`) and ends with the first right bracket (`]`) that is not 
 		  /// backslash-escaped. 
@@ -179,16 +179,16 @@ Protected Class MKLinkScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 547269657320746F2070617273652061206C696E6B207469746C6520696E205B63686172735D20626567696E6E696E67206174205B706F735D2E2049662061626C652069742072657475726E7320547275652C2075706461746573205B706F735D20746F2074686520656E64206F6620746865206C696E6B207469746C6520616E6420706F70756C61746573205B646174615D2E
+	#tag Method, Flags = &h0, Description = 547269657320746F2070617273652061206C696E6B207469746C6520696E206063686172736020626567696E6E696E672061742060706F73602E2049662061626C652069742072657475726E7320547275652C20757064617465732060706F736020746F2074686520656E64206F6620746865206C696E6B207469746C6520287468652064656C696D697465722920616E6420706F70756C61746573206064617461602E
 		Shared Function ParseLinkTitle(chars() As MKCharacter, ByRef startPos As Integer, ByRef data As Dictionary) As Boolean
-		  /// Tries to parse a link title in [chars] beginning at [pos]. If able it returns True, updates [pos] to 
-		  /// the end of the link title (the delimiter) and populates [data].
+		  /// Tries to parse a link title in `chars` beginning at `pos`. If able it returns True, updates `pos` to 
+		  /// the end of the link title (the delimiter) and populates `data`.
 		  ///
-		  /// Sets [data.Value("linkTitle")] to the link title (if found).
-		  /// Sets [data.Value("linkTitleLength")] to the absolute length of the link title (if found).
-		  /// Sets [data.Value("linkTitleStart")] to the original value of [pos].
-		  /// Sets [data.Value("linkTitleValid")] to False if there is a link title but it is invalid.
-		  /// Note that [pos] is passed ByRef.
+		  /// Sets `data.Value("linkTitle")` to the link title (if found).
+		  /// Sets `data.Value("linkTitleLength")` to the absolute length of the link title (if found).
+		  /// Sets `data.Value("linkTitleStart")` to the original value of `pos`.
+		  /// Sets `data.Value("linkTitleValid")` to False if there is a link title but it is invalid.
+		  /// Note that `pos` is passed ByRef.
 		  ///
 		  /// A "link title" consists of either:
 		  ///

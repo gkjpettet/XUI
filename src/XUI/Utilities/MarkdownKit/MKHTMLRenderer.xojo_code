@@ -17,9 +17,9 @@ Implements MKRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E6720636F6E73697374696E67206F66205B636F756E745D207370616365732E
+	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E6720636F6E73697374696E67206F662060636F756E7460207370616365732E
 		Function SpacesString(count As Integer) As String
-		  /// Returns a string consisting of [count] spaces.
+		  /// Returns a string consisting of `count` spaces.
 		  
 		  Var tmp() As String
 		  tmp.ResizeTo(count)

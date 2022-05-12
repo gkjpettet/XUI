@@ -1,8 +1,8 @@
 #tag Class
 Protected Class MKParser
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966206062602061636365707473206C696E65732E
 		Private Function AcceptsLines(b As MKBlock) As Boolean
-		  // Returns True if [b] accepts lines.
+		  /// Returns True if `b` accepts lines.
 		  
 		  Select Case b.Type
 		  Case MKBlockTypes.AtxHeading, MKBlockTypes.FencedCode, MKBlockTypes.IndentedCode, MKBlockTypes.Paragraph
@@ -15,11 +15,11 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 416476616E636573207468652063757272656E74206F6666736574206279205B636F756E745D20706C616365732E
+	#tag Method, Flags = &h21, Description = 416476616E636573207468652063757272656E74206F66667365742062792060636F756E746020706C616365732E
 		Private Sub AdvanceOffset(count As Integer, columns As Boolean)
-		  /// Advances the current offset by [count] places.
+		  /// Advances the current offset by `count` places.
 		  ///
-		  /// If [columns] is True then we need to take into consideration tab stops.
+		  /// If `columns` is True then we need to take into consideration tab stops.
 		  /// The offset relates to the location on the current line that is considered the start of the line
 		  /// once indentation and block openers are taken into consideration.
 		  
@@ -111,9 +111,9 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620612060706172656E7454797065602063616E20636F6E7461696E20606368696C6454797065602E
 		Shared Function CanContain(parentType As MKBlockTypes, childType As MKBlockTypes) As Boolean
-		  // Returns True if a [parentType] can contain [childType].
+		  /// Returns True if a `parentType` can contain `childType`.
 		  
 		  Return parentType = MKBlockTypes.Document Or _
 		  parentType = MKBlockTypes.BlockQuote Or _
@@ -123,9 +123,9 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52656D6F7665732074686520706173736564205B7061726167726170685D2066726F6D2069747320706172656E7420616E64207265706C6163657320697420776974682061206E65772053657465787448656164696E6720626C6F636B2077697468207468652073616D65206368696C6472656E2E2052657475726E73207468652053657465787448656164696E6720626C6F636B2E
+	#tag Method, Flags = &h21, Description = 52656D6F76657320746865207061737365642060706172616772617068602066726F6D2069747320706172656E7420616E64207265706C6163657320697420776974682061206E65772053657465787448656164696E6720626C6F636B2077697468207468652073616D65206368696C6472656E2E2052657475726E73207468652053657465787448656164696E6720626C6F636B2E
 		Private Function ConvertParagraphBlockToSetextHeading(ByRef paragraph As MarkdownKit.MKBlock, line As XUITextLine) As MKSetextHeadingBlock
-		  /// Removes the passed [paragraph] from its parent and replaces it with a new SetextHeading block
+		  /// Removes the passed `paragraph` from its parent and replaces it with a new SetextHeading block
 		  /// with the same children. Returns the SetextHeading block.
 		  
 		  // Get a reference to the passed paragraph's parent.
@@ -181,11 +181,11 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 437265617465732061206E657720626C6F636B206F66205B747970655D2C20616464732069742061732061206368696C64206F66205B706172656E745D2C20747261636B7320746865206162736F6C75746520736F7572636520636F646520737461727420706F736974696F6E20616E642072657475726E7320746865206E657720626C6F636B2E
+	#tag Method, Flags = &h21, Description = 437265617465732061206E657720626C6F636B206F66206074797065602C20616464732069742061732061206368696C64206F662060706172656E74602E
 		Private Function CreateChildBlock(parent As MKBlock, line As XUITextLine, type As MKBlockTypes, blockStartOffset As Integer) As MKBlock
-		  /// Creates a new block of [type], adds it as a child of [parent].
+		  /// Creates a new block of `type`, adds it as a child of `parent`.
 		  ///
-		  /// [blockStartOffset] will be applied to [mCurrentOffset] when determining the absolute start 
+		  /// `blockStartOffset` will be applied to `mCurrentOffset` when determining the absolute start 
 		  /// position of this block.
 		  
 		  // If `parent` can't accept this child, then back up until we hit a block that can.
@@ -305,12 +305,12 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B6D43757272656E744C696E655D2C20626567696E6E696E67206174205B6D4E6578744E57535D2C20697320612076616C6964204154582068656164696E672E2049662054727565207468656E205B646174615D2069732061206E65772076616C69642064696374696F6E6172792C206F7468657277697365205B646174615D2069732073657420746F204E696C2E
+	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620606D43757272656E744C696E65602C20626567696E6E696E6720617420606D4E6578744E5753602C20697320612076616C6964204154582068656164696E672E2049662054727565207468656E206064617461602069732061206E65772076616C69642064696374696F6E6172792C206F7468657277697365206064617461602069732073657420746F204E696C2E
 		Private Function IsATXHeader(ByRef data As Dictionary) As Boolean
-		  /// Returns True if [mCurrentLine], beginning at [mNextNWS], is a valid ATX heading.
-		  /// If True then [data] is a new valid dictionary, otherwise [data] is set to Nil.
+		  /// Returns True if `mCurrentLine`, beginning at `mNextNWS`, is a valid ATX heading.
+		  /// If True then `data` is a new valid dictionary, otherwise `data` is set to Nil.
 		  ///
-		  /// Assumes that [mNextNWS] points to a "#" in [mCurrentLine].
+		  /// Assumes that `mNextNWS` points to a "#" in `mCurrentLine`.
 		  /// Sets `data.Value("level")` to the header level (1 to 6).
 		  /// Sets `data.Value("length")` to number of characters from the start of the opening sequence to the 
 		  ///      first character of the heading content.
@@ -401,9 +401,9 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966206D43757272656E744C696E652C20626567696E6E696E6720617420606D4E6578744E575360206973206120636C6F73696E672066656E6365206F66206174206C6561737420606C656E6774686020636861726163746572732E
 		Private Function IsClosingCodeFence(length As Integer) As Boolean
-		  /// Returns True if mCurrentLine, beginning at `mNextNWS` is a closing fence of at least [length] characters.
+		  /// Returns True if mCurrentLine, beginning at `mNextNWS` is a closing fence of at least `length` characters.
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -447,14 +447,14 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B6D43757272656E744C696E655D2C20626567696E6E696E67206174205B6D4E6578744E57535D2C20697320612066656E63656420636F6465206F70656E696E672E20506F70756C61746573205B646174615D207769746820746865202266656E63654C656E6774682220616E642022696E666F537472696E67222E
+	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620606D43757272656E744C696E65602C20626567696E6E696E6720617420606D4E6578744E5753602C20697320612066656E63656420636F6465206F70656E696E672E20506F70756C6174657320606461746160207769746820746865202266656E63654C656E677468222E
 		Private Function IsCodeFenceOpening(fenceChar As String, ByRef data As Dictionary) As Boolean
-		  /// Returns True if [mCurrentLine], beginning at [mNextNWS], is a fenced code opening. Populates [data]
+		  /// Returns True if `mCurrentLine`, beginning at `mNextNWS`, is a fenced code opening. Populates `data`
 		  /// with the "fenceLength".
 		  ///
 		  /// Assumes that `mCurrentChar = fenceChar` and `mCurrentLine.Characters(mNextNWS) = fenceChar` as this 
 		  /// method is only called from `TryNewBlocks`.
-		  /// Also assumes that [fenceChar] is either "`" or "~".
+		  /// Also assumes that `fenceChar` is either "`" or "~".
 		  /// We don't capture the (optional) info string here as it gets added later as a TextBlock 
 		  /// child of this block.
 		  
@@ -533,10 +533,10 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662074686520746865726520697320612048544D4C20626C6F636B207374617274696E67206174205B706F735D206F6E205B6D43757272656E744C696E655D2E20507574732074686520227479706522206F662048544D4C20626C6F636B20696E205B646174615D2E
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662074686520746865726520697320612048544D4C20626C6F636B207374617274696E672061742060706F7360206F6E20606D43757272656E744C696E65602E20507574732074686520227479706522206F662048544D4C20626C6F636B20696E206064617461602E
 		Private Function IsHtmlBlockStart(pos As Integer, ByRef data As Dictionary) As Boolean
-		  /// Returns True if the there is a HTML block starting at [pos] on [mCurrentLine]. 
-		  /// Puts the "type" of HTML block in [data].
+		  /// Returns True if the there is a HTML block starting at `pos` on `mCurrentLine`. 
+		  /// Puts the "type" of HTML block in `data`.
 		  ///
 		  /// There are 7 kinds of HTML block. See the note "HTML Block Types" in this class for more detail.
 		  
@@ -650,13 +650,15 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B6D43757272656E744C696E655D2066726F6D205B706F735D2069732061207479706520372048544D4C20626C6F636B2073746172742E2053657473205B646174612E56616C756528227479706522295D20746F206E6F6E65206F722074797065203720656E756D65726174696F6E2E
+	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620606D43757272656E744C696E65602066726F6D2060706F73602069732061207479706520372048544D4C20626C6F636B2073746172742E20536574732060646174612E56616C756528227479706522296020746F206E6F6E65206F722074797065203720656E756D65726174696F6E2E
 		Private Function IsHtmlBlockType7Start(pos As Integer, ByRef data As Dictionary) As Boolean
-		  /// Returns True if [mCurrentLine] from [pos] is a type 7 HTML block start. Sets [data.Value("type")] to 
+		  /// Returns True if `mCurrentLine` from `pos` is a type 7 HTML block start. Sets `data.Value("type")` to 
 		  /// none or type 7 enumeration.
 		  ///
+		  /// ``` nohighlight
 		  /// Type 7: {openTag NOT script|style|pre}[•→]+|⮐$   or
 		  ///         {closingTag}[•→]+|⮐$
+		  /// ```
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -692,14 +694,17 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B6D43757272656E744C696E655D2C20626567696E6E696E67206174205B6D4E6578744E57535D2069732061207365746578742068656164696E67206C696E652E2053657473205B646174612E56616C756528226C6576656C22295D
+	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620606D43757272656E744C696E65602C20626567696E6E696E6720617420606D4E6578744E5753602069732061207365746578742068656164696E67206C696E652E20536574732060646174612E56616C756528226C6576656C222960
 		Private Function IsSetextHeadingLine(ByRef data As Dictionary) As Boolean
-		  /// Returns True if [mCurrentLine], beginning at [mNextNWS] is a setext heading line.
-		  /// Sets [data.Value("level")]
+		  /// Returns True if `mCurrentLine`, beginning at `mNextNWS` is a setext heading line.
+		  /// Sets `data.Value("level")`
 		  ///
-		  /// Sets [data.Value("level")] to the heading level (1 or 2) or 0 if this is not a setext heading line.
+		  /// Sets `data.Value("level")` to the heading level (1 or 2) or 0 if this is not a setext heading line.
+		  ///
+		  /// ```nohighlight
 		  ///   ^[=]+[ ]*$
 		  ///   ^[-]+[ ]*$
+		  /// ```
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -750,16 +755,19 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966205B6C696E655D207374617274696E67206174205B706F735D2069732061207468656D6174696320627265616B2E
+	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620606C696E6560207374617274696E672061742060706F73602069732061207468656D6174696320627265616B2E
 		Private Function IsThematicBreak(chars() As String, pos As Integer) As Boolean
-		  /// Returns True if [line] starting at [pos] is a thematic break.
+		  /// Returns True if `line` starting at `pos` is a thematic break.
 		  ///
 		  /// Valid thematic break lines consist of >= 3 dashes, underscores or asterixes 
 		  /// which may be optionally separated by any amount of spaces or tabs whitespace.
 		  /// The characters must match:
+		  
+		  /// ```nohighlight
 		  ///   ^([-][ ]*){3,}[\s]*$"
 		  ///   ^([_][ ]*){3,}[\s]*$"
 		  ///   ^([\*][ ]*){3,}[\s]*$"
+		  /// ```
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -798,11 +806,11 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 46696E64732074686520696E64657820696E205B6D4C696E65735D206F6620746865206C617374206E6F6E2D626C616E6B206C696E65206F722072657475726E73202D3120696620746865726520617265206F6E6C7920626C616E6B206C696E65732E
+	#tag Method, Flags = &h21, Description = 46696E64732074686520696E64657820696E20606D4C696E657360206F6620746865206C617374206E6F6E2D626C616E6B206C696E65206F722072657475726E73202D3120696620746865726520617265206F6E6C7920626C616E6B206C696E65732E
 		Private Function LastNonBlankIndex(firstNonBlank As Integer) As Integer
-		  /// Finds the index in [mLines] of the last non-blank line or returns -1 if there are only blank lines.
+		  /// Finds the index in `mLines` of the last non-blank line or returns -1 if there are only blank lines.
 		  ///
-		  /// [firstNonBlank] should be the index of a valid non-blank line in [mLines] (i.e. [FirstNonBlankIndex] has 
+		  /// `firstNonBlank` should be the index of a valid non-blank line in `mLines` (i.e. `FirstNonBlankIndex` has 
 		  /// been called prior to this method).
 		  
 		  #Pragma NilObjectChecking False
@@ -830,9 +838,9 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4D6174636865732077686974657370616365206F6E205B6C696E655D20626567696E6E696E67206174205B706F735D20616E642072657475726E7320686F77206D616E7920636861726163746572732077657265206D6174636865642E
+	#tag Method, Flags = &h21, Description = 4D6174636865732077686974657370616365206F6E20606C696E656020626567696E6E696E672061742060706F736020616E642072657475726E7320686F77206D616E7920636861726163746572732077657265206D6174636865642E
 		Private Function MatchWhitespaceCharacters(line As XUITextLine, pos As Integer) As Integer
-		  /// Matches whitespace on [line] beginning at [pos] and returns how many characters were matched.
+		  /// Matches whitespace on `line` beginning at `pos` and returns how many characters were matched.
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -852,9 +860,9 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 506172736573205B6D4C696E65735D20696E746F206120626C6F636B207374727563747572652E
+	#tag Method, Flags = &h21, Description = 50617273657320606D4C696E65736020696E746F206120626C6F636B207374727563747572652E
 		Private Sub ParseBlockStructure()
-		  /// Parses [mLines] into a block structure.
+		  /// Parses `mLines` into a block structure.
 		  ///
 		  /// This is part 1 of the parsing process. It gives us the overall structure of the Markdown document.
 		  /// Assumes the parser has been reset before this method is invoked.
@@ -919,9 +927,9 @@ Protected Class MKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 506172736573205B6C696E65735D20696E746F2061204D61726B646F776E20646F63756D656E742E
+	#tag Method, Flags = &h0, Description = 50617273657320606C696E65736020696E746F2061204D61726B646F776E20646F63756D656E742E
 		Function ParseLines(lines() As XUITextLine) As MKDocument
-		  /// Parses [lines] into a Markdown document.
+		  /// Parses `lines` into a Markdown document.
 		  
 		  Reset(lines)
 		  
@@ -934,9 +942,9 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662061626C6520746F2070617273652061204C6973744974656D206D61726B65722C20706F70756C6174696E67205B646174615D2077697468207468652064657461696C732E
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662061626C6520746F2070617273652061204C6973744974656D206D61726B65722C20706F70756C6174696E67206064617461602077697468207468652064657461696C732E
 		Private Function ParseListMarker(indented As Boolean, line As XUITextLine, pos As Integer, interruptsParagraph As Boolean, ByRef data As MarkdownKit.MKListData) As Boolean
-		  /// Returns True if able to parse a ListItem marker, populating [data] with the details.
+		  /// Returns True if able to parse a ListItem marker, populating `data` with the details.
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -1029,9 +1037,9 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 506172736573205B6C696E65735D20696E746F2061204D61726B646F776E20646F63756D656E742E
+	#tag Method, Flags = &h0, Description = 50617273657320606D61726B646F776E6020696E746F2061204D61726B646F776E20646F63756D656E742E
 		Function ParseSource(markdown As String) As MKDocument
-		  /// Parses [markdown] into a Markdown document.
+		  /// Parses `markdown` into a Markdown document.
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -1193,9 +1201,9 @@ Protected Class MKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 53657473205B6C696E655D20746F206265207468652063757272656E74206C696E6520666F722070726F63657373696E672E
+	#tag Method, Flags = &h21, Description = 5365747320606C696E656020746F206265207468652063757272656E74206C696E6520666F722070726F63657373696E672C20636C6561727320746865206C696E65277320746F6B656E7320616E64206D61726B732069742061732064697274792E
 		Private Sub ResetLine(line As XUITextLine)
-		  /// Sets [line] to be the current line for processing, clears the line's tokens and marks it as dirty.
+		  /// Sets `line` to be the current line for processing, clears the line's tokens and marks it as dirty.
 		  
 		  mCurrentLine = line
 		  mCurrentChar = ""
@@ -1387,9 +1395,9 @@ Protected Class MKParser
 		Private Sub TryOpenBlocks()
 		  /// Iterates through open blocks and descend through their last children down to the last open block. 
 		  ///
-		  /// For each open block, check to see if [mCurrentLine] meets the required condition to keep the block open.
+		  /// For each open block, check to see if `mCurrentLine` meets the required condition to keep the block open.
 		  ///
-		  /// [mContainer] will be set to the Block which last had a match to the line.
+		  /// `mContainer` will be set to the Block which last had a match to the line.
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False

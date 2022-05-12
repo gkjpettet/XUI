@@ -75,9 +75,9 @@ Protected Class MKBlock
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 4164647320746578742066726F6D205B6C696E655D20626567696E6E696E67206174205B7374617274506F735D20746F2074686520656E64206F6620746865206C696E652E
+	#tag Method, Flags = &h0, Description = 4164647320746578742066726F6D20606C696E656020626567696E6E696E6720617420607374617274506F736020746F2074686520656E64206F6620746865206C696E652E
 		Sub AddLine(line As XUITextLine, startPos As Integer, phantomSpaces As Integer)
-		  /// Adds text from [line] beginning at [startPos] to the end of the line.
+		  /// Adds text from `line` beginning at `startPos` to the end of the line.
 		  
 		  // Prohibit adding new lines to closed blocks.
 		  If Not Self.IsOpen Then
@@ -116,10 +116,10 @@ Protected Class MKBlock
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5374617274696E67206174205B706F735D2C20616476616E636573207468726F756768205B436861726163746572735D20746F20746865207374617274206F6620746865206E657874206C696E652E204966207468697320697320746865206C617374206C696E65207468656E205B706F735D2069732073657420746F2060436861726163746572732E4C617374496E646578202B2031602E
+	#tag Method, Flags = &h21, Description = 5374617274696E672061742060706F73602C20616476616E636573207468726F7567682060436861726163746572736020746F20746865207374617274206F6620746865206E657874206C696E652E204966207468697320697320746865206C617374206C696E65207468656E2060706F73602069732073657420746F2060436861726163746572732E4C617374496E646578202B2031602E
 		Private Sub AdvanceToNextLineStart(ByRef pos As Integer)
-		  /// Starting at [pos], advances through [Characters] to the start of the next line. If this is the last line 
-		  /// then [pos] is set to `Characters.LastIndex + 1`.
+		  /// Starting at `pos`, advances through `Characters` to the start of the next line. If this is the last line 
+		  /// then `pos` is set to `Characters.LastIndex + 1`.
 		  
 		  Var charsLastIndex As Integer = Characters.LastIndex
 		  For i As Integer = pos To charsLastIndex
@@ -179,7 +179,7 @@ Protected Class MKBlock
 		  /// Closes this block and makes any final changes that may be required. 
 		  ///
 		  /// Subclasses can override this method if they have more complicated needs upon block closure.
-		  /// [line] is the line that triggered the `Finalise` invocation.
+		  /// `line` is the line that triggered the `Finalise` invocation.
 		  
 		  #Pragma Unused line
 		  
@@ -224,9 +224,9 @@ Protected Class MKBlock
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4D617463686573207768697465737061636520696E205B63686172735D20626567696E6E696E67206174205B706F735D20616E642072657475726E7320686F77206D616E7920636861726163746572732077657265206D6174636865642E
+	#tag Method, Flags = &h21, Description = 4D617463686573207768697465737061636520696E206063686172736020626567696E6E696E672061742060706F736020616E642072657475726E7320686F77206D616E7920636861726163746572732077657265206D6174636865642E
 		Private Function MatchWhitespaceCharactersInArray(chars() As MKCharacter, pos As Integer) As Integer
-		  /// Matches whitespace in [chars] beginning at [pos] and returns how many characters were matched.
+		  /// Matches whitespace in `chars` beginning at `pos` and returns how many characters were matched.
 		  
 		  Var charsLastIndex As Integer = chars.LastIndex
 		  
@@ -470,9 +470,9 @@ Protected Class MKBlock
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 4966205B6368696C645D206973206120746F702D6C6576656C206368696C64206F66207468697320626C6F636B2069742069732072656D6F7665642E
+	#tag Method, Flags = &h0, Description = 496620606368696C6460206973206120746F702D6C6576656C206368696C64206F66207468697320626C6F636B2069742069732072656D6F7665642E
 		Sub RemoveChild(child As MKBlock)
-		  /// If [child] is a top-level child of this block it is removed.
+		  /// If `child` is a top-level child of this block it is removed.
 		  
 		  For i As Integer = Children.LastIndex DownTo 0
 		    If Children(i) = child Then
@@ -739,7 +739,31 @@ Protected Class MKBlock
 			Group="Behavior"
 			InitialValue="MKBlockTypes.Block"
 			Type="MarkdownKit.MKBlockTypes"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - AtxHeading"
+				"1 - Block"
+				"2 - BlockQuote"
+				"3 - CodeSpan"
+				"4 - Document"
+				"5 - Emphasis"
+				"6 - FencedCode"
+				"7 - Html"
+				"8 - IndentedCode"
+				"9 - InlineHTML"
+				"10 - InlineImage"
+				"11 - InlineLink"
+				"12 - InlineText"
+				"13 - List"
+				"14 - ListItem"
+				"15 - Paragraph"
+				"16 - ReferenceDefinition"
+				"17 - SetextHeading"
+				"18 - SoftBreak"
+				"19 - StrongEmphasis"
+				"20 - TextBlock"
+				"21 - ThematicBreak"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

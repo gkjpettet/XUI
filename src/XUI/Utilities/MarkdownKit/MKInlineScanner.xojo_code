@@ -1,8 +1,8 @@
 #tag Class
 Protected Class MKInlineScanner
-	#tag Method, Flags = &h21, Description = 54727565206966205B636F6E7461696E65725D2063616E20636F6E7461696E20736F667420627265616B732E
+	#tag Method, Flags = &h21, Description = 547275652069662060636F6E7461696E6572602063616E20636F6E7461696E20736F667420627265616B732E
 		Private Shared Function CanContainSoftBreaks(container As MKBlock) As Boolean
-		  /// True if [container] can contain soft breaks.
+		  /// True if `container` can contain soft breaks.
 		  
 		  Select Case container.Type
 		  Case MKBlockTypes.AtxHeading
@@ -16,12 +16,14 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6D707574657320746865206162736F6C75746520737461727420706F736974696F6E206F6620696E6C696E6520656C656D656E747320696E2074686973205B636F6E7461696E65725D2E
+	#tag Method, Flags = &h21, Description = 436F6D707574657320746865206162736F6C75746520737461727420706F736974696F6E206F6620696E6C696E6520656C656D656E747320696E20746869732060636F6E7461696E6572602E
 		Private Shared Function ComputeInlineStart(container As MKBlock) As Integer
-		  /// Computes the absolute start position of inline elements in this [container].
+		  /// Computes the absolute start position of inline elements in this `container`.
 		  ///
 		  /// The start of inline elements is not always the same as the start position of the container.
 		  /// For example:
+		  ///
+		  /// ```nohighlight
 		  ///   012
 		  ///   Foo
 		  ///   ^
@@ -29,6 +31,7 @@ Protected Class MKInlineScanner
 		  ///   01234
 		  ///   # Foo
 		  ///     ^
+		  /// ```
 		  
 		  Select Case container.Type
 		  Case MKBlockTypes.AtxHeading
@@ -50,11 +53,11 @@ Protected Class MKInlineScanner
 		Private Shared Function CreateInlineLinkData(linkTextChars() As MKCharacter, destinationData As MarkdownKit.MKLinkDestination, titleData As MarkdownKit.MKLinkTitle, containerEndPos As Integer, isInlineImage As Boolean, openerChar As MKCharacter, closerChar As MKCharacter) As MKInlineLinkData
 		  /// Convenience method for creating a new MKInlineLinkData object.
 		  ///
-		  /// [containerEndPos] is the position in the inline link's container's `Characters` array of the closing ")".
-		  /// The contents of [linkTextChars] are used as the link's text and need to be parsed as inlines.
+		  /// `containerEndPos` is the position in the inline link's container's `Characters` array of the closing ")".
+		  /// The contents of `linkTextChars` are used as the link's text and need to be parsed as inlines.
 		  ///
-		  /// [openerChar] is the opening `[` character (for links) or `!` character (for images).
-		  /// [closerChar] is the closing `]` character.
+		  /// `openerChar` is the opening `[` character (for links) or `!` character (for images).
+		  /// `closerChar` is the closing `]` character.
 		  
 		  Var data As New MarkdownKit.MKInlineLinkData(isInlineImage, MKLinkTypes.Standard)
 		  
@@ -77,18 +80,18 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4765747320746865206461746120666F7220612076616C696461746564207265666572656E6365206C696E6B206E616D6564205B6C696E6B4C6162656C5D2066726F6D2074686520646F63756D656E742773207265666572656E6365206D61702073746F72696E6720746865206C696E6B277320656E6420706F736974696F6E20616E642063686172616374657220646174612E
+	#tag Method, Flags = &h21, Description = 4765747320746865206461746120666F7220612076616C696461746564207265666572656E6365206C696E6B206E616D656420606C696E6B4C6162656C602066726F6D2074686520646F63756D656E742773207265666572656E6365206D61702073746F72696E6720746865206C696E6B277320656E6420706F736974696F6E20616E642063686172616374657220646174612E
 		Private Shared Function CreateReferenceLinkData(ByRef container As MKBlock, linkLabel As String, chars() As MKCharacter, containerEndPos As Integer, isInlineImage As Boolean, openerChar As MKCharacter, closerChar As MKCharacter, linkType As MKLinkTypes, optionalDestination As MarkdownKit.MKLinkDestination = Nil) As MKInlineLinkData
-		  /// Gets the data for a validated reference link named [linkLabel] from the document's reference map
+		  /// Gets the data for a validated reference link named `linkLabel` from the document's reference map
 		  /// storing the link's end position and character data.
 		  ///
-		  /// [containerEndPos] is the position in [container.Characters] of the closing "]".
-		  /// If this is an inline link, the contents of [chars] are used as the link's text.
-		  /// If this is an inline image, the contents of [chars] are used as the images's `alt` attrubute
-		  /// [chars] will be parsed as inlines.
+		  /// `containerEndPos` is the position in `container.Characters` of the closing "]".
+		  /// If this is an inline link, the contents of `chars` are used as the link's text.
+		  /// If this is an inline image, the contents of `chars` are used as the images's `alt` attrubute
+		  /// `chars` will be parsed as inlines.
 		  ///
-		  /// [openerChar] is the opening `[` character (for links) or `!` character (for images).
-		  /// [closerChar] is the closing `]` character.
+		  /// `openerChar` is the opening `[` character (for links) or `!` character (for images).
+		  /// `closerChar` is the closing `]` character.
 		  
 		  Var data As New MarkdownKit.MKInlineLinkData(isInlineImage, linkType)
 		  data.EndPosition = containerEndPos
@@ -137,9 +140,9 @@ Protected Class MKInlineScanner
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 46696E616C69736573205B636F6E7461696E65725D2061667465722070617273696E6720616C6C206F662069747320696E6C696E65206368696C6472656E2E
+	#tag Method, Flags = &h21, Description = 46696E616C697365732060636F6E7461696E6572602061667465722070617273696E6720616C6C206F662069747320696E6C696E65206368696C6472656E2E
 		Private Shared Sub FinaliseInlineContainer(container As MKBlock)
-		  /// Finalises [container] after parsing all of its inline children.
+		  /// Finalises `container` after parsing all of its inline children.
 		  
 		  Select Case container.Type
 		  Case MKBlockTypes.Paragraph, MKBlockTypes.SetextHeading
@@ -157,11 +160,11 @@ Protected Class MKInlineScanner
 		Private Shared Function FullReferenceLinkData(ByRef container As MKBlock, chars() As MKCharacter, linkTextChars() As MKCharacter, charsStartPos As Integer, isInlineImage As Boolean, openerChar As MKCharacter, closerChar As MKCharacter) As MKInlineLinkData
 		  /// Returns either an inline link or Nil if a valid full reference link cannot be constructed.
 		  ///
-		  /// [linkTextChars] are the raw characters representing this link's "link text". 
+		  /// `linkTextChars` are the raw characters representing this link's "link text". 
 		  /// They are to be parsed as inlines.
-		  /// [charsStartPos] is the index of the "[" immediately after the closing linkText "]".
-		  /// [openerChar] is the opening `[` character (for links) or `!` character (for images).
-		  /// [closerChar] is the closing `]` character.
+		  /// `charsStartPos` is the index of the "[" immediately after the closing linkText "]".
+		  /// `openerChar` is the opening `[` character (for links) or `!` character (for images).
+		  /// `closerChar` is the closing `]` character.
 		  
 		  Var charsLastIndex As Integer = chars.LastIndex
 		  
@@ -212,10 +215,10 @@ Protected Class MKInlineScanner
 
 	#tag Method, Flags = &h21, Description = 49662074686520636861726163746572206174205B7374617274506F735D20696E205B63686172735D20626567696E7320612076616C696420696E6C696E6520636F6465207370616E207468656E206F6E65206973206372656174656420616E642072657475726E65642C206F7468657277697365204E696C2069732072657475726E65642E
 		Private Shared Function HandleBackticks(parent As MKBlock, chars() As MKCharacter, startPos As Integer) As MKCodeSpan
-		  /// If the character at [startPos] in [chars] begins a valid inline code span then one is created and 
+		  /// If the character at `startPos` in `chars` begins a valid inline code span then one is created and 
 		  /// returned, otherwise Nil is returned.
 		  /// 
-		  /// Assumes [startPos] in [chars] is a backtick.
+		  /// Assumes `startPos` in `chars` is a backtick.
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -276,9 +279,9 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 49662074686520636861726163746572206174205B7374617274506F735D20696E205B63686172735D20626567696E7320612076616C696420696E6C696E652048544D4C207370616E207468656E206F6E65206973206372656174656420616E642072657475726E65642C206F7468657277697365204E696C2069732072657475726E65642E
+	#tag Method, Flags = &h21, Description = 4966207468652063686172616374657220617420607374617274506F736020696E206063686172736020626567696E7320612076616C696420696E6C696E652048544D4C207370616E207468656E206F6E65206973206372656174656420616E642072657475726E65642C206F7468657277697365204E696C2069732072657475726E65642E
 		Private Shared Function HandleLeftAngleBracket(parent As MKBlock, chars() As MarkdownKit.MKCharacter, startPos As Integer) As MKInlineHTML
-		  /// If the character at [startPos] in [chars] begins a valid inline HTML span then one is created and 
+		  /// If the character at `startPos` in `chars` begins a valid inline HTML span then one is created and 
 		  /// returned, otherwise Nil is returned.
 		  ///
 		  /// Assumes `chars(startPos) = "<"`.
@@ -349,19 +352,19 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 52657475726E732065697468657220616E20696E6C696E65206C696E6B206F72204E696C20696620612076616C696420696E6C696E65206C696E6B2063616E6E6F7420626520636F6E73747275637465642E
 		Private Shared Function InlineLinkData(openerChar As MKCharacter, closingBracketChar As MKCharacter, chars() As MarkdownKit.MKCharacter, linkTextChars() As MKCharacter, parenthStartPos As Integer, isInlineImage As Boolean) As MKInlineLinkData
 		  /// Returns either an inline link or Nil if a valid inline link cannot be constructed.
 		  ///
-		  /// [linkTextChars] are the raw characters representing this link's text. They are to be parsed as inlines.
-		  /// [parenthStartPos] points to the index of the "(" immediately after the closing linkText "]".
-		  /// [openerChar] is the opening `[` character (for links) or `!` character (for images).
-		  /// [closingBracketChar] is the closing `]` character.
+		  /// `linkTextChars` are the raw characters representing this link's text. They are to be parsed as inlines.
+		  /// `parenthStartPos` points to the index of the "(" immediately after the closing linkText "]".
+		  /// `openerChar` is the opening `[` character (for links) or `!` character (for images).
+		  /// `closingBracketChar` is the closing `]` character.
 		  ///
 		  /// Inline link: linkText, "(", optional whitespace, optional link destination, 
 		  ///              optional linkTitle, optional whitespace, ")"
 		  ///
-		  /// The contents of [linkText] are parsed as inlines and used as the link's text.
+		  /// The contents of `linkText` are parsed as inlines and used as the link's text.
 		  
 		  Var charsLastIndex As Integer = chars.LastIndex
 		  
@@ -447,10 +450,10 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 486176696E6720686974206120225D222C2072657475726E7320547275652069662061206C696E6B206F7220696D6167652070726563656465732069742E20496620547275652C20746865206C696E6B206F7220696D61676520697320616464656420746F205B636F6E7461696E65725D20616E64205B706F735D206973206D7574617465642E
+	#tag Method, Flags = &h21, Description = 486176696E6720686974206120225D222C2072657475726E7320547275652069662061206C696E6B206F7220696D6167652070726563656465732069742E20496620547275652C20746865206C696E6B206F7220696D61676520697320616464656420746F2060636F6E7461696E65726020616E642060706F7360206973206D7574617465642E
 		Private Shared Function LookForLinkOrImage(ByRef container As MarkdownKit.MKBlock, ByRef delimiterStack() As MKDelimiterStackNode, ByRef pos As Integer) As Boolean
 		  /// Having hit a "]", returns True if a link or image precedes it. If True, the link or image is added to
-		  /// [container] and [pos] is mutated.
+		  /// `container` and `pos` is mutated.
 		  
 		  // Starting at the top of the delimiter stack, we look backwards through 
 		  // for an opening "[" or "![" delimiter.
@@ -570,11 +573,11 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 5374657073207468726F7567682074686520636F6E74656E7473206F662074686520696E6C696E6520636F6E7461696E6572205B626C6F636B5D2C2068616E646C696E6720616E7920696E6C696E6520656C656D656E747320697420656E636F756E746572732E
+	#tag Method, Flags = &h0, Description = 5374657073207468726F7567682074686520636F6E74656E7473206F662074686520696E6C696E6520636F6E7461696E65722060626C6F636B602C2068616E646C696E6720616E7920696E6C696E6520656C656D656E747320697420656E636F756E746572732E
 		Shared Sub ParseInlines(block As MKBlock, ByRef delimiterStack() As MKDelimiterStackNode)
-		  /// Steps through the contents of the inline container [block], handling any inline elements it encounters.
+		  /// Steps through the contents of the inline container `block`, handling any inline elements it encounters.
 		  ///
-		  /// Assumes [block] is an inline container block (i.e: a paragraph, ATX heading or setext heading).
+		  /// Assumes `block` is an inline container block (i.e: a paragraph, ATX heading or setext heading).
 		  
 		  Var pos As Integer = 0
 		  Var chars() As MKCharacter = block.Characters
@@ -760,9 +763,9 @@ Protected Class MKInlineScanner
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620746865206368617261637465722061742060636861727328706F732960206973205B636861725D2E
+	#tag Method, Flags = &h21, Description = 52657475726E73205472756520696620746865206368617261637465722061742060636861727328706F732960206973206063686172602E
 		Private Shared Function Peek(chars() As MKCharacter, pos As Integer, char As String) As Boolean
-		  /// Returns True if the character at `chars(pos)` is [char].
+		  /// Returns True if the character at `chars(pos)` is `char`.
 		  
 		  If pos < 0 Or pos > chars.LastIndex Then Return False
 		  Return If(chars(pos).Value = char, True, False)
@@ -770,12 +773,12 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 50726F6365737320616E7920656D70686173697320696E205B636F6E7461696E65725D7320696E6C696E6520626C6F636B732E
+	#tag Method, Flags = &h21, Description = 50726F6365737320616E7920656D70686173697320696E2060636F6E7461696E657260277320696E6C696E6520626C6F636B732E
 		Private Shared Sub ProcessEmphasis(container As MKBlock, ByRef delimiterStack() As MKDelimiterStackNode, stackBottom As Integer)
-		  /// Process any emphasis in [container]s inline blocks.
+		  /// Process any emphasis in `container`'s inline blocks.
 		  ///
-		  /// [stackBottom] sets a lower bound to how far we descend in the delimiter stack. If it's `-1`, 
-		  /// then we can go all the way to the bottom. Otherwise, we stop before visiting [stackBottom].
+		  /// `stackBottom` sets a lower bound to how far we descend in the delimiter stack. If it's `-1`, 
+		  /// then we can go all the way to the bottom. Otherwise, we stop before visiting `stackBottom`.
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -971,13 +974,13 @@ Protected Class MKInlineScanner
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5363616E73205B63686172735D2066726F6D205B706F735D20666F7220612072756E206F6620656D7068617369732E2052657475726E7320612064656C696D6974657220737461636B206E6F6465207769746820696E666F726D6174696F6E2061626F7574207468652072756E2E
+	#tag Method, Flags = &h21, Description = 5363616E7320606368617273602066726F6D2060706F736020666F7220612072756E206F6620656D7068617369732E2052657475726E7320612064656C696D6974657220737461636B206E6F6465207769746820696E666F726D6174696F6E2061626F7574207468652072756E2E
 		Private Shared Function ScanDelimiterRun(chars() As MKCharacter, pos As Integer, delimiter As String) As MKDelimiterStackNode
-		  /// Scans [chars] from [pos] for a run of emphasis. Returns a delimiter stack node with 
+		  /// Scans `chars` from `pos` for a run of emphasis. Returns a delimiter stack node with 
 		  /// information about the run.
 		  ///
 		  /// Assumes `chars(pos)` points to the begining of the emphasis run.
-		  /// [delimiter] is either "*" or "_".
+		  /// `delimiter` is either "*" or "_".
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -1040,9 +1043,9 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5363616E73205B636F6E7461696E65722E436861726163746572735D2066726F6D2074686520626567696E6E696E67206F662074686520617272617920666F7220616E20696E6C696E6520696D6167652E2052657475726E732074686520696D616765206461746120696620666F756E64206F72204E696C206966206E6F742E
+	#tag Method, Flags = &h21, Description = 5363616E732060636F6E7461696E65722E43686172616374657273602066726F6D2074686520626567696E6E696E67206F662074686520617272617920666F7220616E20696E6C696E6520696D6167652E2052657475726E732074686520696D616765206461746120696620666F756E64206F72204E696C206966206E6F742E
 		Private Shared Function ScanForInlineImage(ByRef container As MKBlock, startPos As Integer, closerCharPos As Integer) As MKInlineLinkData
-		  /// Scans [container.Characters] from the beginning of the array for an inline image. 
+		  /// Scans `container.Characters` from the beginning of the array for an inline image. 
 		  /// Returns the image data if found or Nil if not.
 		  ///
 		  /// Assumes `container.Characters(startPos) = "!"` and `container.Characters(startPos + 1) = "["`.
@@ -1157,9 +1160,9 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5363616E73205B636F6E7461696E65722E436861726163746572735D2066726F6D2074686520626567696E6E696E67206F662074686520617272617920666F7220616E20696E6C696E65206C696E6B2E2052657475726E7320746865206C696E6B206461746120696620666F756E64206F72204E696C206966206E6F742E
+	#tag Method, Flags = &h21, Description = 5363616E732060636F6E7461696E65722E43686172616374657273602066726F6D2074686520626567696E6E696E67206F662074686520617272617920666F7220616E20696E6C696E65206C696E6B2E2052657475726E7320746865206C696E6B206461746120696620666F756E64206F72204E696C206966206E6F742E
 		Private Shared Function ScanForInlineLink(ByRef container As MKBlock, startPos As Integer, closerCharPos As Integer) As MKInlineLinkData
-		  /// Scans [container.Characters] from the beginning of the array for an inline link. 
+		  /// Scans `container.Characters` from the beginning of the array for an inline link. 
 		  /// Returns the link data if found or Nil if not.
 		  ///
 		  /// Assumes `container.Characters(startPos) = "["`.
@@ -1274,10 +1277,10 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 5374617274696E672061742060706F73602C207363616E7320746865206063686172736020666F7220612076616C6964206C696E6B2055524C2E2052657475726E73207468652055524C206F72202222206966207468657265206973206E6F6E652E204D7574617465732060706F73602E
 		Private Shared Function ScanInlineLinkDestination(chars() As MKCharacter, ByRef pos As Integer) As String
-		  /// Starting at [pos], scans the [chars] for a valid link URL. Returns the URL or "" if there is none.
-		  /// Mutates [pos].
+		  /// Starting at `pos`, scans the `chars` for a valid link URL. Returns the URL or "" if there is none.
+		  /// Mutates `pos`.
 		  ///
 		  /// If the URL is flanked by "<>" (scenario 1) they are removed from the URL before returning.
 		  
@@ -1376,10 +1379,10 @@ Protected Class MKInlineScanner
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 5363616E73205B63686172735D2C207374617274696E67206174205B706F735D2C20666F7220612076616C6964206C696E6B207469746C652E2052657475726E7320746865207469746C65206F722022206966207468657265206973206E6F6E652E204D757461746573205B706F735D20746F2074686520706F736974696F6E2061667465722074686520636C6F73696E67207469746C652064656C696D697465722E
+	#tag Method, Flags = &h21, Description = 5363616E7320606368617273602C207374617274696E672061742060706F73602C20666F7220612076616C6964206C696E6B207469746C652E2052657475726E7320746865207469746C65206F722022206966207468657265206973206E6F6E652E204D7574617465732060706F736020746F2074686520706F736974696F6E2061667465722074686520636C6F73696E67207469746C652064656C696D697465722E
 		Private Shared Function ScanInlineLinkTitle(chars() As MKCharacter, ByRef pos As Integer) As String
-		  /// Scans [chars], starting at [pos], for a valid link title. Returns the title or " if there is none. 
-		  /// Mutates [pos] to the position after the closing title delimiter.
+		  /// Scans `chars`, starting at `pos`, for a valid link title. Returns the title or " if there is none. 
+		  /// Mutates `pos` to the position after the closing title delimiter.
 		  ///
 		  /// There are 3 valid types of link title:
 		  ///
