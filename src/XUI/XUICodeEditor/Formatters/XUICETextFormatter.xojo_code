@@ -21,9 +21,9 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E6561726573742064656C696D69746572732061742074686520676976656E205B6361726574506F735D2E204D6179206265204E696C2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E6561726573742064656C696D69746572732061742074686520676976656E20606361726574506F73602E204D6179206265204E696C2E
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
-		  /// Returns the nearest delimiters at the given [caretPos]. May be Nil.
+		  /// Returns the nearest delimiters at the given `caretPos`. May be Nil.
 		  ///
 		  /// Part of the XUICEFormatter interface.
 		  

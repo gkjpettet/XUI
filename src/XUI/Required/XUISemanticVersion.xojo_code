@@ -55,7 +55,7 @@ Protected Class XUISemanticVersion
 		  /// -1: Self < other
 		  /// 1: Self > other
 		  /// ```
-		  /// Raises an [InvalidArgumentException] if [s] is not in the correct format.
+		  /// Raises an `InvalidArgumentException` if `s` is not in the correct format.
 		  
 		  Return Operator_Compare(New XUISemanticVersion(s))
 		  

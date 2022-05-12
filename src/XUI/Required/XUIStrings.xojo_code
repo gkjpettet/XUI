@@ -5,7 +5,7 @@ Protected Module XUIStrings
 		  /// Returns the Unicode category for a latin1 character.
 		  ///
 		  ///
-		  /// Assumes that [codePoint] is within the range &u0000 and &u00FF.
+		  /// Assumes that `codePoint` is within the range &u0000 and &u00FF.
 		  
 		  Static latin1Categories() As XUIStrings.UnicodeCategories = Array(_
 		  UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, _
@@ -47,9 +47,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520696E646976696475616C206368617261637465727320696E205B735D20617320616E2061727261792E
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520696E646976696475616C206368617261637465727320696E2060736020617320616E2061727261792E
 		Function CharacterArray(Extends s As String) As String()
-		  /// Returns the individual characters in [s] as an array.
+		  /// Returns the individual characters in `s` as an array.
 		  ///
 		  /// It's at least 4x faster to use `Text` to split into characters and then iterate over that array
 		  /// than to use the native `String.Characters()` method that returns an `Iterable`.
@@ -79,9 +79,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436865636B73206966205B75635D2062656C6F6E677320746F20746865206C65747465722063617465676F72792E
+	#tag Method, Flags = &h21, Description = 436865636B7320696620607563602062656C6F6E677320746F20746865206C65747465722063617465676F72792E
 		Private Function CheckLetter(uc As XUIStrings.UnicodeCategories) As Boolean
-		  /// Checks if [uc] belongs to the letter category.
+		  /// Checks if `uc` belongs to the letter category.
 		  
 		  Select Case uc
 		  Case UnicodeCategories.UppercaseLetter, UnicodeCategories.LowercaseLetter, _
@@ -95,9 +95,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436865636B73206966205B75635D2062656C6F6E677320746F20746865206C6574746572206F722064696769742063617465676F726965732E
+	#tag Method, Flags = &h21, Description = 436865636B7320696620607563602062656C6F6E677320746F20746865206C6574746572206F722064696769742063617465676F726965732E
 		Private Function CheckLetterOrDigit(uc As XUIStrings.UnicodeCategories) As Boolean
-		  /// Checks if [uc] belongs to the letter or digit categories.
+		  /// Checks if `uc` belongs to the letter or digit categories.
 		  
 		  Select Case uc
 		  Case UnicodeCategories.UppercaseLetter, UnicodeCategories.LowercaseLetter, _
@@ -111,11 +111,11 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52656D6F766573205B6E756D43686172735D20636861726163746572732066726F6D205B735D2E
+	#tag Method, Flags = &h0, Description = 52656D6F76657320606E756D43686172736020636861726163746572732066726F6D206073602E
 		Function Chop(Extends s As String, numChars As Integer = 1) As String
-		  /// Removes [numChars] characters from [s].
+		  /// Removes `numChars` characters from `s`.
 		  ///
-		  /// If [numChars] is greater than the length of [s], "" is returned.
+		  /// If `numChars` is greater than the length of `s`, "" is returned.
 		  
 		  Var length As Integer = s.CharacterCount
 		  
@@ -128,9 +128,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D20636F6E7461696E73205B776861745D2E
+	#tag Method, Flags = &h0, Description = 547275652069662060736020636F6E7461696E73206077686174602E
 		Function Contains(Extends s As String, what As String, caseSensitive As Boolean = False) As Boolean
-		  /// True if [s] contains [what].
+		  /// True if `s` contains `what`.
 		  
 		  If caseSensitive Then
 		    Return s.IndexOf(0, what, ComparisonOptions.CaseSensitive) <> -1
@@ -141,14 +141,14 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73206120737472696E672066726F6D205B63686172735D20626567696E6E696E6720617420696E646578205B73746172745D20666F72205B6C656E6774685D20636861726163746572732E20417373756D6573205B63686172735D20697320616E206172726179206F6620696E646976696475616C20636861726163746572732E
+	#tag Method, Flags = &h1, Description = 52657475726E73206120737472696E672066726F6D206063686172736020626567696E6E696E6720617420696E646578206073746172746020666F7220606C656E6774686020636861726163746572732E20417373756D6573206063686172736020697320616E206172726179206F6620696E646976696475616C20636861726163746572732E
 		Protected Function FromArray(chars() As String, start As Integer, length As Integer = -1) As String
-		  /// Returns a string from [chars] beginning at index [start] for [length] characters. 
-		  /// Assumes [chars] is an array of individual characters.
+		  /// Returns a string from `chars` beginning at index `start` for `length` characters. 
+		  /// Assumes `chars` is an array of individual characters.
 		  ///
-		  /// If `start + length` > the number of remaining characters then all characters from [start] to the
-		  /// end of [chars] are returned.
-		  /// If [length] = `-1` then all characters from [start] to the end of [chars] are returned.
+		  /// If `start + length` > the number of remaining characters then all characters from `start` to the
+		  /// end of `chars` are returned.
+		  /// If `length` = `-1` then all characters from `start` to the end of `chars` are returned.
 		  
 		  Var tmp() As String
 		  Var charsLastIndex As Integer = chars.LastIndex
@@ -173,7 +173,7 @@ Protected Module XUIStrings
 		Private Function GetLatin1UnicodeCharacter(character As String) As XUIStrings.UnicodeCategories
 		  /// Returns the Unicode category for Unicode characters <= &h00ff.
 		  ///
-		  /// Assumes that [character] is one character long.
+		  /// Assumes that `character` is one character long.
 		  
 		  If Not IsLatin1(character) Then
 		    Raise New InvalidArgumentException("The Asc value of the passed " + _
@@ -185,11 +185,11 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732074686520556E69636F64652063617465676F72792074686174205B735D2062656C6F6E677320746F2E
+	#tag Method, Flags = &h1, Description = 52657475726E732074686520556E69636F64652063617465676F72792074686174206073602062656C6F6E677320746F2E
 		Protected Function GetUnicodeCategory(s As String) As XUIStrings.UnicodeCategories
-		  /// Returns the Unicode category that [s] belongs to.
+		  /// Returns the Unicode category that `s` belongs to.
 		  ///
-		  /// If [s] is empty or is more than one character in length then 
+		  /// If `s` is empty or is more than one character in length then 
 		  /// we return a special `None` category.
 		  
 		  If s = "" Or s.CharacterCount > 1 Then Return UnicodeCategories.None
@@ -300,20 +300,20 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B6368617261637465725D20697320696E207468652041534349492072616E67652E
+	#tag Method, Flags = &h0, Description = 5472756520696620606368617261637465726020697320696E207468652041534349492072616E67652E
 		Function IsASCII(Extends character As String) As Boolean
-		  /// True if [character] is in the ASCII range.
+		  /// True if `character` is in the ASCII range.
 		  ///
-		  /// Assumes that [character] is one character in length.
+		  /// Assumes that `character` is one character in length.
 		  
 		  Return Asc(character) <= &h007F
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620746865205B6C65747465725D20697320412D5A206F7220612D7A2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686520606C65747465726020697320412D5A206F7220612D7A2E
 		Function IsASCIILetter(Extends letter As String) As Boolean
-		  /// Returns True if the [letter] is A-Z or a-z.
+		  /// Returns True if the `letter` is A-Z or a-z.
 		  
 		  If letter.Length <> 1 Then Return False
 		  
@@ -327,9 +327,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620746865205B6C65747465725D20697320412D5A2C20612D7A206F7220302D39
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686520606C65747465726020697320412D5A2C20612D7A206F7220302D39
 		Function IsASCIILetterOrDigit(Extends letter As String) As Boolean
-		  /// Returns True if the [letter] is A-Z, a-z or 0-9
+		  /// Returns True if the `letter` is A-Z, a-z or 0-9
 		  
 		  If letter.Length <> 1 Then Return False
 		  
@@ -343,9 +343,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620746865205B6C65747465725D20697320412D5A2C20612D7A2C20302D39206F7220222D22
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686520606C65747465726020697320412D5A2C20612D7A2C20302D39206F7220222D22
 		Function IsASCIILetterOrDigitOrHyphen(Extends letter As String) As Boolean
-		  /// Returns True if the [letter] is A-Z, a-z, 0-9 or "-"
+		  /// Returns True if the `letter` is A-Z, a-z, 0-9 or "-"
 		  
 		  If letter.Length <> 1 Then Return False
 		  
@@ -359,9 +359,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620746865205B6C65747465725D20697320412D5A2C20612D7A2C20302D39206F722074686520756E64657273636F72652E
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686520606C65747465726020697320412D5A2C20612D7A2C20302D39206F722074686520756E64657273636F72652E
 		Function IsASCIILetterOrDigitOrUnderscore(Extends letter As String) As Boolean
-		  /// Returns True if the [letter] is A-Z, a-z, 0-9 or the underscore.
+		  /// Returns True if the `letter` is A-Z, a-z, 0-9 or the underscore.
 		  
 		  If letter.Length <> 1 Then Return False
 		  
@@ -375,9 +375,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205472756520696620746865205B6C65747465725D20697320412D5A2C20612D7A206F722074686520756E64657273636F72652E
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686520606C65747465726020697320412D5A2C20612D7A206F722074686520756E64657273636F72652E
 		Function IsASCIILetterOrUnderscore(Extends letter As String) As Boolean
-		  /// Returns True if the [letter] is A-Z, a-z or the underscore.
+		  /// Returns True if the `letter` is A-Z, a-z or the underscore.
 		  
 		  If letter.Length <> 1 Then Return False
 		  
@@ -391,19 +391,19 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D20697320603060206F72206031602E
+	#tag Method, Flags = &h0, Description = 547275652069662060736020697320603060206F72206031602E
 		Function IsBinaryDigit(Extends s As String) As Boolean
-		  /// True if [s] is `0` or `1`.
+		  /// True if `s` is `0` or `1`.
 		  
 		  Return If(s = "0" Or s = "1", True, False)
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D20697320612073696E676C6520646967697420696E207468652072616E676520302D392E
+	#tag Method, Flags = &h0, Description = 547275652069662060736020697320612073696E676C6520646967697420696E207468652072616E676520302D392E
 		Function IsDigit(Extends s As String) As Boolean
-		  /// True if [s] is a single digit in the range 0-9.
+		  /// True if `s` is a single digit in the range 0-9.
 		  ///
-		  /// We could use [GetUnicodeCategory] but a `select...case` is faster.
+		  /// We could use `GetUnicodeCategory` but a `Select...Case` is faster.
 		  
 		  Select Case s
 		  Case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
@@ -415,11 +415,11 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B636861725D2065786163746C79206D6174636865732028636173652D73656E7369746976652920616E79206F662074686520706173736564205B636861726163746572735D2E
+	#tag Method, Flags = &h0, Description = 54727565206966206063686172602065786163746C79206D6174636865732028636173652D73656E7369746976652920616E79206F662074686520706173736564206063686172616374657273602E
 		Function IsExactly(Extends char As String, ParamArray characters() As String) As Boolean
-		  /// True if [char] exactly matches (case-sensitive) any of the passed [characters].
+		  /// True if `char` exactly matches (case-sensitive) any of the passed `characters`.
 		  ///
-		  /// Assumes that [char] is a single character in length.
+		  /// Assumes that `char` is a single character in length.
 		  
 		  For Each c As String In characters
 		    If char.Compare(c, ComparisonOptions.CaseSensitive) = 0 Then
@@ -432,9 +432,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D20697320612076616C69642068657861646563696D616C2064696769742028302D392C20612D662C20412D46292E
+	#tag Method, Flags = &h0, Description = 547275652069662060736020697320612076616C69642068657861646563696D616C2064696769742028302D392C20612D662C20412D46292E
 		Function IsHexDigit(Extends s As String) As Boolean
-		  /// True if [s] is a valid hexadecimal digit (0-9, a-f, A-F).
+		  /// True if `s` is a valid hexadecimal digit (0-9, a-f, A-F).
 		  
 		  If s.Length <> 1 Then Return False
 		  
@@ -452,21 +452,20 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E73205472756520666F72206966205B6368617261637465725D20697320696E20746865204153434949206F72204C6174696E2D3120737570706C656D656E742072616E67652E
+	#tag Method, Flags = &h1, Description = 52657475726E73205472756520666F7220696620606368617261637465726020697320696E20746865204153434949206F72204C6174696E2D3120737570706C656D656E742072616E67652E
 		Protected Function IsLatin1(character As String) As Boolean
-		  /// Returns True for if [character] is in the ASCII or Latin-1 
-		  /// supplement range.
+		  /// Returns True for if `character` is in the ASCII or Latin-1 supplement range.
 		  ///
-		  /// Assumes that [character] is one character in length.
+		  /// Assumes that `character` is one character in length.
 		  
 		  Return Asc(character) <= &h00FF
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D2069732061206C65747465722E
+	#tag Method, Flags = &h0, Description = 54727565206966206073602069732061206C65747465722E
 		Function IsLetter(Extends s As String) As Boolean
-		  /// True if [s] is a letter.
+		  /// True if `s` is a letter.
 		  ///
 		  /// Based on code from .NET core: 
 		  /// https://github.com/microsoft/referencesource/blob/master/mscorlib/system/char.cs
@@ -475,9 +474,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 44657465726D696E65732077686574686572205B735D2069732061206C65747465722C2061206469676974206F7220616E20756E64657273636F72652E
+	#tag Method, Flags = &h1, Description = 44657465726D696E65732077686574686572206073602069732061206C65747465722C2061206469676974206F7220616E20756E64657273636F72652E
 		Protected Function IsLetterDigitOrUnderscore(s As String) As Boolean
-		  /// Determines whether [s] is a letter, a digit or an underscore.
+		  /// Determines whether `s` is a letter, a digit or an underscore.
 		  ///
 		  /// Based on code from .NET core: 
 		  /// https://github.com/microsoft/referencesource/blob/master/mscorlib/system/char.cs
@@ -487,9 +486,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 44657465726D696E65732077686574686572205B735D2069732061206C6574746572206F7220612064696769742E
+	#tag Method, Flags = &h0, Description = 44657465726D696E65732077686574686572206073602069732061206C6574746572206F7220612064696769742E
 		Function IsLetterOrDigit(Extends s As String) As Boolean
-		  /// Determines whether [s] is a letter or a digit.
+		  /// Determines whether `s` is a letter or a digit.
 		  /// 
 		  /// Based on code from .NET core: 
 		  /// https://github.com/microsoft/referencesource/blob/master/mscorlib/system/char.cs
@@ -499,11 +498,11 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B6368617261637465725D206973206C6F776572636173652E
+	#tag Method, Flags = &h0, Description = 54727565206966206063686172616374657260206973206C6F776572636173652E
 		Function IsLowercaseCharacter(Extends character As String) As Boolean
-		  /// True if [character] is lowercase.
+		  /// True if `character` is lowercase.
 		  ///
-		  /// Assumes that [character] is one character long.
+		  /// Assumes that `character` is one character long.
 		  
 		  If IsLatin1(character) Then
 		    If character.IsASCII Then
@@ -517,9 +516,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D20697320612076616C6964206F6374616C2064696769742028302D3729
+	#tag Method, Flags = &h0, Description = 547275652069662060736020697320612076616C6964206F6374616C2064696769742028302D37292E
 		Function IsOctalDigit(Extends s As String) As Boolean
-		  /// True if [s] is a valid octal digit (0-7)
+		  /// True if `s` is a valid octal digit (0-7).
 		  
 		  If s.Length <> 1 Then Return False
 		  
@@ -562,25 +561,25 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B6368617261637465725D2069732061207370616365206F7220686F72697A6F6E74616C207461622E
+	#tag Method, Flags = &h0, Description = 547275652069662060636861726163746572602069732061207370616365206F7220686F72697A6F6E74616C207461622E
 		Function IsSpaceOrTab(Extends character As String) As Boolean
-		  /// True if [character] is a space or horizontal tab.
+		  /// True if `character` is a space or horizontal tab.
 		  
 		  Return character = " " Or character = &u0009
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B6368617261637465725D20697320612073706163652C20686F72697A6F6E74616C20746162206F7220554E4958206E65776C696E65202826753041292E
+	#tag Method, Flags = &h0, Description = 5472756520696620606368617261637465726020697320612073706163652C20686F72697A6F6E74616C20746162206F7220554E4958206E65776C696E65202826753041292E
 		Function IsSpaceOrTabOrNewline(Extends character As String) As Boolean
-		  /// True if [character] is a space, horizontal tab or UNIX newline (&u0A).
+		  /// True if `character` is a space, horizontal tab or UNIX newline (&u0A).
 		  
 		  Return character = " " Or character = &u0009 Or character = &u0A
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D20697320616E20757070657263617365204153434949206368617261637465722E
+	#tag Method, Flags = &h0, Description = 547275652069662060736020697320616E20757070657263617365204153434949206368617261637465722E
 		Function IsUppercaseASCIICharacter(Extends s As String) As Boolean
-		  /// True if [s] is an uppercase ASCII character.
+		  /// True if `s` is an uppercase ASCII character.
 		  
 		  If s.Length > 1 Then Return False
 		  If Not s.IsASCII Then Return False
@@ -590,9 +589,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D20697320616E20757070657263617365204153434949206C65747465722E
+	#tag Method, Flags = &h0, Description = 547275652069662060736020697320616E20757070657263617365204153434949206C65747465722E
 		Function IsUppercaseASCIILetter(Extends s As String) As Boolean
-		  /// True if [s] is an uppercase ASCII letter.
+		  /// True if `s` is an uppercase ASCII letter.
 		  
 		  If s.Length > 1 Then Return False
 		  If Not s.IsASCIILetter Then Return False
@@ -602,12 +601,12 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 54727565206966205B735D20697320556E69636F646520776869746573706163652E
+	#tag Method, Flags = &h0, Description = 547275652069662060736020697320556E69636F646520776869746573706163652E
 		Function IsWhiteSpace(Extends s As String) As Boolean
-		  /// True if [s] is Unicode whitespace.
+		  /// True if `s` is Unicode whitespace.
 		  ///
-		  /// Assumes [s] is a single character. [String.Asc] returns the 
-		  /// codepoint for the first character in [s] so if this method is passed 
+		  /// Assumes `s` is a single character. `String.Asc` returns the 
+		  /// codepoint for the first character in `s` so if this method is passed 
 		  /// a string comprising more than one character, it'll break.
 		  ///
 		  /// &u0009 = <control> HORIZONTAL TAB
@@ -679,27 +678,27 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205B636F756E745D206C6566742D6D6F737420636861726163746572732066726F6D205B735D2E
+	#tag Method, Flags = &h0, Description = 52657475726E732060636F756E7460206C6566742D6D6F737420636861726163746572732066726F6D206073602E
 		Function LeftCharacters(Extends s As String, count As Integer) As String
-		  /// Returns [count] left-most characters from [s].
+		  /// Returns `count` left-most characters from `s`.
 		  
 		  Var t As Text = s.ToText
 		  Return t.Left(count)
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320616C6C206F662074686520636861726163746572732066726F6D205B73746172745D20746F2074686520656E64206F66205B735D2E2054686520737461727420706F736974696F6E2069732061207A65726F2D62617365642E
+	#tag Method, Flags = &h0, Description = 52657475726E7320616C6C206F662074686520636861726163746572732066726F6D206073746172746020746F2074686520656E64206F66206073602E2054686520737461727420706F736974696F6E2069732061207A65726F2D62617365642E
 		Function MiddleCharacters(Extends s As String, start As Integer) As String
-		  /// Returns all of the characters from [start] to the end of [s]. The start position is a zero-based.
+		  /// Returns all of the characters from `start` to the end of `s`. The start position is a zero-based.
 		  
 		  Var t As Text = s.ToText
 		  Return t.Mid(start)
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205B636F756E745D20636861726163746572732066726F6D205B735D2E2048616E646C6573206D756C7469627974652063686172616374657273206C696B6520656D6F6A692E
+	#tag Method, Flags = &h0, Description = 52657475726E732060636F756E746020636861726163746572732066726F6D206073602E2048616E646C6573206D756C7469627974652063686172616374657273206C696B6520656D6F6A692E
 		Function MiddleCharacters(Extends s As String, start As Integer, count As Integer) As String
-		  /// Returns [count] characters from [s]. Handles multibyte characters like emoji.
+		  /// Returns `count` characters from `s`. Handles multibyte characters like emoji.
 		  
 		  Var t As Text = s.ToText
 		  Return t.Mid(start, count)
@@ -719,9 +718,9 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73205B636F756E745D2072696768742D6D6F737420636861726163746572732066726F6D205B735D2E
+	#tag Method, Flags = &h0, Description = 52657475726E732060636F756E74602072696768742D6D6F737420636861726163746572732066726F6D206073602E
 		Function RightCharacters(Extends s As String, count As Integer) As String
-		  /// Returns [count] right-most characters from [s].
+		  /// Returns `count` right-most characters from `s`.
 		  
 		  Var t As Text = s.ToText
 		  Return t.Right(count)
