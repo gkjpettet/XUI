@@ -56,11 +56,11 @@ Protected Class MKHTMLBlockScanner
 		  /// Returns the 0-based index in `line` of the end of a valid HTML opening tag, beginning at `pos` 
 		  /// or `0` if not found. `tagName` is set to the tag found or "".
 		  ///
-		  /// Assumes that `pos` points to the character immediately following "<"
+		  /// Assumes that `pos` points to the character immediately following `<`
 		  /// Sets the ByRef parameter `tagName` to the detected tag name (if present) or "" if none is found.
 		  ///
 		  /// ```
-		  /// openTag: "<", a tagname, >= 0 attributes, optional whitespace, optional "/", and a ">".
+		  /// openTag: `<`, a tagname, >= 0 attributes, optional whitespace, optional `/`, and a `>`.
 		  /// tagName: ASCII letter, >= 0 ASCII letter|digit|-
 		  /// attribute: whitespace, attributeName, optional attributeValueSpec
 		  /// attributeName: ASCII letter|-|:, >=0 ASCII letter|digit|_|.|:|-
