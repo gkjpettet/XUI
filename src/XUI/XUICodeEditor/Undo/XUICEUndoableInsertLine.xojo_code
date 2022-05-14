@@ -3,6 +3,16 @@ Protected Class XUICEUndoableInsertLine
 Implements XUIUndoableAction
 	#tag Method, Flags = &h0
 		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, lineNumber As Integer, caretPos As Integer, contents As String)
+		  /// Default constructor.
+		  ///
+		  /// - `editor` is the `XUICodeEditor` to perform this action on.
+		  /// - `id` is the unique ID for this action.
+		  /// - `description` is a human-radable description of this action for displaying 
+		  /// in menubars and contextual menus.
+		  /// - `lineNumber` is the 1-based line number that the new line was inserted at.
+		  /// - `caretPos` is the caret position that the new line insertion occurred at.
+		  /// - `contents` is the contents of the newly inserted line.
+		  
 		  mEditor = editor
 		  mID = id
 		  mDescription = description
@@ -15,19 +25,31 @@ Implements XUIUndoableAction
 
 	#tag Method, Flags = &h0, Description = 41206465736372697074696F6E206F66207468697320756E646F61626C6520616374696F6E2E
 		Function Description() As String
+		  /// A description of this undoable action.
+		  ///
+		  /// Part of the `XUIUndoableAction` interface.
+		  
 		  Return mDescription
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468697320616374696F6E277320756E697175652049442E
 		Function ID() As Integer
+		  /// This action's unique ID.
+		  ///
+		  /// Part of the `XUIUndoableAction` interface.
+		  
 		  Return mID
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468697320616374696F6E277320756E697175652049442E
 		Sub ID(Assigns value As Integer)
+		  /// This action's unique ID.
+		  ///
+		  /// Part of the `XUIUndoableAction` interface.
+		  
 		  mID = value
 		  
 		End Sub
@@ -66,6 +88,13 @@ Implements XUIUndoableAction
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Stores the data required to undo / redo the insertion of a line within 
+		the `XUICodeEditor`.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 54686520636172657420706F736974696F6E207468617420746865206E6577206C696E6520696E73657274696F6E206F636375727265642061742E
 		Private mCaretPos As Integer = 0
 	#tag EndProperty
@@ -82,7 +111,7 @@ Implements XUIUndoableAction
 		Private mEditor As XUICodeEditor
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C206361636865206F66207468697320616374696F6E27732049442E
 		Private mID As Integer = 0
 	#tag EndProperty
 

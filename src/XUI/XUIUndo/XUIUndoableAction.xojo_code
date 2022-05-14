@@ -31,6 +31,12 @@ Protected Interface XUIUndoableAction
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents an undoable / redoable action that can be handled by `XUIUndoManager`.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

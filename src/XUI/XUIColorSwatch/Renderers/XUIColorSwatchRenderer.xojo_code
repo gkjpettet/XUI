@@ -1,6 +1,6 @@
 #tag Interface
 Protected Interface XUIColorSwatchRenderer
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 606F776E657260206973207468652060585549436F6C6F72537761746368602074686174206F776E7320746869732072656E64657265722E
 		Sub Constructor(owner As XUIColorSwatch)
 		  
 		End Sub
@@ -29,6 +29,15 @@ Protected Interface XUIColorSwatchRenderer
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Colour swatches on different platforms have widely differing appearances.
+		`XUIColorSwatch` handles this by using _Renderers_. A renderer is a class that
+		implements this interface. It exposes methods called by `XUIColorSwatch` to alter
+		its appearance. Several examples are provided with XUI.
+		
+	#tag EndNote
 
 
 End Interface

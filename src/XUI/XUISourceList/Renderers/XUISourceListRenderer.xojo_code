@@ -1,6 +1,6 @@
 #tag Interface
 Protected Interface XUISourceListRenderer
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 606F776E657260206973207468652060585549536F757263654C697374602074686174206F776E7320746869732072656E64657265722E
 		Sub Constructor(owner As XUISourceList)
 		  
 		End Sub
@@ -29,6 +29,16 @@ Protected Interface XUISourceListRenderer
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Source lists often look different on different platforms. Largely this is because there is
+		no standard source list control. To cope with this, `XUISourceList` outsources its
+		appearance to a _Renderer_. A renderer is a class that implements this interface. 
+		It exposes methods that are called by `XUISourceList` to alter its appearance.
+		Several example renderers are included with XUI.
+		
+	#tag EndNote
 
 
 	#tag ViewBehavior

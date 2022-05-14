@@ -6,7 +6,7 @@ Protected Interface XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 606F776E657260206973207468652060585549546162426172602074686174206F776E7320746869732072656E64657265722E
 		Sub Constructor(owner As XUITabBar)
 		  
 		End Sub
@@ -30,7 +30,7 @@ Protected Interface XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520696D61676520746F20626520647261776E20746F207468652074616220626172277320677261706869637320636F6E7465787420696E20697473205061696E74206576656E742E
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520696D61676520746F20626520647261776E20746F207468652074616220626172277320677261706869637320636F6E7465787420696E2069747320605061696E7460206576656E742E
 		Sub Render(ownerGraphics As Graphics, scrollPosX As Integer, needsFullRedraw As Boolean = True)
 		  
 		End Sub
@@ -59,6 +59,16 @@ Protected Interface XUITabBarRenderer
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Tab bars look different on different operating systems and even between different 
+		applications on the same operating system. To handle this, `XUITabBar` outsources 
+		its appearance to a _Renderer_. Renderers are classes that implement this interface.
+		They expose methods to `XUITabBar` to alter its appearance.
+		Several example renderers are included with XUI.
+		
+	#tag EndNote
 
 
 	#tag ViewBehavior

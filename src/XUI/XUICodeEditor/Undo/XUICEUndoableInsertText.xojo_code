@@ -1,8 +1,17 @@
 #tag Class
 Protected Class XUICEUndoableInsertText
 Implements XUIUndoableAction
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, caretPos As Integer, s As String)
+		  /// Default constructor.
+		  ///
+		  /// - `editor` is the `XUICodeEditor` to perform this action on.
+		  /// - `id` is the unique ID for this action.
+		  /// - `description` is a human-radable description of this action for displaying 
+		  /// in menubars and contextual menus.
+		  /// - `caretPos` is the original caret position where the text was inserted at.
+		  /// - `s` is the text inserted.
+		  
 		  mEditor = editor
 		  mID = id
 		  mDescription = description
@@ -16,24 +25,28 @@ Implements XUIUndoableAction
 		Function Description() As String
 		  /// A description of this action.
 		  ///
-		  /// Part of the UKUndoableAction interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  Return mDescription
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468697320616374696F6E277320756E697175652049442E
 		Function ID() As Integer
-		  /// Part of the UKUndoableAction interface.
+		  /// This action's unique ID.
+		  ///
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  Return mID
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468697320616374696F6E277320756E697175652049442E
 		Sub ID(Assigns value As Integer)
-		  /// Part of the UKUndoableAction interface.
+		  /// This action's unique ID.
+		  ///
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  mID = value
 		  
@@ -55,7 +68,7 @@ Implements XUIUndoableAction
 		Sub Undo()
 		  /// Undo the insertion of the text that was inserted at `mCaretPos`.
 		  ///
-		  /// Part of the UKUndoableAction interface.
+		  /// Part of the `XUIUndoableAction` interface.
 		  
 		  // Select the inserted text.
 		  mEditor.CurrentSelection = _
@@ -68,19 +81,26 @@ Implements XUIUndoableAction
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Stores the data required to undo / redo the insertion of a text within 
+		the `XUICodeEditor`.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 546865206F726967696E616C20636172657420706F736974696F6E2077686572652074686520746578742077617320696E7365727465642061742E
 		Private mCaretPos As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 41206465736372697074696F6E206F66207468697320616374696F6E2E
 		Private mDescription As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686520656469746F7220776865726520746865207465787420696E73657274696F6E206F636375727265642E
 		Private mEditor As XUICodeEditor
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C206361636865206F66207468697320616374696F6E27732049442E
 		Private mID As Integer = 0
 	#tag EndProperty
 

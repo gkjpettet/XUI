@@ -23,12 +23,20 @@ Implements XUIUndoableAction
 
 	#tag Method, Flags = &h0, Description = 41206465736372697074696F6E206F66207468697320756E646F61626C6520616374696F6E2E
 		Function Description() As String
+		  /// A description of this undoable action.
+		  ///
+		  /// Part of the `XUIUndoableAction` interface.
+		  
 		  Return mDescription
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 5468697320616374696F6E277320756E697175652049442E
 		Function ID() As Integer
+		  /// This action's unique ID.
+		  ///
+		  /// Part of the `XUIUndoableAction` interface.
+		  
 		  Return mID
 		  
 		End Function
@@ -36,6 +44,10 @@ Implements XUIUndoableAction
 
 	#tag Method, Flags = &h0, Description = 5468697320616374696F6E277320756E697175652049442E
 		Sub ID(Assigns value As Integer)
+		  /// This action's unique ID.
+		  ///
+		  /// Part of the `XUIUndoableAction` interface.
+		  
 		  mID = value
 		  
 		End Sub

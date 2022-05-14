@@ -49,6 +49,14 @@ Protected Interface XUICEFormatter
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		The tokenisation and syntax manipulation of text within the code editor is handled by 
+		_formatters_. A formatter is a class that implements this interface. In theory, the 
+		code editor can handle the styling of any language with the appropriate formatter.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

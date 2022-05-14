@@ -163,50 +163,47 @@ Inherits DesktopTextInputCanvas
 		Private Declare Function NSClassFromString Lib kFoundation (className As CFStringRef) As Ptr
 	#tag EndExternalMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20546865207363726F6C6C6572207374796C65206368616E6765642E
 		Private Shared Sub NSScrollerStyleChanged(obj As Ptr, sel As Ptr, notification As Ptr)
+		  /// Internal use. The scroller style changed.
+		  
 		  #Pragma Unused sel
 		  #Pragma Unused notification
 		  
 		  #If TargetMacOS
-		    
-		    ' Check for the obj key, then make sure the WeakRef is valid
+		    // Check for the `obj` key, then make sure the WeakRef is valid.
 		    If LookupTable.HasKey(obj) And Not (WeakRef(LookupTable.Value(obj)).Value Is Nil) Then
-		      
-		      ' Cast the WeakRef value to our NSScrollView
+		      // Cast the WeakRef value to our NSScrollView.
 		      Var oNSScrollViewCanvas As NSScrollViewCanvas = NSScrollViewCanvas(WeakRef(LookupTable.Value(obj)).Value)
 		      
-		      ' Call the instance method
+		      // Call the instance method.
 		      oNSScrollViewCanvas.PerformScrollerStyleChanged
-		      
 		    End If
-		    
 		  #EndIf
+		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 54686520616D6F756E742062792077686963682074686520636F6E74656E742069732063757272656E746C79207363616C65642E
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20546869732069732077686572652077652068616E646C6520746865206D61676E69667920676573747572652E
 		Private Shared Sub NSScrollViewMagnifyWithEvent(obj As Ptr, sel As Ptr, evt As Ptr)
+		  /// Internal use. This is where we handle the magnify gesture.
+		  
 		  #Pragma Unused sel
 		  
 		  #If TargetMacOS
+		    // obj is the NSScrollview, and can be used to find the `DesktopCanvas` in 
+		    // our LookupTable.
 		    
-		    ' This is where we handle the Magnify gesture
-		    ' obj is the NSScrollview, and can be used to find the
-		    ' DesktopCanvas in our LookupTable
-		    
-		    ' Check for the obj key, then make sure the WeakRef is valid
+		    // Check for the `obj` key, then make sure the WeakRef is valid.
 		    If LookupTable.HasKey(obj) And Not (WeakRef(LookupTable.Value(obj)).Value Is Nil) Then
-		      
-		      ' Cast the WeakRef value to our NSScrollView
+		      // Cast the WeakRef value to our NSScrollView.
 		      Var oNSScrollViewCanvas As NSScrollViewCanvas = NSScrollViewCanvas(WeakRef(LookupTable.Value(obj)).Value)
 		      
-		      ' Call the instance method
+		      // Call the instance method.
 		      oNSScrollViewCanvas.PerformScaling(magnification(evt))
-		      
 		    End If
-		    
 		  #EndIf
+		  
 		End Sub
 	#tag EndMethod
 
@@ -214,53 +211,49 @@ Inherits DesktopTextInputCanvas
 		Private Declare Function NSSelectorFromString Lib kFoundation (selectorName As CFStringRef) As Ptr
 	#tag EndExternalMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20546865207669657720626F756E647320686173206368616E6765642E
 		Private Shared Sub NSViewBoundsDidChange(obj As Ptr, sel As Ptr, notification As Ptr)
+		  /// Internal use. The view bounds has changed.
+		  
 		  #Pragma Unused sel
 		  #Pragma Unused notification
 		  
 		  #If TargetMacOS
+		    // The method we added to the NSScrollView subclass
+		    // `obj` is a reference to the object receiving the notification.
+		    // We could register any object to receive the notification,
+		    // but we chose the NSScrollView.
+		    // `sel` is the selector that was called, in this case `NSViewBoundsDidChange`
+		    // because that's the selector we passed to
+		    // `NSNotificationCenter addObserver:selector:name:object:`
+		    //
+		    // We could use the object selector on the notification object to
+		    // get the NSView whose bounds changed.
 		    
-		    ' The method we added to the NSScrollView subclass
-		    ' obj Is a reference to the object receiving the notification.
-		    ' We could register any object to receive the notification,
-		    ' but we chose the NSScrollView.
-		    
-		    ' sel is the selector that was called, in this case "NSViewBoundsDidChange"
-		    ' because that's the selector we passed to
-		    ' NSNotificationCenter addObserver:selector:name:object:
-		    
-		    ' We could use the object selector on the notification object to
-		    ' get the NSView whose bounds changed.
-		    
-		    ' Check for the obj key, then make sure the WeakRef is valid
+		    // Check for the `obj` key, then make sure the WeakRef is valid.
 		    If LookupTable.HasKey(obj) And Not (WeakRef(LookupTable.Value(obj)).Value Is Nil) Then
-		      
-		      ' Cast the WeakRef value to our NSScrollView
+		      // Cast the WeakRef value to our NSScrollView.
 		      Var oNSScrollViewCanvas As NSScrollViewCanvas = NSScrollViewCanvas(WeakRef(LookupTable.Value(obj)).Value)
 		      
-		      ' Call the instance method
+		      // Call the instance method.
 		      oNSScrollViewCanvas.PerformBoundsChanged
-		      
 		    End If
-		    
 		  #EndIf
+		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4120426F6F6C65616E2076616C756520696E6469636174696E6720776865746865722074686520766965772075736573206120666C697070656420636F6F7264696E6174652073797374656D2E
+	#tag Method, Flags = &h21
 		Private Shared Function NSViewIsFlipped(obj As Ptr, sel As Ptr) As Boolean
+		  // Internal use. This is the override of the view's IsFlipped selector.
+		  
 		  #Pragma Unused obj
 		  #Pragma Unused sel
 		  
 		  #If TargetMacOS
-		    
-		    ' This is the override of the view's IsFlipped selector.
-		    ' returning True causes the views coordinate System to behave
-		    ' more like Xojo's coordinate system
-		    
+		    // returning True causes the views coordinate System to behave
+		    // more like Xojo's coordinate system.
 		    Return True
-		    
 		  #EndIf
 		End Function
 	#tag EndMethod
@@ -273,13 +266,12 @@ Inherits DesktopTextInputCanvas
 		Private Declare Sub objc_registerClassPair Lib kObjC (cls As Ptr)
 	#tag EndExternalMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E2063616C6C65642066726F6D207468652073686172656420626F756E6473206368616E676564206D6574686F642C206166746572206C6F6F6B696E672075702074686520696E7374616E636520696E20604C6F6F6B75705461626C65602E
 		Private Sub PerformBoundsChanged()
+		  /// Internal use. called from the shared bounds changed method, after looking 
+		  /// up the instance in `LookupTable`.
+		  
 		  #If TargetMacOS
-		    
-		    ' This Function is called from the shared method, after looking up the instance
-		    ' in the LookupTable
-		    
 		    Var instance As Ptr = ContentView(NSScrollView)
 		    Var oBounds As CGRect = Bounds(instance)
 		    
@@ -295,8 +287,11 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E2063616C6C65642066726F6D2074686520736861726564206D61676E696679206D6574686F642C206166746572206C6F6F6B696E672075702074686520696E7374616E636520696E20604C6F6F6B75705461626C65602E
 		Private Sub PerformScaling(scaleOffset As Double)
+		  /// Internal use. called from the shared magnify method, after looking 
+		  /// up the instance in `LookupTable`.
+		  
 		  #If TargetMacOS
 		    
 		    RaiseEvent NSScrollViewMagnify(scaleOffset)
@@ -305,8 +300,11 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E2063616C6C65642066726F6D2074686520736861726564207363726F6C6C6572207374796C65206368616E676564206D6574686F642C206166746572206C6F6F6B696E672075702074686520696E7374616E636520696E20604C6F6F6B75705461626C65602E
 		Private Sub PerformScrollerStyleChanged()
+		  /// Internal use. called from the shared scroller style changed method, after looking 
+		  /// up the instance in `LookupTable`.
+		  
 		  #If TargetMacOS Then
 		    
 		    RaiseEvent NSScrollerStyleChanged(NSScrollerStyle)
@@ -323,8 +321,10 @@ Inherits DesktopTextInputCanvas
 		Private Declare Sub ScrollPoint Lib kAppKit Selector "scrollPoint:" (id As Ptr, point As CGPoint)
 	#tag EndExternalMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5363726F6C6C73207468652063616E76617320746F206120706F696E74202860782C207960292E
 		Sub ScrollToPoint(x As Double, y As Double)
+		  /// Scrolls the canvas to a point (`x, y`).
+		  
 		  #If TargetMacOS
 		    
 		    Var oPoint As CGPoint
@@ -342,8 +342,10 @@ Inherits DesktopTextInputCanvas
 		Private Declare Sub SetAutoresizingMask Lib kAppKit Selector "setAutoresizingMask:" (id As Ptr, mask As Integer)
 	#tag EndExternalMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 536574732074686520646F63756D656E742073697A6520746F206077696474686020782060686569676874602E
 		Sub SetDocumentSize(width As CGFloat, height As CGFloat)
+		  /// Sets the document size to `width` x `height`.
+		  
 		  #If TargetMacOS
 		    
 		    Var oSize As CGSize
@@ -351,7 +353,7 @@ Inherits DesktopTextInputCanvas
 		    oSize.Width = width
 		    oSize.Height = height
 		    
-		    ' Set the frame size. Our ScrollView will accomodate
+		    // Set the frame size. Our ScrollView will accomodate.
 		    SetFrameSize(NSDocumentView, oSize)
 		    
 		    
@@ -384,15 +386,15 @@ Inherits DesktopTextInputCanvas
 	#tag EndExternalMethod
 
 
-	#tag Hook, Flags = &h0
+	#tag Hook, Flags = &h0, Description = 5468652063616E76617320697320636C6F73696E672E
 		Event Closing()
 	#tag EndHook
 
-	#tag Hook, Flags = &h0
+	#tag Hook, Flags = &h0, Description = 546865207363726F6C6C6572207374796C6520686173206368616E6765642E
 		Event NSScrollerStyleChanged(style As NSScrollerStyles)
 	#tag EndHook
 
-	#tag Hook, Flags = &h0
+	#tag Hook, Flags = &h0, Description = 546865207363726F6C6C207669657720626F756E647320686173206368616E6765642E
 		Event NSScrollViewBoundsChanged(bounds As CGRect)
 	#tag EndHook
 
@@ -400,16 +402,30 @@ Inherits DesktopTextInputCanvas
 		Event NSScrollViewMagnify(scaleOffset As Double)
 	#tag EndHook
 
-	#tag Hook, Flags = &h0
+	#tag Hook, Flags = &h0, Description = 5468652063616E766173206973206F70656E696E672E
 		Event Opening()
 	#tag EndHook
 
 
-	#tag Property, Flags = &h1
+	#tag Note, Name = About
+		A subclass of the `DesktopTextInputCanvas` that provides native scrollbars on macOS.
+		
+	#tag EndNote
+
+	#tag Note, Name = Acknowledgements
+		This class is a minimally modified version of a class provided by 
+		Martin Trippensee. He can be found on the [Xojo forums][1].
+		
+		[1]: https://forum.xojo.com
+		
+	#tag EndNote
+
+
+	#tag Property, Flags = &h1, Description = 54727565206966207468652063616E7661732073686F756C642068617665206120686F72697A6F6E74616C207363726F6C6C6261722E
 		Protected HasHorizontalScrollbar As Boolean = True
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
+	#tag Property, Flags = &h1, Description = 54727565206966207468652063616E7661732073686F756C642068617665206120686F72697A6F6E74616C207363726F6C6C6261722E
 		Protected HasVerticalScrollbar As Boolean = True
 	#tag EndProperty
 
@@ -420,11 +436,11 @@ Inherits DesktopTextInputCanvas
 		Private Shared LookupTable As Dictionary
 	#tag EndProperty
 
-	#tag Property, Flags = &h1, Description = 546865207265666572656E636520746F2074686520446F63756D656E745669657720737562636C6173732E
+	#tag Property, Flags = &h1, Description = 546865207265666572656E636520746F207468652060446F63756D656E74566965776020737562636C6173732E
 		Protected NSDocumentView As Ptr
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
+	#tag Property, Flags = &h1, Description = 4120706F696E74657220746F20604E534E6F74696669636174696F6E43656E746572602E
 		Protected NSNotificationCenter As Ptr
 	#tag EndProperty
 
@@ -445,30 +461,30 @@ Inherits DesktopTextInputCanvas
 		Protected NSScrollView As Ptr
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
+	#tag Property, Flags = &h1, Description = 496E7465726E616C207573652E204120706F696E74657220746F206F757220637573746F6D20604E535363726F6C6C56696577602E
 		Protected NSScrollViewCustom As Ptr
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
+	#tag Property, Flags = &h1, Description = 546865206D6F737420726563656E742058207363726F6C6C20706F736974696F6E2E
 		Protected ScrollX_ As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
+	#tag Property, Flags = &h1, Description = 546865206D6F737420726563656E742059207363726F6C6C20706F736974696F6E2E
 		Protected ScrollY_ As Integer
 	#tag EndProperty
 
 
-	#tag Constant, Name = kAppKit, Type = String, Dynamic = False, Default = \"AppKit", Scope = Private
+	#tag Constant, Name = kAppKit, Type = String, Dynamic = False, Default = \"AppKit", Scope = Private, Description = 546865204170704B6974206C696272617279206E616D6520666F72206465636C617265732E
 	#tag EndConstant
 
-	#tag Constant, Name = kFoundation, Type = String, Dynamic = False, Default = \"Foundation", Scope = Private
+	#tag Constant, Name = kFoundation, Type = String, Dynamic = False, Default = \"Foundation", Scope = Private, Description = 54686520466F756E646174696F6E206C696272617279206E616D6520666F72206465636C617265732E
 	#tag EndConstant
 
-	#tag Constant, Name = kObjC, Type = String, Dynamic = False, Default = \"libobjc.dylib", Scope = Private
+	#tag Constant, Name = kObjC, Type = String, Dynamic = False, Default = \"libobjc.dylib", Scope = Private, Description = 546865206F626A6563746976652D432064796E616D6963206C696272617279206E616D6520666F72206465636C617265732E
 	#tag EndConstant
 
 
-	#tag Enum, Name = NSScrollerStyles, Type = Integer, Flags = &h0, Description = 436F6E7374616E747320746F207370656369667920746865207363726F6C6C6572207374796C652E0A2A204C65676163793A20537065636966696573206C65676163792D7374796C65207363726F6C6C657273206173207072696F7220746F206D61634F532031302E372E0A2A204F7665726C61793A20537065636966696573206F7665726C61792D7374796C65207363726F6C6C65727320696E206D61634F532031302E3720616E64206C617465722E
+	#tag Enum, Name = NSScrollerStyles, Type = Integer, Flags = &h0, Description = 436F6E7374616E747320746F207370656369667920746865207363726F6C6C6572207374796C652E0A0A604C6567616379603A20537065636966696573206C65676163792D7374796C65207363726F6C6C657273206173207072696F7220746F206D61634F532031302E372E0A0A604F7665726C6179603A20537065636966696573206F7665726C61792D7374796C65207363726F6C6C65727320696E206D61634F532031302E3720616E64206C617465722E
 		Legacy
 		Overlay
 	#tag EndEnum
