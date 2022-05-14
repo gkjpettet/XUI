@@ -96,7 +96,7 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
 		  /// Does nothing in Markdown documents.
 		  ///
-		  /// Part of the XUICEFormatter interface. Used to return the nearest delimiters at the 
+		  /// Part of the `XUICEFormatter` interface. Used to return the nearest delimiters at the 
 		  /// given `caretPos`. May be Nil.
 		  
 		  #Pragma Unused caretPos
@@ -110,7 +110,7 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		Function SupportsDelimiterHighlighting() As Boolean
 		  /// True if this formatter supports highlighting the delimiters around the caret.
 		  ///
-		  /// Part of the XUICEFormatter interface.
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  Return False
 		End Function
@@ -133,7 +133,8 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		  /// Tokenises a portion of `lines`.
 		  ///
 		  /// Note that we tokenise all lines, even though this method is passed the visible line numbers.
-		  /// Part of the XUIFormatter interface.
+		  ///
+		  /// Part of the `XUIFormatter` interface.
 		  
 		  #Pragma Warning "TODO: Actually just parse the passed lines."
 		  
@@ -214,9 +215,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720616E204154582068656164696E672E
 		Function VisitATXHeading(atx As MarkdownKit.MKATXHeadingBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting an ATX heading.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  IsWithinATXHeading = True
 		  ATXHeadingLevel = atx.Level
@@ -258,10 +261,12 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E67206120626C6F636B2E
 		Function VisitBlock(b As MarkdownKit.MKBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
-		  //
+		  /// The renderer is visiting a block.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
+		  
 		  // Nothing to do.
 		  
 		  #Pragma Unused b
@@ -269,9 +274,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E67206120626C6F636B2071756F74652E
 		Function VisitBlockQuote(bq As MarkdownKit.MKBlockQuote) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a block quote.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  // Add the block quote opening delimiters.
 		  For Each delimiter As MarkdownKit.MKCharacter In bq.OpeningDelimiters
@@ -287,9 +294,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E67206120636F6465207370616E2E
 		Function VisitCodeSpan(cs As MarkdownKit.MKCodeSpan) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a code span.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  // Opening delimiter.
 		  Var line As XUICELine = mLines(cs.OpeningBacktickChar.Line.Number - 1)
@@ -313,9 +322,12 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E672061204D61726B646F776E20646F63756D656E742E
 		Function VisitDocument(doc As MarkdownKit.MKDocument) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a Markdown document.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
+		  
 		  
 		  InEmphasis = False
 		  InStrongEmphasis = False
@@ -334,9 +346,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720616E20656D706861736973206E6F64652E
 		Function VisitEmphasis(e As MarkdownKit.MKEmphasis) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting an emphasis node.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  Var wasInEmphasis As Boolean = InEmphasis
 		  
@@ -362,9 +376,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720736F6D652066656E63656420636F64652E
 		Function VisitFencedCode(fc As MarkdownKit.MKFencedCodeBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting some fenced code.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  #Pragma Warning "TODO: Delegate this tokenisation to a dedicated language formatter"
 		  
@@ -395,9 +411,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720616E2048544D4C20626C6F636B2E
 		Function VisitHTMLBlock(html As MarkdownKit.MKHTMLBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting an HTML block.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  For Each child As MarkdownKit.MKBlock In html.Children
 		    Call child.Accept(Self)
@@ -406,9 +424,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720736F6D6520696E64656E74656420636F64652E
 		Function VisitIndentedCode(ic As MarkdownKit.MKIndentedCodeBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting some indented code.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  For Each child As MarkdownKit.MKBlock In ic.Children
 		    Var codeLine As MarkdownKit.MKTextBlock = MarkdownKit.MKTextBlock(child)
@@ -418,9 +438,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720736F6D6520696E6C696E652048544D4C2E20636F64652E
 		Function VisitInlineHTML(html As MarkdownKit.MKInlineHTML) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting some inline HTML. code.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  For Each child As MarkdownKit.MKBlock In html.Children
 		    Var tb As MarkdownKit.MKTextBlock = MarkdownKit.MKTextBlock(child)
@@ -432,14 +454,18 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720616E20696E6C696E6520696D6167652E
 		Function VisitInlineImage(image As MarkdownKit.MKInlineImage) As Variant
-		  /// Part of the MKRenderer interface.
+		  /// The renderer is visiting an inline image.
 		  ///
-		  /// Link types:
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
+		  ///
+		  /// Link types:  
+		  /// ```nohighlight
 		  /// Shortcut: `![foo]`
 		  /// Collapsed: `![foo][]`
 		  /// Full: `![foo](foo.com)`
+		  /// ```
 		  
 		  Var line As XUICELine
 		  
@@ -550,14 +576,19 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720616E20696E6C696E65206C696E6B2E
 		Function VisitInlineLink(link As MarkdownKit.MKInlineLink) As Variant
-		  /// Part of the MKRenderer interface.
+		  /// The renderer is visiting an inline link.
 		  ///
-		  /// Link types:
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
+		  ///
+		  /// Link types:  
+		  ///
+		  /// ```nohighlight
 		  /// Shortcut: `[foo]`
 		  /// Collapsed: `[foo][]`
 		  /// Full: `[foo](foo.com)`
+		  /// ```
 		  
 		  Var line As XUICELine
 		  
@@ -670,9 +701,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720736F6D6520696E6C696E6520746578742E
 		Function VisitInlineText(it As MarkdownKit.MKInlineText) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting some inline text.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  Var type As String
 		  
@@ -723,9 +756,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E672061206C6973742E
 		Function VisitList(list As MarkdownKit.MKListBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a list.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  For Each child As MarkdownKit.MKBlock In list.Children
 		    Call child.Accept(Self)
@@ -733,9 +768,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E672061206C697374206974656D2E
 		Function VisitListItem(item As MarkdownKit.MKListItemBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a list item.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  // List marker.
 		  Var line As XUICELine = mLines(item.LineNumber - 1)
@@ -750,9 +787,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E6720612070617261677261706820626C6F636B2E
 		Function VisitParagraph(p As MarkdownKit.MKParagraphBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a paragraph block.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  For Each child As MarkdownKit.MKBlock In p.Children
 		    Call child.Accept(Self)
@@ -760,9 +799,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E672061207365746578742068656164696E672E
 		Function VisitSetextHeading(stx As MarkdownKit.MKSetextHeadingBlock) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a setext heading.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  IsWithinSetextHeading = True
 		  SetextHeadingLevel = stx.Level
@@ -786,10 +827,12 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E67206120736F667420627265616B2E
 		Function VisitSoftBreak(sb As MarkdownKit.MKSoftBreak) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
-		  //
+		  /// The renderer is visiting a soft break.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
+		  
 		  // Nothing to do.
 		  
 		  #Pragma Unused sb
@@ -797,9 +840,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E672061207374726F6E6720656D706861736973206E6F64652E
 		Function VisitStrongEmphasis(se As MarkdownKit.MKStrongEmphasis) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a strong emphasis node.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  Var wasInStrongEmphasis As Boolean = InStrongEmphasis
 		  
@@ -826,9 +871,11 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E672061207465787420626C6F636B2E
 		Function VisitTextBlock(tb As MarkdownKit.MKTextBlock) As Variant
-		  // Part of the MKRenderer interface.
+		  /// The renderer is visiting a text block.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  If tb.IsBlank Then Return Nil
 		  
@@ -845,15 +892,25 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652072656E6465726572206973207669736974696E672061207468656D6174696320627265616B2E
 		Function VisitThematicBreak(tb As MarkdownKit.MKThematicBreak) As Variant
-		  // Part of the MarkdownKit.MKRenderer interface.
+		  /// The renderer is visiting a thematic break.
+		  ///
+		  /// Part of the `MarkdownKit.MKRenderer` interface.
 		  
 		  mLines(tb.LineNumber - 1).Tokens.Add( _
 		  New XUICELineToken(tb.Start, tb.LocalStart, tb.Length, tb.LineNumber, TOKEN_THEMATIC_BREAK))
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		A [CommonMark][1]-compliant Markdown formatter for the `XUICodeEditor`.
+		
+		[1]: https://spec.commonmark.org/0.29/
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21, Description = 4966207468652072656E64657265722069732063757272656E746C792077697468696E20616E204154582068656164696E672C207468697320697320697473206C6576656C2E
@@ -872,7 +929,7 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		Private IsWithinATXHeading As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54727565206966207468652072656E64657265722069732063757272656E746C792077697468696E206120636F6465207370616E2E
 		Private IsWithinCodeSpan As Boolean = False
 	#tag EndProperty
 
@@ -933,13 +990,13 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 	#tag Constant, Name = TOKEN_ATX_LEVEL6, Type = String, Dynamic = False, Default = \"atxLevel6", Scope = Public, Description = 54686520746F6B656E2074797065207573656420666F72206C6576656C2036204154582068656164696E6720746578742E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_BLOCKQUOTE_DELIMITER, Type = String, Dynamic = False, Default = \"blockQuoteDelimiter", Scope = Public, Description = 5573656420666F7220626C6F636B2071756F74652064656C696D69746572732028223E22292E
+	#tag Constant, Name = TOKEN_BLOCKQUOTE_DELIMITER, Type = String, Dynamic = False, Default = \"blockQuoteDelimiter", Scope = Public, Description = 5573656420666F7220626C6F636B2071756F74652064656C696D69746572732028603E60292E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_CODESPAN, Type = String, Dynamic = False, Default = \"codespan", Scope = Public, Description = 5573656420666F7220746578742077697468696E206120636F6465207370616E2E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_CODESPAN_DELIMITER, Type = String, Dynamic = False, Default = \"codespanDelimiter", Scope = Public, Description = 5573656420666F7220636F64657370616E2064656C696D69746572732028226022292E
+	#tag Constant, Name = TOKEN_CODESPAN_DELIMITER, Type = String, Dynamic = False, Default = \"codespanDelimiter", Scope = Public, Description = 5573656420666F7220636F64657370616E2064656C696D6974657273202860602060206060292E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_CODE_LINE, Type = String, Dynamic = False, Default = \"codeLine", Scope = Public, Description = 5573656420666F7220636F6465206C696E657320696E20696E64656E74656420616E642066656E63656420636F646520626C6F636B732E
@@ -951,19 +1008,19 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 	#tag Constant, Name = TOKEN_EMPHASIS, Type = String, Dynamic = False, Default = \"emphasis", Scope = Public, Description = 5573656420666F7220656D70686173697320696E6C696E6520746578742E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_EMPHASIS_DELIMITER, Type = String, Dynamic = False, Default = \"emphasisDelimiter", Scope = Public, Description = 5573656420666F7220656D7068617369732064656C696D69746572732028652E673A20222A2220616E6420225F22292E
+	#tag Constant, Name = TOKEN_EMPHASIS_DELIMITER, Type = String, Dynamic = False, Default = \"emphasisDelimiter", Scope = Public, Description = 5573656420666F7220656D7068617369732064656C696D69746572732028652E673A20602A6020616E6420605F60292E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_FENCE_DELIMITER, Type = String, Dynamic = False, Default = \"fenceDelimiter", Scope = Public, Description = 5573656420666F72207468652064656C696D69746572732061726F756E6420636F64652066656E6365732028226060602220616E6420227E7E7E22292E
+	#tag Constant, Name = TOKEN_FENCE_DELIMITER, Type = String, Dynamic = False, Default = \"fenceDelimiter", Scope = Public, Description = 5573656420666F72207468652064656C696D69746572732061726F756E6420636F64652066656E636573202860602060606020606020616E6420607E7E7E60292E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_INFO_STRING, Type = String, Dynamic = False, Default = \"infoString", Scope = Public, Description = 5573656420666F7220696E666F20737472696E677320696E20636F64652066656E6365732E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_INLINE_HTML, Type = String, Dynamic = False, Default = \"inlineHTML", Scope = Public, Description = 5573656420666F7220696E6C696E652048544D4C2028652E673A20223C613E22292E
+	#tag Constant, Name = TOKEN_INLINE_HTML, Type = String, Dynamic = False, Default = \"inlineHTML", Scope = Public, Description = 5573656420666F7220696E6C696E652048544D4C2028652E673A20603C613E60292E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_INLINE_LINK_LABEL, Type = String, Dynamic = False, Default = \"inlineLinkLabel", Scope = Public, Description = 5573656420666F72207468652074657874206F6620696E6C696E65206C696E6B20616E6420696D616765206C6162656C732E20466F72206578616D706C653A20215B6C696E6B4C6162656C5D2864657374696E6174696F6E292E
+	#tag Constant, Name = TOKEN_INLINE_LINK_LABEL, Type = String, Dynamic = False, Default = \"inlineLinkLabel", Scope = Public, Description = 5573656420666F72207468652074657874206F6620696E6C696E65206C696E6B20616E6420696D616765206C6162656C732E20466F72206578616D706C653A2060215B6C696E6B4C6162656C5D2864657374696E6174696F6E29602E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_LINK_DESTINATION, Type = String, Dynamic = False, Default = \"linkDestination", Scope = Public, Description = 5573656420666F7220696E6C696E6520616E64207265666572656E6365206C696E6B2064657374696E6174696F6E732E
@@ -981,7 +1038,7 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 	#tag Constant, Name = TOKEN_LINK_TITLE_DELIMITER, Type = String, Dynamic = False, Default = \"linkTitleDelimiter", Scope = Public, Description = 5573656420666F72207468652064656C696D69746572732061726F756E64206C696E6B207469746C657320696E20696E6C696E65206C696E6B7320616E6420696D616765732028605B6020616E6420605D60292E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_LIST_MARKER, Type = String, Dynamic = False, Default = \"listMarker", Scope = Public, Description = 5573656420666F72206C697374206D61726B6572732028652E673A20222D222C2022312E222C20222B222C20657463292E
+	#tag Constant, Name = TOKEN_LIST_MARKER, Type = String, Dynamic = False, Default = \"listMarker", Scope = Public, Description = 5573656420666F72206C697374206D61726B6572732028652E673A20602D602C2060312E602C20602B602C20657463292E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_SETEXTUNDERLINE_LEVEL1, Type = String, Dynamic = False, Default = \"setextUnderlineLevel1", Scope = Public, Description = 54686520746F6B656E2074797065207573656420666F722074686520756E6465726C696E696E67206F66206C6576656C2031207365746578742068656164696E67732E
@@ -999,10 +1056,10 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 	#tag Constant, Name = TOKEN_STRONG, Type = String, Dynamic = False, Default = \"strong", Scope = Public, Description = 5573656420666F72207374726F6E6720656D70686173697320696E6C696E6520746578742E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_STRONG_AND_EMPHASIS, Type = String, Dynamic = False, Default = \"strongAndEmphasis", Scope = Public, Description = 5573656420666F7220636F6D62696E6564207374726F6E6720656D70686173697320616E6420656D70686173697320696E6C696E6520746578742028652E673A20222A2A2A68656C6C6F2A2A2A22292E
+	#tag Constant, Name = TOKEN_STRONG_AND_EMPHASIS, Type = String, Dynamic = False, Default = \"strongAndEmphasis", Scope = Public, Description = 5573656420666F7220636F6D62696E6564207374726F6E6720656D70686173697320616E6420656D70686173697320696E6C696E6520746578742028652E673A20602A2A2A68656C6C6F2A2A2A60292E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_STRONG_DELIMITER, Type = String, Dynamic = False, Default = \"strongDelimiter", Scope = Public, Description = 5573656420666F72207374726F6E6720656D7068617369732064656C696D69746572732028652E673A20222A2A2220616E6420225F5F22292E
+	#tag Constant, Name = TOKEN_STRONG_DELIMITER, Type = String, Dynamic = False, Default = \"strongDelimiter", Scope = Public, Description = 5573656420666F72207374726F6E6720656D7068617369732064656C696D69746572732028652E673A20602A2A6020616E6420605F5F60292E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_THEMATIC_BREAK, Type = String, Dynamic = False, Default = \"thematicBreak", Scope = Public, Description = 5573656420666F72207468656D6174696320627265616B732E

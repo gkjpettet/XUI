@@ -1,8 +1,17 @@
 #tag Class
 Protected Class XUICEUndoableDelete
 Implements XUIUndoableAction
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, deletedText As String, selection As XUICETextSelection)
+		  /// Default constructor.
+		  ///
+		  /// - `editor` is the `XUICodeEditor` to perform this action on.
+		  /// - `id` is the unique ID for this action.
+		  /// - `description` is a human-radable description of this action for displaying 
+		  /// in menubars and contextual menus.
+		  /// - `deletedText` is the text that was just deleted in the code editor.
+		  /// - `selection` is selection within the code editor at the time of the deletion.
+		  
 		  mEditor = editor
 		  mID = id
 		  mDescription = description
@@ -18,14 +27,14 @@ Implements XUIUndoableAction
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468697320616374696F6E277320756E697175652049442E
 		Function ID() As Integer
 		  Return mID
 		  
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468697320616374696F6E277320756E697175652049442E
 		Sub ID(Assigns value As Integer)
 		  mID = value
 		  
@@ -56,6 +65,12 @@ Implements XUIUndoableAction
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Stores the data required to undo / redo a deletion within the `XUICodeEditor`.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 54686520746578742074686174207761732064656C657465642066726F6D2074686520656469746F7220627920746865206F726967696E616C2064656C6574696F6E20616374696F6E2E
 		Private mDeletedText As String
 	#tag EndProperty
@@ -68,7 +83,7 @@ Implements XUIUndoableAction
 		Private mEditor As XUICodeEditor
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C206361636865206F66207468697320616374696F6E27732049442E
 		Private mID As Integer = 0
 	#tag EndProperty
 

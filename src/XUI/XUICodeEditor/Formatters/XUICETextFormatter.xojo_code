@@ -21,11 +21,12 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E6561726573742064656C696D69746572732061742074686520676976656E20606361726574506F73602E204D6179206265204E696C2E
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E6561726573742064656C696D69746572732061742074686520676976656E20606361726574506F73602E20416C776179732072657475726E73204E696C206173207468697320666F726D617474657220646F65736E277420737570706F7274207468697320666561747572652E
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
-		  /// Returns the nearest delimiters at the given `caretPos`. May be Nil.
+		  /// Returns the nearest delimiters at the given `caretPos`. 
+		  /// Always returns Nil as this formatter doesn't support this feature.
 		  ///
-		  /// Part of the XUICEFormatter interface.
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  #Pragma Unused caretPos
 		  
@@ -34,11 +35,12 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 57686574686572207468697320666F726D617474657220737570706F72747320686967686C69676874696E67207468652064656C696D69746572732061726F756E64207468652063617265742E20416C776179732072657475726E732046616C73652E
 		Function SupportsDelimiterHighlighting() As Boolean
-		  /// True if this formatter supports highlighting the delimiters around the caret.
+		  /// Whether this formatter supports highlighting the delimiters around the caret. 
+		  /// Always returns False.
 		  ///
-		  /// Part of the XUICEFormatter interface.
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  Return False
 		End Function
@@ -60,8 +62,10 @@ Implements XUICEFormatter
 		Sub Tokenise(lines() As XUICELine, firstVisibleLineNumber As Integer, lastVisibleLineNumber As Integer)
 		  /// Tokenises a portion of `lines`.
 		  ///
-		  /// Note that we tokenise all lines, even though this method is passed the visible line numbers.
-		  /// Part of the XUICEFormatter interface.
+		  /// Note that we tokenise all lines, even though this method is passed the visible 
+		  /// line numbers.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  #Pragma Unused firstVisibleLineNumber
 		  #Pragma Unused lastVisibleLineNumber
@@ -74,7 +78,7 @@ Implements XUICEFormatter
 		Sub TokeniseAll(lines() As XUICELine)
 		  /// Tokenises an array of lines.
 		  ///
-		  /// Part of the XUICEFormatter interface.
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  For Each line As XUICELine In lines
 		    TokeniseLine(line)
@@ -103,7 +107,13 @@ Implements XUICEFormatter
 	#tag EndMethod
 
 
-	#tag Constant, Name = TOKEN_DEFAULT, Type = String, Dynamic = False, Default = \"default", Scope = Public
+	#tag Note, Name = About
+		A plain text formatter for the `XUICodeEditor`.
+		
+	#tag EndNote
+
+
+	#tag Constant, Name = TOKEN_DEFAULT, Type = String, Dynamic = False, Default = \"default", Scope = Public, Description = 546865206064656661756C746020746F6B656E2028746865206F6E6C7920746F6B656E2067656E657261746564206279207468697320666F726D6174746572292E
 	#tag EndConstant
 
 

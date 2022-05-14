@@ -18,6 +18,13 @@ Inherits Dictionary
 	#tag Method, Flags = &h0, Description = 436F6E7374727563746F7220746861742074616B657320616E206F7074696F6E616C206172726179206F662060656E7472696573602E
 		Sub Constructor(ParamArray entries() As Pair)
 		  /// Constructor that takes an optional array of `entries`.
+		  
+		  Super.Constructor(AddressOf CaseDelegate)
+		  
+		  For Each p As Pair In entries
+		    Value(p.Left) = p.Right
+		  Next p
+		  
 		End Sub
 	#tag EndMethod
 

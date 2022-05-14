@@ -9,22 +9,25 @@ Implements XUICEFormatter
 		  /// Assumes the pointer is yet to consume the opening delimiter.
 		  ///
 		  /// Single line comments start with `//` and end at the end of the line:
-		  /// ```
-		  '   // This is comment.
-		  '   var age = 40 // This is also a comment.
+		  ///
+		  /// ```wren
+		  /// This is comment.
+		  /// var age = 40 // This is also a comment.
 		  /// ```
 		  ///
 		  /// Block comments start with `\*` and end with `*/`. They can span multiple lines:
+		  ///
+		  /// ```wren
+		  ///   /* This
+		  ///      a
+		  ///   multi-line
+		  ///   comment. */
 		  /// ```
-		  '   /* This
-		  '   is
-		  '   a
-		  '   multi-line
-		  '   comment. */
-		  /// ```
+		  ///
 		  /// They can also be nested:
-		  /// ```
-		  '   /* This is /* a nested */ comment. */
+		  ///
+		  /// ```wren
+		  ///   /* This is /* a nested */ comment. */
 		  /// ```
 		  
 		  If Peek <> "/" Then Return False
@@ -257,14 +260,14 @@ Implements XUICEFormatter
 		  ///
 		  /// Assumes that `mCurrent` points here:
 		  ///
-		  /// ```
-		  ' """Hello """
-		  '    ^
-		  '
-		  ' """
-		  '    ^ 
-		  ' Multiline
-		  ' """
+		  /// ```wren
+		  /// """Hello """
+		  ///    ^
+		  ///
+		  /// """
+		  ///    ^ 
+		  /// Multiline
+		  /// """
 		  /// ```
 		  
 		  Var startLine As Integer = mLineNumber
@@ -300,7 +303,7 @@ Implements XUICEFormatter
 		  /// ```
 		  ///
 		  /// If the string is successfully added then the closing delimiter will be assigned a 
-		  /// data key "isClosingDelimiter" with a value of `True`. This is used later when parsing.
+		  /// data key `"isClosingDelimiter"` with a value of `True`. This is used later when parsing.
 		  
 		  // =======================
 		  // RAW STRING
@@ -398,14 +401,17 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 44657465726D696E657320696620746865726520697320612076616C696420737472696E6720696E746572706F6C6174696F6E2E20416464732074686520746F6B656E28732920696620736F20616E642072657475726E7320547275652C20656C73652072657475726E732046616C73652E
+	#tag Method, Flags = &h21, Description = 44657465726D696E657320696620746865726520697320612076616C696420737472696E67206573636170652073657175656E63652E2041646473207468652072656C6576616E7420746F6B656E28732920696620736F20616E642072657475726E7320547275652C206F74686572776973652072657475726E732046616C73652E
 		Private Function HandleStringEscapeSequence(stringStartLine As Integer) As Boolean
-		  /// Determines if there is a valid string escape sequence. Adds the relevant token(s) if so and returns True, 
-		  /// else returns False.
+		  /// Determines if there is a valid string escape sequence. Adds the relevant token(s) 
+		  /// if so and returns True, otherwise returns False.
 		  ///
 		  /// Assumes were are within a string and have peeked to see `\`:
+		  ///
+		  /// ```wren
 		  /// System.write("age \tcool")
 		  ///                   ^
+		  /// ```
 		  ///
 		  /// `stringStartLine` is the number of the line that the preceding open string begins at.
 		  /// `mTokenStartLocal` points to the local position of the start of the preceding string.
@@ -489,14 +495,17 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 44657465726D696E657320696620746865726520697320612076616C696420737472696E6720696E746572706F6C6174696F6E2E20416464732074686520746F6B656E28732920696620736F20616E642072657475726E7320547275652C20656C73652072657475726E732046616C73652E
+	#tag Method, Flags = &h21, Description = 44657465726D696E657320696620746865726520697320612076616C696420737472696E6720696E746572706F6C6174696F6E2E20416464732074686520746F6B656E28732920696620736F20616E642072657475726E7320547275652C206F74686572776973652072657475726E732046616C73652E
 		Private Function HandleStringInterpolation(stringStartLine As Integer) As Boolean
-		  /// Determines if there is a valid string interpolation. Adds the token(s) if so and returns True, 
-		  /// else returns False.
+		  /// Determines if there is a valid string interpolation. Adds the token(s) if so and 
+		  /// returns True, otherwise returns False.
 		  ///
 		  /// Assumes were are within a string and have peeked to see `%(`:
+		  ///
+		  /// ```wren
 		  /// System.write("age %(25 + 15)"
 		  ///                   ^
+		  /// ```
 		  ///
 		  /// `stringStartLine` is the number of the line that the preceding open string begins at.
 		  /// `mTokenStartLocal` points to the local position of the start of the preceding string.
@@ -749,7 +758,7 @@ Implements XUICEFormatter
 		Function NearestDelimitersForCaretPos(caretPos As Integer) As XUICEDelimiter
 		  /// Returns the nearest delimiters at the given `caretPos`. May be Nil.
 		  ///
-		  /// Part of the XUICEFormatter interface.
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  // We iterate backwards over the delimiters starting from the last opener in the source code.
 		  For i As Integer = MatchedOpeningDelimiters.LastIndex DownTo 0
@@ -984,11 +993,11 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E732054727565206173207468697320666F726D617474657220737570706F72747320686967686C69676874696E67207468652064656C696D69746572732061726F756E64207468652063617265742E
 		Function SupportsDelimiterHighlighting() As Boolean
-		  /// True if this formatter supports highlighting the delimiters around the caret.
+		  /// Returns True as this formatter supports highlighting the delimiters around the caret.
 		  ///
-		  /// Part of the XUICEFormatter interface.
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  Return True
 		End Function
@@ -1009,7 +1018,8 @@ Implements XUICEFormatter
 		  /// Tokenises a portion of `lines`.
 		  ///
 		  /// Note that we tokenise all lines, even though this method is passed the visible line numbers.
-		  /// Part of the XUICEFormatter interface.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  #Pragma Unused firstVisibleLineNumber
 		  #Pragma Unused lastVisibleLineNumber
@@ -1023,7 +1033,7 @@ Implements XUICEFormatter
 		Sub TokeniseAll(lines() As XUICELine)
 		  /// Tokenises an array of lines.
 		  ///
-		  /// Part of the XUICEFormatter interface.
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  If lines.Count = 0 Then Return
 		  
@@ -1066,6 +1076,14 @@ Implements XUICEFormatter
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A `XUICodeEditor` formatter for the [Wren][1] programming language.
+		
+		[1]: https://wren.io
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 4120736F72746564206172726179206F6620616C6C2064656C696D6974657220746F6B656E7320696E2074686520736F7572636520636F64652E
 		Private Delimiters() As XUICELineToken
 	#tag EndProperty
@@ -1082,7 +1100,7 @@ Implements XUICEFormatter
 		Private Keywords As Dictionary
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21, Description = 416C6C206D6174636865642064656C696D697465727320696E2074686520736F7572636520636F64652E204B6579203D206044656C696D6974657220416020284C696E65546F6B656E292C2056616C7565203D2044656C696D69746572206D61746368696E67206044656C696D6974657220416020284C696E65546F6B656E292E
+	#tag Property, Flags = &h21, Description = 416C6C206D6174636865642064656C696D697465727320696E2074686520736F7572636520636F64652E204B6579203D206044656C696D6974657220416020286058554943454C696E65546F6B656E60292C2056616C7565203D2044656C696D69746572206D61746368696E67206044656C696D6974657220416020286058554943454C696E65546F6B656E60292E
 		Private MatchedDelimiters As Dictionary
 	#tag EndProperty
 
@@ -1106,7 +1124,7 @@ Implements XUICEFormatter
 	#tag Constant, Name = TOKEN_IDENTIFIER, Type = String, Dynamic = False, Default = \"identifier", Scope = Public, Description = 5573656420666F72206964656E746966696572732E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_INTERPOLATION, Type = String, Dynamic = False, Default = \"interpolation", Scope = Public, Description = 5573656420666F7220737472696E6720696E746572706F6C6174696F6E732028652E673A202225286E616D652922292E
+	#tag Constant, Name = TOKEN_INTERPOLATION, Type = String, Dynamic = False, Default = \"interpolation", Scope = Public, Description = 5573656420666F7220737472696E6720696E746572706F6C6174696F6E732028652E673A206025286E616D652960292E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_KEYWORD, Type = String, Dynamic = False, Default = \"keyword", Scope = Public, Description = 5573656420666F72206B6579776F7264732E
@@ -1122,7 +1140,7 @@ Implements XUICEFormatter
 	#tag EndConstant
 
 
-	#tag Enum, Name = CommentTypes, Type = Integer, Flags = &h0
+	#tag Enum, Name = CommentTypes, Type = Integer, Flags = &h21, Description = 5573656420696E7465726E616C6C792E2054686520646966666572656E74207479706573206F6620737570706F7274656420636F6D6D656E74732E
 		Block
 		SingleLine
 	#tag EndEnum
