@@ -30,8 +30,10 @@ Protected Module TOMLKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 436F6E76657274732061206052656745784D617463686020696E7374616E636520746F206120604461746554696D656020696E7374616E63652E
 		Private Function RegExMatchToDateTime(match As RegExMatch) As DateTime
+		  /// Converts a `RegExMatch` instance to a `DateTime` instance.
+		  
 		  Var year As Integer = match.SubExpressionString( 1 ).ToInteger
 		  Var month As Integer = match.SubExpressionString( 2 ).ToInteger
 		  Var day As Integer = match.SubExpressionString( 3 ).ToInteger
@@ -77,8 +79,10 @@ Protected Module TOMLKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 436F6E76657274732061206052656745784D617463686020696E7374616E636520746F20612060544B4C6F63616C54696D656020696E7374616E63652E
 		Private Function RegExMatchToLocalTime(match As RegExMatch) As TKLocalTime
+		  /// Converts a `RegExMatch` instance to a `TKLocalTime` instance.
+		  
 		  Var hour As Integer = match.SubExpressionString( 1 ).ToInteger
 		  Var minute As Integer = match.SubExpressionString( 2 ).ToInteger
 		  Var second As Integer = match.SubExpressionString( 3 ).ToInteger
@@ -94,6 +98,13 @@ Protected Module TOMLKit
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A module for reading and writing [TOML] data.
+		
+		[TOML]: https://toml.io
+		
+	#tag EndNote
+
 	#tag Note, Name = Acknowledgements
 		Ported from `M_TOML`, written by Kem Tekinay which can be found at:
 		
@@ -106,7 +117,7 @@ Protected Module TOMLKit
 	#tag EndNote
 
 
-	#tag ComputedProperty, Flags = &h21
+	#tag ComputedProperty, Flags = &h21, Description = 54686520726567657820666F722070617273696E672061204461746554696D652E
 		#tag Getter
 			Get
 			  Static rxDateTimeString As RegEx
@@ -123,7 +134,7 @@ Protected Module TOMLKit
 		Private RxDateTimeString As RegEx
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h21
+	#tag ComputedProperty, Flags = &h21, Description = 54686520726567657820666F722070617273696E672061206C6F63616C20646174652E
 		#tag Getter
 			Get
 			  Static rxLocalDateString As RegEx
@@ -140,7 +151,7 @@ Protected Module TOMLKit
 		Private RxLocalDateString As RegEx
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h21
+	#tag ComputedProperty, Flags = &h21, Description = 54686520726567657820666F722070617273696E672074696D652E
 		#tag Getter
 			Get
 			  Static rxTimeString As RegEx
@@ -157,152 +168,169 @@ Protected Module TOMLKit
 		Private RxTimeString As RegEx
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h1, Description = 5468652063757272656E742076657273696F6E2E
+		#tag Getter
+			Get
+			  Static v As New XUISemanticVersion(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
+			  Return v
+			  
+			End Get
+		#tag EndGetter
+		Protected Version As XUISemanticVersion
+	#tag EndComputedProperty
 
-	#tag Constant, Name = kBillion, Type = Double, Dynamic = False, Default = \"1000000000", Scope = Private
+
+	#tag Constant, Name = kBillion, Type = Double, Dynamic = False, Default = \"1000000000", Scope = Private, Description = 412062696C6C696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteBackslash, Type = Double, Dynamic = False, Default = \"92", Scope = Private
+	#tag Constant, Name = kByteBackslash, Type = Double, Dynamic = False, Default = \"92", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520605C60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteBackspace, Type = Double, Dynamic = False, Default = \"8", Scope = Private
+	#tag Constant, Name = kByteBackspace, Type = Double, Dynamic = False, Default = \"8", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F6620746865206261636B7370616365206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteCapA, Type = Double, Dynamic = False, Default = \"65", Scope = Private
+	#tag Constant, Name = kByteCapA, Type = Double, Dynamic = False, Default = \"65", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520604160206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteCapE, Type = Double, Dynamic = False, Default = \"69", Scope = Private
+	#tag Constant, Name = kByteCapE, Type = Double, Dynamic = False, Default = \"69", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520604560206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteCapF, Type = Double, Dynamic = False, Default = \"70", Scope = Private
+	#tag Constant, Name = kByteCapF, Type = Double, Dynamic = False, Default = \"70", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520604660206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteCapT, Type = Double, Dynamic = False, Default = \"84", Scope = Private
+	#tag Constant, Name = kByteCapT, Type = Double, Dynamic = False, Default = \"84", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520605460206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteCapU, Type = Double, Dynamic = False, Default = \"85", Scope = Private
+	#tag Constant, Name = kByteCapU, Type = Double, Dynamic = False, Default = \"85", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520605560206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteCapZ, Type = Double, Dynamic = False, Default = \"90", Scope = Private
+	#tag Constant, Name = kByteCapZ, Type = Double, Dynamic = False, Default = \"90", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520605A60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteColon, Type = Double, Dynamic = False, Default = \"58", Scope = Private
+	#tag Constant, Name = kByteColon, Type = Double, Dynamic = False, Default = \"58", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520603A60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteComma, Type = Double, Dynamic = False, Default = \"44", Scope = Private
+	#tag Constant, Name = kByteComma, Type = Double, Dynamic = False, Default = \"44", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520602C60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteCurlyBraceClose, Type = Double, Dynamic = False, Default = \"125", Scope = Private
+	#tag Constant, Name = kByteCurlyBraceClose, Type = Double, Dynamic = False, Default = \"125", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520607D60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteCurlyBraceOpen, Type = Double, Dynamic = False, Default = \"123", Scope = Private
+	#tag Constant, Name = kByteCurlyBraceOpen, Type = Double, Dynamic = False, Default = \"123", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520607B60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteDot, Type = Double, Dynamic = False, Default = \"46", Scope = Private
+	#tag Constant, Name = kByteDot, Type = Double, Dynamic = False, Default = \"46", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520602E60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteEOL, Type = Double, Dynamic = False, Default = \"10", Scope = Private
+	#tag Constant, Name = kByteEOL, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520454F4C206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteEquals, Type = Double, Dynamic = False, Default = \"61", Scope = Private
+	#tag Constant, Name = kByteEquals, Type = Double, Dynamic = False, Default = \"61", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520603D60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteFormFeed, Type = Double, Dynamic = False, Default = \"12", Scope = Private
+	#tag Constant, Name = kByteFormFeed, Type = Double, Dynamic = False, Default = \"12", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520666F726D2066656564206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteHash, Type = Double, Dynamic = False, Default = \"35", Scope = Private
+	#tag Constant, Name = kByteHash, Type = Double, Dynamic = False, Default = \"35", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520602360206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteHyphen, Type = Double, Dynamic = False, Default = \"45", Scope = Private
+	#tag Constant, Name = kByteHyphen, Type = Double, Dynamic = False, Default = \"45", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520602D60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLineFeed, Type = Double, Dynamic = False, Default = \"10", Scope = Private
+	#tag Constant, Name = kByteLineFeed, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F6620746865206C696E652066656564206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowA, Type = Double, Dynamic = False, Default = \"97", Scope = Private
+	#tag Constant, Name = kByteLowA, Type = Double, Dynamic = False, Default = \"97", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520606160206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowB, Type = Double, Dynamic = False, Default = \"98", Scope = Private
+	#tag Constant, Name = kByteLowB, Type = Double, Dynamic = False, Default = \"98", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520606260206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowE, Type = Double, Dynamic = False, Default = \"101", Scope = Private
+	#tag Constant, Name = kByteLowE, Type = Double, Dynamic = False, Default = \"101", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520606560206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowF, Type = Double, Dynamic = False, Default = \"102", Scope = Private
+	#tag Constant, Name = kByteLowF, Type = Double, Dynamic = False, Default = \"102", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520606660206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowI, Type = Double, Dynamic = False, Default = \"105", Scope = Private
+	#tag Constant, Name = kByteLowI, Type = Double, Dynamic = False, Default = \"105", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520606960206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowL, Type = Double, Dynamic = False, Default = \"108", Scope = Private
+	#tag Constant, Name = kByteLowL, Type = Double, Dynamic = False, Default = \"108", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520606C60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowN, Type = Double, Dynamic = False, Default = \"110", Scope = Private
+	#tag Constant, Name = kByteLowN, Type = Double, Dynamic = False, Default = \"110", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520606E60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowO, Type = Double, Dynamic = False, Default = \"111", Scope = Private
+	#tag Constant, Name = kByteLowO, Type = Double, Dynamic = False, Default = \"111", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520606F60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowR, Type = Double, Dynamic = False, Default = \"114", Scope = Private
+	#tag Constant, Name = kByteLowR, Type = Double, Dynamic = False, Default = \"114", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520607260206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowS, Type = Double, Dynamic = False, Default = \"115", Scope = Private
+	#tag Constant, Name = kByteLowS, Type = Double, Dynamic = False, Default = \"115", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520607360206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowT, Type = Double, Dynamic = False, Default = \"116", Scope = Private
+	#tag Constant, Name = kByteLowT, Type = Double, Dynamic = False, Default = \"116", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520607460206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowU, Type = Double, Dynamic = False, Default = \"117", Scope = Private
+	#tag Constant, Name = kByteLowU, Type = Double, Dynamic = False, Default = \"117", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520607560206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowX, Type = Double, Dynamic = False, Default = \"120", Scope = Private
+	#tag Constant, Name = kByteLowX, Type = Double, Dynamic = False, Default = \"120", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520607860206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteLowZ, Type = Double, Dynamic = False, Default = \"122", Scope = Private
+	#tag Constant, Name = kByteLowZ, Type = Double, Dynamic = False, Default = \"122", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520607A60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteNine, Type = Double, Dynamic = False, Default = \"57", Scope = Private
+	#tag Constant, Name = kByteNine, Type = Double, Dynamic = False, Default = \"57", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520603960206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteOne, Type = Double, Dynamic = False, Default = \"49", Scope = Private
+	#tag Constant, Name = kByteOne, Type = Double, Dynamic = False, Default = \"49", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520603160206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kBytePlus, Type = Double, Dynamic = False, Default = \"43", Scope = Private
+	#tag Constant, Name = kBytePlus, Type = Double, Dynamic = False, Default = \"43", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520602B60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteQuoteDouble, Type = Double, Dynamic = False, Default = \"34", Scope = Private
+	#tag Constant, Name = kByteQuoteDouble, Type = Double, Dynamic = False, Default = \"34", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520602260206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteQuoteSingle, Type = Double, Dynamic = False, Default = \"39", Scope = Private
+	#tag Constant, Name = kByteQuoteSingle, Type = Double, Dynamic = False, Default = \"39", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520602760206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteReturn, Type = Double, Dynamic = False, Default = \"13", Scope = Private
+	#tag Constant, Name = kByteReturn, Type = Double, Dynamic = False, Default = \"13", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F66207468652063617272696167652072657475726E206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteSeven, Type = Double, Dynamic = False, Default = \"55", Scope = Private
+	#tag Constant, Name = kByteSeven, Type = Double, Dynamic = False, Default = \"55", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520603760206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteSpace, Type = Double, Dynamic = False, Default = \"32", Scope = Private
+	#tag Constant, Name = kByteSpace, Type = Double, Dynamic = False, Default = \"32", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520602060206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteSquareBracketClose, Type = Double, Dynamic = False, Default = \"93", Scope = Private
+	#tag Constant, Name = kByteSquareBracketClose, Type = Double, Dynamic = False, Default = \"93", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520605D60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteSquareBracketOpen, Type = Double, Dynamic = False, Default = \"91", Scope = Private
+	#tag Constant, Name = kByteSquareBracketOpen, Type = Double, Dynamic = False, Default = \"91", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520605B60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteTab, Type = Double, Dynamic = False, Default = \"9", Scope = Private
+	#tag Constant, Name = kByteTab, Type = Double, Dynamic = False, Default = \"9", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520686F72697A6F6E74616C20746162206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteUnderscore, Type = Double, Dynamic = False, Default = \"95", Scope = Private
+	#tag Constant, Name = kByteUnderscore, Type = Double, Dynamic = False, Default = \"95", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520605F60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kByteZero, Type = Double, Dynamic = False, Default = \"48", Scope = Private
+	#tag Constant, Name = kByteZero, Type = Double, Dynamic = False, Default = \"48", Scope = Private, Description = 54686520646563696D616C2041534349492076616C7565206F662074686520603060206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kMillion, Type = Double, Dynamic = False, Default = \"1000000", Scope = Private
+	#tag Constant, Name = kMillion, Type = Double, Dynamic = False, Default = \"1000000", Scope = Private, Description = 41206D696C6C696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = kVersion, Type = String, Dynamic = False, Default = \"1.0", Scope = Protected
+	#tag Constant, Name = VERSION_MAJOR, Type = Double, Dynamic = False, Default = \"1", Scope = Private, Description = 546865206D616A6F722076657273696F6E2E
+	#tag EndConstant
+
+	#tag Constant, Name = VERSION_MINOR, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 546865206D696E6F722076657273696F6E2E
+	#tag EndConstant
+
+	#tag Constant, Name = VERSION_PATCH, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 5468652070617463682076657273696F6E2E
 	#tag EndConstant
 
 

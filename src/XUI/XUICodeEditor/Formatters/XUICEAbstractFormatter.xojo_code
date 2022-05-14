@@ -30,7 +30,7 @@ Protected Class XUICEAbstractFormatter
 
 	#tag Method, Flags = &h21
 		Private Sub Constructor()
-		  
+		  /// As this is an abstract class, the constructor is private to prevent instantiation.
 		End Sub
 	#tag EndMethod
 
@@ -75,11 +75,14 @@ Protected Class XUICEAbstractFormatter
 
 	#tag Method, Flags = &h1, Description = 437265617465732061206E657720746F6B656E207374617274696E6720617420606D546F6B656E53746172744C6F63616C6020616E6420656E64696E6720617420606D43757272656E74602077697468206F7074696F6E616C206B65792D76616C756520646174612E
 		Protected Function MakeToken(type As String, paramArray keyValues() As Pair) As XUICELineToken
-		  /// Creates a new token starting at `mTokenStartLocal` and ending at `mCurrent` with optional key-value data.
+		  /// Creates a new token starting at `mTokenStartLocal` and ending at `mCurrent` with optional 
+		  /// key-value data.
 		  ///
-		  /// Optional key-values can be added to the token's data. Each item in `keyValues` is a Pair in the format:
-		  ///  Left = String key
-		  ///  Right = Variant value
+		  /// Optional key-values can be added to the token's data. Each item in `keyValues` is a `Pair` in 
+		  /// the format:
+		  ///
+		  ///  `Left`  = `String` key  
+		  ///  `Right` = `Variant` value
 		  
 		  Var t As New XUICELineToken(mline.Start + mTokenStartLocal, mTokenStartLocal, mCurrent - mTokenStartLocal, _
 		  mLineNumber, type)
@@ -113,7 +116,7 @@ Protected Class XUICEAbstractFormatter
 		  /// Returns the character `places]` beyond the current character without consuming it. 
 		  /// Returns "" if we've reached the end of the source code or &u0A if at the end of a line.
 		  ///
-		  /// Assumes `places` > 0
+		  /// Assumes `places` > 0.
 		  
 		  Var charactersLastIndex As Integer = mLine.Characters.LastIndex
 		  
@@ -164,10 +167,12 @@ Protected Class XUICEAbstractFormatter
 
 
 	#tag Note, Name = About
-		Abstract base class for several code formatter. Implements low level methods that are common to 
+		An abstract base class for several code formatters. Implements low level methods that are common to 
 		several tokenisers.
 		
 		It it not intended that this class be instantiated.
+		
+		If you write your own formatters, you do **not** have to subclass this class.
 		
 		
 	#tag EndNote

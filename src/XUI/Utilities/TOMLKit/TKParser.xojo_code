@@ -855,8 +855,10 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 506172736573206120544F4D4C20646F63756D656E7420737472696E6720696E746F2061206044696374696F6E617279602E
 		Function Parse(toml As String) As Dictionary
+		  /// Parses a TOML document string into a `Dictionary`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BoundsChecking False
 		    #Pragma BackgroundTasks False
@@ -1714,6 +1716,14 @@ Private Class TKParser
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		An internal class used by the `TOMLKit` module to parse a string 
+		into a dictionary
+		
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21

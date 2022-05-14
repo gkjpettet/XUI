@@ -93,8 +93,10 @@ Inherits DesktopTextInputCanvas
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 437265617465732061206E6577206175746F636F6D706C65746520706F7075702063616E7661732C20776974682061207765616B207265666572656E636520746F20606F776E6572602E
 		Sub Constructor(owner As XUICodeEditor)
+		  /// Creates a new autocomplete popup canvas, with a weak reference to `owner`.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
@@ -217,7 +219,14 @@ Inherits DesktopTextInputCanvas
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21
+	#tag Note, Name = About
+		The customisable autocomplete popup that appears in the code editor when autocomplete 
+		options are available.
+		
+	#tag EndNote
+
+
+	#tag Property, Flags = &h21, Description = 5468652070696374757265207468617420726570726573656E74732074686520706F7075702E20447261776E20696E2074686520605061696E74282960206576656E742E
 		Private mBuffer As Picture
 	#tag EndProperty
 
@@ -225,7 +234,7 @@ Inherits DesktopTextInputCanvas
 		Private mOwner As WeakRef
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865207665746963616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720646F776E2E204261636B732074686520605363726F6C6C506F73596020636F6D70757465642070726F70657274792E
+	#tag Property, Flags = &h21, Description = 54686520766572746963616C207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F73697469766520696E64696361746573207363726F6C6C696E6720646F776E2E204261636B732074686520605363726F6C6C506F73596020636F6D70757465642070726F70657274792E
 		Private mScrollPosY As Integer = 0
 	#tag EndProperty
 

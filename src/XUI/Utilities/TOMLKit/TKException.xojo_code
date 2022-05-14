@@ -1,6 +1,12 @@
 #tag Class
 Protected Class TKException
 Inherits RuntimeException
+	#tag Note, Name = About
+		A subclass of `RuntimeException` used for exceptions that occur during TOML processing.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="ErrorNumber"

@@ -1,5 +1,11 @@
 #tag Module
 Protected Module AppKit
+	#tag Note, Name = About
+		Exposes macOS-specific structures required internally by certain XUI classes.
+		
+	#tag EndNote
+
+
 	#tag Structure, Name = CGPoint, Flags = &h0
 		X As CGFloat
 		Y As CGFloat

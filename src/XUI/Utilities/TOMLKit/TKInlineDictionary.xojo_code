@@ -15,16 +15,17 @@ Inherits Dictionary
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E7374727563746F7220746861742074616B657320616E206F7074696F6E616C206172726179206F662060656E7472696573602E
 		Sub Constructor(ParamArray entries() As Pair)
-		  Super.Constructor(AddressOf CaseDelegate)
-		  
-		  For Each p As Pair In entries
-		    Value(p.Left) = p.Right
-		  Next p
-		  
+		  /// Constructor that takes an optional array of `entries`.
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a TOML inline dictionary.
+		
+	#tag EndNote
 
 
 	#tag ViewBehavior

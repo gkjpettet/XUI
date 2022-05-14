@@ -24,6 +24,8 @@ Private Class TKGenerator
 
 	#tag Method, Flags = &h0
 		Sub Constructor()
+		  // The default constructor.
+		  
 		  If USLocale Is Nil Then
 		    USLocale = New Locale( "en-US" )
 		  End If
@@ -458,8 +460,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 47656E65726174657320544F4D4C2066726F6D2060736F7572636544696374602E
 		Function Generate(sourceDict As Dictionary) As String
+		  /// Generates TOML from `sourceDict`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -818,7 +822,13 @@ Private Class TKGenerator
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21
+	#tag Note, Name = About
+		Internal class used by `TOMLKit` to generate TOML from a `Dictionary`.
+		
+	#tag EndNote
+
+
+	#tag Property, Flags = &h21, Description = 5468652063757272656E74206C6576656C2E
 		Private CurrentLevel As Integer
 	#tag EndProperty
 
@@ -826,7 +836,7 @@ Private Class TKGenerator
 		Private Shared Indents(0) As String
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h21
+	#tag ComputedProperty, Flags = &h21, Description = 54727565206966207468652067656E657261746F722069732063757272656E746C792077697468696E20616E2061727261792E
 		#tag Getter
 			Get
 			  Return mIsInArrayCount > 0
@@ -846,7 +856,7 @@ Private Class TKGenerator
 		Private IsInArray As Boolean
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 546865206B657920737461636B2E
 		Private KeyStack() As String
 	#tag EndProperty
 
@@ -854,11 +864,11 @@ Private Class TKGenerator
 		Private mIsInArrayCount As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 486F6C64732074686520737472696E67206265696E67206275696C742E
 		Private OutputArr() As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4120604D656D6F7279426C6F636B60207573656420746F20656E636F646520737472696E67732E
 		Private StringEncoderMB As MemoryBlock
 	#tag EndProperty
 
@@ -867,58 +877,58 @@ Private Class TKGenerator
 	#tag EndProperty
 
 
-	#tag Constant, Name = kComma, Type = String, Dynamic = False, Default = \"\x2C", Scope = Private
+	#tag Constant, Name = kComma, Type = String, Dynamic = False, Default = \"\x2C", Scope = Private, Description = 54686520602C60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kCommaAndSpace, Type = String, Dynamic = False, Default = \"\x2C ", Scope = Private
+	#tag Constant, Name = kCommaAndSpace, Type = String, Dynamic = False, Default = \"\x2C ", Scope = Private, Description = 54686520602C20602063686172616374657220636F6D62696E6174696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = kCurlyBraceClose, Type = String, Dynamic = False, Default = \"}", Scope = Private
+	#tag Constant, Name = kCurlyBraceClose, Type = String, Dynamic = False, Default = \"}", Scope = Private, Description = 54686520607D60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kCurlyBraceOpen, Type = String, Dynamic = False, Default = \"{", Scope = Private
+	#tag Constant, Name = kCurlyBraceOpen, Type = String, Dynamic = False, Default = \"{", Scope = Private, Description = 54686520607B60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kDot, Type = String, Dynamic = False, Default = \".", Scope = Private
+	#tag Constant, Name = kDot, Type = String, Dynamic = False, Default = \".", Scope = Private, Description = 54686520602E60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kEqualsWithSpaces, Type = String, Dynamic = False, Default = \" \x3D ", Scope = Private
+	#tag Constant, Name = kEqualsWithSpaces, Type = String, Dynamic = False, Default = \" \x3D ", Scope = Private, Description = 5468652060203D20602063686172616374657220636F6D62696E6174696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = kFalse, Type = String, Dynamic = False, Default = \"false", Scope = Private
+	#tag Constant, Name = kFalse, Type = String, Dynamic = False, Default = \"false", Scope = Private, Description = 546865206066616C73656020737472696E672E
 	#tag EndConstant
 
-	#tag Constant, Name = kIndent, Type = String, Dynamic = False, Default = \"  ", Scope = Private
+	#tag Constant, Name = kIndent, Type = String, Dynamic = False, Default = \"  ", Scope = Private, Description = 54686520696E64656E74206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kQuote, Type = String, Dynamic = False, Default = \"\"", Scope = Private
+	#tag Constant, Name = kQuote, Type = String, Dynamic = False, Default = \"\"", Scope = Private, Description = 54686520602260206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kSpace, Type = String, Dynamic = False, Default = \" ", Scope = Private
+	#tag Constant, Name = kSpace, Type = String, Dynamic = False, Default = \" ", Scope = Private, Description = 546865207370616365206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kSquareBracketClose, Type = String, Dynamic = False, Default = \"]", Scope = Private
+	#tag Constant, Name = kSquareBracketClose, Type = String, Dynamic = False, Default = \"]", Scope = Private, Description = 54686520605D60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kSquareBracketCloseDoubleWithSpace, Type = String, Dynamic = False, Default = \" ]]", Scope = Private
+	#tag Constant, Name = kSquareBracketCloseDoubleWithSpace, Type = String, Dynamic = False, Default = \" ]]", Scope = Private, Description = 54686520605D5D20602063686172616374657220636F6D62696E6174696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = kSquareBracketCloseWithSpace, Type = String, Dynamic = False, Default = \" ]", Scope = Private
+	#tag Constant, Name = kSquareBracketCloseWithSpace, Type = String, Dynamic = False, Default = \" ]", Scope = Private, Description = 54686520605D20602063686172616374657220636F6D62696E6174696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = kSquareBracketOpen, Type = String, Dynamic = False, Default = \"[", Scope = Private
+	#tag Constant, Name = kSquareBracketOpen, Type = String, Dynamic = False, Default = \"[", Scope = Private, Description = 54686520605B60206368617261637465722E
 	#tag EndConstant
 
-	#tag Constant, Name = kSquareBracketOpenAndSpace, Type = String, Dynamic = False, Default = \"[ ", Scope = Private
+	#tag Constant, Name = kSquareBracketOpenAndSpace, Type = String, Dynamic = False, Default = \"[ ", Scope = Private, Description = 54686520605B20602063686172616374657220636F6D62696E6174696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = kSquareBracketOpenDoubleAndSpace, Type = String, Dynamic = False, Default = \"[[ ", Scope = Private
+	#tag Constant, Name = kSquareBracketOpenDoubleAndSpace, Type = String, Dynamic = False, Default = \"[[ ", Scope = Private, Description = 54686520605B5B20602063686172616374657220636F6D62696E6174696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = kTrue, Type = String, Dynamic = False, Default = \"true", Scope = Private
+	#tag Constant, Name = kTrue, Type = String, Dynamic = False, Default = \"true", Scope = Private, Description = 5468652060747275656020737472696E672E
 	#tag EndConstant
 
-	#tag Constant, Name = kUnderscore, Type = String, Dynamic = False, Default = \"_", Scope = Private
+	#tag Constant, Name = kUnderscore, Type = String, Dynamic = False, Default = \"_", Scope = Private, Description = 54686520605F60206368617261637465722E
 	#tag EndConstant
 
 

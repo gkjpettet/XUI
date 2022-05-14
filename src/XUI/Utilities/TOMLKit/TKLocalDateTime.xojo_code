@@ -1,6 +1,12 @@
 #tag Class
 Protected Class TKLocalDateTime
 Inherits DateTime
+	#tag Note, Name = About
+		Represents a TOML local DateTime.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Day"

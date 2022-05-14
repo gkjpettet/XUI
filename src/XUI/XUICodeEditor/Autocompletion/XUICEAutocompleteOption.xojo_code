@@ -9,12 +9,20 @@ Protected Class XUICEAutocompleteOption
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206175746F636F6D706C657465206F7074696F6E20776974682074686520757365722D666163696E67206076616C75656020616E64206F7074696F6E616C206064617461602E
 		Sub Constructor(value As String, data As Variant = Nil)
+		  /// Constructs a new autocomplete option with the user-facing `value` and optional `data`.
+		  
 		  Self.Value = value
 		  Self.Data = data
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a single autocomplete option.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 41726269747261727920646174612E

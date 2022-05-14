@@ -1,7 +1,9 @@
 #tag Class
 Protected Class TKLocalTime
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E65772060544B4C6F63616C54696D65602066726F6D2060686F7572602C20606D696E757465602C20607365636F6E646020616E6420616E206F7074696F6E616C20606E616E6F7365636F6E64602E
 		Sub Constructor(hour As Integer, minute As Integer, second As Integer, nanosecond As Integer = 0)
+		  /// Constructs a new `TKLocalTime` from `hour`, `minute`, `second` and an optional `nanosecond`.
+		  
 		  If hour < 0 Or hour >= 24 Then
 		    Raise New InvalidArgumentException("Hour is out of range")
 		  End If
@@ -25,14 +27,18 @@ Protected Class TKLocalTime
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E65772060544B4C6F63616C54696D65602066726F6D2060636F707946726F6D602E
 		Sub Constructor(copyFrom As TKLocalTime)
+		  /// Constructs a new `TKLocalTime` from `copyFrom`.
+		  
 		  Constructor(copyFrom.Hour, copyFrom.Minute, copyFrom.Second, copyFrom.Nanosecond)
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E732061206E65772060544B4C6F63616C54696D65602066726F6D206120737472696E672E
 		Shared Function FromString(timeString As String) As TKLocalTime
+		  /// Returns a new `TKLocalTime` from a string.
+		  
 		  Var match As RegExMatch = TOMLKit.RxTimeString.Search( timeString )
 		  If match Is Nil Then
 		    Raise New InvalidArgumentException( "Must in in format HH:MM:SS or MHH:MM:SS.mmmmmmm" )
@@ -42,19 +48,29 @@ Protected Class TKLocalTime
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E732074686973206D6F6D656E7420696E2074696D652061732061206E65772060544B4C6F63616C54696D65602E
 		Shared Function Now() As TKLocalTime
+		  /// Returns this moment in time as a new `TKLocalTime`.
+		  
 		  Var now As DateTime = DateTime.Now
 		  Return New TKLocalTime( now.Hour, now.Minute, now.Second, now.Nanosecond )
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F662074686973206F626A6563742E
 		Attributes( Hidden )  Function Operator_Convert() As String
+		  /// Returns a string representation of this object.
+		  
 		  Return ToString
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a TOML local time.
+		
+	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0
