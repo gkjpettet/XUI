@@ -2,7 +2,7 @@
 Protected Class MKAbstractEmphasis
 Inherits MKBlock
 	#tag Note, Name = About
-		An abstract base class for MKEmphasis and MKStrongEmphasis blocks.
+		The abstract base class for `MKEmphasis` and `MKStrongEmphasis` blocks.
 		
 	#tag EndNote
 

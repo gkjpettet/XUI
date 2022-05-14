@@ -9,6 +9,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a blockquote block within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 302D6261736564206F666673657420696E20746865206F726967696E616C20736F7572636520746861742074686520603E602063686172616374657220617070656172732E
 		AbsoluteOpenerStart As Integer = 0
 	#tag EndProperty

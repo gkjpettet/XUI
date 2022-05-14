@@ -19,7 +19,7 @@ Protected Module XUIMaths
 		  /// If the argument is `&hfff0000000000000`, the result is negative infinity.
 		  /// If the argument is any value in the range `&h7ff0000000000001` through
 		  /// `&h7fffffffffffffff` or in the range `&hfff0000000000001` through
-		  /// `&hffffffffffffffff`, the result is a NaN.
+		  /// `&hffffffffffffffff`, the result is a `NaN`.
 		  ///
 		  /// No IEEE 754 floating-point operation can distinguish between two NaN values 
 		  /// of the same type with different bit patterns.  Distinct values of NaN are 
@@ -43,7 +43,7 @@ Protected Module XUIMaths
 		  /// the same bit pattern as the argument. IEEE 754 distinguishes between 
 		  /// two kinds of `NaN`s, quiet `NaN`s and _signaling NaNs_. The differences 
 		  /// between the two kinds of `NaN` are generally not visible. Arithmetic 
-		  ///  operations on signaling `NaN`s turn them into quiet NaNs with a different, 
+		  /// operations on signaling `NaN`s turn them into quiet NaNs with a different, 
 		  /// but often similar, bit pattern. However, on some processors merely copying a signaling `NaN` 
 		  /// also performs that conversion. In particular, copying a signaling `NaN` 
 		  /// to return it to the calling method may perform this conversion. 
@@ -1013,6 +1013,12 @@ Protected Module XUIMaths
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		This module exposes a wide range of mathematical methods.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h1, Description = 42696173207573656420696E20726570726573656E74696E67206120446F75626C65206578706F6E656E742E
 		#tag Getter
 			Get
@@ -1060,7 +1066,7 @@ Protected Module XUIMaths
 		Protected DOUBLE_MIN_SUB_EXPONENT As Int32
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h1
+	#tag ComputedProperty, Flags = &h1, Description = 5468652077696474682028696E206269747329206F6620746865207369676E69666963616E64206F66206120646F75626C652E
 		#tag Getter
 			Get
 			  Return 53
@@ -1079,7 +1085,7 @@ Protected Module XUIMaths
 		Protected DOUBLE_SIGNIF_BIT_MASK As Int64
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h1
+	#tag ComputedProperty, Flags = &h1, Description = 426974206D61736B20746F2069736F6C61746520746865207369676E20626974206F66206120446F75626C652E
 		#tag Getter
 			Get
 			  Return &h8000000000000000
@@ -1102,7 +1108,7 @@ Protected Module XUIMaths
 		Protected Epsilon As Double
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h1
+	#tag ComputedProperty, Flags = &h1, Description = 52657475726E7320604E614E6020286E6F742061206E756D626572292E
 		#tag Getter
 			Get
 			  Static mNAN As Double = 0.0 / 0.0
@@ -1136,7 +1142,7 @@ Protected Module XUIMaths
 		Protected POSITIVE_INFINITY As Double
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h1
+	#tag ComputedProperty, Flags = &h1, Description = 4120707265636F6D70757465642076616C7565206F66206032202A20CF80602E
 		#tag Getter
 			Get
 			  Static twoPi As Double = 2 * PI
@@ -1174,22 +1180,22 @@ Protected Module XUIMaths
 	#tag Constant, Name = DOUBLE_MAX_VALUE, Type = Double, Dynamic = False, Default = \"1.7976931348623157e+308", Scope = Protected, Description = 546865206C61726765737420706F7369746976652066696E6974652076616C7565206F66207479706520446F75626C652E
 	#tag EndConstant
 
-	#tag Constant, Name = DOUBLE_MIN_NORMAL, Type = Double, Dynamic = False, Default = \"2.2250738585072014E-308", Scope = Protected, Description = 54686520736D616C6C65737420706F736974697665206E6F726D616C20446F75626C652076616C75652C20325E2D313032322E20204974277320657175616C20746F20604D617468734B69742E42697473546F446F75626C652826683030313030303030303030303030303029602E
+	#tag Constant, Name = DOUBLE_MIN_NORMAL, Type = Double, Dynamic = False, Default = \"2.2250738585072014E-308", Scope = Protected, Description = 54686520736D616C6C65737420706F736974697665206E6F726D616C20446F75626C652076616C75652C2060325E2D31303232602E20204974277320657175616C20746F20604D617468734B69742E42697473546F446F75626C652826683030313030303030303030303030303029602E
 	#tag EndConstant
 
 	#tag Constant, Name = DOUBLE_MIN_VALUE, Type = Double, Dynamic = False, Default = \"4.94065645841246544176568792868221372e-324", Scope = Protected, Description = 54686520736D616C6C65737420706F736974697665206E6F6E2D7A65726F2076616C7565206F66207479706520446F75626C653A2020325E2D313037342E
 	#tag EndConstant
 
-	#tag Constant, Name = INT32_MAX_VALUE, Type = Double, Dynamic = False, Default = \"2147483647", Scope = Protected, Description = 546865206D6178696D756D2076616C7565206F6620616E20496E7433322E
+	#tag Constant, Name = INT32_MAX_VALUE, Type = Double, Dynamic = False, Default = \"2147483647", Scope = Protected, Description = 546865206D6178696D756D2076616C7565206F6620616E2060496E743332602E
 	#tag EndConstant
 
-	#tag Constant, Name = INT32_MIN_VALUE, Type = Double, Dynamic = False, Default = \"-2147483648", Scope = Protected, Description = 546865206D696E696D756D2076616C7565206F6620616E20496E7433322E
+	#tag Constant, Name = INT32_MIN_VALUE, Type = Double, Dynamic = False, Default = \"-2147483648", Scope = Protected, Description = 546865206D696E696D756D2076616C7565206F6620616E2060496E743332602E
 	#tag EndConstant
 
-	#tag Constant, Name = INT64_MAX_VALUE, Type = Double, Dynamic = False, Default = \"&h7fffffffffffffff", Scope = Protected, Description = 546865206D6178696D756D2076616C7565206F6620616E20496E7436342E
+	#tag Constant, Name = INT64_MAX_VALUE, Type = Double, Dynamic = False, Default = \"&h7fffffffffffffff", Scope = Protected, Description = 546865206D6178696D756D2076616C7565206F6620616E2060496E743634602E
 	#tag EndConstant
 
-	#tag Constant, Name = PI, Type = Double, Dynamic = False, Default = \"3.14159265359", Scope = Protected, Description = 5468652076616C7565206F6620506920746F20313120646563696D616C20706C616365732E
+	#tag Constant, Name = PI, Type = Double, Dynamic = False, Default = \"3.14159265359", Scope = Protected, Description = 5468652076616C7565206F662060CF806020746F20313120646563696D616C20706C616365732E
 	#tag EndConstant
 
 

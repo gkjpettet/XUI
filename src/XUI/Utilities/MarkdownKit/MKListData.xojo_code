@@ -15,6 +15,12 @@ Protected Class MKListData
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Stores data required by the parser when parsing a list.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 54686520636861726163746572207573656420666F7220756E6F726465726564206C697374732E205573656420696620604C697374446174612E4C69737454797065602069732073657420746F20604D4B4C69737454797065732E42756C6C6574602E
 		BulletCharacter As String
 	#tag EndProperty
@@ -167,7 +173,11 @@ Protected Class MKListData
 			Group="Behavior"
 			InitialValue="MKListDelimiters.Period"
 			Type="MKListDelimiters"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Period"
+				"1 - Parenthesis"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ListType"
@@ -175,7 +185,11 @@ Protected Class MKListData
 			Group="Behavior"
 			InitialValue="MKListTypes.Bullet"
 			Type="MKListTypes"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Bullet"
+				"1 - Ordered"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

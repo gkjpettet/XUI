@@ -8,6 +8,12 @@ Protected Class MKInlineLinkData
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Holds data about an inline link within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 546865206368617261637465727320726570726573656E74696E67207468697320696E6C696E65206C696E6B2773204C696E6B54657874206F722C20696620616E20696E6C696E6520696D6167652C20697427732022616C7422206465736372697074696F6E2E
 		Characters() As MarkdownKit.MKCharacter
 	#tag EndProperty
@@ -132,6 +138,14 @@ Protected Class MKInlineLinkData
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LinkType"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="MarkdownKit.MKLinkTypes"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

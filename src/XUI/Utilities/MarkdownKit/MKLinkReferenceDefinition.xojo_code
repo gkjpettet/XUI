@@ -30,6 +30,12 @@ Protected Class MKLinkReferenceDefinition
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Holds data about a link reference definition within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F6E206368617261637465722E
 		Colon As MarkdownKit.MKCharacter
 	#tag EndProperty

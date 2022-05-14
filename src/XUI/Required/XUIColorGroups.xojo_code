@@ -21,8 +21,10 @@ Protected Module XUIColorGroups
 		  /// Returns a new ColorGroup from `s`. Raises an `InvalidArgumentException` if `s` is incorrectly formatted.
 		  ///
 		  /// `s` may be in one of two formats:
-		  ///   &hAARRGGBB  (single colour)
-		  ///   &hAARRGGBB, &hAARRGGBB (light colour, dark colour).
+		  ///
+		  /// `"&hAARRGGBB"` for a single colour.  
+		  /// `"&hAARRGGBB, &hAARRGGBB"` for light colour, dark colour.
+		  ///
 		  /// Optional spaces are permitted after the comma and flanking `s`.
 		  
 		  // Flanking whitespace is permitted.
@@ -79,8 +81,10 @@ Protected Module XUIColorGroups
 		Function ToTOML(Extends cg As ColorGroup) As String
 		  /// Converts `cg` to a TOML value.
 		  ///
-		  /// The resultant string will be in the format
-		  ///   &hAARRGGBB, &hAARRGGBB (light colour, dark colour).
+		  /// The resultant string will be in the format:
+		  ///
+		  /// `"&hAARRGGBB, &hAARRGGBB"` representing light colour, dark colour.
+		  ///
 		  /// This is the case even if only a single colour is specified (the light colour will be duplicated).
 		  
 		  Return """" + cg.Light.ToString + ", " + cg.Dark.ToString  + """"
@@ -90,7 +94,7 @@ Protected Module XUIColorGroups
 
 
 	#tag Note, Name = About
-		This module contains helper methods for dealing with ColorGroups.
+		This module contains helper methods for dealing with `ColorGroup`s.
 		
 	#tag EndNote
 

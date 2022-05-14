@@ -57,9 +57,9 @@ Protected Module XUIFonts
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732054727565206966207468657265206973206120666F6E74206E616D65642060666F6E744E616D656020617661696C61626C6520666F7220757365206F6E207468652073797374656D2E
+	#tag Method, Flags = &h1, Description = 52657475726E7320605472756560206966207468657265206973206120666F6E74206E616D65642060666F6E744E616D656020617661696C61626C6520666F7220757365206F6E207468652073797374656D2E
 		Protected Function FontAvailable(fontName As String) As Boolean
-		  /// Returns True if there is a font named `fontName` available for use on the system.
+		  /// Returns `True` if there is a font named `fontName` available for use on the system.
 		  
 		  For i As Integer = 0 To System.LastFontIndex
 		    If System.FontAt(i) = fontName Then
@@ -71,9 +71,9 @@ Protected Module XUIFonts
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 52657475726E732054727565206966206120666F6E74206E616D65642060666F6E744E616D656020657869737473206F6E207468652073797374656D20616E64206973206D6F6E6F73706163652E
+	#tag Method, Flags = &h1, Description = 52657475726E7320605472756560206966206120666F6E74206E616D65642060666F6E744E616D656020657869737473206F6E207468652073797374656D20616E64206973206D6F6E6F73706163652E
 		Protected Function IsMonospaceFont(fontName As String) As Boolean
-		  /// Returns True if a font named `fontName` exists on the system and is monospace.
+		  /// Returns `True` if a font named `fontName` exists on the system and is monospace.
 		  
 		  If Not FontAvailable(fontName) Then Return False
 		  
@@ -87,6 +87,12 @@ Protected Module XUIFonts
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		A module providing helper methods for working with fonts.
+		
+	#tag EndNote
 
 
 	#tag ViewBehavior

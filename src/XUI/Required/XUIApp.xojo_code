@@ -43,11 +43,19 @@ Implements XUINotificationListener
 	#tag EndHook
 
 
-	#tag Property, Flags = &h21
+	#tag Note, Name = About
+		This is a drop in replacement for the standard `DesktopApplication` object in your project. For maximum
+		utility you should change the subclass of your `App` object in the Xojo navigator to `XUIApp`. The class adds 
+		a number of convenience features such as in-app notifications when the OS appearance changes.
+		
+	#tag EndNote
+
+
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72206053656D616E74696356657273696F6E602E
 		Private mSemanticVersion As XUISemanticVersion
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 546865206170706C69636174696F6E27732076657273696F6E2E
 		#tag Getter
 			Get
 			  Return mSemanticVersion

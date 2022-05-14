@@ -16,8 +16,8 @@ Protected Class MKLinkLabel
 
 
 	#tag Note, Name = About
-		label
-		Hn required for rendering into source code tokens.
+		Holds information about a link label. Provided to assist with rendering into source code tokens.
+		
 	#tag EndNote
 
 

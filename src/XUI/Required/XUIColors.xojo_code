@@ -5,11 +5,7 @@ Protected Module XUIColors
 		  /// Returns a Xojo Color created from an RGBA hex string `s`.
 		  /// Raises an `InvalidArgumentException` if `s` is not valid.
 		  ///
-		  /// Valid string formats are:
-		  //  RGB
-		  //  RGBA
-		  //  RRGGBB
-		  //  RRGGBBAA
+		  /// Valid string formats are: `"RGB"`, `"RGBA"`, `"RRGGBB"` and `"RRGGBBAA"`
 		  
 		  // Correct number of characters?
 		  Select Case s.CharacterCount
@@ -68,7 +64,7 @@ Protected Module XUIColors
 
 
 	#tag Note, Name = About
-		This module contains helper methods for dealing with Colors.
+		This module contains helper methods for dealing with the Xojo `Color` class.
 		
 	#tag EndNote
 

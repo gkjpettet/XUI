@@ -9,14 +9,20 @@ Protected Module XUIColorExtensions
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320606360206173206120736978206469676974205247422068657820737472696E6720696E2074686520666F726D6174205252474742422E
+	#tag Method, Flags = &h0, Description = 52657475726E7320606360206173206120736978206469676974205247422068657820737472696E6720696E2074686520666F726D61742060525247474242602E
 		Function ToRGBString(Extends c As Color) As String
-		  /// Returns `c` as a six digit RGB hex string in the format RRGGBB.
+		  /// Returns `c` as a six digit RGB hex string in the format `RRGGBB`.
 		  
 		  Return c.Red.ToHex(2).Uppercase + c.Green.ToHex(2).Uppercase + c.Blue.ToHex(2).Uppercase
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		A module containing extension methods for the native Xojo `Color` type.
+		
+	#tag EndNote
 
 
 	#tag ViewBehavior

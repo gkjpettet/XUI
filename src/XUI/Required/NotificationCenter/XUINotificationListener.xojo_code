@@ -7,6 +7,12 @@ Protected Interface XUINotificationListener
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Objects that implement this interface are able to listen for and receive in-app notifications.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

@@ -9,6 +9,12 @@ Inherits MKAbstractEmphasis
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents emphasis within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

@@ -9,6 +9,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents an HTML block within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 5468652074797065206F662048544D4C20626C6F636B20746869732069732E
 		HTMLBlockType As MKHTMLBlockTypes = MKHTMLBlockTypes.None
 	#tag EndProperty
@@ -72,6 +78,14 @@ Inherits MKBlock
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HTMLBlockType"
+			Visible=false
+			Group="Behavior"
+			InitialValue="MKHTMLBlockTypes.None"
+			Type="MKHTMLBlockTypes"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

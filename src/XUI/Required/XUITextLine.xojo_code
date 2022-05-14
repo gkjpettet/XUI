@@ -1,13 +1,16 @@
 #tag Class
 Protected Class XUITextLine
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652064656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
-		  
+		  /// The default constructor.
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 4120636F6E7374727563746F7220746861742074616B6573206120312D626173656420606C696E654E756D626572602C206120302D6261736564206073746172746020706F736974696F6E20696E20746865206F726967696E616C207465787420616E6420736F6D6520737472696E672060636F6E74656E7473602E
 		Sub Constructor(lineNumber As Integer, start As Integer, contents As String)
+		  /// A constructor that takes a 1-based `lineNumber`, a 0-based `start` position in the original text 
+		  /// and some string `contents`.
+		  
 		  Self.Number = lineNumber
 		  Self.Start = start
 		  Self.Value = contents
@@ -18,7 +21,7 @@ Protected Class XUITextLine
 
 	#tag Note, Name = About
 		Represents a line of text. 
-		Required by MarkdownKit and XUICodeEditor.
+		Required by `MarkdownKit` and `XUICodeEditor`.
 		
 	#tag EndNote
 

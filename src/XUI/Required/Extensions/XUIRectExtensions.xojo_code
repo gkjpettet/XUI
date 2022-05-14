@@ -13,7 +13,9 @@ Protected Module XUIRectExtensions
 		Function Overlap(Extends A As Rect, B As Rect) As Double
 		  /// Returns the percentage of overlap between Rects `A` and `B`. 1.0 is perfect overlap, 0.0 is no overlap.
 		  ///
-		  /// https://stackoverflow.com/questions/9324339/how-much-do-two-rectangles-overlap
+		  /// [StackOverflow post][1].
+		  /// 
+		  /// [1]: https://stackoverflow.com/questions/9324339/how-much-do-two-rectangles-overlap
 		  
 		  Var intersectingArea As Double = _
 		  Max(0, Min(A.Origin.X + A.Width, B.Origin.X + B.Width) - Max(A.Origin.X, B.Origin.X)) * _
@@ -23,6 +25,12 @@ Protected Module XUIRectExtensions
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		A module containing extension methods for the Xojo `Rect` class.
+		
+	#tag EndNote
 
 
 	#tag ViewBehavior

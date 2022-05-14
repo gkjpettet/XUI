@@ -10,6 +10,12 @@ Protected Module XUIDesktopDisplayExtensions
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A module containing extension methods for the Xojo `DesktopDisplay` class.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

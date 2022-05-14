@@ -88,13 +88,16 @@ Protected Module XUINotificationCenter
 		Private Function NormaliseKey(key As String) As String
 		  /// Normalises `key` so it doesn't break subsequent regex queries.
 		  ///
-		  /// Keys can be hierarchical with children separated by a "."
-		  /// Wildcard matching is permitted with "*"
+		  /// Keys can be hierarchical with children separated by a `.`
+		  ///
+		  /// Wildcard matching is permitted with `*`
+		  ///
 		  /// Examples:
-		  /// "Prefs" Matches the key "Prefs" only.
-		  /// "Prefs.Editor" matches "Prefs.Editor" only
-		  /// "Prefs.*" matches "Prefs.Editor", "Prefs.Compiler", etc
-		  /// "Prefs.Editor.*" matches "Prefs.Editor.Colours", "Prefs.Editor.Fonts", etc.
+		  ///
+		  /// `Prefs` Matches the key `Prefs` only.  
+		  /// `Prefs.Editor` matches `Prefs.Editor` only.  
+		  /// `Prefs.*` matches `Prefs.Editor`, `Prefs.Compiler`, etc.  
+		  /// `Prefs.Editor.*` matches `Prefs.Editor.Colours`, `Prefs.Editor.Fonts`, etc.  
 		  
 		  key = key.ReplaceAll(".", "SLASHDOT")
 		  key = key.ReplaceAll("*", ".*")
@@ -315,6 +318,34 @@ Protected Module XUINotificationCenter
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		This module provides a global mechanism for sending in-app notifications (essentially messages 
+		between objects in your app) in the form of a `XUINotification`.
+		
+		
+	#tag EndNote
+
+	#tag Note, Name = Examples
+		Let's suppose you have an instance of a class (`sender`) that periodically sends out a notification.  
+		This could be accomplished like so:
+		
+		```xojo
+		NotificationCenter.Send("MyKey", someValue)
+		```
+		
+		Will will also imagine that we have an instance of a class (`listener`) that wants to listen for these notifications. 
+		This is easily achieved:
+		
+		```xojo
+		listener.Register("MyKey")
+		```
+		
+		Now whenever `sender` calls `NotificationCenter.Send()` with `"MyKey"` as the key, `listener`'s 
+		`NotificationReceived()` method is invoked by the notification center.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21, Description = 546865207175657565206F66206E6F74696669636174696F6E73207468617420726571756972652073656E64696E672E

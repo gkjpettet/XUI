@@ -1,5 +1,5 @@
 #tag Module
-Protected Module XUIWindowExtensions
+Protected Module XUIDesktopWindowExtensions
 	#tag Method, Flags = &h0, Description = 43656E7465727320746869732077696E646F77206F6E206974732063757272656E7420646973706C61792062792061646A757374696E67207468652077696E646F77277320604C6566746020616E642060546F70602070726F706572746965732E
 		Sub Center(Extends w As DesktopWindow)
 		  /// Centers this window on its current display by adjusting the window's `Left` and `Top` properties.
@@ -71,6 +71,12 @@ Protected Module XUIWindowExtensions
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		A module containing extension methods for the Xojo `DesktopWindow` class.
+		
+	#tag EndNote
 
 
 	#tag ViewBehavior

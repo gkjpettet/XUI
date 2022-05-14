@@ -9,6 +9,12 @@ Inherits MKAbstractList
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a list block item within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

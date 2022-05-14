@@ -213,17 +213,19 @@ Protected Module MarkdownKit
 		Protected Sub ReplaceEntities(chars() As String)
 		  /// Replaces any HTML entities defined in `chars` with their corresponding unicode character.
 		  ///
-		  /// The document https://html.spec.whatwg.org/multipage/entities.json is used as an authoritative 
+		  /// This [document][1] is used as the authoritative 
 		  /// source for the valid entity references and their corresponding code points.
 		  ///
-		  /// Entity reference: 
-		  /// "&", a valid HTML5 entity name, ";"
+		  /// Entity reference:  
+		  /// `"&"`, a valid HTML5 entity name, `";"`
 		  ///
-		  /// Decimal numeric character reference:
-		  /// &#[0-9]{1–7};
+		  /// Decimal numeric character reference:  
+		  /// `&#[0-9]{1–7};`
 		  ///
-		  /// Hexadecimal numeric character reference:
-		  /// &#[Xx][a-fA-F0-9]{1-6};
+		  /// Hexadecimal numeric character reference:  
+		  /// `&#[Xx][a-fA-F0-9]{1-6};`
+		  ///
+		  /// [1]: https://html.spec.whatwg.org/multipage/entities.json
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -503,9 +505,9 @@ Protected Module MarkdownKit
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E73206120537472696E6720726570726573656E746174696F6E206F66207468652070617373656420626C6F636B20747970652E
 		Function ToString(Extends type As MKBlockTypes) As String
-		  // Returns a String representation of the passed block type.
+		  /// Returns a String representation of the passed block type.
 		  
 		  Select Case type
 		  Case MKBlockTypes.AtxHeading
@@ -644,9 +646,7 @@ Protected Module MarkdownKit
 
 
 	#tag Note, Name = About
-		A 100% CommonMark compliant Markdown parser. I needed a fast and robust parser that not only would reliably 
-		generate the correct output but would also run on iOS. After looking around I realised that there was no other 
-		solution available for Xojo and so I decided to write one myself.
+		A 100% CommonMark compliant Markdown parser.
 		
 		`MarkdownKit` takes Markdown as input and generates a `MKDocument` which is essentially an 
 		abstract syntax tree (AST). From the AST, it is then able to render the input as HTML.
@@ -2919,30 +2919,31 @@ Protected Module MarkdownKit
 		Private mParser As MarkdownKit.MKParser
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h1, Description = 5468652063757272656E742076657273696F6E20696E2074686520666F726D61743A20224D414A4F522E4D494E4F522E5041544348222E
+	#tag ComputedProperty, Flags = &h1, Description = 5468652063757272656E742076657273696F6E2E
 		#tag Getter
 			Get
-			  Return VERSION_MAJOR.ToString + "." + VERSION_MINOR.ToString + "." + VERSION_PATCH.ToString
+			  Static v As New XUISemanticVersion(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
+			  Return v
 			End Get
 		#tag EndGetter
-		Protected Version As String
+		Protected Version As XUISemanticVersion
 	#tag EndComputedProperty
 
 
-	#tag Constant, Name = MAX_REFERENCE_LABEL_LENGTH, Type = Double, Dynamic = False, Default = \"999", Scope = Protected, Description = 546865206D6178696D756D206E756D626572206F662063686172616374657273207065726D69747465642077697468696E207468652073717561726520627261636B657473206F662061206C696E6B206C6162656C2E
+	#tag Constant, Name = MAX_REFERENCE_LABEL_LENGTH, Type = Double, Dynamic = False, Default = \"999", Scope = Private, Description = 546865206D6178696D756D206E756D626572206F662063686172616374657273207065726D69747465642077697468696E207468652073717561726520627261636B657473206F662061206C696E6B206C6162656C2E
 	#tag EndConstant
 
-	#tag Constant, Name = VERSION_MAJOR, Type = Double, Dynamic = False, Default = \"2", Scope = Protected
+	#tag Constant, Name = VERSION_MAJOR, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 5468652063757272656E74206D616A6F722076657273696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = VERSION_MINOR, Type = Double, Dynamic = False, Default = \"0", Scope = Protected
+	#tag Constant, Name = VERSION_MINOR, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 5468652063757272656E74206D696E6F722076657273696F6E2E
 	#tag EndConstant
 
-	#tag Constant, Name = VERSION_PATCH, Type = Double, Dynamic = False, Default = \"0", Scope = Protected
+	#tag Constant, Name = VERSION_PATCH, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 5468652063757272656E742070617463682076657273696F6E2E
 	#tag EndConstant
 
 
-	#tag Enum, Name = MKBlockTypes, Type = Integer, Flags = &h0
+	#tag Enum, Name = MKBlockTypes, Type = Integer, Flags = &h0, Description = 54686520737570706F7274656420626C6F636B2074797065732E
 		AtxHeading
 		  Block
 		  BlockQuote
@@ -2967,7 +2968,7 @@ Protected Module MarkdownKit
 		ThematicBreak
 	#tag EndEnum
 
-	#tag Enum, Name = MKHTMLBlockTypes, Type = Integer, Flags = &h0
+	#tag Enum, Name = MKHTMLBlockTypes, Type = Integer, Flags = &h0, Description = 54686520646966666572656E742048544D4C20626C6F636B2074797065732E
 		None=0
 		  InterruptingBlockWithEmptyLines=1
 		  Comment = 2
@@ -2978,7 +2979,7 @@ Protected Module MarkdownKit
 		NonInterruptingBlock=7
 	#tag EndEnum
 
-	#tag Enum, Name = MKLinkTypes, Type = Integer, Flags = &h0
+	#tag Enum, Name = MKLinkTypes, Type = Integer, Flags = &h0, Description = 54686520766172696F7573207479706573206F66204D61726B646F776E206C696E6B732E
 		CollapsedReference
 		  FullReference
 		  ShortcutReference

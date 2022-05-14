@@ -64,6 +64,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a codespan within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 546865206C656E677468206F662074686520666C616E6B696E67206261636B7469636B2064656C696D69746572732061726F756E64207468697320636F6465207370616E2E
 		BacktickStringLength As Integer = 0
 	#tag EndProperty

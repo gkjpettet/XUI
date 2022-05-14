@@ -383,6 +383,12 @@ Protected Class MKHTMLBlockScanner
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		An internal class used during parsing to scan HTML blocks.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

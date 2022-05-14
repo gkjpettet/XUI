@@ -309,7 +309,7 @@ Inherits DesktopCanvas
 	#tag EndComputedProperty
 
 
-	#tag Enum, Name = Types, Flags = &h0
+	#tag Enum, Name = Types, Flags = &h0, Description = 54686520737570706F7274207479706573206F6620627574746F6E2E
 		PushButton
 		ToggleButton
 	#tag EndEnum

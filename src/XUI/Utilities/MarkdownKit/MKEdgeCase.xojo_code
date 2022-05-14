@@ -1,6 +1,12 @@
 #tag Class
 Protected Class MKEdgeCase
 Inherits RuntimeException
+	#tag Note, Name = About
+		A `RuntimeException` subclass used internally by the Markdown parser.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="ErrorNumber"

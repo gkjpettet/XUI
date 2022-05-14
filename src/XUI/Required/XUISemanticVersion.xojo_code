@@ -47,13 +47,13 @@ Protected Class XUISemanticVersion
 	#tag Method, Flags = &h0, Description = 436F6D706172657320746869732073656D616E7469632076657273696F6E20746F20612076657273696F6E206E756D62657220737472696E6720696E2074686520666F726D3A20224D414A4F522E4D494E4F522E5041544348222E
 		Function Operator_Compare(s As String) As Integer
 		  /// Compares this semantic version to a version number string in 
-		  /// the form: "MAJOR.MINOR.PATCH".
+		  /// the form: `"MAJOR.MINOR.PATCH"`.
 		  ///
 		  /// Returns:
 		  /// ```
-		  /// 0: Self = other
+		  /// 0 : Self = other
 		  /// -1: Self < other
-		  /// 1: Self > other
+		  /// 1 : Self > other
 		  /// ```
 		  /// Raises an `InvalidArgumentException` if `s` is not in the correct format.
 		  
@@ -68,9 +68,9 @@ Protected Class XUISemanticVersion
 		  ///
 		  /// Returns:
 		  /// ```
-		  /// 0: Self = other
+		  /// 0 : Self = other
 		  /// -1: Self < other
-		  /// 1: Self > other
+		  /// 1 : Self > other
 		  /// ```
 		  
 		  // Equal?
@@ -105,8 +105,8 @@ Protected Class XUISemanticVersion
 		Sub Operator_Convert(s As String)
 		  /// Sets the value of this version to `s`.
 		  ///
-		  /// Raises an `InvalidArgumentException` if `s` is not a valid version string in 
-		  /// the form: "MAJOR.MINOR.PATCH".
+		  /// Raises an `InvalidArgumentException` if `s` is not a valid version string of 
+		  /// the format: `"MAJOR.MINOR.PATCH"`.
 		  
 		  Var newVersion As XUISemanticVersion
 		  Try
@@ -132,14 +132,22 @@ Protected Class XUISemanticVersion
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320746869732073656D616E7469632076657273696F6E206173206120737472696E6720696E2074686520666F726D3A20224D414A4F522E4D494E4F522E504154434822
+	#tag Method, Flags = &h0, Description = 52657475726E7320746869732073656D616E7469632076657273696F6E206173206120737472696E6720696E2074686520666F726D3A2060224D414A4F522E4D494E4F522E50415443482260
 		Function ToString() As String
-		  /// Returns this semantic version as a string in the form: "MAJOR.MINOR.PATCH"
+		  /// Returns this semantic version as a string in the form: `"MAJOR.MINOR.PATCH"`
 		  
 		  Return Major.ToString + "." + Minor.ToString + "." + Patch.ToString
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		A class for representing and manipulating a [semantic version].
+		
+		[semantic version]: https://semver.org
+		
+	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206D616A6F722076657273696F6E206E756D6265722E
@@ -174,15 +182,15 @@ Protected Class XUISemanticVersion
 		Minor As Integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865204D616A6F7220636F6D70757465642070726F70657274792E
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520604D616A6F726020636F6D70757465642070726F70657274792E
 		Private mMajor As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865204D696E6F7220636F6D70757465642070726F70657274792E
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520604D696E6F726020636F6D70757465642070726F70657274792E
 		Private mMinor As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520506174636820636F6D70757465642070726F70657274792E
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865206050617463686020636F6D70757465642070726F70657274792E
 		Private mPatch As Integer
 	#tag EndProperty
 

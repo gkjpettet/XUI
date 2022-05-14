@@ -1,6 +1,12 @@
 #tag Class
 Protected Class MKException
 Inherits RuntimeException
+	#tag Note, Name = About
+		A `RuntimeException` subclass used for Markdown parsing exceptions.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="ErrorNumber"

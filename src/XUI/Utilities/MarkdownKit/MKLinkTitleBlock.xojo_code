@@ -15,6 +15,7 @@ Protected Class MKLinkTitleBlock
 		Link titles can span multiple lines. This class represents the value of a link title that occurs
 		on a single line. It specifies the absolute and local start positions of the line and the contents.
 		Multiple contiguous instances of this class may consitute a link title.
+		
 		This class is only used by source code token renderers.
 		
 	#tag EndNote

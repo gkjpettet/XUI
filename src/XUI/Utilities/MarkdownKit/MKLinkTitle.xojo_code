@@ -14,8 +14,8 @@ Protected Class MKLinkTitle
 
 
 	#tag Note, Name = About
-		title
-		n required for rendering into source code tokens.
+		Holds information about a link title. Provide to assist with rendering into source code tokens.
+		
 	#tag EndNote
 
 

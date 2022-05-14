@@ -300,18 +300,24 @@ Protected Module FileKit
 		  /// Which locations are protected depends upon the platform that the app is currently running on.
 		  ///
 		  /// The following locations are protected on:
+		  ///
 		  /// **Windows:**
-		  /// ApplicationData, Applications, Desktop, Documents, Extensions, Favourites, Fonts, 
-		  /// Movies, Music, Pictures, Printers, SharedApplicationData, SharedDocuments, System, UserHome, Windows
 		  ///
-		  /// **macOS:**
-		  /// ApplicationData, Applications, Bin, Desktop, Documents, Etc, Favourites, Fonts, Home, 
-		  /// Library, Mount, Movies, Music, Pictures, Preferences, Printers, SBin, SharedApplicationData, 
-		  /// SharedDocuments, SharedPreferences, System, UserBin, UserHome, UserLibrary, UsersBin
+		  /// `ApplicationData`, `Applications`, `Desktop`, `Documents`, `Extensions`, `Favourites`, `Fonts`, 
+		  /// `Movies`, `Music`, `Pictures`, `Printers`, `SharedApplicationData`, `SharedDocuments`, `System`, 
+		  /// `UserHome`, `Windows`
 		  ///
-		  /// **Linux:**
-		  /// ApplicationData, Bin, Desktop, Documents, Etc, Home, Library, Mount, Movies, Music, Pictures, 
-		  /// SBin, UserBin, UserHome, UserLibrary, UsersBin
+		  /// **macOS:**  
+		  ///
+		  /// `ApplicationData`, `Applications`, `Bin`, `Desktop`, `Documents`, `Etc`, `Favourites`, `Fonts`, `Home`, 
+		  /// `Library`, `Mount`, `Movies`, `Music`, `Pictures`, `Preferences`, `Printers`, `SBin`, 
+		  /// `SharedApplicationData`, `SharedDocuments`, `SharedPreferences`, `System`, `UserBin`, `UserHome`, 
+		  /// `UserLibrary`, `UsersBin`
+		  ///
+		  /// **Linux:**  
+		  ///
+		  /// `ApplicationData`, `Bin`, `Desktop`, `Documents`, `Etc`, `Home`, `Library`, `Mount`, `Movies`, 
+		  /// `Music`, `Pictures`, `SBin`, `UserBin`, `UserHome`, `UserLibrary`, `UsersBin`
 		  
 		  Var d As New Dictionary
 		  
@@ -700,6 +706,18 @@ Protected Module FileKit
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		FileKit is a Xojo module for robustly handling `FolderItem` copying, deletion and moving. 
+		
+		I created it because the native `FolderItem` `Copy()`, `Move()` and `Remove()` methods are buggy. 
+		This is particularly true on Windows (especially Windows 10). 
+		
+		This module uses the `cp` and `mv` shell commands on Unix systems (macOS and Linux) and the `move` and 
+		`xcopy` commands on Windows.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h1, Description = 412064696374696F6E61727920636F6E7461696E696E672070617468732074686174206172652070726F7465637465642E204B6579203D204E617469766520706174682C2056616C7565203D20426F6F6C65616E2E
 		#tag Getter
 			Get
@@ -716,11 +734,11 @@ Protected Module FileKit
 	#tag EndProperty
 
 
-	#tag Constant, Name = QUOTE, Type = String, Dynamic = False, Default = \"\"", Scope = Private
+	#tag Constant, Name = QUOTE, Type = String, Dynamic = False, Default = \"\"", Scope = Private, Description = 54686520646F75626C652071756F7465206368617261637465722E
 	#tag EndConstant
 
 
-	#tag Enum, Name = Errors, Type = Integer, Flags = &h1
+	#tag Enum, Name = Errors, Type = Integer, Flags = &h1, Description = 54686520766172696F7573206572726F727320746861742063616E206F6363757220647572696E672066696C65206D616E6970756C6174696F6E2E
 		Aborted
 		  AttemptToDeleteProtectedFolderItem
 		  CpError

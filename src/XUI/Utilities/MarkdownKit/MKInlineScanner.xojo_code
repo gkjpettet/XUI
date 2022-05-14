@@ -1428,6 +1428,12 @@ Protected Class MKInlineScanner
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Used internally during parsing to scan inlines.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

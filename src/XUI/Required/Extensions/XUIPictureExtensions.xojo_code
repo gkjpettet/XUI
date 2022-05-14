@@ -5,8 +5,9 @@ Protected Module XUIPictureExtensions
 		  /// Returns a new picture that is a resized version of `p`.
 		  /// If `onlyShrink` is True then we will never enlarge `p`.
 		  ///
-		  /// Based on code by Sam Rowlands: 
-		  /// https://forum.xojo.com/t/proportionally-resizing-a-picture/16732/11
+		  /// Based on code by [Sam Rowlands][1].
+		  ///
+		  /// [1]: https://forum.xojo.com/t/proportionally-resizing-a-picture/16732/11
 		  
 		  Var newSize As Size
 		  
@@ -38,7 +39,13 @@ Protected Module XUIPictureExtensions
 	#tag EndMethod
 
 
-	#tag Enum, Name = XUIPictureScaleModes, Type = Integer, Flags = &h0
+	#tag Note, Name = About
+		A module containing extension methods for the Xojo `Picture` class.
+		
+	#tag EndNote
+
+
+	#tag Enum, Name = XUIPictureScaleModes, Type = Integer, Flags = &h0, Description = 54686520737570706F72746564207761797320746F207363616C65206120706963747572652E
 		ToFill
 		  ToFit
 		StretchToFill

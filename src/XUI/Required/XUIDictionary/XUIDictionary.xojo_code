@@ -36,8 +36,11 @@ Inherits Dictionary
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 606361736553656E736974697665602064657465726D696E6573206966206361736520697320636F6E73696465726564207768656E20636F6D706172696E67206B6579732E2054616B657320616E206F7074696F6E616C206E756D626572206F6620604B65793A56616C7565602060506169726020696E7374616E6365732E
 		Sub Constructor(caseSensitive As Boolean, ParamArray entries() As Pair)
+		  /// `caseSensitive` determines if case is considered when comparing keys. 
+		  /// Takes an optional number of `Key:Value` `Pair` instances.
+		  
 		  mCaseSensitive = caseSensitive
 		  
 		  For Each entry As Pair In entries
@@ -141,8 +144,12 @@ Inherits Dictionary
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E73207468652064696374696F6E617279206974657261746F722E
 		Function Iterator() As Iterator
+		  /// Returns the dictionary iterator.
+		  ///
+		  /// Part of the Xojo `Iterable` interface.
+		  
 		  Return New XUIDictionaryIterator(Self)
 		End Function
 	#tag EndMethod
@@ -275,12 +282,12 @@ Inherits Dictionary
 
 
 	#tag Note, Name = About
-		A case-aware dictionary subclass that gracefully handles mixtures of String and Text objects.
+		A case-sensitive dictionary subclass that gracefully handles mixtures of `String` and `Text` objects.
 		
 	#tag EndNote
 
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746869732064696374696F6E6172792773206B6579732061726520636173652D73656E7369746976652E
 		#tag Getter
 			Get
 			  Return mCaseSensitive
@@ -290,7 +297,7 @@ Inherits Dictionary
 		CaseSensitive As Boolean
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520636F6D707574656420604361736553656E7369746976656020636F6D70757465642070726F70657274792E
 		Private mCaseSensitive As Boolean = False
 	#tag EndProperty
 

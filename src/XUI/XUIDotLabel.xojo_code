@@ -18,8 +18,10 @@ Inherits DesktopCanvas
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652064656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// The default constructor.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
@@ -297,19 +299,19 @@ Inherits DesktopCanvas
 	#tag EndProperty
 
 
-	#tag Constant, Name = DISABLED_COLOR_CAPTION_DARK, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private
+	#tag Constant, Name = DISABLED_COLOR_CAPTION_DARK, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private, Description = 546865206461726B206D6F646520636F6C6F757220746F2075736520666F72207468652063617074696F6E207768656E2074686520636F6E74726F6C2069732064697361626C65642E
 	#tag EndConstant
 
-	#tag Constant, Name = DISABLED_COLOR_CAPTION_LIGHT, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private
+	#tag Constant, Name = DISABLED_COLOR_CAPTION_LIGHT, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private, Description = 546865206C69676874206D6F646520636F6C6F757220746F2075736520666F72207468652063617074696F6E207768656E2074686520636F6E74726F6C2069732064697361626C65642E
 	#tag EndConstant
 
-	#tag Constant, Name = DISABLED_COLOR_DOT_DARK, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private
+	#tag Constant, Name = DISABLED_COLOR_DOT_DARK, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private, Description = 546865206461726B206D6F646520636F6C6F757220746F2075736520666F722074686520646F74207768656E2074686520636F6E74726F6C2069732064697361626C65642E
 	#tag EndConstant
 
-	#tag Constant, Name = DISABLED_COLOR_DOT_LIGHT, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private
+	#tag Constant, Name = DISABLED_COLOR_DOT_LIGHT, Type = Color, Dynamic = False, Default = \"&cADACAC", Scope = Private, Description = 546865206C69676874206D6F646520636F6C6F757220746F2075736520666F722074686520646F74207768656E2074686520636F6E74726F6C2069732064697361626C65642E
 	#tag EndConstant
 
-	#tag Constant, Name = MIN_CAPTION_FONT_SIZE, Type = Double, Dynamic = False, Default = \"6", Scope = Private
+	#tag Constant, Name = MIN_CAPTION_FONT_SIZE, Type = Double, Dynamic = False, Default = \"6", Scope = Private, Description = 546865206D696E696D756D207065726D697474656420666F6E742073697A6520666F72207468652063617074696F6E2E
 	#tag EndConstant
 
 	#tag Constant, Name = MIN_DOT_DIAMETER, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 546865206D696E696D756D207065726D6974746564206469616D65746572206F662074686520646F742E

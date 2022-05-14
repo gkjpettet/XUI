@@ -1,7 +1,9 @@
 #tag Class
 Protected Class XUIStopWatch
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 496620607374617274496D6D6564696174656C79602069732054727565207468656E207468652073746F7077617463682077696C6C2073746172742075706F6E20696E7374616E74696174696F6E2E
 		Sub Constructor(startImmediately As Boolean = False)
+		  /// If `startImmediately` is True then the stopwatch will start upon instantiation.
+		  
 		  If startImmediately Then Start
 		  
 		End Sub
@@ -67,7 +69,7 @@ Protected Class XUIStopWatch
 		  /// The total elapsed time measured by the current instance, in milliseconds.
 		  /// 
 		  /// If the stopwatch has been running for > 28 days then an 
-		  /// UnsupportedOperationException is raised.
+		  /// `UnsupportedOperationException` is raised.
 		  
 		  Var di As DateInterval = Elapsed
 		  
@@ -89,7 +91,7 @@ Protected Class XUIStopWatch
 		  /// The total elapsed time measured by the current instance, in seconds.
 		  /// 
 		  /// If the stopwatch has been running for > 28 days then an 
-		  /// UnsupportedOperationException is raised.
+		  /// `UnsupportedOperationException` is raised.
 		  
 		  Var di As DateInterval = Elapsed
 		  
@@ -110,7 +112,7 @@ Protected Class XUIStopWatch
 		  /// The total elapsed time measured by the current instance, in ticks.
 		  /// 
 		  /// If the stopwatch has been running for > 28 days then an 
-		  /// UnsupportedOperationException is raised.
+		  /// `UnsupportedOperationException` is raised.
 		  
 		  Var di As DateInterval = Elapsed
 		  
@@ -158,6 +160,38 @@ Protected Class XUIStopWatch
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A class for measuring elapsed time.
+		
+	#tag EndNote
+
+	#tag Note, Name = Example
+		```xojo
+		Var watch As New StopWatch
+		watch.Start
+		// Do something that you want to time...
+		watch.Stop
+		
+		// Easy access to watch properties:
+		Var ms As Double = watch.ElapsedMilliseconds
+		Var t As Double = watch.ElapsedTicks
+		Var di As DateInterval = watch.Elapsed
+		
+		// StopWatch will even format the interval into a string:
+		Var s As String = watch.ElapsedAsString // E.g "4 minutes, 3 seconds, 89 ms"
+		
+		// Query if the stopwatch is running:
+		If watch.IsRunning Then
+		  // Do something
+		End If
+		
+		// You can call `ElapsedTicks`, etc whilst the stopwatch is running too.
+		```
+		
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 54727565206966207468652073746F7077617463682069732063757272656E746C792072756E6E696E672E
 		#tag Getter
 			Get
@@ -168,15 +202,15 @@ Protected Class XUIStopWatch
 		IsRunning As Boolean
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 546865206578616374206D6F6D656E74207468652073746F70776174636820656E6465642E
 		Private mEnd As DateTime
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F72207468652060497352756E6E696E676020636F6D70757465642070726F70657274792E
 		Private mIsRunning As Boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 546865206578616374206D6F6D656E74207468652073746F70776174636820737461727465642072756E6E696E672E
 		Private mStart As DateTime
 	#tag EndProperty
 
@@ -202,10 +236,10 @@ Protected Class XUIStopWatch
 	#tag Constant, Name = NS_IN_TICK, Type = Double, Dynamic = False, Default = \"16666666.67", Scope = Private, Description = 546865206E756D626572206F66206E616E6F7365636F6E647320696E2061207469636B2E
 	#tag EndConstant
 
-	#tag Constant, Name = SECS_IN_DAY, Type = Double, Dynamic = False, Default = \"86400", Scope = Private
+	#tag Constant, Name = SECS_IN_DAY, Type = Double, Dynamic = False, Default = \"86400", Scope = Private, Description = 546865206E756D626572206F66207365636F6E647320696E2061206461792E
 	#tag EndConstant
 
-	#tag Constant, Name = SECS_IN_HOUR, Type = Double, Dynamic = False, Default = \"3600", Scope = Private
+	#tag Constant, Name = SECS_IN_HOUR, Type = Double, Dynamic = False, Default = \"3600", Scope = Private, Description = 546865206E756D626572206F66207365636F6E647320696E20616E20686F75722E
 	#tag EndConstant
 
 	#tag Constant, Name = TICKS_IN_DAY, Type = Double, Dynamic = False, Default = \"5184000", Scope = Private, Description = 546865206E756D626572206F66207469636B7320696E2061206461792E

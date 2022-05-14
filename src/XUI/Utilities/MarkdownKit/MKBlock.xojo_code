@@ -485,6 +485,12 @@ Protected Class MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		The base class for all Markdown document blocks.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 5468652063686172616374657273206F66207468697320626C6F636B2E204F6E6C792076616C696420666F7220696E6C696E6520636F6E7461696E65727320286F7468657220626C6F636B20747970657320757365204D4B54657874426C6F636B73292E
 		Characters() As MarkdownKit.MKCharacter
 	#tag EndProperty

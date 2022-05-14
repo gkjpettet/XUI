@@ -48,6 +48,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a paragraph list block within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 416C6C206F66207468697320626C6F636B2773206368617261637465727320617320616E206172726179206F66204D4B43686172616374657220696E7374616E6365732E
 		Private mAllCharacters() As MKCharacter
 	#tag EndProperty

@@ -23,6 +23,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents an indented code block within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

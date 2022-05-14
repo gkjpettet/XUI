@@ -21,6 +21,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents an inline image within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 546865206C696E6B20636C6F73696E6720627261636B6574206368617261637465722E20436F6D65732065697468657220616674657220746865206C696E6B206C6162656C206F7220746865206C696E6B20746578742028646570656E64696E67206F6E20746865206C696E6B2074797065292E
 		CloserCharacter As MarkdownKit.MKCharacter
 	#tag EndProperty
@@ -151,6 +157,14 @@ Inherits MKBlock
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LinkType"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="MarkdownKit.MKLinkTypes"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

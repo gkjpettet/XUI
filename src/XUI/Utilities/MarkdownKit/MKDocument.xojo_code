@@ -10,6 +10,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h21, Description = 54686520646F63756D656E742074686174206F776E73207468697320626C6F636B2E
 		#tag Getter
 			Get

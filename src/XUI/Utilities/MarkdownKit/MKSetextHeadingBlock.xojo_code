@@ -21,6 +21,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a setext heading within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 5468697320415458206865616465722773206C6576656C2E
 		Level As Integer = 0
 	#tag EndProperty

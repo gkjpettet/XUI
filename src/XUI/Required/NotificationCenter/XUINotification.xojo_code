@@ -1,13 +1,28 @@
 #tag Class
 Protected Class XUINotification
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652064656661756C7420636F6E7374727563746F722E
 		Sub Constructor(sender As Variant, key As String, data As Variant = Nil)
+		  /// The default constructor.
+		  ///
+		  /// `sender` is the object that sent this notification.  
+		  /// `key` is the string key.   
+		  /// `data` is optional arbitrary data.
+		  
 		  Self.Sender = sender
 		  Self.Key = key
 		  Self.Data = data
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents an in-app notification (i.e. a notification that can be passed between objects _within_ your app.
+		
+		Comprises a string key and optional arbitrary data. The sending of notifications is done through 
+		the `NotificationCenter`.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 4F7074696F6E616C206461746120636172726965642062792074686973206E6F74696669636174696F6E2E

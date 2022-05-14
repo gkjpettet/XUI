@@ -18,6 +18,12 @@ Protected Class MKDelimiterStackNode
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		An internal class used during inline parsing to track emphasis delimiters.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0
 		Active As Boolean = True
 	#tag EndProperty

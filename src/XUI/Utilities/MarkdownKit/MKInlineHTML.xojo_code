@@ -46,6 +46,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents an inline HTML block within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 4966207468697320696E6C696E652048544D4C206861732061206C696E6B2C2074686973206973207468652064657374696E6174696F6E2E
 		Destination As String
 	#tag EndProperty

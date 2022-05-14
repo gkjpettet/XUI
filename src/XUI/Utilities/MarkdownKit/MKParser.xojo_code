@@ -310,13 +310,13 @@ Protected Class MKParser
 		  /// Returns True if `mCurrentLine`, beginning at `mNextNWS`, is a valid ATX heading.
 		  /// If True then `data` is a new valid dictionary, otherwise `data` is set to Nil.
 		  ///
-		  /// Assumes that `mNextNWS` points to a "#" in `mCurrentLine`.
-		  /// Sets `data.Value("level")` to the header level (1 to 6).
+		  /// Assumes that `mNextNWS` points to a "#" in `mCurrentLine`.  
+		  /// Sets `data.Value("level")` to the header level (1 to 6).  
 		  /// Sets `data.Value("length")` to number of characters from the start of the opening sequence to the 
-		  ///      first character of the heading content.
-		  /// Sets `data.Value("closingSequenceCount")` to the number of trailing `#` characters (may be zero).
+		  /// first character of the heading content.  
+		  /// Sets `data.Value("closingSequenceCount")` to the number of trailing `#` characters (may be zero).  
 		  /// Sets `data.Value("closingSequenceStart")` to the index of the first `#` character in the closing
-		  ///      sequence IF there is one, otherwise data.Value("closingSequenceCount")` is absent.
+		  /// sequence **if** there is one, otherwise data.Value("closingSequenceCount")` is absent.  
 		  
 		  data = Nil
 		  Var length As Integer = 0
@@ -454,8 +454,10 @@ Protected Class MKParser
 		  ///
 		  /// Assumes that `mCurrentChar = fenceChar` and `mCurrentLine.Characters(mNextNWS) = fenceChar` as this 
 		  /// method is only called from `TryNewBlocks`.
+		  ///
 		  /// Also assumes that `fenceChar` is either "`" or "~".
-		  /// We don't capture the (optional) info string here as it gets added later as a TextBlock 
+		  ///
+		  /// We don't capture the (optional) info string here as it gets added later as a `MKTextBlock`
 		  /// child of this block.
 		  
 		  #Pragma NilObjectChecking False
@@ -508,7 +510,9 @@ Protected Class MKParser
 		Private Function IsCorrectHtmlBlockEnd(type As MKHTMLBlockTypes, line As XUITextLine, pos As Integer) As Boolean
 		  /// Returns True if we find the correct ending condition for the specified HTML block type.
 		  ///
-		  /// There are 7 kinds of HTML blocks (CommonMark spec 0.29 4.6).
+		  /// There are 7 kinds of HTML blocks ([CommonMark spec 0.29 4.6][1]).
+		  ///
+		  /// [1]: https://spec.commonmark.org/0.29/#html-blocks
 		  
 		  Select Case type
 		  Case MKHTMLBlockTypes.InterruptingBlockWithEmptyLines
@@ -656,8 +660,9 @@ Protected Class MKParser
 		  /// none or type 7 enumeration.
 		  ///
 		  /// ``` nohighlight
-		  /// Type 7: {openTag NOT script|style|pre}[•→]+|⮐$   or
-		  ///         {closingTag}[•→]+|⮐$
+		  /// Type 7:
+		  /// {openTag NOT script|style|pre}[•→]+|⮐$   or
+		  /// {closingTag}[•→]+|⮐$
 		  /// ```
 		  
 		  #Pragma NilObjectChecking False
@@ -1061,9 +1066,9 @@ Protected Class MKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 50726F6365737365732061206C696E65206F66204D61726B646F776E20616E6420696E636F72706F726174657320697420696E746F2074686520646F63756D656E7420747265652E
 		Private Sub ProcessLine(line As XUITextLine)
-		  // Processes a line of Markdown and incorporates it into the document tree.
+		  /// Processes a line of Markdown and incorporates it into the document tree.
 		  
 		  // Reset properties related to the current line offset, whitespace locations, current line, etc to this line.
 		  ResetLine(line)
@@ -1397,7 +1402,7 @@ Protected Class MKParser
 		  ///
 		  /// For each open block, check to see if `mCurrentLine` meets the required condition to keep the block open.
 		  ///
-		  /// `mContainer` will be set to the Block which last had a match to the line.
+		  /// `mContainer` will be set to the block which last had a match to the line.
 		  
 		  #Pragma NilObjectChecking False
 		  #Pragma StackOverflowChecking False
@@ -1512,34 +1517,65 @@ Protected Class MKParser
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		This class is responsible for parsing Markdown input into an abstract syntax tree (AST). The
+		AST can then be transformed into other representations (e.g. HTML).
+		
+	#tag EndNote
+
 	#tag Note, Name = HTML Block Types
-		Type 1: MKHTMLBlockTypes.InterruptingBlockWithEmptyLines
-		Start condition: line begins with the string <script, <pre, or <style (case-insensitive), followed by whitespace, the string >, or the end of the line.
-		End condition: line contains an end tag </script>, </pre>, or </style> (case-insensitive; it need not match the start tag).
+		**Type 1**: `MKHTMLBlockTypes.InterruptingBlockWithEmptyLines`
 		
-		Type 2: MKHTMLBlockTypesComment
-		Start condition: line begins with the string <!--.
-		End condition: line contains the string -->.
+		_Start condition_: The line begins with the string `"<script"`, `"<pre"`, or `"<style"` (case-insensitive), 
+		followed by whitespace, the string `">"`, or the end of the line.
 		
-		Type 3: MKHTMLBlockTypes.ProcessingInstruction
-		Start condition: line begins with the string <?.
-		End condition: line contains the string ?>.
+		_End condition_: The line contains an end tag `"</script>"`, `"</pre>"`, or `"</style>"` (case-insensitive). 
+		It need not match the start tag.
 		
-		Type 4: MKHTMLBlocks.TypeDocumentType
-		Start condition: line begins with the string <! followed by an uppercase ASCII letter.
-		End condition: line contains the character >.
+		**Type 2**: `MKHTMLBlockTypesComment`
 		
-		Type 5: MKHTMLBlockTypes.CData
-		Start condition: line begins with the string <![CDATA[.
-		End condition: line contains the string ]]>.
+		_Start condition_: The line begins with the string `"<!--"`.
 		
-		Type 6: MKHTMLBlockTypes.InterruptingBlock
-		Start condition: line begins the string < or </ followed by one of the strings (case-insensitive) address, article, aside, base, basefont, blockquote, body, caption, center, col, colgroup, dd, details, dialog, dir, div, dl, dt, fieldset, figcaption, figure, footer, form, frame, frameset, h1, h2, h3, h4, h5, h6, head, header, hr, html, iframe, legend, li, link, main, menu, menuitem, nav, noframes, ol, optgroup, option, p, param, section, source, summary, table, tbody, td, tfoot, th, thead, title, tr, track, ul, followed by whitespace, the end of the line, the string >, or the string />.
-		End condition: line is followed by a blank line.
+		_End condition_: The line contains the string `"-->"`.
 		
-		Type 7: MKHTMLBlockTypes.NonInterruptingBlock
-		Start condition: line begins with a complete open tag (with any tag name other than script, style, or pre) or a complete closing tag, followed only by whitespace or the end of the line.
-		End condition: line is followed by a blank line.
+		**Type 3**: `MKHTMLBlockTypes.ProcessingInstruction`
+		
+		_Start condition_: The line begins with the string `"<?"`.
+		
+		_End condition_: The line contains the string `"?>"`.
+		
+		**Type 4**: `MKHTMLBlocks.TypeDocumentType`
+		
+		_Start condition_: The line begins with the string `"<!`" followed by an uppercase ASCII letter.
+		
+		_End condition_: The line contains the character `">"`.
+		
+		**Type 5**: `MKHTMLBlockTypes.CData`
+		
+		_Start condition_: The line begins with the string `"<![CDATA["`.
+		
+		_End condition_: The line contains the string `"]]>"`.
+		
+		**Type 6**: `MKHTMLBlockTypes.InterruptingBlock`
+		
+		_Start condition_: The line begins the string `"<"` or `"</"` followed by one of the strings 
+		(case-insensitive) `"address"`, `"article"`, `"aside"`, `"base"`, `"basefont"`, `"blockquote"`, `"body"`, 
+		`"caption"`, `"center"`, `"col"`, `"colgroup"`, `"dd"`, `"details"`, `"dialog"`, `"dir"`, `"div"`, `"dl"`, 
+		`"dt"`, `"fieldset"`, `"figcaption"`, `"figure"`, `"footer"`, `"form"`, `"frame"`, `"frameset"`, `"h1"`, 
+		`"h2"`, `"h3"`, `"h4"`, `"h5"`, `"h6"`, `"head"`, `"header"`, `"hr"`, `"html"`, `"iframe"`, `"legend"`, 
+		`"li"`, `"link"`, `"main"`, `"menu"`, `"menuitem"`, `"nav"`, `"noframes"`, `"ol"`, `"optgroup"`, `"option"`, 
+		`"p"`, `"param"`, `"section"`, `"source"`, `"summary"`, `"table"`, `"tbody"`, `"td"`, `"tfoot"`, `"th"`, 
+		`"thead"`, `"title"`, `"tr"`, `"track"`, `"ul"`, followed by whitespace, the end of the line, the string `">"` 
+		or the string `"/>"`.
+		
+		_End condition_: The line is followed by a blank line.
+		
+		**Type 7**: `MKHTMLBlockTypes.NonInterruptingBlock`
+		
+		_Start condition_: The line begins with a complete open tag (with any tag name other than script, style, 
+		or pre) or a complete closing tag, followed only by whitespace or the end of the line.
+		
+		_End condition_: The line is followed by a blank line.
 		
 	#tag EndNote
 
@@ -1604,7 +1640,7 @@ Protected Class MKParser
 		Private mNextNWSColumn As Integer = 0
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C6C79207573656420746F20636F6D70757465206164646974696F6E616C2072656D61696E696E67207370616365732E
 		Private mRemainingSpaces As Integer = 0
 	#tag EndProperty
 

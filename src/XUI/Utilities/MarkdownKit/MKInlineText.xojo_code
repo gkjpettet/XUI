@@ -23,6 +23,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents inline text within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 302D6261736564206C6F63616C20706F736974696F6E206F6620746865207374617274206F66207468697320626C6F636B206F6E20697473206C696E652E
 		LocalStart As Integer = 0
 	#tag EndProperty

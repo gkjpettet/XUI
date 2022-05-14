@@ -9,6 +9,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a thematic break within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 546865206C656E677468206F662074686973207468656D6174696320627265616B2E
 		Length As Integer = 0
 	#tag EndProperty

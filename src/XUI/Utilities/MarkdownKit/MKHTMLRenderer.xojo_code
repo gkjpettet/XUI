@@ -620,6 +620,12 @@ Implements MKRenderer
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A class for rendering a MArkdown abstract syntax tree into HTML.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 54686520756E6465722D636F6E737472756374696F6E206F7574707574206F66207468652072656E64657265722E
 		Private mOutput() As String
 	#tag EndProperty

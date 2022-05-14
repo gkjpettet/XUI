@@ -251,6 +251,12 @@ Protected Class MKLinkScanner
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Used internally during parsing to scan links.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

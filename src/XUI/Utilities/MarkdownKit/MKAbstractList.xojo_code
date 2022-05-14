@@ -2,7 +2,8 @@
 Protected Class MKAbstractList
 Inherits MKBlock
 	#tag Note, Name = About
-		An abstract base class for MKListBlock and MKListItemBlock. Exists as these two blocks have common properties.
+		The abstract base class for `MKListBlock` and `MKListItemBlock`. 
+		Exists as these two blocks have common properties.
 		
 	#tag EndNote
 

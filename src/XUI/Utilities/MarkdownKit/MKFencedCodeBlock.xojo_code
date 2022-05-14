@@ -29,6 +29,12 @@ Inherits MKBlock
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a fenced code block within a Markdown document.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 546865206E756D626572206F6620746865206C696E6520746861742074686520636C6F73696E672066656E6365206973206F6E2E20602D31602069662074686572652069736E2774206F6E652E
 		ClosingFenceLineNumber As Integer = -1
 	#tag EndProperty
