@@ -1,8 +1,10 @@
 #tag Class
 Protected Class MKDocument
 Inherits MKBlock
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  Super.Constructor(MKBlockTypes.Document, Nil)
 		  Self.References = New Dictionary
 		  

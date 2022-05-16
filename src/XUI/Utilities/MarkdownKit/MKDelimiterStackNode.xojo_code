@@ -1,15 +1,22 @@
 #tag Class
 Protected Class MKDelimiterStackNode
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(textNode As MKInlineText, delimiter As String)
+		  /// Default constructor.
+		  ///
+		  /// - `textNode` is the text block containing the delimiter.
+		  /// - `delimiter` is the delimiter character.
+		  
 		  Self.TextNode = textNode
 		  Self.Delimiter = delimiter
 		  Self.OriginalLength = delimiter.Length
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652063757272656E74206C656E677468206F662074686973206E6F646527732074657874206E6F64652E
 		Function CurrentLength() As Integer
+		  /// The current length of this node's text node.
+		  
 		  If TextNode = Nil Then Return 0
 		  
 		  Return TextNode.Characters.Count
@@ -24,15 +31,15 @@ Protected Class MKDelimiterStackNode
 	#tag EndNote
 
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 547275652069662074686973206E6F64652069732063757272656E746C79206163746976652E
 		Active As Boolean = True
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 547275652069662074686973206E6F64652063616E20636C6F736520616E20656D7068617369732072756E2E
 		CanClose As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 547275652069662074686973206E6F64652063616E206F70656E20616E20656D7068617369732072756E2E
 		CanOpen As Boolean = False
 	#tag EndProperty
 
@@ -45,11 +52,11 @@ Protected Class MKDelimiterStackNode
 		CanOpenLinkOrImage As Boolean
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 5468652064656C696D697465722063686172616374657220757365642062792074686973206E6F64652E
 		Delimiter As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 496E7465726E616C207573652E2053657420746F2054727565207768656E2074686973206E6F646520697320746F2062652069676E6F72656420647572696E672070726F63657373696E672E
 		Ignore As Boolean = False
 	#tag EndProperty
 

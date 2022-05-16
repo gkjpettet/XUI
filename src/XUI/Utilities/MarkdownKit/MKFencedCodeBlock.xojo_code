@@ -1,8 +1,14 @@
 #tag Class
 Protected Class MKFencedCodeBlock
 Inherits MKBlock
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(parent As MKBlock, blockStartOffset As Integer = 0)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is the parent of this block.
+		  /// - `blockStartOffset` is the 0-based position in the original Markdown source 
+		  ///   that this block begins at.
+		  
 		  Super.Constructor(MKBlockTypes.FencedCode, parent, blockStartOffset)
 		  
 		End Sub
@@ -55,7 +61,7 @@ Inherits MKBlock
 		FenceLength As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520302D6261736564206F6666736574206F6620746865207374617274206F66207468652066656E6365206D61726B65722E
 		FenceOffset As Integer
 	#tag EndProperty
 

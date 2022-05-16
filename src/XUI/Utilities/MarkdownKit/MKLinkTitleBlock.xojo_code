@@ -1,7 +1,14 @@
 #tag Class
 Protected Class MKLinkTitleBlock
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(absPos As Integer, localPos As Integer, length As Integer, lineNumber As Integer)
+		  /// Default constructor.
+		  ///
+		  /// - `absPos` is the 0-based position in the original source code of this link title.
+		  /// - `localPos` is the 0-based position on the line this block begins at.
+		  /// - length` is the length of this title line.
+		  /// - `lineNumber` is the 1-based line number this block begins on.
+		  
 		  Self.AbsoluteStart = absPos
 		  Self.LocalStart = localPos
 		  Self.Length = length

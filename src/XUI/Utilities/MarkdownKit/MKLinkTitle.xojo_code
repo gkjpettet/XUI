@@ -1,13 +1,15 @@
 #tag Class
 Protected Class MKLinkTitle
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
-		  
+		  /// Default constructor.
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E7374727563746F7220746861742074616B65732061207265666572656E636520746F20746865206F70656E696E672064656C696D6974657220666F722074686973206C696E6B2773207469746C652E
 		Sub Constructor(openingDelimiter As MKCharacter)
+		  /// Constructor that takes a reference to the opening delimiter for this link's title.
+		  
 		  Self.OpeningDelimiter = openingDelimiter
 		End Sub
 	#tag EndMethod

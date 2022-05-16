@@ -1,8 +1,14 @@
 #tag Class
 Protected Class MKInlineImage
 Inherits MKBlock
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(parent As MKBlock, absoluteStart As Integer, data As MarkdownKit.MKInlineLinkData)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is this block's parent block.
+		  /// - `absoluteStart` is the 0-based position in the original source of the start of this block.
+		  /// - `data` is the data required to create this block.
+		  
 		  Super.Constructor(MKBlockTypes.InlineImage, parent, absoluteStart)
 		  
 		  Self.Label = data.Label
@@ -165,7 +171,13 @@ Inherits MKBlock
 			Group="Behavior"
 			InitialValue=""
 			Type="MarkdownKit.MKLinkTypes"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - CollapsedReference"
+				"1 - FullReference"
+				"2 - ShortcutReference"
+				"3 - Standard"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

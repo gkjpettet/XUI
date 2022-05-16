@@ -1,15 +1,23 @@
 #tag Class
 Protected Class MKListBlock
 Inherits MKAbstractList
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(parent As MKBlock, blockStart As Integer = 0)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is the parent of this block.
+		  /// - `blockStart` is the 0-based position in the original Markdown source 
+		  ///   that this block begins at.
+		  
 		  Super.Constructor(MKBlockTypes.List, parent, blockStart)
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436C6F736573207468697320626C6F636B20616E64206D616B657320616E792066696E616C206368616E6765732074686174206D61792062652072657175697265642E
 		Sub Finalise(line As XUITextLine = Nil)
+		  /// Closes this block and makes any final changes that may be required.
+		  
 		  Super.Finalise(line)
 		  
 		  // Determine tight/loose status of the list.

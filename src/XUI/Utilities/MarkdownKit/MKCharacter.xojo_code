@@ -1,7 +1,13 @@
 #tag Class
 Protected Class MKCharacter
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(value As String, line As XUITextLine, localPosition As Integer)
+		  /// Default constructor.
+		  ///
+		  /// - `value` is the character.
+		  /// - `line` is the line the character is on.
+		  /// - `localPosition` is the 0-based position of the character on the line.
+		  
 		  Self.Value = value
 		  Self.Line = line
 		  Self.LocalPosition = localPosition

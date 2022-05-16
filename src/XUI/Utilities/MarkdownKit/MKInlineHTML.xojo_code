@@ -1,8 +1,20 @@
 #tag Class
 Protected Class MKInlineHTML
 Inherits MKBlock
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(parent As MKBlock, absoluteStartPos As Integer, parentLocalStart As Integer, localStartPos As Integer, absoluteRightAngleChar As MKCharacter, parentLocalRightAnglePos As Integer)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is this block's parent block.
+		  /// - `absoluteStartPos` is the 0-based position in the original source of the start of this block.
+		  /// - `parentLocalStart` is the 0-based index in `parent.Characters` of the opening left angle 
+		  ///   bracket of this inline HTML.
+		  /// - `localStartPos` is the 0-based index on the line of the opening left angle bracket of 
+		  ///   this inline HTML.
+		  /// - `absoluteRightAngleChar` is a reference to the actual ending `>` character.
+		  /// - `parentLocalRightAnglePos` is the 0-based position in `parent.Characters` of the closing 
+		  ///   right angle bracket.
+		  
 		  Super.Constructor(MKBlockTypes.InlineHTML, parent, absoluteStartPos)
 		  
 		  Self.ParentLocalStart = parentLocalStart
@@ -13,8 +25,10 @@ Inherits MKBlock
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436C6F736573207468697320626C6F636B20616E64206D616B657320616E792066696E616C206368616E6765732074686174206D61792062652072657175697265642E
 		Sub Finalise(line As XUITextLine = Nil)
+		  /// Closes this block and makes any final changes that may be required.
+		  
 		  // Calling the overridden superclass method.
 		  Super.Finalise(line)
 		  

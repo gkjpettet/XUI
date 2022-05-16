@@ -1,8 +1,14 @@
 #tag Class
 Protected Class MKThematicBreak
 Inherits MKBlock
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(parent As MKBlock, absoluteStart As Integer)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is the parent of this block.
+		  /// - `absoluteStart` is the 0-based position in the original Markdown source 
+		  ///   that this block begins at.
+		  
 		  Super.Constructor(MKBlockTypes.ThematicBreak, parent, absoluteStart)
 		  
 		End Sub

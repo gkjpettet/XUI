@@ -1,7 +1,12 @@
 #tag Class
 Protected Class MKInlineLinkData
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(isInlineImage As Boolean, type As MKLinkTypes)
+		  /// Default constructor.
+		  ///
+		  /// - `isInlineImage` is True if this is an inline image (rather than an inline link).
+		  /// - `type` is the type of link.
+		  
 		  Self.IsInlineImage = isInlineImage
 		  Self.LinkType = type
 		End Sub
@@ -22,7 +27,7 @@ Protected Class MKInlineLinkData
 		CloserCharacter As MarkdownKit.MKCharacter
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 5468697320696E6C696E65206C696E6B27732064657374696E6174696F6E2E
 		Destination As MarkdownKit.MKLinkDestination
 	#tag EndProperty
 
@@ -46,7 +51,7 @@ Protected Class MKInlineLinkData
 		IsInlineImage As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 5468697320696E6C696E65206C696E6B2773206C6162656C2E204D6179206265204E696C2E
 		Label As MarkdownKit.MKLinkLabel
 	#tag EndProperty
 
@@ -56,10 +61,6 @@ Protected Class MKInlineLinkData
 
 	#tag Property, Flags = &h0, Description = 546865206C696E6B206F70656E6572206368617261637465722028605B6020666F72206C696E6B7320616E642060216020666F7220696D61676573292E2045697468657220746865207374617274206F6620746865206C696E6B206C6162656C206F7220746865206C696E6B20746578742E
 		OpenerCharacter As MarkdownKit.MKCharacter
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		Start As Integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 4F7074696F6E616C207469746C6520646174612E204D6179206265204E696C2E
@@ -109,14 +110,6 @@ Protected Class MKInlineLinkData
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Start"
-			Visible=false
-			Group="Behavior"
-			InitialValue="-1"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="EndPosition"
 			Visible=false
 			Group="Behavior"
@@ -146,7 +139,13 @@ Protected Class MKInlineLinkData
 			Group="Behavior"
 			InitialValue=""
 			Type="MarkdownKit.MKLinkTypes"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - CollapsedReference"
+				"1 - FullReference"
+				"2 - ShortcutReference"
+				"3 - Standard"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -1,7 +1,15 @@
 #tag Class
 Protected Class MKLinkReferenceDefinition
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(start As Integer, linkLabelOpener As MarkdownKit.MKCharacter, linkLabelCloser As MarkdownKit.MKCharacter, label As String, linkLabelStartChar As MarkdownKit.MKCharacter, labelStart As Integer, labelLength As Integer, colon As MarkdownKit.MKCharacter, destination As MarkdownKit.MKLinkDestination, title As MarkdownKit.MKLinkTitle, endPos As Integer)
+		  /// Default constructor.
+		  ///
+		  /// - `start` is the 0-based index in the source that this link reference definition starts.
+		  /// - `linkLabelOpener` is the opening link label delimiter (`[`).
+		  /// - `linkLabelCloser` is the closing link label delimiter (`]`).
+		  /// - `label` is the link label.
+		  /// - `linkLabelStartChar` is the first character of the link label.
+		  
 		  Self.Start = start
 		  Self.LinkLabel = label
 		  Self.LinkLabelStart = labelStart
@@ -94,7 +102,7 @@ Protected Class MKLinkReferenceDefinition
 		LinkTitle As MarkdownKit.MKLinkTitle
 	#tag EndProperty
 
-	#tag Property, Flags = &h0, Description = 302D6261736520696E64657820696E2074686520736F7572636520746861742074686973206C696E6B207265666572656E636520646566696E6974696F6E207374617274732E
+	#tag Property, Flags = &h0, Description = 302D626173656420696E64657820696E2074686520736F7572636520746861742074686973206C696E6B207265666572656E636520646566696E6974696F6E207374617274732E
 		Start As Integer = 0
 	#tag EndProperty
 

@@ -1,8 +1,20 @@
 #tag Class
 Protected Class MKCodeSpan
 Inherits MKBlock
-	#tag Method, Flags = &h0
-		Sub Constructor(parent AS MKBlock, absoluteStartPos AS Integer, localStartPos AS Integer, lineNumber AS Integer, backtickStringLength AS Integer, parentClosingBacktickStringStart AS Integer, openingBacktickChar AS MarkdownKit.MKCharacter, firstClosingBacktickChar AS MarkdownKit.MKCharacter)
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
+		Sub Constructor(parent As MKBlock, absoluteStartPos As Integer, localStartPos As Integer, lineNumber As Integer, backtickStringLength As Integer, parentClosingBacktickStringStart As Integer, openingBacktickChar As MarkdownKit.MKCharacter, firstClosingBacktickChar As MarkdownKit.MKCharacter)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is this block's parent.
+		  /// - `absoluteStartPos` is the 0-based position in the original source code that this block begins at.
+		  /// - `localStartPos` is the 0-based index in `parent.Characters` that the opening backtick 
+		  ///   character of this code span begins.
+		  /// - `lineNumber` is the 1-based line number of the line this block occurs on.
+		  /// - `backtickStringLength` is the length of the flanking backtick delimiters around this code span. 
+		  /// - `parentClosingBacktickStringLength` is the 0-based index in this code span's parent paragraph's
+		  ///   `Characters` array of the first character of the closing backtick string.
+		  /// - openingBacktickChar` is the opening backtick character.
+		  
 		  Super.Constructor(MKBlockTypes.CodeSpan, parent, absoluteStartPos)
 		  
 		  Self.LineNumber = lineNumber
@@ -15,8 +27,10 @@ Inherits MKBlock
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436C6F736573207468697320626C6F636B20616E64206D616B657320616E792066696E616C206368616E6765732074686174206D61792062652072657175697265642E
 		Sub Finalise(line As XUITextLine = Nil)
+		  /// Closes this block and makes any final changes that may be required.
+		  
 		  // Calling the overridden superclass method.
 		  Super.Finalise(line)
 		  

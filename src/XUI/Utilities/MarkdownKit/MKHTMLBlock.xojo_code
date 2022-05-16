@@ -1,8 +1,14 @@
 #tag Class
 Protected Class MKHTMLBlock
 Inherits MKBlock
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(parent As MKBlock, blockStart As Integer = 0)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is the parent of this block.
+		  /// - `blockStart` is the 0-based position in the original Markdown source 
+		  ///   that this block begins at.
+		  
 		  Super.Constructor(MKBlockTypes.Html, parent, blockStart)
 		  
 		End Sub
@@ -86,7 +92,17 @@ Inherits MKBlock
 			Group="Behavior"
 			InitialValue="MKHTMLBlockTypes.None"
 			Type="MKHTMLBlockTypes"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - None"
+				"1 - InterruptingBlockWithEmptyLines"
+				"2 - Comment"
+				"3 - ProcessingInstruction"
+				"4 - Document"
+				"5 - CData"
+				"6 - InterruptingBlock"
+				"7 - NonInterruptingBlock"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

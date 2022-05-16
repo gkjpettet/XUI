@@ -1,13 +1,20 @@
 #tag Class
 Protected Class MKLinkDestination
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
-		  
+		  /// Default constructor.
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E7374727563746F72207769746820706172616D65746572732E
 		Sub Constructor(startChar As MKCharacter, value As String, length As Integer, endChar As MKCharacter)
+		  /// Constructor with parameters.
+		  ///
+		  /// - `startChar` is a reference to the actual first character of this destination.
+		  /// - `value` is the _unescaped_ destination.
+		  /// - `length` is the length of the destination.
+		  /// - `endChar` is a reference to the actual last character of this destination.
+		  
 		  Self.StartCharacter = startChar
 		  Self.Value = value
 		  Self.Length = length

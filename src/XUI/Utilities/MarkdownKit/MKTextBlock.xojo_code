@@ -3,6 +3,16 @@ Protected Class MKTextBlock
 Inherits MKBlock
 	#tag Method, Flags = &h0
 		Sub Constructor(parent As MKBlock, absoluteStart As Integer, localStart As Integer, contents As String, phantomSpaces As Integer, line As XUITextLine)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is the parent of this block.
+		  /// - `abasoluteStart` is the 0-based position in the original source of the start of this block.
+		  /// - `localStart` is the 0-based position on the line that this block begins at.
+		  /// - `contents` is the contents of this text block.
+		  /// - `phantomSpaces` is the number of spaces to be inserted at the start of this text block that 
+		  ///   don't actually exist in the source but are required for CommonMark compliance.
+		  /// - `line` is a reference to the line this text block begins on.
+		  
 		  Super.Constructor(MKBlockTypes.TextBlock, parent, absoluteStart)
 		  Self.LocalStart = localStart
 		  Self.Contents = contents

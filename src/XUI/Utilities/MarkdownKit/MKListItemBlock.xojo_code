@@ -1,8 +1,14 @@
 #tag Class
 Protected Class MKListItemBlock
 Inherits MKAbstractList
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(parent As MKBlock, blockStart As Integer = 0)
+		  /// Default constructor.
+		  ///
+		  /// - `parent` is the parent of this block.
+		  /// - `blockStart` is the 0-based position in the original Markdown source 
+		  ///   that this block begins at.
+		  
 		  Super.Constructor(MKBlockTypes.ListItem, parent, blockStart)
 		  
 		End Sub

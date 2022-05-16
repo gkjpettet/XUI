@@ -1580,7 +1580,7 @@ Protected Class MKParser
 	#tag EndNote
 
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 5573656420696E7465726E616C6C79207768656E2070617273696E672074686520626C6F636B207374727563747572652E
 		Private mAllMatched As Boolean = True
 	#tag EndProperty
 
