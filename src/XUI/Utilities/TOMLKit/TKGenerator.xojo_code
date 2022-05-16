@@ -1,6 +1,6 @@
 #tag Class
 Private Class TKGenerator
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub AddKeyAndValue(key As String, value As Variant, toArr() As String = Nil)
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
@@ -22,9 +22,9 @@ Private Class TKGenerator
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652064656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
-		  // The default constructor.
+		  /// The default constructor.
 		  
 		  If USLocale Is Nil Then
 		    USLocale = New Locale( "en-US" )
@@ -33,8 +33,10 @@ Private Class TKGenerator
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F66206064602E
 		Private Function ConvertToString(d As Dictionary) As String
+		  /// Returns a string representation of `d`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -68,8 +70,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F6620606172722829602E
 		Private Function ConvertToString(arr() As Variant) As String
+		  /// Returns a string representation of `arr()`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -120,8 +124,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F66206076616C7565602E
 		Private Function ConvertToString(value As Variant) As String
+		  /// Returns a string representation of `value`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -143,8 +149,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20456E636F64657320616E2061727261792E
 		Private Function EncodeArray(value As Variant) As Variant()
+		  /// Internal use. Encodes an array.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -220,8 +228,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20456E636F646573206120604461746554696D65602E
 		Private Function EncodeDateTime(dt As DateTime) As String
+		  /// Internal use. Encodes a `DateTime`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -275,8 +285,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20456E636F6465732061206044696374696F6E617279602E
 		Private Function EncodeDictionary(sourceDict As Dictionary) As Dictionary
+		  /// Internal use. Encodes a `Dictionary`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -350,8 +362,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20456E636F64657320612060446F75626C65602E
 		Private Function EncodeDouble(value As Double) As String
+		  /// Internal use. Encodes a `Double`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -392,8 +406,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20456E636F64657320616E2060496E7465676572602E
 		Private Function EncodeInteger(value As Integer) As String
+		  /// Internal use. Encodes an `Integer`.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -408,8 +424,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E20456E636F6465732061206056617269616E74602076616C75652E
 		Private Function EncodeValue(source As Variant) As Variant
+		  /// Internal use. Encodes a `Variant` value.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -484,8 +502,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520696E64656E7420666F72207468652063757272656E74206C6576656C2E
 		Private Function IndentForCurrentLevel() As String
+		  /// Returns the indent for the current level.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -501,8 +521,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E2052657475726E732054727565206966206076616C7565602069732061206044696374696F6E617279602061727261792E
 		Private Function IsDictionaryArray(value As Variant) As Boolean
+		  /// Internal use. Returns True if `value` is a `Dictionary` array.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -536,8 +558,10 @@ Private Class TKGenerator
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E2050726F636573736573206120544F4D4C2064696374696F6E6172792E
 		Private Sub ProcessTOMLDictionary(tomlDict As Dictionary)
+		  /// Internal use. Processes a TOML dictionary.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -654,8 +678,10 @@ Private Class TKGenerator
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C2064656C6567617465206D6574686F6420666F7220736F7274696E6720616E2061727261792E
 		Private Shared Sub SortKeyArray(keyArr() As String, valueArr() As Variant)
+		  /// Internal delegate method for sorting an array.
+		  
 		  If keyArr.Count < 2 Then
 		    Return
 		  End If
@@ -673,8 +699,10 @@ Private Class TKGenerator
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E2052657475726E7320606D626C6E60206173206120737472696E672E
 		Private Function ToBasicString(mbIn As MemoryBlock, isKey As Boolean = False) As String
+		  /// Internal use. Returns `mbln` as a string.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -832,7 +860,7 @@ Private Class TKGenerator
 		Private CurrentLevel As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 53746F7265732074686520696E64656E7420666F72207468652063757272656E74206C6576656C2E
 		Private Shared Indents(0) As String
 	#tag EndProperty
 
@@ -860,7 +888,7 @@ Private Class TKGenerator
 		Private KeyStack() As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private mIsInArrayCount As Integer
 	#tag EndProperty
 
@@ -872,7 +900,7 @@ Private Class TKGenerator
 		Private StringEncoderMB As MemoryBlock
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 546865205553206C6F63616C652E
 		Private Shared USLocale As Locale
 	#tag EndProperty
 

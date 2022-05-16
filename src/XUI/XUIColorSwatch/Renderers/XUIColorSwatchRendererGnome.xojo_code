@@ -1,8 +1,12 @@
 #tag Class
 Protected Class XUIColorSwatchRendererGnome
 Implements XUIColorSwatchRenderer
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(owner As XUIColorSwatch)
+		  /// Default constructor.
+		  ///
+		  /// - `owner` is the `XUIColorSwatch` that owns this renderer. A new `WeakRef` to it will be created.
+		  
 		  If owner = Nil Then
 		    Raise New UnsupportedOperationException("A renderer's owner cannot be Nil.")
 		  End If
@@ -119,22 +123,22 @@ Implements XUIColorSwatchRenderer
 	#tag EndProperty
 
 
-	#tag Constant, Name = ACTIVE_BACKGROUND_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c4C4A4D", Scope = Private
+	#tag Constant, Name = ACTIVE_BACKGROUND_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c4C4A4D", Scope = Private, Description = 546865206461726B206D6F646520636F6C6F757220666F7220746865206261636B67726F756E64207768656E2074686520636F6C6F757220737761746368206973206163746976652E
 	#tag EndConstant
 
-	#tag Constant, Name = ACTIVE_BACKGROUND_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&C9F9F9F", Scope = Private
+	#tag Constant, Name = ACTIVE_BACKGROUND_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&C9F9F9F", Scope = Private, Description = 546865206C69676874206D6F646520636F6C6F757220666F7220746865206261636B67726F756E64207768656E2074686520636F6C6F757220737761746368206973206163746976652E
 	#tag EndConstant
 
-	#tag Constant, Name = BACKGROUND_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c303030", Scope = Private
+	#tag Constant, Name = BACKGROUND_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c303030", Scope = Private, Description = 546865206461726B206D6F646520636F6C6F757220666F7220746865206261636B67726F756E642E
 	#tag EndConstant
 
-	#tag Constant, Name = BACKGROUND_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cF4F4F4", Scope = Private
+	#tag Constant, Name = BACKGROUND_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cF4F4F4", Scope = Private, Description = 546865206C69676874206D6F646520636F6C6F757220666F7220746865206261636B67726F756E642E
 	#tag EndConstant
 
-	#tag Constant, Name = BORDER_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private
+	#tag Constant, Name = BORDER_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private, Description = 546865206461726B206D6F646520636F6C6F757220666F722074686520626F726465722E
 	#tag EndConstant
 
-	#tag Constant, Name = BORDER_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private
+	#tag Constant, Name = BORDER_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private, Description = 546865206C69676874206D6F646520636F6C6F757220666F722074686520626F726465722E
 	#tag EndConstant
 
 

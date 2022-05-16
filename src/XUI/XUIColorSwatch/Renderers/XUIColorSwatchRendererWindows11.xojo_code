@@ -1,8 +1,12 @@
 #tag Class
 Protected Class XUIColorSwatchRendererWindows11
 Implements XUIColorSwatchRenderer
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(owner As XUIColorSwatch)
+		  /// Default constructor.
+		  ///
+		  /// - `owner` is the `XUIColorSwatch` that owns this renderer. A new `WeakRef` to it will be created.
+		  
 		  If owner = Nil Then
 		    Raise New UnsupportedOperationException("A renderer's owner cannot be Nil.")
 		  End If
@@ -96,10 +100,10 @@ Implements XUIColorSwatchRenderer
 	#tag EndProperty
 
 
-	#tag Constant, Name = ACTIVE_BORDER_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&cffffff", Scope = Private
+	#tag Constant, Name = ACTIVE_BORDER_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&cffffff", Scope = Private, Description = 546865206461726B206D6F646520636F6C6F757220666F722074686520626F72646572207768656E206163746976652E
 	#tag EndConstant
 
-	#tag Constant, Name = ACTIVE_BORDER_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private
+	#tag Constant, Name = ACTIVE_BORDER_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private, Description = 546865206C69676874206D6F646520636F6C6F757220666F722074686520626F72646572207768656E206163746976652E
 	#tag EndConstant
 
 

@@ -73,7 +73,7 @@ Protected Class TKLocalTime
 	#tag EndNote
 
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 54686520686F75722E
 		#tag Getter
 			Get
 			  Return mHour
@@ -82,11 +82,11 @@ Protected Class TKLocalTime
 		Hour As Integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520636F6D70757465642060486F7572602070726F70657274792E
 		Attributes( Hidden ) Private mHour As Integer
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 546865206D696E7574652E
 		#tag Getter
 			Get
 			  Return mMinute
@@ -96,27 +96,27 @@ Protected Class TKLocalTime
 		Minute As Integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520604D696E7574656020636F6D70757465642070726F70657274792E
 		Attributes( Hidden ) Private mMinute As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520604E616E6F7365636F6E646020636F6D70757465642070726F70657274792E
 		Attributes( Hidden ) Private mNanosecond As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F722074686520605365636F6E646020636F6D70757465642070726F70657274792E
 		Attributes( Hidden ) Private mSecond As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420757365642077697468696E2074686520605365636F6E647346726F6D4D69646E696768746020636F6D70757465642070726F70657274792E
 		Attributes( Hidden ) Private mSecondsFromMidnight As Double = -1.0
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420757365642077697468696E207468652060546F537472696E676020636F6D70757465642070726F70657274792E
 		Attributes( Hidden ) Private mStringValue As String
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 546865206E616E6F7365636F6E642E
 		#tag Getter
 			Get
 			  Return mNanosecond
@@ -126,7 +126,7 @@ Protected Class TKLocalTime
 		Nanosecond As Integer
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 546865207365636F6E642E
 		#tag Getter
 			Get
 			  Return mSecond
@@ -135,7 +135,7 @@ Protected Class TKLocalTime
 		Second As Integer
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 546865206E756D626572206F66207365636F6E64732066726F6D206D69646E696768742E
 		#tag Getter
 			Get
 			  If mSecondsFromMidnight < 0.0 Then
@@ -153,7 +153,7 @@ Protected Class TKLocalTime
 		SecondsFromMidnight As Double
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 4120737472696E6720726570726573656E746174696F6E206F662074686973206C6F63616C2074696D652E
 		#tag Getter
 			Get
 			  If mStringValue = "" Then

@@ -1,7 +1,9 @@
 #tag Class
 Private Class TKParser
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function GetChunk(startIndex As Integer, endIndex As Integer) As String
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -19,12 +21,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 476574732074686520696E646578206F662074686520746172676574206279746520696E2074686520726F772E2057696C6C2073746F7020617420454F4C206F72206120636F6D6D656E742E
 		Private Function IndexOfByte(p As Ptr, lastByteIndex As Integer, byteIndex As Integer, targetByte As Integer) As Integer
-		  //
-		  // Get index of the target byte in the row
-		  // Will stop at EOL or a comment
-		  //
+		  /// Gets the index of the target byte in the row.
+		  /// Will stop at EOL or a comment.
 		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
@@ -55,11 +55,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E2057696C6C20726169736520616E20657863657074696F6E2069662069742773206E6F7420612076616C696420657363617065206368617261637465722E
 		Private Function InterpretEscaped(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As String
-		  //
-		  // Will raise an exception if it's not a valid escape character
-		  //
+		  /// Internal use.
+		  /// Will raise an exception if it's not a valid escape character.
 		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
@@ -167,8 +166,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function IsDictionaryArray(arr() As Variant) As Boolean
+		  /// Internal use.
+		  
 		  For Each item As Variant In arr
 		    If item.Type <> Variant.TypeObject Or Not ( item IsA Dictionary ) Then
 		      Return False
@@ -180,8 +181,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function MaybeParseArray(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, ByRef value As Variant) As Boolean
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -248,8 +251,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function MaybeParseBoolean(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, ByRef value As Variant) As Boolean
+		  /// Internal use.
+		  
 		  #Pragma unused lastByteIndex
 		  
 		  #If Not DebugBuild Then
@@ -291,11 +296,11 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function MaybeParseComment(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As Boolean
-		  //
-		  // Should skip whitespace before calling this
-		  //
+		  /// Internal use.
+		  ///
+		  /// Should skip whitespace before calling this.
 		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
@@ -328,8 +333,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function MaybeParseDateTime(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, ByRef value As Variant) As Boolean
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -449,8 +456,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function MaybeParseNumber(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, ByRef value As Variant) As Boolean
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -691,8 +700,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function MaybeParseString(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, ByRef value As Variant) As Boolean
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -718,8 +729,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function MaybeParseTable(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, ByRef value As Variant) As Boolean
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -785,8 +798,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub MaybeRaiseIllegalCharacterException(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer)
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -811,8 +826,10 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub MaybeRaiseInvalidUnderscoreException(p As Ptr, lastByteIndex As Integer, byteIndex As Integer)
+		  /// Internal use.
+		  
 		  If byteIndex >= 0 And byteIndex <= lastByteIndex And p.Byte( byteIndex ) = kByteUnderscore Then
 		    RaiseException "An underscore cannot be the first or last number character in row " + RowNumber.ToString
 		  End If
@@ -822,6 +839,8 @@ Private Class TKParser
 
 	#tag Method, Flags = &h21
 		Private Sub MaybeRaiseUnexpectedCharException(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, expectedByte As Integer)
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -837,8 +856,10 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub MaybeRaiseUnexpectedEOLException(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer)
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -909,8 +930,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function ParseBasicString(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As String
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1055,8 +1078,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function ParseBinary(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As Integer
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1087,8 +1112,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function ParseHex(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As Integer
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1123,8 +1150,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub ParseKeyAndValueIntoDictionary(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, intoDict As Dictionary, allowInline As Boolean)
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1181,11 +1210,11 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E7320616E206172726179206F66206B657973207374617274696E67206174207468697320706F736974696F6E
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function ParseKeys(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As String()
-		  //
-		  // Should be at the first non-whitespace position
-		  //
+		  /// Internal use.
+		  ///
+		  /// Should be at the first non-whitespace position.
 		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
@@ -1305,8 +1334,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function ParseLiteralString(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As String
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1387,8 +1418,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub ParseNextRow(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer)
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1552,8 +1585,10 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function ParseOctal(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As Integer
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1583,8 +1618,10 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Function ParseValue(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer) As Variant
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1611,16 +1648,20 @@ Private Class TKParser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub RaiseDuplicateKeyException(key As String)
+		  /// Internal use.
+		  
 		  Var msg As String = "Duplicate key '" + key + "' on row " + RowNumber.ToString
 		  RaiseException msg
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub RaiseException(msg As String)
+		  /// Internal use.
+		  
 		  Var e As New TKException
 		  e.Message = msg
 		  Raise e
@@ -1628,8 +1669,10 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub RaiseIllegalCharacterException(byteIndex As Integer)
+		  /// Internal use.
+		  
 		  Var col As Integer = byteIndex - RowStartByteIndex + 1
 		  Var msg As String = "Illegal character on row " + RowNumber.ToString + ", column " + col.ToString
 		  RaiseException msg
@@ -1637,16 +1680,20 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub RaiseIllegalKeyException()
+		  /// Internal use.
+		  
 		  Var msg As String = "An illegal key was found on row " + RowNumber.ToString
 		  RaiseException msg
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub RaiseUnexpectedCharException(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer, expectedByte As Integer)
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1665,16 +1712,20 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub RaiseUnexpectedEndOfDataException()
+		  /// Internal use.
+		  
 		  Var msg As String = "Data has ended unexpectedly on row " + RowNumber.ToString
 		  RaiseException msg
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub SkipToNextRow(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer)
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1696,8 +1747,10 @@ Private Class TKParser
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private Sub SkipWhitespace(p As Ptr, lastByteIndex As Integer, ByRef byteIndex As Integer)
+		  /// Internal use.
+		  
 		  #If Not DebugBuild Then
 		    #Pragma BackgroundTasks False
 		    #Pragma BoundsChecking False
@@ -1726,44 +1779,44 @@ Private Class TKParser
 	#tag EndNote
 
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private BaseDictionary As Dictionary
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private CurrentDictionary As Dictionary
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private DotDefinedDictionaries() As Dictionary
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private InlineArrays() As Variant
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private RowNumber As Integer = 0
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private RowStartByteIndex As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private SectionDefinedDictionaries() As Dictionary
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private TOML As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 496E7465726E616C207573652E
 		Private TOMLMemoryBlock As MemoryBlock
 	#tag EndProperty
 
 
-	#tag Constant, Name = kErrorUnexpectedEOL, Type = String, Dynamic = False, Default = \"Unexpected EOL", Scope = Private
+	#tag Constant, Name = kErrorUnexpectedEOL, Type = String, Dynamic = False, Default = \"Unexpected EOL", Scope = Private, Description = 556E657870656374656420454F4C206572726F72206D6573736167652E
 	#tag EndConstant
 
 

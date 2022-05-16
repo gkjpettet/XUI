@@ -124,7 +124,7 @@ Protected Class XUICETokenStyle
 		Bold As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468697320746F6B656E277320746578742E
 		Colour As ColorGroup
 	#tag EndProperty
 

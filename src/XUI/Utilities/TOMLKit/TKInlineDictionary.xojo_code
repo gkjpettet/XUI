@@ -1,8 +1,10 @@
 #tag Class
 Protected Class TKInlineDictionary
 Inherits Dictionary
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C207573652064656C656761746520666F7220736F7274696E6720616E2061727261792E
 		Private Shared Function CaseDelegate(key1 As Variant, key2 As Variant) As Integer
+		  /// Internal use delegate for sorting an array.
+		  
 		  If key1.Type <> key2.Type Then
 		    Return key1.Type - key2.Type
 		  End If

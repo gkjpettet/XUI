@@ -243,7 +243,7 @@ Inherits DesktopTextInputCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 496E7465726E616C206F76657272696465206D6574686F642E20416C776179732072657475726E7320547275652E
 		Private Shared Function NSViewIsFlipped(obj As Ptr, sel As Ptr) As Boolean
 		  // Internal use. This is the override of the view's IsFlipped selector.
 		  
@@ -429,10 +429,7 @@ Inherits DesktopTextInputCanvas
 		Protected HasVerticalScrollbar As Boolean = True
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		#tag Note
-			This dictionary is used to associate a Xojo object with an Objective-C class
-		#tag EndNote
+	#tag Property, Flags = &h21, Description = 412064696374696F6E617279206D617070696E6720586F6A6F206F626A656374732077697468204F626A6563746976652D4320636C61737365732E204B6579203D206F626A6563742060507472602C2056616C7565203D20605765616B526566602E
 		Private Shared LookupTable As Dictionary
 	#tag EndProperty
 
@@ -444,7 +441,7 @@ Inherits DesktopTextInputCanvas
 		Protected NSNotificationCenter As Ptr
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h1
+	#tag ComputedProperty, Flags = &h1, Description = 54686520707265666572726564207363726F6C6C6572207374796C652E
 		#tag Getter
 			Get
 			  #If TargetMacOS

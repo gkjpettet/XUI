@@ -1000,7 +1000,7 @@ Protected Class XUICELineManager
 		LineCount As Integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 546865206C696E6573206F662074657874206D616E6167656420627920746865206C696E65206D616E616765722E
 		Lines() As XUICELine
 	#tag EndProperty
 
