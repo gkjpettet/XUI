@@ -21,9 +21,9 @@ Protected Class XUIUndoManager
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E732061207265666572656E636520746F20746865206E657874207265646F61626C6520616374696F6E2E
 		Function NextRedo() As XUIUndoableAction
-		  // Returns a reference to the next redoable action.
+		  /// Returns a reference to the next redoable action.
 		  
 		  If mRedoStack.Count = 0 Then
 		    Return Nil
@@ -34,9 +34,9 @@ Protected Class XUIUndoManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 52657475726E732061207265666572656E636520746F20746865206E65787420756E646F61626C6520616374696F6E2E
 		Function NextUndo() As XUIUndoableAction
-		  // Returns a reference to the next undoable action.
+		  /// Returns a reference to the next undoable action.
 		  
 		  If mUndoStack.Count = 0 Then
 		    Return Nil
@@ -152,6 +152,15 @@ Protected Class XUIUndoManager
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		`XUIUndoManager` forms the basis of a generic, application-wide, undo / redo manager. It is used
+		extensively throughout XUI and can be seen in action in the `XUICodeEditor` demo.
+		
+		It essentially manages a stack of `XUIUndoableAction` instances.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 547275652069662074686572652061726520617661696C61626C65207265646F20616374696F6E732E
 		#tag Getter
 			Get
@@ -194,7 +203,7 @@ Protected Class XUIUndoManager
 		Private mUndoStack() As XUIUndoableAction
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 4120706F696E74657220746F2074686520746F70206F662074686520756E646F20737461636B2E
 		Private mUndoStackIndex As Integer
 	#tag EndProperty
 

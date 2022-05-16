@@ -2,6 +2,13 @@
 Protected Class XUICELocation
 	#tag Method, Flags = &h0
 		Sub Constructor(line As XUICELine, caretPos As Integer, column As Integer, overLine As Boolean)
+		  /// Default constructor.
+		  ///
+		  /// - The `line` containing this location.
+		  /// - `caretPos` is the 0-based caret position at this location.
+		  /// - `overLine` is `True` if the location is actually over a line (and not past 
+		  ///   its left or right edge).
+		  
 		  Self.Line = line
 		  Self.CaretPos = caretPos
 		  Self.Column = column
@@ -10,14 +17,20 @@ Protected Class XUICELocation
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F662074686973206C6F636174696F6E20286C696E652C20636F6C292E
+	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F662074686973206C6F636174696F6E2028606C696E652C20636F6C60292E
 		Function ToString() As String
-		  /// Returns a string representation of this location (line, col).
+		  /// Returns a string representation of this location (`line, col`).
 		  
 		  Return Self.Line.Number.ToString + ", " + Self.Column.ToString
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a location within the code editor.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746865206C6F636174696F6E2069732061637475616C6C79206F76657220746865206C696E6520286E6F74206265666F7265206F72206166746572206974292E

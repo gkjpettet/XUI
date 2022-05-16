@@ -1,7 +1,12 @@
 #tag Class
 Protected Class XUICECaretData
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(character As String, style As XUICETokenStyle)
+		  /// Default constructor.
+		  ///
+		  /// - `character` is the character _behind_ the caret.
+		  /// - `style` is the style of the character behind the caret.
+		  
 		  Self.Character = character
 		  Self.Style = style
 		  

@@ -96,7 +96,10 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       DefaultImage    =   1502371839
       DisabledImage   =   0
       Enabled         =   True
-      HasBorder       =   False
+      HasBottomBorder =   False
+      HasLeftBorder   =   False
+      HasRightBorder  =   False
+      HasTopBorder    =   False
       Height          =   28
       HoverImage      =   0
       Index           =   -2147483648
@@ -140,7 +143,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       Tooltip         =   ""
       Top             =   131
       Transparent     =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   321
       Begin DesktopTextField SlidersRGBHexValue
@@ -1201,7 +1204,10 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       DefaultImage    =   1752608767
       DisabledImage   =   0
       Enabled         =   True
-      HasBorder       =   False
+      HasBottomBorder =   False
+      HasLeftBorder   =   False
+      HasRightBorder  =   False
+      HasTopBorder    =   False
       Height          =   28
       HoverImage      =   0
       Index           =   -2147483648

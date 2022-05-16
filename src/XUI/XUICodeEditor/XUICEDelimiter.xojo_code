@@ -1,7 +1,12 @@
 #tag Class
 Protected Class XUICEDelimiter
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(openingDelimiter As XUICELineToken, closingDelimiter As XUICELineToken)
+		  /// Default constructor.
+		  ///
+		  /// - `openingDelimiter` is the opening delimiter token in this matched pair of delimiters.
+		  /// - `closingDelimiter` is the closing delimiter token in this matched pair of delimiters.
+		  
 		  Self.Opener = openingDelimiter
 		  Self.Closer = closingDelimiter
 		End Sub
@@ -34,7 +39,7 @@ Protected Class XUICEDelimiter
 	#tag EndProperty
 
 
-	#tag Enum, Name = Types, Type = Integer, Flags = &h0
+	#tag Enum, Name = Types, Type = Integer, Flags = &h0, Description = 54686520737570706F72746564207479706573206F662064656C696D697465722E
 		LCurly
 		  LParen
 		  LSquare

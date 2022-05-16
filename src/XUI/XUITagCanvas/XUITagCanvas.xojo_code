@@ -387,8 +387,10 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
@@ -590,7 +592,7 @@ Implements XUINotificationListener
 		Sub NotificationReceived(n As XUINotification)
 		  /// A notification has been received from the Notification Center.
 		  ///
-		  /// Part of the XUINotificationListener interface.
+		  /// Part of the `XUINotificationListener` interface.
 		  
 		  Select Case n.Key
 		  Case App.NOTIFICATION_APPEARANCE_CHANGED
@@ -936,13 +938,32 @@ Implements XUINotificationListener
 		Event ClickedTag(tag As XUITag, isContextualClick As Boolean)
 	#tag EndHook
 
-	#tag Hook, Flags = &h0
+	#tag Hook, Flags = &h0, Description = 54686520636F6E74726F6C206973206F70656E696E672E
 		Event Opening()
 	#tag EndHook
 
 	#tag Hook, Flags = &h0, Description = 412074616720686173206265656E2072656D6F7665642066726F6D20746865207461672063616E7661732E204966206076696144696E677573602069732054727565207468656E2074686520746167207761732072656D6F7665642062656361757365207468652064696E6775732077617320636C69636B65642E
 		Event RemovedTag(tag As XUITag, viaWidget As Boolean)
 	#tag EndHook
+
+
+	#tag Note, Name = About
+		`XUITagCanvas` is a really useful, highly customisable and good looking UI control for accepting and
+		presenting "tags".
+		
+		You will most likely have seen examples of this type of control in the address field of email 
+		clients or perhaps in the search fields of applications such as the Finder on macOS.
+		
+		The `XUITagCanvas` is a fully functioning `DesktopTextInputCanvas` subclass so you can type freely
+		into it. 
+		
+		The control supports autocompletion of tags using a flexible "parselet" system. What does this mean? 
+		Well, let's say you want to replicate the functionality commonly seen in the "To:" field of an email
+		client (where if the user types a valid email address a tag is created or if the user types a known
+		contact's name into the field a tag is created). This is natively supported with the included 
+		`XUIEmailTagParselet` and an example is provided in the demo app of how easy this is to implement.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746865207461672063616E76617320737570706F727473206175746F636F6D706C6574652E

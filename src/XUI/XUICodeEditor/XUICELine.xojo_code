@@ -114,6 +114,15 @@ Inherits XUITextLine
 
 	#tag Method, Flags = &h0
 		Sub Constructor(owner As XUICELineManager, lineNumber As Integer, startPos As Integer, lineContents As String, shouldTokenise As Boolean = True)
+		  /// Default constructor.
+		  ///
+		  /// - `owner` is the `XUILineManager` that manages this line. Will be kept as a `WeakRef`.
+		  /// - `lineNumber` is this line's 1-based line number.
+		  /// - `startPos` is the 0-based position in the source code that this line begins at.
+		  /// - `lineContents` is the contents of this line.
+		  /// - `shouldTokenise` determines if this line should be tokenised by the 
+		  ///   line manager's code editor's active formatter upon instantiation. Default is `True`.
+		  
 		  mOwnerRef = New WeakRef(owner)
 		  Self.Number = lineNumber
 		  Self.Start = startPos
@@ -185,17 +194,19 @@ Inherits XUITextLine
 		Sub Draw(g As Graphics, topLeftX As Double, topLeftY As Double, lineH As Double, gutterWidth As Double, containsCaret As Boolean, maxLineNumWidth As Double)
 		  /// Draws this line to `g`.
 		  ///
-		  /// `topLeftX` is the X coord of the top left corner of the line.
-		  /// `topLeftY` is the Y coord of the top left corner of the line.
-		  /// `lineH` is the height of the line.
-		  /// `gutterWidth` is the width of the gutter.
-		  /// `maxLineNumWidth` is the width of the bounding rectangle around the longest 
-		  /// line number in the gutter.
+		  /// - `topLeftX` is the X coord of the top left corner of the line.
+		  /// - `topLeftY` is the Y coord of the top left corner of the line.
+		  /// - `lineH` is the height of the line.
+		  /// - `gutterWidth` is the width of the gutter.
+		  /// - `maxLineNumWidth` is the width of the bounding rectangle around the longest 
+		  ///   line number in the gutter.
 		  ///
 		  /// A line includes the gutter, any spacing for indentation and the line 
 		  /// contents itself.
+		  ///
 		  /// Anti-aliasing needs to be disabled whenever we draw on Windows _except_ for 
 		  /// text (which looks rubbish if anti-aliasing is off).
+		  ///
 		  /// Assumes that the graphics context has anti-aliasing off in Windows builds.
 		  
 		  #Pragma Unused containsCaret
@@ -493,11 +504,11 @@ Inherits XUITextLine
 		Private Sub DrawText(g As Graphics, s As String, x As Double, y As Double, wrapWidth As Double = 0, condense As Boolean = False)
 		  /// Draws an anti-aliased string `s` at the specified location in `g`.
 		  ///
-		  /// `s` is the string to draw.
-		  /// `x` is the x coordinate.
-		  /// `y` is the y coordinate of the text baseline.
-		  /// `wrapWidth` is the width the text will wrap at.
-		  /// If `condense` is True then the string may be truncated with an ellipsis.
+		  /// - `s` is the string to draw.
+		  /// - `x` is the x coordinate.
+		  /// - `y` is the y coordinate of the text baseline.
+		  /// - `wrapWidth` is the width the text will wrap at.
+		  /// - If `condense` is True then the string may be truncated with an ellipsis.
 		  ///
 		  /// This is essentially a wrapper to the `Graphics.DrawText` method. 
 		  /// It exists because we need to disable anti-aliasing in the graphics contexts 
@@ -958,6 +969,12 @@ Inherits XUITextLine
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a single line of text in the `XUICodeEditor`.
+		
+	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865206C656E677468206F662074686973206C696E6520696E20636F6C756D6E732E204120636F6D62696E6174696F6E206F6620746865206E756D626572206F66206368617261637465727320616E642074686520616D6F756E74206F6620696E64656E746174696F6E2E

@@ -5,13 +5,19 @@ Implements XUITagParselet
 		Function Parse(s As String) As XUITag
 		  /// Returns a tag with a title of `s` and no arbitrary data.
 		  ///
-		  /// Part of the XUITagParselet interface.
+		  /// Part of the `XUITagParselet` interface.
 		  
 		  If s = "" Then Return Nil
 		  
 		  Return New XUITag(s, Nil)
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		This parselet creates a tag from any string passed to it. This is the simplest parselet possible.
+		
+	#tag EndNote
 
 
 End Class

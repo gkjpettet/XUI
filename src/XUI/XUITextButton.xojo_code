@@ -102,6 +102,12 @@ Inherits DesktopCanvas
 	#tag EndHook
 
 
+	#tag Note, Name = About
+		`XUITextButton` is a simple, customisable and modern-looking text button.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6C6F7572206F6620746865206261636B67726F756E642028696620656E61626C6564292E
 		#tag Getter
 			Get
@@ -309,7 +315,7 @@ Inherits DesktopCanvas
 	#tag EndComputedProperty
 
 
-	#tag Enum, Name = Types, Flags = &h0, Description = 54686520737570706F7274207479706573206F6620627574746F6E2E
+	#tag Enum, Name = Types, Flags = &h0, Description = 54686520737570706F72746564207479706573206F6620627574746F6E2E
 		PushButton
 		ToggleButton
 	#tag EndEnum

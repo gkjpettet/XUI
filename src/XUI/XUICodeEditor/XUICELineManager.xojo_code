@@ -51,8 +51,10 @@ Protected Class XUICELineManager
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 606F776E657260206973207468652060585549436F6465456469746F72602074686174206F776E732074686973206C696E65206D616E616765722E
 		Sub Constructor(owner As XUICodeEditor)
+		  /// `owner` is the `XUICodeEditor` that owns this line manager.
+		  
 		  mOwnerRef = New WeakRef(owner)
 		  
 		  // Start with a single empty line.
@@ -81,9 +83,10 @@ Protected Class XUICELineManager
 		Function ContentsFrom(startLineNumber As Integer, endLineNum As Integer = -1) As String
 		  /// Returns the contents of every line in the passed range (inclusive).
 		  ///
-		  /// `startLineNum` is the 1-based number of the line to start at.
-		  /// `endLineNum` is the 1-based number of the line to end at.
-		  /// If `endLineNum` = -1 then we get all contents from `startLineNum` to the last line.
+		  /// - `startLineNum` is the 1-based number of the line to start at.
+		  /// - `endLineNum` is the 1-based number of the line to end at.
+		  ///
+		  /// If `endLineNum = -1` then we get all contents from `startLineNum` to the last line.
 		  
 		  If endLineNum = -1 Then endLineNum = Lines.Count
 		  
@@ -169,10 +172,10 @@ Protected Class XUICELineManager
 		Sub DeleteSelection(allowUndo As Boolean, shouldInvalidate As Boolean, raiseContentsDidChange As Boolean = True, undoMessage As String = "")
 		  /// Deletes the current text selection and updates the caret position.
 		  ///
-		  /// If `allowUndo` is True then this action should be pushed to the undo manager.
-		  /// If `shouldInvalidate` is True then the canvas will be invalidated after the deletion.
-		  /// If `raiseContentsDidChange` is True then we will raise the editor's `ContentsDidChange event`.
-		  /// `undoMessage` is an optional override message for undoable actions.
+		  /// - If `allowUndo` is True then this action should be pushed to the undo manager.
+		  /// - If `shouldInvalidate` is True then the canvas will be invalidated after the deletion.
+		  /// - If `raiseContentsDidChange` is True then we will raise the editor's `ContentsDidChange event`.
+		  /// - `undoMessage` is an optional override message for undoable actions.
 		  ///
 		  /// There are 6 scenarios:
 		  ///
@@ -960,6 +963,15 @@ Protected Class XUICELineManager
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Every `XUICodeEditor` has a _Line Manager_ that is represented by an instance of this class.
+		
+		It is the responsibility of the line manager to handle the manipulation of lines of code 
+		within an editor.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 54686520666F726D6174746572207573656420746F20666F726D6174207465787420696E2074686520656469746F722E
 		#tag Getter
 			Get
@@ -1018,11 +1030,11 @@ Protected Class XUICELineManager
 		Private mLongestLine As XUICELine
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 53746F72657320746865206C61737420636F6D7075746564206D61746368696E672064656C696D69746572732E205573656420696E7465726E616C6C792077697468696E205B5570646174654E65617265737444656C696D69746572735D2E204D6179206265204E696C2E
+	#tag Property, Flags = &h21, Description = 53746F72657320746865206C61737420636F6D7075746564206D61746368696E672064656C696D69746572732E205573656420696E7465726E616C6C792077697468696E20605570646174654E65617265737444656C696D69746572732829602E204D6179206265204E696C2E
 		Private mNearestDelimiters As XUICEDelimiter
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F20746865204D4345456469746F722074686174206F776E732074686973206C696E65206D616E616765722E
+	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F207468652060585549436F6465456469746F72602074686174206F776E732074686973206C696E65206D616E616765722E
 		Private mOwnerRef As WeakRef
 	#tag EndProperty
 
@@ -1035,7 +1047,7 @@ Protected Class XUICELineManager
 		NearestDelimiters As XUICEDelimiter
 	#tag EndComputedProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865204D4345456469746F722074686174206F776E732074686973206C696E65206D616E616765722E
+	#tag ComputedProperty, Flags = &h0, Description = 5468652060585549436F6465456469746F72602074686174206F776E732074686973206C696E65206D616E616765722E
 		#tag Getter
 			Get
 			  If mOwnerRef.Value <> Nil Then

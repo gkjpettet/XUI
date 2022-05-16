@@ -109,8 +109,10 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  

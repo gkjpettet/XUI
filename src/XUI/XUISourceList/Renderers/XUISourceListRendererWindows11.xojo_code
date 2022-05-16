@@ -1,8 +1,10 @@
 #tag Class
 Protected Class XUISourceListRendererWindows11
 Implements XUISourceListRenderer
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(owner As XUISourceList)
+		  /// `owner` is the `XUISourceList` that owns this renderer. A `WeakRef` will be created.
+		  
 		  If owner = Nil Then
 		    mOwner = Nil
 		  Else
@@ -28,7 +30,7 @@ Implements XUISourceListRenderer
 		Function Owner() As XUISourceList
 		  /// The source list that this renderer operates on.
 		  ///
-		  /// Part of the XUISourceListRenderer interface.
+		  /// Part of the `XUISourceListRenderer` interface.
 		  
 		  If mOwner = Nil Or mOwner.Value = Nil Then
 		    Return Nil
@@ -43,7 +45,7 @@ Implements XUISourceListRenderer
 		Sub RenderBackground(g As Graphics, row As Integer)
 		  /// Draw the background for the specified row. The row may be empty.
 		  ///
-		  /// Part of the XUISourceListRenderer interface.
+		  /// Part of the `XUISourceListRenderer` interface.
 		  
 		  #Pragma Unused row
 		  
@@ -174,11 +176,20 @@ Implements XUISourceListRenderer
 	#tag Method, Flags = &h0, Description = 54686520686569676874206F66206120726F7720696E2074686520736F75726365206C6973742E
 		Function RowHeight() As Integer
 		  /// The height of a row in the source list.
+		  ///
+		  /// Part of the `XUISourceListRenderer` interface.
 		  
 		  Return 32
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		A source list renderer that renders a `XUISourceList` similar to that seen in the 
+		Windows 11 File Explorer application.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520736F75726365206C697374207468617420746869732072656E6465726572206F70657261746573206F6E2E

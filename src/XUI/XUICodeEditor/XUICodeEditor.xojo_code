@@ -20,7 +20,7 @@ Implements XUINotificationListener
 		End Function
 	#tag EndEvent
 
-	#tag Event , Description = 48616E646C65732060636F6D6D616E64602E
+	#tag Event
 		Function DoCommand(command As String) As Boolean
 		  /// Handles `command`.
 		  ///
@@ -602,7 +602,7 @@ Implements XUINotificationListener
 		End Function
 	#tag EndEvent
 
-	#tag Event
+	#tag Event , Description = 546865207363726F6C6C207669657720626F756E647320686173206368616E6765642E
 		Sub NSScrollViewBoundsChanged(bounds As CGRect)
 		  /// The user has scrolled with the mouse / trackpad on macOS.
 		  ///
@@ -640,7 +640,7 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndEvent
 
-	#tag Event
+	#tag Event , Description = 5468652063616E766173206973206F70656E696E672E
 		Sub Opening()
 		  /// Sets some reasonable defaults for our computed properties.
 		  /// These have to be set in `Open` rather than the constructor because the 
@@ -896,8 +896,10 @@ Implements XUINotificationListener
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  Super.Constructor
 		  
 		  Self.LineManager = New XUICELineManager(Self)
@@ -1328,9 +1330,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 48616E646C657320746865207072657373696E67206F6620746865204374726C2B5370616365206B657920636F6D62696E6174696F6E2E
 		Private Sub HandleCtrlSpace()
-		  // Handle the pressing of the Ctrl+Space key combination.
+		  /// Handles the pressing of the Ctrl+Space key combination.
 		  
 		  If AutocompleteCombo = AutocompleteCombos.CtrlSpace Then
 		    HandleAutocompleteKeyPress
@@ -3513,7 +3515,7 @@ Implements XUINotificationListener
 		AllowInertialScrolling As Boolean = True
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 546865206B6579626F6172642073686F7274637574207573656420746F2074726967676572206175746F636F6D706C6574696F6E2E
 		AutocompleteCombo As XUICodeEditor.AutocompleteCombos = XUICodeEditor.AutocompleteCombos.Tab
 	#tag EndProperty
 
@@ -3982,7 +3984,7 @@ Implements XUINotificationListener
 		LastFullyVisibleLineNumber As Integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 41207265666572656E636520746F207468697320636F646520656469746F722773206C696E65206D616E616765722E
 		LineManager As XUICELineManager
 	#tag EndProperty
 

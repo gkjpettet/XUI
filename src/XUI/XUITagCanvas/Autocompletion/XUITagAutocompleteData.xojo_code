@@ -17,6 +17,13 @@ Protected Class XUITagAutocompleteData
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Contains the tag autocomplete options for a given prefix. Returned by autocomplete engines when
+		requested by the tag canvas.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 546865206C6F6E6765737420636F6D6D6F6E2070726566697820616D6F6E67737420616C6C2073756767657374696F6E73206D696E7573207468652074726967676572696E67207072656669782E
 		LongestCommonPrefix As String
 	#tag EndProperty
@@ -77,7 +84,7 @@ Protected Class XUITagAutocompleteData
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Prefix"
@@ -85,7 +92,7 @@ Protected Class XUITagAutocompleteData
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

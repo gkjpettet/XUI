@@ -1,12 +1,23 @@
 #tag Class
 Protected Class XUITagData
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(title As String, data As Variant = Nil)
+		  /// Default constructor.
+		  ///
+		  /// - `title` is the tag text visible to the user.
+		  /// - `data` is optional arbitrary data associated with the tag to be created.
+		  
 		  Self.Title = title
 		  Self.Data = data
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		This class stores the necessary information required to create a tag.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 4F7074696F6E616C2061726269747261727920646174612E

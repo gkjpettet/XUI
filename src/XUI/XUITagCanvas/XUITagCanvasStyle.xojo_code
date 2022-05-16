@@ -76,6 +76,15 @@ Protected Class XUITagCanvasStyle
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		This class stores the style properties (such as colours and font size) that should be used when
+		rendering a `XUITagCanvas` and any tags it contains.
+		
+		Contains shared methods that conveniently return preconfigured styles for common operating systems.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652074657874206F6620756E73656C6563746564206F7074696F6E7320696E20746865206175746F636F6D706C65746520706F7075702E
 		AutocompleteOptionColor As ColorGroup
 	#tag EndProperty

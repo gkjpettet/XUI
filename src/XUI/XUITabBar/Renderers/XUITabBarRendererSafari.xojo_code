@@ -5,7 +5,7 @@ Implements XUITabBarRenderer
 		Function BufferWidth() As Integer
 		  /// The current width of the buffer in points.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  If Owner = Nil Then Return 0
 		  If mBuffer = Nil Then Return 0
@@ -13,9 +13,11 @@ Implements XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 606F776E657260206973207468652060585549546162426172602074686174206F776E7320746869732072656E64657265722E204120605765616B526566602077696C6C20626520637265617465642E
 		Sub Constructor(owner As XUITabBar)
-		  /// Part of the XUITabBarRenderer interface.
+		  /// `owner` is the `XUITabBar` that owns this renderer. A `WeakRef` will be created.
+		  ///
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  If owner = Nil Then
 		    mOwner = Nil
@@ -55,7 +57,7 @@ Implements XUITabBarRenderer
 		Function LeftMenuButtonWidth() As Double
 		  /// The width of the left menu button (if supported by this renderer).
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return 0
 		End Function
@@ -73,7 +75,7 @@ Implements XUITabBarRenderer
 		Function Owner() As XUITabBar
 		  /// The tab bar this renderer operates on.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  If mOwner = Nil Or mOwner.Value = Nil Then
 		    Return Nil
@@ -83,16 +85,19 @@ Implements XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520696D61676520746F20626520647261776E20746F207468652074616220626172277320677261706869637320636F6E7465787420696E20697473205061696E74206576656E742E
+	#tag Method, Flags = &h0, Description = 52656E6465727320746865207461622062617220746F207468652070617373656420677261706869637320636F6E7465787420617420607363726F6C6C506F7358602E
 		Sub Render(ownerGraphics As Graphics, scrollPosX As Integer, needsFullRedraw As Boolean = True)
 		  /// Renders the tab bar to the passed graphics context at `scrollPosX`.
 		  ///
 		  /// Assumes that `ownerGraphics` is the graphics context from the tab bar's `Paint` event.
-		  /// `scrollPosX` is the number of pixels (>= 0) the tab bar has been scrolled to the right. `0` is no scrolling.
-		  /// `ownerGraphics` will be used as a temporary drawing scratch pad but will ultimately be overwritten when 
-		  /// we draw the background and buffer to it.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// `scrollPosX` is the number of pixels (>= 0) the tab bar has been scrolled to the right. 
+		  /// `0` is no scrolling.
+		  ///
+		  /// `ownerGraphics` will be used as a temporary drawing scratch pad but will ultimately 
+		  /// be overwritten when we draw the background and buffer to it.
+		  ///
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  // Sanity checks.
 		  If ownerGraphics = Nil Then
@@ -276,7 +281,7 @@ Implements XUITabBarRenderer
 		Function RightMenuButtonWidth() As Double
 		  /// The width of the right menu button (if supported by this renderer).
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return 0
 		End Function
@@ -332,7 +337,7 @@ Implements XUITabBarRenderer
 		Function SupportsLeftMenuButton() As Boolean
 		  /// True if this renderer supports the concept of a left menu button.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return False
 		End Function
@@ -342,7 +347,7 @@ Implements XUITabBarRenderer
 		Function SupportsRightMenuButton() As Boolean
 		  /// True if this renderer supports the concept of a right menu button.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return False
 		End Function
@@ -352,7 +357,7 @@ Implements XUITabBarRenderer
 		Function TabBarHeight() As Integer
 		  /// Returns the height the tab bar will be rendered at.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return 28
 		  
@@ -388,6 +393,12 @@ Implements XUITabBarRenderer
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A tab bar renderer that renders a `XUITabBar` similar to that seen in macOS Safari.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 4361636865206F662074686520506963747572652072657475726E65642066726F6D20746865206C6173742063616C6C20746F206058554954616242617252656E6465722E4275666665722829602E204D6179206265204E696C2E
 		Private mBuffer As Picture
 	#tag EndProperty
@@ -415,7 +426,7 @@ Implements XUITabBarRenderer
 	#tag Constant, Name = MIN_TAB_WIDTH, Type = Double, Dynamic = False, Default = \"120", Scope = Private, Description = 546865206D696E696D756D2077696474682061207461622073686F756C642062652E
 	#tag EndConstant
 
-	#tag Constant, Name = TAB_HORIZONTAL_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private
+	#tag Constant, Name = TAB_HORIZONTAL_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061642074686520636F6E74656E742066726F6D20746865207461622065646765732E
 	#tag EndConstant
 
 

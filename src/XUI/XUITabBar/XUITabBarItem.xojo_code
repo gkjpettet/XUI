@@ -2,6 +2,13 @@
 Protected Class XUITabBarItem
 	#tag Method, Flags = &h0
 		Sub Constructor(owner As XUITabBar, caption As String, icon As Picture = Nil, tag As Variant = Nil, closable As Boolean = True, enabled As Boolean = True)
+		  /// - `owner` is the owing tab bar. A `WeakRef` will be created.
+		  /// - `caption` is the text displayed on the tab.
+		  /// - `icon` is an optional icon for the tab.
+		  /// - `tag` is optional arbitrary data to associate with the tab.
+		  /// - If `closable` is `True` (the default) then this tab will be closable by the user.
+		  /// - `enabled` determines if the tab is enable (default is `True`).
+		  
 		  If owner = Nil Then
 		    Raise New InvalidArgumentException("Tab bar items must have a non-Nil owner.")
 		  End If
@@ -14,6 +21,12 @@ Protected Class XUITabBarItem
 		  Self.Enabled = enabled
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		This class represents a tab in a `XUITabBar`.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 5468697320746162277320626F756E64732E205468657920617265206C6F63616C20746F207468652072656E64657265722773206275666665722E

@@ -9,8 +9,10 @@ Protected Interface XUITagParselet
 
 	#tag Note, Name = About
 		Parslets are responsible for parsing text into data that can be used to form a tag. 
-		Tags vary in their appearance but all require the same information to construct (a title +/- arbitrary data).
+		Tags vary in their appearance but all require the same information to construct 
+		(a title +/- arbitrary data).
 		
+		Example parselets are included with XUI but you are, of course, able to create your own.
 	#tag EndNote
 
 

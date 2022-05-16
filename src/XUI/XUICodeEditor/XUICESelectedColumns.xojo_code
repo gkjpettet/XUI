@@ -1,7 +1,15 @@
 #tag Class
 Protected Class XUICESelectedColumns
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(selectionBeginsBeforeLine As Boolean, start As Integer, selectionEndsAfterLine As Boolean, finish As Integer = -1)
+		  /// Default constructor.
+		  ///
+		  /// - `selectionBeginsBeforeLine` is `True` if the text selection begins above the line.
+		  /// - `start` is the 0-based column that is selected on the line.
+		  /// - `selectionEndsAfterLine` is `True` if the selection ends after this line.
+		  /// - `finish` is the last (0-based) column that is selected on the line. 
+		  ///   Will be `-1` if the selection ends beyond the line.
+		  
 		  Self.SelectionBeginsBeforeLine = selectionBeginsBeforeLine
 		  Self.Start = start
 		  Self.SelectionEndsAfterLine = selectionEndsAfterLine
@@ -9,6 +17,12 @@ Protected Class XUICESelectedColumns
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents the start and end columns contained by a text selection within the code editor.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 546865206C6173742028302D62617365642920636F6C756D6E20746861742069732073656C6563746564206F6E20746865206C696E652E2057696C6C20626520602D3160206966207468652073656C656374696F6E20656E6473206265796F6E6420746865206C696E652E

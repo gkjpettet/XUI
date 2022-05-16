@@ -1,7 +1,13 @@
 #tag Class
 Protected Class XUIColorPickerColorDot
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(colour As Color, name As String, ParamArray palette() As Color)
+		  /// Default constructor.
+		  ///
+		  /// - `colour` is the colour of this dot.
+		  /// - `name` is this dot's name.
+		  /// - `palette` contains this dot's palette colours. 
+		  
 		  Self.Colour = colour
 		  Self.Name = name
 		  
@@ -82,8 +88,8 @@ Protected Class XUIColorPickerColorDot
 			Name="Colour"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
+			InitialValue="&c000000"
+			Type="Color"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

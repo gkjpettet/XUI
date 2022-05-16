@@ -2,8 +2,10 @@
 Protected Class XUITabBarStyle
 	#tag Method, Flags = &h0
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  // Ensure that all color groups are initialised to avoid Nil object exceptions.
-		  // For conspicuousness we;ll set the colours to black and red.
+		  // For conspicuousness we'll set the colours to black and red.
 		  
 		  Me.BackgroundColor = New ColorGroup(Color.Black, Color.Red)
 		  Me.DisabledTabBackgroundColor = New ColorGroup(Color.Black, Color.Red)
@@ -94,23 +96,39 @@ Protected Class XUITabBarStyle
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Stores styling properties for a `XUITabBar`.
+		
+		The appearance of a `XUITabBar` is determined by two things - the tab bar's _renderer_ (which is
+		responsible for how the tab bar is drawn) and the tab bar's _style_. It's style (represented by this
+		class) specifies the colours the renderer should use for certain parts of the tab bar. Of course it
+		is up to the renderer to decide if it should honour these colours but all of the renderers 
+		provided with XUI do.
+		
+		The logic behind separating the renderering of a tab bar from its styling is to facilitate 
+		scenarios such as wanting to have a tab bar that looks like the macOS Safari tab bar but has
+		colours more in keeping with Windows or your own branding, for example. 
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 54686520746162206261722773206261636B67726F756E6420636F6C6F75722E2049742069732076697369626C65207768656E20746162732061726520647261676765642061726F756E642E
 		BackgroundColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220746865206261636B67726F756E64206F6620612064697361626C6564207461622E
 		DisabledTabBackgroundColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652074657874206F6E206120746162207768656E20746865207461622069732064697361626C65642E
 		DisabledTabTextColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520666F6E742066616D696C79206E616D6520746F2075736520666F72207465787420696E2074686520746162206261722E
 		FontName As String = "System"
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 5468652073697A65206F6620746865207461622062617220666F6E742E
 		FontSize As Integer = 12
 	#tag EndProperty
 
@@ -158,23 +176,23 @@ Protected Class XUITabBarStyle
 		Name As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F72207468652063757272656E746C792073656C6563746564207461622773206261636B67726F756E642E
 		SelectedTabBackgroundColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 4966207468652063757272656E746C792073656C65637465642074616220686173206120626F74746F6D20626F72646572202864657465726D696E6564206279207468652072656E646572657229207468656E20746869732069732074686520636F6C6F757220746F207573652E
 		SelectedTabBottomBorderColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652074657874206F6E207468652063757272656E746C792073656C6563746564207461622E
 		SelectedTabTextColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 4966207468652063757272656E746C792073656C65637465642074616220686173206120746F7020626F72646572202864657465726D696E6564206279207468652072656E646572657229207468656E20746869732069732074686520636F6C6F757220746F207573652E
 		SelectedTabTopBorderColor As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F722074686520626F7264657273206F662061207461622E
 		TabBorderColor As ColorGroup
 	#tag EndProperty
 

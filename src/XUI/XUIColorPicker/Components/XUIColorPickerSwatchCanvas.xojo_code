@@ -110,8 +110,10 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
@@ -134,6 +136,13 @@ Inherits DesktopCanvas
 	#tag Hook, Flags = &h0, Description = 546865207573657220636C69636B6564206120636F6C6F7572207377617463682E
 		Event PressedSwatch(selectedColor As Color)
 	#tag EndHook
+
+
+	#tag Note, Name = About
+		This class draws the colour swatches available for selection for a given colour shade dot in 
+		the `XUIColorPicker`.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21, Description = 5472756520696620746865207573657220636C69636B6564206120636F6C6F75722073776174636820647572696E6720746865206C61737420604D6F757365446F776E60206576656E742E

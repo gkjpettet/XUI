@@ -5,7 +5,7 @@ Implements XUITagParselet
 		Function Parse(s As String) As XUITag
 		  /// If `s` looks like an email address then returns a tag with a title of `s` and no arbitrary data.
 		  ///
-		  /// Part of the XUITagParselet interface.
+		  /// Part of the `XUITagParselet` interface.
 		  
 		  Var rx As New RegEx
 		  rx.SearchPattern = "^([a-zA-Z0-9_\-.\+]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,10})$"
@@ -16,6 +16,20 @@ Implements XUITagParselet
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		If the string passed to this parselet looks like an email address then it will return a tag whose
+		title is the email address. If the parselet does not think the string passed is an email address
+		then no tag is returned.
+		
+		The following regular expression is used to determine if the string is an email address or not:
+		
+		```
+		^([a-zA-Z0-9_\-.\+]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,10})$
+		```
+		
+	#tag EndNote
 
 
 	#tag ViewBehavior

@@ -63,8 +63,17 @@ Protected Class XUISourceListItem
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(title As String, icon As Picture = Nil, value As Integer = 0, data As Variant = Nil, canAcceptChildren As Boolean = False)
+		  /// Default constructor.
+		  ///
+		  /// - `title` is the visible title of this item.
+		  /// - `icon` is an optional icon.
+		  /// - `value` is an optional value for this item. It and the sum of all of this 
+		  ///    item's children will be used for the badge value.
+		  /// - `data` is optional arbitrary data for use in your application.
+		  /// - If `canAcceptChildren` is True then this item is permitted to contain children.
+		  
 		  Self.Title = title
 		  Self.Icon = icon
 		  Self.Value = value
@@ -134,6 +143,12 @@ Protected Class XUISourceListItem
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents an item in a `XUISourceList`.
+		
+	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0, Description = 5468652073756D206F662074686973206974656D27732056616C756520616E6420616C6C206F6620697473206368696C6472656E27732056616C75652070726F706572746965732E
@@ -225,7 +240,7 @@ Protected Class XUISourceListItem
 		IsSection As Boolean
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686973206974656D2773206368696C6472656E2E204D617920626520656D7074792E
 		Private mChildren() As XUISourceListItem
 	#tag EndProperty
 
@@ -446,6 +461,14 @@ Protected Class XUISourceListItem
 			Visible=false
 			Group="Behavior"
 			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Expandable"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty

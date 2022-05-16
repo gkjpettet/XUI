@@ -2,11 +2,22 @@
 Protected Class XUITag
 	#tag Method, Flags = &h0
 		Sub Constructor(title As String, data As Variant)
+		  /// Default constructor.
+		  ///
+		  /// - `title` is the tag text that is visible to the user.
+		  /// - `data` is optional arbitrary data associated with the tag.
+		  
 		  Self.Title = title
 		  Self.Data = data
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a tag within a `XUITagCanvas`.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 546865206162736F6C75746520626F756E6473206F662074686973207461672C2072656C617469766520746F20746865206261636B696E6720627566666572277320746F70206C65667420636F726E65722E

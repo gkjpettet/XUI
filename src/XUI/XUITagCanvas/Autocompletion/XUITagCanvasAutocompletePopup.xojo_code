@@ -72,8 +72,10 @@ Inherits DesktopTextInputCanvas
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 606F776E65726020697320746865206058554954616743616E766173602074686174206F776E73207468697320706F7075702E2041206E657720605765616B5265666020746F2069742077696C6C20626520637265617465642E
 		Sub Constructor(owner As XUITagCanvas)
+		  /// `owner` is the `XUITagCanvas` that owns this popup. A new `WeakRef` to it will be created.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
@@ -118,7 +120,14 @@ Inherits DesktopTextInputCanvas
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21
+	#tag Note, Name = About
+		The customisable autocomplete popup that appears in the tag canvas when autocomplete 
+		options are available.
+		
+	#tag EndNote
+
+
+	#tag Property, Flags = &h21, Description = 5468652070696374757265207468617420726570726573656E74732074686520706F7075702E20447261776E20696E2074686520605061696E74282960206576656E742E
 		Private mBuffer As Picture
 	#tag EndProperty
 

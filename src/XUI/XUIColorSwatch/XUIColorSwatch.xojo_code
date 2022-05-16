@@ -45,8 +45,10 @@ Inherits DesktopCanvas
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
@@ -83,6 +85,17 @@ Inherits DesktopCanvas
 	#tag Hook, Flags = &h0, Description = 54686520737761746368277320636F6C6F757220686173206368616E6765642E
 		Event ColorChanged(newColor As Color)
 	#tag EndHook
+
+
+	#tag Note, Name = About
+		A powerful colour swatch control that displays a colour and allows the user to click the control
+		to change the colour. Works in tandem with the `XUIColorPicker`.
+		
+		The control's appearance is very customisable through the use of different _renderers_. Several
+		are provided with XUI that mimic the colour swatch control on macOS, Windows and Linux but you 
+		can create your own too.
+		
+	#tag EndNote
 
 
 	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746865207377617463682069732063757272656E746C79206163746976652028692E652E207072657373656420616E642074686520636F6C6F72207069636B65722069732076697369626C65292E2052656164206F6E6C792E

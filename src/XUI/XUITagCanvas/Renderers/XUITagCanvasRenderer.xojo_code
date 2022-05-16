@@ -30,7 +30,7 @@ Protected Interface XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 546865206058554954616743616E766173602074686174206F776E7320746869732072656E64657265722E
 		Function Owner() As XUITagCanvas
 		  
 		End Function

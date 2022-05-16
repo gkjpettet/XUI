@@ -311,8 +311,10 @@ Protected Class XUICETheme
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  Styles = _
 		  New Dictionary("default" : New XUICETokenStyle, "autocompletePrefix" : New XUICETokenStyle)
 		  
@@ -714,6 +716,14 @@ Protected Class XUICETheme
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		One of the the most powerful features offered by the `XUICodeEditor` is the ability to
+		customise its appearance. This is done through themes that are represented by 
+		the `XUICETheme` class.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 546865206E616D65206F662074686973207468656D65277320617574686F722E
 		Author As String
 	#tag EndProperty
@@ -861,49 +871,49 @@ Protected Class XUICETheme
 	#tag EndProperty
 
 
-	#tag Constant, Name = DEFAULT_BLOCK_LINE_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cD6D6D6", Scope = Private
+	#tag Constant, Name = DEFAULT_BLOCK_LINE_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cD6D6D6", Scope = Private, Description = 546865206C69676874206D6F64652064656661756C7420636F6C6F757220666F7220626C6F636B206C696E6573206966206E6F6E652069732070726F766964656420627920746865207468656D652E
 	#tag EndConstant
 
-	#tag Constant, Name = DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private
+	#tag Constant, Name = DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c000000", Scope = Private, Description = 546865206461726B206D6F64652064656661756C7420636F6C6F757220666F72207468652063757272656E74206C696E6520686967686C69676874206966206E6F6E652069732070726F766964656420627920746865207468656D652E
 	#tag EndConstant
 
-	#tag Constant, Name = DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private
+	#tag Constant, Name = DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private, Description = 546865206C69676874206D6F64652064656661756C7420636F6C6F757220666F72207468652063757272656E74206C696E6520686967686C69676874206966206E6F6E652069732070726F766964656420627920746865207468656D652E
 	#tag EndConstant
 
-	#tag Constant, Name = DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private
+	#tag Constant, Name = DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private, Description = 546865206461726B206D6F64652064656661756C7420636F6C6F757220666F7220756E6D61746368656420626C6F636B206C696E6573206966206E6F6E652069732070726F766964656420627920746865207468656D652E
 	#tag EndConstant
 
-	#tag Constant, Name = DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private
+	#tag Constant, Name = DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private, Description = 546865206C69676874206D6F64652064656661756C7420636F6C6F757220666F7220756E6D61746368656420626C6F636B206C696E6573206966206E6F6E652069732070726F766964656420627920746865207468656D652E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_ARRAY, Type = String, Dynamic = False, Default = \"array", Scope = Private
+	#tag Constant, Name = TYPE_ARRAY, Type = String, Dynamic = False, Default = \"array", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_BOOLEAN, Type = String, Dynamic = False, Default = \"boolean", Scope = Private
+	#tag Constant, Name = TYPE_BOOLEAN, Type = String, Dynamic = False, Default = \"boolean", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_COLOR, Type = String, Dynamic = False, Default = \"color", Scope = Private
+	#tag Constant, Name = TYPE_COLOR, Type = String, Dynamic = False, Default = \"color", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_COLORGROUP, Type = String, Dynamic = False, Default = \"colorGroup", Scope = Private
+	#tag Constant, Name = TYPE_COLORGROUP, Type = String, Dynamic = False, Default = \"colorGroup", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_DATETIME, Type = String, Dynamic = False, Default = \"datetime", Scope = Private
+	#tag Constant, Name = TYPE_DATETIME, Type = String, Dynamic = False, Default = \"datetime", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_DICTIONARY, Type = String, Dynamic = False, Default = \"dictionary", Scope = Private
+	#tag Constant, Name = TYPE_DICTIONARY, Type = String, Dynamic = False, Default = \"dictionary", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_DOUBLE, Type = String, Dynamic = False, Default = \"double", Scope = Private
+	#tag Constant, Name = TYPE_DOUBLE, Type = String, Dynamic = False, Default = \"double", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_INTEGER, Type = String, Dynamic = False, Default = \"integer", Scope = Private
+	#tag Constant, Name = TYPE_INTEGER, Type = String, Dynamic = False, Default = \"integer", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_NIL, Type = String, Dynamic = False, Default = \"nil", Scope = Private
+	#tag Constant, Name = TYPE_NIL, Type = String, Dynamic = False, Default = \"nil", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
-	#tag Constant, Name = TYPE_STRING, Type = String, Dynamic = False, Default = \"string", Scope = Private
+	#tag Constant, Name = TYPE_STRING, Type = String, Dynamic = False, Default = \"string", Scope = Private, Description = 496E7465726E616C6C792075736564207768656E20617373657274696E672069662061207468656D652069732076616C69642E
 	#tag EndConstant
 
 

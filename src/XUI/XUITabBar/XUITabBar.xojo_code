@@ -235,8 +235,10 @@ Inherits DesktopCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
@@ -456,10 +458,10 @@ Inherits DesktopCanvas
 		Private Function TabIndexAtXY(x As Integer, y As Integer, excludeSelected As Boolean = False) As Integer
 		  /// Returns the index of the tab at mouse position `x, y` or -1 if there isn't one.
 		  ///
-		  /// `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
+		  /// - `x` is the absolute coordinate from the left edge of the tab bar. It does not account for any
 		  /// scrolling of the tab bar.
-		  /// `y` is the absolute coordinate from the top left edge of the tab bar.
-		  /// If `excludeSelected` then we don't check the currently selected tab's bounds.
+		  /// - `y` is the absolute coordinate from the top left edge of the tab bar.
+		  /// - If `excludeSelected` then we don't check the currently selected tab's bounds.
 		  
 		  // Adjust for scrolling.
 		  x = x + ScrollPosX
@@ -560,6 +562,21 @@ Inherits DesktopCanvas
 	#tag Hook, Flags = &h0, Description = 546865207573657220686173206A757374206A757374207072657373656420746865207269676874206D656E7520627574746F6E2E
 		Event PressedRightMenuButton()
 	#tag EndHook
+
+
+	#tag Note, Name = About
+		`XUITabBar` is a beautiful, flexible and powerful UI control. It provides an easy-to-use 
+		implementation of a _source list_. Source lists are a familiar UI control typically used as a 
+		navigation sidebar in applications. Examples are the sidebar in the Finder on macOS and the 
+		navigator in the Xojo IDE.
+		
+		`XUITabBar` abstracts away a lot of the complexity of managing a navigation sidebar so you don't
+		have to worry about it.
+		
+		The control supports drag reordering, unlimited item depths, badge counts, custom widgets and 
+		more.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 5472756520696620746162732063616E2062652072656F726465726564206279206472616767696E67207769746820746865206D6F7573652E

@@ -5,7 +5,7 @@ Implements XUITabBarRenderer
 		Function BufferWidth() As Integer
 		  /// The current width of the buffer in points.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  If Owner = Nil Then Return 0
 		  If mBuffer = Nil Then Return 0
@@ -13,8 +13,10 @@ Implements XUITabBarRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 50617274206F66207468652058554954616242617252656E646572657220696E746572666163652E
+	#tag Method, Flags = &h0, Description = 606F776E657260206973207468652060585549546162426172602074686174206F776E7320746869732072656E64657265722E204120605765616B526566602077696C6C20626520637265617465642E
 		Sub Constructor(owner As XUITabBar)
+		  /// `owner` is the `XUITabBar` that owns this renderer. A `WeakRef` will be created.
+		  ///
 		  /// Part of the XUITabBarRenderer interface.
 		  
 		  If owner = Nil Then
@@ -110,7 +112,7 @@ Implements XUITabBarRenderer
 		Function LeftMenuButtonWidth() As Double
 		  /// The width of the left menu button (if supported by this renderer).
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return (2 * LEFT_MENU_BUTTON_PADDING) + _
 		  If(Owner.LeftMenuButtonIcon <> Nil, Owner.LeftMenuButtonIcon.Width, LEFT_MENU_BUTTON_HOVER_WIDTH)
@@ -129,7 +131,7 @@ Implements XUITabBarRenderer
 		Function Owner() As XUITabBar
 		  /// The tab bar this renderer operates on.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  If mOwner = Nil Or mOwner.Value = Nil Then
 		    Return Nil
@@ -539,7 +541,7 @@ Implements XUITabBarRenderer
 		Function RightMenuButtonWidth() As Double
 		  /// The width of the right menu button (if supported by this renderer).
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return (2 * RIGHT_MENU_BUTTON_PADDING) + _
 		  If(Owner.RightMenuButtonIcon <> Nil, Owner.RightMenuButtonIcon.Width, RIGHT_MENU_BUTTON_HOVER_WIDTH)
@@ -596,7 +598,7 @@ Implements XUITabBarRenderer
 		Function SupportsLeftMenuButton() As Boolean
 		  /// True if this renderer supports the concept of a left menu button.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return True
 		End Function
@@ -606,7 +608,7 @@ Implements XUITabBarRenderer
 		Function SupportsRightMenuButton() As Boolean
 		  /// True if this renderer supports the concept of a right menu button.
 		  ///
-		  /// Part of the XUITabBarRenderer interface.
+		  /// Part of the `XUITabBarRenderer` interface.
 		  
 		  Return True
 		End Function
@@ -653,6 +655,12 @@ Implements XUITabBarRenderer
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		
+		A tab bar renderer that renders a `XUITabBar` similar to that seen in Microsoft Edge.
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21, Description = 4361636865206F662074686520506963747572652072657475726E65642066726F6D20746865206C6173742063616C6C20746F206058554954616242617252656E6465722E4275666665722829602E204D6179206265204E696C2E

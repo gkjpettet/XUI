@@ -13,10 +13,10 @@ Protected Class XUICETextSelection
 		Sub Constructor(anchor As Integer, startPos As Integer, endPos As Integer, editor As XUICodeEditor)
 		  /// Default constructor.
 		  ///
-		  /// `anchor` is the 0-based location of the anchor.
-		  /// `startPos` is the 0-based start position of this selection.
-		  /// `endPos` is the 0-based end position of this selection.
-		  /// `editor` is the editor that owns this selection.
+		  /// - `anchor` is the 0-based location of the anchor.
+		  /// - `startPos` is the 0-based start position of this selection.
+		  /// - `endPos` is the 0-based end position of this selection.
+		  /// - `editor` is the editor that owns this selection.
 		  ///
 		  /// The anchor marks the position that the selection began. Typically this 
 		  /// will be the caret position when the selection begins but it's not 
@@ -162,6 +162,12 @@ Protected Class XUICETextSelection
 		  
 		End Function
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a selection of text within the code editor.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 302D626173656420706F736974696F6E206F6620746869732073656C656374696F6E277320616E63686F7220286F726967696E616C206361726574207374617274696E6720706F736974696F6E292E

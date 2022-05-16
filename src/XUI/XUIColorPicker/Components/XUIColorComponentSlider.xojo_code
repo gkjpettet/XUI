@@ -140,8 +140,10 @@ Inherits DesktopCanvas
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor()
+		  /// Default constructor.
+		  
 		  Super.Constructor
 		  
 		  mScrubberColor = New ColorGroup(Color.White, Color.White)
@@ -383,13 +385,16 @@ Inherits DesktopCanvas
 
 	#tag Method, Flags = &h21, Description = 55706461746573206F757220636163686564206C696E65617220627275736820606D4C696E65617242727573686020666F72207468652063757272656E742060436F6D706C657465436F6C6F726020666F722052474220636F6D706F6E656E7420736C69646572732E
 		Private Sub UpdateLinearBrushRGB(startPoint As Point, endPoint As Point)
-		  /// Updates our cached linear brush `mLinearBrush` for the current `CompleteColor` for RGB component sliders.
+		  /// Updates our cached linear brush `mLinearBrush` for the current `CompleteColor` 
+		  /// for RGB component sliders.
 		  ///
-		  /// The gradient runs from &h00 on the left to &hFF on the right of this slider's component type.
-		  /// For example, if the current colour is &c48ADEF and this is a red component slider then the left hand
-		  /// gradient will be &c00ADEF and the right hand gradient will be &cFFADEF.
-		  /// So for a red component slider, we vary the red component between &h00 and &hFF but keep the green, blue and 
-		  /// alpha components the same.mLinearBrush = New LinearGradientBrush
+		  /// The gradient runs from `&h00` on the left to `&hFF` on the right of this slider's component type.
+		  ///
+		  /// For example, if the current colour is `&c48ADEF` and this is a red component slider then 
+		  /// the left hand gradient will be `&c00ADEF` and the right hand gradient will be `&cFFADEF`.
+		  ///
+		  /// So for a red component slider, we vary the red component between `&h00` and `&hFF` but 
+		  /// keep the green, blue and alpha components the same.
 		  
 		  mLinearBrush = New LinearGradientBrush
 		  
@@ -487,7 +492,14 @@ Inherits DesktopCanvas
 	#tag EndHook
 
 
-	#tag Property, Flags = &h0
+	#tag Note, Name = About
+		e it in your own
+		projects as a highly customisable slider that represents the component of a colour.
+		 although you can us 
+	#tag EndNote
+
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206D6F64652074686520736C696465722069732063757272656E746C7920696E2E
 		ColorMode As XUIColorComponentSlider.ColorModes = XUIColorComponentSlider.ColorModes.RGB
 	#tag EndProperty
 
@@ -508,7 +520,7 @@ Inherits DesktopCanvas
 		CompleteColor As Color
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0
+	#tag Property, Flags = &h0, Description = 5468697320736C69646572277320636F6D706F6E656E7420747970652E
 		ComponentType As XUIColorComponentSlider.ComponentTypes = XUIColorComponentSlider.ComponentTypes.Red
 	#tag EndProperty
 
@@ -624,7 +636,7 @@ Inherits DesktopCanvas
 		Private mScrubberBounds As Rect
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686520636F6C6F7572206F66207468652073637275626265722E
 		Private mScrubberColor As ColorGroup
 	#tag EndProperty
 
@@ -644,13 +656,13 @@ Inherits DesktopCanvas
 	#tag EndConstant
 
 
-	#tag Enum, Name = ColorModes, Type = Integer, Flags = &h0
+	#tag Enum, Name = ColorModes, Type = Integer, Flags = &h0, Description = 44657465726D696E65732077686574686572207468697320736C6964657220697320646973706C6179696E672060524742602C2060434D5960206F7220604853566020636F6C6F757220696E666F726D6174696F6E2E
 		RGB
 		  CMY
 		HSV
 	#tag EndEnum
 
-	#tag Enum, Name = ComponentTypes, Type = Integer, Flags = &h0
+	#tag Enum, Name = ComponentTypes, Type = Integer, Flags = &h0, Description = 526570726573656E74732074686520766172696F757320646966666572656E7420636F6C6F757220636F6D706F6E656E74732E
 		Alpha
 		  Blue
 		  Green

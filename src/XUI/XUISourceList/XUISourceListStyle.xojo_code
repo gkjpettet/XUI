@@ -79,6 +79,13 @@ Protected Class XUISourceListStyle
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		`XUISourceList` is highly customisable. This class contains the various properties that can be 
+		styled in a source list that are honoured by renderers.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 54686520736F75726365206C697374206261636B67726F756E6420636F6C6F75722E
 		BackgroundColor As ColorGroup
 	#tag EndProperty

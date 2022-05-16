@@ -1,8 +1,10 @@
 #tag Class
 Protected Class XUISourceListRendererMonterey
 Implements XUISourceListRenderer
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 606F776E657260206973207468652060585549536F757263654C697374602074686174206F776E7320746869732072656E64657265722E204120605765616B526566602077696C6C20626520637265617465642E
 		Sub Constructor(owner As XUISourceList)
+		  /// `owner` is the `XUISourceList` that owns this renderer. A `WeakRef` will be created.
+		  
 		  If owner = Nil Then
 		    mOwner = Nil
 		  Else
@@ -46,7 +48,7 @@ Implements XUISourceListRenderer
 		Function Owner() As XUISourceList
 		  /// The source list that this renderer operates on.
 		  ///
-		  /// Part of the XUISourceListRenderer interface.
+		  /// Part of the `XUISourceListRenderer` interface.
 		  
 		  If mOwner = Nil Or mOwner.Value = Nil Then
 		    Return Nil
@@ -61,7 +63,7 @@ Implements XUISourceListRenderer
 		Sub RenderBackground(g As Graphics, row As Integer)
 		  /// Draw the background for the specified row. The row may be empty.
 		  ///
-		  /// Part of the XUISourceListRenderer interface.
+		  /// Part of the `XUISourceListRenderer` interface.
 		  
 		  #Pragma Unused row
 		  
@@ -73,7 +75,8 @@ Implements XUISourceListRenderer
 
 	#tag Method, Flags = &h0, Description = 52656E6465727320606974656D6020746F207468652070617373656420677261706869637320636F6E746578742E2054686520636F6E746578742069732074686520656E7469726520726F7720746865206974656D206F636375706965732E
 		Sub RenderItem(item As XUISourceListItem, g As Graphics, hoveringOverRow As Boolean, isSelected As Boolean, draggingOverRow As Boolean)
-		  /// Renders `item` to the passed graphics context. The context is the entire row the item occupies.
+		  /// Renders `item` to the passed graphics context. The context is the entire row the item 
+		  /// occupies.
 		  ///
 		  /// Part of the `XUISourceListRenderer` interface.
 		  
@@ -205,11 +208,13 @@ Implements XUISourceListRenderer
 		  ///
 		  /// Assumes `g` is the graphics context provided by the `PaintCellBackground` event.
 		  ///
-		  /// When hovered over:
-		  /// TITLE BADGE WIDGET DISCLOSURE
+		  /// When hovered over the presentation is:
 		  ///
-		  /// When not hovered over:
-		  /// TITLE BADGE
+		  /// `TITLE BADGE WIDGET DISCLOSURE`
+		  ///
+		  /// When not hovered over the presentation is:
+		  ///
+		  /// `TITLE BADGE`
 		  
 		  // Grab a reference to the owner's style for brevity.
 		  Var style As XUISourceListStyle = Owner.Style
@@ -334,6 +339,8 @@ Implements XUISourceListRenderer
 	#tag Method, Flags = &h0, Description = 54686520686569676874206F66206120726F7720696E2074686520736F75726365206C6973742E
 		Function RowHeight() As Integer
 		  /// The height of a row in the source list.
+		  ///
+		  /// Part of the `XUISourceListRenderer` interface.
 		  
 		  Return 30
 		End Function
@@ -341,8 +348,9 @@ Implements XUISourceListRenderer
 
 
 	#tag Note, Name = About
-		Renders a source list in the same manner as in Monterey (macOS 12).
-		s
+		A source list renderer that renders a `XUISourceList` similar to that seen in the 
+		macOS Monterey Finder.
+		
 	#tag EndNote
 
 

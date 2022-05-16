@@ -15,6 +15,11 @@ Protected Class XUITagCanvasLine
 
 	#tag Method, Flags = &h0
 		Sub Constructor(owner As XUITagCanvas, lineNumber As Integer)
+		  /// Default constructor.
+		  ///
+		  /// - `owner` is the `XUITagCanvas` that owns this line. A new `WeakRef` to the canvas will be created.
+		  /// - `lineNumber` is the 1-based line number of this new line.
+		  
 		  mOwner = New WeakRef(owner)
 		  Self.Number = lineNumber
 		End Sub
@@ -53,12 +58,9 @@ Protected Class XUITagCanvasLine
 		Sub Draw(g As Graphics, x As Double, topLeftY As Double, lineH As Double)
 		  /// Draws this line to `g`.
 		  ///
-		  /// `x` is the X coord of the top left corner of the line.
-		  /// `topLeftY` is the Y coord of the top left corner of the line.
-		  /// `lineH` is the height of the line.
-		  ///
-		  /// Anti-aliasing needs to be disabled whenever we draw on Windows _except_ for 
-		  /// text (which looks rubbish if anti-aliasing is off).
+		  /// - `x` is the X coord of the top left corner of the line.
+		  /// - `topLeftY` is the Y coord of the top left corner of the line.
+		  /// - `lineH` is the height of the line.
 		  
 		  // Compute the y coordinate of the start of the text.
 		  g.FontName = Owner.Style.FontName
@@ -69,6 +71,8 @@ Protected Class XUITagCanvasLine
 		  // TAGS
 		  // ==============================
 		  #If TargetWindows
+		    // Anti-aliasing needs to be disabled whenever we draw on Windows _except_ for 
+		    // text (which looks rubbish if anti-aliasing is off).
 		    g.AntiAliased = False
 		  #EndIf
 		  For Each tag As XUITag In Tags
@@ -90,6 +94,12 @@ Protected Class XUITagCanvasLine
 		  
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a line of text (including any tags) within the `XUITagCanvas`.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F20746865206F776E696E67207461672063616E7661732E

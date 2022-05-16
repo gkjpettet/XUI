@@ -9,12 +9,23 @@ Protected Class XUITagAutocompleteOption
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(value As String, tagData As XUITagData)
+		  /// Default constructor.
+		  ///
+		  /// - `value` is the string that will be visible to the user in the autocomplete popup.
+		  /// - `tagData` is the data required to create a tag instance.
+		  
 		  Self.Value = value
 		  Self.TagData = tagData
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = About
+		Represents a single autocomplete option for the tag canvas.
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h0, Description = 546865206461746120726571756972656420746F206372656174652061207461672E

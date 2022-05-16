@@ -67,8 +67,12 @@ Implements XUITagCanvasRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(owner As XUITagCanvas)
+		  /// Default constructor.
+		  ///
+		  /// - `owner` is the `XUITagCanvas` that owns this renderer. A new `WeakRef` to it will be created.
+		  
 		  mOwner = New WeakRef(owner)
 		  
 		End Sub

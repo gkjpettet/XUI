@@ -85,6 +85,15 @@ Inherits DesktopCanvas
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A simple UI control that draws a customisable dot (rounded circle). Useful for representing 
+		state (e.g. a red dot if something is disconnected or a green dot if something is active).
+		
+		Supports an optional caption.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 4F7074696F6E616C2063617074696F6E20746F20646973706C6179206265736964652074686520646F742E
 		#tag Getter
 			Get
