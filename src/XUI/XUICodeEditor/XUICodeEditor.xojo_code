@@ -874,22 +874,22 @@ Implements XUINotificationListener
 	#tag Method, Flags = &h21, Description = 436F6D70757465732074686520776964746820696E20706978656C73206F662074686520677574746572207573696E67207468652070617373656420606C696E654E756D6265725769647468602E
 		Private Function ComputeGutterWidth(lineNumberWidth As Double) As Double
 		  /// Computes the width in pixels of the gutter using the passed `lineNumberWidth`.
-		  ///
-		  /// Gutter structure:
-		  ///
-		  /// ```no-highlight
-		  /// ________________
-		  /// |           |  |
-		  /// |           |  |
-		  /// ----------------
-		  ///   ↑          ↑  
-		  ///  LNW         BG
-		  /// ```
-		  ///
-		  /// _LNW (Line number width)_: The width of the rectangle containing the line number.
-		  ///
-		  /// _BG (Block gutter min width)_: The minimal width of the gutter containing 
-		  ///                            the block indicators. This is variable but must be a minimal width.
+		  
+		  // Gutter structure:
+		  //
+		  // ```no-highlight
+		  // ________________
+		  // |           |  |
+		  // |           |  |
+		  // ----------------
+		  //   ↑          ↑  
+		  //  LNW         BG
+		  // ```
+		  //
+		  // _LNW (Line number width)_: The width of the rectangle containing the line number.
+		  //
+		  // _BG (Block gutter min width)_: The minimal width of the gutter containing 
+		  //                            the block indicators. This is variable but must be a minimal width.
 		  
 		  Return lineNumberWidth + BLOCK_GUTTER_MIN_WIDTH
 		  
@@ -1648,6 +1648,8 @@ Implements XUINotificationListener
 		  /// If `allowUndo` is True then this action will be undoable.
 		  /// If `raiseContentsDidChange` then we will also raise the `ContentsDidChange` event.
 		  
+		  #Pragma Warning "TODO: If in Markdown mode, handle word wrapping by inserting a line break"
+		  
 		  CurrentUndoID = System.Ticks
 		  
 		  // Clear any text selection.
@@ -1683,6 +1685,8 @@ Implements XUINotificationListener
 		  ///
 		  /// Assumes `char` is only one character. For longer strings, use `Insert()`.
 		  
+		  #Pragma Warning "TODO: If in Markdown mode, handle word wrapping by inserting a line break"
+		  
 		  If Not Typing Or System.Ticks > UndoIDThreshold Then
 		    CurrentUndoID = System.Ticks
 		  End If
@@ -1708,11 +1712,9 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4966206120646F75626C6520636C69636B206A7573742068617070656E65642C2074686973206D6574686F642068616E646C657320697420616E642072657475726E7320547275652E204F74686572776973652069742072657475726E732046616C73652E
+	#tag Method, Flags = &h21, Description = 4966206120646F75626C6520636C69636B206F636375727265642C2074686973206D6574686F642068616E646C657320697420616E642072657475726E7320547275652E204F74686572776973652069742072657475726E732046616C73652E
 		Private Function IsDoubleClick(x As Integer, y As Integer) As Boolean
 		  /// If a double click occurred, this method handles it and returns True. Otherwise it returns False.
-		  ///
-		  /// If a double click occurs, calls the `HandleDoubleClick()` method.
 		  
 		  Const SPACE_DELTA = 4
 		  
@@ -3498,8 +3500,7 @@ Implements XUINotificationListener
 
 	#tag Note, Name = About
 		A powerful and highly customisable code editor control based on the open source `TextInputCanvas` control.
-		The control supports themes, multiple languages, autocompletion and a robust undo engine.
-		
+		It supports themes, multiple languages, autocompletion and features a robust undo engine.
 	#tag EndNote
 
 
