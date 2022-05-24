@@ -128,7 +128,7 @@ Begin DemoWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   1
+      Value           =   2
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -1428,108 +1428,6 @@ Begin DemoWindow WinCodeEditor
          Visible         =   True
          Width           =   45
       End
-      Begin DesktopBevelButton BevelButtonDeleteToken
-         Active          =   False
-         AllowAutoDeactivate=   True
-         AllowFocus      =   True
-         AllowTabStop    =   False
-         BackgroundColor =   &c00000000
-         BevelStyle      =   0
-         Bold            =   False
-         ButtonStyle     =   0
-         Caption         =   ""
-         CaptionAlignment=   3
-         CaptionDelta    =   0
-         CaptionPosition =   1
-         Enabled         =   False
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         HasBackgroundColor=   False
-         Height          =   22
-         Icon            =   1964765183
-         IconAlignment   =   1
-         IconDeltaX      =   0
-         IconDeltaY      =   0
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Italic          =   False
-         Left            =   820
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   False
-         MenuStyle       =   0
-         PanelIndex      =   0
-         Scope           =   2
-         TabIndex        =   12
-         TabPanelIndex   =   3
-         TabStop         =   True
-         TextColor       =   &c00000000
-         Tooltip         =   ""
-         Top             =   620
-         Transparent     =   False
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         Width           =   30
-         _mIndex         =   0
-         _mInitialParent =   ""
-         _mName          =   ""
-         _mPanelIndex    =   0
-      End
-      Begin DesktopBevelButton BevelButtonAddToken
-         Active          =   False
-         AllowAutoDeactivate=   True
-         AllowFocus      =   True
-         AllowTabStop    =   False
-         BackgroundColor =   &c00000000
-         BevelStyle      =   0
-         Bold            =   False
-         ButtonStyle     =   0
-         Caption         =   ""
-         CaptionAlignment=   3
-         CaptionDelta    =   0
-         CaptionPosition =   1
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         HasBackgroundColor=   False
-         Height          =   22
-         Icon            =   1603276799
-         IconAlignment   =   1
-         IconDeltaX      =   0
-         IconDeltaY      =   0
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Italic          =   False
-         Left            =   786
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   False
-         MenuStyle       =   0
-         PanelIndex      =   0
-         Scope           =   2
-         TabIndex        =   13
-         TabPanelIndex   =   3
-         TabStop         =   True
-         TextColor       =   &c00000000
-         Tooltip         =   ""
-         Top             =   620
-         Transparent     =   False
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         Width           =   30
-         _mIndex         =   0
-         _mInitialParent =   ""
-         _mName          =   ""
-         _mPanelIndex    =   0
-      End
       Begin CodeDemoWindowTokenStyleListBox ListBoxThemeTokens
          AllowAutoDeactivate=   True
          AllowAutoHideScrollbars=   True
@@ -1553,7 +1451,7 @@ Begin DemoWindow WinCodeEditor
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
          HeadingIndex    =   -1
-         Height          =   397
+         Height          =   420
          Index           =   -2147483648
          InitialParent   =   "Panel"
          InitialValue    =   "Token	B	I	U	Color	Back?	Back"
@@ -1578,38 +1476,6 @@ Begin DemoWindow WinCodeEditor
          Width           =   454
          _ScrollOffset   =   0
          _ScrollWidth    =   -1
-      End
-      Begin DesktopButton ButtonExportTheme
-         AllowAutoDeactivate=   True
-         Bold            =   False
-         Cancel          =   False
-         Caption         =   "Export..."
-         Default         =   False
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Height          =   20
-         Index           =   -2147483648
-         InitialParent   =   "Panel"
-         Italic          =   False
-         Left            =   1160
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   False
-         MacButtonStyle  =   0
-         Scope           =   2
-         TabIndex        =   15
-         TabPanelIndex   =   3
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   620
-         Transparent     =   False
-         Underline       =   False
-         Visible         =   True
-         Width           =   80
       End
       Begin DesktopLabel LabelCaretColor
          AllowAutoDeactivate=   True
@@ -1753,6 +1619,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   881
          LockBottom      =   False
          LockedInPosition=   False
@@ -1780,6 +1647,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   935
          LockBottom      =   False
          LockedInPosition=   False
@@ -1807,6 +1675,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1138
          LockBottom      =   False
          LockedInPosition=   False
@@ -1834,6 +1703,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1192
          LockBottom      =   False
          LockedInPosition=   False
@@ -1861,6 +1731,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   881
          LockBottom      =   False
          LockedInPosition=   False
@@ -1888,6 +1759,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   935
          LockBottom      =   False
          LockedInPosition=   False
@@ -1948,6 +1820,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1137
          LockBottom      =   False
          LockedInPosition=   False
@@ -1975,6 +1848,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1191
          LockBottom      =   False
          LockedInPosition=   False
@@ -2002,6 +1876,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1138
          LockBottom      =   False
          LockedInPosition=   False
@@ -2029,6 +1904,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1192
          LockBottom      =   False
          LockedInPosition=   False
@@ -2089,6 +1965,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   881
          LockBottom      =   False
          LockedInPosition=   False
@@ -2116,6 +1993,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   935
          LockBottom      =   False
          LockedInPosition=   False
@@ -2143,6 +2021,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1138
          LockBottom      =   False
          LockedInPosition=   False
@@ -2170,6 +2049,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1192
          LockBottom      =   False
          LockedInPosition=   False
@@ -2197,6 +2077,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1138
          LockBottom      =   False
          LockedInPosition=   False
@@ -2224,6 +2105,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1192
          LockBottom      =   False
          LockedInPosition=   False
@@ -2317,6 +2199,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1138
          LockBottom      =   False
          LockedInPosition=   False
@@ -2344,6 +2227,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1192
          LockBottom      =   False
          LockedInPosition=   False
@@ -2399,6 +2283,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxScrollbars"
+            IsActive        =   False
             Left            =   932
             LockBottom      =   False
             LockedInPosition=   False
@@ -2426,6 +2311,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxScrollbars"
+            IsActive        =   False
             Left            =   878
             LockBottom      =   False
             LockedInPosition=   False
@@ -2453,6 +2339,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxScrollbars"
+            IsActive        =   False
             Left            =   878
             LockBottom      =   False
             LockedInPosition=   False
@@ -2513,6 +2400,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxScrollbars"
+            IsActive        =   False
             Left            =   932
             LockBottom      =   False
             LockedInPosition=   False
@@ -2540,6 +2428,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxScrollbars"
+            IsActive        =   False
             Left            =   878
             LockBottom      =   False
             LockedInPosition=   False
@@ -2567,6 +2456,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxScrollbars"
+            IsActive        =   False
             Left            =   932
             LockBottom      =   False
             LockedInPosition=   False
@@ -2722,6 +2612,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxDelimiters"
+            IsActive        =   False
             Left            =   1156
             LockBottom      =   False
             LockedInPosition=   False
@@ -2749,6 +2640,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxDelimiters"
+            IsActive        =   False
             Left            =   1102
             LockBottom      =   False
             LockedInPosition=   False
@@ -2776,6 +2668,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxDelimiters"
+            IsActive        =   False
             Left            =   1102
             LockBottom      =   False
             LockedInPosition=   False
@@ -2836,6 +2729,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxDelimiters"
+            IsActive        =   False
             Left            =   1156
             LockBottom      =   False
             LockedInPosition=   False
@@ -2863,6 +2757,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxDelimiters"
+            IsActive        =   False
             Left            =   1102
             LockBottom      =   False
             LockedInPosition=   False
@@ -2890,6 +2785,7 @@ Begin DemoWindow WinCodeEditor
             Height          =   22
             Index           =   -2147483648
             InitialParent   =   "GroupBoxDelimiters"
+            IsActive        =   False
             Left            =   1156
             LockBottom      =   False
             LockedInPosition=   False
@@ -2999,6 +2895,7 @@ Begin DemoWindow WinCodeEditor
             Top             =   473
             Transparent     =   False
             Underline       =   False
+            Value           =   False
             Visible         =   True
             VisualState     =   0
             Width           =   22
@@ -3029,6 +2926,7 @@ Begin DemoWindow WinCodeEditor
             Top             =   507
             Transparent     =   False
             Underline       =   False
+            Value           =   False
             Visible         =   True
             VisualState     =   0
             Width           =   22
@@ -3059,6 +2957,7 @@ Begin DemoWindow WinCodeEditor
             Top             =   541
             Transparent     =   False
             Underline       =   False
+            Value           =   False
             Visible         =   True
             VisualState     =   0
             Width           =   22
@@ -3140,6 +3039,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   916
          LockBottom      =   False
          LockedInPosition=   False
@@ -3167,6 +3067,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   970
          LockBottom      =   False
          LockedInPosition=   False
@@ -3194,6 +3095,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1138
          LockBottom      =   False
          LockedInPosition=   False
@@ -3221,6 +3123,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1192
          LockBottom      =   False
          LockedInPosition=   False
@@ -3281,6 +3184,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   916
          LockBottom      =   False
          LockedInPosition=   False
@@ -3308,6 +3212,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   970
          LockBottom      =   False
          LockedInPosition=   False
@@ -3368,6 +3273,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1138
          LockBottom      =   False
          LockedInPosition=   False
@@ -3395,6 +3301,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   1192
          LockBottom      =   False
          LockedInPosition=   False
@@ -3455,6 +3362,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   916
          LockBottom      =   False
          LockedInPosition=   False
@@ -3482,6 +3390,7 @@ Begin DemoWindow WinCodeEditor
          Height          =   22
          Index           =   -2147483648
          InitialParent   =   "Panel"
+         IsActive        =   False
          Left            =   970
          LockBottom      =   False
          LockedInPosition=   False
@@ -3750,6 +3659,7 @@ Begin DemoWindow WinCodeEditor
          Top             =   175
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   118
@@ -3780,6 +3690,7 @@ Begin DemoWindow WinCodeEditor
          Top             =   175
          Transparent     =   False
          Underline       =   False
+         Value           =   False
          Visible         =   True
          VisualState     =   0
          Width           =   202
@@ -4139,6 +4050,7 @@ Begin DemoWindow WinCodeEditor
          Underline       =   False
          Visible         =   True
          Width           =   454
+         _ScrollOffset   =   0
          _ScrollWidth    =   -1
       End
       Begin DesktopBevelButton BevelButtonDeleteAutocompleteOption
@@ -5068,69 +4980,10 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BevelButtonDeleteToken
-	#tag Event
-		Sub Pressed()
-		  If ListBoxThemeTokens.SelectedRowIndex = -1 Then Return
-		  If Editor.Theme = Nil Then Return
-		  
-		  Var styleName As String = ListBoxThemeTokens.CellTextAt(ListBoxThemeTokens.SelectedRowIndex, 0)
-		  
-		  // Prohibit the removal of "default" and "autocompletePrefix" styles.
-		  If styleName = "default" Or styleName = "autocompletePrefix" Then Return
-		  
-		  Call Editor.Theme.RemoveTokenStyle(styleName)
-		  
-		  ListBoxThemeTokens.Update(Editor.Theme)
-		  
-		  Editor.ForceRedraw
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events BevelButtonAddToken
-	#tag Event
-		Sub Pressed()
-		  #Pragma Warning "TODO"
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events ListBoxThemeTokens
 	#tag Event , Description = 4F6E65206F6620746865207468656D652773207374796C657320686173206368616E6765642E
 		Sub DidChangeStyle()
 		  Editor.Refresh(True)
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub SelectionChanged()
-		  BevelButtonDeleteToken.Enabled = Me.SelectedRowIndex <> -1
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events ButtonExportTheme
-	#tag Event
-		Sub Pressed()
-		  /// Exports the current editor's theme as a TOML theme file.
-		  
-		  Var f As FolderItem = FolderItem.ShowSaveFileDialog(TOMLFileType.TOML, TextFieldThemeName.Text + ".toml")
-		  
-		  If f = Nil Then Return
-		  
-		  Editor.Theme.Name = TextFieldThemeName.Text
-		  Editor.Theme.Author = TextFieldThemeAuthor.Text
-		  Editor.Theme.Version = _
-		  New XUISemanticVersion(Integer.FromString(TextFieldThemeVersionMajor.Text), _
-		  Integer.FromString(TextFieldThemeVersionMinor.Text), Integer.FromString(TextFieldThemeVersionPatch.Text))
-		  Editor.Theme.Description = TextAreaThemeDescription.Text
-		  
-		  Var tout As TextOutputStream
-		  Try
-		    tout = TextOutputStream.Create(f)
-		    tout.Write(Editor.Theme.ToTOML)
-		    tout.Close
-		  Catch e As IOException
-		    MessageBox("Unable to save the current theme to a TOML file.")
-		  End Try
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
