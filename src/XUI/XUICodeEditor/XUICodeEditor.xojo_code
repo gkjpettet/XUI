@@ -1648,8 +1648,6 @@ Implements XUINotificationListener
 		  /// If `allowUndo` is True then this action will be undoable.
 		  /// If `raiseContentsDidChange` then we will also raise the `ContentsDidChange` event.
 		  
-		  #Pragma Warning "TODO: If in Markdown mode, handle word wrapping by inserting a line break"
-		  
 		  CurrentUndoID = System.Ticks
 		  
 		  // Clear any text selection.
@@ -1684,8 +1682,6 @@ Implements XUINotificationListener
 		  /// Inserts a single character at the current caret position.
 		  ///
 		  /// Assumes `char` is only one character. For longer strings, use `Insert()`.
-		  
-		  #Pragma Warning "TODO: If in Markdown mode, handle word wrapping by inserting a line break"
 		  
 		  If Not Typing Or System.Ticks > UndoIDThreshold Then
 		    CurrentUndoID = System.Ticks

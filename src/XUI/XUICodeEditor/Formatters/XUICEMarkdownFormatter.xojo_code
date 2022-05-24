@@ -136,8 +136,6 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		  ///
 		  /// Part of the `XUIFormatter` interface.
 		  
-		  #Pragma Warning "TODO: Actually just parse the passed lines."
-		  
 		  #Pragma Unused firstVisibleLineNumber
 		  #Pragma Unused lastVisibleLineNumber
 		  
@@ -381,8 +379,6 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		  /// The renderer is visiting some fenced code.
 		  ///
 		  /// Part of the `MarkdownKit.MKRenderer` interface.
-		  
-		  #Pragma Warning "TODO: Delegate this tokenisation to a dedicated language formatter"
 		  
 		  // Opening delimiter.
 		  Var line As XUICELine = mLines(fc.LineNumber - 1)

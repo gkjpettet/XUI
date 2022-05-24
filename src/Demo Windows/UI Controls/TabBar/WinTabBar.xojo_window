@@ -790,8 +790,6 @@ End
 
 	#tag Event
 		Sub Opening()
-		  #Pragma Warning "TODO: Add ability to specify left and right menu button icons"
-		  
 		  ResetTabs
 		  
 		End Sub
