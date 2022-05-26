@@ -918,6 +918,12 @@ Implements XUINotificationListener
 		  mDelimiterTimer.Period = DELIMITER_TIMER_PERIOD
 		  AddHandler mDelimiterTimer.Action, AddressOf DelimiterTimerAction
 		  
+		  // Initialise the parsing timer.
+		  mParseTimer = New Timer
+		  mParseTimer.RunMode = Timer.RunModes.Multiple
+		  mParseTimer.Period = PARSE_TIMER_PERIOD
+		  AddHandler mParseTimer.Action, AddressOf ParseTimerAction
+		  
 		  // Initialise the autocomplete popup.
 		  AutocompleteData = Nil
 		  mAutocompletePopup = New XUICodeEditorAutocompletePopup(Self)
@@ -2657,6 +2663,21 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 5570646174657320746865206E6561726573742064656C696D697465727320746F2074686520636172657420706572696F646963616C6C792E2043616C6C656420627920606D44656C696D6974657254696D65722E416374696F6E602E
+		Private Sub ParseTimerAction(parseTimer As Timer)
+		  /// Checks to see if enough time has elapsed that we should invoke the formatter's `Parse()` method.
+		  
+		  #Pragma Unused parseTimer
+		  
+		  If JustTokenised And System.Microseconds - LastParseMicroseconds >= (MinimumParseInterval * 1000) Then
+		    JustTokenised = False
+		    LastParseMicroseconds = System.Microseconds
+		    Formatter.Parse(LineManager.Lines)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52656275696C64732074686520656E74697265206261636B206275666665722062792064726177696E6720616C6C2076697369626C6520636F6E74656E7420746F2069742E
 		Private Sub RebuildBackBuffer()
 		  /// Rebuilds the entire back buffer by drawing all visible content to it.
@@ -3970,6 +3991,10 @@ Implements XUINotificationListener
 		HighlightDelimitersAroundCaret As Boolean
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 496E7465726E616C6C792073657420746F2054727565207768656E657665722074686520746F6B656E69736174696F6E20686173206F636375727265642E
+		JustTokenised As Boolean = False
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 546865206C696E65206E756D626572206F6620746865206C617374202A66756C6C792A2076697369626C65206C696E652E
 		#tag Getter
 			Get
@@ -3980,6 +4005,10 @@ Implements XUINotificationListener
 		#tag EndGetter
 		LastFullyVisibleLineNumber As Integer
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0, Description = 5468652074696D65202866726F6D206053797374656D2E4D6963726F7365636F6E64736029207468617420746865206C6173742060466F726D61747465722E506172736528296020696E766F636174696F6E206F636375727265642E
+		LastParseMicroseconds As Double = 0
+	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 41207265666572656E636520746F207468697320636F646520656469746F722773206C696E65206D616E616765722E
 		LineManager As XUICELineManager
@@ -4162,6 +4191,10 @@ Implements XUINotificationListener
 		MinimumAutocompletionLength As Integer
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 546865206D696E696D756D2074696D652028696E206D696C6C697365636F6E647329206265747765656E2063616C6C7320746F2074686520656469746F72277320666F726D6174746572277320605061727365282960206D6574686F642E
+		MinimumParseInterval As Integer = 500
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 5472756520696620746865206C61737420636C69636B2074686174206F6363757272656420776173206120646F75626C6520636C69636B2E
 		Private mIsDoubleClick As Boolean = False
 	#tag EndProperty
@@ -4228,6 +4261,10 @@ Implements XUINotificationListener
 
 	#tag Property, Flags = &h21, Description = 546865206D696E696D756D206E756D626572206F662063686172616374657273207265717569726564206265666F7265206175746F636F6D706C6574696F6E206973206F6666657265642E204261636B732074686520604D696E696D756D4175746F636F6D706C6574696F6E4C656E6774686020636F6D70757465642070726F70657274792E
 		Private mMinimumAutocompletionLength As Integer = 2
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 506572696F646963616C6C7920636865636B7320746F207365652069662074686520666F726D61747465722063616E2070617273652074686520636F6E74656E74732E
+		Private mParseTimer As Timer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E672073746F726520666F72207468652060526561644F6E6C796020636F6D70757465642070726F70657274792E
@@ -4426,6 +4463,9 @@ Implements XUINotificationListener
 	#tag EndConstant
 
 	#tag Constant, Name = MIN_LINE_NUMBER_WIDTH, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 4966206C696E65206E756D6265727320617265202A6E6F742A20647261776E2C207468697320697320746865206D696E696D756D207769647468206F6620746865206C696E65206E756D6265722073656374696F6E206F6620746865206775747465722E
+	#tag EndConstant
+
+	#tag Constant, Name = PARSE_TIMER_PERIOD, Type = Double, Dynamic = False, Default = \"250", Scope = Private, Description = 546865206E756D626572206F66206D696C6C697365636F6E6473206265747765656E20636865636B7320746F207365652069662077652073686F756C6420696E766F6B652074686520666F726D6174746572277320605061727365282960206D6574686F642E
 	#tag EndConstant
 
 	#tag Constant, Name = POPUP_PADDING, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865206E756D626572206F6620706978656C73206265747765656E20746865206175746F636F6D706C65746520706F70757020616E64207468652065646765206F66207468652063616E7661732E
@@ -4989,6 +5029,30 @@ Implements XUINotificationListener
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LastParseMicroseconds"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MinimumParseInterval"
+			Visible=false
+			Group="Behavior"
+			InitialValue="500"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="JustTokenised"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty

@@ -218,94 +218,11 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 536574732074686520696E64656E746174696F6E20616E6420636F6E74696E756174696F6E206C6576656C7320666F722065616368206C696E652E
-		Private Sub IndentLines()
-		  /// Sets the indentation and continuation levels for each line.
-		  ///
-		  /// Assumes `ProcessDelimiters()` has been called prior to this method.
+	#tag Method, Flags = &h21, Description = 536574732074686520696E64656E746174696F6E202F20636F6E74696E756174696F6E20737461747573206F66207468652070617373656420606C696E6573602E
+		Private Sub IndentLines(lines() As XUICELine)
+		  /// Sets the indentation / continuation status of the passed `lines`.
 		  
-		  #Pragma Warning "TODO: Indent lines"
-		  
-		  If mLines.Count = 0 Then Return
-		  
-		  // The first line is never indented.
-		  mLines(0).IndentLevel = 0
-		  mLines(0).IsContinuation = False
-		  mLines(0).Unmatched = False
-		  
-		  // If there's only one line then there can be no indentation.
-		  If mLines.Count = 1 Then Return
-		  
-		  ' Var previousLine As XUICELine = mLines(0)
-		  ' For i As Integer = 1 To mLinesLastIndex
-		  ' Var line As XUICELine = mLines(i)
-		  ' previousLine = mLines(i - 1)
-		  ' 
-		  ' line.IsContinuation = False
-		  ' line.Unmatched = False
-		  ' 
-		  ' If line.IsBlank Then
-		  ' line.IndentLevel = previousLine.IndentLevel
-		  ' line.IsContinuation = previousLine.IsContinuation
-		  ' Continue
-		  ' End If
-		  ' 
-		  ' Var firstToken As XUICELineToken = FirstNonCommentToken(line)
-		  ' 
-		  ' // Does this line start with a closing delimiter like `}`, `)` or `]`?.
-		  ' If firstToken <> Nil And IsClosingDelimiter(firstToken) Then
-		  ' If MatchedDelimiters.HasKey(firstToken) Then
-		  ' // This line starts with a closing delimiter. Its indent level is the same as its 
-		  ' // matching opening delimiter. `-1` as `mLines` needs an index not a line number.
-		  ' line.IndentLevel = mLines(XUICELineToken(MatchedDelimiters.Value(firstToken)).LineNumber - 1).IndentLevel
-		  ' SetContinuationStatus(line, LastNonCommentToken(previousLine))
-		  ' Continue
-		  ' Else
-		  ' // This line starts with a closing delimiter but there is no matching opener so its indent level is 0.
-		  ' line.Unmatched = True
-		  ' line.IndentLevel = 0
-		  ' SetContinuationStatus(line, LastNonCommentToken(previousLine))
-		  ' Continue
-		  ' End If
-		  ' End If
-		  ' 
-		  ' // Does the previous line end with an opening delimiter like `{`, `(` or `[`?
-		  ' Var previousLineLastToken As XUICELineToken = LastNonCommentToken(previousLine)
-		  ' If previousLineLastToken <> Nil And IsOpeningDelimiter(previousLineLastToken) Then
-		  ' // The line above ends with an opening delimiter.
-		  ' line.IndentLevel = previousLine.IndentLevel + 1
-		  ' SetContinuationStatus(line, previousLineLastToken)
-		  ' Continue
-		  ' End If
-		  ' 
-		  ' // Does the previous line end with a closing delimiter like `}`, `)` or `]`?
-		  ' If previousLineLastToken <> Nil And IsClosingDelimiter(previousLineLastToken) Then
-		  ' If MatchedDelimiters.HasKey(previousLineLastToken) Then
-		  ' // This line's indent is the same as the line containing the matching opening delimiter.
-		  ' Var opener As XUICELineToken = MatchedDelimiters.Value(previousLineLastToken)
-		  ' line.IndentLevel = mLines(opener.LineNumber - 1).IndentLevel
-		  ' SetContinuationStatus(line, previousLineLastToken)
-		  ' Continue
-		  ' Else
-		  ' // The line above ends with a closing delimiter but there is no matching opener so its indent level is
-		  ' // the same as the line above.
-		  ' line.Unmatched = True
-		  ' line.IndentLevel = previousLine.IndentLevel
-		  ' SetContinuationStatus(line, previousLineLastToken)
-		  ' Continue
-		  ' End If
-		  ' End If
-		  ' 
-		  ' // If this line ends with an opening delimiter but has no matching closing delimiter then it is unmatched.
-		  ' Var lastToken As XUICELineToken = LastNonCommentToken(line)
-		  ' If lastToken <> Nil And IsOpeningDelimiter(lastToken) And Not MatchedDelimiters.HasKey(lastToken) Then
-		  ' line.Unmatched = True
-		  ' End If
-		  ' 
-		  ' // Just a regular line.
-		  ' line.IndentLevel = previousLine.IndentLevel
-		  ' SetContinuationStatus(line, previousLineLastToken)
-		  ' Next i
+		  #Pragma Warning "TODO: Indent lines and handle continuation"
 		  
 		End Sub
 	#tag EndMethod
@@ -465,15 +382,15 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 506572666F726D7320612073696D706C65207061727365206F6620746865206C696E65732C2073657474696E67206C696E6520696E64656E746174696F6E2C206C696E6520636F6E74696E756174696F6E7320616E6420636F6D707574696E67206D61746368696E6720706172656E7468657365732E
-		Private Sub ParseSimple()
-		  /// Performs a simple parse of the lines, setting line indentation, line continuations and 
-		  /// computing matching parentheses.
+	#tag Method, Flags = &h0, Description = 43616C6C656420706572696F646963616C6C792062792074686520656469746F722E20416E206F70706F7274756E69747920746F2070617273652074686520746F6B656E69736564206C696E65732E2057696C6C20616C776179732062652063616C6C656420616674657220746865206C696E65732068617665206265656E20746F6B656E697365642E
+		Sub Parse(lines() As XUICELine)
+		  /// Called periodically by the editor. An opportunity to parse the tokenised lines. 
+		  /// Will always be called after the lines have been tokenised.
 		  ///
-		  /// Assumes the lines in `mLines` have just been tokenised.
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  ProcessParentheses
-		  IndentLines
+		  IndentLines(lines)
 		  
 		End Sub
 	#tag EndMethod
@@ -603,7 +520,6 @@ Implements XUICEFormatter
 		    NextToken
 		  Wend
 		  
-		  ParseSimple
 		End Sub
 	#tag EndMethod
 

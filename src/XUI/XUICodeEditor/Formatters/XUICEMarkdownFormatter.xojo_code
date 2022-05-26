@@ -106,6 +106,21 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 43616C6C656420706572696F646963616C6C792062792074686520656469746F722E20416E206F70706F7274756E69747920746F2070617273652074686520746F6B656E69736564206C696E65732E2057696C6C20616C776179732062652063616C6C656420616674657220746865206C696E65732068617665206265656E20746F6B656E697365642E
+		Sub Parse(lines() As XUICELine)
+		  /// Called periodically by the editor. An opportunity to parse the tokenised lines. 
+		  /// Will always be called after the lines have been tokenised.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
+		  
+		  #Pragma Unused lines
+		  
+		  // We do nothing here as parsing is done within `TokeniseAll()`.
+		  Return
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function SupportsDelimiterHighlighting() As Boolean
 		  /// True if this formatter supports highlighting the delimiters around the caret.

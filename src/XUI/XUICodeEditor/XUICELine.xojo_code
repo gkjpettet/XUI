@@ -804,10 +804,15 @@ Inherits XUITextLine
 		Sub Tokenise()
 		  /// Re-tokenises this line and any others required (depending on mode).
 		  
-		  // Tell the formatter to tokenise, passing it the currently visible line numbers.
-		  LineManager.Formatter.Tokenise(LineManager.Lines, LineManager.Owner.FirstVisibleLine, _
-		  LineManager.Owner.LastVisibleLineNumber)
+		  Var formatter As XUICEFormatter = LineManager.Formatter
+		  Var owner As XUICodeEditor = LineManager.Owner
 		  
+		  // Tell the formatter to tokenise, passing it the currently visible line numbers.
+		  formatter.Tokenise(LineManager.Lines, owner.FirstVisibleLine, _
+		  owner.LastVisibleLineNumber)
+		  
+		  // Tell the editor that we've just tokenised.
+		  owner.JustTokenised = True
 		  
 		End Sub
 	#tag EndMethod

@@ -899,6 +899,20 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 43616C6C656420706572696F646963616C6C792062792074686520656469746F722E20416E206F70706F7274756E69747920746F2070617273652074686520746F6B656E69736564206C696E65732E2057696C6C20616C776179732062652063616C6C656420616674657220746865206C696E65732068617665206265656E20746F6B656E697365642E
+		Sub Parse(lines() As XUICELine)
+		  /// Called periodically by the editor. An opportunity to parse the tokenised lines. 
+		  /// Will always be called after the lines have been tokenised.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
+		  
+		  #Pragma Unused lines
+		  
+		  // We do nothing here as we currently parse during `TokeniseAll()`
+		  Return
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 506572666F726D7320612073696D706C65207061727365206F6620746865206C696E65732C2073657474696E67206C696E6520696E64656E746174696F6E2C206C696E6520636F6E74696E756174696F6E7320616E6420636F6D707574696E672064656C696D69746572732E
 		Private Sub ParseSimple()
 		  /// Performs a simple parse of the lines, setting line indentation, line continuations and computing delimiters.
