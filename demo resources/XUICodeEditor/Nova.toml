@@ -46,11 +46,8 @@ verticalPadding = 5
 color = "&h00DEE2E6, &h00DEE2E6"
 
 ##############################################################################
-# GENERIC TOKENS
+# REQUIRED TOKENS
 ##############################################################################
-[tokens.boolean]
-color = "&h00365FB1, &h005BA5FF"
-
 [tokens.comment]
 color = "&h00ADB5BD, &h0062707D"
 italic = true
@@ -60,9 +57,6 @@ color = "&h00262626, &h00C8C8C8"
 
 [tokens.error]
 color = "&h00CC1400, &h00CC1400"
-
-[tokens.escape]
-color = "&h00179293, &h00179293"
 
 [tokens.identifier]
 color = "&h00326D74, &h00326D74"
@@ -78,6 +72,15 @@ color = "&h00262626, &h00C8C8C8"
 
 [tokens.string]
 color = "&h00813AA8, &h00B285E2"
+
+##############################################################################
+# GENERIC SOURCE CODE TOKENS
+##############################################################################
+[tokens.boolean]
+color = "&h00365FB1, &h005BA5FF"
+
+[tokens.escape]
+color = "&h00179293, &h00179293"
 
 ##############################################################################
 # MARKDOWN-SPECIFIC TOKENS
@@ -215,3 +218,18 @@ color = "&h00C0C2C2, &h004A4B4B"
 ##############################################################################
 [tokens.interpolation]
 color = "&h00179293, &h00179293"
+
+##############################################################################
+# XOJO-SPECIFIC TOKENS
+##############################################################################
+[tokens.colorPrefix]
+color = "&h00262626, &h00C8C8C8"
+
+[tokens.colorRed]
+color = "&h00A00000, &h00FB2B2C"
+
+[tokens.colorGreen]
+color = "&h0000A000, &h0030D43A"
+
+[tokens.colorBlue]
+color = "&h000001A0, &h000F6BFE"

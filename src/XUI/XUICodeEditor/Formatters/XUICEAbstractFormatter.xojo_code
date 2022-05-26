@@ -73,19 +73,51 @@ Protected Class XUICEAbstractFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1, Description = 437265617465732061206E65772067656E6572696320746F6B656E207374617274696E6720617420606D546F6B656E53746172744C6F63616C6020616E6420656E64696E6720617420606D43757272656E74602077697468206F7074696F6E616C206B65792D76616C756520646174612E2046616C6C6261636B2069732073657420746F206074797065602E
+		Protected Function MakeGenericToken(type As String, paramArray keyValues() As Pair) As XUICELineToken
+		  /// Creates a new generic token starting at `mTokenStartLocal` and ending at `mCurrent` with optional 
+		  /// key-value data. Fallback is set to `type`.
+		  ///
+		  /// Optional key-values can be added to the token's data. Each item in `keyValues` is a `Pair` in 
+		  /// the format:
+		  ///
+		  /// ```
+		  ///  `Left`  = `String` key  
+		  ///  `Right` = `Variant` value
+		  /// ```
+		  ///
+		  /// We set `fallbackType` to the same value as `type`. This therefore assumes that `type` is a valid
+		  /// generic theme type (i.e. one that is guaranteed to be present in a valid `XUICETheme`.
+		  
+		  Var t As New XUICELineToken(mline.Start + mTokenStartLocal, mTokenStartLocal, mCurrent - mTokenStartLocal, _
+		  mLineNumber, type, type)
+		  
+		  For Each kv As Pair In keyValues
+		    t.SetData(kv.Left, kv.Right)
+		  Next kv
+		  
+		  Return t
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1, Description = 437265617465732061206E657720746F6B656E207374617274696E6720617420606D546F6B656E53746172744C6F63616C6020616E6420656E64696E6720617420606D43757272656E74602077697468206F7074696F6E616C206B65792D76616C756520646174612E
-		Protected Function MakeToken(type As String, paramArray keyValues() As Pair) As XUICELineToken
+		Protected Function MakeToken(type As String, fallbackType As String, paramArray keyValues() As Pair) As XUICELineToken
 		  /// Creates a new token starting at `mTokenStartLocal` and ending at `mCurrent` with optional 
 		  /// key-value data.
 		  ///
 		  /// Optional key-values can be added to the token's data. Each item in `keyValues` is a `Pair` in 
 		  /// the format:
 		  ///
+		  /// ```
 		  ///  `Left`  = `String` key  
 		  ///  `Right` = `Variant` value
+		  /// ```
+		  ///
+		  /// `fallbackType` is the style to use if the editor's theme doesn't define `type` as a style.
 		  
 		  Var t As New XUICELineToken(mline.Start + mTokenStartLocal, mTokenStartLocal, mCurrent - mTokenStartLocal, _
-		  mLineNumber, type)
+		  mLineNumber, type, fallbackType)
 		  
 		  For Each kv As Pair In keyValues
 		    t.SetData(kv.Left, kv.Right)

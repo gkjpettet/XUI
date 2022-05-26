@@ -41,7 +41,7 @@ Implements XUICEFormatter
 		    // Advance to the end of the line.
 		    mCurrent = mLine.Characters.LastIndex + 1
 		    
-		    mLine.Tokens.Add(MakeToken(TOKEN_COMMENT))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_COMMENT))
 		    
 		    // Advance past the line end.
 		    Advance(1)
@@ -49,22 +49,6 @@ Implements XUICEFormatter
 		    Return True
 		  End If
 		  
-		  ' If Peek(2) = "/" Then
-		  ' // ====================
-		  ' // SINGLE LINE COMMENT
-		  ' // ====================
-		  ' // Advance to the end of the line.
-		  ' mCurrent = mLine.Characters.LastIndex + 1
-		  ' 
-		  ' mLine.Tokens.Add(MakeToken(TOKEN_COMMENT))
-		  ' 
-		  ' // Advance past the line end.
-		  ' Advance(1)
-		  ' 
-		  ' Return True
-		  ' End If
-		  ' 
-		  ' Return False
 		End Function
 	#tag EndMethod
 
@@ -89,12 +73,12 @@ Implements XUICEFormatter
 		  
 		  // Keyword?
 		  If Keywords.HasKey(lexeme) Then
-		    mLine.Tokens.Add(MakeToken(TOKEN_KEYWORD))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_KEYWORD))
 		    Return
 		  End If
 		  
 		  // Must be an identifier.
-		  mLine.Tokens.Add(MakeToken(TOKEN_IDENTIFIER))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_IDENTIFIER))
 		  
 		End Sub
 	#tag EndMethod
@@ -143,7 +127,7 @@ Implements XUICEFormatter
 		    End If
 		  End If
 		  
-		  mLine.Tokens.Add(MakeToken(TOKEN_NUMBER))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_NUMBER))
 		  
 		End Sub
 	#tag EndMethod
@@ -167,7 +151,7 @@ Implements XUICEFormatter
 		  
 		  // Add the opening delimiter (`"`).
 		  Var startLocal As Integer = mCurrent - 1
-		  tokens.Add(MakeToken(TOKEN_STRING))
+		  tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
 		  
 		  // The token now starts beyond the opening delimiter.
 		  mTokenStartLocal = mCurrent
@@ -180,13 +164,13 @@ Implements XUICEFormatter
 		      If Peek(2) <> """" Then
 		        // This is the end of the string.
 		        Advance
-		        tokens.Add(MakeToken(TOKEN_STRING))
+		        tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
 		        terminated = True
 		        Exit
 		      Else
 		        // Found `""` which is an escaped double quote.
 		        // Create a string token up to (but not including) the `""`.
-		        tokens.Add(MakeToken(TOKEN_STRING))
+		        tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
 		        
 		        mTokenStartLocal = mCurrent
 		        
@@ -194,7 +178,7 @@ Implements XUICEFormatter
 		        Advance(2)
 		        
 		        // Now add the `""` escaped token.
-		        tokens.Add(MakeToken(TOKEN_ESCAPE))
+		        tokens.Add(MakeToken(TOKEN_ESCAPE, XUICELineToken.TYPE_STRING))
 		        
 		        mTokenStartLocal = mCurrent
 		      End If
@@ -207,7 +191,7 @@ Implements XUICEFormatter
 		  If Not terminated Then
 		    // Just add an error token.
 		    mTokenStartLocal = startLocal
-		    mLine.Tokens.Add(MakeToken(TOKEN_ERROR))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_ERROR))
 		    Return
 		    
 		  Else
@@ -226,8 +210,7 @@ Implements XUICEFormatter
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
-		  #Pragma Warning "TODO"
-		  
+		  Return TokenIsComment(line.FirstToken)
 		End Function
 	#tag EndMethod
 
@@ -293,18 +276,18 @@ Implements XUICEFormatter
 		  // =====================================
 		  Select Case c
 		  Case ".", "=", "-", "*", "/", "%", "+", "<", ">", ",", ":"
-		    mLine.Tokens.Add(MakeToken(TOKEN_OPERATOR))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR))
 		    Return
 		    
 		  Case "("
 		    Var t As XUICELineToken = _
-		    MakeToken(TOKEN_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LParen)
+		    MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LParen)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
 		    
 		  Case ")"
-		    Var t As XUICELineToken = MakeToken(TOKEN_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RParen)
+		    Var t As XUICELineToken = MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RParen)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
@@ -324,7 +307,8 @@ Implements XUICEFormatter
 		      If TryAddHexLiteral Then Return
 		      
 		    Case "c"
-		      #Pragma Warning "TODO: Color literals"
+		      Advance
+		      If TryAddColorLiteral Then Return
 		      
 		    Case "o"
 		      Advance
@@ -355,7 +339,7 @@ Implements XUICEFormatter
 		  // =====================================
 		  // UNRECOGNISED CHARACTER
 		  // =====================================
-		  mLine.Tokens.Add(MakeToken(TOKEN_ERROR))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_ERROR))
 		End Sub
 	#tag EndMethod
 
@@ -399,9 +383,8 @@ Implements XUICEFormatter
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
-		  #Pragma Warning "TODO"
-		  
-		  
+		  If token = Nil Then Return False
+		  Return token.Type = XUICELineToken.TYPE_COMMENT
 		End Function
 	#tag EndMethod
 
@@ -441,25 +424,23 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320616E206172726179206F6620616C6C20746F6B656E2074797065732075736564206279207468697320666F726D61747465722E
+	#tag Method, Flags = &h0, Description = 52657475726E7320616E206172726179206F6620616E79206E6F6E207374616E6461726420746F6B656E2074797065732075736564206279207468697320666F726D61747465722E
 		Function TokenTypes() As String()
-		  /// Returns an array of all token types used by this formatter.
+		  /// Returns an array of any non standard token types used by this formatter.
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
 		  #Pragma Warning "TODO: Ensure all are added"
 		  
 		  Return Array( _
-		  TOKEN_COMMENT, _
-		  TOKEN_DEFAULT, _
-		  TOKEN_ERROR, _
+		  TOKEN_ALPHA_COMPONENT, _
+		  TOKEN_BLUE_COMPONENT, _
+		  TOKEN_COLOR_PREFIX, _
 		  TOKEN_ESCAPE, _
-		  TOKEN_IDENTIFIER, _
-		  TOKEN_KEYWORD, _
-		  TOKEN_NUMBER, _
-		  TOKEN_OPERATOR, _
-		  TOKEN_STRING _
+		  TOKEN_GREEN_COMPONENT, _
+		  TOKEN_RED_COMPONENT _
 		  )
+		  
 		End Function
 	#tag EndMethod
 
@@ -486,8 +467,111 @@ Implements XUICEFormatter
 		  If Peek.IsASCIILetterOrDigit Then Return False
 		  
 		  // Binary literals are just numbers.
-		  mLine.Tokens.Add(MakeToken(TOKEN_NUMBER))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_NUMBER))
 		  
+		  Return True
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 547269657320746F20636F6E73756D6520616E6420616464206120436F6C6F72206C69746572616C20746F6B656E2E2052657475726E732054727565206966207375636365737366756C2E
+		Private Function TryAddColorLiteral() As Boolean
+		  /// Tries to consume and add a Color literal token. Returns True if successful.
+		  ///
+		  /// Assumes that `mCurrent` points here:
+		  ///
+		  /// ```
+		  /// &c123456
+		  ///   ^
+		  /// ```
+		  ///
+		  /// Valid tokens (where R, G, B & A are hex digits):
+		  ///
+		  /// ```
+		  /// &cRGB
+		  /// &cRRGGBB
+		  /// &cRRGGBBAA
+		  /// ```
+		  
+		  Var lexemeStart As Integer = mCurrent
+		  
+		  // Get the lexeme (continguous hex digits).
+		  Var lexeme() As String
+		  While Peek.IsHexDigit
+		    lexeme.Add(Consume)
+		  Wend
+		  
+		  // Valid color literal lexemes are 3, 6 or 8 digits.
+		  Select Case lexeme.Count
+		  Case 3, 6, 8
+		    // Create a prefix token.
+		    mLine.Tokens.Add(New XUICELineToken(mline.Start + mTokenStartLocal, mTokenStartLocal, lexemeStart - mTokenStartLocal, _
+		    mLineNumber, TOKEN_COLOR_PREFIX, XUICELineToken.TYPE_OPERATOR))
+		    
+		  Else
+		    // Invalid.
+		    Return False
+		  End Select
+		  
+		  Var cachedCurrent As Integer = mCurrent
+		  
+		  // Handle the colour components.
+		  Select Case lexeme.Count
+		  Case 3
+		    // Red.
+		    mTokenStartLocal = lexemeStart
+		    mCurrent = lexemeStart + 1
+		    mLine.Tokens.Add(MakeToken(TOKEN_RED_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		    
+		    // Green.
+		    mTokenStartLocal = mTokenStartLocal + 1
+		    mCurrent = mCurrent + 1
+		    mLine.Tokens.Add(MakeToken(TOKEN_GREEN_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		    
+		    // Blue.
+		    mTokenStartLocal = mTokenStartLocal + 1
+		    mCurrent = mCurrent + 1
+		    mLine.Tokens.Add(MakeToken(TOKEN_BLUE_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		  Case 6
+		    // Red.
+		    mTokenStartLocal = lexemeStart
+		    mCurrent = lexemeStart + 2
+		    mLine.Tokens.Add(MakeToken(TOKEN_RED_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		    
+		    // Green.
+		    mTokenStartLocal = mTokenStartLocal + 2
+		    mCurrent = mCurrent + 2
+		    mLine.Tokens.Add(MakeToken(TOKEN_GREEN_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		    
+		    // Blue.
+		    mTokenStartLocal = mTokenStartLocal + 2
+		    mCurrent = mCurrent + 2
+		    mLine.Tokens.Add(MakeToken(TOKEN_BLUE_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		  Case 8
+		    // Red.
+		    mTokenStartLocal = lexemeStart
+		    mCurrent = lexemeStart + 2
+		    mLine.Tokens.Add(MakeToken(TOKEN_RED_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		    
+		    // Green.
+		    mTokenStartLocal = mTokenStartLocal + 2
+		    mCurrent = mCurrent + 2
+		    mLine.Tokens.Add(MakeToken(TOKEN_GREEN_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		    
+		    // Blue.
+		    mTokenStartLocal = mTokenStartLocal + 2
+		    mCurrent = mCurrent + 2
+		    mLine.Tokens.Add(MakeToken(TOKEN_BLUE_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		    
+		    // Alpha.
+		    mTokenStartLocal = mTokenStartLocal + 2
+		    mCurrent = mCurrent + 2
+		    mLine.Tokens.Add(MakeToken(TOKEN_ALPHA_COMPONENT, XUICELineToken.TYPE_OPERATOR))
+		  Else
+		    // Invalid.
+		    Return False
+		  End Select
+		  
+		  mCurrent = cachedCurrent
 		  Return True
 		End Function
 	#tag EndMethod
@@ -512,7 +596,7 @@ Implements XUICEFormatter
 		  Wend
 		  
 		  // Hex literals are just numbers.
-		  mLine.Tokens.Add(MakeToken(TOKEN_NUMBER))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_NUMBER))
 		  
 		  Return True
 		End Function
@@ -544,7 +628,7 @@ Implements XUICEFormatter
 		  End If
 		  
 		  // Octal literals are just numbers.
-		  mLine.Tokens.Add(MakeToken(TOKEN_NUMBER))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_NUMBER))
 		  
 		  Return True
 		End Function
@@ -570,7 +654,7 @@ Implements XUICEFormatter
 		  Wend
 		  
 		  // Unicode literals are strings.
-		  mLine.Tokens.Add(MakeToken(TOKEN_STRING))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
 		  
 		  Return True
 		End Function
@@ -659,31 +743,22 @@ Implements XUICEFormatter
 	#tag EndComputedProperty
 
 
-	#tag Constant, Name = TOKEN_COMMENT, Type = String, Dynamic = False, Default = \"comment", Scope = Public, Description = 5573656420666F7220636F6D6D656E74732E
+	#tag Constant, Name = TOKEN_ALPHA_COMPONENT, Type = String, Dynamic = False, Default = \"colorAlpha", Scope = Public, Description = 54686520616C70686120636F6D706F6E656E74206F66206120636F6C6F72206C69746572616C2E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_DEFAULT, Type = String, Dynamic = False, Default = \"default", Scope = Public, Description = 5573656420666F722064656661756C7420746578742E
+	#tag Constant, Name = TOKEN_BLUE_COMPONENT, Type = String, Dynamic = False, Default = \"colorBlue", Scope = Public, Description = 54686520626C756520636F6D706F6E656E74206F66206120636F6C6F72206C69746572616C2E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_ERROR, Type = String, Dynamic = False, Default = \"error", Scope = Public, Description = 5573656420666F72206572726F72732E
+	#tag Constant, Name = TOKEN_COLOR_PREFIX, Type = String, Dynamic = False, Default = \"colorPrefix", Scope = Public, Description = 5573656420666F722074686520602663602070726566697820696E20436F6C6F72206C69746572616C732E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_ESCAPE, Type = String, Dynamic = False, Default = \"escape", Scope = Public, Description = 5573656420666F72206573636170652073657175656E6365732E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_IDENTIFIER, Type = String, Dynamic = False, Default = \"identifier", Scope = Public, Description = 5573656420666F72206964656E746966696572732E
+	#tag Constant, Name = TOKEN_GREEN_COMPONENT, Type = String, Dynamic = False, Default = \"colorGreen", Scope = Public, Description = 54686520677265656E20636F6D706F6E656E74206F66206120636F6C6F72206C69746572616C2E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_KEYWORD, Type = String, Dynamic = False, Default = \"keyword", Scope = Public, Description = 5573656420666F72206B6579776F7264732E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_NUMBER, Type = String, Dynamic = False, Default = \"number", Scope = Public, Description = 5573656420666F72206E756D626572206C69746572616C732E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_OPERATOR, Type = String, Dynamic = False, Default = \"operator", Scope = Public, Description = 5573656420666F72206F70657261746F72732E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_STRING, Type = String, Dynamic = False, Default = \"string", Scope = Public, Description = 5573656420666F7220737472696E67732E
+	#tag Constant, Name = TOKEN_RED_COMPONENT, Type = String, Dynamic = False, Default = \"colorRed", Scope = Public, Description = 5468652072656420636F6D706F6E656E74206F66206120636F6C6F72206C69746572616C2E
 	#tag EndConstant
 
 

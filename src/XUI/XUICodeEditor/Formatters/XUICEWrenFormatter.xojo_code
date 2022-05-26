@@ -71,7 +71,8 @@ Implements XUICEFormatter
 		      Return False
 		    Else
 		      // Found a closed block comment.
-		      Call AddMultilineTokens(TOKEN_COMMENT, mLineNumberCache, mTokenStartLocalCache, mLineNumber, mCurrent)
+		      Call AddMultilineTokens(XUICELineToken.TYPE_COMMENT, mLineNumberCache, mTokenStartLocalCache, _
+		      mLineNumber, mCurrent)
 		      Return True
 		    End If
 		  End If
@@ -83,7 +84,7 @@ Implements XUICEFormatter
 		    // Advance to the end of the line.
 		    mCurrent = mLine.Characters.LastIndex + 1
 		    
-		    mLine.Tokens.Add(MakeToken(TOKEN_COMMENT))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_COMMENT))
 		    
 		    // Advance past the line end.
 		    Advance(1)
@@ -113,7 +114,7 @@ Implements XUICEFormatter
 		    Call Advance
 		  Wend
 		  
-		  mLine.Tokens.Add(MakeToken(TOKEN_NUMBER))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_NUMBER))
 		  
 		End Sub
 	#tag EndMethod
@@ -139,12 +140,12 @@ Implements XUICEFormatter
 		  
 		  // Keyword?
 		  If Keywords.HasKey(lexeme) Then
-		    mLine.Tokens.Add(MakeToken(TOKEN_KEYWORD))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_KEYWORD))
 		    Return
 		  End If
 		  
 		  // Must be an identifier.
-		  mLine.Tokens.Add(MakeToken(TOKEN_IDENTIFIER))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_IDENTIFIER))
 		  
 		End Sub
 	#tag EndMethod
@@ -164,30 +165,33 @@ Implements XUICEFormatter
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 4164647320636F6E746967756F757320746F6B656E73206F662060747970656020626567696E6E696E67206174206073746172744C696E656020616E64206073746172744C6F63616C6020616C6C207468652077617920746F2060656E644C696E65602060656E64506F734C6F63616C602E2052657475726E7320746865206C61737420746F6B656E2061646465642E20746865206C61737420746F6B656E2E
-		Private Function AddMultilineTokens(type As String, startLine As Integer, startLocal As Integer, endLine As Integer, endPosLocal As Integer) As XUICELineToken
+		Private Function AddMultilineTokens(type As String, startLine As Integer, startLocal As Integer, endLine As Integer, endPosLocal As Integer, fallbackType As String = "default") As XUICELineToken
 		  /// Adds contiguous tokens of `type` beginning at `startLine` and `startLocal` all the 
 		  /// way to `endLine` `endPosLocal`. Returns the last token added.
 		  /// the last token.
 		  ///
 		  /// Assumes that all arguments are valid.
+		  /// `fallbackType` is the generic fallback token style to use if the editor's current theme doesn't 
+		  /// define a style named `type`.
+		  /// Assumes `fallbackType` is a valid fallback type (i.e. one of the constants in `XUICELineToken`).
 		  
 		  Var t As XUICELineToken
 		  
 		  // First line.
 		  Var line As XUICELine = mLineManager.Lines(startLine - 1)
 		  If endLine = startLine Then
-		    t = New XUICELineToken(line.Start + startLocal, startLocal, endPosLocal - startLocal, line.Number, type)
+		    t = New XUICELineToken(line.Start + startLocal, startLocal, endPosLocal - startLocal, line.Number, type, fallbackType)
 		    line.Tokens.Add(t)
 		    Return t
 		  Else
-		    t = New XUICELineToken(line.Start + startLocal, startLocal, line.Length - startLocal, line.Number, type)
+		    t = New XUICELineToken(line.Start + startLocal, startLocal, line.Length - startLocal, line.Number, type, fallbackType)
 		    line.Tokens.Add(t)
 		  End If
 		  
 		  // Last line.
 		  line = mLineManager.Lines(endLine - 1)
 		  If Not line.IsBlank Then
-		    t = New XUICELineToken(line.Start, 0, endPosLocal, line.Number, type)
+		    t = New XUICELineToken(line.Start, 0, endPosLocal, line.Number, type, fallbackType)
 		    line.Tokens.Add(t)
 		  End If
 		  If endLine = startLine + 1 Then Return t
@@ -196,7 +200,7 @@ Implements XUICEFormatter
 		  For i As Integer = startLine + 1 To endLine - 1
 		    line = mLineManager.LineAt(i)
 		    If line.IsBlank Then Continue
-		    t = New XUICELineToken(line.Start, 0, line.Length, line.Number, type)
+		    t = New XUICELineToken(line.Start, 0, line.Length, line.Number, type, fallbackType)
 		    line.Tokens.Add(t)
 		  Next i
 		  
@@ -249,7 +253,7 @@ Implements XUICEFormatter
 		    End If
 		  End If
 		  
-		  mLine.Tokens.Add(MakeToken(TOKEN_NUMBER))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_NUMBER))
 		  
 		End Sub
 	#tag EndMethod
@@ -276,7 +280,7 @@ Implements XUICEFormatter
 		    If Peek(1) = """" And Peek(2) = """" And Peek(3) = """" Then
 		      // Found the closing delimiter.
 		      Advance(3)
-		      Var t As XUICELineToken = AddMultilineTokens(TOKEN_STRING, startLine, mTokenStartLocal, mLineNumber, mCurrent)
+		      Var t As XUICELineToken = AddMultilineTokens(XUICELineToken.TYPE_STRING, startLine, mTokenStartLocal, mLineNumber, mCurrent)
 		      If t <> Nil Then t.SetData("isClosingDelimiter", True)
 		      Return
 		    Else
@@ -285,7 +289,7 @@ Implements XUICEFormatter
 		  Wend
 		  
 		  // Unterminated raw string.
-		  Call AddMultilineTokens(TOKEN_ERROR, startLine, mTokenStartLocal, mLineNumber, mCurrent)
+		  Call AddMultilineTokens(XUICELineToken.TYPE_ERROR, startLine, mTokenStartLocal, mLineNumber, mCurrent)
 		  Return
 		  
 		End Sub
@@ -320,7 +324,7 @@ Implements XUICEFormatter
 		  // Add the opening delimiter.
 		  Var openerStartLine As Integer = mLineNumber
 		  Var openerStartLocal As Integer = mCurrent - 1
-		  mline.Tokens.Add(MakeToken(TOKEN_STRING))
+		  mline.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
 		  mTokenStartLocal = mCurrent
 		  
 		  // Track the line the in-progress string begins at.
@@ -338,7 +342,7 @@ Implements XUICEFormatter
 		        Exit
 		      Else
 		        // Add whatever remains of the string up to this closing delimiter and the closing delimiter as well.
-		        Var t As XUICELineToken = AddMultilineTokens(TOKEN_STRING, stringStartLine, stringStartLocal, mLineNumber, mCurrent)
+		        Var t As XUICELineToken = AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, stringStartLocal, mLineNumber, mCurrent)
 		        If t <> Nil Then t.SetData("isClosingDelimiter", True)
 		        Return
 		      End If
@@ -376,11 +380,11 @@ Implements XUICEFormatter
 		    // Analyse this line's tokens
 		    For j As Integer = line.Tokens.LastIndex DownTo 0
 		      Var t As XUICELineToken = line.Tokens.Pop
-		      If t.Type = TOKEN_STRING Then Exit For i
+		      If t.Type = XUICELineToken.TYPE_STRING Then Exit For i
 		    Next j
 		  Next i
 		  
-		  Call AddMultilineTokens(TOKEN_ERROR, openerStartLine, openerStartLocal, mLineNumber, mCurrent)
+		  Call AddMultilineTokens(XUICELineToken.TYPE_ERROR, openerStartLine, openerStartLocal, mLineNumber, mCurrent)
 		End Sub
 	#tag EndMethod
 
@@ -428,10 +432,11 @@ Implements XUICEFormatter
 		    Advance
 		    // Add the in-progress preceding string token(s) (if any).
 		    If isPrecedingString Then
-		      Call AddMultilineTokens(TOKEN_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
+		      Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
 		    End If
 		    // Add the escape token.
-		    Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent)
+		    Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent, _
+		    XUICELineToken.TYPE_STRING)
 		    If AtLineEnd Then Advance
 		    Return True
 		    
@@ -440,10 +445,11 @@ Implements XUICEFormatter
 		      Advance(3)
 		      // Add the in-progress preceding string token(s) (if any).
 		      If isPrecedingString Then
-		        Call AddMultilineTokens(TOKEN_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
+		        Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
 		      End If
 		      // Add the escape token.
-		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent)
+		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent, _
+		      XUICELineToken.TYPE_STRING)
 		      If AtLineEnd Then Advance
 		      Return True
 		    Else
@@ -455,10 +461,11 @@ Implements XUICEFormatter
 		      Advance(5)
 		      // Add the in-progress preceding string token(s) (if any).
 		      If isPrecedingString Then
-		        Call AddMultilineTokens(TOKEN_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
+		        Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
 		      End If
 		      // Add the escape token.
-		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent)
+		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent, _
+		      XUICELineToken.TYPE_STRING)
 		      If AtLineEnd Then Advance
 		      Return True
 		    Else
@@ -471,10 +478,11 @@ Implements XUICEFormatter
 		      Advance(9)
 		      // Add the in-progress preceding string token(s) (if any).
 		      If isPrecedingString Then
-		        Call AddMultilineTokens(TOKEN_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
+		        Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
 		      End If
 		      // Add the escape token.
-		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent)
+		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent, _
+		      XUICELineToken.TYPE_STRING)
 		      If AtLineEnd Then Advance
 		      Return True
 		    Else
@@ -529,11 +537,13 @@ Implements XUICEFormatter
 		      If nestingLevel = 0 Then
 		        // Add the in-progress preceding string token(s) (if any).
 		        If isPrecedingString Then
-		          Call AddMultilineTokens(TOKEN_STRING, stringStartLine, mTokenStartLocal, interpolationStartLine, interpolationStartLocal)
+		          Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, _
+		          interpolationStartLine, interpolationStartLocal)
 		        End If
 		        
 		        // Add the interpolation token(s).
-		        Call AddMultilineTokens(TOKEN_INTERPOLATION, interpolationStartLine, interpolationStartLocal, mLineNumber, mCurrent)
+		        Call AddMultilineTokens(TOKEN_INTERPOLATION, interpolationStartLine, interpolationStartLocal, _
+		        mLineNumber, mCurrent, XUICELineToken.TYPE_STRING)
 		        If AtLineEnd Then Advance
 		        Return True
 		      Else
@@ -679,7 +689,7 @@ Implements XUICEFormatter
 		  ///
 		  /// Assumes `t` is not Nil.
 		  
-		  If t.Type <> TOKEN_OPERATOR Then Return False
+		  If t.Type <> XUICELineToken.TYPE_OPERATOR Then Return False
 		  
 		  Select Case t.LookupData("delimiterType", XUICEDelimiter.Types.None)
 		  Case XUICEDelimiter.Types.RCurly, XUICEDelimiter.Types.RParen, XUICEDelimiter.Types.RSquare
@@ -707,8 +717,7 @@ Implements XUICEFormatter
 		  ///
 		  /// Assumes `token` is not Nil.
 		  
-		  Return token.Type = TOKEN_COMMENT
-		  
+		  Return token.Type = XUICELineToken.TYPE_COMMENT
 		End Function
 	#tag EndMethod
 
@@ -718,7 +727,7 @@ Implements XUICEFormatter
 		  ///
 		  /// Assumes `t` is not Nil.
 		  
-		  If t.Type <> TOKEN_OPERATOR Then Return False
+		  If t.Type <> XUICELineToken.TYPE_OPERATOR Then Return False
 		  
 		  Select Case t.LookupData("delimiterType", XUICEDelimiter.Types.None)
 		  Case XUICEDelimiter.Types.LCurly, XUICEDelimiter.Types.LParen, XUICEDelimiter.Types.LSquare
@@ -824,43 +833,43 @@ Implements XUICEFormatter
 		  // =====================================
 		  Select Case c
 		  Case ".", "=", "-", "~", "*", "/", "%", "+", "^", "<", ">", "!", "&", "|", "?", ",", ":"
-		    mLine.Tokens.Add(MakeToken(TOKEN_OPERATOR, "canBeContinued" : True))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "canBeContinued" : True))
 		    Return
 		    
 		  Case "("
 		    Var t As XUICELineToken = _
-		    MakeToken(TOKEN_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LParen)
+		    MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LParen)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
 		    
 		  Case ")"
-		    Var t As XUICELineToken = MakeToken(TOKEN_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RParen)
+		    Var t As XUICELineToken = MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RParen)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
 		    
 		  Case "["
 		    Var t As XUICELineToken = _
-		    MakeToken(TOKEN_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LSquare)
+		    MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LSquare)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
 		    
 		  Case "]"
-		    Var t As XUICELineToken = MakeToken(TOKEN_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RSquare)
+		    Var t As XUICELineToken = MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RSquare)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
 		    
 		  Case "{"
-		    Var t As XUICELineToken = MakeToken(TOKEN_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LCurly)
+		    Var t As XUICELineToken = MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LCurly)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
 		    
 		  Case "}"
-		    Var t As XUICELineToken = MakeToken(TOKEN_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RCurly)
+		    Var t As XUICELineToken = MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RCurly)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
@@ -885,7 +894,7 @@ Implements XUICEFormatter
 		  // =====================================
 		  // UNRECOGNISED CHARACTER
 		  // =====================================
-		  mLine.Tokens.Add(MakeToken(TOKEN_ERROR))
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_ERROR))
 		  
 		End Sub
 	#tag EndMethod
@@ -963,7 +972,7 @@ Implements XUICEFormatter
 		    Return
 		  End If
 		  
-		  If previousLineLastToken.Type = TOKEN_STRING Then
+		  If previousLineLastToken.Type = XUICELineToken.TYPE_STRING Then
 		    line.IsContinuation = Not previousLineLastToken.LookupData("isClosingDelimiter", False)
 		    Return
 		  End If
@@ -1014,7 +1023,7 @@ Implements XUICEFormatter
 		  /// Part of the `XUICEFormatter` interface.
 		  
 		  If token = Nil Then Return False
-		  Return token.Type = TOKEN_COMMENT
+		  Return token.Type = XUICELineToken.TYPE_COMMENT
 		  
 		End Function
 	#tag EndMethod
@@ -1067,18 +1076,7 @@ Implements XUICEFormatter
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
-		  Return Array( _
-		  TOKEN_COMMENT, _
-		  TOKEN_DEFAULT, _
-		  TOKEN_ERROR, _
-		  TOKEN_ESCAPE, _
-		  TOKEN_IDENTIFIER, _
-		  TOKEN_INTERPOLATION, _
-		  TOKEN_KEYWORD, _
-		  TOKEN_NUMBER, _
-		  TOKEN_OPERATOR, _
-		  TOKEN_STRING _
-		  )
+		  Return Array(TOKEN_ESCAPE, TOKEN_INTERPOLATION)
 		  
 		End Function
 	#tag EndMethod
@@ -1117,34 +1115,10 @@ Implements XUICEFormatter
 	#tag EndProperty
 
 
-	#tag Constant, Name = TOKEN_COMMENT, Type = String, Dynamic = False, Default = \"comment", Scope = Public, Description = 5573656420666F7220636F6D6D656E74732E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_DEFAULT, Type = String, Dynamic = False, Default = \"default", Scope = Public, Description = 5573656420666F722064656661756C7420746578742E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_ERROR, Type = String, Dynamic = False, Default = \"error", Scope = Public, Description = 5573656420666F72206572726F72732E
-	#tag EndConstant
-
 	#tag Constant, Name = TOKEN_ESCAPE, Type = String, Dynamic = False, Default = \"escape", Scope = Public, Description = 5573656420666F72206573636170652073657175656E6365732E
 	#tag EndConstant
 
-	#tag Constant, Name = TOKEN_IDENTIFIER, Type = String, Dynamic = False, Default = \"identifier", Scope = Public, Description = 5573656420666F72206964656E746966696572732E
-	#tag EndConstant
-
 	#tag Constant, Name = TOKEN_INTERPOLATION, Type = String, Dynamic = False, Default = \"interpolation", Scope = Public, Description = 5573656420666F7220737472696E6720696E746572706F6C6174696F6E732028652E673A206025286E616D652960292E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_KEYWORD, Type = String, Dynamic = False, Default = \"keyword", Scope = Public, Description = 5573656420666F72206B6579776F7264732E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_NUMBER, Type = String, Dynamic = False, Default = \"number", Scope = Public, Description = 5573656420666F72206E756D626572206C69746572616C732E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_OPERATOR, Type = String, Dynamic = False, Default = \"operator", Scope = Public, Description = 5573656420666F72206F70657261746F72732E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_STRING, Type = String, Dynamic = False, Default = \"string", Scope = Public, Description = 5573656420666F7220737472696E67732E
 	#tag EndConstant
 
 

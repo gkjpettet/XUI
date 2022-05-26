@@ -297,11 +297,39 @@ Protected Class XUICETheme
 		  // ======================
 		  // Required properties.
 		  AssertPathType(d, "tokens", TYPE_DICTIONARY)
-		  AssertPathType(d, "tokens.default", TYPE_DICTIONARY)
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_COMMENT, TYPE_DICTIONARY)
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_DEFAULT, TYPE_DICTIONARY)
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_ERROR, TYPE_DICTIONARY)
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_IDENTIFIER, TYPE_DICTIONARY)
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_KEYWORD, TYPE_DICTIONARY)
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_NUMBER, TYPE_DICTIONARY)
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_OPERATOR, TYPE_DICTIONARY)
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_STRING, TYPE_DICTIONARY)
 		  
 		  Var tokens As Dictionary = d.Value("tokens")
-		  AssertIsTokenDictionary(tokens.Value("default"))
-		  AssertPathType(d, "tokens.default.color", TYPE_COLORGROUP)
+		  AssertIsTokenDictionary(tokens.Value(XUICELineToken.TYPE_COMMENT))
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_COMMENT + ".color", TYPE_COLORGROUP)
+		  
+		  AssertIsTokenDictionary(tokens.Value(XUICELineToken.TYPE_DEFAULT))
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_DEFAULT + ".color", TYPE_COLORGROUP)
+		  
+		  AssertIsTokenDictionary(tokens.Value(XUICELineToken.TYPE_ERROR))
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_ERROR + ".color", TYPE_COLORGROUP)
+		  
+		  AssertIsTokenDictionary(tokens.Value(XUICELineToken.TYPE_IDENTIFIER))
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_IDENTIFIER + ".color", TYPE_COLORGROUP)
+		  
+		  AssertIsTokenDictionary(tokens.Value(XUICELineToken.TYPE_KEYWORD))
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_KEYWORD + ".color", TYPE_COLORGROUP)
+		  
+		  AssertIsTokenDictionary(tokens.Value(XUICELineToken.TYPE_NUMBER))
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_NUMBER + ".color", TYPE_COLORGROUP)
+		  
+		  AssertIsTokenDictionary(tokens.Value(XUICELineToken.TYPE_OPERATOR))
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_OPERATOR + ".color", TYPE_COLORGROUP)
+		  
+		  AssertIsTokenDictionary(tokens.Value(XUICELineToken.TYPE_STRING))
+		  AssertPathType(d, "tokens." + XUICELineToken.TYPE_STRING + ".color", TYPE_COLORGROUP)
 		  
 		  // All other top-level values in `tokens` must be dictionaries.
 		  For Each entry As DictionaryEntry In tokens
@@ -537,9 +565,14 @@ Protected Class XUICETheme
 		Function StyleForToken(token As XUICELineToken) As XUICETokenStyle
 		  /// Returns the style to use for the passed token type.
 		  ///
-		  /// If the requested token type style is not found then the default style is returned.
+		  /// If the requested primary style is not found then we try the fallback style. If that's not found 
+		  /// we return the default style.
 		  
-		  Return Styles.Lookup(token.Type, DefaultStyle)
+		  If Styles.HasKey(token.Type) Then
+		    Return Styles.Value(token.Type)
+		  Else
+		    Return Styles.Lookup(token.FallbackType, DefaultStyle)
+		  End If
 		  
 		End Function
 	#tag EndMethod

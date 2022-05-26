@@ -1,7 +1,7 @@
 #tag Class
 Protected Class XUICELineToken
 	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
-		Sub Constructor(startAbsolute As Integer, startLocal As Integer, length As Integer, lineNumber As Integer, type As String = "default")
+		Sub Constructor(startAbsolute As Integer, startLocal As Integer, length As Integer, lineNumber As Integer, type As String = "default", fallback As String = "default")
 		  /// Default constructor.
 		  ///
 		  /// - `startAbsolute` is the absolute 0-based position of the start of this token within
@@ -11,12 +11,14 @@ Protected Class XUICELineToken
 		  /// - `lineNumber` is the 1-based line number this token is on.
 		  /// - `type` is this token's type as a string. This is used in themes to style 
 		  ///   the token in the editor.
+		  /// - `fallback` is the token's fallback type to use if `type` isn't available in the current theme.
 		  
 		  Self.StartAbsolute = startAbsolute
 		  Self.StartLocal = startLocal
 		  Self.Length = length
 		  Self.LineNumber = lineNumber
 		  Self.Type = type
+		  Self.FallbackType = fallback
 		  
 		End Sub
 	#tag EndMethod
@@ -74,6 +76,10 @@ Protected Class XUICELineToken
 		EndLocal As Integer
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 54686520746F6B656E207479706520746F20757365206966207468652063757272656E74207468656D6520646F65736E277420737570706F727420746865207072696D61727920225479706522207374796C652E
+		FallbackType As String = "default"
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 546865206C656E677468206F66207468697320746F6B656E20696E20636861726163746572732E
 		Length As Integer = 0
 	#tag EndProperty
@@ -97,6 +103,31 @@ Protected Class XUICELineToken
 	#tag Property, Flags = &h0, Description = 5468697320746F6B656E277320747970652E205573656420746F2064657465726D696E6520686F7720746F207374796C652069742E
 		Type As String = "default"
 	#tag EndProperty
+
+
+	#tag Constant, Name = TYPE_COMMENT, Type = String, Dynamic = False, Default = \"comment", Scope = Public, Description = 5468652067656E6572696320636F6D6D656E7420746F6B656E20747970652E2047756172616E7465656420746F20626520646566696E65642077697468696E20612076616C6964207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_DEFAULT, Type = String, Dynamic = False, Default = \"default", Scope = Public, Description = 5468652064656661756C7420746F6B656E20747970652E2047756172616E7465656420746F20626520646566696E65642077697468696E20612076616C6964207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_ERROR, Type = String, Dynamic = False, Default = \"error", Scope = Public, Description = 546865206572726F7220746F6B656E20747970652E2047756172616E7465656420746F20626520646566696E65642077697468696E20612076616C6964207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_IDENTIFIER, Type = String, Dynamic = False, Default = \"identifier", Scope = Public, Description = 5468652067656E65726963206964656E74696669657220746F6B656E20747970652E2047756172616E7465656420746F20626520646566696E65642077697468696E20612076616C6964207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_KEYWORD, Type = String, Dynamic = False, Default = \"keyword", Scope = Public, Description = 5468652067656E65726963206B6579776F726420746F6B656E20747970652E2047756172616E7465656420746F20626520646566696E65642077697468696E20612076616C6964207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_NUMBER, Type = String, Dynamic = False, Default = \"number", Scope = Public, Description = 5468652067656E65726963206E756D62657220746F6B656E20747970652E2047756172616E7465656420746F20626520646566696E65642077697468696E20612076616C6964207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_OPERATOR, Type = String, Dynamic = False, Default = \"operator", Scope = Public, Description = 5468652067656E65726963206F70657261746F7220746F6B656E20747970652E2047756172616E7465656420746F20626520646566696E65642077697468696E20612076616C6964207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = TYPE_STRING, Type = String, Dynamic = False, Default = \"string", Scope = Public, Description = 5468652067656E6572696320737472696E6720746F6B656E20747970652E2047756172616E7465656420746F20626520646566696E65642077697468696E20612076616C6964207468656D652E
+	#tag EndConstant
 
 
 	#tag ViewBehavior
