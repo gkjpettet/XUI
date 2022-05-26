@@ -83,6 +83,20 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 416464732074686520706173736564206D61746368696E6720706172656E74686573657320746F2074686520604D617463686564506172656E746865736573602064696374696F6E61727920616E642074686520604D6174636865644F70656E696E67506172656E746865736573602061727261792E
+		Private Sub AddMatchingParentheses(lparen As XUICELineToken, rparen As XUICELineToken)
+		  /// Adds the passed matching parentheses to the `MatchedParentheses` dictionary and 
+		  /// the `MatchedOpeningParentheses` array.
+		  ///
+		  /// We add both parentheses as keys so we can find either.
+		  
+		  MatchedParentheses.Value(lparen) = rparen
+		  MatchedParentheses.Value(rparen) = lparen
+		  
+		  MatchedLeftParentheses.Add(lparen)
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 436F6E73756D657320616E6420616464732061206E756D62657220746F6B656E207374617274696E6720617420606D43757272656E74602E
 		Private Sub AddNumberToken()
 		  /// Consumes and adds a number token starting at `mCurrent`.
@@ -204,6 +218,98 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 536574732074686520696E64656E746174696F6E20616E6420636F6E74696E756174696F6E206C6576656C7320666F722065616368206C696E652E
+		Private Sub IndentLines()
+		  /// Sets the indentation and continuation levels for each line.
+		  ///
+		  /// Assumes `ProcessDelimiters()` has been called prior to this method.
+		  
+		  #Pragma Warning "TODO: Indent lines"
+		  
+		  If mLines.Count = 0 Then Return
+		  
+		  // The first line is never indented.
+		  mLines(0).IndentLevel = 0
+		  mLines(0).IsContinuation = False
+		  mLines(0).Unmatched = False
+		  
+		  // If there's only one line then there can be no indentation.
+		  If mLines.Count = 1 Then Return
+		  
+		  ' Var previousLine As XUICELine = mLines(0)
+		  ' For i As Integer = 1 To mLinesLastIndex
+		  ' Var line As XUICELine = mLines(i)
+		  ' previousLine = mLines(i - 1)
+		  ' 
+		  ' line.IsContinuation = False
+		  ' line.Unmatched = False
+		  ' 
+		  ' If line.IsBlank Then
+		  ' line.IndentLevel = previousLine.IndentLevel
+		  ' line.IsContinuation = previousLine.IsContinuation
+		  ' Continue
+		  ' End If
+		  ' 
+		  ' Var firstToken As XUICELineToken = FirstNonCommentToken(line)
+		  ' 
+		  ' // Does this line start with a closing delimiter like `}`, `)` or `]`?.
+		  ' If firstToken <> Nil And IsClosingDelimiter(firstToken) Then
+		  ' If MatchedDelimiters.HasKey(firstToken) Then
+		  ' // This line starts with a closing delimiter. Its indent level is the same as its 
+		  ' // matching opening delimiter. `-1` as `mLines` needs an index not a line number.
+		  ' line.IndentLevel = mLines(XUICELineToken(MatchedDelimiters.Value(firstToken)).LineNumber - 1).IndentLevel
+		  ' SetContinuationStatus(line, LastNonCommentToken(previousLine))
+		  ' Continue
+		  ' Else
+		  ' // This line starts with a closing delimiter but there is no matching opener so its indent level is 0.
+		  ' line.Unmatched = True
+		  ' line.IndentLevel = 0
+		  ' SetContinuationStatus(line, LastNonCommentToken(previousLine))
+		  ' Continue
+		  ' End If
+		  ' End If
+		  ' 
+		  ' // Does the previous line end with an opening delimiter like `{`, `(` or `[`?
+		  ' Var previousLineLastToken As XUICELineToken = LastNonCommentToken(previousLine)
+		  ' If previousLineLastToken <> Nil And IsOpeningDelimiter(previousLineLastToken) Then
+		  ' // The line above ends with an opening delimiter.
+		  ' line.IndentLevel = previousLine.IndentLevel + 1
+		  ' SetContinuationStatus(line, previousLineLastToken)
+		  ' Continue
+		  ' End If
+		  ' 
+		  ' // Does the previous line end with a closing delimiter like `}`, `)` or `]`?
+		  ' If previousLineLastToken <> Nil And IsClosingDelimiter(previousLineLastToken) Then
+		  ' If MatchedDelimiters.HasKey(previousLineLastToken) Then
+		  ' // This line's indent is the same as the line containing the matching opening delimiter.
+		  ' Var opener As XUICELineToken = MatchedDelimiters.Value(previousLineLastToken)
+		  ' line.IndentLevel = mLines(opener.LineNumber - 1).IndentLevel
+		  ' SetContinuationStatus(line, previousLineLastToken)
+		  ' Continue
+		  ' Else
+		  ' // The line above ends with a closing delimiter but there is no matching opener so its indent level is
+		  ' // the same as the line above.
+		  ' line.Unmatched = True
+		  ' line.IndentLevel = previousLine.IndentLevel
+		  ' SetContinuationStatus(line, previousLineLastToken)
+		  ' Continue
+		  ' End If
+		  ' End If
+		  ' 
+		  ' // If this line ends with an opening delimiter but has no matching closing delimiter then it is unmatched.
+		  ' Var lastToken As XUICELineToken = LastNonCommentToken(line)
+		  ' If lastToken <> Nil And IsOpeningDelimiter(lastToken) And Not MatchedDelimiters.HasKey(lastToken) Then
+		  ' line.Unmatched = True
+		  ' End If
+		  ' 
+		  ' // Just a regular line.
+		  ' line.IndentLevel = previousLine.IndentLevel
+		  ' SetContinuationStatus(line, previousLineLastToken)
+		  ' Next i
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 54727565206966207468697320656E74697265206C696E65206973206120636F6D6D656E742E
 		Function IsCommentLine(line As XUICELine) As Boolean
 		  /// True if this entire line is a comment.
@@ -230,8 +336,19 @@ Implements XUICEFormatter
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
-		  #Pragma Warning "TODO"
+		  // We iterate backwards over the matched parentheses starting from the last left parenthesis in the source code.
+		  For i As Integer = MatchedLeftParentheses.LastIndex DownTo 0
+		    Var lparen As XUICELineToken = MatchedLeftParentheses(i)
+		    If lparen.StartAbsolute <= caretPos Then
+		      // If this is matched after the caret (or not at all) then we're done.
+		      If MatchedParentheses.HasKey(lparen) Then
+		        Var rparen As XUICELineToken = MatchedParentheses.Value(lparen)
+		        If rparen.StartAbsolute >= caretPos Then Return New XUICEDelimiter(lparen, rparen)
+		      End If
+		    End If
+		  Next i
 		  
+		  Return Nil
 		  
 		End Function
 	#tag EndMethod
@@ -283,13 +400,13 @@ Implements XUICEFormatter
 		    Var t As XUICELineToken = _
 		    MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LParen)
 		    mLine.Tokens.Add(t)
-		    Delimiters.Add(t)
+		    Parentheses.Add(t)
 		    Return
 		    
 		  Case ")"
 		    Var t As XUICELineToken = MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.RParen)
 		    mLine.Tokens.Add(t)
-		    Delimiters.Add(t)
+		    Parentheses.Add(t)
 		    Return
 		  End Select
 		  
@@ -337,9 +454,74 @@ Implements XUICEFormatter
 		  End If
 		  
 		  // =====================================
+		  // LINE CONTINUATION
+		  // =====================================
+		  #Pragma Warning "TODO: Line continuation operator"
+		  
+		  // =====================================
 		  // UNRECOGNISED CHARACTER
 		  // =====================================
 		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_ERROR))
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 506572666F726D7320612073696D706C65207061727365206F6620746865206C696E65732C2073657474696E67206C696E6520696E64656E746174696F6E2C206C696E6520636F6E74696E756174696F6E7320616E6420636F6D707574696E67206D61746368696E6720706172656E7468657365732E
+		Private Sub ParseSimple()
+		  /// Performs a simple parse of the lines, setting line indentation, line continuations and 
+		  /// computing matching parentheses.
+		  ///
+		  /// Assumes the lines in `mLines` have just been tokenised.
+		  
+		  ProcessParentheses
+		  IndentLines
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 46696E647320746865206C6F636174696F6E73206F6620706172656E74686573657320616E642061646473207468656D20746F20604D617463686564506172656E746865736573602E
+		Private Sub ProcessParentheses()
+		  /// Finds the locations of parentheses and adds them to `MatchedParentheses`.
+		  
+		  Var lparen As XUICEDelimiter.Types = XUICEDelimiter.Types.LParen
+		  Var rparen As XUICEDelimiter.Types = XUICEDelimiter.Types.RParen
+		  
+		  MatchedLeftParentheses.RemoveAll
+		  MatchedParentheses = New Dictionary
+		  
+		  // Don't waste resources parsing the parentheses if the editor has the option turned off.
+		  If Not mLineManager.Owner.HighlightDelimitersAroundCaret Then
+		    Return
+		  End If
+		  
+		  Var iMax As Integer = Parentheses.LastIndex
+		  For i As Integer = 0 To iMax
+		    Var opener As XUICELineToken = Parentheses(i)
+		    
+		    // We're only interested in the left parentheses.
+		    If opener.LookupData("delimiterType", XUICEDelimiter.Types.None) <> lparen Then
+		      Continue For i
+		    End If
+		    
+		    // Find the "closer" (matching right parenthesis) if present.
+		    Var nestingLevel As Integer = 0
+		    For j As Integer = i + 1 To iMax
+		      Var closer As XUICELineToken = Parentheses(j)
+		      
+		      If closer.LookupData("delimiterType", XUICEDelimiter.Types.None) = lparen Then
+		        nestingLevel = nestingLevel + 1
+		        
+		      ElseIf closer.LookupData("delimiterType", XUICEDelimiter.Types.None) = rparen Then
+		        If nestingLevel = 0 Then
+		          // Found it.
+		          AddMatchingParentheses(opener, closer)
+		          Continue For i
+		        Else
+		          nestingLevel = nestingLevel - 1
+		        End If
+		      End If
+		    Next j
+		  Next i
+		  
 		End Sub
 	#tag EndMethod
 
@@ -415,12 +597,13 @@ Implements XUICEFormatter
 		  
 		  Initialise(lines, 1)
 		  
-		  Delimiters.RemoveAll
+		  Parentheses.RemoveAll
 		  
 		  While Not AtEnd
 		    NextToken
 		  Wend
 		  
+		  ParseSimple
 		End Sub
 	#tag EndMethod
 
@@ -429,8 +612,6 @@ Implements XUICEFormatter
 		  /// Returns an array of any non standard token types used by this formatter.
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
-		  
-		  #Pragma Warning "TODO: Ensure all are added"
 		  
 		  Return Array( _
 		  TOKEN_ALPHA_COMPONENT, _
@@ -661,10 +842,6 @@ Implements XUICEFormatter
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21, Description = 4120736F72746564206172726179206F6620616C6C2064656C696D6974657220746F6B656E7320696E2074686520736F7572636520636F64652E
-		Private Delimiters() As XUICELineToken
-	#tag EndProperty
-
 	#tag ComputedProperty, Flags = &h21, Description = 4361736520696E73656E7369746976652064696374696F6E617279206F66206B6579776F7264732E204B6579203D204B6579776F72642C2056616C7565203D204E696C2E
 		#tag Getter
 			Get
@@ -742,6 +919,18 @@ Implements XUICEFormatter
 		Private Keywords As Dictionary
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h21, Description = 416E206172726179206F6620616C6C206C65667420706172656E74686573657320776974682061206D61746368696E6720726967687420706172656E74686573697320736F7274656420627920746865697220706F736974696F6E20696E2074686520736F7572636520636F64652028696E6465782030203D206669727374206D6174636865642070616972206F6620706172656E74686573657320696E2074686520736F7572636520636F6465292E
+		Private MatchedLeftParentheses() As XUICELineToken
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 416C6C207061697273206F66206D61746368696E6720706172656E74686573657320696E2074686520736F7572636520636F64652E204B6579203D204C65667420706172656E74686573697320286058554943454C696E65546F6B656E60292C2056616C7565203D204D61746368696E6720726967687420706172656E74686573697320286058554943454C696E65546F6B656E60292E
+		Private MatchedParentheses As Dictionary
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 4120736F72746564206172726179206F6620616C6C20706172656E74686573697320746F6B656E7320696E2074686520736F7572636520636F64652E
+		Private Parentheses() As XUICELineToken
+	#tag EndProperty
+
 
 	#tag Constant, Name = TOKEN_ALPHA_COMPONENT, Type = String, Dynamic = False, Default = \"colorAlpha", Scope = Public, Description = 54686520616C70686120636F6D706F6E656E74206F66206120636F6C6F72206C69746572616C2E
 	#tag EndConstant
@@ -762,5 +951,47 @@ Implements XUICEFormatter
 	#tag EndConstant
 
 
+	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue="-2147483648"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+	#tag EndViewBehavior
 End Class
 #tag EndClass
