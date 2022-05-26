@@ -22,7 +22,7 @@ Begin DemoWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   False
+   Visible         =   True
    Width           =   1260
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
@@ -128,7 +128,7 @@ Begin DemoWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   2
+      Value           =   1
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -4795,8 +4795,11 @@ End
 		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUICETextFormatter
 		  Me.AddRow("Wren")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUICEWrenFormatter
+		  Me.AddRow("Xojo")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUICEXojoFormatter
 		  
-		  Me.SelectedRowIndex = 0
+		  Me.SelectRowWithValue("Xojo")
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event

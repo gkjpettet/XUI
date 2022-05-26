@@ -11,7 +11,7 @@ Implements XUICEFormatter
 		  /// Single line comments start with `//` and end at the end of the line:
 		  ///
 		  /// ```wren
-		  /// This is comment.
+		  /// // This is comment.
 		  /// var age = 40 // This is also a comment.
 		  /// ```
 		  ///
@@ -205,9 +205,9 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6E73756D657320616E6420616464732061206E756D62657220746F6B656E207374617274696E6720617420606D43757272656E745D602E
+	#tag Method, Flags = &h21, Description = 436F6E73756D657320616E6420616464732061206E756D62657220746F6B656E207374617274696E6720617420606D43757272656E74602E
 		Private Sub AddNumberToken()
-		  /// Consumes and adds a number token starting at `mCurrent]`.
+		  /// Consumes and adds a number token starting at `mCurrent`.
 		  ///
 		  /// Assumes that `mCurrent` points at a digit.
 		  
@@ -694,6 +694,8 @@ Implements XUICEFormatter
 	#tag Method, Flags = &h0, Description = 54727565206966207468697320656E74697265206C696E65206973206120636F6D6D656E742E
 		Function IsCommentLine(line As XUICELine) As Boolean
 		  /// True if this entire line is a comment.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  Return TokenIsComment(line.FirstToken)
 		End Function
@@ -749,6 +751,8 @@ Implements XUICEFormatter
 	#tag Method, Flags = &h0, Description = 546865206E616D65206F66207468697320666F726D61747465722E
 		Function Name() As String
 		  /// The name of this formatter.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  Return "Wren"
 		End Function
@@ -1006,6 +1010,8 @@ Implements XUICEFormatter
 	#tag Method, Flags = &h0, Description = 547275652069662060746F6B656E6020697320636F6E7369646572656420746F206265206120636F6D6D656E742E
 		Function TokenIsComment(token As XUICELineToken) As Boolean
 		  /// True if `token` is considered to be a comment.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  If token = Nil Then Return False
 		  Return token.Type = TOKEN_COMMENT
@@ -1058,6 +1064,8 @@ Implements XUICEFormatter
 	#tag Method, Flags = &h0, Description = 52657475726E7320616E206172726179206F6620616C6C20746F6B656E2074797065732075736564206279207468697320666F726D61747465722E
 		Function TokenTypes() As String()
 		  /// Returns an array of all token types used by this formatter.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
 		  
 		  Return Array( _
 		  TOKEN_COMMENT, _
