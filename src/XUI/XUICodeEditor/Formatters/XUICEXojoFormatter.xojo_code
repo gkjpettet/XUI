@@ -2,6 +2,18 @@
 Protected Class XUICEXojoFormatter
 Inherits XUICEAbstractFormatter
 Implements XUICEFormatter
+	#tag Method, Flags = &h21, Description = 416464732074686520706173736564206D61746368696E6720626C6F636B20656E647320746F2074686520604D617463686564426F756E646172696573602064696374696F6E6172792E
+		Private Sub AddBlock(blockStart As XUICELineToken, blockEnd As XUICELineToken)
+		  /// Adds the passed matching block ends to the `MatchedBoundaries` dictionary.
+		  ///
+		  /// We add both ends as keys so we can find either.
+		  
+		  MatchedBoundaries.Value(blockStart) = blockEnd
+		  MatchedBoundaries.Value(blockEnd) = blockStart
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function AddComment() As Boolean
 		  /// Attempts to add a comment beginning from the current position. Returns True if successful.
@@ -73,7 +85,44 @@ Implements XUICEFormatter
 		  
 		  // Keyword?
 		  If Keywords.HasKey(lexeme) Then
-		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_KEYWORD))
+		    Var kw As XojoKeywords = Keywords.Value(lexeme)
+		    Var t As XUICELineToken = MakeGenericToken(XUICELineToken.TYPE_KEYWORD, "keyword" : kw)
+		    
+		    // If this is the first token on the line, is this token a block boundary (start or end)?
+		    If mLine.Tokens.Count = 0 Then
+		      Select Case kw
+		      Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.Class_, XojoKeywords.Do_, XojoKeywords.ElseIf_, _
+		        XojoKeywords.Else_, XojoKeywords.Exception_, XojoKeywords.Finally_, XojoKeywords.For_, _
+		        XojoKeywords.Function_, XojoKeywords.If_, XojoKeywords.Interface_, _
+		        XojoKeywords.Module_, XojoKeywords.Private_, XojoKeywords.Property_, XojoKeywords.Protected_, _
+		        XojoKeywords.Public_, XojoKeywords.Select_, XojoKeywords.Shared_, XojoKeywords.Static_, _
+		        XojoKeywords.Sub_, XojoKeywords.Try_, XojoKeywords.While_
+		        t.SetData("isBlockStart", True)
+		        BlockBoundaries.Add(t)
+		        
+		      Case XojoKeywords.End_, XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
+		        t.SetData("isBlockStart", False)
+		        BlockBoundaries.Add(t)
+		      End Select
+		      
+		    ElseIf mLine.Tokens.Count = 1 Then
+		      If mLine.Tokens(0).HasDataKey("keyword") And _
+		        mLine.Tokens(0).LookupData("keyword", Nil) = XojoKeywords.End_ Then
+		        // Edge case: The first token on the line is `End`. If this token is a keyword that can follow `End` then
+		        // the actual block boundary is **this** token not the `End` token.
+		        Select Case kw
+		        Case XojoKeywords.Class_, XojoKeywords.Function_, XojoKeywords.If_, XojoKeywords.Interface_, _
+		          XojoKeywords.Module_, XojoKeywords.Select_, XojoKeywords.Sub_, XojoKeywords.Try_
+		          // Remove the preceding `End` token from the end of the `BlockBoundaries` array.
+		          Call BlockBoundaries.Pop
+		          // Add this token instead.
+		          BlockBoundaries.Add(t)
+		        End Select
+		      End If
+		      
+		    End If
+		    
+		    mLine.Tokens.Add(t)
 		    Return
 		  End If
 		  
@@ -218,12 +267,100 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662060626C6F636B456E64602063616E20636C6F73652060626C6F636B5374617274602E
+		Private Function CanCloseBlock(blockStart As XojoKeywords, blockEnd As XojoKeywords) As Boolean
+		  /// Returns True if `blockEnd` can close `blockStart`.
+		  
+		  If blockEnd = XojoKeywords.End_ Then Return True
+		  Return blockEnd = blockStart
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520666972737420746F6B656E206F6E20606C696E65602074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865206C696E6520746865726520617265206E6F6E652E
+		Private Function FirstNonCommentToken(line As XUICELine) As XUICELineToken
+		  /// Returns the first token on `line` that is not a comment or Nil if the line there are none.
+		  ///
+		  /// Assumes `line` is not Nil.
+		  
+		  If line.Tokens.Count = 0 Then Return Nil
+		  
+		  For Each t As XUICELineToken In line.Tokens
+		    If Not IsCommentToken(t) Then Return t
+		  Next t
+		  
+		  Return Nil
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 536574732074686520696E64656E746174696F6E202F20636F6E74696E756174696F6E20737461747573206F66207468652070617373656420606C696E6573602E
 		Private Sub IndentLines(lines() As XUICELine)
 		  /// Sets the indentation / continuation status of the passed `lines`.
+		  ///
+		  /// Assumes `ProcessBlockBoundaries` has been invoked before this.
 		  
 		  #Pragma Warning "TODO: Indent lines and handle continuation"
 		  
+		  If lines.Count = 0 Then Return
+		  
+		  Var lm As XUICELineManager = lines(0).LineManager
+		  
+		  // ===================================================================
+		  // First set the indentation for the lines that are block starts/ends.
+		  // ===================================================================
+		  Var boundaryCount As Integer = 0
+		  For Each entry As DictionaryEntry In MatchedBoundaries
+		    boundaryCount = boundaryCount + 1
+		    Var boundary As XUICELineToken = entry.Key
+		    Var line As XUICELine = lm.LineAt(boundary.LineNumber)
+		    
+		    // Block boundaries are never continuation lines.
+		    line.IsContinuation = False
+		    
+		    // The first block boundary line will never be indented.
+		    If boundaryCount = 1 Then
+		      line.IndentLevel = 0
+		      Continue
+		    End If
+		    
+		    // Get a reference to the line above this boundary.
+		    Var lineAbove As XUICELine = lm.LineAt(line.Number - 1)
+		    
+		  Next entry
+		  
+		  
+		  
+		  ' If lines.Count = 0 Then Return
+		  ' 
+		  ' // The first line is never indented.
+		  ' lines(0).IndentLevel = 0
+		  ' lines(0).IsContinuation = False
+		  ' lines(0).Unmatched = False
+		  ' 
+		  ' // If there's only one line then there can be no indentation.
+		  ' If lines.Count = 1 Then Return
+		  ' 
+		  ' Var previousLine As XUICELine = lines(0)
+		  ' Var iMax As Integer = lines.LastIndex
+		  ' For i As Integer = 1 To iMax
+		  ' Var line As XUICELine = lines(i)
+		  ' previousLine = lines(i - 1)
+		  ' 
+		  ' line.IsContinuation = False
+		  ' line.Unmatched = False
+		  ' 
+		  ' If line.IsBlank Then
+		  ' line.IndentLevel = previousLine.IndentLevel
+		  ' line.IsContinuation = previousLine.IsContinuation
+		  ' Continue
+		  ' End If
+		  ' 
+		  ' Var firstToken As XUICELineToken = FirstNonCommentToken(line)
+		  ' If firstToken = Nil Then Continue
+		  ' 
+		  ' // Does this line start with a closing delimiter like `}`, `)` or `]`?.
+		  ' 
+		  ' Next i
 		End Sub
 	#tag EndMethod
 
@@ -234,6 +371,16 @@ Implements XUICEFormatter
 		  /// Part of the `XUICEFormatter` interface.
 		  
 		  Return TokenIsComment(line.FirstToken)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 547275652069662060746F6B656E60206973206120636F6D6D656E742E
+		Private Function IsCommentToken(token As XUICELineToken) As Boolean
+		  /// True if `token` is a comment.
+		  ///
+		  /// Assumes `token` is not Nil.
+		  
+		  Return token.Type = XUICELineToken.TYPE_COMMENT
 		End Function
 	#tag EndMethod
 
@@ -390,7 +537,48 @@ Implements XUICEFormatter
 		  /// Part of the `XUICEFormatter` interface.
 		  
 		  ProcessParentheses
+		  ProcessBlockBoundaries
 		  IndentLines(lines)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 46696E6473206D61746368696E6720626C6F636B20626F756E64617269657320616E642061646473207468656D20746F20604D617463686564426F756E646172696573602E
+		Private Sub ProcessBlockBoundaries()
+		  /// Finds matching block boundaries and adds them to `MatchedBoundaries`.
+		  
+		  MatchedBoundaries = New Dictionary
+		  
+		  Var iMax As Integer = BlockBoundaries.LastIndex
+		  For i As Integer = 0 To iMax
+		    Var blockStart As XUICELineToken = BlockBoundaries(i)
+		    
+		    // We're only interested in tokens that can start a block.
+		    If Not blockStart.LookupData("isBlockStart", False) Then
+		      Continue For i
+		    End If
+		    
+		    Var blockStartType As XojoKeywords = blockStart.LookupData("keyword", Nil)
+		    
+		    // Find the token that closes this block (if present)
+		    Var nestingLevel As Integer = 0
+		    For j As Integer = i + 1 To iMax
+		      Var blockEnd As XUICELineToken = BlockBoundaries(j)
+		      Var blockEndType As XojoKeywords = blockEnd.LookupData("keyword", Nil)
+		      
+		      If blockEndType = blockStartType Then
+		        nestingLevel = nestingLevel + 1
+		        
+		      ElseIf blockEnd.LookupData("isBlockStart", True) = False And CanCloseBlock(blockStartType, blockEndType) Then
+		        If nestingLevel = 0 Then
+		          AddBlock(blockStart, blockEnd)
+		          Continue For i
+		        Else
+		          nestingLevel = nestingLevel - 1
+		        End If
+		      End If
+		    Next j
+		  Next i
 		  
 		End Sub
 	#tag EndMethod
@@ -508,13 +696,12 @@ Implements XUICEFormatter
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
-		  #Pragma Warning "TODO: Implement parsing / delimiter computation"
-		  
 		  If lines.Count = 0 Then Return
 		  
 		  Initialise(lines, 1)
 		  
 		  Parentheses.RemoveAll
+		  BlockBoundaries.RemoveAll
 		  
 		  While Not AtEnd
 		    NextToken
@@ -758,82 +945,89 @@ Implements XUICEFormatter
 	#tag EndMethod
 
 
-	#tag ComputedProperty, Flags = &h21, Description = 4361736520696E73656E7369746976652064696374696F6E617279206F66206B6579776F7264732E204B6579203D204B6579776F72642C2056616C7565203D204E696C2E
+	#tag Property, Flags = &h21, Description = 4120736F72746564206172726179206F6620616C6C20746F6B656E732074686174206D61726B20746865207374617274206F7220656E64206F66206120626C6F636B2E
+		Private BlockBoundaries() As XUICELineToken
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h21, Description = 4361736520696E73656E7369746976652064696374696F6E617279206F66206B6579776F7264732E204B6579203D204B6579776F72642C2056616C7565203D20586F6A6F4B6579776F72647320656E756D65726174696F6E2E
 		#tag Getter
 			Get
-			  Static d As New Dictionary( _
-			  "AddHandler" : Nil, _
-			  "AddressOf" : Nil, _
-			  "Array" : Nil, _
-			  "As" : Nil, _
-			  "Assigns" : Nil, _
-			  "Break" : Nil, _
-			  "ByRef" : Nil, _
-			  "ByVal" : Nil, _
-			  "Call" : Nil, _
-			  "Catch" : Nil, _
-			    "Class" : Nil, _
-			      "Const" : Nil, _
-			      "Continue" : Nil, _
-			      "CType" : Nil, _
-			      "Declare" : Nil, _
-			      "Dim" : Nil, _
-			      "Do" : Nil, _
-			      "Loop" : Nil, _
-			      "DownTo" : Nil, _
-			      "Else" : Nil, _
-			        "ElseIf" : Nil, _
-			          "End" : Nil, _
-			          "Event" : Nil, _
-			  "Exception" : Nil, _
-			    "Exit" : Nil, _
-			    "Extends" : Nil, _
-			  "Finally" : Nil, _
-			    "For" : Nil, _
-			    "Next" : Nil, _
-			    "Each" : Nil, _
-			    "Function" : Nil, _
-			      "GetTypeInfo" : Nil, _
-			      "Global" : Nil, _
-			      "GoTo" : Nil, _
-			      "If" : Nil, _
-			        "Then" : Nil, _
-			        "Implements" : Nil, _
-			        "Inherits" : Nil, _
-			        "Interface" : Nil, _
-			          "Module" : Nil, _
-			            "Optional" : Nil, _
-			            "ParamArray" : Nil, _
-			            "Private" : Nil, _
-			            "Property" : Nil, _
-			            "Protected" : Nil, _
-			            "Public" : Nil, _
-			            "Raise" : Nil, _
-			            "RaiseEvent" : Nil, _
-			            "Redim" : Nil, _
-			            "RemoveHandler" : Nil, _
-			            "Return" : Nil, _
-			            "Select" : Nil, _
-			            "Case" : Nil, _
-			              "Self" : Nil, _
-			              "Shared" : Nil, _
-			              "Static" : Nil, _
-			              "Sub" : Nil, _
-			                "Super" : Nil, _
-			                "Try" : Nil, _
-			                  "Until" : Nil, _
-			                  "Using" : Nil, _
-			                  "Var" : Nil, _
-			                  "While" : Nil, _
-			                  "Wend" : Nil _
-			                  )
+			  Static kw As New Dictionary( _
+			  "AddHandler" : XojoKeywords.AddHandler_, _
+			  "AddressOf" : XojoKeywords.AddressOf_, _
+			  "Array" : XojoKeywords.Array_, _
+			  "As" : XojoKeywords.As_, _
+			  "Assigns" : XojoKeywords.Assigns_, _
+			  "Break" : XojoKeywords.Break_, _
+			  "ByRef" : XojoKeywords.ByRef_, _
+			  "ByVal" : XojoKeywords.ByVal_, _
+			  "Call" : XojoKeywords.Call_, _
+			  "Catch" : XojoKeywords.Catch_, _
+			    "Class" : XojoKeywords.Class_, _
+			      "Const" : XojoKeywords.Const_, _
+			      "Continue" : XojoKeywords.Continue_, _
+			      "CType" : XojoKeywords.CType_, _
+			      "Declare" : XojoKeywords.Declare_, _
+			      "Dim" : XojoKeywords.Dim_, _
+			      "Do" : XojoKeywords.Do_, _
+			      "Loop" : XojoKeywords.Loop_, _
+			      "DownTo" : XojoKeywords.DownTo_, _
+			      "Else" : XojoKeywords.Else_, _
+			        "ElseIf" : XojoKeywords.ElseIf_, _
+			          "End" : XojoKeywords.End_, _
+			          "Event" : XojoKeywords.Event_, _
+			  "Exception" : XojoKeywords.Exception_, _
+			    "Exit" : XojoKeywords.Exit_, _
+			    "Extends" : XojoKeywords.Extends_, _
+			  "Finally" : XojoKeywords.Finally_, _
+			    "For" : XojoKeywords.For_, _
+			    "Next" : XojoKeywords.Next_, _
+			    "Each" : XojoKeywords.Each_, _
+			    "Function" : XojoKeywords.Function_, _
+			      "GetTypeInfo" : XojoKeywords.GetTypeInfo_, _
+			      "Global" : XojoKeywords.Global_, _
+			      "GoTo" : XojoKeywords.GoTo_, _
+			      "If" : XojoKeywords.If_, _
+			        "Then" : XojoKeywords.Then_, _
+			        "Implements" : XojoKeywords.Implements_, _
+			        "Inherits" : XojoKeywords.Inherits_, _
+			        "Interface" : XojoKeywords.Interface_, _
+			          "Module" : XojoKeywords.Module_, _
+			            "Optional" : XojoKeywords.Optional_, _
+			            "ParamArray" : XojoKeywords.ParamArray_, _
+			            "Private" : XojoKeywords.Private_, _
+			            "Property" : XojoKeywords.Property_, _
+			            "Protected" : XojoKeywords.Protected_, _
+			            "Public" : XojoKeywords.Public_, _
+			            "Raise" : XojoKeywords.Raise_, _
+			            "RaiseEvent" : XojoKeywords.RaiseEvent_, _
+			            "Redim" : XojoKeywords.Redim_, _
+			            "RemoveHandler" : XojoKeywords.RemoveHandler_, _
+			            "Return" : XojoKeywords.Return_, _
+			            "Select" : XojoKeywords.Select_, _
+			            "Case" : XojoKeywords.Case_, _
+			              "Self" : XojoKeywords.Self_, _
+			              "Shared" : XojoKeywords.Shared_, _
+			              "Static" : XojoKeywords.Static_, _
+			              "Sub" : XojoKeywords.Sub_, _
+			                "Super" : XojoKeywords.Super_, _
+			                "Try" : XojoKeywords.Try_, _
+			                  "Until" : XojoKeywords.Until_, _
+			                  "Using" : XojoKeywords.Using_, _
+			                  "Var" : XojoKeywords.Var_, _
+			                  "While" : XojoKeywords.While_, _
+			                  "Wend" : XojoKeywords.Wend_)
 			                  
-			                  Return d
+			                  Return kw
 			                  
 			End Get
 		#tag EndGetter
 		Private Keywords As Dictionary
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21, Description = 416C6C207061697273206F66206D61746368696E6720626C6F636B20626F756E6461726965732028652E672E2060646F2E2E2E6C6F6F70602920696E2074686520736F7572636520636F64652E204B6579203D20626C6F636B20737461727420286058554943454C696E65546F6B656E60292C2056616C7565203D204D61746368696E6720626C6F636B20656E6420286058554943454C696E65546F6B656E60292E
+		Private MatchedBoundaries As Dictionary
+	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 416E206172726179206F6620616C6C206C65667420706172656E74686573657320776974682061206D61746368696E6720726967687420706172656E74686573697320736F7274656420627920746865697220706F736974696F6E20696E2074686520736F7572636520636F64652028696E6465782030203D206669727374206D6174636865642070616972206F6620706172656E74686573657320696E2074686520736F7572636520636F6465292E
 		Private MatchedLeftParentheses() As XUICELineToken
@@ -865,6 +1059,74 @@ Implements XUICEFormatter
 
 	#tag Constant, Name = TOKEN_RED_COMPONENT, Type = String, Dynamic = False, Default = \"colorRed", Scope = Public, Description = 5468652072656420636F6D706F6E656E74206F66206120636F6C6F72206C69746572616C2E
 	#tag EndConstant
+
+
+	#tag Enum, Name = XojoKeywords, Flags = &h0, Description = 586F6A6F2773206B6579776F7264732E
+		AddHandler_
+		  AddressOf_
+		  Array_
+		  As_
+		  Assigns_
+		  Break_
+		  ByRef_
+		  ByVal_
+		  Call_
+		  Case_
+		  Catch_
+		  Class_
+		  Const_
+		  Continue_
+		  CType_
+		  Declare_
+		  Dim_
+		  Do_
+		  DownTo_
+		  Each_
+		  Else_
+		  ElseIf_
+		  End_
+		  Event_
+		  Exception_
+		  Exit_
+		  Extends_
+		  Finally_
+		  For_
+		  Function_
+		  GetTypeInfo_
+		  Global_
+		  GoTo_
+		  If_
+		  Implements_
+		  Inherits_
+		  Interface_
+		  Loop_
+		  Module_
+		  Next_
+		  Optional_
+		  ParamArray_
+		  Private_
+		  Property_
+		  Protected_
+		  Public_
+		  Raise_
+		  RaiseEvent_
+		  Redim_
+		  RemoveHandler_
+		  Return_
+		  Select_
+		  Self_
+		  Shared_
+		  Static_
+		  Sub_
+		  Super_
+		  Then_
+		  Try_
+		  Until_
+		  Using_
+		  Var_
+		  While_
+		Wend_
+	#tag EndEnum
 
 
 	#tag ViewBehavior
