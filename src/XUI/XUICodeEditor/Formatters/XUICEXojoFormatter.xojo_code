@@ -88,39 +88,62 @@ Implements XUICEFormatter
 		    Var kw As XojoKeywords = Keywords.Value(lexeme)
 		    Var t As XUICELineToken = MakeGenericToken(XUICELineToken.TYPE_KEYWORD, "keyword" : kw)
 		    
-		    // If this is the first token on the line, is this token a block boundary (start or end)?
-		    If mLine.Tokens.Count = 0 Then
-		      Select Case kw
-		      Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.Class_, XojoKeywords.Do_, XojoKeywords.ElseIf_, _
-		        XojoKeywords.Else_, XojoKeywords.Exception_, XojoKeywords.Finally_, XojoKeywords.For_, _
-		        XojoKeywords.Function_, XojoKeywords.If_, XojoKeywords.Interface_, _
-		        XojoKeywords.Module_, XojoKeywords.Private_, XojoKeywords.Property_, XojoKeywords.Protected_, _
-		        XojoKeywords.Public_, XojoKeywords.Select_, XojoKeywords.Shared_, XojoKeywords.Static_, _
-		        XojoKeywords.Sub_, XojoKeywords.Try_, XojoKeywords.While_
-		        t.SetData("isBlockStart", True)
-		        BlockBoundaries.Add(t)
-		        
-		      Case XojoKeywords.End_, XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
-		        t.SetData("isBlockStart", False)
-		        BlockBoundaries.Add(t)
-		      End Select
-		      
-		    ElseIf mLine.Tokens.Count = 1 Then
-		      If mLine.Tokens(0).HasDataKey("keyword") And _
-		        mLine.Tokens(0).LookupData("keyword", Nil) = XojoKeywords.End_ Then
-		        // Edge case: The first token on the line is `End`. If this token is a keyword that can follow `End` then
-		        // the actual block boundary is **this** token not the `End` token.
-		        Select Case kw
-		        Case XojoKeywords.Class_, XojoKeywords.Function_, XojoKeywords.If_, XojoKeywords.Interface_, _
-		          XojoKeywords.Module_, XojoKeywords.Select_, XojoKeywords.Sub_, XojoKeywords.Try_
-		          // Remove the preceding `End` token from the end of the `BlockBoundaries` array.
-		          Call BlockBoundaries.Pop
-		          // Add this token instead.
-		          BlockBoundaries.Add(t)
-		        End Select
-		      End If
-		      
-		    End If
+		    ' // If this is the first token on the line, is this token a block boundary (start or end)?
+		    ' If mLine.Tokens.Count = 0 Then
+		    ' 
+		    ' ' // Does this keyword dedent the line it is on?
+		    ' ' Select Case kw
+		    ' ' Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.ElseIf_, XojoKeywords.Else_, _
+		    ' ' XojoKeywords.Finally_, XojoKeywords.End_, XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
+		    ' ' t.SetData("dedentThis", True)
+		    ' ' Else
+		    ' ' t.SetData("dedentThis", False)
+		    ' ' End Select
+		    ' ' 
+		    ' ' // Does this keyword indent the line below?
+		    ' ' Select Case kw
+		    ' ' Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.Class_, XojoKeywords.Do_, XojoKeywords.ElseIf_, _
+		    ' ' XojoKeywords.Else_, XojoKeywords.Exception_, XojoKeywords.Finally_, XojoKeywords.For_, _
+		    ' ' XojoKeywords.Function_, XojoKeywords.If_, XojoKeywords.Interface_, XojoKeywords.Module_, _
+		    ' ' XojoKeywords.Private_, XojoKeywords.Property_, XojoKeywords.Protected_, _
+		    ' ' XojoKeywords.Public_, XojoKeywords.Select_, XojoKeywords.Shared_, XojoKeywords.Static_, _
+		    ' ' XojoKeywords.Sub_, XojoKeywords.Try_, XojoKeywords.While_
+		    ' ' t.SetData("indentBelow", True)
+		    ' ' Else
+		    ' ' t.SetData("indentBelow", False)
+		    ' ' End Select
+		    ' 
+		    ' Select Case kw
+		    ' Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.Class_, XojoKeywords.Do_, XojoKeywords.ElseIf_, _
+		    ' XojoKeywords.Else_, XojoKeywords.Exception_, XojoKeywords.Finally_, XojoKeywords.For_, _
+		    ' XojoKeywords.Function_, XojoKeywords.If_, XojoKeywords.Interface_, _
+		    ' XojoKeywords.Module_, XojoKeywords.Private_, XojoKeywords.Property_, XojoKeywords.Protected_, _
+		    ' XojoKeywords.Public_, XojoKeywords.Select_, XojoKeywords.Shared_, XojoKeywords.Static_, _
+		    ' XojoKeywords.Sub_, XojoKeywords.Try_, XojoKeywords.While_
+		    ' t.SetData("isBlockStart", True)
+		    ' BlockBoundaries.Add(t)
+		    ' 
+		    ' Case XojoKeywords.End_, XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
+		    ' t.SetData("isBlockStart", False)
+		    ' BlockBoundaries.Add(t)
+		    ' End Select
+		    ' 
+		    ' ElseIf mLine.Tokens.Count = 1 Then
+		    ' If mLine.Tokens(0).HasDataKey("keyword") And _
+		    ' mLine.Tokens(0).LookupData("keyword", Nil) = XojoKeywords.End_ Then
+		    ' // Edge case: The first token on the line is `End`. If this token is a keyword that can follow `End` then
+		    ' // the actual block boundary is **this** token not the `End` token.
+		    ' Select Case kw
+		    ' Case XojoKeywords.Class_, XojoKeywords.Function_, XojoKeywords.If_, XojoKeywords.Interface_, _
+		    ' XojoKeywords.Module_, XojoKeywords.Select_, XojoKeywords.Sub_, XojoKeywords.Try_
+		    ' // Remove the preceding `End` token from the end of the `BlockBoundaries` array.
+		    ' Call BlockBoundaries.Pop
+		    ' // Add this token instead.
+		    ' BlockBoundaries.Add(t)
+		    ' End Select
+		    ' End If
+		    ' 
+		    ' End If
 		    
 		    mLine.Tokens.Add(t)
 		    Return
@@ -276,9 +299,9 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E732074686520666972737420746F6B656E206F6E20606C696E65602074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865206C696E6520746865726520617265206E6F6E652E
+	#tag Method, Flags = &h21, Description = 52657475726E732074686520666972737420746F6B656E206F6E20606C696E65602074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865726520617265206E6F6E652E
 		Private Function FirstNonCommentToken(line As XUICELine) As XUICELineToken
-		  /// Returns the first token on `line` that is not a comment or Nil if the line there are none.
+		  /// Returns the first token on `line` that is not a comment or Nil if there are none.
 		  ///
 		  /// Assumes `line` is not Nil.
 		  
@@ -294,73 +317,81 @@ Implements XUICEFormatter
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 536574732074686520696E64656E746174696F6E202F20636F6E74696E756174696F6E20737461747573206F66207468652070617373656420606C696E6573602E
-		Private Sub IndentLines(lines() As XUICELine)
+		Private Sub IndentLines(ByRef lines() As XUICELine)
 		  /// Sets the indentation / continuation status of the passed `lines`.
-		  ///
-		  /// Assumes `ProcessBlockBoundaries` has been invoked before this.
-		  
-		  #Pragma Warning "TODO: Indent lines and handle continuation"
 		  
 		  If lines.Count = 0 Then Return
 		  
-		  Var lm As XUICELineManager = lines(0).LineManager
+		  // The first line is never indented.
+		  lines(0).IndentLevel = 0
+		  lines(0).IsContinuation = False
+		  lines(0).Unmatched = False
 		  
-		  // ===================================================================
-		  // First set the indentation for the lines that are block starts/ends.
-		  // ===================================================================
-		  Var boundaryCount As Integer = 0
-		  For Each entry As DictionaryEntry In MatchedBoundaries
-		    boundaryCount = boundaryCount + 1
-		    Var boundary As XUICELineToken = entry.Key
-		    Var line As XUICELine = lm.LineAt(boundary.LineNumber)
-		    
-		    // Block boundaries are never continuation lines.
+		  // If there's only one line then there can be no indentation.
+		  If lines.Count = 1 Then Return
+		  
+		  Var lineAbove As XUICELine
+		  Var iMax As Integer = lines.LastIndex
+		  For i As Integer = 1 To iMax
+		    // Get this line and reset it.
+		    Var line As XUICELine = lines(i)
 		    line.IsContinuation = False
+		    line.Unmatched = False
 		    
-		    // The first block boundary line will never be indented.
-		    If boundaryCount = 1 Then
-		      line.IndentLevel = 0
+		    // We need the line above.
+		    lineAbove = lines(i - 1)
+		    
+		    // Start by inheriting the line above's indent level.
+		    line.IndentLevel = lineAbove.IndentLevel
+		    
+		    // Blank lines inherit the indentation of the line above.
+		    If line.IsBlank Then
+		      line.IsContinuation = lineAbove.IsContinuation
 		      Continue
 		    End If
 		    
-		    // Get a reference to the line above this boundary.
-		    Var lineAbove As XUICELine = lm.LineAt(line.Number - 1)
+		    // We need the first token of this line and the first token of the line above.
+		    Var firstToken As XUICELineToken = line.FirstToken
+		    If firstToken = Nil Then Continue
+		    Var lineAboveFirstToken As XUICELineToken = lineAbove.FirstToken
+		    If lineAboveFirstToken = Nil Then Continue
 		    
-		  Next entry
-		  
-		  
-		  
-		  ' If lines.Count = 0 Then Return
-		  ' 
-		  ' // The first line is never indented.
-		  ' lines(0).IndentLevel = 0
-		  ' lines(0).IsContinuation = False
-		  ' lines(0).Unmatched = False
-		  ' 
-		  ' // If there's only one line then there can be no indentation.
-		  ' If lines.Count = 1 Then Return
-		  ' 
-		  ' Var previousLine As XUICELine = lines(0)
-		  ' Var iMax As Integer = lines.LastIndex
-		  ' For i As Integer = 1 To iMax
-		  ' Var line As XUICELine = lines(i)
-		  ' previousLine = lines(i - 1)
-		  ' 
-		  ' line.IsContinuation = False
-		  ' line.Unmatched = False
-		  ' 
-		  ' If line.IsBlank Then
-		  ' line.IndentLevel = previousLine.IndentLevel
-		  ' line.IsContinuation = previousLine.IsContinuation
-		  ' Continue
-		  ' End If
-		  ' 
-		  ' Var firstToken As XUICELineToken = FirstNonCommentToken(line)
-		  ' If firstToken = Nil Then Continue
-		  ' 
-		  ' // Does this line start with a closing delimiter like `}`, `)` or `]`?.
-		  ' 
-		  ' Next i
+		    // Does the first token dedent this line?
+		    If firstToken.Type = XUICELineToken.TYPE_KEYWORD Then
+		      Select Case firstToken.LookupData("keyword", Nil)
+		      Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.ElseIf_, XojoKeywords.Else_, XojoKeywords.End_, _
+		        XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
+		        line.IndentLevel = line.IndentLevel - 1
+		      End Select
+		    End If
+		    
+		    // Does the first token of the line above indent this line?
+		    If lineAboveFirstToken.Type = XUICELineToken.TYPE_KEYWORD Then
+		      Select Case lineAboveFirstToken.LookupData("keyword", Nil)
+		      Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.Class_, XojoKeywords.Do_, XojoKeywords.ElseIf_, _
+		        XojoKeywords.Else_, XojoKeywords.Exception_, XojoKeywords.Finally_, XojoKeywords.For_, _
+		        XojoKeywords.Function_, XojoKeywords.Interface_, XojoKeywords.Module_, _
+		        XojoKeywords.Private_, XojoKeywords.Property_, XojoKeywords.Protected_, _
+		        XojoKeywords.Public_, XojoKeywords.Select_, XojoKeywords.Shared_, XojoKeywords.Static_, _
+		        XojoKeywords.Sub_, XojoKeywords.Try_, XojoKeywords.While_
+		        line.IndentLevel = line.IndentLevel + 1
+		      Case XojoKeywords.If_
+		        If Not IsSingleLineIfStatement(lineAbove) Then
+		          line.IndentLevel = line.IndentLevel + 1
+		        End If
+		      End Select
+		    End If
+		    
+		    // Is this line a continuation of the line above?
+		    Var lineAboveLastToken As XUICELineToken = LastNonCommentToken(lineAbove)
+		    If lineAboveLastToken <> Nil And lineAboveLastToken.Type = XUICELineToken.TYPE_OPERATOR And _
+		      lineAboveLastToken.LookupData("isLineContination", False) Then
+		      line.IsContinuation = True
+		    Else
+		      line.IsContinuation = False
+		    End If
+		    
+		  Next i
 		End Sub
 	#tag EndMethod
 
@@ -381,6 +412,48 @@ Implements XUICEFormatter
 		  /// Assumes `token` is not Nil.
 		  
 		  Return token.Type = XUICELineToken.TYPE_COMMENT
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 5472756520696620606C696E656020697320612073696E676C65206C696E652069662073746174656D656E742E
+		Private Function IsSingleLineIfStatement(line As XUICELine) As Boolean
+		  /// True if `line` is a single line if statement.
+		  
+		  // A single line `if` needs at least three non-comment tokens. `if` must be first, `then` must be present 
+		  // but not last on the line.
+		  
+		  If line.Tokens.Count < 3 Then Return False
+		  
+		  // The first token must be `if` to be a single line if statement.
+		  Var firstToken As XUICELineToken = line.FirstToken
+		  If firstToken = Nil Then Return False
+		  If firstToken.LookupData("keyword", XojoKeywords.Const_) <> XojoKeywords.If_ Then Return False
+		  
+		  // The last (non-comment) token must not be `then` or `if`.
+		  Var lastToken As XUICELineToken = LastNonCommentToken(line)
+		  If lastToken = Nil Then Return False
+		  If lastToken.LookupData("keyword", XojoKeywords.Const_) = XojoKeywords.If_ Then Return False
+		  If lastToken.LookupData("keyword", XojoKeywords.Const_) = XojoKeywords.Then_ Then Return False
+		  
+		  Return True
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E7320746865206C61737420746F6B656E206F6E20606C696E65602074686174206973206E6F74206120636F6D6D656E74206F72204E696C206966207468657265206973206E6F6E652E
+		Private Function LastNonCommentToken(line As XUICELine) As XUICELineToken
+		  /// Returns the last token on `line` that is not a comment or Nil if there is none.
+		  ///
+		  /// Assumes `line` is not Nil.
+		  
+		  If line.Tokens.Count = 0 Then Return Nil
+		  
+		  For i As Integer = line.Tokens.LastIndex DownTo 0
+		    If Not IsCommentToken(line.Tokens(i)) Then Return line.Tokens(i)
+		  Next i
+		  
+		  Return Nil
+		  
 		End Function
 	#tag EndMethod
 
@@ -420,6 +493,8 @@ Implements XUICEFormatter
 	#tag Method, Flags = &h21, Description = 47656E65726174657320746865206E65787420746F6B656E20616E6420617070656E647320697420746F20606D4C696E652E546F6B656E73602E
 		Private Sub NextToken()
 		  /// Generates the next token and appends it to `mLine.Tokens`.
+		  
+		  #Pragma Warning "TODO: Handle pragma # symbol"
 		  
 		  // Have we reached the end?
 		  If AtEnd Then Return
@@ -512,7 +587,7 @@ Implements XUICEFormatter
 		  // =========================
 		  // KEYWORDS & IDENTIFIERS
 		  // =========================
-		  If c.IsASCIILetterOrUnderscore Then
+		  If c.IsASCIILetter Then
 		    AddIdentifierOrKeywordToken
 		    Return
 		  End If
@@ -520,7 +595,10 @@ Implements XUICEFormatter
 		  // =====================================
 		  // LINE CONTINUATION
 		  // =====================================
-		  #Pragma Warning "TODO: Line continuation operator"
+		  If c = "_" Then
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "isLineContination" : True))
+		    Return
+		  End If
 		  
 		  // =====================================
 		  // UNRECOGNISED CHARACTER
@@ -537,48 +615,7 @@ Implements XUICEFormatter
 		  /// Part of the `XUICEFormatter` interface.
 		  
 		  ProcessParentheses
-		  ProcessBlockBoundaries
 		  IndentLines(lines)
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 46696E6473206D61746368696E6720626C6F636B20626F756E64617269657320616E642061646473207468656D20746F20604D617463686564426F756E646172696573602E
-		Private Sub ProcessBlockBoundaries()
-		  /// Finds matching block boundaries and adds them to `MatchedBoundaries`.
-		  
-		  MatchedBoundaries = New Dictionary
-		  
-		  Var iMax As Integer = BlockBoundaries.LastIndex
-		  For i As Integer = 0 To iMax
-		    Var blockStart As XUICELineToken = BlockBoundaries(i)
-		    
-		    // We're only interested in tokens that can start a block.
-		    If Not blockStart.LookupData("isBlockStart", False) Then
-		      Continue For i
-		    End If
-		    
-		    Var blockStartType As XojoKeywords = blockStart.LookupData("keyword", Nil)
-		    
-		    // Find the token that closes this block (if present)
-		    Var nestingLevel As Integer = 0
-		    For j As Integer = i + 1 To iMax
-		      Var blockEnd As XUICELineToken = BlockBoundaries(j)
-		      Var blockEndType As XojoKeywords = blockEnd.LookupData("keyword", Nil)
-		      
-		      If blockEndType = blockStartType Then
-		        nestingLevel = nestingLevel + 1
-		        
-		      ElseIf blockEnd.LookupData("isBlockStart", True) = False And CanCloseBlock(blockStartType, blockEndType) Then
-		        If nestingLevel = 0 Then
-		          AddBlock(blockStart, blockEnd)
-		          Continue For i
-		        Else
-		          nestingLevel = nestingLevel - 1
-		        End If
-		      End If
-		    Next j
-		  Next i
 		  
 		End Sub
 	#tag EndMethod
