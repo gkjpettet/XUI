@@ -131,6 +131,16 @@ Implements MarkdownKit.MKRenderer,XUICEFormatter
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54727565206966207468697320666F726D617474657220686967686C696768747320756E6D61746368656420626C6F636B732E
+		Function SupportsUnmatchedBlockHighlighting() As Boolean
+		  /// True if this formatter highlights unmatched blocks.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
+		  
+		  Return False
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 547275652069662060746F6B656E6020697320636F6E7369646572656420746F206265206120636F6D6D656E742E
 		Function TokenIsComment(token As XUICELineToken) As Boolean
 		  /// True if `token` is considered to be a comment.
