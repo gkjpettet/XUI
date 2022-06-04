@@ -197,6 +197,37 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 417474656D70747320746F20636F6E73756D6520616E6420616464206120707261676D6120746F6B656E207374617274696E6720617420606D43757272656E74602E
+		Private Sub AddPragmaToken()
+		  /// Attempts to consume and add a pragma token starting at `mCurrent`.
+		  ///
+		  /// Assumes we have just consumed the `#` character.
+		  ///
+		  /// ```
+		  /// #Pragma Something
+		  ///  ^
+		  /// ```
+		  
+		  // Must see `Pragma`.
+		  Var lexeme As String
+		  For i As Integer = 1 to 6
+		    Select Case Peek
+		    Case &u0A, ""
+		      Exit
+		    End Select
+		    lexeme = lexeme + Consume
+		  Next i
+		  
+		  If lexeme <> "Pragma" Then
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_ERROR))
+		    Return
+		  Else
+		    mLine.Tokens.Add(MakeToken(TOKEN_PRAGMA, XUICELineToken.TYPE_KEYWORD))
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 417474656D70747320746F20636F6E73756D6520616E6420616464206120737472696E6720746F6B656E207374617274696E6720617420606D43757272656E74602E
 		Private Sub AddStringToken()
 		  /// Attempts to consume and add a string token starting at `mCurrent`.
@@ -568,8 +599,6 @@ Implements XUICEFormatter
 		Private Sub NextToken()
 		  /// Generates the next token and appends it to `mLine.Tokens`.
 		  
-		  #Pragma Warning "TODO: Handle pragma # symbol"
-		  
 		  // Have we reached the end?
 		  If AtEnd Then Return
 		  
@@ -655,6 +684,14 @@ Implements XUICEFormatter
 		  // =======================
 		  If c = """" Then
 		    AddStringToken
+		    Return
+		  End If
+		  
+		  // =======================
+		  // PRAGMAS
+		  // =======================
+		  If c = "#" Then
+		    AddPragmaToken
 		    Return
 		  End If
 		  
@@ -1172,6 +1209,9 @@ Implements XUICEFormatter
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_GREEN_COMPONENT, Type = String, Dynamic = False, Default = \"colorGreen", Scope = Public, Description = 54686520677265656E20636F6D706F6E656E74206F66206120636F6C6F72206C69746572616C2E
+	#tag EndConstant
+
+	#tag Constant, Name = TOKEN_PRAGMA, Type = String, Dynamic = False, Default = \"pragma", Scope = Public, Description = 5573656420666F722074686520707261676D61206B6579776F72642E
 	#tag EndConstant
 
 	#tag Constant, Name = TOKEN_RED_COMPONENT, Type = String, Dynamic = False, Default = \"colorRed", Scope = Public, Description = 5468652072656420636F6D706F6E656E74206F66206120636F6C6F72206C69746572616C2E

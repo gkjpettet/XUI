@@ -181,7 +181,11 @@ Protected Class XUICEAbstractFormatter
 		          End If
 		          
 		        ElseIf places <= line.Characters.Count Then
-		          Return line.Characters(places - 1)
+		          If places < 1 Or places > line.Characters.Count Then
+		            Return ""
+		          Else
+		            Return line.Characters(places - 1)
+		          End If
 		          
 		        ElseIf places = line.Characters.Count + 1 Then
 		          Return &u0A
