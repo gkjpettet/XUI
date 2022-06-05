@@ -300,6 +300,17 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54727565206966207468697320666F726D617474657220616C6C6F777320776869746573706163652061742074686520626567696E6E696E67206F662061206C696E652E2049662046616C73652C2074686520656469746F722077696C6C207374726970206974207768656E2070617374696E6720616E642070726576656E742069742066726F6D206265696E672074797065642E
+		Function AllowsLeadingWhitespace() As Boolean
+		  /// True if this formatter allows whitespace at the beginning of a line. 
+		  /// If False, the editor will strip it when pasting and prevent it from being typed.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
+		  
+		  Return False
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662060626C6F636B456E64602063616E20636C6F73652060626C6F636B5374617274602E
 		Private Function CanCloseBlock(blockStart As XojoKeywords, blockEnd As XojoKeywords) As Boolean
 		  /// Returns True if `blockEnd` can close `blockStart`.
@@ -404,6 +415,27 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657475726E7320746865206C696E652061626F766520606C696E654E756D626572602074686174206973206E6F7420626C616E6B206E6F74206A757374206120636F6D6D656E74206C696E652E204D61792072657475726E204E696C2E
+		Private Function ClosestCodeLineAbove(lines() As XUICELine, lineNumber As Integer) As XUICELine
+		  /// Returns the line above `lineNumber` that is not blank not just a comment line. May return Nil.
+		  
+		  If lineNumber <= 1 Then Return Nil
+		  If lineNumber > lines.Count Then Return Nil
+		  
+		  For i As Integer = lineNumber - 2 DownTo 0
+		    Var line As XUICELine = lines(i)
+		    If line.IsBlank Or IsCommentLine(line) Then
+		      Continue
+		    Else
+		      Return line
+		    End If
+		  Next i
+		  
+		  Return Nil
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52657475726E732074686520666972737420746F6B656E206F6E20606C696E65602074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865726520617265206E6F6E652E
 		Private Function FirstNonCommentToken(line As XUICELine) As XUICELineToken
 		  /// Returns the first token on `line` that is not a comment or Nil if there are none.
@@ -425,8 +457,6 @@ Implements XUICEFormatter
 		Private Sub IndentLines(ByRef lines() As XUICELine)
 		  /// Sets the indentation / continuation status of the passed `lines`.
 		  
-		  #Pragma Warning "BUG: Select Case statements not indenting correctly."
-		  
 		  If lines.Count = 0 Then Return
 		  
 		  // The first line is never indented.
@@ -445,58 +475,25 @@ Implements XUICEFormatter
 		    line.IsContinuation = False
 		    line.Unmatched = False
 		    
-		    // We need the line above.
-		    lineAbove = lines(i - 1)
+		    // We need the line above. We ignore blank lines and comment-only lines. This may be Nil if the
+		    // current line is the first actual code line in the source.
+		    lineAbove = ClosestCodeLineAbove(lines, line.Number)
 		    
-		    // Start by inheriting the line above's indent level.
-		    line.IndentLevel = lineAbove.IndentLevel
-		    
-		    // Blank lines inherit the indentation of the line above.
-		    If line.IsBlank Then
+		    If lineAbove = Nil Then
+		      line.IndentLevel = 0
+		      line.IsContinuation = False
+		      Continue
+		      
+		    ElseIf line.IsBlank Then
+		      line.IndentLevel = lineAbove.IndentLevel
 		      line.IsContinuation = lineAbove.IsContinuation
 		      Continue
-		    End If
-		    
-		    // We need the first token of this line and the first token of the line above.
-		    Var firstToken As XUICELineToken = line.FirstToken
-		    If firstToken = Nil Then Continue
-		    Var lineAboveFirstToken As XUICELineToken = lineAbove.FirstToken
-		    If lineAboveFirstToken = Nil Then Continue
-		    
-		    // Does the first token of the line above indent this line?
-		    If lineAboveFirstToken.Type = XUICELineToken.TYPE_KEYWORD Then
-		      Select Case lineAboveFirstToken.LookupData("keyword", Nil)
-		      Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.Class_, XojoKeywords.Do_, XojoKeywords.ElseIf_, _
-		        XojoKeywords.Else_, XojoKeywords.Exception_, XojoKeywords.Finally_, XojoKeywords.For_, _
-		        XojoKeywords.Function_, XojoKeywords.Interface_, XojoKeywords.Module_, _
-		        XojoKeywords.Private_, XojoKeywords.Property_, XojoKeywords.Protected_, _
-		        XojoKeywords.Public_, XojoKeywords.Select_, XojoKeywords.Shared_, XojoKeywords.Static_, _
-		        XojoKeywords.Sub_, XojoKeywords.Try_, XojoKeywords.While_
-		        line.IndentLevel = line.IndentLevel + 1
-		        
-		      Case XojoKeywords.If_
-		        If Not IsSingleLineIfStatement(lineAbove) Then
-		          line.IndentLevel = line.IndentLevel + 1
-		        End If
-		      End Select
-		    End If
-		    
-		    // Does the first token dedent this line?
-		    If firstToken.Type = XUICELineToken.TYPE_KEYWORD Then
-		      Select Case firstToken.LookupData("keyword", Nil)
-		      Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.ElseIf_, XojoKeywords.Else_, XojoKeywords.End_, _
-		        XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
-		        line.IndentLevel = line.IndentLevel - 1
-		      End Select
-		    End If
-		    
-		    // Is this line a continuation of the line above?
-		    Var lineAboveLastToken As XUICELineToken = LastNonCommentToken(lineAbove)
-		    If lineAboveLastToken <> Nil And lineAboveLastToken.Type = XUICELineToken.TYPE_OPERATOR And _
-		      lineAboveLastToken.LookupData("isLineContination", False) Then
-		      line.IsContinuation = True
+		      
 		    Else
-		      line.IsContinuation = False
+		      // Start by inheriting the line above's indent level.
+		      line.IndentLevel = lineAbove.IndentLevel
+		      
+		      
 		    End If
 		    
 		  Next i

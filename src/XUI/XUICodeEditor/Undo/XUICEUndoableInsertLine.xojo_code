@@ -80,6 +80,15 @@ Implements XUIUndoableAction
 		  
 		  Var lineToDelete As XUICELine = mEditor.LineManager.LineAt(mLineNumber)
 		  
+		  If lineToDelete = Nil Then
+		    // This shouldn't happen.
+		    #If DebugBuild
+		      System.Log(System.LogLevelWarning, "Failed to undo insertion of a line as the line to delete (" + _
+		      mLineNumber.ToString + ") cannot be found.")
+		    #EndIf
+		    Return
+		  End If
+		  
 		  // -1 to account for the newline character
 		  mEditor.LineManager.DeleteLineAt(mLineNumber, -lineToDelete.Length - 1)
 		  

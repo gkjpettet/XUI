@@ -252,7 +252,7 @@ Implements XUINotificationListener
 		  // Track that the user is typing.
 		  mLastKeyDownTicks = System.Ticks
 		  
-		  // Edge case: The user has pressed CtrlSpace on Windows/Linux. The `InsertText` event fires
+		  // The user has pressed CtrlSpace on Windows/Linux. The `InsertText` event fires
 		  // before the `KeyDown` event so if Ctrl is being held down at this point we need to *not* insert
 		  // the space character.
 		  #If TargetWindows Or TargetLinux

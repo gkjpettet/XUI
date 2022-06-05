@@ -388,6 +388,17 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 54727565206966207468697320666F726D617474657220616C6C6F777320776869746573706163652061742074686520626567696E6E696E67206F662061206C696E652E2049662046616C73652C2074686520656469746F722077696C6C207374726970206974207768656E2070617374696E6720616E642070726576656E742069742066726F6D206265696E672074797065642E
+		Function AllowsLeadingWhitespace() As Boolean
+		  /// True if this formatter allows whitespace at the beginning of a line. 
+		  /// If False, the editor will strip it when pasting and prevent it from being typed.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
+		  
+		  Return True
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52657475726E732074686520666972737420746F6B656E206F6E20606C696E65602074686174206973206E6F74206120636F6D6D656E74206F72204E696C20696620746865206C696E6520746865726520617265206E6F6E652E
 		Private Function FirstNonCommentToken(line As XUICELine) As XUICELineToken
 		  /// Returns the first token on `line` that is not a comment or Nil if the line there are none.

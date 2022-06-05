@@ -1,6 +1,17 @@
 #tag Class
 Protected Class XUICEMarkdownFormatter
 Implements MarkdownKit.MKRenderer,XUICEFormatter
+	#tag Method, Flags = &h0, Description = 54727565206966207468697320666F726D617474657220616C6C6F777320776869746573706163652061742074686520626567696E6E696E67206F662061206C696E652E2049662046616C73652C2074686520656469746F722077696C6C207374726970206974207768656E2070617374696E6720616E642070726576656E742069742066726F6D206265696E672074797065642E
+		Function AllowsLeadingWhitespace() As Boolean
+		  /// True if this formatter allows whitespace at the beginning of a line. 
+		  /// If False, the editor will strip it when pasting and prevent it from being typed.
+		  ///
+		  /// Part of the `XUICEFormatter` interface.
+		  
+		  Return True
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 4164647320746F6B656E7320666F7220616E79207265666572656E6365206C696E6B20646566696E6974696F6E7320696E2074686520646F63756D656E742E
 		Private Sub HandleReferenceLinkDefinitions(doc As MarkdownKit.MKDocument)
 		  /// Adds tokens for any reference link definitions in the document.

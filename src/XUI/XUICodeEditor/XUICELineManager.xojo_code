@@ -418,6 +418,12 @@ Protected Class XUICELineManager
 		  /// - Assumes `0 <= caretPos > (LastLine.EndPosition + 1)`.
 		  /// - Assumes `char` is not a newline character.
 		  
+		  // Some formatters disallow whitespace at the beginning of the line.
+		  // We consider space and tab to be whitespace.
+		  If Not Formatter.AllowsLeadingWhitespace And Owner.CaretColumn = 0 Then
+		    If char = " " Or char = &u009 Then Return
+		  End If
+		  
 		  mLastChanged = System.Microseconds
 		  
 		  // Cache the current line count.
@@ -552,6 +558,23 @@ Protected Class XUICELineManager
 		  
 		  // Get the line to begin the insertion at.
 		  Var startLine As XUICELine = LineForCaretPos(caretPos)
+		  
+		  // Some formatters disallow whitespace at the beginning of the line.
+		  // We consider space and tab to be whitespace.
+		  // Strip any that is present.
+		  If Not Formatter.AllowsLeadingWhitespace Then
+		    If s.Contains(" ") Or s.Contains(&u009) Then
+		      If s.Contains(&u0A) Then
+		        Var tmp() As String = s.Split(&u0A)
+		        For i As Integer = 0 To tmp.LastIndex
+		          tmp(i) = tmp(i).TrimLeft
+		        Next i
+		        s = String.FromArray(tmp, &u0A)
+		      Else
+		        s = s.TrimLeft
+		      End If
+		    End If
+		  End If
 		  
 		  // =======================================================
 		  // Case 1: A solitary newline character is being inserted.
