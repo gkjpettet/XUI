@@ -425,6 +425,8 @@ Implements XUICEFormatter
 		Private Sub IndentLines(ByRef lines() As XUICELine)
 		  /// Sets the indentation / continuation status of the passed `lines`.
 		  
+		  #Pragma Warning "BUG: Select Case statements not indenting correctly."
+		  
 		  If lines.Count = 0 Then Return
 		  
 		  // The first line is never indented.
@@ -461,15 +463,6 @@ Implements XUICEFormatter
 		    Var lineAboveFirstToken As XUICELineToken = lineAbove.FirstToken
 		    If lineAboveFirstToken = Nil Then Continue
 		    
-		    // Does the first token dedent this line?
-		    If firstToken.Type = XUICELineToken.TYPE_KEYWORD Then
-		      Select Case firstToken.LookupData("keyword", Nil)
-		      Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.ElseIf_, XojoKeywords.Else_, XojoKeywords.End_, _
-		        XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
-		        line.IndentLevel = line.IndentLevel - 1
-		      End Select
-		    End If
-		    
 		    // Does the first token of the line above indent this line?
 		    If lineAboveFirstToken.Type = XUICELineToken.TYPE_KEYWORD Then
 		      Select Case lineAboveFirstToken.LookupData("keyword", Nil)
@@ -480,10 +473,20 @@ Implements XUICEFormatter
 		        XojoKeywords.Public_, XojoKeywords.Select_, XojoKeywords.Shared_, XojoKeywords.Static_, _
 		        XojoKeywords.Sub_, XojoKeywords.Try_, XojoKeywords.While_
 		        line.IndentLevel = line.IndentLevel + 1
+		        
 		      Case XojoKeywords.If_
 		        If Not IsSingleLineIfStatement(lineAbove) Then
 		          line.IndentLevel = line.IndentLevel + 1
 		        End If
+		      End Select
+		    End If
+		    
+		    // Does the first token dedent this line?
+		    If firstToken.Type = XUICELineToken.TYPE_KEYWORD Then
+		      Select Case firstToken.LookupData("keyword", Nil)
+		      Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.ElseIf_, XojoKeywords.Else_, XojoKeywords.End_, _
+		        XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
+		        line.IndentLevel = line.IndentLevel - 1
 		      End Select
 		    End If
 		    
