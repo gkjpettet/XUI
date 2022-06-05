@@ -1103,6 +1103,14 @@ Implements XUICEFormatter
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A formatter for the Xojo language. In addition to tokenising the language components you'd expect (keywords, 
+		operators, etc) it also tokenises the components of `Color` literals (like the Xojo IDE) and escaped double
+		quotes within strings.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 4120736F72746564206172726179206F6620616C6C20746F6B656E732074686174206D61726B20746865207374617274206F7220656E64206F66206120626C6F636B2E
 		Private BlockBoundaries() As XUICELineToken
 	#tag EndProperty
