@@ -449,7 +449,15 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  ResetToExplorerData
+		  #If TargetMacOS
+		    PopupRenderer.SelectRowWithValue("macOS Monterey")
+		    PopupStyle.SelectRowWithValue("macOS Monterey")
+		    ResetToFinderData
+		  #Else
+		    PopupRenderer.SelectRowWithValue("Windows 11")
+		    PopupStyle.SelectRowWithValue("Windows 11")
+		    ResetToExplorerData
+		  #EndIf
 		  
 		End Sub
 	#tag EndEvent
