@@ -14,7 +14,7 @@ Both the Licensee and Licenser agree to adhere to the following terms and condit
 
 - The Licenser grants (upon full payment and with acceptance of this source code license agreement) the Software to be used as permitted. A license shall be considered non-transferrable.
 
-- The license granted may be used by the Licensee only. Additional licenses are required by any employees or subcontractors providing services for the Licensee. Enterprise licensing is available upon request.
+- The standard license granted may be used by the Licensee only. The "Pro" license grants usage to all employees of a single organisation. Subcontractors providing services for the Licensee require an additional license.
 
 - Throughout this agreement, “Software” shall be defined as all source code, object codes, linked libraries, utility programs, project files and scripts related to the software listed above.
 

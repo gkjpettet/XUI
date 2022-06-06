@@ -493,6 +493,47 @@ Implements XUICEFormatter
 		      // Start by inheriting the line above's indent level.
 		      line.IndentLevel = lineAbove.IndentLevel
 		      
+		      // We need the first token of this line and the first token of the line above.
+		      Var firstToken As XUICELineToken = line.FirstToken
+		      If firstToken = Nil Then Continue
+		      Var lineAboveFirstToken As XUICELineToken = lineAbove.FirstToken
+		      If lineAboveFirstToken = Nil Then Continue
+		      
+		      // Does the first token of the line above indent this line?
+		      If lineAboveFirstToken.Type = XUICELineToken.TYPE_KEYWORD Then
+		        Select Case lineAboveFirstToken.LookupData("keyword", Nil)
+		        Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.Class_, XojoKeywords.Do_, XojoKeywords.ElseIf_, _
+		          XojoKeywords.Else_, XojoKeywords.Exception_, XojoKeywords.Finally_, XojoKeywords.For_, _
+		          XojoKeywords.Function_, XojoKeywords.Interface_, XojoKeywords.Module_, _
+		          XojoKeywords.Private_, XojoKeywords.Property_, XojoKeywords.Protected_, _
+		          XojoKeywords.Public_, XojoKeywords.Select_, XojoKeywords.Shared_, XojoKeywords.Static_, _
+		          XojoKeywords.Sub_, XojoKeywords.Try_, XojoKeywords.While_
+		          line.IndentLevel = line.IndentLevel + 1
+		          
+		        Case XojoKeywords.If_
+		          If Not IsSingleLineIfStatement(lineAbove) Then
+		            line.IndentLevel = line.IndentLevel + 1
+		          End If
+		        End Select
+		      End If
+		      
+		      // Does the first token dedent this line?
+		      If firstToken.Type = XUICELineToken.TYPE_KEYWORD Then
+		        Select Case firstToken.LookupData("keyword", Nil)
+		        Case XojoKeywords.Case_, XojoKeywords.Catch_, XojoKeywords.ElseIf_, XojoKeywords.Else_, XojoKeywords.End_, _
+		          XojoKeywords.Loop_, XojoKeywords.Next_, XojoKeywords.Wend_
+		          line.IndentLevel = line.IndentLevel - 1
+		        End Select
+		      End If
+		      
+		      // Is this line a continuation of the line above?
+		      Var lineAboveLastToken As XUICELineToken = LastNonCommentToken(lineAbove)
+		      If lineAboveLastToken <> Nil And lineAboveLastToken.Type = XUICELineToken.TYPE_OPERATOR And _
+		        lineAboveLastToken.LookupData("isLineContination", False) Then
+		        line.IsContinuation = True
+		      Else
+		        line.IsContinuation = False
+		      End If
 		      
 		    End If
 		    

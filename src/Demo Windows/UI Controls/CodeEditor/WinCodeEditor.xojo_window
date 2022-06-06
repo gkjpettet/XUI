@@ -22,7 +22,7 @@ Begin DemoWindow WinCodeEditor
    Resizeable      =   True
    Title           =   "XUICodeEditor Demo"
    Type            =   0
-   Visible         =   True
+   Visible         =   False
    Width           =   1260
    Begin XUITabBar TabBar
       AllowAutoDeactivate=   True
@@ -4226,7 +4226,9 @@ Begin DemoWindow WinCodeEditor
       HighlightDelimitersAroundCaret=   True
       Index           =   -2147483648
       InitialParent   =   ""
+      JustTokenised   =   False
       LastFullyVisibleLineNumber=   0
+      LastParseMicroseconds=   0.0
       Left            =   0
       LineNumberColor =   &c00000000
       LineNumberFontSize=   0
@@ -4237,6 +4239,7 @@ Begin DemoWindow WinCodeEditor
       LockTop         =   True
       LongestLineChanged=   False
       MinimumAutocompletionLength=   2
+      MinimumParseInterval=   500
       NeedsFullRedraw =   False
       ReadOnly        =   False
       Scope           =   2
