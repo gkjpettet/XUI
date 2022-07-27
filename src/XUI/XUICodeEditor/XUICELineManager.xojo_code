@@ -563,8 +563,8 @@ Protected Class XUICELineManager
 		  // We consider space and tab to be whitespace.
 		  // Strip any that is present.
 		  If Not Formatter.AllowsLeadingWhitespace Then
-		    If s.Contains(" ") Or s.Contains(&u009) Then
-		      If s.Contains(&u0A) Then
+		    If s.Contains(" ", False) Or s.Contains(&u009, False) Then
+		      If s.Contains(&u0A, False) Then
 		        Var tmp() As String = s.Split(&u0A)
 		        For i As Integer = 0 To tmp.LastIndex
 		          tmp(i) = tmp(i).TrimLeft
@@ -588,7 +588,7 @@ Protected Class XUICELineManager
 		  // =====================================================
 		  // Case 2: The text to insert does not contain newlines.
 		  // =====================================================
-		  If Not s.Contains(&u0A) Then
+		  If Not s.Contains(&u0A, False) Then
 		    If caretPos = startLine.Finish Then
 		      // Append the text to this line.
 		      startLine.SetContents(startLine.Contents + s)
