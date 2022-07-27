@@ -129,7 +129,7 @@ Protected Module XUIStrings
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 547275652069662060736020636F6E7461696E73206077686174602E
-		Function Contains(Extends s As String, what As String, caseSensitive As Boolean = False) As Boolean
+		Function Contains(Extends s As String, what As String, caseSensitive As Boolean) As Boolean
 		  /// True if `s` contains `what`.
 		  
 		  If caseSensitive Then
