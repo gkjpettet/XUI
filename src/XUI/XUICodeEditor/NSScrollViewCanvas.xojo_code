@@ -27,8 +27,13 @@ Inherits DesktopTextInputCanvas
 		    ' We'll subclass NSScrollView, so we get the class
 		    Var objectClass As Ptr = NSClassFromString("NSScrollView")
 		    
+		    ' Create an UUID for each NSScrollView / "myFlippedDocumentViewClass" instance.
+		    Var oUUID As Ptr = NSClassFromString("NSUUID") 
+		    Var oNSUUID As Ptr = UUID(oUUID)
+		    Var sUUID As String = UUIDString(oNSUUID)
+		    
 		    ' Allocate a subclass of NSScrollView.
-		    NSScrollViewCustom = objc_allocateClassPair(objectClass, "myCustomNSScrollViewClass", 0)
+		    NSScrollViewCustom = objc_allocateClassPair(objectClass, "myCustomNSScrollViewClass" + sUUID, 0)
 		    
 		    ' Override the magnifyWithEvent selector.
 		    Call class_addMethod(NSScrollViewCustom, _
@@ -55,7 +60,7 @@ Inherits DesktopTextInputCanvas
 		    objectClass = NSClassFromString("NSView")
 		    
 		    ' We'll also subclass NSView to override the isFlipped selector.
-		    Var myFlippedDocumentViewClass As Ptr = objc_allocateClassPair(objectClass, "myFlippedDocumentViewClass", 0)
+		    Var myFlippedDocumentViewClass As Ptr = objc_allocateClassPair(objectClass, "myFlippedDocumentViewClass" + sUUID, 0)
 		    
 		    ' Override the isFlipped selector with a shared method that simply returns true.
 		    Call class_addMethod(myFlippedDocumentViewClass, _
@@ -383,6 +388,14 @@ Inherits DesktopTextInputCanvas
 
 	#tag ExternalMethod, Flags = &h21, Description = 5365747320776865746865722074686520636F6E74726F6C2077696C6C20706F73742061206E6F74696669636174696F6E207768656E206974277320626F756E6473206368616E67652E
 		Private Declare Sub SetPostsBoundsChangedNotifications Lib kAppKit Selector "setPostsBoundsChangedNotifications:" (obj As Ptr, value As Boolean)
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h21
+		Private Declare Function UUID Lib kAppKit Selector "UUID" (id As Ptr) As Ptr
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h21
+		Private Declare Function UUIDString Lib kAppKit Selector "UUIDString" (id As Ptr) As CFStringRef
 	#tag EndExternalMethod
 
 
