@@ -4057,7 +4057,6 @@ Begin DemoWindow WinCodeEditor
          Active          =   False
          AllowAutoDeactivate=   True
          AllowFocus      =   True
-         AllowTabStop    =   False
          BackgroundColor =   &c00000000
          BevelStyle      =   0
          Bold            =   False
@@ -4108,7 +4107,6 @@ Begin DemoWindow WinCodeEditor
          Active          =   False
          AllowAutoDeactivate=   True
          AllowFocus      =   True
-         AllowTabStop    =   False
          BackgroundColor =   &c00000000
          BevelStyle      =   0
          Bold            =   False
@@ -4315,103 +4313,103 @@ End
 
 	#tag MenuHandler
 		Function EditCopy() As Boolean Handles EditCopy.Action
-			// Copies the contents of the current selection in the editor to the clipboard.
-			
-			Var c As New Clipboard
-			If Editor.TextSelected Then
-			c.Text = Editor.CurrentSelection.ToString
-			Else
-			c.Text = ""
-			End If
-			c.Close
-			
-			Return True
-			
+		  // Copies the contents of the current selection in the editor to the clipboard.
+		  
+		  Var c As New Clipboard
+		  If Editor.TextSelected Then
+		    c.Text = Editor.CurrentSelection.ToString
+		  Else
+		    c.Text = ""
+		  End If
+		  c.Close
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditCut() As Boolean Handles EditCut.Action
-			// Cuts the contents of the current selection in the editor and puts it on the clipboard.
-			
-			Var c As New Clipboard
-			If Editor.TextSelected Then
-			c.Text = Editor.CurrentSelection.ToString
-			Else
-			c.Text = ""
-			End If
-			c.Close
-			
-			Editor.DeleteSelection(True, True, True, "Cut Text")
-			
-			Return True
-			
+		  // Cuts the contents of the current selection in the editor and puts it on the clipboard.
+		  
+		  Var c As New Clipboard
+		  If Editor.TextSelected Then
+		    c.Text = Editor.CurrentSelection.ToString
+		  Else
+		    c.Text = ""
+		  End If
+		  c.Close
+		  
+		  Editor.DeleteSelection(True, True, True, "Cut Text")
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditPaste() As Boolean Handles EditPaste.Action
-			// Pastes the contents of the clipboard into the editor.
-			
-			// Get the clipboard text (replacing any line endings with UNIX ones).
-			Var c As New Clipboard
-			Var t As String = c.Text.ReplaceLineEndings(&u0A)
-			c.Close
-			
-			// Insert the text.
-			If t.CharacterCount > 0 Then
-			If Editor.TextSelected Then
-			Editor.ReplaceCurrentSelection(t)
-			Else
-			Editor.Insert(t, Editor.CaretPosition, True)
-			End If
-			End If
-			
-			Return True
-			
+		  // Pastes the contents of the clipboard into the editor.
+		  
+		  // Get the clipboard text (replacing any line endings with UNIX ones).
+		  Var c As New Clipboard
+		  Var t As String = c.Text.ReplaceLineEndings(&u0A)
+		  c.Close
+		  
+		  // Insert the text.
+		  If t.CharacterCount > 0 Then
+		    If Editor.TextSelected Then
+		      Editor.ReplaceCurrentSelection(t)
+		    Else
+		      Editor.Insert(t, Editor.CaretPosition, True)
+		    End If
+		  End If
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditRedo() As Boolean Handles EditRedo.Action
-			If UndoManager.CanRedo Then
-			UndoManager.Redo
-			End If
-			
-			Return True
-			
+		  If UndoManager.CanRedo Then
+		    UndoManager.Redo
+		  End If
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditSelectAll() As Boolean Handles EditSelectAll.Action
-			// Select everything in the editor.
-			
-			Self.Editor.SelectAll
-			
-			Return True
-			
-			
+		  // Select everything in the editor.
+		  
+		  Self.Editor.SelectAll
+		  
+		  Return True
+		  
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditUndo() As Boolean Handles EditUndo.Action
-			If UndoManager.CanUndo Then
-			UndoManager.Undo
-			End If
-			
-			Return True
-			
+		  If UndoManager.CanUndo Then
+		    UndoManager.Undo
+		  End If
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
-			Self.Hide
-			
-			Return True
-			
+		  Self.Hide
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

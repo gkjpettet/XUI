@@ -1322,8 +1322,10 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E2054616B6573206120436F6C6F722E
 		Sub Constructor(startingColor As Color)
+		  /// Default constructor. Takes a Color.
+		  
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  
@@ -1684,7 +1686,7 @@ End
 	#tag Constant, Name = PANEL_MAIN_SLIDERS, Type = Double, Dynamic = False, Default = \"0", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E672074686520736C69646572732E
 	#tag EndConstant
 
-	#tag Constant, Name = PANEL_MAIN_SWATCHES, Type = Double, Dynamic = False, Default = \"1", Scope = Private
+	#tag Constant, Name = PANEL_MAIN_SWATCHES, Type = Double, Dynamic = False, Default = \"1", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E6720746865206D61696E2073776174636865732E
 	#tag EndConstant
 
 	#tag Constant, Name = PANEL_SLIDERS_CMY, Type = Double, Dynamic = False, Default = \"2", Scope = Private, Description = 496E646578206F66207468652070616E656C20636F6E7461696E696E67207468652052474220736C69646572732E

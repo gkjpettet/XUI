@@ -3125,6 +3125,8 @@ Implements XUINotificationListener
 		  ///
 		  /// If `shouldInvalidate` is True then the canvas will immediately redraw.
 		  
+		  If mBackBuffer = Nil Then Return
+		  
 		  #If TargetMacOS
 		    // Get the absolute X coordinate of the caret.
 		    Var caretX As Integer = CaretXCoordinate

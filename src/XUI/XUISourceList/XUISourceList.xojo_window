@@ -464,6 +464,25 @@ End
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 53656C6563747320746865206974656D20617420726F77202830206261736564292E2052657475726E7320746865206974656D2073656C6563746564206F72204E696C206966206E6F6E65207761732073656C65637465642E20446F6573202A2A6E6F742A2A2072616973652074686520604974656D53656C6563746564282960206576656E742E
+		Function SelectItemAtRow(row As Integer) As XUISourceListItem
+		  /// Selects the item at row (0 based).
+		  /// Returns the item selected or Nil if none was selected.
+		  /// Does **not** raise the `ItemSelected()` event.
+		  
+		  // Get the item clicked.
+		  Var item As XUISourceListItem = ItemAtRowIndex(row)
+		  If item <> Nil Then
+		    mSelectedItems.RemoveAll
+		    mSelectedItems.Add(item)
+		    Refresh
+		  End If
+		  
+		  Return item
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 53746F7073204472616754696D657220616E64206D61726B73207468617420776520617265206E6F206C6F6E676572206472616767696E672E
 		Private Sub StoppedDragging()
 		  /// Stops DragTimer and marks that we are no longer dragging.
@@ -505,12 +524,12 @@ End
 		Event MovedItem(item As XUISourceListItem, oldParent As XUISourceListItem, newParent As XUISourceListItem)
 	#tag EndHook
 
-	#tag Hook, Flags = &h0
+	#tag Hook, Flags = &h0, Description = 54686520736F75726365206C69737420636F6E74726F6C206973206F70656E696E672E
 		Event Opening()
 	#tag EndHook
 
 
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h0, Description = 496620605472756560207468656E206D756C7469706C65206974656D2073656C656374696F6E206973207065726D69747465642E
 		#tag Getter
 			Get
 			  Return SourceList.RowSelectionType = DesktopListBox.RowSelectionTypes.Multiple
