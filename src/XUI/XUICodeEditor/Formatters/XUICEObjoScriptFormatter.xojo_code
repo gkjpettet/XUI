@@ -378,7 +378,6 @@ Implements XUICEFormatter
 		  d.Value("not")         = Nil
 		  d.Value("nothing")     = Nil
 		  d.Value("or")          = Nil
-		  d.Value("print")       = Nil
 		  d.Value("return")      = Nil
 		  d.Value("static")      = Nil
 		  d.Value("super")       = Nil
