@@ -805,9 +805,8 @@ Implements XUICEFormatter
 
 
 	#tag Note, Name = About
-		A `XUICodeEditor` formatter for the [Wren][1] programming language.
+		A `XUICodeEditor` formatter for the ObjoScript programming language.
 		
-		[1]: https://wren.io
 		
 	#tag EndNote
 
