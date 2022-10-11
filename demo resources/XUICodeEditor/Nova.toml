@@ -62,7 +62,7 @@ color = "&h00CC1400, &h00CC1400"
 color = "&h00326D74, &h00326D74"
 
 [tokens.keyword]
-color = "&h00813AA8, &h00B285E2"
+color = "&h003B2BFE, &h00C8C8C8"
 
 [tokens.number]
 color = "&h001C00CF, &h005BA5FF"

@@ -58,7 +58,7 @@ Protected Class XUICEAbstractFormatter
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 496E697469616C697365732074686520616273747261637420666F726D61747465722E
-		Sub Initialise(lines() As XUICELine, startLine As Integer)
+		Sub Initialise(lines() As XUICELine, startLine As Integer, clearStartline As Boolean = True)
 		  /// Initialises the abstract formatter.
 		  
 		  // Cache commonly accessed properties.
@@ -68,7 +68,7 @@ Protected Class XUICEAbstractFormatter
 		  mLinesLastIndex = mLines.LastIndex
 		  
 		  // Begin on the start line.
-		  MoveToLine(startLine)
+		  MoveToLine(startLine, clearStartline)
 		  
 		End Sub
 	#tag EndMethod
@@ -128,16 +128,16 @@ Protected Class XUICEAbstractFormatter
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1, Description = 4D6F7665732074686520746F6B656E6973657220746F20746865207374617274206F66206C696E6520606C696E654E756D6265726020616E6420636C6561727320616E7920746F6B656E73206F6E2069742E20417373756D6573207468617420606C696E654E756D626572602069732076616C69642E
-		Protected Sub MoveToLine(lineNumber As Integer)
-		  /// Moves the tokeniser to the start of line `lineNumber` and clears any tokens on it. 
+	#tag Method, Flags = &h1, Description = 4D6F7665732074686520746F6B656E6973657220746F20746865207374617274206F66206C696E6520606C696E654E756D6265726020616E6420636C6561727320616E7920746F6B656E73206F6E2069742069662060636C6561724C696E656020697320547275652E20417373756D6573207468617420606C696E654E756D626572602069732076616C69642E
+		Protected Sub MoveToLine(lineNumber As Integer, clearLine As Boolean = True)
+		  /// Moves the tokeniser to the start of line `lineNumber` and clears any tokens on it if `clearLine` is True. 
 		  /// Assumes that `lineNumber` is valid.
 		  
 		  mCurrent = 0
 		  mTokenStartLocal = 0
 		  
 		  mLine = mLines(lineNumber - 1)
-		  mLine.Tokens.RemoveAll
+		  If clearLine Then mLine.Tokens.RemoveAll
 		  mLineNumber = mLine.Number
 		  
 		End Sub

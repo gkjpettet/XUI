@@ -4792,6 +4792,8 @@ End
 		Sub Opening()
 		  Me.AddRow("Markdown")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUICEMarkdownFormatter
+		  Me.AddRow("ObjoScript")
+		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUICEObjoScriptFormatter
 		  Me.AddRow("Plain Text")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = New XUICETextFormatter
 		  Me.AddRow("Wren")

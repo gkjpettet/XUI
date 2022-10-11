@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUICEWrenFormatter
+Protected Class XUICEObjoScriptFormatter
 Inherits XUICEAbstractFormatter
 Implements XUICEFormatter
 	#tag Method, Flags = &h21
@@ -8,79 +8,27 @@ Implements XUICEFormatter
 		  ///
 		  /// Assumes the pointer is yet to consume the opening delimiter.
 		  ///
-		  /// Single line comments start with `//` and end at the end of the line:
+		  /// Comments start with `//` and end at the end of the line:
 		  ///
-		  /// ```wren
+		  /// ```objo
 		  /// // This is comment.
 		  /// var age = 40 // This is also a comment.
 		  /// ```
-		  ///
-		  /// Block comments start with `\*` and end with `*/`. They can span multiple lines:
-		  ///
-		  /// ```wren
-		  ///   /* This
-		  ///      a
-		  ///   multi-line
-		  ///   comment. */
-		  /// ```
-		  ///
-		  /// They can also be nested:
-		  ///
-		  /// ```wren
-		  ///   /* This is /* a nested */ comment. */
-		  /// ```
 		  
-		  If Peek <> "/" Then Return False
+		  Var peekChar As String = Peek
 		  
-		  If Peek(2) = "*" Then
-		    // ====================
-		    // BLOCK COMMENT
-		    // ====================
-		    Var mCurrentCache As Integer = mCurrent
-		    Var mTokenStartLocalCache As Integer = mTokenStartLocal
-		    Var mLineNumberCache As Integer = mLineNumber
-		    
-		    // Move past the opening delimiter.
-		    Advance(2)
-		    
-		    Var closersNeeded As Integer = 1
-		    Var foundCommentEnd As Boolean = False
-		    
-		    While Not AtEnd
-		      If Peek = "*" And Peek(2) = "/" Then
-		        Advance(2)
-		        closersNeeded = closersNeeded - 1
-		        If closersNeeded = 0 Then
-		          foundCommentEnd = True
-		          Exit
-		        End If
-		      ElseIf Peek = "/" And Peek(2) = "*" Then
-		        closersNeeded = closersNeeded + 1
-		        Advance(2)
-		      Else
-		        Advance
-		      End If
-		    Wend
-		    
-		    If Not foundCommentEnd Then
-		      // Revert cached properties.
-		      mCurrent = mCurrentCache
-		      mTokenStartLocal = mTokenStartLocalCache
-		      mLineNumber = mLineNumberCache
-		      mLine = mLines(mLineNumber - 1)
-		      Return False
-		    Else
-		      // Found a closed block comment.
-		      Call AddMultilineTokens(XUICELineToken.TYPE_COMMENT, mLineNumberCache, mTokenStartLocalCache, _
-		      mLineNumber, mCurrent)
-		      Return True
+		  Var isComment As Boolean = False
+		  If peekChar = "/" Then
+		    If Peek(2) = "/" Then
+		      isComment = True
 		    End If
+		  Else
+		    Return False
 		  End If
 		  
-		  If Peek(2) = "/" Then
-		    // ====================
-		    // SINGLE LINE COMMENT
-		    // ====================
+		  If Not isComment Then
+		    Return False
+		  Else
 		    // Advance to the end of the line.
 		    mCurrent = mLine.Characters.LastIndex + 1
 		    
@@ -92,7 +40,6 @@ Implements XUICEFormatter
 		    Return True
 		  End If
 		  
-		  Return False
 		End Function
 	#tag EndMethod
 
@@ -164,51 +111,6 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4164647320636F6E746967756F757320746F6B656E73206F662060747970656020626567696E6E696E67206174206073746172744C696E656020616E64206073746172744C6F63616C6020616C6C207468652077617920746F2060656E644C696E65602060656E64506F734C6F63616C602E2052657475726E7320746865206C61737420746F6B656E2061646465642E20746865206C61737420746F6B656E2E
-		Private Function AddMultilineTokens(type As String, startLine As Integer, startLocal As Integer, endLine As Integer, endPosLocal As Integer, fallbackType As String = "default") As XUICELineToken
-		  /// Adds contiguous tokens of `type` beginning at `startLine` and `startLocal` all the 
-		  /// way to `endLine` `endPosLocal`. Returns the last token added.
-		  /// the last token.
-		  ///
-		  /// Assumes that all arguments are valid.
-		  /// `fallbackType` is the generic fallback token style to use if the editor's current theme doesn't 
-		  /// define a style named `type`.
-		  /// Assumes `fallbackType` is a valid fallback type (i.e. one of the constants in `XUICELineToken`).
-		  
-		  Var t As XUICELineToken
-		  
-		  // First line.
-		  Var line As XUICELine = mLineManager.Lines(startLine - 1)
-		  If endLine = startLine Then
-		    t = New XUICELineToken(line.Start + startLocal, startLocal, endPosLocal - startLocal, line.Number, type, fallbackType)
-		    line.Tokens.Add(t)
-		    Return t
-		  Else
-		    t = New XUICELineToken(line.Start + startLocal, startLocal, line.Length - startLocal, line.Number, type, fallbackType)
-		    line.Tokens.Add(t)
-		  End If
-		  
-		  // Last line.
-		  line = mLineManager.Lines(endLine - 1)
-		  If Not line.IsBlank Then
-		    t = New XUICELineToken(line.Start, 0, endPosLocal, line.Number, type, fallbackType)
-		    line.Tokens.Add(t)
-		  End If
-		  If endLine = startLine + 1 Then Return t
-		  
-		  // Intervening lines.
-		  For i As Integer = startLine + 1 To endLine - 1
-		    line = mLineManager.LineAt(i)
-		    If line.IsBlank Then Continue
-		    t = New XUICELineToken(line.Start, 0, line.Length, line.Number, type, fallbackType)
-		    line.Tokens.Add(t)
-		  Next i
-		  
-		  Return t
-		  
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h21, Description = 436F6E73756D657320616E6420616464732061206E756D62657220746F6B656E207374617274696E6720617420606D43757272656E74602E
 		Private Sub AddNumberToken()
 		  /// Consumes and adds a number token starting at `mCurrent`.
@@ -258,43 +160,6 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 417474656D70747320746F20636F6E73756D6520616E642061646420612072617720737472696E6720746F6B656E2E
-		Private Sub AddRawStringToken()
-		  /// Attempts to consume and add a raw string token.
-		  ///
-		  /// Assumes that `mCurrent` points here:
-		  ///
-		  /// ```wren
-		  /// """Hello """
-		  ///    ^
-		  ///
-		  /// """
-		  ///    ^ 
-		  /// Multiline
-		  /// """
-		  /// ```
-		  
-		  Var startLine As Integer = mLineNumber
-		  
-		  While Not AtEnd
-		    If Peek(1) = """" And Peek(2) = """" And Peek(3) = """" Then
-		      // Found the closing delimiter.
-		      Advance(3)
-		      Var t As XUICELineToken = AddMultilineTokens(XUICELineToken.TYPE_STRING, startLine, mTokenStartLocal, mLineNumber, mCurrent)
-		      If t <> Nil Then t.SetData("isClosingDelimiter", True)
-		      Return
-		    Else
-		      Advance
-		    End If
-		  Wend
-		  
-		  // Unterminated raw string.
-		  Call AddMultilineTokens(XUICELineToken.TYPE_ERROR, startLine, mTokenStartLocal, mLineNumber, mCurrent)
-		  Return
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21, Description = 417474656D70747320746F20636F6E73756D6520616E6420616464206120737472696E6720746F6B656E207374617274696E6720617420606D43757272656E74602E
 		Private Sub AddStringToken()
 		  /// Attempts to consume and add a string token starting at `mCurrent`.
@@ -306,66 +171,44 @@ Implements XUICEFormatter
 		  ///         ^
 		  /// ```
 		  ///
-		  /// If the string is successfully added then the closing delimiter will be assigned a 
-		  /// data key `"isClosingDelimiter"` with a value of `True`. This is used later when parsing.
+		  /// A successful string will have separate tokens for its opening and closing delimiters.
+		  /// This allows us to tokenise escaped quotes differently from the rest of the string.
 		  
-		  // =======================
-		  // RAW STRING
-		  // =======================
-		  If Peek = """" And Peek(2) = """" Then
-		    Advance(2)
-		    AddRawStringToken
-		    Return
-		  End If
+		  // We need an array of temporary tokens as they may be redundant if the string is not terminated.
+		  Var tokens() As XUICELineToken
 		  
-		  // =======================
-		  // STANDARD STRING
-		  // =======================
-		  // Add the opening delimiter.
-		  Var openerStartLine As Integer = mLineNumber
-		  Var openerStartLocal As Integer = mCurrent - 1
-		  mline.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
+		  // Add the opening delimiter (`"`).
+		  Var startLocal As Integer = mCurrent - 1
+		  tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
+		  
+		  // The token now starts beyond the opening delimiter.
 		  mTokenStartLocal = mCurrent
 		  
-		  // Track the line the in-progress string begins at.
-		  Var stringStartLine As Integer = mLineNumber
-		  
-		  // The in-progress string starts at `mCurrent`.
-		  Var stringStartLocal As Integer = mCurrent
-		  
-		  Var invalid As Boolean = False
-		  While Not AtEnd
+		  Var terminated As Boolean = False
+		  While Not AtLineEnd
+		    
 		    Select Case Peek
 		    Case """"
-		      Advance
-		      If invalid Then
+		      If Peek(2) <> """" Then
+		        // This is the end of the string.
+		        Advance
+		        tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
+		        terminated = True
 		        Exit
 		      Else
-		        // Add whatever remains of the string up to this closing delimiter and the closing delimiter as well.
-		        Var t As XUICELineToken = AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, stringStartLocal, mLineNumber, mCurrent)
-		        If t <> Nil Then t.SetData("isClosingDelimiter", True)
-		        Return
-		      End If
-		      
-		    Case "\"
-		      If HandleStringEscapeSequence(stringStartLine) Then
-		        stringStartLocal = mCurrent
-		        stringStartLine = mLineNumber
-		      Else
-		        invalid = True
-		        Advance
-		      End If
-		      
-		    Case "%"
-		      If Peek(2) = "(" Then
-		        // String interpolation until the matching `)`.
-		        If HandleStringInterpolation(stringStartLine) Then
-		          stringStartLocal = mCurrent
-		          stringStartLine = mLineNumber
-		        End If
-		      Else
-		        invalid = True
-		        Advance
+		        // Found `""` which is an escaped double quote.
+		        // Create a string token up to (but not including) the `""`.
+		        tokens.Add(MakeGenericToken(XUICELineToken.TYPE_STRING))
+		        
+		        mTokenStartLocal = mCurrent
+		        
+		        // Move past the two double quotes.
+		        Advance(2)
+		        
+		        // Now add the `""` escaped token.
+		        tokens.Add(MakeToken(TOKEN_ESCAPE, XUICELineToken.TYPE_STRING))
+		        
+		        mTokenStartLocal = mCurrent
 		      End If
 		      
 		    Else
@@ -373,18 +216,19 @@ Implements XUICEFormatter
 		    End Select
 		  Wend
 		  
-		  // Must be an unterminated string.
-		  // Need to remove all tokens added since the opening delimiter because the string is unterminated.
-		  For i As Integer = mLineNumber DownTo openerStartLine
-		    Var line As XUICELine = mLines(i - 1)
-		    // Analyse this line's tokens
-		    For j As Integer = line.Tokens.LastIndex DownTo 0
-		      Var t As XUICELineToken = line.Tokens.Pop
-		      If t.Type = XUICELineToken.TYPE_STRING Then Exit For i
-		    Next j
-		  Next i
+		  If Not terminated Then
+		    // Just add an error token.
+		    mTokenStartLocal = startLocal
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_ERROR))
+		    Return
+		    
+		  Else
+		    // Add the tokens to the line.
+		    For Each token As XUICELineToken In tokens
+		      mLine.Tokens.Add(token)
+		    Next token
+		  End If
 		  
-		  Call AddMultilineTokens(XUICELineToken.TYPE_ERROR, openerStartLine, openerStartLocal, mLineNumber, mCurrent)
 		End Sub
 	#tag EndMethod
 
@@ -412,161 +256,6 @@ Implements XUICEFormatter
 		  Next t
 		  
 		  Return Nil
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 44657465726D696E657320696620746865726520697320612076616C696420737472696E67206573636170652073657175656E63652E2041646473207468652072656C6576616E7420746F6B656E28732920696620736F20616E642072657475726E7320547275652C206F74686572776973652072657475726E732046616C73652E
-		Private Function HandleStringEscapeSequence(stringStartLine As Integer) As Boolean
-		  /// Determines if there is a valid string escape sequence. Adds the relevant token(s) 
-		  /// if so and returns True, otherwise returns False.
-		  ///
-		  /// Assumes were are within a string and have peeked to see `\`:
-		  ///
-		  /// ```wren
-		  /// System.write("age \tcool")
-		  ///                   ^
-		  /// ```
-		  ///
-		  /// `stringStartLine` is the number of the line that the preceding open string begins at.
-		  /// `mTokenStartLocal` points to the local position of the start of the preceding string.
-		  
-		  Var isPrecedingString As Boolean = stringStartLine < mLineNumber Or mTokenStartLocal < mCurrent
-		  Var escapeStartLocal As Integer = mCurrent
-		  Var escapeStartLine As Integer = mLineNumber
-		  
-		  // Move past the `\`.
-		  Advance
-		  
-		  Var charAfterSlash As String = Peek
-		  If charAfterSlash.IsExactly("0", """", "\", "%", "a", "b", "e", "f", "n", "r", "t", "v") Then
-		    Advance
-		    // Add the in-progress preceding string token(s) (if any).
-		    If isPrecedingString Then
-		      Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
-		    End If
-		    // Add the escape token.
-		    Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent, _
-		    XUICELineToken.TYPE_STRING)
-		    If AtLineEnd Then Advance
-		    Return True
-		    
-		  ElseIf charAfterSlash.IsExactly("x") Then
-		    If Peek(2).IsHexDigit And Peek(3).IsHexDigit Then
-		      Advance(3)
-		      // Add the in-progress preceding string token(s) (if any).
-		      If isPrecedingString Then
-		        Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
-		      End If
-		      // Add the escape token.
-		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent, _
-		      XUICELineToken.TYPE_STRING)
-		      If AtLineEnd Then Advance
-		      Return True
-		    Else
-		      Return False
-		    End If
-		    
-		  ElseIf charAfterSlash.IsExactly("u") Then
-		    If Peek(2).IsHexDigit And Peek(3).IsHexDigit And Peek(4).IsHexDigit And Peek(5).IsHexDigit Then
-		      Advance(5)
-		      // Add the in-progress preceding string token(s) (if any).
-		      If isPrecedingString Then
-		        Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
-		      End If
-		      // Add the escape token.
-		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent, _
-		      XUICELineToken.TYPE_STRING)
-		      If AtLineEnd Then Advance
-		      Return True
-		    Else
-		      Return False
-		    End If
-		    
-		  ElseIf charAfterSlash.IsExactly("U") Then
-		    If Peek(2).IsHexDigit And Peek(3).IsHexDigit And Peek(4).IsHexDigit And Peek(5).IsHexDigit _
-		      And Peek(6).IsHexDigit And Peek(6).IsHexDigit And Peek(7).IsHexDigit And Peek(8).IsHexDigit Then
-		      Advance(9)
-		      // Add the in-progress preceding string token(s) (if any).
-		      If isPrecedingString Then
-		        Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, escapeStartLine, escapeStartLocal)
-		      End If
-		      // Add the escape token.
-		      Call AddMultilineTokens(TOKEN_ESCAPE, escapeStartLine, escapeStartLocal, mLineNumber, mCurrent, _
-		      XUICELineToken.TYPE_STRING)
-		      If AtLineEnd Then Advance
-		      Return True
-		    Else
-		      Return False
-		    End If
-		    
-		  ElseIf charAfterSlash = "" Or charAfterSlash = &u0A Then
-		    // End of the line or end of the source.
-		    Return False
-		    
-		  Else
-		    Return False
-		    
-		  End If
-		  
-		  Return False
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 44657465726D696E657320696620746865726520697320612076616C696420737472696E6720696E746572706F6C6174696F6E2E20416464732074686520746F6B656E28732920696620736F20616E642072657475726E7320547275652C206F74686572776973652072657475726E732046616C73652E
-		Private Function HandleStringInterpolation(stringStartLine As Integer) As Boolean
-		  /// Determines if there is a valid string interpolation. Adds the token(s) if so and 
-		  /// returns True, otherwise returns False.
-		  ///
-		  /// Assumes were are within a string and have peeked to see `%(`:
-		  ///
-		  /// ```wren
-		  /// System.write("age %(25 + 15)"
-		  ///                   ^
-		  /// ```
-		  ///
-		  /// `stringStartLine` is the number of the line that the preceding open string begins at.
-		  /// `mTokenStartLocal` points to the local position of the start of the preceding string.
-		  
-		  Var nestingLevel As Integer = 0
-		  Var isPrecedingString As Boolean = stringStartLine < mLineNumber Or mTokenStartLocal < mCurrent
-		  Var interpolationStartLocal As Integer = mCurrent
-		  Var interpolationStartLine As Integer = mLineNumber
-		  
-		  // Move past the `%(`.
-		  Advance(2)
-		  
-		  While Not AtEnd
-		    Select Case Peek
-		    Case "("
-		      Advance
-		      nestingLevel = nestingLevel + 1
-		      
-		    Case ")"
-		      Advance
-		      If nestingLevel = 0 Then
-		        // Add the in-progress preceding string token(s) (if any).
-		        If isPrecedingString Then
-		          Call AddMultilineTokens(XUICELineToken.TYPE_STRING, stringStartLine, mTokenStartLocal, _
-		          interpolationStartLine, interpolationStartLocal)
-		        End If
-		        
-		        // Add the interpolation token(s).
-		        Call AddMultilineTokens(TOKEN_INTERPOLATION, interpolationStartLine, interpolationStartLocal, _
-		        mLineNumber, mCurrent, XUICELineToken.TYPE_STRING)
-		        If AtLineEnd Then Advance
-		        Return True
-		      Else
-		        nestingLevel = nestingLevel - 1
-		      End If
-		      
-		    Else
-		      Advance
-		    End Select
-		  Wend
-		  
-		  Return False
 		  
 		End Function
 	#tag EndMethod
@@ -661,33 +350,44 @@ Implements XUICEFormatter
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 52657475726E73206120636173652D73656E7369746976652064696374696F6E617279206F66205772656E2773206B6579776F726473202F20726573657276656420776F7264732E
+	#tag Method, Flags = &h21, Description = 52657475726E73206120636173652D73656E7369746976652064696374696F6E617279206F66204F626A6F5363726970742773206B6579776F726473202F20726573657276656420776F7264732E
 		Private Function InitialiseKeywordsDictionary() As Dictionary
-		  /// Returns a case-sensitive dictionary of Wren's keywords / reserved words.
+		  /// Returns a case-sensitive dictionary of ObjoScript's keywords / reserved words.
 		  
 		  Var d As Dictionary = ParseJSON("{}") // Case-sensitive hack.
 		  
-		  d.Value("as") = Nil
-		  d.Value("break") = Nil
-		  d.Value("class") = Nil
-		  d.Value("construct") = Nil
-		  d.Value("continue") = Nil
-		  d.Value("else") = Nil
-		  d.Value("false") = Nil
-		  d.Value("for") = Nil
-		  d.Value("foreign") = Nil
-		  d.Value("if") = Nil
-		  d.Value("import") = Nil
-		  d.Value("in") = Nil
-		  d.Value("is") = Nil
-		  d.Value("null") = Nil
-		  d.Value("return") = Nil
-		  d.Value("static") = Nil
-		  d.Value("super") = Nil
-		  d.Value("this") = Nil
-		  d.Value("true") = Nil
-		  d.Value("var") = Nil
-		  d.Value("while") = Nil
+		  d.Value("and")         = Nil
+		  d.Value("as")          = Nil
+		  d.Value("assert")      = Nil
+		  d.Value("breakpoint")  = Nil
+		  d.Value("class")       = Nil
+		  d.Value("continue")    = Nil
+		  d.Value("constructor") = Nil
+		  d.Value("else")        = Nil
+		  d.Value("exit")        = Nil
+		  d.Value("export")      = Nil
+		  d.Value("false")       = Nil
+		  d.Value("for")         = Nil
+		  d.Value("foreach")     = Nil
+		  d.Value("foreign")     = Nil
+		  d.Value("function")    = Nil
+		  d.Value("if")          = Nil
+		  d.Value("import")      = Nil
+		  d.Value("in")          = Nil
+		  d.Value("is")          = Nil
+		  d.Value("not")         = Nil
+		  d.Value("nothing")     = Nil
+		  d.Value("or")          = Nil
+		  d.Value("print")       = Nil
+		  d.Value("return")      = Nil
+		  d.Value("static")      = Nil
+		  d.Value("super")       = Nil
+		  d.Value("then")        = Nil
+		  d.Value("this")        = Nil
+		  d.Value("true")        = Nil
+		  d.Value("var")         = Nil
+		  d.Value("while")       = Nil
+		  d.Value("xor")         = Nil
 		  
 		  Return d
 		  
@@ -774,7 +474,7 @@ Implements XUICEFormatter
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
-		  Return "Wren"
+		  Return "ObjoScript"
 		End Function
 	#tag EndMethod
 
@@ -843,7 +543,7 @@ Implements XUICEFormatter
 		  // OPERATORS
 		  // =====================================
 		  Select Case c
-		  Case ".", "=", "-", "~", "*", "/", "%", "+", "^", "<", ">", "!", "&", "|", "?", ",", ":"
+		  Case ".", "=", "-", "~", "*", "/", "%", "+", "^", "<", ">", "&", "|", "?", ",", ":"
 		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "canBeContinued" : True))
 		    Return
 		    
@@ -885,6 +585,14 @@ Implements XUICEFormatter
 		    Delimiters.Add(t)
 		    Return
 		  End Select
+		  
+		  // =====================================
+		  // LINE CONTINUATION
+		  // =====================================
+		  If c = "_" Then
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "isLineContination" : True))
+		    Return
+		  End If
 		  
 		  // =======================
 		  // STRINGS
@@ -983,11 +691,6 @@ Implements XUICEFormatter
 		  
 		  If previousLineLastToken = Nil Then
 		    line.IsContinuation = False
-		    Return
-		  End If
-		  
-		  If previousLineLastToken.Type = XUICELineToken.TYPE_STRING Then
-		    line.IsContinuation = Not previousLineLastToken.LookupData("isClosingDelimiter", False)
 		    Return
 		  End If
 		  
@@ -1096,8 +799,7 @@ Implements XUICEFormatter
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
-		  Return Array(TOKEN_ESCAPE, TOKEN_INTERPOLATION)
-		  
+		  Return Array(TOKEN_ESCAPE)
 		End Function
 	#tag EndMethod
 
@@ -1136,9 +838,6 @@ Implements XUICEFormatter
 
 
 	#tag Constant, Name = TOKEN_ESCAPE, Type = String, Dynamic = False, Default = \"escape", Scope = Public, Description = 5573656420666F72206573636170652073657175656E6365732E
-	#tag EndConstant
-
-	#tag Constant, Name = TOKEN_INTERPOLATION, Type = String, Dynamic = False, Default = \"interpolation", Scope = Public, Description = 5573656420666F7220737472696E6720696E746572706F6C6174696F6E732028652E673A206025286E616D652960292E
 	#tag EndConstant
 
 
