@@ -181,6 +181,11 @@ Implements XUINotificationListener
 		      Insert(TabToSpaces, CaretPosition, True)
 		    End If
 		    
+		  Case CmdInsertBacktab
+		    // Shift-Tab. This always acts like a tab insertion (permits the insertion of a tab
+		    // even when tab is used for autocomplete).
+		    Insert(TabToSpaces, CaretPosition, True)
+		    
 		  Case "noop:"
 		    If Keyboard.AsyncControlKey And Keyboard.AsyncKeyDown(&h31) Then
 		      // Ctrl+Space pressed.
@@ -296,6 +301,7 @@ Implements XUINotificationListener
 		      Return True
 		    End If
 		  #EndIf
+		  
 		End Function
 	#tag EndEvent
 
