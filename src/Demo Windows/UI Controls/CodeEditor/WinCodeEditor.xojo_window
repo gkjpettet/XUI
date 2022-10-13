@@ -128,7 +128,7 @@ Begin DemoWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -4221,6 +4221,7 @@ Begin DemoWindow WinCodeEditor
       AllowAutocomplete=   True
       AllowAutoCompleteInComments=   True
       AllowInertialScrolling=   True
+      AutocloseBrackets=   True
       AutocompleteCombo=   "XUICodeEditor.AutocompleteCombos.Tab"
       AutocompletePopupFontName=   ""
       AutocompletePopupFontSize=   0
@@ -5574,8 +5575,8 @@ End
 		  Me.AddRow("Tab")
 		  Me.RowTagAt(Me.LastAddedRowIndex) = XUICodeEditor.AutocompleteCombos.Tab
 		  
-		  // Default to Ctrl+Space for autocomplete.
-		  Me.SelectedRowIndex = 0
+		  // Default to Tab for autocomplete.
+		  Me.SelectedRowIndex = 1
 		  
 		End Sub
 	#tag EndEvent
@@ -5661,11 +5662,7 @@ End
 #tag Events Editor
 	#tag Event , Description = 54686520656469746F722069732061626F757420746F20626520646973706C617965642E
 		Sub Opening()
-		  Me.HighlightDelimitersAroundCaret = True
-		  
 		  Editor.ContentType = XUICodeEditor.ContentTypes.SourceCode
-		  
-		  Editor.AutocompleteCombo = XUICodeEditor.AutocompleteCombos.CtrlSpace
 		  
 		  Me.HighlightCurrentLine = True
 		  

@@ -4825,9 +4825,9 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ReadOnly"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -5065,17 +5065,17 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SpacesPerTab"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="4"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HighlightDelimitersAroundCaret"
-			Visible=false
+			Visible=true
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="True"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -5089,7 +5089,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MinimumParseInterval"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="500"
 			Type="Integer"
@@ -5105,7 +5105,7 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutocloseBrackets"
-			Visible=false
+			Visible=true
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
