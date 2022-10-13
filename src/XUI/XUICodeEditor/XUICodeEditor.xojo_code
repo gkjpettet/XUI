@@ -1711,8 +1711,22 @@ Implements XUINotificationListener
 		      // Replace the selection and update the caret position.
 		      LineManager.ReplaceSelection(char, True, raiseContentsDidChange)
 		    Else
-		      If AutocloseBrackets Then
-		        
+		      // If the user is inserting `(`, `{` or `[` and we're not in a comment then close the bracket for
+		      // them if that's the desired behaviour.
+		      If AutocloseBrackets And Not CaretIsInComment Then
+		        Select Case char
+		         Case "(", "{", "["
+		          // First insert the opening bracket.
+		          LineManager.InsertCharacter(CaretPosition, char, True, raiseContentsDidChange)
+		          // Now the correct closing bracket.
+		          LineManager.InsertCharacter(CaretPosition, ClosingBracketForOpener.Value(char), _
+		          True, raiseContentsDidChange)
+		          // Move the caret back one place so it's within the brackets.
+		          MoveCaretLeft
+		        Else
+		          // Not an opening bracket. Just insert the character at the current caret position.
+		          LineManager.InsertCharacter(CaretPosition, char, True, raiseContentsDidChange)
+		        End Select
 		      Else
 		        // Insert the character at the current caret position.
 		        LineManager.InsertCharacter(CaretPosition, char, True, raiseContentsDidChange)
@@ -3706,6 +3720,21 @@ Implements XUINotificationListener
 			End Get
 		#tag EndGetter
 		CaretXCoordinate As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h21, Description = 4D617073206F70656E696E6720627261636B6574732028652E672E20225B222920746F20746865697220636C6F7365722028652E672E20225D22292E204B6579203D206F70656E696E6720627261636B65742028737472696E67292C2056616C7565203D206D61746368696E6720636C6F73696E6720627261636B65742028737472696E67292E
+		#tag Getter
+			Get
+			  Static d As New Dictionary( _
+			  "(" : ")", _
+			  "[" : "]", _
+			  "{" : "}" )
+			  
+			  Return d
+			  
+			End Get
+		#tag EndGetter
+		Private ClosingBracketForOpener As Dictionary
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865207465787420636F6E74656E7473206F662074686520656469746F722E

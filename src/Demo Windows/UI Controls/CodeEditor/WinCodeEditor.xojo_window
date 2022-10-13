@@ -128,7 +128,7 @@ Begin DemoWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -4185,6 +4185,37 @@ Begin DemoWindow WinCodeEditor
          Visible         =   True
          Width           =   80
       End
+      Begin DesktopCheckBox CheckBoxAutocloseBrackets
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "Autoclose Brackets"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "Panel"
+         Italic          =   False
+         Left            =   927
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   2
+         TabIndex        =   58
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Tooltip         =   "If True then block lines will be drawn. Only supported by some formatters."
+         Top             =   205
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   148
+      End
    End
    Begin XUICodeEditor Editor
       AllowAutocomplete=   True
@@ -4605,6 +4636,8 @@ End
 		    CheckBoxAllowInertialScrolling.Enabled = True
 		    CheckBoxAllowInertialScrolling.Value = Editor.AllowInertialScrolling
 		  #EndIf
+		  
+		  CheckBoxAutocloseBrackets.Value = Editor.AutocloseBrackets
 		  
 		  CheckBoxHighlightDelimiters.Value = Editor.HighlightDelimitersAroundCaret
 		  CheckBoxDrawBlockLines.Value = Editor.DrawBlockLines
@@ -5615,6 +5648,13 @@ End
 		Sub Pressed()
 		  Self.AutocompleteEngine.Reset
 		  RebuildAutocompleteListbox
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxAutocloseBrackets
+	#tag Event
+		Sub ValueChanged()
+		  Editor.AutocloseBrackets = Me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents
