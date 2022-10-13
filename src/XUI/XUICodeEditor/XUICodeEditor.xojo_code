@@ -871,6 +871,19 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662074686520746F6B656E206174207468652063757272656E7420636172657420706F736974696F6E206973206120636F6D6D656E742E
+		Private Function CaretIsInComment() As Boolean
+		  /// Returns True if the token at the current caret position is a comment.
+		  
+		  Var tokenAtCaret As XUICELineToken = CurrentLine.TokenAtColumn(CaretColumn - 1)
+		  If tokenAtCaret <> Nil Then
+		    Return Formatter.TokenIsComment(tokenAtCaret)
+		  Else
+		    Return False
+		  End If
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 436F6D70757465732074686520776964746820696E20706978656C73206F662074686520677574746572207573696E67207468652070617373656420606C696E654E756D6265725769647468602E
 		Private Function ComputeGutterWidth(lineNumberWidth As Double) As Double
 		  /// Computes the width in pixels of the gutter using the passed `lineNumberWidth`.
@@ -1206,12 +1219,7 @@ Implements XUINotificationListener
 		  If CurrentLine = Nil Then Return
 		  
 		  // Disable autocomplete in comments if that's the behaviour the user wants.
-		  If Not AllowAutoCompleteInComments Then
-		    Var tokenAtCaret As XUICELineToken = CurrentLine.TokenAtColumn(CaretColumn - 1)
-		    If tokenAtCaret <> Nil Then
-		      If Formatter.TokenIsComment(tokenAtCaret) Then Return
-		    End If
-		  End If
+		  If Not AllowAutoCompleteInComments And CaretIsInComment Then Return
 		  
 		  // Get the word up to the caret. This is our prefix.
 		  Var prefix As String = CurrentLine.WordToColumn(CaretColumn)
@@ -1703,8 +1711,12 @@ Implements XUINotificationListener
 		      // Replace the selection and update the caret position.
 		      LineManager.ReplaceSelection(char, True, raiseContentsDidChange)
 		    Else
-		      // Insert the character at the current caret position.
-		      LineManager.InsertCharacter(CaretPosition, char, True, raiseContentsDidChange)
+		      If AutocloseBrackets Then
+		        
+		      Else
+		        // Insert the character at the current caret position.
+		        LineManager.InsertCharacter(CaretPosition, char, True, raiseContentsDidChange)
+		      End If
 		    End If
 		  End If
 		  
@@ -3535,6 +3547,10 @@ Implements XUINotificationListener
 		AllowInertialScrolling As Boolean = True
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 49662054727565207468656E2074686520656469746F722077696C6C206175746F6D61746963616C6C7920636C6F736520706172656E7468657365732C2073717561726520627261636B65747320616E64206375726C7920627261636B657473207768656E20616E206F70656E696E6720627261636B657420697320656E746572656420616E6420746865206361726574206973206E6F7420696E206120636F6D6D656E742E
+		AutocloseBrackets As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 546865206B6579626F6172642073686F7274637574207573656420746F2074726967676572206175746F636F6D706C6574696F6E2E
 		AutocompleteCombo As XUICodeEditor.AutocompleteCombos = XUICodeEditor.AutocompleteCombos.Tab
 	#tag EndProperty
@@ -5052,6 +5068,14 @@ Implements XUINotificationListener
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="JustTokenised"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocloseBrackets"
 			Visible=false
 			Group="Behavior"
 			InitialValue="False"

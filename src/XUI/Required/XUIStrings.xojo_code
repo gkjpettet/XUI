@@ -128,6 +128,15 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 506572666F726D73206120636173652073656E73697469766520737472696E6720636F6D70617269736F6E2E2052657475726E7320547275652069662073203D206F746865722E
+		Function CompareCase(Extends s As String, other As String) As Boolean
+		  /// Performs a case sensitive string comparison. Returns True if s = other.
+		  
+		  Return s.Compare(other, ComparisonOptions.CaseSensitive) = 0
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 547275652069662060736020636F6E7461696E73206077686174602E
 		Function Contains(Extends s As String, what As String, caseSensitive As Boolean) As Boolean
 		  /// True if `s` contains `what`.
@@ -407,6 +416,22 @@ Protected Module XUIStrings
 		  
 		  Select Case s
 		  Case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+		    Return True
+		  Else
+		    Return False
+		  End Select
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 547275652069662060736020697320612073696E676C6520646967697420696E207468652072616E676520302D39206F722074686520756E64657273636F7265206368617261637465722028605F60292E
+		Function IsDigitOrUnderscore(Extends s As String) As Boolean
+		  /// True if `s` is a single digit in the range 0-9 or the underscore character (`_`).
+		  ///
+		  /// We could use `GetUnicodeCategory` but a `Select...Case` is faster.
+		  
+		  Select Case s
+		  Case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "_"
 		    Return True
 		  Else
 		    Return False
