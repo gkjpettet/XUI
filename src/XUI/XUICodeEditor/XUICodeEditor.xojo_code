@@ -858,11 +858,12 @@ Implements XUINotificationListener
 		  
 		  #Pragma Unused caretBlinker
 		  
-		  // The caret is hidden if there is selected text.
-		  If mCurrentSelection <> Nil Then
+		  // The caret is hidden if there is selected text or the editor
+		  // is in read-only mode.
+		  If mCurrentSelection <> Nil Or Me.ReadOnly Then
 		    mCaretVisible = False
 		  Else
-		    If BlinkCaret And Not Me.ReadOnly Then
+		    If BlinkCaret Then
 		      mCaretVisible = Not mCaretVisible
 		    Else
 		      // Always keep the caret visible.
