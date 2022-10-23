@@ -862,7 +862,7 @@ Implements XUINotificationListener
 		  If mCurrentSelection <> Nil Then
 		    mCaretVisible = False
 		  Else
-		    If BlinkCaret Then
+		    If BlinkCaret And Not Me.ReadOnly Then
 		      mCaretVisible = Not mCaretVisible
 		    Else
 		      // Always keep the caret visible.
@@ -888,6 +888,15 @@ Implements XUINotificationListener
 		    Return False
 		  End If
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 436C656172732074686520636F6E74656E7473206F662074686520656469746F722E
+		Sub Clear()
+		  /// Clears the contents of the editor.
+		  
+		  Me.SelectAll
+		  Me.DeleteSelection(True)
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 436F6D70757465732074686520776964746820696E20706978656C73206F662074686520677574746572207573696E67207468652070617373656420606C696E654E756D6265725769647468602E
@@ -1138,7 +1147,7 @@ Implements XUINotificationListener
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 44656C65746573207468652063757272656E742073656C656374696F6E2E
-		Sub DeleteSelection(allowUndo As Boolean, shouldInvalidate As Boolean = True, raiseContentsDidChange As Boolean = True, undoMessage As String)
+		Sub DeleteSelection(allowUndo As Boolean, shouldInvalidate As Boolean = True, raiseContentsDidChange As Boolean = True, undoMessage As String = "")
 		  /// Deletes the current selection.
 		  ///
 		  /// If `allowUndo` is True then this action will be pushed to the undo manager.
@@ -1721,7 +1730,7 @@ Implements XUINotificationListener
 		      // them if that's the desired behaviour.
 		      If AutocloseBrackets And Not CaretIsInComment Then
 		        Select Case char
-		         Case "(", "{", "["
+		        Case "(", "{", "["
 		          // First insert the opening bracket.
 		          LineManager.InsertCharacter(CaretPosition, char, True, raiseContentsDidChange)
 		          // Now the correct closing bracket.
