@@ -852,6 +852,29 @@ Implements XUINotificationListener
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 546F67676C657320746865207669736962696C697479206F66207468652063617265742E2043616C6C656420627920606D4361726574426C696E6B65722E416374696F6E602E
+		Private Sub CaretBlinkerAction(caretBlinker As Timer)
+		  /// Toggles the visibility of the caret. Called by `mCaretBlinker.Action`.
+		  
+		  #Pragma Unused caretBlinker
+		  
+		  // The caret is hidden if there is selected text or the editor is read-only.
+		  If mCurrentSelection <> Nil Or Me.ReadOnly Then
+		    mCaretVisible = False
+		  Else
+		    If BlinkCaret Then
+		      mCaretVisible = Not mCaretVisible
+		    Else
+		      // Always keep the caret visible.
+		      mCaretVisible = True
+		    End If
+		  End If
+		  
+		  // Redraw the canvas.
+		  Refresh
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52657475726E7320547275652069662074686520746F6B656E206174207468652063757272656E7420636172657420706F736974696F6E206973206120636F6D6D656E742E
 		Private Function CaretIsInComment() As Boolean
 		  /// Returns True if the token at the current caret position is a comment.
