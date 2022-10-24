@@ -309,10 +309,10 @@ Implements XUICEFormatter
 		      End If
 		    End If
 		    
-		    // Does the previous line end with an opening delimiter like `{`, `(` or `[`?
+		    // Does the previous line end with a block opening brace (`{`)?
 		    Var previousLineLastToken As XUICELineToken = LastNonCommentToken(previousLine)
-		    If previousLineLastToken <> Nil And IsOpeningDelimiter(previousLineLastToken) Then
-		      // The line above ends with an opening delimiter.
+		    If previousLineLastToken <> Nil And IsLCurly(previousLineLastToken) Then
+		      // The line above ends with a left curly brace delimiter.
 		      line.IndentLevel = previousLine.IndentLevel + 1
 		      SetContinuationStatus(line, previousLineLastToken)
 		      Continue
@@ -431,6 +431,19 @@ Implements XUICEFormatter
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 54727565206966206074602069732061206C656674206375726C7920627261636B65742E
+		Private Function IsLCurly(t As XUICELineToken) As Boolean
+		  /// True if `t` is a left curly bracket.
+		  ///
+		  /// Assumes `t` is not Nil.
+		  
+		  If t.Type <> XUICELineToken.TYPE_OPERATOR Then Return False
+		  
+		  Return t.LookupData("delimiterType", XUICEDelimiter.Types.None) = XUICEDelimiter.Types.LCurly
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 547275652069662060746020697320616E206F70656E696E672064656C696D69746572206C696B6520607B602C20602860206F7220605B602E
 		Private Function IsOpeningDelimiter(t As XUICELineToken) As Boolean
 		  /// True if `t` is an opening delimiter like `{`, `(` or `[`.
@@ -543,7 +556,7 @@ Implements XUICEFormatter
 		  // =====================================
 		  Select Case c
 		  Case ".", "=", "-", "~", "*", "/", "%", "+", "^", "<", ">", "&", "|", "?", ",", ":", ";"
-		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "canBeContinued" : True))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR))
 		    Return
 		    
 		  Case "("
@@ -804,8 +817,9 @@ Implements XUICEFormatter
 
 
 	#tag Note, Name = About
-		A `XUICodeEditor` formatter for the ObjoScript programming language.
+		A `XUICodeEditor` formatter for the [Wren][1] programming language.
 		
+		[1]: https://wren.io
 		
 	#tag EndNote
 
