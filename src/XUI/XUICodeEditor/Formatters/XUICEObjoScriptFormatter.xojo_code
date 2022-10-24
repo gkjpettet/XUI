@@ -542,7 +542,7 @@ Implements XUICEFormatter
 		  // OPERATORS
 		  // =====================================
 		  Select Case c
-		  Case ".", "=", "-", "~", "*", "/", "%", "+", "^", "<", ">", "&", "|", "?", ",", ":"
+		  Case ".", "=", "-", "~", "*", "/", "%", "+", "^", "<", ">", "&", "|", "?", ",", ":", ";"
 		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "canBeContinued" : True))
 		    Return
 		    
