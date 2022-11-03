@@ -574,7 +574,7 @@ Implements XUICEFormatter
 		    
 		  Case "["
 		    Var t As XUICELineToken = _
-		    MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LSquare)
+		    MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "delimiterType" : XUICEDelimiter.Types.LSquare, "canBeContinued" : True)
 		    mLine.Tokens.Add(t)
 		    Delimiters.Add(t)
 		    Return
@@ -602,7 +602,7 @@ Implements XUICEFormatter
 		  // LINE CONTINUATION
 		  // =====================================
 		  If c = "_" Then
-		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "isLineContination" : True))
+		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_OPERATOR, "canBeContinued" : True))
 		    Return
 		  End If
 		  
