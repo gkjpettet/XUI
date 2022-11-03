@@ -18,8 +18,6 @@ Protected Module XUIDesktopWindowExtensions
 		  w.Left = displayBounds.Center.X - (w.Width / 2)
 		  W.Top = displayBounds.Center.Y - (w.Height / 2) + (w.ChromeHeight / 2)
 		  
-		  ' w.Left = (display.AvailableWidth / 2) - (w.Width / 2)
-		  ' w.Top = (display.AvailableHeight / 2) - (w.Height / 2)
 		  
 		End Sub
 	#tag EndMethod

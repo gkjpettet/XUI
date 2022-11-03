@@ -3437,7 +3437,6 @@ Implements XUINotificationListener
 		  
 		  // Compute the maximum height available for the popup. Usually we'll want to display the popup beneath
 		  // the caret but if the available height is too small we'll display it above the caret.
-		  ' Var availableHeightBelow As Integer = Self.Window.Height - Self.Height - Self.Top - y
 		  Var availableHeightBelow As Integer = Self.Window.Height - Self.Top - y
 		  Var availableHeightAbove As Integer = Self.Top + y
 		  Var minOptionsToShow As Integer = If(AutocompleteData.Options.Count = 1, 1, 2)
