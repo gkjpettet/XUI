@@ -239,7 +239,7 @@ Implements XUICEFormatter
 		  ///
 		  /// Part of the `XUICEFormatter` interface.
 		  
-		  Return True
+		  Return False
 		End Function
 	#tag EndMethod
 

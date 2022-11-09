@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2022.031
+RBProjectVersion=2022.032
 MinIDEVersion=20210300
 OrigIDEVersion=20210301
 Class=App;App.xojo_code;&h000000007F52B7FF;&h0000000000000000;false
@@ -259,8 +259,8 @@ DesktopWindow=WinAbout;About Window/WinAbout.xojo_window;&h00000000652B97FF;&h00
 MultiImage=AboutIcon;About Window/AboutIcon.xojo_image;&h000000001DD4A7FF;&h000000005D11CFFF;false
 Class=XUICEXojoFormatter;XUI/XUICodeEditor/Formatters/XUICEXojoFormatter.xojo_code;&h0000000067D10FFF;&h000000000E9FB7FF;false
 Class=NSScrollViewCanvas;XUI/XUICodeEditor/NSScrollViewCanvas.xojo_code;&h0000000005FF5FFF;&h000000000FB79FFF;false
-Class=XUICEObjoScriptFormatter;XUI/XUICodeEditor/Formatters/XUICEObjoScriptFormatter.xojo_code;&h00000000490E5FFF;&h000000000E9FB7FF;false
 Module=XUIDesktopWindowExtensions;XUI/Required/Extensions/XUIDesktopWindowExtensions.xojo_code;&h0000000073963FFF;&h000000004A274FFF;false
+Class=XUICEObjoScriptFormatter;XUI/XUICodeEditor/Formatters/XUICEObjoScriptFormatter.xojo_code;&h00000000490E5FFF;&h000000000E9FB7FF;false
 DefaultWindow=WinCodeEditor
 AppMenuBar=BasicMenuBar
 MajorVersion=1
