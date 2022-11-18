@@ -128,7 +128,7 @@ Begin DemoWindow WinCodeEditor
       Tooltip         =   ""
       Top             =   28
       Transparent     =   False
-      Value           =   3
+      Value           =   0
       Visible         =   True
       Width           =   494
       Begin DesktopPopupMenu PopupFormatters
@@ -4240,6 +4240,7 @@ Begin DemoWindow WinCodeEditor
       CurrentLineHighlightColor=   &c00000000
       CurrentLineNumberColor=   &c00000000
       CurrentUndoID   =   0
+      DebugLineColour =   &c00000000
       DisplayLineNumbers=   False
       DrawBlockLines  =   True
       Enabled         =   True
@@ -4329,6 +4330,9 @@ End
 		  
 		  // Enable autocompletion.
 		  Editor.AllowAutocomplete = True
+		  
+		  // Turn off bracket completion.
+		  Editor.AutocloseBrackets = False
 		  
 		  // Initialise a basic autocompletion engine.
 		  InitialiseAutocomplete

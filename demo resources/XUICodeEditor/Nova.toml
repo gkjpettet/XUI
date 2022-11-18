@@ -17,6 +17,7 @@ currentLineNumberColor = "&h00373737, &h00A6B2BF"
 lineNumberColor = "&h00878787, &h004A4E52"
 selectionColor = "&h00A4CDFF, &h00314F78"
 unmatchedBlockLineColor = "&h00CC1400, &h00CC1400"
+debugLineColor = "&h00DEE0E0, &h00353635"
 
 [scrollbars]
 backgroundColor = "&h00ECECEC, &h00171717"

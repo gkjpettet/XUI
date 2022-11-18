@@ -897,6 +897,15 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 49662061206C696E652069732063757272656E746C79206265696E6720686967686C69676874656420666F7220646562756767696E672069742077696C6C206E6F206C6F6E67657220626520686967686C6967687465642074686973207761792E
+		Sub ClearDebuggingLine()
+		  /// If a line is currently being highlighted for debugging it will no longer be highlighted this way.
+		  
+		  DebuggingLine = 0
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 436F6D70757465732074686520776964746820696E20706978656C73206F662074686520677574746572207573696E67207468652070617373656420606C696E654E756D6265725769647468602E
 		Private Function ComputeGutterWidth(lineNumberWidth As Double) As Double
 		  /// Computes the width in pixels of the gutter using the passed `lineNumberWidth`.
@@ -3830,6 +3839,30 @@ Implements XUINotificationListener
 		CurrentUndoID As Integer
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 546865206C696E65206E756D62657220746F20686967686C6967687473206173206265696E672063757272656E746C792064656275676765642E2053657420746F2030206966206E6F206C696E652073686F756C6420626520686967686C69676874656420696E2074686973207761792E
+		#tag Getter
+			Get
+			  Return mDebuggingLine
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mDebuggingLine = XUIMaths.Clamp(value, 0, Self.LineManager.LineCount)
+			  NeedsFullRedraw = True
+			End Set
+		#tag EndSetter
+		DebuggingLine As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 54686520636F6C6F757220746F20757365207768656E20686967686C69676874696E672061206C696E6520666F7220646562756767696E672E
+		#tag Getter
+			Get
+			  Return theme.DebugLineColor
+			End Get
+		#tag EndGetter
+		DebugLineColour As Color
+	#tag EndComputedProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 54727565206966206C696E65206E756D626572732073686F756C6420626520646973706C617965642E
 		#tag Getter
 			Get
@@ -4145,6 +4178,10 @@ Implements XUINotificationListener
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865206043757272656E74556E646F49446020636F6D70757465642070726F70657274792E
 		Private mCurrentUndoID As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865206C696E65206E756D62657220746F20686967686C6967687473206173206265696E672063757272656E746C792064656275676765642E2053657420746F2030206966206E6F206C696E652073686F756C6420626520686967686C69676874656420696E2074686973207761792E
+		Private mDebuggingLine As Integer = 0
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 52756E7320706572696F646963616C6C7920746F2075706461746520746865206E6561726573742064656C696D697465727320746F2074686520636172657420706F736974696F6E2E
@@ -4575,6 +4612,118 @@ Implements XUINotificationListener
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="InitialParent"
+			Visible=false
+			Group="Position"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutoDeactivate"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Width"
+			Visible=true
+			Group="Position"
+			InitialValue="100"
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Height"
+			Visible=true
+			Group="Position"
+			InitialValue="100"
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LockLeft"
+			Visible=true
+			Group="Position"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LockTop"
+			Visible=true
+			Group="Position"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LockRight"
+			Visible=true
+			Group="Position"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LockBottom"
+			Visible=true
+			Group="Position"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabIndex"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabStop"
+			Visible=true
+			Group="Position"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Enabled"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Tooltip"
+			Visible=true
+			Group="Appearance"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Visible"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabPanelIndex"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
@@ -4613,118 +4762,6 @@ Implements XUINotificationListener
 			InitialValue=""
 			Type="Integer"
 			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Width"
-			Visible=true
-			Group="Position"
-			InitialValue="100"
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Height"
-			Visible=true
-			Group="Position"
-			InitialValue="100"
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LockLeft"
-			Visible=true
-			Group="Position"
-			InitialValue=""
-			Type="Boolean"
-			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LockTop"
-			Visible=true
-			Group="Position"
-			InitialValue=""
-			Type="Boolean"
-			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LockRight"
-			Visible=true
-			Group="Position"
-			InitialValue=""
-			Type="Boolean"
-			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="LockBottom"
-			Visible=true
-			Group="Position"
-			InitialValue=""
-			Type="Boolean"
-			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TabPanelIndex"
-			Visible=false
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TabIndex"
-			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TabStop"
-			Visible=true
-			Group="Position"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="InitialParent"
-			Visible=false
-			Group="Position"
-			InitialValue=""
-			Type="String"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Visible"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Tooltip"
-			Visible=true
-			Group="Appearance"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AutoDeactivate"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Enabled"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BlinkCaret"
@@ -4972,30 +5009,6 @@ Implements XUINotificationListener
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ContentType"
-			Visible=true
-			Group="Behavior"
-			InitialValue="XUICodeEditor.ContentTypes.SourceCode"
-			Type="XUICodeEditor.ContentTypes"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - Markdown"
-				"1 - SourceCode"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AutocompleteCombo"
-			Visible=true
-			Group="Behavior"
-			InitialValue="XUICodeEditor.AutocompleteCombos.Tab"
-			Type="XUICodeEditor.AutocompleteCombos"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - CtrlSpace"
-				"1 - Tab"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="AllowAutocomplete"
 			Visible=true
 			Group="Behavior"
@@ -5121,6 +5134,38 @@ Implements XUINotificationListener
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DebuggingLine"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DebugLineColour"
+			Visible=false
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AutocompleteCombo"
+			Visible=false
+			Group="Behavior"
+			InitialValue="XUICodeEditor.AutocompleteCombos.Tab"
+			Type="XUICodeEditor.AutocompleteCombos"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ContentType"
+			Visible=false
+			Group="Behavior"
+			InitialValue="XUICodeEditor.ContentTypes.SourceCode"
+			Type="XUICodeEditor.ContentTypes"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

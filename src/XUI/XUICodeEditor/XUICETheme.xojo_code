@@ -233,6 +233,9 @@ Protected Class XUICETheme
 		  If editor.HasKey("unmatchedBlockLineColor") Then
 		    AssertPathType(d, "editor.unmatchedBlockLineColor", TYPE_COLORGROUP)
 		  End If
+		  If editor.HasKey("debugLineColor") Then
+		    AssertPathType(d, "editor.debugLineColor", TYPE_COLORGROUP)
+		  End If
 		  
 		  // ======================
 		  // SCROLLBARS DICTIONARY
@@ -366,6 +369,7 @@ Protected Class XUICETheme
 		  Me.ScrollbarBorderColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.ScrollbarThumbColor = New ColorGroup(Color.Black, Color.Black)
 		  Me.UnmatchedBlockLineColor = New ColorGroup(Color.Black, Color.Black)
+		  Me.DebugLineColor = New ColorGroup(Color.Black, Color.Black)
 		  
 		End Sub
 	#tag EndMethod
@@ -412,6 +416,9 @@ Protected Class XUICETheme
 		  theme.UnmatchedBlockLineColor = _
 		  XUIColorGroups.FromString(editor.Lookup("unmatchedBlockLineColor", _
 		  New ColorGroup(DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_LIGHT, DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_DARK)))
+		  theme.DebugLineColor = _
+		  XUIColorGroups.FromString(editor.Lookup("debugLineColor", _
+		  New ColorGroup(DEFAULT_DEBUG_LINE_COLOR_LIGHT, DEFAULT_DEBUG_LINE_COLOR_DARK)))
 		  
 		  // =================
 		  // SCROLLBARS
@@ -637,6 +644,9 @@ Protected Class XUICETheme
 		  // unmatchedBlockLineColor
 		  s.Add("unmatchedBlockLineColor = " + Self.UnmatchedBlockLineColor.ToTOML)
 		  
+		  // debugLineColor
+		  s.Add("debugLineColor = " + Self.DebugLineColor.ToTOML)
+		  
 		  s.Add("")
 		  
 		  // =========================
@@ -818,6 +828,10 @@ Protected Class XUICETheme
 		CurrentLineNumberColor As ColorGroup
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520746F20686967686C696768742061206C696E652074686174206973206265696E672064656275676765642E
+		DebugLineColor As ColorGroup
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 5468652064656661756C7420746F6B656E207374796C652E
 		#tag Getter
 			Get
@@ -911,6 +925,12 @@ Protected Class XUICETheme
 	#tag EndConstant
 
 	#tag Constant, Name = DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cFFFFFF", Scope = Private, Description = 546865206C69676874206D6F64652064656661756C7420636F6C6F757220666F72207468652063757272656E74206C696E6520686967686C69676874206966206E6F6E652069732070726F766964656420627920746865207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = DEFAULT_DEBUG_LINE_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&c919191", Scope = Private, Description = 546865206461726B206D6F64652064656661756C7420636F6C6F757220666F72207468652063757272656E74206C696E6520686967686C69676874206966206E6F6E652069732070726F766964656420627920746865207468656D652E
+	#tag EndConstant
+
+	#tag Constant, Name = DEFAULT_DEBUG_LINE_COLOR_LIGHT, Type = Color, Dynamic = False, Default = \"&cC0C0C0", Scope = Private, Description = 546865206461726B206D6F64652064656661756C7420636F6C6F757220666F72207468652063757272656E74206C696E6520686967686C69676874206966206E6F6E652069732070726F766964656420627920746865207468656D652E
 	#tag EndConstant
 
 	#tag Constant, Name = DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_DARK, Type = Color, Dynamic = False, Default = \"&cFF2600", Scope = Private, Description = 546865206461726B206D6F64652064656661756C7420636F6C6F757220666F7220756E6D61746368656420626C6F636B206C696E6573206966206E6F6E652069732070726F766964656420627920746865207468656D652E
@@ -1217,6 +1237,14 @@ Protected Class XUICETheme
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutocompleteOptionColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DebugLineColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

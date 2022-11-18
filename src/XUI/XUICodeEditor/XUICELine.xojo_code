@@ -236,6 +236,14 @@ Inherits XUITextLine
 		  g.FillRectangle(topLeftX, topLeftY, g.Width, lineH)
 		  
 		  // ===================================
+		  // DEBUGGING LINE
+		  // ===================================
+		  If editor.DebuggingLine = Self.Number Then
+		    // Fill the background behind the text of this line with a rounded rectangle.
+		    DrawDebugHighlight(g, topLeftX, topLeftY, lineH, gutterWidth)
+		  End If
+		  
+		  // ===================================
 		  // LINE NUMBER
 		  // ===================================
 		  If editor.DisplayLineNumbers Then
@@ -406,6 +414,28 @@ Inherits XUITextLine
 		    // Draw a simple vertical line.
 		    g.DrawLine(x, topLeftY, x, topLeftY + lineH)
 		  Next level
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 4472617773206120726F756E64656420726563742061726F756E64207468652074657874206F6E2074686973206C696E652E205573656420746F20686967686C696768742061206C696E652074686174206973206265696E672064656275676765642E
+		Private Sub DrawDebugHighlight(g As Graphics, topLeftX As Double, topLeftY As Double, lineH As Double, gutterWidth As Double)
+		  /// Draws a rounded rect around the text on this line.
+		  /// Used to highlight a line that is being debugged.
+		  
+		  Var editor As XUICodeEditor = LineManager.Owner
+		  
+		  If Self.IsEmpty Then Return
+		  
+		  g.DrawingColor = editor.DebugLineColour
+		  
+		  // Compute the X pos of the first character
+		  Var selStartX As Double
+		  selStartX = topLeftX + gutterWidth + editor.LINE_CONTENTS_LEFT_PADDING + _
+		  WidthToColumn(0, g, False)
+		  
+		  g.FillRoundRectangle(selStartX, topLeftY, g.TextWidth(Self.Contents), lineH, 3, 3)
+		  
 		  
 		End Sub
 	#tag EndMethod
@@ -893,6 +923,7 @@ Inherits XUITextLine
 		  If caretPos = Start Then Return 0
 		  
 		  // Get the characters from the start of this line up to the computed offset.
+		  #Pragma Warning "FIX: Occasionally getting out of bounds within this call"
 		  Var chars As String = CharactersFromColumn(0, caretPos - Start)
 		  
 		  // Compute the width of this string.
