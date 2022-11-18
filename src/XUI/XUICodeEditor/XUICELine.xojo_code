@@ -22,6 +22,11 @@ Inherits XUITextLine
 		  /// Returns `count` characters from this line starting at the 0-based `startCol`.
 		  
 		  Return mContents.MiddleCharacters(startCol, count)
+		  
+		  Exception e As OutOfBoundsException
+		    // BUG 18/11/22: For reasons that are presently unclear, occasionally the passed arguments are
+		    // out of bounds. As a workaround we will just return an empty string.
+		    Return ""
 		End Function
 	#tag EndMethod
 
@@ -925,7 +930,6 @@ Inherits XUITextLine
 		  If caretPos = Start Then Return 0
 		  
 		  // Get the characters from the start of this line up to the computed offset.
-		  #Pragma Warning "FIX: Occasionally getting out of bounds within this call"
 		  Var chars As String = CharactersFromColumn(0, caretPos - Start)
 		  
 		  // Compute the width of this string.
