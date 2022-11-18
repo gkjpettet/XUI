@@ -423,6 +423,8 @@ Inherits XUITextLine
 		  /// Draws a rounded rect around the text on this line.
 		  /// Used to highlight a line that is being debugged.
 		  
+		  Const HPADDING = 2
+		  
 		  Var editor As XUICodeEditor = LineManager.Owner
 		  
 		  If Self.IsEmpty Then Return
@@ -432,9 +434,9 @@ Inherits XUITextLine
 		  // Compute the X pos of the first character
 		  Var selStartX As Double
 		  selStartX = topLeftX + gutterWidth + editor.LINE_CONTENTS_LEFT_PADDING + _
-		  WidthToColumn(0, g, False)
+		  WidthToColumn(0, g, False) - HPADDING
 		  
-		  g.FillRoundRectangle(selStartX, topLeftY, g.TextWidth(Self.Contents), lineH, 3, 3)
+		  g.FillRoundRectangle(selStartX, topLeftY, g.TextWidth(Self.Contents) + (2 * HPADDING), lineH, 3, 3)
 		  
 		  
 		End Sub

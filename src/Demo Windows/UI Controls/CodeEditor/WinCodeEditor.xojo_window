@@ -4240,6 +4240,7 @@ Begin DemoWindow WinCodeEditor
       CurrentLineHighlightColor=   &c00000000
       CurrentLineNumberColor=   &c00000000
       CurrentUndoID   =   0
+      DebuggingLine   =   0
       DebugLineColour =   &c00000000
       DisplayLineNumbers=   False
       DrawBlockLines  =   True
