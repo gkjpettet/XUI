@@ -5,6 +5,8 @@ Inherits XUITextLine
 		Function CharactersFromCaretPos(startPos As Integer, count As Integer) As String
 		  /// Returns `count` characters from this line starting at `startPos`.
 		  
+		  #Pragma BreakOnExceptions False
+		  
 		  // Convert the passed caret position to a column.
 		  Var col As Integer = startPos - Self.Start
 		  
@@ -14,6 +16,8 @@ Inherits XUITextLine
 		  
 		  Return mContents.MiddleCharacters(col, count)
 		  
+		  Exception OutOfBoundsException // HACK: Need to pin down why this occurs sometimes.
+		    Return ""
 		End Function
 	#tag EndMethod
 
