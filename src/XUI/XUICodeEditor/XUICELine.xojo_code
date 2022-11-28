@@ -794,7 +794,13 @@ Inherits XUITextLine
 		Function Right(count As Integer) As String
 		  /// Returns `count` right-most characters from this line.
 		  
+		  #Pragma BreakOnExceptions False
+		  
 		  Return mContents.RightCharacters(count)
+		  
+		  // HACK: Workaround for occasional out of bounds exception.
+		  Exception e As RuntimeException
+		    Return ""
 		End Function
 	#tag EndMethod
 
