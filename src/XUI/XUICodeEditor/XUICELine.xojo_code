@@ -25,10 +25,12 @@ Inherits XUITextLine
 		Function CharactersFromColumn(startCol As Integer, count As Integer) As String
 		  /// Returns `count` characters from this line starting at the 0-based `startCol`.
 		  
+		  #Pragma BreakOnExceptions False
+		  
 		  Return mContents.MiddleCharacters(startCol, count)
 		  
 		  Exception e As OutOfBoundsException
-		    // BUG 18/11/22: For reasons that are presently unclear, occasionally the passed arguments are
+		    // HACK: For reasons that are presently unclear, occasionally the passed arguments are
 		    // out of bounds. As a workaround we will just return an empty string.
 		    Return ""
 		End Function
