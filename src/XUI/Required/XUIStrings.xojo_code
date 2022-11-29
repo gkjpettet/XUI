@@ -128,6 +128,21 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E73206120636F7079206F66207468652070617373656420737472696E672061727261792E
+		Function Clone(Extends s() As String) As String()
+		  /// Returns a copy of the passed string array.
+		  
+		  Var result() As String
+		  
+		  For Each item As String In s
+		    result.Add(item)
+		  Next item
+		  
+		  Return result
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 506572666F726D73206120636173652073656E73697469766520737472696E6720636F6D70617269736F6E2E2052657475726E7320547275652069662073203D206F746865722E
 		Function CompareCase(Extends s As String, other As String) As Boolean
 		  /// Performs a case sensitive string comparison. Returns True if s = other.

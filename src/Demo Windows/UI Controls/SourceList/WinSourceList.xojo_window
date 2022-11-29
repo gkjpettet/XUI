@@ -465,10 +465,10 @@ End
 
 	#tag MenuHandler
 		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
-			Self.Hide
-			
-			Return True
-			
+		  Self.Hide
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
