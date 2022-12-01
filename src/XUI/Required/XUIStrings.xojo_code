@@ -782,6 +782,22 @@ Protected Module XUIStrings
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206C6F6E6765737420737472696E6720696E206073602E
+		Function Longest(Extends s() As String) As String
+		  /// Returns the longest string in `s`.
+		  
+		  Var result As String
+		  For Each item As String In s
+		    If item.Length > result.Length Then
+		      result = item
+		    End If
+		  Next item
+		  
+		  Return result
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E7320616C6C206F662074686520636861726163746572732066726F6D206073746172746020746F2074686520656E64206F66206073602E2054686520737461727420706F736974696F6E2069732061207A65726F2D62617365642E
 		Function MiddleCharacters(Extends s As String, start As Integer) As String
 		  /// Returns all of the characters from `start` to the end of `s`. The start position is a zero-based.

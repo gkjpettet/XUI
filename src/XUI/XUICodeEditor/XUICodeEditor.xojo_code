@@ -5158,7 +5158,11 @@ Implements XUINotificationListener
 			Group="Behavior"
 			InitialValue="XUICodeEditor.AutocompleteCombos.Tab"
 			Type="XUICodeEditor.AutocompleteCombos"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - CtrlSpace"
+				"1 - Tab"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ContentType"
@@ -5166,7 +5170,11 @@ Implements XUINotificationListener
 			Group="Behavior"
 			InitialValue="XUICodeEditor.ContentTypes.SourceCode"
 			Type="XUICodeEditor.ContentTypes"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Markdown"
+				"1 - SourceCode"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
