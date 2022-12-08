@@ -360,6 +360,7 @@ Implements XUICEFormatter
 		  d.Value("as")          = Nil
 		  d.Value("assert")      = Nil
 		  d.Value("breakpoint")  = Nil
+		  d.Value("case")        = Nil
 		  d.Value("class")       = Nil
 		  d.Value("continue")    = Nil
 		  d.Value("constructor") = Nil
@@ -381,6 +382,7 @@ Implements XUICEFormatter
 		  d.Value("return")      = Nil
 		  d.Value("static")      = Nil
 		  d.Value("super")       = Nil
+		  d.Value("switch")      = Nil
 		  d.Value("then")        = Nil
 		  d.Value("this")        = Nil
 		  d.Value("true")        = Nil
