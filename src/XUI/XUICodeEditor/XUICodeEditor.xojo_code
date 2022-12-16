@@ -238,7 +238,7 @@ Implements XUINotificationListener
 	#tag EndEvent
 
 	#tag Event
-		Function FontSizeAtLocation(location As Integer) As Integer
+		Function FontSizeAtLocation(location As Integer) As Single
 		  /// Returns the current font size.
 		  ///
 		  /// The editor only supports a uniform font size for all tokens.

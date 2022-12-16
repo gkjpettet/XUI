@@ -289,6 +289,8 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
+		  #Pragma Warning "TODO: XUIInspector demo"
+		  
 		  // Centre this window on its display.
 		  Self.Center
 		  
@@ -308,6 +310,8 @@ End
 		  "A minimalist text button providing full colour customisation.", WinTextButton)
 		  UIControls.AddProduct("XUIDotLabel", _
 		  "Displays a colour-customisable dot with an optional caption.", WinDotLabel)
+		  UIControls.AddProduct("XUIInspector", _
+		  "A hughly versatile inspector control, similar to what is seen in many IDEs.", WinInspector)
 		  
 		  // Utilities.
 		  Utilities.AddProduct("XUIDictionary", _
@@ -330,12 +334,12 @@ End
 
 	#tag MenuHandler
 		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
-			Self.Close
-			
-			Quit
-			
-			Return True
-			
+		  Self.Close
+		  
+		  Quit
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
