@@ -24,10 +24,53 @@ Begin DemoWindow WinInspector
    Type            =   0
    Visible         =   False
    Width           =   762
+   Begin XUIInspector Inspector
+      AllowInertialScrolling=   True
+      AutoDeactivate  =   True
+      Enabled         =   True
+      HasBottomBorder =   True
+      HasLeftBorder   =   True
+      HasRightBorder  =   True
+      HasTopBorder    =   True
+      Height          =   576
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   20
+      Visible         =   True
+      Width           =   300
+   End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Opening()
+		  // We'll create an inspector that approximates the Xojo IDE inspector for a Window.
+		  
+		  // ===================
+		  // FRAME SECTION
+		  // ===================
+		  Var frameSection As New XUIInspectorSection("Frame", True)
+		  Inspector.AddSection(frameSection)
+		  
+		  // Type.
+		  frameSection.AddItem(New XUIInspectorPopupItem("frame.type", "Type", Array("Document", "Movable Modal", "Modal Dialog"), True))
+		  
+		End Sub
+	#tag EndEvent
+
+
 	#tag MenuHandler
 		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
 		  Self.Hide

@@ -1,5 +1,28 @@
 #tag Class
 Protected Class XUIInspectorStyle
+	#tag Method, Flags = &h0
+		Sub Constructor()
+		  // Initialise all ColorGroups to prevent Nil object exceptions in subclasses that don't initialise them.
+		  
+		  AccentColor = New ColorGroup(Color.Black, Color.Black)
+		  BackgroundColor = New ColorGroup(Color.Black, Color.Black)
+		  BorderColor = New ColorGroup(Color.Black, Color.Black)
+		  ControlBackgroundColor = New ColorGroup(Color.Black, Color.Black)
+		  ControlBorderColor = New ColorGroup(Color.Black, Color.Black)
+		  FocusColor = New ColorGroup(Color.Black, Color.Black)
+		  PlaceholderTextColor = New ColorGroup(Color.Black, Color.Black)
+		  SectionBackColor = New ColorGroup(Color.Black, Color.Black)
+		  SectionBorderColor = New ColorGroup(Color.Black, Color.Black)
+		  SelectionColor = New ColorGroup(Color.Black, Color.Black)
+		  TextColor = New ColorGroup(Color.Black, Color.Black)
+		  
+		  Name = "Blank Style"
+		  FontName = "System"
+		  
+		End Sub
+	#tag EndMethod
+
+
 	#tag Note, Name = About
 		`XUIInspector` is highly customisable. This class contains the various properties that can be 
 		styled in an inspector that should be honoured by well behaved XUIInspectorItems.

@@ -344,6 +344,9 @@ Inherits NSScrollViewCanvas
 		Sub Constructor()
 		  Super.Constructor
 		  
+		  // Ensure we have at least a blank style.
+		  Self.Style = New XUIInspectorStyle
+		  
 		  // Setup the timer that handles refreshing.
 		  mRefreshTimer = New Timer
 		  mRefreshTimer.Period = 50
@@ -357,6 +360,7 @@ Inherits NSScrollViewCanvas
 		  mCaretBlinkerTimer.RunMode = Timer.RunModes.Multiple
 		  AddHandler mCaretBlinkerTimer.Action, AddressOf CaretBlinkerTimerAction
 		  mCaretBlinkerTimer.Enabled = True
+		  
 		End Sub
 	#tag EndMethod
 
