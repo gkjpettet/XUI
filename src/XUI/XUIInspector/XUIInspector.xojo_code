@@ -344,8 +344,8 @@ Inherits NSScrollViewCanvas
 		Sub Constructor()
 		  Super.Constructor
 		  
-		  // Ensure we have at least a blank style.
-		  Self.Style = New XUIInspectorStyle
+		  // Start with the default style.
+		  Self.Style = XUIInspectorStyle.Default
 		  
 		  // Setup the timer that handles refreshing.
 		  mRefreshTimer = New Timer

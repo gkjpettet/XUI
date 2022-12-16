@@ -50,6 +50,47 @@ Begin DemoWindow WinInspector
       Visible         =   True
       Width           =   300
    End
+   Begin DesktopTextField TextField1
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   22
+      Hint            =   "Placeholder"
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   355
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   31
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Visible         =   True
+      Width           =   80
+   End
 End
 #tag EndDesktopWindow
 
@@ -65,7 +106,10 @@ End
 		  Inspector.AddSection(frameSection)
 		  
 		  // Type.
-		  frameSection.AddItem(New XUIInspectorPopupItem("frame.type", "Type", Array("Document", "Movable Modal", "Modal Dialog"), True))
+		  frameSection.AddItem(New XUIInspectorPopupItem("frame.type", "Type", Array("Document", "Movable Modal", "Modal Dialog"), True, 150))
+		  
+		  // Title.
+		  frameSection.AddItem(New XUIInspectorTextFieldItem("frame.title", "Title", 150, "Enter a title"))
 		  
 		End Sub
 	#tag EndEvent

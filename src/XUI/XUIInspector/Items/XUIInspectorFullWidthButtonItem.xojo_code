@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUIInspectorButtonItem
+Protected Class XUIInspectorFullWidthButtonItem
 Implements XUIInspectorItem
 	#tag Method, Flags = &h0
 		Function Bounds() As Rect
@@ -22,9 +22,9 @@ Implements XUIInspectorItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(id As String, caption As String)
+		Sub Constructor(id As String, buttonCaption As String)
 		  mID = id
-		  Self.Caption = caption
+		  Self.Caption = buttonCaption
 		  
 		End Sub
 	#tag EndMethod

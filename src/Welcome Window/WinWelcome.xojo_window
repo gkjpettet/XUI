@@ -289,8 +289,6 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  #Pragma Warning "TODO: XUIInspector demo"
-		  
 		  // Centre this window on its display.
 		  Self.Center
 		  

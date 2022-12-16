@@ -311,7 +311,7 @@ Implements XUIInspectorItem
 		  g.DrawText(Caption, HPADDING, captionBaseline, captionW, True)
 		  
 		  // Regardless of whether the popup menu is open or closed, we always draw the closed popup box.
-		  DrawPopupBox(x + HPADDING + captionW + POPUP_CAPTION_PADDING, y, g, style)
+		  DrawPopupBox(x + HPADDING + captionW + POPUP_CAPTION_PADDING, y + VPADDING, g, style)
 		  
 		  g.RestoreState
 		  

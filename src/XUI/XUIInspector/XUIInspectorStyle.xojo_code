@@ -22,6 +22,42 @@ Protected Class XUIInspectorStyle
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E73207468652064656661756C74207374796C6520666F722074686520696E73706563746F722E
+		Shared Function Default() As XUIInspectorStyle
+		  /// Returns the default style for the inspector.
+		  ///
+		  /// Feel free to create your own.
+		  
+		  Var style As New XUIInspectorStyle
+		  
+		  Const ALMOST_BLACK = &c171717
+		  Const LIGHT_GREY = &cCACBCB
+		  Const DARK_GREY = &c353636
+		  Const LIGHT_SELECTION_BLUE = &cA4CBFE
+		  Const DARK_SELECTION_BLUE = &c304F77
+		  Const LIGHT_ACCENT_BLUE = &c3D71E3
+		  Const DARK_ACCENT_BLUE = &c3968D4
+		  Const LIGHT_PLACEHOLDER_GREY = &cBFBFC1
+		  Const DARK_PLACEHOLDER_GREY = &c252626
+		  
+		  style.AccentColor = New ColorGroup(LIGHT_ACCENT_BLUE, DARK_ACCENT_BLUE)
+		  style.BackgroundColor = New ColorGroup(Color.White, ALMOST_BLACK)
+		  style.BorderColor = New ColorGroup(LIGHT_GREY, DARK_GREY)
+		  style.ControlBackgroundColor = New ColorGroup(Color.White, ALMOST_BLACK)
+		  style.ControlBorderColor = New ColorGroup(LIGHT_GREY, DARK_GREY)
+		  style.FocusColor = New ColorGroup(LIGHT_ACCENT_BLUE, DARK_ACCENT_BLUE)
+		  style.PlaceholderTextColor = New ColorGroup(LIGHT_PLACEHOLDER_GREY, DARK_PLACEHOLDER_GREY)
+		  style.SectionBackColor = New ColorGroup(LIGHT_PLACEHOLDER_GREY, DARK_PLACEHOLDER_GREY)
+		  style.SelectionColor = New ColorGroup(LIGHT_SELECTION_BLUE, DARK_SELECTION_BLUE)
+		  style.TextColor = New ColorGroup(Color.Black, Color.White)
+		  
+		  style.FontName = "System"
+		  style.FontSize = 12
+		  
+		  Return style
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		`XUIInspector` is highly customisable. This class contains the various properties that can be 
