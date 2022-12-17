@@ -21,42 +21,13 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 436F6D707574657320616E642063616368657320696E20606D506F70757057696474686020746865207769647468206F662074686520706F707570206D656E752E
-		Private Sub ComputePopupWidth(g As Graphics, style As XUIInspectorStyle)
-		  /// Computes and caches in `mPopupWidth` the width of the popup menu.
-		  
-		  If HasFixedWidth Then
-		    mPopupWidth = FixedWidth
-		    Return
-		  End If
-		  
-		  g.SaveState
-		  
-		  g.FontName = style.FontName
-		  g.FontSize = style.FontSize
-		  
-		  Var longest As Double
-		  For Each item As String In mItems
-		    Var w As Double = g.TextWidth(item)
-		    longest = If(longest > w, longest, w)
-		  Next item
-		  
-		  g.RestoreState
-		  
-		  // Cache this value.
-		  mPopupWidth = longest + (POPUP_CONTENTS_HPADDING * 2) + ITEM_WIDGET_PADDING + ITEM_WIDGET_WIDTH
-		  
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
-		Sub Constructor(ID As String, caption As String, items() As String, hasFixedWidth As Boolean = False, fixedWidth As Integer = 100)
+		Sub Constructor(ID As String, caption As String, captionWidth As Integer, items() As String)
 		  mID = ID
 		  Self.Caption = caption
+		  Self.CaptionWidth = captionWidth
 		  mItems = items
-		  Self.HasFixedWidth = hasFixedWidth
-		  Self.FixedWidth = fixedWidth
+		  
 		End Sub
 	#tag EndMethod
 
@@ -297,26 +268,27 @@ Implements XUIInspectorItem
 		  g.FontName = style.FontName
 		  g.FontSize = style.FontSize
 		  
-		  // Compute the width of the popup menu if needed.
-		  If mPopupWidth = 0 Then ComputePopupWidth(g, style)
-		  
-		  // Compute the available width for the caption.
-		  Var captionW As Double = width - (2 * HPADDING) - mPopupWidth - POPUP_CAPTION_PADDING
-		  
 		  // Compute the baseline for the caption.
 		  Var captionBaseline As Double = (g.FontAscent + (h - g.TextHeight)/2 + y)
 		  
-		  // Draw the caption in the vertical centre of the item.
+		  // Draw the right-aligned caption in the vertical centre of the item.
 		  g.DrawingColor = style.TextColor
-		  g.DrawText(Caption, HPADDING, captionBaseline, captionW, True)
+		  Var captionLeftX As Double = x + HPADDING + (CaptionWidth - g.TextWidth(Caption))
+		  g.DrawText(Caption, captionLeftX, captionBaseline, CaptionWidth, True)
+		  Var captionRightX As Double = x + HPADDING + CaptionWidth
+		  
+		  // Compute the width of the popup menu if needed.
+		  If mPopupWidth = 0 Then
+		    mPopupWidth = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING
+		  End If
 		  
 		  // Regardless of whether the popup menu is open or closed, we always draw the closed popup box.
-		  DrawPopupBox(x + HPADDING + captionW + POPUP_CAPTION_PADDING, y + VPADDING, g, style)
+		  DrawPopupBox(x + width - mPopupWidth - XUIInspector.CONTROL_BORDER_PADDING, y + VPADDING, g, style)
 		  
 		  g.RestoreState
 		  
 		  // Cache the edges of the closed popup box as this is needed to draw the open popup menu.
-		  mClosedPopupRightEdge = x + HPADDING + captionW + POPUP_CAPTION_PADDING + mPopupWidth
+		  mClosedPopupRightEdge = x + width - XUIInspector.CAPTION_CONTROL_PADDING
 		  mClosedPopupTopEdge = y
 		  mClosedPopupBottomEdge = y + h
 		  
@@ -342,12 +314,8 @@ Implements XUIInspectorItem
 		Caption As String
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0, Description = 4966206048617346697865645769647468602069732054727565207468656E2074686520706F707570206D656E752077696C6C20626520666978656420746F20746869732077696474682E
-		FixedWidth As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0, Description = 49662054727565207468656E2074686520706F707570206D656E752077696474682077696C6C20626520666978656420746F6046697865645769647468602E
-		HasFixedWidth As Boolean
+	#tag Property, Flags = &h0, Description = 5468652064657369726564207769647468206F66207468652063617074696F6E2E
+		CaptionWidth As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -406,9 +374,6 @@ Implements XUIInspectorItem
 	#tag EndConstant
 
 	#tag Constant, Name = ITEM_WIDGET_WIDTH, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865207769647468206F6620746865206172726F77207769646765742E
-	#tag EndConstant
-
-	#tag Constant, Name = POPUP_CAPTION_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F20706164206265747765656E207468652063617074696F6E20616E642074686520706F707570206D656E752E
 	#tag EndConstant
 
 	#tag Constant, Name = POPUP_CONTENTS_HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F20706164206569746865722073696465206F662065616368206974656D20696E2074686520706F707570206D656E752E
@@ -480,19 +445,11 @@ Implements XUIInspectorItem
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="FixedWidth"
+			Name="CaptionWidth"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasFixedWidth"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

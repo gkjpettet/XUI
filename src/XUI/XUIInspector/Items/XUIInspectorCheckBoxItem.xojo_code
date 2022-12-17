@@ -18,9 +18,10 @@ Implements XUIInspectorItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(ID As String, caption As String, value As Boolean)
+		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As Boolean)
 		  mID = ID
 		  Self.Caption = caption
+		  Self.CaptionWidth = captionWidth
 		  mValue = value
 		  
 		End Sub
@@ -224,17 +225,18 @@ Implements XUIInspectorItem
 		  g.FontSize = style.FontSize
 		  
 		  // Compute the available width for the caption.
-		  Var captionW As Double = width - (2 * HPADDING) - CHECKBOX_SIZE - CHECKBOX_CAPTION_PADDING
+		  'Var captionW As Double = width - (2 * HPADDING) - CHECKBOX_SIZE - CHECKBOX_CAPTION_PADDING
 		  
 		  // Compute the baseline for the caption.
 		  Var captionBaseline As Double = (g.FontAscent + (h - g.TextHeight)/2 + y)
 		  
-		  // Draw the caption in the vertical centre of the item.
+		  // Draw the right-aligned caption in the vertical centre of the item.
 		  g.DrawingColor = style.TextColor
-		  g.DrawText(Caption, HPADDING, captionBaseline, captionW, True)
+		  g.DrawText(Caption, x + HPADDING + (CaptionWidth - g.TextWidth(Caption)), captionBaseline, CaptionWidth, True)
 		  
 		  // Draw the checkbox.
-		  DrawCheckbox(g, x + width - HPADDING - CHECKBOX_SIZE, y + (h/2) - (CHECKBOX_SIZE / 2), style)
+		  ' DrawCheckbox(g, x + width - HPADDING - CHECKBOX_SIZE, y + (h/2) - (CHECKBOX_SIZE / 2), style)
+		  DrawCheckbox(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (CHECKBOX_SIZE / 2), style)
 		  
 		  g.RestoreState
 		  
@@ -260,6 +262,10 @@ Implements XUIInspectorItem
 		#tag EndSetter
 		Caption As String
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0, Description = 546865207769647468207468652063617074696F6E2073686F756C6420626520636F6E73747261696E656420746F2E
+		CaptionWidth As Integer
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private mBounds As Rect

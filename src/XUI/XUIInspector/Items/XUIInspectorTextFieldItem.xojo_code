@@ -22,11 +22,11 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(id As String, caption As String, textFieldWidth As Double, placeHolder As String = "")
+		Sub Constructor(id As String, caption As String, captionWidth As Integer, placeHolder As String = "")
 		  mID = id
 		  Self.Caption = caption
+		  Self.CaptionWidth = captionWidth
 		  
-		  mTextFieldWidth = textFieldWidth
 		  mTextField = New XUIInspectorTextFieldRenderer(Nil)
 		  
 		  Self.Placeholder = placeHolder
@@ -323,19 +323,23 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  g.FontName = style.FontName
 		  g.FontSize = style.FontSize
 		  
-		  // Compute the available width for the caption.
-		  Var captionW As Double = width - (2 * HPADDING) - mTextFieldWidth - TEXT_FIELD_CAPTION_PADDING
-		  
 		  // Compute the baseline for the caption.
 		  Var captionBaseline As Double = (g.FontAscent + (h - g.TextHeight)/2 + y)
 		  
-		  // Draw the caption in the vertical centre of the item.
+		  // Draw the right-aligned caption in the vertical centre of the item.
 		  g.DrawingColor = style.TextColor
-		  g.DrawText(Caption, HPADDING, captionBaseline, captionW, True)
+		  Var captionLeftX As Double = x + HPADDING + (CaptionWidth - g.TextWidth(Caption))
+		  g.DrawText(Caption, captionLeftX, captionBaseline, CaptionWidth, True)
+		  Var captionRightX As Double = x + HPADDING + CaptionWidth
+		  
+		  // Compute the width of the textfield if needed.
+		  If mTextFieldWidth = 0 Then
+		    mTextFieldWidth = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING
+		  End If
 		  
 		  // Compute the desired position and dimensions of the text field.
 		  Var textFieldH As Double = style.FontSize + (2 * TEXTFIELD_CONTENT_VPADDING)
-		  Var textFieldX As Double = x + HPADDING + captionW + TEXT_FIELD_CAPTION_PADDING
+		  Var textFieldX As Double = x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING
 		  Var textFieldY As Double = y + ((h/2) - (textFieldH/2))
 		  
 		  // Draw the background for the text field.
@@ -372,6 +376,10 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		#tag EndSetter
 		Caption As String
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0, Description = 5468652064657369726564207769647468206F66207468652063617074696F6E2E
+		CaptionWidth As Integer
+	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 49662054727565207468656E207468652074657874206669656C64206861732074686520666F6375732E
 		Private HasFocus As Boolean = False
@@ -433,9 +441,6 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 	#tag EndConstant
 
 	#tag Constant, Name = TEXTFIELD_CONTENT_VPADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061642074686520636F6E74656E7473206F66207468652074657874206669656C642066726F6D207468652074657874206669656C6420626F72646572732E
-	#tag EndConstant
-
-	#tag Constant, Name = TEXT_FIELD_CAPTION_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F20706164206265747765656E207468652063617074696F6E20616E64207468652074657874206669656C642E
 	#tag EndConstant
 
 	#tag Constant, Name = VPADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F20706164207468652074657874206669656C642061626F766520616E642062656C6F772E

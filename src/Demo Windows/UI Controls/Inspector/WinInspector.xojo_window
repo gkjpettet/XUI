@@ -128,6 +128,8 @@ End
 		Sub Opening()
 		  // We'll create an inspector that approximates the Xojo IDE inspector for a Window.
 		  
+		  Const CAPTION_WIDTH = 100
+		  
 		  // ===================
 		  // FRAME SECTION
 		  // ===================
@@ -135,13 +137,13 @@ End
 		  Inspector.AddSection(frameSection)
 		  
 		  // Type.
-		  frameSection.AddItem(New XUIInspectorPopupItem("frame.type", "Type", Array("Document", "Movable Modal", "Modal Dialog"), True, 150))
+		  frameSection.AddItem(New XUIInspectorPopupItem("frame.type", "Type", CAPTION_WIDTH, Array("Document", "Movable Modal", "Modal Dialog")))
 		  
 		  // Title.
-		  frameSection.AddItem(New XUIInspectorTextFieldItem("frame.title", "Title", 150, "Enter a title"))
+		  frameSection.AddItem(New XUIInspectorTextFieldItem("frame.title", "Title", CAPTION_WIDTH, "Enter a title"))
 		  
 		  // Has close button.
-		  frameSection.AddItem(New XUIInspectorCheckBoxItem("frame.hasCloseButton", "Has Close Button", True))
+		  frameSection.AddItem(New XUIInspectorCheckBoxItem("frame.hasCloseButton", "Has Close Button", CAPTION_WIDTH, True))
 		End Sub
 	#tag EndEvent
 
