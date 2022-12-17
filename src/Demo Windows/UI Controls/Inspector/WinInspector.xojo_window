@@ -143,7 +143,7 @@ End
 		  frameSection.AddItem(New XUIInspectorTextFieldItem("frame.title", "Title", CAPTION_WIDTH, "Enter a title"))
 		  
 		  // Has close button.
-		  frameSection.AddItem(New XUIInspectorCheckBoxItem("frame.hasCloseButton", "Has Close Button", CAPTION_WIDTH, True))
+		  frameSection.AddItem(New XUIInspectorSwitchItem("frame.hasCloseButton", "Has Close Button", CAPTION_WIDTH, True))
 		End Sub
 	#tag EndEvent
 

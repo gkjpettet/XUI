@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUIInspectorCheckBoxItem
+Protected Class XUIInspectorSwitchItem
 Implements XUIInspectorItem
 	#tag Method, Flags = &h0, Description = 54686520626F756E6473206F662074686973206974656D2077697468696E2074686520696E73706563746F722E
 		Function Bounds() As Rect
@@ -27,31 +27,31 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 44726177732074686520636865636B626F7820746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420782C207920706F736974696F6E2E
-		Private Sub DrawCheckbox(g As Graphics, x As Double, y As Double, style As XUIInspectorStyle)
-		  /// Draws the checkbox to the passed graphics context at the precomputed x, y position.
+	#tag Method, Flags = &h21, Description = 4472617773207468652073776974636820746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420782C207920706F736974696F6E2E
+		Private Sub DrawSwitch(g As Graphics, x As Double, y As Double, style As XUIInspectorStyle)
+		  /// Draws the switch to the passed graphics context at the precomputed x, y position.
+		  
+		  #Pragma Warning "TODO"
 		  
 		  g.SaveState
 		  
-		  // Draw the box.
-		  g.DrawingColor = style.ControlBackgroundColor
-		  g.FillRoundRectangle(x, y, CHECKBOX_SIZE, CHECKBOX_SIZE, 2, 2)
+		  // Border.
 		  g.DrawingColor = style.ControlBorderColor
-		  g.PenSize = 1
-		  g.DrawRoundRectangle(x, y, CHECKBOX_SIZE, CHECKBOX_SIZE, 2, 2)
+		  g.FillOval(x, y, SWITCH_HEIGHT, SWITCH_HEIGHT) // Left edge.
+		  g.FillOval(x + (SWITCH_WIDTH / 2), y, SWITCH_HEIGHT, SWITCH_HEIGHT) // Right edge.
+		  g.FillRectangle(x + (SWITCH_HEIGHT / 2), y, SWITCH_WIDTH / 2, SWITCH_HEIGHT) // Centre.
 		  
-		  // If needed, draw the tick.
-		  If Value Then
-		    g.DrawingColor = style.AccentColor
-		    g.FontSize = CHECKBOX_SIZE * 0.8
-		    g.Bold = True
-		    Var tickX As Double = x + (CHECKBOX_SIZE / 2) - (g.TextWidth("✓") / 2)
-		    Var tickY As Double = (y + g.FontAscent + (CHECKBOX_SIZE - g.TextHeight)/2)
-		    g.DrawText("✓", tickX, tickY)
-		  End If
+		  // Background.
+		  g.DrawingColor = If(Value, style.AccentColor, style.BackgroundColor)
+		  g.FillOval(x + 1, y + 1, SWITCH_HEIGHT - 2, SWITCH_HEIGHT - 2) // Left edge.
+		  g.FillOval(x + 2 + ((SWITCH_WIDTH - 2) / 2), y + 1, SWITCH_HEIGHT - 2, SWITCH_HEIGHT - 2) // Right edge.
+		  g.FillRectangle(x + 1 + ((SWITCH_HEIGHT - 2) / 2), y + 1, (SWITCH_WIDTH - 2) / 2, SWITCH_HEIGHT - 2) // Centre.
 		  
-		  // Update the hit bounds of the checkbox.
-		  mCheckboxBounds = New Rect(x, y, CHECKBOX_SIZE, CHECKBOX_SIZE)
+		  // Slider.
+		  
+		  
+		  // Update the hit bounds of the switch.
+		  mSwitchBounds = New Rect(x, y, SWITCH_WIDTH, SWITCH_HEIGHT)
 		  
 		  g.RestoreState
 		End Sub
@@ -63,7 +63,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  
-		  Return Max(style.FontSize + (2 * VPADDING), CHECKBOX_SIZE + (2 * VPADDING))
+		  Return Max(style.FontSize + (2 * VPADDING), SWITCH_HEIGHT + (2 * VPADDING))
 		  
 		End Function
 	#tag EndMethod
@@ -94,8 +94,8 @@ Implements XUIInspectorItem
 		  /// Returns a MouseDownData instance instructing the inspector how to handle the event
 		  /// or Nil if the click didn't happen in this item.
 		  
-		  If mCheckboxBounds <> Nil And mCheckboxBounds.Contains(x, y) Then
-		    // Toggle the checkbox value.
+		  If mSwitchBounds <> Nil And mSwitchBounds.Contains(x, y) Then
+		    // Toggle the switch value.
 		    Value = Not Value
 		    
 		    // Notify a change occurred.
@@ -117,7 +117,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  
-		  // There is nothing to do since there are no visual effects caused by mouse movement in the checkbox item.
+		  // There is nothing to do since there are no visual effects caused by mouse movement in the switch item.
 		  Return False
 		  
 		End Function
@@ -133,7 +133,7 @@ Implements XUIInspectorItem
 		  #Pragma Unused x
 		  #Pragma Unused y
 		  
-		  // Moving the over the checkbox item does nothing so we'll just return Nil.
+		  // Moving the over the switch item does nothing so we'll just return Nil.
 		  Return Nil
 		End Function
 	#tag EndMethod
@@ -148,7 +148,7 @@ Implements XUIInspectorItem
 		  #Pragma Unused x
 		  #Pragma Unused y
 		  
-		  // We toggle the checkbox value on mouse down so there's nothing to do here.
+		  // We toggle the switch value on mouse down so there's nothing to do here.
 		  Return Nil
 		End Function
 	#tag EndMethod
@@ -185,7 +185,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the `XUIInspectorItem` interface.
 		  
-		  // Since the checkbox item doesn't display a popup menu, there's nothing to do.
+		  // Since the switch item doesn't display a popup menu, there's nothing to do.
 		End Sub
 	#tag EndMethod
 
@@ -195,7 +195,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  
-		  // Since the checkbox item doesn't display a popup, there's nothing to do.
+		  // Since the switch item doesn't display a popup, there's nothing to do.
 		  #Pragma Unused index
 		  
 		End Sub
@@ -207,9 +207,9 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  ///
-		  /// |------------------|
-		  /// | CAPTION       [] |
-		  /// |------------------|
+		  /// |----------------------|
+		  /// | CAPTION       (()  ) |
+		  /// |----------------------|
 		  
 		  g.SaveState
 		  
@@ -231,8 +231,8 @@ Implements XUIInspectorItem
 		  g.DrawingColor = style.TextColor
 		  g.DrawText(Caption, x + HPADDING + (CaptionWidth - g.TextWidth(Caption)), captionBaseline, CaptionWidth, True)
 		  
-		  // Draw the checkbox.
-		  DrawCheckbox(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (CHECKBOX_SIZE / 2), style)
+		  // Draw the switch.
+		  DrawSwitch(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (SWITCH_HEIGHT / 2), style)
 		  
 		  g.RestoreState
 		  
@@ -245,7 +245,7 @@ Implements XUIInspectorItem
 	#tag EndMethod
 
 
-	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636865636B626F782E
+	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C6179206265736964657320746865207377697463682E
 		#tag Getter
 			Get
 			  Return mCaption
@@ -267,12 +267,8 @@ Implements XUIInspectorItem
 		Private mBounds As Rect
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636865636B626F782E
+	#tag Property, Flags = &h21, Description = 5468652063617074696F6E20746F20646973706C6179206265736964657320746865207377697463682E
 		Private mCaption As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686520636865636B626F782E205573656420666F72206869742D74657374696E672E
-		Private mCheckboxBounds As Rect
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5573656420746F206964656E746966792074686973206974656D20696E206E6F74696669636174696F6E732E20596F752073686F756C6420656E7375726520697420697320756E697175652077697468696E2074686520696E73706563746F722E
@@ -283,11 +279,15 @@ Implements XUIInspectorItem
 		Private mOwner As WeakRef
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 54686520636865636B626F782076616C75652E2054727565203D20636865636B65642C2046616C7365203D20756E636865636B65642E
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F6620746865207377697463682E205573656420666F72206869742D74657374696E672E
+		Private mSwitchBounds As Rect
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865207377697463682076616C75652E2054727565203D206F6E2C2046616C7365203D206F66662E
 		Private mValue As Boolean
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 54686520636865636B626F782076616C75652E2054727565203D20636865636B65642C2046616C7365203D20756E636865636B65642E
+	#tag ComputedProperty, Flags = &h0, Description = 546865207377697463682076616C75652E2054727565203D206F6E2C2046616C7365203D206F66662E
 		#tag Getter
 			Get
 			  Return mValue
@@ -302,10 +302,13 @@ Implements XUIInspectorItem
 	#tag EndComputedProperty
 
 
-	#tag Constant, Name = CHECKBOX_SIZE, Type = Double, Dynamic = False, Default = \"18", Scope = Private, Description = 5468652073697A65206F662074686520636865636B626F78207371756172652E
+	#tag Constant, Name = HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E74206C65667420616E642072696768742E
 	#tag EndConstant
 
-	#tag Constant, Name = HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E74206C65667420616E642072696768742E
+	#tag Constant, Name = SWITCH_HEIGHT, Type = Double, Dynamic = False, Default = \"15", Scope = Private, Description = 54686520686569676874206F6620746865207377697463682E
+	#tag EndConstant
+
+	#tag Constant, Name = SWITCH_WIDTH, Type = Double, Dynamic = False, Default = \"38", Scope = Private, Description = 546865207769647468206F6620746865207377697463682E
 	#tag EndConstant
 
 	#tag Constant, Name = VPADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E742061626F766520616E642062656C6F772E
@@ -367,6 +370,14 @@ Implements XUIInspectorItem
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CaptionWidth"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

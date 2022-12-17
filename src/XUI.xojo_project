@@ -266,6 +266,7 @@ Folder=Items;XUI/XUIInspector/Items;&h000000002CB847FF;&h000000007F4C67FF;false
 Interface=XUIInspectorItemKeyHandler;XUI/XUIInspector/Items/XUIInspectorItemKeyHandler.xojo_code;&h00000000696E17FF;&h000000002CB847FF;false
 Interface=XUIInspectorItem;XUI/XUIInspector/Items/XUIInspectorItem.xojo_code;&h000000002CCDEFFF;&h000000002CB847FF;false
 Class=XUIInspectorCheckBoxItem;XUI/XUIInspector/Items/XUIInspectorCheckBoxItem.xojo_code;&h00000000271837FF;&h000000002CB847FF;false
+Class=XUIInspectorSwitchItem;XUI/XUIInspector/Items/XUIInspectorSwitchItem.xojo_code;&h0000000074F607FF;&h000000002CB847FF;false
 Class=XUIInspectorPopupItem;XUI/XUIInspector/Items/XUIInspectorPopupItem.xojo_code;&h0000000037381FFF;&h000000002CB847FF;false
 Class=XUIInspectorFullWidthButtonItem;XUI/XUIInspector/Items/XUIInspectorFullWidthButtonItem.xojo_code;&h00000000455DD7FF;&h000000002CB847FF;false
 Class=XUIInspectorTextFieldItem;XUI/XUIInspector/Items/XUIInspectorTextFieldItem.xojo_code;&h000000002EB16FFF;&h000000002CB847FF;false
