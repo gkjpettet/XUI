@@ -142,8 +142,17 @@ End
 		  // Title.
 		  frameSection.AddItem(New XUIInspectorTextFieldItem("frame.title", "Title", CAPTION_WIDTH, "Enter a title"))
 		  
-		  // Has close button.
-		  frameSection.AddItem(New XUIInspectorSwitchItem("frame.hasCloseButton", "Has Close Button", CAPTION_WIDTH, True))
+		  // Resizeable.
+		  frameSection.AddItem(New XUIInspectorSwitchItem("frame.resizeable", "Resizeable", CAPTION_WIDTH, True))
+		  
+		  // ===================
+		  // BEHAVIOUR SECTION
+		  // ===================
+		  Var behaviourSection As New XUIInspectorSection("Behaviour", True)
+		  Inspector.AddSection(behaviourSection)
+		  
+		  // Has background colour.
+		  behaviourSection.AddItem(New XUIInspectorSwitchItem("behaviour.hasBackground", "Has Background", CAPTION_WIDTH, False))
 		End Sub
 	#tag EndEvent
 

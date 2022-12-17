@@ -229,7 +229,7 @@ Implements XUIInspectorItem
 		  
 		  // Draw the right-aligned caption in the vertical centre of the item.
 		  g.DrawingColor = style.TextColor
-		  g.DrawText(Caption, x + HPADDING + (CaptionWidth - g.TextWidth(Caption)), captionBaseline, CaptionWidth, True)
+		  g.DrawText(Caption, x + HPADDING + Max((CaptionWidth - g.TextWidth(Caption)), 0), captionBaseline, CaptionWidth, True)
 		  
 		  // Draw the checkbox.
 		  DrawCheckbox(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (CHECKBOX_SIZE / 2), style)

@@ -10,15 +10,17 @@ Protected Class XUIInspectorStyle
 		  ControlBackgroundColor = New ColorGroup(Color.Black, Color.Black)
 		  ControlBorderColor = New ColorGroup(Color.Black, Color.Black)
 		  FocusColor = New ColorGroup(Color.Black, Color.Black)
+		  ItemDisclosureWidgetColor = New ColorGroup(Color.Black, Color.Black)
 		  PlaceholderTextColor = New ColorGroup(Color.Black, Color.Black)
 		  SectionBackColor = New ColorGroup(Color.Black, Color.Black)
 		  SectionBorderColor = New ColorGroup(Color.Black, Color.Black)
 		  SelectionColor = New ColorGroup(Color.Black, Color.Black)
+		  SwitchColor = New ColorGroup(Color.Black, Color.Black)
 		  TextColor = New ColorGroup(Color.Black, Color.Black)
 		  
 		  Name = "Blank Style"
 		  FontName = "System"
-		  
+		  FontSize = 12
 		End Sub
 	#tag EndMethod
 
@@ -42,6 +44,7 @@ Protected Class XUIInspectorStyle
 		  Const LIGHT_SECTION_DISCLOSURE_WIDGET = Color.Black
 		  Const LIGHT_SECTION_BORDER = &cCACBCB
 		  Const LIGHT_SELECTION = &cA4CBFE
+		  Const LIGHT_SWITCH = &cD7D7D7
 		  
 		  Const DARK_ACCENT = &c3968D4
 		  Const DARK_BORDER = &c353636
@@ -53,6 +56,7 @@ Protected Class XUIInspectorStyle
 		  Const DARK_SECTION_BACKCOLOR = &c1D1C1C
 		  Const DARK_SECTION_BORDER = &c353636
 		  Const DARK_SELECTION = &c304F77
+		  Const DARK_SWITCH = &cDBDCDC
 		  
 		  style.AccentColor = New ColorGroup(LIGHT_ACCENT, DARK_ACCENT)
 		  style.BackgroundColor = New ColorGroup(Color.White, ALMOST_BLACK)
@@ -66,8 +70,10 @@ Protected Class XUIInspectorStyle
 		  style.SectionBorderColor = New ColorGroup(LIGHT_SECTION_BORDER, DARK_SECTION_BORDER)
 		  style.SectionDisclosureWidgetColor = New ColorGroup(LIGHT_SECTION_DISCLOSURE_WIDGET, DARK_SECTION_DISCLOSURE_WIDGET)
 		  style.SelectionColor = New ColorGroup(LIGHT_SELECTION, DARK_SELECTION)
+		  style.SwitchColor = New ColorGroup(LIGHT_SWITCH, DARK_SWITCH)
 		  style.TextColor = New ColorGroup(Color.Black, Color.White)
 		  
+		  style.Name = "Default"
 		  style.FontName = "System"
 		  style.FontSize = 12
 		  
@@ -112,7 +118,7 @@ Protected Class XUIInspectorStyle
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 546865206465736972656420666F6E742073697A6520666F7220746578742E
-		FontSize As Double = 10
+		FontSize As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66206974656D20646973636C6F7375726520776964676574732E
@@ -141,6 +147,10 @@ Protected Class XUIInspectorStyle
 
 	#tag Property, Flags = &h0, Description = 5468652073656C656374696F6E20636F6C6F75722E
 		SelectionColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F722074686520636972636C6520696E206120746F67676C65207377697463682E
+		SwitchColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 54686520707265666572726564207465787420636F6C6F75722E

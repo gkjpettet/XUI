@@ -31,24 +31,27 @@ Implements XUIInspectorItem
 		Private Sub DrawSwitch(g As Graphics, x As Double, y As Double, style As XUIInspectorStyle)
 		  /// Draws the switch to the passed graphics context at the precomputed x, y position.
 		  
-		  #Pragma Warning "TODO"
-		  
 		  g.SaveState
+		  
+		  // Background.
+		  g.DrawingColor = If(Value, style.AccentColor, style.ControlBackgroundColor)
+		  g.FillRoundRectangle(x, y, SWITCH_WIDTH, SWITCH_HEIGHT, SWITCH_HEIGHT, SWITCH_HEIGHT)
 		  
 		  // Border.
 		  g.DrawingColor = style.ControlBorderColor
-		  g.FillOval(x, y, SWITCH_HEIGHT, SWITCH_HEIGHT) // Left edge.
-		  g.FillOval(x + (SWITCH_WIDTH / 2), y, SWITCH_HEIGHT, SWITCH_HEIGHT) // Right edge.
-		  g.FillRectangle(x + (SWITCH_HEIGHT / 2), y, SWITCH_WIDTH / 2, SWITCH_HEIGHT) // Centre.
+		  g.DrawRoundRectangle(x, y, SWITCH_WIDTH, SWITCH_HEIGHT, SWITCH_HEIGHT, SWITCH_HEIGHT)
 		  
-		  // Background.
-		  g.DrawingColor = If(Value, style.AccentColor, style.BackgroundColor)
-		  g.FillOval(x + 1, y + 1, SWITCH_HEIGHT - 2, SWITCH_HEIGHT - 2) // Left edge.
-		  g.FillOval(x + 2 + ((SWITCH_WIDTH - 2) / 2), y + 1, SWITCH_HEIGHT - 2, SWITCH_HEIGHT - 2) // Right edge.
-		  g.FillRectangle(x + 1 + ((SWITCH_HEIGHT - 2) / 2), y + 1, (SWITCH_WIDTH - 2) / 2, SWITCH_HEIGHT - 2) // Centre.
-		  
-		  // Slider.
-		  
+		  // Circle.
+		  g.DrawingColor = style.SwitchColor
+		  Var circleX As Double
+		  If Value Then
+		    // Right side of the control.
+		    circleX = x + SWITCH_WIDTH - SWITCH_HEIGHT
+		  Else
+		    // Left side of the control.
+		    circleX = x
+		  End If
+		  g.FillOval(circleX, y, SWITCH_HEIGHT, SWITCH_HEIGHT)
 		  
 		  // Update the hit bounds of the switch.
 		  mSwitchBounds = New Rect(x, y, SWITCH_WIDTH, SWITCH_HEIGHT)
@@ -229,7 +232,7 @@ Implements XUIInspectorItem
 		  
 		  // Draw the right-aligned caption in the vertical centre of the item.
 		  g.DrawingColor = style.TextColor
-		  g.DrawText(Caption, x + HPADDING + (CaptionWidth - g.TextWidth(Caption)), captionBaseline, CaptionWidth, True)
+		  g.DrawText(Caption, x + HPADDING + Max(0, (CaptionWidth - g.TextWidth(Caption))), captionBaseline, CaptionWidth, True)
 		  
 		  // Draw the switch.
 		  DrawSwitch(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (SWITCH_HEIGHT / 2), style)
@@ -305,7 +308,7 @@ Implements XUIInspectorItem
 	#tag Constant, Name = HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E74206C65667420616E642072696768742E
 	#tag EndConstant
 
-	#tag Constant, Name = SWITCH_HEIGHT, Type = Double, Dynamic = False, Default = \"15", Scope = Private, Description = 54686520686569676874206F6620746865207377697463682E
+	#tag Constant, Name = SWITCH_HEIGHT, Type = Double, Dynamic = False, Default = \"16", Scope = Private, Description = 54686520686569676874206F6620746865207377697463682E
 	#tag EndConstant
 
 	#tag Constant, Name = SWITCH_WIDTH, Type = Double, Dynamic = False, Default = \"38", Scope = Private, Description = 546865207769647468206F6620746865207377697463682E

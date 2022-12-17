@@ -328,7 +328,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  
 		  // Draw the right-aligned caption in the vertical centre of the item.
 		  g.DrawingColor = style.TextColor
-		  Var captionLeftX As Double = x + HPADDING + (CaptionWidth - g.TextWidth(Caption))
+		  Var captionLeftX As Double = x + HPADDING + Max((CaptionWidth - g.TextWidth(Caption)), 0)
 		  g.DrawText(Caption, captionLeftX, captionBaseline, CaptionWidth, True)
 		  Var captionRightX As Double = x + HPADDING + CaptionWidth
 		  
