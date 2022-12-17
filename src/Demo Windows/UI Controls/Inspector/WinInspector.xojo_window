@@ -91,6 +91,35 @@ Begin DemoWindow WinInspector
       Visible         =   True
       Width           =   80
    End
+   Begin DesktopCheckBox CheckBox1
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Untitled"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   355
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   76
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   100
+   End
 End
 #tag EndDesktopWindow
 
@@ -111,6 +140,8 @@ End
 		  // Title.
 		  frameSection.AddItem(New XUIInspectorTextFieldItem("frame.title", "Title", 150, "Enter a title"))
 		  
+		  // Has close button.
+		  frameSection.AddItem(New XUIInspectorCheckBoxItem("frame.hasCloseButton", "Has Close Button", True))
 		End Sub
 	#tag EndEvent
 

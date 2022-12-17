@@ -22,9 +22,9 @@ Protected Class XUIInspectorSection
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(name As String, expanded As Boolean)
+		Sub Constructor(name As String, collapsible As Boolean, expanded As Boolean = True)
 		  Self.Name = name
-		  mCollapsible = True
+		  Self.Collapsible = collapsible
 		  Self.Expanded = expanded
 		  
 		End Sub
@@ -215,7 +215,7 @@ Protected Class XUIInspectorSection
 		  End If
 		  
 		  // Return the rect bounds for this widget.
-		  Return XUIInspector.RenderDisclosureWidget(g, x, y, style.ControlBorderColor, Expanded, False)
+		  Return XUIInspector.RenderDisclosureWidget(g, x, y, style.SectionDisclosureWidgetColor, Expanded, False)
 		End Function
 	#tag EndMethod
 

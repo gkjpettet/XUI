@@ -105,7 +105,7 @@ Implements XUIInspectorItem
 		  // Draw the disclosure.
 		  x = x + mPopupWidth - WIDGET_WIDTH - WIDGET_RPADDING
 		  y = y + (popupH / 2) - (XUIInspector.WIDGET_HEIGHT_EXPANDED / 2)
-		  Call XUIInspector.RenderDisclosureWidget(g, x, y, If(mOpen, style.FocusColor, style.AccentColor), True, True)
+		  Call XUIInspector.RenderDisclosureWidget(g, x, y, If(mOpen, style.FocusColor, style.ItemDisclosureWidgetColor), True, False)
 		  
 		  g.RestoreState
 		End Sub

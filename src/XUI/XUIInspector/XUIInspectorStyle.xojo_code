@@ -31,24 +31,41 @@ Protected Class XUIInspectorStyle
 		  Var style As New XUIInspectorStyle
 		  
 		  Const ALMOST_BLACK = &c171717
-		  Const LIGHT_GREY = &cCACBCB
-		  Const DARK_GREY = &c353636
-		  Const LIGHT_SELECTION_BLUE = &cA4CBFE
-		  Const DARK_SELECTION_BLUE = &c304F77
-		  Const LIGHT_ACCENT_BLUE = &c3D71E3
-		  Const DARK_ACCENT_BLUE = &c3968D4
-		  Const LIGHT_PLACEHOLDER_GREY = &cBFBFC1
-		  Const DARK_PLACEHOLDER_GREY = &c252626
 		  
-		  style.AccentColor = New ColorGroup(LIGHT_ACCENT_BLUE, DARK_ACCENT_BLUE)
+		  Const LIGHT_ACCENT = &c3D71E3
+		  Const LIGHT_BORDER = &cCACBCB
+		  Const LIGHT_CONTROL_BACKGROUND = Color.White
+		  Const LIGHT_CONTROL_BORDER = &cCACBCB
+		  Const LIGHT_ITEM_DISCLOSURE_WIDGET = Color.Black
+		  Const LIGHT_PLACEHOLDER_GREY = &cBFBFBF
+		  Const LIGHT_SECTION_BACKCOLOR = &cFDFFFF
+		  Const LIGHT_SECTION_DISCLOSURE_WIDGET = Color.Black
+		  Const LIGHT_SECTION_BORDER = &cCACBCB
+		  Const LIGHT_SELECTION = &cA4CBFE
+		  
+		  Const DARK_ACCENT = &c3968D4
+		  Const DARK_BORDER = &c353636
+		  Const DARK_CONTROL_BACKGROUND = &c262626
+		  Const DARK_CONTROL_BORDER = &c353636
+		  Const DARK_ITEM_DISCLOSURE_WIDGET = Color.White
+		  Const DARK_PLACEHOLDER_GREY = &c535353
+		  Const DARK_SECTION_DISCLOSURE_WIDGET = Color.White
+		  Const DARK_SECTION_BACKCOLOR = &c1D1C1C
+		  Const DARK_SECTION_BORDER = &c353636
+		  Const DARK_SELECTION = &c304F77
+		  
+		  style.AccentColor = New ColorGroup(LIGHT_ACCENT, DARK_ACCENT)
 		  style.BackgroundColor = New ColorGroup(Color.White, ALMOST_BLACK)
-		  style.BorderColor = New ColorGroup(LIGHT_GREY, DARK_GREY)
-		  style.ControlBackgroundColor = New ColorGroup(Color.White, ALMOST_BLACK)
-		  style.ControlBorderColor = New ColorGroup(LIGHT_GREY, DARK_GREY)
-		  style.FocusColor = New ColorGroup(LIGHT_ACCENT_BLUE, DARK_ACCENT_BLUE)
+		  style.BorderColor = New ColorGroup(LIGHT_BORDER, DARK_BORDER)
+		  style.ControlBackgroundColor = New ColorGroup(LIGHT_CONTROL_BACKGROUND, DARK_CONTROL_BACKGROUND)
+		  style.ControlBorderColor = New ColorGroup(LIGHT_CONTROL_BORDER, DARK_CONTROL_BORDER)
+		  style.FocusColor = New ColorGroup(LIGHT_ACCENT, DARK_ACCENT)
+		  style.ItemDisclosureWidgetColor = New ColorGroup(LIGHT_ITEM_DISCLOSURE_WIDGET, DARK_ITEM_DISCLOSURE_WIDGET)
 		  style.PlaceholderTextColor = New ColorGroup(LIGHT_PLACEHOLDER_GREY, DARK_PLACEHOLDER_GREY)
-		  style.SectionBackColor = New ColorGroup(LIGHT_PLACEHOLDER_GREY, DARK_PLACEHOLDER_GREY)
-		  style.SelectionColor = New ColorGroup(LIGHT_SELECTION_BLUE, DARK_SELECTION_BLUE)
+		  style.SectionBackColor = New ColorGroup(LIGHT_SECTION_BACKCOLOR, DARK_SECTION_BACKCOLOR)
+		  style.SectionBorderColor = New ColorGroup(LIGHT_SECTION_BORDER, DARK_SECTION_BORDER)
+		  style.SectionDisclosureWidgetColor = New ColorGroup(LIGHT_SECTION_DISCLOSURE_WIDGET, DARK_SECTION_DISCLOSURE_WIDGET)
+		  style.SelectionColor = New ColorGroup(LIGHT_SELECTION, DARK_SELECTION)
 		  style.TextColor = New ColorGroup(Color.Black, Color.White)
 		  
 		  style.FontName = "System"
@@ -98,6 +115,10 @@ Protected Class XUIInspectorStyle
 		FontSize As Double = 10
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66206974656D20646973636C6F7375726520776964676574732E
+		ItemDisclosureWidgetColor As ColorGroup
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 54686973207374796C652773206E616D652E
 		Name As String
 	#tag EndProperty
@@ -112,6 +133,10 @@ Protected Class XUIInspectorStyle
 
 	#tag Property, Flags = &h0, Description = 5468652073656374696F6E20626F7264657220636F6C6F75722E
 		SectionBorderColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F7572206F66207468652073656374696F6E20646973636C6F73757265207769646765742E
+		SectionDisclosureWidgetColor As ColorGroup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0, Description = 5468652073656C656374696F6E20636F6C6F75722E
