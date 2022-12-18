@@ -32,6 +32,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  mTopTextField = New XUIInspectorTextFieldRenderer(Nil, topPlaceHolder)
 		  mBottomTextField = New XUIInspectorTextFieldRenderer(Nil, bottomPlaceHolder)
 		  
+		  mLastNewlineEvent = System.Microseconds
 		End Sub
 	#tag EndMethod
 
@@ -115,15 +116,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    // OTHER
 		    // =========================================
 		  Case XUIInspector.CmdInsertNewline
-		    // The return key has been pressed.
-		    currentTextField.SelectAll
-		    If TopHasFocus Then
-		      mTopContentsWhenActivated = currentTextField.Contents
-		    ElseIf BottomHasFocus Then
-		      mBottomContentsWhenActivated = currentTextField.Contents
-		    End If
-		    Var data As New Dictionary("top" : mTopTextField.Contents, "bottom" : mBottomTextField.Contents)
-		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, data)
+		    HandleNewline
 		    
 		  End Select
 		End Sub
@@ -161,6 +154,40 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  g.DrawText(s, x + TEXTFIELD_CAPTION_INTERNAL_PADDING, baseline)
 		  
 		  g.RestoreState
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 48616E646C652074686520696E73657274696F6E206F662061206E65776C696E652028692E65207468652072657475726E206B6579292E
+		Private Sub HandleNewline()
+		  /// Handle the insertion of a newline (i.e the return key).
+		  
+		  Var currentTextField As XUIInspectorTextFieldRenderer
+		  If TopHasFocus Then
+		    currentTextField = mTopTextField
+		  Else
+		    currentTextField = mBottomTextField
+		  End If
+		  
+		  // Select all the text.
+		  currentTextField.SelectAll
+		  
+		  If TopHasFocus Then
+		    mTopContentsWhenActivated = currentTextField.Contents
+		  ElseIf BottomHasFocus Then
+		    mBottomContentsWhenActivated = currentTextField.Contents
+		  End If
+		  
+		  // There is a bug on windows that causes the newline insertion event to fire twice. Catch that.
+		  If System.Microseconds - mLastNewlineEvent < NEWLINE_EVENT_DELAY Then
+		    Return
+		  Else
+		    // Cache when we handled this event.
+		    mLastNewlineEvent = System.Microseconds
+		  End If
+		  
+		  Var data As New Dictionary("top" : mTopTextField.Contents, "bottom" : mBottomTextField.Contents)
+		  XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, data)
 		  
 		End Sub
 	#tag EndMethod
@@ -553,6 +580,10 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		Private mID As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 5768656E20746865206C617374206E65776C696E6520696E73657274696F6E206576656E74207761732068616E646C65642E
+		Private mLastNewlineEvent As Double
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 546865207769647468206F6620746865207769646573742074657874206669656C642063617074696F6E2E20436F6D707574656420696E206052656E646572602E
 		Private mMaxTextFieldCaptionWidth As Double
 	#tag EndProperty
@@ -609,6 +640,9 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 
 
 	#tag Constant, Name = HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E74206C65667420616E642072696768742E
+	#tag EndConstant
+
+	#tag Constant, Name = NEWLINE_EVENT_DELAY, Type = Double, Dynamic = False, Default = \"50000", Scope = Private, Description = 546865206E756D626572206F66206D6963726F7365636F6E647320746F2077616974206265747765656E20616363657074696E672074776F20636F6E7365637574697665206E65776C696E6520696E73657274696F6E206576656E74732E
 	#tag EndConstant
 
 	#tag Constant, Name = TEXTFIELD_CAPTION_INTERNAL_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061646420746865206C65667420616E64207269676874206F6620612074657874206669656C642063617074696F6E2066726F6D2069747320626F72646572732E

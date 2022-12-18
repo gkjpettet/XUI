@@ -30,6 +30,8 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  mTextField = New XUIInspectorTextFieldRenderer(Nil)
 		  
 		  Self.Placeholder = placeHolder
+		  
+		  mLastNewlineEvent = System.Microseconds
 		End Sub
 	#tag EndMethod
 
@@ -106,12 +108,31 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    // OTHER
 		    // =========================================
 		  Case XUIInspector.CmdInsertNewline
-		    // The return key has been pressed.
-		    mTextField.SelectAll
-		    mContentsWhenActivated = mTextField.Contents
-		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, mTextField.Contents)
+		    HandleNewline
 		    
 		  End Select
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 48616E646C652074686520696E73657274696F6E206F662061206E65776C696E652028692E65207468652072657475726E206B6579292E
+		Private Sub HandleNewline()
+		  /// Handle the insertion of a newline (i.e the return key).
+		  
+		  // Select all the text.
+		  mTextField.SelectAll
+		  
+		  // Cache the current contents of the text field.
+		  mContentsWhenActivated = mTextField.Contents
+		  
+		  // There is a bug on windows that causes the newline insertion event to fire twice. Catch that.
+		  If System.Microseconds - mLastNewlineEvent < NEWLINE_EVENT_DELAY Then
+		    Return
+		  Else
+		    // Cache when we handled this event.
+		    mLastNewlineEvent = System.Microseconds
+		  End If
+		  
+		  XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, mTextField.Contents)
 		End Sub
 	#tag EndMethod
 
@@ -417,6 +438,10 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		Private mID As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 5768656E20746865206C617374206E65776C696E6520696E73657274696F6E206576656E74207761732068616E646C65642E
+		Private mLastNewlineEvent As Double
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
 		Private mOwner As WeakRef
 	#tag EndProperty
@@ -458,6 +483,9 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 
 
 	#tag Constant, Name = HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E74206C65667420616E642072696768742E
+	#tag EndConstant
+
+	#tag Constant, Name = NEWLINE_EVENT_DELAY, Type = Double, Dynamic = False, Default = \"50000", Scope = Private, Description = 546865206E756D626572206F66206D6963726F7365636F6E647320746F2077616974206265747765656E20616363657074696E672074776F20636F6E7365637574697665206E65776C696E6520696E73657274696F6E206576656E74732E
 	#tag EndConstant
 
 	#tag Constant, Name = TEXTFIELD_CONTENT_VPADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061642074686520636F6E74656E7473206F66207468652074657874206669656C642066726F6D207468652074657874206669656C6420626F72646572732E
@@ -523,6 +551,14 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CaptionWidth"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

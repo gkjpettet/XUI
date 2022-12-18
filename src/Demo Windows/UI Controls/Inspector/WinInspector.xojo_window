@@ -97,6 +97,7 @@ Begin DemoWindow WinInspector Implements XUINotificationListener
       Underline       =   False
       Visible         =   True
       Width           =   470
+      _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
    Begin DesktopLabel Label1
