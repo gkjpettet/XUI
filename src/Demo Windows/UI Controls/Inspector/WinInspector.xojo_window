@@ -27,6 +27,7 @@ Begin DemoWindow WinInspector Implements XUINotificationListener
    Begin XUIInspector Inspector
       AllowInertialScrolling=   True
       AutoDeactivate  =   True
+      CaretVisible    =   False
       Enabled         =   True
       HasBottomBorder =   True
       HasLeftBorder   =   True
@@ -42,6 +43,7 @@ Begin DemoWindow WinInspector Implements XUINotificationListener
       LockRight       =   False
       LockTop         =   True
       Scope           =   2
+      ScrollOffsetY   =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -50,16 +52,127 @@ Begin DemoWindow WinInspector Implements XUINotificationListener
       Visible         =   True
       Width           =   300
    End
+   Begin DesktopListBox NotificationsListbox
+      AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   True
+      AllowResizableColumns=   False
+      AllowRowDragging=   False
+      AllowRowReordering=   False
+      Bold            =   False
+      ColumnCount     =   2
+      ColumnWidths    =   ""
+      DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      GridLineStyle   =   0
+      HasBorder       =   True
+      HasHeader       =   True
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      HeadingIndex    =   -1
+      Height          =   544
+      Index           =   -2147483648
+      InitialValue    =   "ID	Data"
+      Italic          =   False
+      Left            =   332
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      RequiresSelection=   False
+      RowSelectionType=   0
+      Scope           =   0
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   52
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   470
+      _ScrollWidth    =   -1
+   End
+   Begin DesktopLabel Label1
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   332
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Notifications"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin DesktopButton ButtonClearNotifications
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   True
+      Caption         =   "Clear"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   722
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MacButtonStyle  =   0
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  // We'll create an inspector that approximates the Xojo IDE inspector for a Window.
+		  // Create a demo inspector.
 		  
 		  Const CAPTION_WIDTH = 100
 		  
+		  // We want this window to be notified of changes that occur in the inspector.
 		  RegisterForNotifications
 		  
 		  // ===================
@@ -78,16 +191,19 @@ End
 		  frameSection.AddItem(New XUIInspectorSwitchItem("frame.resizeable", "Resizeable", CAPTION_WIDTH, True))
 		  
 		  // ===================
-		  // BEHAVIOUR SECTION
+		  // MISC SECTION
 		  // ===================
-		  Var behaviourSection As New XUIInspectorSection("Behaviour", True)
-		  Inspector.AddSection(behaviourSection)
+		  Var miscSection As New XUIInspectorSection("Misc", True)
+		  Inspector.AddSection(miscSection)
 		  
 		  // Has background colour.
-		  behaviourSection.AddItem(New XUIInspectorSwitchItem("behaviour.hasBackground", "Has Background", CAPTION_WIDTH, False))
+		  miscSection.AddItem(New XUIInspectorSwitchItem("misc.hasBackground", "Has Background", CAPTION_WIDTH, False))
 		  
-		  // Dual text field.
-		  behaviourSection.AddItem(New XUIInspectorDualTextFieldItem("behaviour.dual", "Dual Control", CAPTION_WIDTH, "X", "Y", "X placeholder", "Y placeholder"))
+		  // Position dual text field.
+		  miscSection.AddItem(New XUIInspectorDualTextFieldItem("misc.position", "Position", CAPTION_WIDTH, "X", "Y", "X placeholder", "Y placeholder"))
+		  
+		  // Full screen checkbox.
+		  miscSection.AddItem(New XUIInspectorCheckBoxItem("misc.fullScreen", "Full Screen", CAPTION_WIDTH, False))
 		  
 		End Sub
 	#tag EndEvent
@@ -107,9 +223,7 @@ End
 		Private Function DictionaryToString(d As Dictionary) As String
 		  /// Convenience method for displaying the contents of a dictionary as a string.
 		  /// Used only for demo purposes to simplify displaying the notification payload from items
-		  /// that send a dictionary.
-		  
-		  #Pragma Warning "TODO: Temporary - this can be discarded when finished debugging"
+		  /// that send a dictionary in the listbox on this window.
 		  
 		  If d = Nil Then Return ""
 		  
@@ -133,12 +247,15 @@ End
 		  Case XUIInspector.NOTIFICATION_ITEM_CHANGED
 		    // One of the items in the inspector has changed.
 		    Var item As XUIInspectorItem = XUIInspectorItem(n.Sender)
+		    Var data As String
 		    If item IsA XUIInspectorDualTextFieldItem Then
-		      System.DebugLog("Notification from " + item.ID + ": " + DictionaryToString(n.Data))
+		      data = DictionaryToString(n.Data)
 		    Else
-		      System.DebugLog("Notification from " + item.ID + ": " + n.Data.StringValue)
+		      data = n.Data.StringValue
 		    End If
+		    NotificationsListbox.AddRow(item.ID, data)
 		  End Select
+		  
 		End Sub
 	#tag EndMethod
 
@@ -154,6 +271,14 @@ End
 
 #tag EndWindowCode
 
+#tag Events ButtonClearNotifications
+	#tag Event
+		Sub Pressed()
+		  NotificationsListbox.RemoveAllRows
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="Name"

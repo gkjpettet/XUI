@@ -17,6 +17,8 @@ Protected Class XUIInspectorStyle
 		  SelectionColor = New ColorGroup(Color.Black, Color.Black)
 		  SwitchColor = New ColorGroup(Color.Black, Color.Black)
 		  TextColor = New ColorGroup(Color.Black, Color.Black)
+		  TextFieldCaptionBackgroundColor = New ColorGroup(Color.Black, Color.Black)
+		  TextFieldCaptionTextColor = New ColorGroup(Color.Black, Color.Black)
 		  
 		  Name = "Blank Style"
 		  FontName = "System"
@@ -45,6 +47,7 @@ Protected Class XUIInspectorStyle
 		  Const LIGHT_SECTION_BORDER = &cCACBCB
 		  Const LIGHT_SELECTION = &cA4CBFE
 		  Const LIGHT_SWITCH = &cD7D7D7
+		  Const LIGHT_TEXTFIELD_CAPTION_BACKGROUND = Color.White
 		  
 		  Const DARK_ACCENT = &c3968D4
 		  Const DARK_BORDER = &c353636
@@ -57,6 +60,7 @@ Protected Class XUIInspectorStyle
 		  Const DARK_SECTION_BORDER = &c353636
 		  Const DARK_SELECTION = &c304F77
 		  Const DARK_SWITCH = &cDBDCDC
+		  Const DARK_TEXTFIELD_CAPTION_BACKGROUND = &c171717
 		  
 		  style.AccentColor = New ColorGroup(LIGHT_ACCENT, DARK_ACCENT)
 		  style.BackgroundColor = New ColorGroup(Color.White, ALMOST_BLACK)
@@ -72,6 +76,8 @@ Protected Class XUIInspectorStyle
 		  style.SelectionColor = New ColorGroup(LIGHT_SELECTION, DARK_SELECTION)
 		  style.SwitchColor = New ColorGroup(LIGHT_SWITCH, DARK_SWITCH)
 		  style.TextColor = New ColorGroup(Color.Black, Color.White)
+		  style.TextFieldCaptionBackgroundColor = New ColorGroup(LIGHT_TEXTFIELD_CAPTION_BACKGROUND, DARK_TEXTFIELD_CAPTION_BACKGROUND)
+		  style.TextFieldCaptionTextColor = New ColorGroup(Color.Black, Color.White)
 		  
 		  style.Name = "Default"
 		  style.FontName = "System"
@@ -155,6 +161,14 @@ Protected Class XUIInspectorStyle
 
 	#tag Property, Flags = &h0, Description = 54686520707265666572726564207465787420636F6C6F75722E
 		TextColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206261636B67726F756E6420636F6C6F7572206F6620746865206F7074696F6E616C2063617074696F6E20696E20612074657874206669656C642E
+		TextFieldCaptionBackgroundColor As ColorGroup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 54686520636F6C6F757220746F2075736520666F7220746865206F7074696F6E616C2063617074696F6E20646973706C6179656420696E2074657874206669656C64732E
+		TextFieldCaptionTextColor As ColorGroup
 	#tag EndProperty
 
 
@@ -297,6 +311,30 @@ Protected Class XUIInspectorStyle
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SelectionColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ItemDisclosureWidgetColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SectionDisclosureWidgetColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="SwitchColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

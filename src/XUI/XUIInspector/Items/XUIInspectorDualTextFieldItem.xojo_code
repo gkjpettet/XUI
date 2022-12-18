@@ -122,9 +122,46 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    ElseIf BottomHasFocus Then
 		      mBottomContentsWhenActivated = currentTextField.Contents
 		    End If
-		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, currentTextField.Contents)
+		    Var data As New Dictionary("top" : mTopTextField.Contents, "bottom" : mBottomTextField.Contents)
+		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, data)
 		    
 		  End Select
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 447261777320612074657874206669656C642063617074696F6E2060736020746F206067602061742060782C20796020776974682077696474682060776020616E6420686569676874206068602E2049662060736020697320656D707479207468656E206E6F7468696E6720697320647261776E2E
+		Private Sub DrawTextFieldCaption(s As String, baseline As Double, x As Double, y As Double, w As Double, h As Double, g As Graphics, style As XUIInspectorStyle)
+		  /// Draws a text field caption `s` to `g` at `x, y` with width `w` and height `h`.
+		  /// If `s` is empty then nothing is drawn.
+		  
+		  If s = "" Then Return
+		  
+		  g.SaveState
+		  
+		  Var lineH As Double = h - 1 // Fudge.
+		  
+		  // Background.
+		  g.DrawingColor = style.TextFieldCaptionBackgroundColor
+		  g.FillRectangle(x, y, w, h)
+		  
+		  // Borders. 
+		  // We don't draw a right border as that will be drawn by the text field renderer.
+		  g.DrawingColor = style.ControlBorderColor
+		  // Top.
+		  g.DrawLine(x, y, x + w, y)
+		  // Left.
+		  g.DrawLine(x, y, x, y + lineH)
+		  // Bottom.
+		  g.DrawLine(x, y + lineH, x + w, y + lineH)
+		  
+		  // Caption.
+		  g.DrawingColor = style.TextFieldCaptionTextColor
+		  g.FontName = style.FontName
+		  g.FontSize = style.FontSize
+		  g.DrawText(s, x + TEXTFIELD_CAPTION_INTERNAL_PADDING, baseline)
+		  
+		  g.RestoreState
+		  
 		End Sub
 	#tag EndMethod
 
@@ -389,6 +426,9 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  Var singleLineH As Double = style.FontSize + (2 * TEXTFIELD_CONTENT_VPADDING) + (2 * VPADDING)
 		  Var captionBaseline As Double = (g.FontAscent + (singleLineH - g.TextHeight)/2 + y)
 		  
+		  // Compute the width of the widest text field caption.
+		  mMaxTextFieldCaptionWidth = Max(g.TextWidth(TopCaption), g.TextWidth(BottomCaption)) + (2 * TEXTFIELD_CAPTION_INTERNAL_PADDING)
+		  
 		  // Draw the right-aligned caption.
 		  g.DrawingColor = style.TextColor
 		  Var captionLeftX As Double = x + HPADDING + Max((CaptionWidth - g.TextWidth(Caption)), 0)
@@ -397,14 +437,19 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  
 		  // Compute the width of the textfields if needed.
 		  If mTextFieldWidth = 0 Then
-		    mTextFieldWidth = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING
+		    mTextFieldWidth = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING - mMaxTextFieldCaptionWidth
 		  End If
 		  
 		  // Compute the desired position and dimensions of the text fields.
 		  Var textFieldH As Double = style.FontSize + (2 * TEXTFIELD_CONTENT_VPADDING)
-		  Var textFieldX As Double = x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING
+		  Var textFieldX As Double = x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING + mMaxTextFieldCaptionWidth
 		  Var topTextFieldY As Double = y + ((singleLineH/2) - (textFieldH/2))
 		  Var bottomTextFieldY As Double = topTextFieldY + TextFieldH + TEXTFIELD_VPADDING
+		  
+		  // Draw the text field caption(s).
+		  Var tfCaptionX As Double = TextFieldX - mMaxTextFieldCaptionWidth
+		  DrawTextFieldCaption(TopCaption, captionBaseline, tfCaptionX, topTextFieldY, mMaxTextFieldCaptionWidth, textFieldH, g, style)
+		  DrawTextFieldCaption(BottomCaption, captionBaseline + TextFieldH + TEXTFIELD_VPADDING, tfCaptionX, bottomTextFieldY, mMaxTextFieldCaptionWidth, textFieldH, g, style)
 		  
 		  // Draw the background for the text fields.
 		  g.DrawingColor = style.ControlBackgroundColor
@@ -508,6 +553,10 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		Private mID As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865207769647468206F6620746865207769646573742074657874206669656C642063617074696F6E2E20436F6D707574656420696E206052656E646572602E
+		Private mMaxTextFieldCaptionWidth As Double
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
 		Private mOwner As WeakRef
 	#tag EndProperty
@@ -560,6 +609,9 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 
 
 	#tag Constant, Name = HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E74206C65667420616E642072696768742E
+	#tag EndConstant
+
+	#tag Constant, Name = TEXTFIELD_CAPTION_INTERNAL_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061646420746865206C65667420616E64207269676874206F6620612074657874206669656C642063617074696F6E2066726F6D2069747320626F72646572732E
 	#tag EndConstant
 
 	#tag Constant, Name = TEXTFIELD_CONTENT_VPADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F207061642074686520636F6E74656E7473206F66207468652074657874206669656C642066726F6D207468652074657874206669656C6420626F72646572732E

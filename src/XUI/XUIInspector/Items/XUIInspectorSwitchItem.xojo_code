@@ -37,9 +37,11 @@ Implements XUIInspectorItem
 		  g.DrawingColor = If(Value, style.AccentColor, style.ControlBackgroundColor)
 		  g.FillRoundRectangle(x, y, SWITCH_WIDTH, SWITCH_HEIGHT, SWITCH_HEIGHT, SWITCH_HEIGHT)
 		  
-		  // Border.
-		  g.DrawingColor = style.ControlBorderColor
-		  g.DrawRoundRectangle(x, y, SWITCH_WIDTH, SWITCH_HEIGHT, SWITCH_HEIGHT, SWITCH_HEIGHT)
+		  // Border (only if toggled off).
+		  If Not Value Then
+		    g.DrawingColor = style.ControlBorderColor
+		    g.DrawRoundRectangle(x, y, SWITCH_WIDTH, SWITCH_HEIGHT, SWITCH_HEIGHT, SWITCH_HEIGHT)
+		  End If
 		  
 		  // Circle.
 		  g.DrawingColor = style.SwitchColor
