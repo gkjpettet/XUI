@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DemoWindow WinInspector
+Begin DemoWindow WinInspector Implements XUINotificationListener
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
@@ -23,7 +23,7 @@ Begin DemoWindow WinInspector
    Title           =   "Inspector Demo"
    Type            =   0
    Visible         =   False
-   Width           =   762
+   Width           =   822
    Begin XUIInspector Inspector
       AllowInertialScrolling=   True
       AutoDeactivate  =   True
@@ -50,76 +50,6 @@ Begin DemoWindow WinInspector
       Visible         =   True
       Width           =   300
    End
-   Begin DesktopTextField TextField1
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   22
-      Hint            =   "Placeholder"
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   355
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   1
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   31
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Visible         =   True
-      Width           =   80
-   End
-   Begin DesktopCheckBox CheckBox1
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Caption         =   "Untitled"
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   355
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   76
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      VisualState     =   0
-      Width           =   100
-   End
 End
 #tag EndDesktopWindow
 
@@ -129,6 +59,8 @@ End
 		  // We'll create an inspector that approximates the Xojo IDE inspector for a Window.
 		  
 		  Const CAPTION_WIDTH = 100
+		  
+		  RegisterForNotifications
 		  
 		  // ===================
 		  // FRAME SECTION
@@ -165,6 +97,29 @@ End
 		  
 		End Function
 	#tag EndMenuHandler
+
+
+	#tag Method, Flags = &h0
+		Sub NotificationReceived(n As XUINotification)
+		  /// Part of the XUINotificationListener interface.
+		  
+		  Select Case n.Key
+		  Case XUIInspector.NOTIFICATION_ITEM_CHANGED
+		    // One of the items in the inspector has changed.
+		    Var item As XUIInspectorItem = XUIInspectorItem(n.Sender)
+		    System.DebugLog("Notification from " + item.ID + ": " + n.Data.StringValue)
+		  End Select
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52656769737465727320746869732077696E646F7720666F722064657369726564206E6F74696669636174696F6E732E
+		Private Sub RegisterForNotifications()
+		  /// Registers this window for desired notifications.
+		  
+		  Self.ListenForKey(XUIInspector.NOTIFICATION_ITEM_CHANGED)
+		  
+		End Sub
+	#tag EndMethod
 
 
 #tag EndWindowCode

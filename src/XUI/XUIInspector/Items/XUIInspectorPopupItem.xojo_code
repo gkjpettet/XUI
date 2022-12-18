@@ -235,8 +235,8 @@ Implements XUIInspectorItem
 		  // Update the currently selected item.
 		  If index >= 0 And index <= mItems.LastIndex Then
 		    mSelectedIndex = index
-		    // Notify a change occurred passing in the new index.
-		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, index)
+		    // Notify a change occurred passing in the new value.
+		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, mItems(index))
 		  Else
 		    mSelectedIndex = -1
 		  End If

@@ -701,6 +701,14 @@ Protected Class XUIInspectorTextFieldRenderer
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 53656C6563742074686520656E7469726520636F6E74656E7473206F66207468652074657874206669656C642E
+		Sub SelectAll()
+		  /// Select the entire contents of the text field.
+		  
+		  mCurrentSelection = New XUIInspectorTextSelection(0, 0, mCharacters.Count)
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E73207468652063757272656E746C792073656C65637465642074657874206F72202222206966207468657265206973206E6F2073656C656374696F6E2E
 		Function SelectedText() As String
 		  /// Returns the currently selected text or "" if there is no selection.

@@ -102,6 +102,15 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  Case XUIInspector.CmdMoveDownAndModifySelection
 		    mTextField.MoveDownAndModifySelection
 		    
+		    // =========================================
+		    // OTHER
+		    // =========================================
+		  Case XUIInspector.CmdInsertNewline
+		    // The return key has been pressed.
+		    mTextField.SelectAll
+		    mContentsWhenActivated = mTextField.Contents
+		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, mTextField.Contents)
+		    
 		  End Select
 		End Sub
 	#tag EndMethod
@@ -146,6 +155,13 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  HasFocus = False
 		  mTextField.ClearSelection
 		  Owner.MouseCursor = System.Cursors.StandardPointer
+		  
+		  // Has the contents changed?
+		  If Not mContentsWhenActivated.CompareCase(mTextField.Contents) Then
+		    mContentsWhenActivated = mTextField.Contents
+		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, mTextField.Contents)
+		  End If
+		  
 		End Sub
 	#tag EndMethod
 
@@ -391,6 +407,10 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 
 	#tag Property, Flags = &h21, Description = 5468652063617074696F6E20746F20646973706C6179206E65787420746F207468652074657874206669656C642E
 		Private mCaption As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520636F6E74656E7473206F66207468652074657874206669656C64207768656E206C617374206163746976617465642E
+		Private mContentsWhenActivated As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5573656420746F206964656E746966792074686973206974656D20696E206E6F74696669636174696F6E732E20596F752073686F756C6420656E7375726520697420697320756E697175652077697468696E2074686520696E73706563746F722E
