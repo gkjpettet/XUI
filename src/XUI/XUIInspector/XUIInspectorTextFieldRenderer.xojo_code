@@ -42,10 +42,10 @@ Protected Class XUIInspectorTextFieldRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(owner As XUIInspector, placeholder As String = "")
+		Sub Constructor(owner As XUIInspector, placeholder As String = "", caption As String = "")
 		  Self.Owner = owner
 		  Self.Placeholder = placeholder
-		  
+		  Self.Caption = caption
 		End Sub
 	#tag EndMethod
 
@@ -782,6 +782,10 @@ Protected Class XUIInspectorTextFieldRenderer
 		
 	#tag EndNote
 
+
+	#tag Property, Flags = &h0, Description = 4F7074696F6E616C2063617074696F6E20746F20646973706C61792077697468696E207468652074657874206669656C642061742074686520696E6E6572206C65667420656467652E
+		Caption As String
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063757272656E7420636172657420706F736974696F6E2E20603060206973206265666F726520746865206669727374206368617261637465722E
 		#tag Getter
