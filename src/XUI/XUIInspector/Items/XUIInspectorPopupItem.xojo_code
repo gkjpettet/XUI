@@ -21,8 +21,11 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E67206120706F707570206D656E7520616E6420612063617074696F6E2E20606974656D73282960206172652074686520706F707570206D656E75206974656D732E
 		Sub Constructor(ID As String, caption As String, captionWidth As Integer, items() As String)
+		  /// Constructs a new item containing a popup menu and a caption.
+		  /// `items()` are the popup menu items.
+		  
 		  mID = ID
 		  Self.Caption = caption
 		  Self.CaptionWidth = captionWidth
@@ -324,7 +327,7 @@ Implements XUIInspectorItem
 		CaptionWidth As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686973206974656D2E
 		Private mBounds As Rect
 	#tag EndProperty
 

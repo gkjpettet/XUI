@@ -340,8 +340,10 @@ Inherits NSScrollViewCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E657720696E73706563746F7220636F6E74726F6C2E
 		Sub Constructor()
+		  /// Constructs a new inspector control.
+		  
 		  Super.Constructor
 		  
 		  // Start with the default style.
@@ -487,8 +489,10 @@ Inherits NSScrollViewCanvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 52656275696C64732074686520696E7465726E616C207069637475726520746861742069732072656E646572656420746F2074686520696E73706563746F72277320677261706869637320636F6E746578742E
 		Private Sub RebuildBackBuffer()
+		  /// Rebuilds the internal picture that is rendered to the inspector's graphics context.
+		  
 		  If Self.Window = Nil Then
 		    Return
 		  Else
@@ -733,7 +737,7 @@ Inherits NSScrollViewCanvas
 		ItemWithFocus As XUIInspectorItem
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686520696E7465726E616C207069637475726520746861742069732072656E646572656420746F2074686520696E73706563746F7227732063616E7661732E
 		Private mBackBuffer As Picture
 	#tag EndProperty
 
@@ -745,19 +749,19 @@ Inherits NSScrollViewCanvas
 		Private mCaretBlinkerTimer As Timer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 547275652069662074686520696E73706563746F722073686F756C642064726177206120626F74746F6D20626F726465722E
 		Private mHasBottomBorder As Boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 547275652069662074686520696E73706563746F722073686F756C6420647261772061206C65667420626F726465722E
 		Private mHasLeftBorder As Boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 547275652069662074686520696E73706563746F722073686F756C642064726177206120726967687420626F726465722E
 		Private mHasRightBorder As Boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 547275652069662074686520696E73706563746F722073686F756C642064726177206120746F7020626F726465722E
 		Private mHasTopBorder As Boolean
 	#tag EndProperty
 
@@ -817,7 +821,7 @@ Inherits NSScrollViewCanvas
 	#tag Constant, Name = CONTROL_BORDER_PADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Public, Description = 546865206E75696D626572206F6620706978656C7320746F20706164206265747765656E206120636F6E74726F6C20616E642074686520696E73706563746F72277320626F726465722E
 	#tag EndConstant
 
-	#tag Constant, Name = NOTIFICATION_ITEM_CHANGED, Type = String, Dynamic = False, Default = \"Inspector.ItemChanged", Scope = Public
+	#tag Constant, Name = NOTIFICATION_ITEM_CHANGED, Type = String, Dynamic = False, Default = \"Inspector.ItemChanged", Scope = Public, Description = 416E206974656D20686173206368616E67656420696E20736F6D657761792E
 	#tag EndConstant
 
 	#tag Constant, Name = VSCROLL_SENSITIVITY, Type = Double, Dynamic = False, Default = \"2.5", Scope = Private, Description = 486967686572206E756D626572203D206D6F7265206C696E6573207363726F6C6C6564207768656E20717569636B6C79207363726F6C6C696E6720766572746963616C6C792E2056616C756573206265747765656E2031202D203320776F726B2077656C6C2E

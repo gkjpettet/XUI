@@ -21,8 +21,11 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D207769746820616E206564697461626C652074657874206669656C642E205468652074657874206669656C642063616E20686176652061206F7074696F6E616C20706C616365686F6C64657220746578742E
 		Sub Constructor(id As String, caption As String, captionWidth As Integer, placeHolder As String = "")
+		  /// Constructs a new item with an editable text field.
+		  /// The text field can have a optional placeholder text.
+		  
 		  mID = id
 		  Self.Caption = caption
 		  Self.CaptionWidth = captionWidth
@@ -428,7 +431,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		Private HasFocus As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686973206974656D2E
 		Private mBounds As Rect
 	#tag EndProperty
 

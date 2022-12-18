@@ -1,7 +1,13 @@
 #tag Class
 Protected Class XUIInspectorItemPopupMenu
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E657720706F707570206D656E7520636F6E7461696E696E6720606974656D73602077697468206073656C6563746564496E646578602073656C65637465642E2060616E63686F725860207370656369666965732077686572652074686520706F7075702073686F756C6420626520616E63686F72656420686F72697A6F6E74616C6C7920616E642060616E63686F7253696465602073706563696669657320776865746865722074686520616E63686F72206170706C69657320746F20746865206C656674206F722072696768742073696465206F662074686520706F707570206D656E752E2054686520696E73706563746F7220756C74696D6174656C7920646563696465732077686572652074686520706F70757020697320706C616365642062757420796F752063616E20696E64696361746520612070726566657272656420746F7020616E6420626F74746F6D2060596020636F6F7264696E6174652E
 		Sub Constructor(owner As XUIInspectorItem, items() As String, selectedIndex As Integer, anchorX As Double, anchorSide As XUIInspectorItemPopupMenu.Anchors, preferredTopY As Double, preferredBottomY As Double)
+		  /// Constructs a new popup menu containing `items` with `selectedIndex` selected.
+		  /// `anchorX` specifies where the popup should be anchored horizontally and `anchorSide` specifies
+		  /// whether the anchor applies to the left or right side of the popup menu.
+		  /// The inspector ultimately decides where the popup is placed but you can indicate a preferred top 
+		  /// and bottom `Y` coordinate.
+		  
 		  Self.Owner = owner
 		  Self.Items = items.Clone
 		  Self.SelectedIndex = SelectedIndex
@@ -305,7 +311,11 @@ Protected Class XUIInspectorItemPopupMenu
 			Group="Behavior"
 			InitialValue="XUIInspectorItemPopupMenu.Anchors.Left"
 			Type="XUIInspectorItemPopupMenu.Anchors"
-			EditorType=""
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Left"
+				"1 - Right"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

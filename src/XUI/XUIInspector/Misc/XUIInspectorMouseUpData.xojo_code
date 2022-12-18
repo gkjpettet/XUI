@@ -1,13 +1,17 @@
 #tag Class
 Protected Class XUIInspectorMouseUpData
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577204D6F75736555704461746120696E7374616E63652073706563696679696E67207768657468657220612076697375616C206368616E676520686173206F6363757265642E
 		Sub Constructor(visualChange As Boolean)
+		  /// Constructs a new MouseUpData instance specifying whether a visual change has occured.
+		  
 		  Self.VisualChange = visualChange
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577204D6F75736555704461746120696E7374616E63652073706563696679696E67207768657468657220612076697375616C206368616E676520686173206F63637572656420616E642077697468206120706F707570206D656E752E
 		Sub Constructor(visualChange As Boolean, popupMenu As XUIInspectorItemPopupMenu)
+		  /// Constructs a new MouseUpData instance specifying whether a visual change has occured and with a popup menu.
+		  
 		  Self.VisualChange = visualChange
 		  Self.PopupMenu = popupMenu
 		End Sub

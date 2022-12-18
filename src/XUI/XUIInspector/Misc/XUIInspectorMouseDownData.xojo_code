@@ -1,7 +1,9 @@
 #tag Class
 Protected Class XUIInspectorMouseDownData
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E657720604D6F757365446F776E446174616020696E7374616E6365207769746820616E206F7074696F6E616C20706F707570206D656E752E
 		Sub Constructor(popupMenu As XUIInspectorItemPopupMenu = Nil)
+		  /// Constructs a new `MouseDownData` instance with an optional popup menu.
+		  
 		  Self.PopupMenu = popupMenu
 		End Sub
 	#tag EndMethod

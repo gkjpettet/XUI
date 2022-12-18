@@ -1,8 +1,8 @@
 #tag Class
 Protected Class XUIInspectorStyle
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 496E697469616C69736520616C6C20436F6C6F7247726F75707320746F2070726576656E74204E696C206F626A65637420657863657074696F6E7320696E20737562636C6173736573207468617420646F6E277420696E697469616C697365207468656D2E
 		Sub Constructor()
-		  // Initialise all ColorGroups to prevent Nil object exceptions in subclasses that don't initialise them.
+		  /// Initialise all ColorGroups to prevent Nil object exceptions in subclasses that don't initialise them.
 		  
 		  AccentColor = New ColorGroup(Color.Black, Color.Black)
 		  BackgroundColor = New ColorGroup(Color.Black, Color.Black)
@@ -335,6 +335,22 @@ Protected Class XUIInspectorStyle
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SwitchColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TextFieldCaptionBackgroundColor"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="ColorGroup"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TextFieldCaptionTextColor"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

@@ -21,8 +21,10 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E6720612066756C6C20776964746820627574746F6E2E
 		Sub Constructor(id As String, buttonCaption As String)
+		  /// Constructs a new item containing a full width button.
+		  
 		  mID = id
 		  Self.Caption = buttonCaption
 		  
@@ -263,7 +265,7 @@ Implements XUIInspectorItem
 		Caption As String
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686973206974656D2E
 		Private mBounds As Rect
 	#tag EndProperty
 

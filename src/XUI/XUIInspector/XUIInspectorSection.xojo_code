@@ -21,8 +21,10 @@ Protected Class XUIInspectorSection
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E65772073656374696F6E2E
 		Sub Constructor(name As String, collapsible As Boolean, expanded As Boolean = True)
+		  /// Constructs a new section.
+		  
 		  Self.Name = name
 		  Self.Collapsible = collapsible
 		  Self.Expanded = expanded
@@ -346,10 +348,10 @@ Protected Class XUIInspectorSection
 	#tag Constant, Name = DOWN_DISCLOSURE_OFFSET_FROM_BOTTOM, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C732074686520626F74746F6D206F662074686520646F776E20646973636C6F7375726520776964676574206973206F66667365742066726F6D2074686520626F74746F6D2065646765206F66207468652073656374696F6E206865616465722E
 	#tag EndConstant
 
-	#tag Constant, Name = HEADER_HEIGHT, Type = Double, Dynamic = False, Default = \"26", Scope = Private
+	#tag Constant, Name = HEADER_HEIGHT, Type = Double, Dynamic = False, Default = \"26", Scope = Private, Description = 54686520686569676874206F6620612073656374696F6E2773206865616465722E
 	#tag EndConstant
 
-	#tag Constant, Name = HEADER_HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private
+	#tag Constant, Name = HEADER_HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 54686520686F72697A6F6E74616C2070616464696E672077697468696E20612073656374696F6E2773206865616465722E
 	#tag EndConstant
 
 

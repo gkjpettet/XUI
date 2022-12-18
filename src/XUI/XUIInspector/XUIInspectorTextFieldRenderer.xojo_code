@@ -41,8 +41,10 @@ Protected Class XUIInspectorTextFieldRenderer
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E657720696E73706563746F722074657874206669656C642072656E64657265722E
 		Sub Constructor(owner As XUIInspector, placeholder As String = "", caption As String = "")
+		  /// Constructs a new inspector text field renderer.
+		  
 		  Self.Owner = owner
 		  Self.Placeholder = placeholder
 		  Self.Caption = caption
@@ -1006,6 +1008,14 @@ Protected Class XUIInspectorTextFieldRenderer
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Caption"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

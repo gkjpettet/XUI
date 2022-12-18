@@ -17,8 +17,10 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E672061207377697463682077686963682063616E20626520746F67676C6564206F6E20616E64206F66662E206076616C7565602069732074686520696E697469616C20737769746368207374617465202860547275656020697320226F6E22292E
 		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As Boolean)
+		  /// Constructs a new item containing a switch which can be toggled on and off. `value` is the initial switch state (`True` is "on").
+		  
 		  mID = ID
 		  Self.Caption = caption
 		  Self.CaptionWidth = captionWidth
@@ -274,7 +276,7 @@ Implements XUIInspectorItem
 		CaptionWidth As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686973206974656D2E
 		Private mBounds As Rect
 	#tag EndProperty
 

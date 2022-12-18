@@ -17,8 +17,10 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E657720636865636B626F78206974656D2E206063617074696F6E576964746860206973207468652064657369726564207769647468206F66207468652063617074696F6E20616E64206076616C7565602069732074686520696E697469616C20636865636B626F782073746174652E
 		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As Boolean)
+		  /// Constructs a new checkbox item. `captionWidth` is the desired width of the caption and `value` is the initial checkbox state.
+		  
 		  mID = ID
 		  Self.Caption = caption
 		  Self.CaptionWidth = captionWidth
@@ -269,7 +271,7 @@ Implements XUIInspectorItem
 		CaptionWidth As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686973206974656D2E
 		Private mBounds As Rect
 	#tag EndProperty
 

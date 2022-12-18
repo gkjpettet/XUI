@@ -1,7 +1,9 @@
 #tag Class
 Protected Class XUIInspectorMouseMoveData
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E657720604D6F7573654D6F7665446174616020696E7374616E6365206F776E656420627920606F776E65726020616E642073706563696679696E6720696620612076697375616C206368616E6765206F63637572726564206F72206E6F742E
 		Sub Constructor(owner As XUIInspectorItem, visualChange As Boolean)
+		  /// Constructs a new `MouseMoveData` instance owned by `owner` and specifying if a visual change occurred or not.
+		  
 		  Self.Owner = owner
 		  Self.VisualChange = visualChange
 		End Sub
