@@ -270,6 +270,7 @@ Class=XUIInspectorSwitchItem;XUI/XUIInspector/Items/XUIInspectorSwitchItem.xojo_
 Class=XUIInspectorPopupItem;XUI/XUIInspector/Items/XUIInspectorPopupItem.xojo_code;&h0000000037381FFF;&h000000002CB847FF;false
 Class=XUIInspectorFullWidthButtonItem;XUI/XUIInspector/Items/XUIInspectorFullWidthButtonItem.xojo_code;&h00000000455DD7FF;&h000000002CB847FF;false
 Class=XUIInspectorTextFieldItem;XUI/XUIInspector/Items/XUIInspectorTextFieldItem.xojo_code;&h000000002EB16FFF;&h000000002CB847FF;false
+Class=XUIInspectorDualTextFieldItem;XUI/XUIInspector/Items/XUIInspectorDualTextFieldItem.xojo_code;&h0000000054F037FF;&h000000002CB847FF;false
 Folder=Misc;XUI/XUIInspector/Misc;&h0000000071DEAFFF;&h000000007F4C67FF;false
 Class=XUIInspectorMouseUpData;XUI/XUIInspector/Misc/XUIInspectorMouseUpData.xojo_code;&h000000006D23FFFF;&h0000000071DEAFFF;false
 Class=XUIInspectorMouseDownData;XUI/XUIInspector/Misc/XUIInspectorMouseDownData.xojo_code;&h0000000024031FFF;&h0000000071DEAFFF;false

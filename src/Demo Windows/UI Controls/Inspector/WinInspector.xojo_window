@@ -85,6 +85,10 @@ End
 		  
 		  // Has background colour.
 		  behaviourSection.AddItem(New XUIInspectorSwitchItem("behaviour.hasBackground", "Has Background", CAPTION_WIDTH, False))
+		  
+		  // Dual text field.
+		  behaviourSection.AddItem(New XUIInspectorDualTextFieldItem("behaviour.dual", "Dual Control", CAPTION_WIDTH, "X", "Y", "X placeholder", "Y placeholder"))
+		  
 		End Sub
 	#tag EndEvent
 
@@ -99,6 +103,28 @@ End
 	#tag EndMenuHandler
 
 
+	#tag Method, Flags = &h21, Description = 436F6E76656E69656E6365206D6574686F6420666F7220646973706C6179696E672074686520636F6E74656E7473206F6620612064696374696F6E617279206173206120737472696E672E2055736564206F6E6C7920666F722064656D6F20707572706F73657320746F2073696D706C69667920646973706C6179696E6720746865206E6F74696669636174696F6E207061796C6F61642066726F6D206974656D7320746861742073656E6420612064696374696F6E6172792E
+		Private Function DictionaryToString(d As Dictionary) As String
+		  /// Convenience method for displaying the contents of a dictionary as a string.
+		  /// Used only for demo purposes to simplify displaying the notification payload from items
+		  /// that send a dictionary.
+		  
+		  #Pragma Warning "TODO: Temporary - this can be discarded when finished debugging"
+		  
+		  If d = Nil Then Return ""
+		  
+		  Var s() As String
+		  For Each entry As DictionaryEntry In d
+		    Var value As String = entry.Value.StringValue
+		    If value.Length = 0 Then value = """"""
+		    s.Add(entry.Key.StringValue + " : " + value)
+		  Next entry
+		  
+		  Return String.FromArray(s, ", ")
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub NotificationReceived(n As XUINotification)
 		  /// Part of the XUINotificationListener interface.
@@ -107,7 +133,11 @@ End
 		  Case XUIInspector.NOTIFICATION_ITEM_CHANGED
 		    // One of the items in the inspector has changed.
 		    Var item As XUIInspectorItem = XUIInspectorItem(n.Sender)
-		    System.DebugLog("Notification from " + item.ID + ": " + n.Data.StringValue)
+		    If item IsA XUIInspectorDualTextFieldItem Then
+		      System.DebugLog("Notification from " + item.ID + ": " + DictionaryToString(n.Data))
+		    Else
+		      System.DebugLog("Notification from " + item.ID + ": " + n.Data.StringValue)
+		    End If
 		  End Select
 		End Sub
 	#tag EndMethod

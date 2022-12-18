@@ -716,7 +716,7 @@ Inherits NSScrollViewCanvas
 		#tag EndGetter
 		#tag Setter
 			Set
-			  If mItemWithFocus <> Nil Then
+			  If mItemWithFocus <> Nil And mItemWithFocus <> value Then
 			    mItemWithFocus.LostFocus
 			  End If
 			  
