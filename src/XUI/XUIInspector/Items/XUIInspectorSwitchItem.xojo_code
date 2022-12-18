@@ -250,6 +250,12 @@ Implements XUIInspectorItem
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A item containing an on-off switch and caption.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C6179206265736964657320746865207377697463682E
 		#tag Getter
 			Get

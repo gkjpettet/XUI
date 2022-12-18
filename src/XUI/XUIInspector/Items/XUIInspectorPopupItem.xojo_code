@@ -300,6 +300,12 @@ Implements XUIInspectorItem
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		An item containing a popup menu and caption.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636865636B626F782E
 		#tag Getter
 			Get

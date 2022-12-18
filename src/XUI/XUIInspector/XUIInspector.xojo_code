@@ -644,6 +644,12 @@ Inherits NSScrollViewCanvas
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		An inspector control that is capable of displaying multiple items, separated into sections. Items are very customisable, ranging from text fields to checkboxes.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E2074686520696E73706563746F722077696C6C20766572746963616C6C79207363726F6C6C2066617374657220696620746865206D6F75736520776865656C206973206D6F766564206661737465722E
 		AllowInertialScrolling As Boolean = True
 	#tag EndProperty

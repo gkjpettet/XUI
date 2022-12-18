@@ -1632,6 +1632,12 @@ End
 	#tag EndHook
 
 
+	#tag Note, Name = About
+		A beautiful colour picker tool.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063757272656E746C792073656C656374656420636F6C6F75722E
 		#tag Getter
 			Get

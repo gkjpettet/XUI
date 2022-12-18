@@ -245,6 +245,12 @@ Implements XUIInspectorItem
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Used to display a checkbox with a caption in the inspector.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636865636B626F782E
 		#tag Getter
 			Get
@@ -367,6 +373,14 @@ Implements XUIInspectorItem
 			Group="Behavior"
 			InitialValue=""
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CaptionWidth"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

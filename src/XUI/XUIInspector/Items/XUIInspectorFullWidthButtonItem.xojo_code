@@ -243,6 +243,12 @@ Implements XUIInspectorItem
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Used to display a full width button in the inspector.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C617920696E2074686520627574746F6E2E
 		#tag Getter
 			Get

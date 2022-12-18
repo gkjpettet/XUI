@@ -140,6 +140,12 @@ Protected Class XUIInspectorItemPopupMenu
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a popup menu in the inspector.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 57686963682073696465206F662074686520706F707570206D656E7520697320616E63686F7265642E
 		Anchor As XUIInspectorItemPopupMenu.Anchors = XUIInspectorItemPopupMenu.Anchors.Left
 	#tag EndProperty
@@ -291,6 +297,14 @@ Protected Class XUIInspectorItemPopupMenu
 			Group="Behavior"
 			InitialValue=""
 			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Anchor"
+			Visible=false
+			Group="Behavior"
+			InitialValue="XUIInspectorItemPopupMenu.Anchors.Left"
+			Type="XUIInspectorItemPopupMenu.Anchors"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

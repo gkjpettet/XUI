@@ -239,6 +239,12 @@ Protected Class XUIInspectorSection
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents a section in the inspector.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 54686520626F756E6473206F6620746869732073656374696F6E2077697468696E2074686520696E73706563746F722E
 		Bounds As Rect
 	#tag EndProperty

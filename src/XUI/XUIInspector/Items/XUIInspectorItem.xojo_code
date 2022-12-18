@@ -85,6 +85,12 @@ Protected Interface XUIInspectorItem
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		A class interface that all inspector items must implement.
+		
+	#tag EndNote
+
+
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

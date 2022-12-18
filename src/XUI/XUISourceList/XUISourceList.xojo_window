@@ -529,6 +529,12 @@ End
 	#tag EndHook
 
 
+	#tag Note, Name = About
+		A powerful control that is frequently used as a navigator control. It can replicate the sidebar functionality seen in macOS Finder and the Windows File Explorer or even the Xojo IDE navigator.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 496620605472756560207468656E206D756C7469706C65206974656D2073656C656374696F6E206973207065726D69747465642E
 		#tag Getter
 			Get

@@ -400,6 +400,12 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		An item containing an editable text field beside a caption.
+		
+	#tag EndNote
+
+
 	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C6179206E65787420746F207468652074657874206669656C642E
 		#tag Getter
 			Get

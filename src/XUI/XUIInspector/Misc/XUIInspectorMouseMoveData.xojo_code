@@ -8,6 +8,12 @@ Protected Class XUIInspectorMouseMoveData
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Represents data passed between an inspector item and the inspector after a `MouseMove` event.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F20746865206974656D2061666665637465642062792074686973206D6F757365206D6F76652E
 		Private mOwner As WeakRef
 	#tag EndProperty
