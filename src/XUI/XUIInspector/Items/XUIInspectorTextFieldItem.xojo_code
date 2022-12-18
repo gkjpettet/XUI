@@ -346,9 +346,11 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  ///
+		  /// ```nohighlight
 		  /// |--------------------------|
 		  /// | CAPTION   [ TEXT FIELD ] |
 		  /// |--------------------------|
+		  /// ```
 		  
 		  g.SaveState
 		  

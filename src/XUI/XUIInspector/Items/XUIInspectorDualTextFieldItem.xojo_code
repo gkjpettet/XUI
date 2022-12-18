@@ -423,17 +423,20 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 546865206974656D2073686F756C642072656E64657220697473656C6620746F207468652070617373656420677261706869637320636F6E746578742061742074686520737065636966696564206C6F636174696F6E2E2052657475726E732074686520706F736974696F6E206F6620746865206974656D277320626F74746F6D20656467652E
 		Function Render(g As Graphics, x As Double, y As Double, width As Double, style As XUIInspectorStyle) As Double
 		  /// The item should render itself to the passed graphics context at the specified location.
 		  /// Returns the position of the item's bottom edge.
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  ///
+		  /// ```nohighlight
 		  /// |----------------------------|
 		  /// | CAPTION   T [ TEXT FIELD ] |
 		  /// |           B [ TEXT FIELD ] |
 		  /// |----------------------------|
+		  ///
+		  /// ```nohighlight
 		  ///
 		  /// T: Top caption.
 		  /// B: Bottom caption.

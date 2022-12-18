@@ -254,9 +254,11 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  ///
+		  /// ```nohighlight
 		  /// |-------------------------|
 		  /// | CAPTION      [ OPTION ] |
 		  /// |-------------------------|
+		  /// ```
 		  
 		  g.SaveState
 		  
