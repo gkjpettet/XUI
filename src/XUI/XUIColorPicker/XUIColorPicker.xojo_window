@@ -1936,7 +1936,10 @@ End
 		    Swatches.AddColor(c, False)
 		  Next c
 		  
-		  Swatches.SelectedIndex = 0
+		  // Select the centre dot.
+		  Swatches.SelectedIndex = (dot.Palette.Count / 2)
+		  
+		  CurrentColor = Swatches.SelectedColor
 		  
 		End Sub
 	#tag EndEvent
