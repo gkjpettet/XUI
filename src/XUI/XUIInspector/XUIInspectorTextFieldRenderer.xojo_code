@@ -179,6 +179,14 @@ Protected Class XUIInspectorTextFieldRenderer
 		    Return
 		  End If
 		  
+		  // ============================================================================
+		  // Double-clicking on a non-alphanumeric character highlights the character.
+		  // ============================================================================
+		  If Not currentChar.IsLetterOrDigit Then
+		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, CaretPosition, CaretPosition + 1)
+		    Return
+		  End If
+		  
 		  // ================================================================
 		  // Double-clicking within an alphanumeric word selects the word.
 		  // ================================================================
