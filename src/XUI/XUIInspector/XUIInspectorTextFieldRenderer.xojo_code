@@ -732,7 +732,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  // Clear the current selection and mark for redrawing.
 		  mCurrentSelection = Nil
 		  
-		  If mCharacters.Count = 0 Then
+		  If mCharacters.Count = 0 Or CaretPosition > mCharacters.LastIndex Then
 		    Return
 		  End If
 		  
