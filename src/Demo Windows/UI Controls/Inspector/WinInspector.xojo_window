@@ -36,6 +36,9 @@ Begin DemoWindow WinInspector Implements XUINotificationListener
       Height          =   576
       Index           =   -2147483648
       InitialParent   =   ""
+      LastClickWasContextual=   False
+      LastMouseDownX  =   0
+      LastMouseDownY  =   0
       Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
@@ -171,7 +174,7 @@ End
 		Sub Opening()
 		  // Create a demo inspector.
 		  
-		  Const CAPTION_WIDTH = 100
+		  Const CAPTION_WIDTH = 120
 		  
 		  // We want this window to be notified of changes that occur in the inspector.
 		  RegisterForNotifications
@@ -199,6 +202,9 @@ End
 		  
 		  // Has background colour.
 		  miscSection.AddItem(New XUIInspectorSwitchItem("misc.hasBackground", "Has Background", CAPTION_WIDTH, False))
+		  
+		  // Background colour.
+		  miscSection.AddItem(New XUIInspectorColorItem("misc.backgroundColor", "Background Colour", CAPTION_WIDTH, Color.Purple))
 		  
 		  // Position dual text field.
 		  miscSection.AddItem(New XUIInspectorDualTextFieldItem("misc.position", "Position", CAPTION_WIDTH, "X", "Y", "X placeholder", "Y placeholder"))

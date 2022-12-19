@@ -35,6 +35,8 @@ Implements XUIInspectorItem
 		  /// Draws the color to the passed graphics context at the precomputed x, y position 
 		  /// of width `w` and height `h` and updates its bounds.
 		  
+		  #Pragma Unused style
+		  
 		  g.SaveState
 		  
 		  // Value.
@@ -79,7 +81,8 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the `XUIInspectorItem` interface.
 		  
-		  #Pragma Warning "TODO: Dismiss the colour picker if visible?"
+		  // Nothing to do.
+		  
 		End Sub
 	#tag EndMethod
 
@@ -89,6 +92,8 @@ Implements XUIInspectorItem
 		  /// x, y are the absolute coordinates relative to the inspector (adjusted for scrolling).
 		  /// Returns a MouseDownData instance instructing the inspector how to handle the event
 		  /// or Nil if the click didn't happen in this item.
+		  
+		  #Pragma Unused clickType
 		  
 		  If mBounds <> Nil And Not mBounds.Contains(x, y) THen
 		    // The mouse down did not occur in this item.
@@ -143,7 +148,26 @@ Implements XUIInspectorItem
 		  // This item only responds to single clicks.
 		  If clickType <> XUI.ClickTypes.SingleClick Then Return Nil
 		  
-		  #Pragma Warning "TODO"
+		  If mBounds <> Nil And Not mBounds.Contains(x, y) Then
+		    // Not over this item.
+		    Return Nil
+		  End If
+		  
+		  // The item should always have a valid inspector but we'll check.
+		  If Owner = Nil Or Owner.Window = Nil Then Return Nil
+		  
+		  If mSwatchBounds <> Nil And mSwatchBounds.Contains(x, y) Then
+		    If Not mColorPickerVisible Then
+		      Var cp As New XUIColorPicker(Self.Value)
+		      AddHandler cp.ColorChanged, AddressOf PickerColorChanged
+		      AddHandler cp.Closing, AddressOf PickerClosing
+		      mColorPickerVisible = True
+		      cp.ShowModal(Owner.Window)
+		    End If
+		  End If
+		  
+		  Return New XUIInspectorMouseUpData(True)
+		  
 		End Function
 	#tag EndMethod
 
@@ -170,6 +194,33 @@ Implements XUIInspectorItem
 		    mOwner = New WeakRef(inspector)
 		  End If
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub PickerClosing(picker As XUIColorPicker)
+		  /// Delegate called when this swatch's color picker is closing.
+		  
+		  #Pragma Unused picker
+		  
+		  mColorPickerVisible = False
+		  If Owner <> Nil Then Owner.RedrawImmediately
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 44656C656761746520746861742069732063616C6C6564207768656E207468697320737761746368277320636F6C6F72207069636B6572277320636F6C6F7572206973206368616E6765642E
+		Private Sub PickerColorChanged(picker As XUIColorPicker, newColor As Color)
+		  /// Delegate that is called when this swatch's color picker's colour is changed.
+		  
+		  #Pragma Unused picker
+		  
+		  // Nothing to do if the colour has not changed.
+		  If Self.Value = newColor Then Return
+		  
+		  Self.Value = newColor
+		  
+		  // Notify a change occurred.
+		  XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, Value)
 		End Sub
 	#tag EndMethod
 
@@ -287,6 +338,10 @@ Implements XUIInspectorItem
 
 	#tag Property, Flags = &h21, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636F6C6F7572207377617463682E
 		Private mCaption As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 547275652069662074686520636F6C6F72207069636B65722069732076697369626C652E
+		Private mColorPickerVisible As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5573656420746F206964656E746966792074686973206974656D20696E206E6F74696669636174696F6E732E20596F752073686F756C6420656E7375726520697420697320756E697175652077697468696E2074686520696E73706563746F722E
