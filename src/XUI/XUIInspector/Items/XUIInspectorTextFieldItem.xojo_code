@@ -265,12 +265,19 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    // Clicked the text field.
 		    HasFocus = True
 		    mTextField.ClearSelection
+		    
+		    // Get the local X, Y coordinates.
+		    Var localX As Integer = x - mTextFieldBounds.Left
+		    Var localY As Integer = y - mTextFieldBounds.Top
+		    
 		    If clickType = XUi.ClickTypes.DoubleClick Then
-		      mTextField.DoubleClick(x - mTextFieldBounds.Left, y - mTextFieldBounds.Top)
+		      mTextField.DoubleClick(localX, localY)
 		    ElseIf clickType = XUI.ClickTypes.SingleClick Then
-		      mTextField.UpdateCaretPosition(x - mTextFieldBounds.Left, y - mTextFieldBounds.Top)
+		      mTextField.UpdateCaretPosition(localX, localY)
+		    ElseIf clickType = XUI.ClickTypes.TripleClick Then
+		      mTextField.TripleClick(localX, localY)
 		    Else
-		      // A triple click or right click occurred. At present we don't do anything with these 
+		      // A right click occurred. At present we don't do anything with this 
 		      // but we will signal to the inspector that the click occurred in this item by
 		      // falling through to return a MouseDownData instance.
 		    End If

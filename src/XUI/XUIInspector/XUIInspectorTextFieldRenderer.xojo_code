@@ -893,6 +893,20 @@ Protected Class XUIInspectorTextFieldRenderer
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 48616E646C6573206120747269706C6520636C69636B2061742060782C2079602E
+		Sub TripleClick(x As Integer, y As Integer)
+		  /// Handles a triple click at `x, y`.
+		  
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  
+		  // A triple click selects the entire contents.
+		  mCurrentSelection = New XUIInspectorTextSelection(0, mCharacters.Count, mCharacters.Count)
+		  CaretPosition = mCharacters.Count
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 55706461746573207468652063757272656E7420636172657420706F736974696F6E206261736564206F6E206120636C69636B2061742060782C2079602E
 		Sub UpdateCaretPosition(x As Double, y As Double)
 		  /// Updates the current caret position based on a click at `x, y`.

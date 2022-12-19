@@ -338,12 +338,19 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    LostFocus
 		    TopHasFocus = True
 		    mTopTextField.ClearSelection
+		    
+		    // Get the local X, Y coordinates.
+		    Var localX As Integer = x - mTopTextFieldBounds.Left
+		    Var localY As Integer = y - mTopTextFieldBounds.Top
+		    
 		    If clickType = XUi.ClickTypes.DoubleClick Then
-		      mTopTextField.DoubleClick(x - mTopTextFieldBounds.Left, y - mTopTextFieldBounds.Top)
+		      mTopTextField.DoubleClick(localx, localY)
 		    ElseIf clickType = XUI.ClickTypes.SingleClick Then
-		      mTopTextField.UpdateCaretPosition(x - mTopTextFieldBounds.Left, y - mTopTextFieldBounds.Top)
+		      mTopTextField.UpdateCaretPosition(localX, localY)
+		    ElseIf clickType = XUI.ClickTypes.TripleClick Then
+		      mTopTextField.TripleClick(localX, localY)
 		    Else
-		      // A triple click or right click occurred. At present we don't do anything with these 
+		      // A right click occurred. At present we don't do anything with this 
 		      // but we will signal to the inspector that the click occurred in this item by
 		      // falling through to return a MouseDownData instance.
 		    End If
@@ -353,12 +360,19 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    LostFocus
 		    BottomHasFocus = True
 		    mBottomTextField.ClearSelection
+		    
+		    // Get the local X, Y coordinates.
+		    Var localX As Integer = x - mBottomTextFieldBounds.Left
+		    Var localY As Integer = y - mBottomTextFieldBounds.Top
+		    
 		    If clickType = XUi.ClickTypes.DoubleClick Then
-		      mBottomTextField.DoubleClick(x - mBottomTextFieldBounds.Left, y - mBottomTextFieldBounds.Top)
+		      mBottomTextField.DoubleClick(localX, localY)
 		    ElseIf clickType = XUI.ClickTypes.SingleClick Then
-		      mBottomTextField.UpdateCaretPosition(x - mBottomTextFieldBounds.Left, y - mBottomTextFieldBounds.Top)
+		      mBottomTextField.UpdateCaretPosition(localX, localY)
+		    ElseIf clickType = XUI.ClickTypes.TripleClick Then
+		      mBottomTextField.TripleClick(localX, localY)
 		    Else
-		      // A triple click or right click occurred. At present we don't do anything with these 
+		      // A right click occurred. At present we don't do anything with this 
 		      // but we will signal to the inspector that the click occurred in this item by
 		      // falling through to return a MouseDownData instance.
 		    End If
