@@ -266,7 +266,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    HasFocus = True
 		    mTextField.ClearSelection
 		    If clickType = XUi.ClickTypes.DoubleClick Then
-		      mTextField.SelectWordAtCaret
+		      mTextField.DoubleClick(x - mTextFieldBounds.Left, y - mTextFieldBounds.Top)
 		    ElseIf clickType = XUI.ClickTypes.SingleClick Then
 		      mTextField.UpdateCaretPosition(x - mTextFieldBounds.Left, y - mTextFieldBounds.Top)
 		    Else

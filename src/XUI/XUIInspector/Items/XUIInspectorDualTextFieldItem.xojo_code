@@ -339,7 +339,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    TopHasFocus = True
 		    mTopTextField.ClearSelection
 		    If clickType = XUi.ClickTypes.DoubleClick Then
-		      mTopTextField.SelectWordAtCaret
+		      mTopTextField.DoubleClick(x - mTopTextFieldBounds.Left, y - mTopTextFieldBounds.Top)
 		    ElseIf clickType = XUI.ClickTypes.SingleClick Then
 		      mTopTextField.UpdateCaretPosition(x - mTopTextFieldBounds.Left, y - mTopTextFieldBounds.Top)
 		    Else
@@ -354,7 +354,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		    BottomHasFocus = True
 		    mBottomTextField.ClearSelection
 		    If clickType = XUi.ClickTypes.DoubleClick Then
-		      mBottomTextField.SelectWordAtCaret
+		      mBottomTextField.DoubleClick(x - mBottomTextFieldBounds.Left, y - mBottomTextFieldBounds.Top)
 		    ElseIf clickType = XUI.ClickTypes.SingleClick Then
 		      mBottomTextField.UpdateCaretPosition(x - mBottomTextFieldBounds.Left, y - mBottomTextFieldBounds.Top)
 		    Else

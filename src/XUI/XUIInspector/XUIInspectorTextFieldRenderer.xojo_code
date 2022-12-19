@@ -17,6 +17,19 @@ Protected Class XUIInspectorTextFieldRenderer
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520636172657420696D6D6564696174656C7920696E2066726F6E74206F66207468652063617265742E204D61792072657475726E2022222E
+		Function CharacterAtCaret() As String
+		  /// Returns the caret immediately in front of the caret. May return "".
+		  
+		  If mCharacters.Count = 0 Or CaretPosition = 0 Then
+		    Return ""
+		  Else
+		    Return mCharacters(CaretPosition - 1)
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52657475726E7320746865206368617261637465727320757020746F207468652063617265742E
 		Private Function CharsToCaret() As String
 		  /// Returns the characters up to the caret.
@@ -114,6 +127,63 @@ Protected Class XUIInspectorTextFieldRenderer
 		  
 		  // Clear the selection.
 		  mCurrentSelection = Nil
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 48616E646C65206120646F75626C6520636C69636B2061742060782C2079602E
+		Sub DoubleClick(x As Integer, y As Integer)
+		  /// Handle a double click at `x, y`.
+		  
+		  // First position the caret at the `X` coordinate.
+		  UpdateCaretPosition(x, y)
+		  
+		  If mCharacters.Count = 0 Then Return
+		  
+		  // ==============================================================================
+		  // Double-clicking at the end of the text field highlights the last word.
+		  // ==============================================================================
+		  If CaretPosition = mCharacters.Count Then
+		    Var lastChar As String = mCharacters(mCharacters.LastIndex)
+		    If lastChar = " " Then
+		      CaretPosition = mCharacters.Count
+		      // If the last character is whitespace then select all whitespace at the end of the line.
+		      SelectWhitespaceAroundCaret
+		      Return
+		      
+		    ElseIf Not lastChar.IsLetterOrDigit Then
+		      // The last character is punctuation - just select it.
+		      mCurrentSelection = New XUIInspectorTextSelection(mCharacters.Count, mCharacters.LastIndex, mCharacters.Count)
+		      // Move the caret to the penultimate position in the line.
+		      CaretPosition = mCharacters.LastIndex
+		      Return
+		      
+		    Else
+		      // First move the caret to the end of the line but don't redraw yet.
+		      CaretPosition = mCharacters.Count
+		      // Select the last word.
+		      mCurrentSelection = Nil
+		      MoveWordLeftAndModifySelection
+		      Return
+		    End If
+		  End If
+		  
+		  // Get the character at the caret.
+		  Var currentChar As String = CharacterAtCaret
+		  
+		  // ==================================================================
+		  // Double-clicking on whitespace highlights the run of whitespace.
+		  // ==================================================================
+		  If currentChar = " " Then
+		    SelectWhitespaceAroundCaret
+		    Return
+		  End If
+		  
+		  // ================================================================
+		  // Double-clicking within an alphanumeric word selects the word.
+		  // ================================================================
+		  SelectWordAtCaret
+		  Return
 		  
 		End Sub
 	#tag EndMethod
@@ -723,6 +793,53 @@ Protected Class XUIInspectorTextFieldRenderer
 		  Return Contents.Middle(mCurrentSelection.StartLocation, mCurrentSelection.Length)
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 53656C6563747320616C6C20776869746573706163652061726F756E64207468652063757272656E7420636172657420706F736974696F6E206F6E2074686520636172657427732063757272656E74206C696E652E
+		Sub SelectWhitespaceAroundCaret()
+		  /// Selects all whitespace around the current caret position on the caret's current line.
+		  
+		  // Clear the current selection.
+		  mCurrentSelection = Nil
+		  
+		  If mCharacters.Count = 0 Or CaretPosition > mCharacters.LastIndex Then
+		    Return
+		  End If
+		  
+		  // Find where the whitespace begins on this line.
+		  Var startCol As Integer = CaretPosition
+		  Var iStart As Integer = Min(CaretPosition, mCharacters.LastIndex)
+		  For i As Integer = iStart DownTo 0
+		    If mCharacters(i) <> " " Then
+		      Exit
+		    Else
+		      startCol = i
+		    End If
+		  Next i
+		  
+		  // Find where the whitespace ends.
+		  Var endCol As Integer = startCol + 1
+		  Var iMax As Integer = mCharacters.LastIndex
+		  For i As Integer = CaretPosition To iMax
+		    If mCharacters(i).IsWhiteSpace Then
+		      endCol = i 
+		    Else
+		      Exit
+		    End If
+		  Next i
+		  If CaretPosition = mCharacters.Count Then
+		    endCol = mCharacters.LastIndex + 1
+		  Else
+		    endCol = endCol + 1
+		  End If
+		  
+		  // Select between these positions.
+		  mCurrentSelection = New XUIInspectorTextSelection(startCol, startCol, endCol)
+		  
+		  // Move the caret to the selection's end point.
+		  CaretPosition = mCurrentSelection.EndLocation
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 53656C656374732074686520776F7264207468652063617265742069732077697468696E2E
