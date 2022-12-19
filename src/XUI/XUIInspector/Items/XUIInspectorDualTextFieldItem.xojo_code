@@ -256,7 +256,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function MouseDown(x As Integer, y As Integer) As XUIInspectorMouseDownData
+		Function MouseDown(x As Integer, y As Integer, clickType As XUI.ClickTypes) As XUIInspectorMouseDownData
 		  /// Tells the item that a mouse down event has occurred within its bounds.
 		  /// x, y are the absolute coordinates relative to the inspector (adjusted for scrolling).
 		  /// Returns a MouseDownData instance instructing the inspector how to handle the event
@@ -266,27 +266,14 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  
 		  #Pragma Unused x
 		  #Pragma Unused y
+		  #Pragma Unused clickType
 		  
 		  If mBounds <> Nil And Not mBounds.Contains(x, y) Then
 		    // Didn't click in this item.
 		    Return Nil
+		  Else
+		    Return New XUIInspectorMouseDownData
 		  End If
-		  
-		  If mTopTextFieldBounds <> Nil And mTopTextFieldBounds.Contains(x, y) Then
-		    // Clicked the top text field.
-		    LostFocus
-		    TopHasFocus = True
-		    mTopTextField.UpdateCaretPosition(x - mTopTextFieldBounds.Left, y - mTopTextFieldBounds.Top)
-		    
-		  ElseIf mBottomTextFieldBounds <> Nil And mBottomTextFieldBounds.Contains(x, y) Then
-		    // Clicked the bottom text field.
-		    LostFocus
-		    BottomHasFocus = True
-		    mBottomTextField.UpdateCaretPosition(x - mBottomTextFieldBounds.Left, y - mBottomTextFieldBounds.Top)
-		  End If
-		  
-		  Return New XUIInspectorMouseDownData
-		  
 		End Function
 	#tag EndMethod
 
@@ -332,7 +319,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 54656C6C7320746865206974656D20746861742061206D6F757365207570206576656E7420686173206F636375727265642077697468696E2069747320626F756E64732E20782C20792061726520746865206162736F6C75746520636F6F7264696E617465732072656C617469766520746F2074686520696E73706563746F72202861646A757374656420666F72207363726F6C6C696E67292E2052657475726E732061204D6F75736555704461746120696E7374616E636520696E737472756374696E672074686520696E73706563746F7220686F7720746F2068616E646C6520746865206576656E74206F72204E696C2069662074686520636C69636B206469646E2774206F6363757220696E2074686973206974656D2E
-		Function MouseUp(x As Integer, y As Integer) As XUIInspectorMouseUpData
+		Function MouseUp(x As Integer, y As Integer, clickType As XUI.ClickTypes) As XUIInspectorMouseUpData
 		  /// Tells the item that a mouse up event has occurred within its bounds.
 		  /// x, y are the absolute coordinates relative to the inspector (adjusted for scrolling).
 		  /// Returns a MouseUpData instance instructing the inspector how to handle the event
@@ -341,10 +328,43 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  #Pragma Unused x
 		  #Pragma Unused y
 		  
-		  // Nothing to do here.
-		  Return Nil
+		  If mBounds <> Nil And Not mBounds.Contains(x, y) Then
+		    // Didn't click in this item.
+		    Return Nil
+		  End If
 		  
+		  If mTopTextFieldBounds <> Nil And mTopTextFieldBounds.Contains(x, y) Then
+		    // Clicked the top text field.
+		    LostFocus
+		    TopHasFocus = True
+		    mTopTextField.ClearSelection
+		    If clickType = XUi.ClickTypes.DoubleClick Then
+		      mTopTextField.SelectWordAtCaret
+		    ElseIf clickType = XUI.ClickTypes.SingleClick Then
+		      mTopTextField.UpdateCaretPosition(x - mTopTextFieldBounds.Left, y - mTopTextFieldBounds.Top)
+		    Else
+		      // A triple click or right click occurred. At present we don't do anything with these 
+		      // but we will signal to the inspector that the click occurred in this item by
+		      // falling through to return a MouseDownData instance.
+		    End If
+		    
+		  ElseIf mBottomTextFieldBounds <> Nil And mBottomTextFieldBounds.Contains(x, y) Then
+		    // Clicked the bottom text field.
+		    LostFocus
+		    BottomHasFocus = True
+		    mBottomTextField.ClearSelection
+		    If clickType = XUi.ClickTypes.DoubleClick Then
+		      mBottomTextField.SelectWordAtCaret
+		    ElseIf clickType = XUI.ClickTypes.SingleClick Then
+		      mBottomTextField.UpdateCaretPosition(x - mBottomTextFieldBounds.Left, y - mBottomTextFieldBounds.Top)
+		    Else
+		      // A triple click or right click occurred. At present we don't do anything with these 
+		      // but we will signal to the inspector that the click occurred in this item by
+		      // falling through to return a MouseDownData instance.
+		    End If
+		  End If
 		  
+		  Return New XUIInspectorMouseUpData(True)
 		  
 		End Function
 	#tag EndMethod

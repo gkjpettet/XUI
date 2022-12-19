@@ -50,7 +50,7 @@ Protected Class XUIInspectorSection
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 54656C6C73207468652073656374696F6E20746861742061206D6F75736520646F776E206576656E7420686173206F636375727265642077697468696E2069747320626F756E64732E20782C20792061726520746865206162736F6C75746520636F6F7264696E617465732072656C617469766520746F2074686520696E73706563746F72202861646A757374656420666F72207363726F6C6C696E67292E2052657475726E732061204D6F757365446F776E4461746120696E7374616E636520696E737472756374696E672074686520696E73706563746F7220686F7720746F2068616E646C6520746865206576656E742E
-		Function MouseDown(x As Integer, y As Integer) As XUIInspectorMouseDownData
+		Function MouseDown(x As Integer, y As Integer, clickType As XUI.ClickTypes) As XUIInspectorMouseDownData
 		  /// Tells the section that a mouse down event has occurred within its bounds.
 		  /// x, y are the absolute coordinates relative to the inspector (adjusted for scrolling).
 		  /// Returns a MouseDownData instance instructing the inspector how to handle the event or Nil if the
@@ -76,8 +76,8 @@ Protected Class XUIInspectorSection
 		  // Did the user click on an item?
 		  For Each item As XUIInspectorItem In mItems
 		    If item.Bounds <> Nil And item.Bounds.Contains(x, y) Then
-		      Var result As XUIInspectorMouseDownData = item.MouseDown(x, y)
-		      If result <> Nil Then
+		      Var result As XUIInspectorMouseDownData = item.MouseDown(x, y, clickType)
+		      If result <> Nil And Owner.ItemWithFocus <> item Then
 		        Owner.ItemWithFocus = item
 		      End If
 		      Return result
@@ -107,7 +107,7 @@ Protected Class XUIInspectorSection
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 54656C6C73207468652073656374696F6E20746861742061206D6F75736520646F776E206576656E7420686173206F636375727265642077697468696E2069747320626F756E64732E20782C20792061726520746865206162736F6C75746520636F6F7264696E617465732072656C617469766520746F2074686520696E73706563746F72202861646A757374656420666F72207363726F6C6C696E67292E2052657475726E732061204D6F757365446F776E4461746120696E7374616E636520696E737472756374696E672074686520696E73706563746F7220686F7720746F2068616E646C6520746865206576656E742E
-		Function MouseUp(x As Integer, y As Integer) As XUIInspectorMouseUpData
+		Function MouseUp(x As Integer, y As Integer, clickType As XUI.ClickTypes) As XUIInspectorMouseUpData
 		  /// Tells the section that a mouse up event has occurred within its bounds.
 		  /// x, y are the absolute coordinates relative to the inspector (adjusted for scrolling).
 		  /// Returns a MouseUpData instance instructing the inspector how to handle the event or Nil if the
@@ -122,7 +122,11 @@ Protected Class XUIInspectorSection
 		  // Did the user click on an item?
 		  For Each item As XUIInspectorItem In mItems
 		    If item.Bounds <> Nil And item.Bounds.Contains(x, y) Then
-		      Return item.MouseUp(x, y)
+		      Var result As XUIInspectorMouseUpData = item.MouseUp(x, y, clickType)
+		      If result <> Nil And Owner <> Nil And Owner.ItemWithFocus <> item Then
+		        Owner.ItemWithFocus = item
+		      End If
+		      Return result
 		    End If
 		  Next item
 		  

@@ -3,17 +3,20 @@ Protected Class App
 Inherits XUIApp
 	#tag Event , Description = 54686520617070206973206F70656E696E672E200A54686520604F70656E696E6760206576656E7420697320746865206669727374206576656E742063616C6C6564207768656E20796F757220617070207374617274732E0A546865206041637469766174656460206576656E742069732063616C6C65642061667465722074686520604F70656E696E6760206576656E742E
 		Sub Opening()
-		  WinWelcome.Show
+		  WinDebug.Show
+		  
+		  #Pragma Warning "TODO: Uncomment this before release"
+		  'WinWelcome.Show
 		End Sub
 	#tag EndEvent
 
 
 	#tag MenuHandler
 		Function FileAboutXUI() As Boolean Handles FileAboutXUI.Action
-			WinAbout.Show
-			
-			Return True
-			
+		  WinAbout.Show
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

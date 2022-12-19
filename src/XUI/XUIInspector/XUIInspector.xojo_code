@@ -49,6 +49,16 @@ Inherits NSScrollViewCanvas
 
 	#tag Event
 		Function MouseDown(x As Integer, y As Integer) As Boolean
+		  // Give the canvas the focus.
+		  Me.SetFocus
+		  
+		  // Cache the x, y coords that this mouse down event occurs at.
+		  mLastMouseDownX = x
+		  mLastMouseDownY = y
+		  
+		  // Right click?
+		  mLastClickWasContextual = IsContextualClick
+		  
 		  // Adjust for vertical scrolling.
 		  y = y + mScrollOffsetY
 		  
@@ -71,7 +81,7 @@ Inherits NSScrollViewCanvas
 		  Var data As XUIInspectorMouseDownData
 		  For Each section As XUIInspectorSection In mSections
 		    If section.Bounds <> Nil And section.Bounds.Contains(x, y) Then
-		      data = section.MouseDown(x, y)
+		      data = section.MouseDown(x, y, mLastClickType)
 		      If data = Nil Then
 		        // The click did not occur in this section.
 		        Continue
@@ -134,11 +144,22 @@ Inherits NSScrollViewCanvas
 		  // Adjust for vertical scrolling.
 		  y = y + mScrollOffsetY
 		  
+		  // Determine click type.
+		  If mLastClickWasContextual Then
+		    mLastClickType = XUI.ClickTypes.ContextualClick
+		  ElseIf IsTripleClick(x,y) Then
+		    mLastClickType = XUI.ClickTypes.TripleClick
+		  ElseIf IsDoubleClick(x,y) Then
+		    mLastClickType = XUI.ClickTypes.DoubleClick
+		  Else
+		    mLastClickType = XUI.ClickTypes.SingleClick
+		  End If
+		  
 		  // Get the section clicked in.
 		  Var data As XUIInspectorMouseUpData
 		  For Each section As XUIInspectorSection In mSections
 		    If section.Bounds <> Nil And section.Bounds.Contains(x, y) Then
-		      data = section.MouseUp(x, y)
+		      data = section.MouseUp(x, y, mLastClickType)
 		      If data = Nil Then
 		        // The click did not occur in this section.
 		        Continue
@@ -489,6 +510,72 @@ Inherits NSScrollViewCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966206120646F75626C6520636C69636B206A757374206F636375727265642E20417373756D65732060786020616E6420607960206172652061646A757374656420666F72207363726F6C6C696E672E
+		Private Function IsDoubleClick(x As Integer, y As Integer) As Boolean
+		  /// Returns True if a double click just occurred.
+		  /// Assumes `x` and `y` are adjusted for scrolling.
+		  
+		  Const SPACE_DELTA = 4
+		  
+		  Var currentClickTicks As Integer
+		  Var result As Boolean = False
+		  
+		  currentClickTicks = System.Ticks
+		  
+		  // Did the two clicks happen close enough together in time?
+		  If (currentClickTicks - mLastClickTicks) <= XUI.GetDoubleClickTimeTicks Then
+		    // Did they happen close enough together in space?
+		    If Abs(x - mLastMouseUpX) <= SPACE_DELTA And Abs(y - mLastMouseUpY) <= SPACE_DELTA Then
+		      // A double click has occurred.
+		      result = True
+		    End If
+		  End If
+		  
+		  mLastClickTicks = currentClickTicks
+		  mLastMouseUpX = x
+		  mLastMouseUpY = y
+		  
+		  Return result
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 52657475726E732054727565206966206120747269706C6520636C69636B206A7573742068617070656E65642E20417373756D65732060786020616E6420607960206172652061646A757374656420666F72207363726F6C6C696E672E
+		Private Function IsTripleClick(x As Integer, y As Integer) As Boolean
+		  /// Returns True if a triple click just happened.
+		  /// Assumes `x` and `y` are adjusted for scrolling.
+		  
+		  Const SPACE_DELTA = 4
+		  
+		  If mLastClickType = XUI.ClickTypes.DoubleClick Then
+		    // At least a double click has occurred.
+		    Var doubleClickTime, currentClickTicks As Integer
+		    Var result As Boolean = False
+		    
+		    doubleClickTime = XUI.GetDoubleClickTimeTicks
+		    currentClickTicks = System.Ticks
+		    
+		    // Did the three clicks happen close enough together in time?
+		    If (currentClickTicks - mLastTripleClickTicks) <= doubleClickTime Then
+		      // Did the three clicks happen close enough together in space?
+		      If Abs(x - mLastMouseUpX) <= SPACE_DELTA And Abs(y - mLastMouseUpY) <= SPACE_DELTA Then
+		        // A triple click occurred.
+		        result = True
+		      End If
+		    End If
+		    
+		    // Cache required values.
+		    mLastTripleClickTicks = currentClickTicks
+		    mLastMouseUpX = x
+		    mLastMouseUpY = y
+		    Return result
+		  Else
+		    // Even a double click hasn't occurred.
+		    Return False
+		  End If
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52656275696C64732074686520696E7465726E616C207069637475726520746861742069732072656E646572656420746F2074686520696E73706563746F72277320677261706869637320636F6E746578742E
 		Private Sub RebuildBackBuffer()
 		  /// Rebuilds the internal picture that is rendered to the inspector's graphics context.
@@ -737,6 +824,35 @@ Inherits NSScrollViewCanvas
 		ItemWithFocus As XUIInspectorItem
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0, Description = 5472756520696620746865206D6F75736520636C69636B2074686174206A757374206F6363757272656420696E2074686520604D6F757365446F776E60206576656E7420776173206120636F6E7465787475616C20636C69636B2E
+		#tag Getter
+			Get
+			  Return mLastClickWasContextual
+			End Get
+		#tag EndGetter
+		LastClickWasContextual As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 546865205820636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E
+		#tag Getter
+			Get
+			  Return mLastMouseDownX
+			  
+			End Get
+		#tag EndGetter
+		LastMouseDownX As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0, Description = 546865205920636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742028616C72656164792061646A757374656420666F72207363726F6C6C696E67292E
+		#tag Getter
+			Get
+			  Return mLastMouseDownY
+			  
+			End Get
+		#tag EndGetter
+		LastMouseDownY As Integer
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21, Description = 54686520696E7465726E616C207069637475726520746861742069732072656E646572656420746F2074686520696E73706563746F7227732063616E7661732E
 		Private mBackBuffer As Picture
 	#tag EndProperty
@@ -769,8 +885,40 @@ Inherits NSScrollViewCanvas
 		Private mItemWithFocus As XUIInspectorItem
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 546865207469636B73207468617420746865206C617374206D6F75736520636C69636B206F636375727265642061742E
+		Private mLastClickTicks As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652074797065206F6620636C69636B2074686174206F6363757272656420696E20746865206C61737420604D6F757365557060206576656E742E
+		Private mLastClickType As XUI.ClickTypes = XUI.ClickTypes.SingleClick
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5472756520696620746865206D6F75736520636C69636B2074686174206A757374206F6363757272656420696E2074686520604D6F757365446F776E60206576656E7420776173206120636F6E7465787475616C20636C69636B2E
+		Private mLastClickWasContextual As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865205820636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E204E6F742061646A757374656420666F7220616E79207363726F6C6C696E672E
+		Private mLastMouseDownX As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865205920636F6F7264696E617465206F6620746865206C61737420604D6F757365446F776E60206576656E742E204E6F742061646A757374656420666F7220616E79207363726F6C6C696E672E
+		Private mLastMouseDownY As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652058206D6F75736520636F6F7264696E6174652066726F6D207468652070726576696F757320604D6F757365557060206576656E742C2061646A757374656420666F72207363726F6C6C696E672E
+		Private mLastMouseUpX As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 5468652059206D6F75736520636F6F7264696E6174652066726F6D207468652070726576696F757320604D6F757365557060206576656E742C2061646A757374656420666F72207363726F6C6C696E672E
+		Private mLastMouseUpY As Integer
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 546865206C617374206974656D206D6F766564206F76657220627920746865206D6F7573652E204D6179206265204E696C2E
 		Private mLastMovedItem As XUIInspectorItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 546865207469636B73207468617420746865206C61737420747269706C6520636C69636B206F636375727265642061742E
+		Private mLastTripleClickTicks As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 49662054727565207468656E20746865206261636B206275666665722077696C6C2062652072656372656174656420617420746865206E657874205061696E74206576656E742E
@@ -1047,6 +1195,30 @@ Inherits NSScrollViewCanvas
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LastClickWasContextual"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LastMouseDownY"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LastMouseDownX"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

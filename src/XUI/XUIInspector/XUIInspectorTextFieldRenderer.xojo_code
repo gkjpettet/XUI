@@ -665,7 +665,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  Contents = Contents.Replace(SelectedText, s)
 		  
 		  // Reposition the caret.
-		  CaretPosition = mCurrentSelection.EndLocation
+		  CaretPosition = mCurrentSelection.StartLocation + s.Length
 		  
 		  // Clear the selection.
 		  mCurrentSelection = Nil
@@ -723,6 +723,49 @@ Protected Class XUIInspectorTextFieldRenderer
 		  Return Contents.Middle(mCurrentSelection.StartLocation, mCurrentSelection.Length)
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 53656C656374732074686520776F7264207468652063617265742069732077697468696E2E
+		Sub SelectWordAtCaret()
+		  /// Selects the word the caret is within.
+		  
+		  // Clear the current selection and mark for redrawing.
+		  mCurrentSelection = Nil
+		  
+		  If mCharacters.Count = 0 Then
+		    Return
+		  End If
+		  
+		  // Find the first alphanumeric character before the caret
+		  Var startCol As Integer = CaretPosition
+		  Var iStart As Integer = Min(CaretPosition, mCharacters.Count)
+		  For i As Integer = iStart DownTo 0
+		    If Not mCharacters(i).IsLetterOrDigit Then
+		      Exit
+		    Else
+		      startCol = i
+		    End If
+		  Next i
+		  
+		  // Find where the alphanumeric characters end.
+		  Var endCol As Integer = startCol + 1
+		  Var iMax As Integer = mCharacters.LastIndex
+		  For i As Integer = CaretPosition To iMax
+		    If Not mCharacters(i).IsLetterOrDigit Then
+		      Exit
+		    Else
+		      endCol = i
+		    End If
+		  Next i
+		  endCol = endCol + 1
+		  
+		  // Select between these positions.
+		  mCurrentSelection = New XUIInspectorTextSelection(startCol, startCol, endCol)
+		  
+		  // Move the caret to the selection's anchor.
+		  CaretPosition = mCurrentSelection.Anchor
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 55706461746573207468652063757272656E7420636172657420706F736974696F6E206261736564206F6E206120636C69636B2061742060782C2079602E
@@ -1016,7 +1059,7 @@ Protected Class XUIInspectorTextFieldRenderer
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
