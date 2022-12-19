@@ -502,10 +502,8 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  g.DrawText(Caption, captionLeftX, captionBaseline, CaptionWidth, True)
 		  Var captionRightX As Double = x + HPADDING + CaptionWidth
 		  
-		  // Compute the width of the textfields if needed.
-		  If mTextFieldWidth = 0 Then
-		    mTextFieldWidth = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING - mMaxTextFieldCaptionWidth
-		  End If
+		  // Compute the width of the textfields.
+		  mTextFieldWidth = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING - mMaxTextFieldCaptionWidth
 		  
 		  // Compute the desired position and dimensions of the text fields.
 		  Var textFieldH As Double = style.FontSize + (2 * TEXTFIELD_CONTENT_VPADDING)

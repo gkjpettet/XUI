@@ -1,7 +1,7 @@
 #tag DesktopWindow
 Begin DemoWindow WinDebug Implements XUINotificationListener
    Backdrop        =   0
-   BackgroundColor =   &cFFFFFF
+   BackgroundColor =   &cFFFFFF00
    Composite       =   False
    DefaultLocation =   2
    FullScreen      =   False
@@ -174,7 +174,7 @@ End
 		Sub Opening()
 		  // Create a demo inspector.
 		  
-		  Const CAPTION_WIDTH = 100
+		  Const CAPTION_WIDTH = 120
 		  
 		  // We want this window to be notified of changes that occur in the inspector.
 		  RegisterForNotifications
@@ -203,12 +203,14 @@ End
 		  // Has background colour.
 		  miscSection.AddItem(New XUIInspectorSwitchItem("misc.hasBackground", "Has Background", CAPTION_WIDTH, False))
 		  
+		  // Colour item.
+		  miscSection.AddItem(New XUIInspectorColorItem("misc.backgroundColor", "Background Colour", CAPTION_WIDTH, Color.Red))
+		  
 		  // Position dual text field.
 		  miscSection.AddItem(New XUIInspectorDualTextFieldItem("misc.position", "Position", CAPTION_WIDTH, "X", "Y", "X placeholder", "Y placeholder"))
 		  
 		  // Full screen checkbox.
 		  miscSection.AddItem(New XUIInspectorCheckBoxItem("misc.fullScreen", "Full Screen", CAPTION_WIDTH, False))
-		  
 		End Sub
 	#tag EndEvent
 

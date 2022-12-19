@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUIInspectorSwitchItem
+Protected Class XUIInspectorColorItem
 Implements XUIInspectorItem
 	#tag Method, Flags = &h0, Description = 54686520626F756E6473206F662074686973206974656D2077697468696E2074686520696E73706563746F722E
 		Function Bounds() As Rect
@@ -17,9 +17,10 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E672061207377697463682077686963682063616E20626520746F67676C6564206F6E20616E64206F66662E206076616C7565602069732074686520696E697469616C20737769746368207374617465202860547275656020697320226F6E22292E
-		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As Boolean)
-		  /// Constructs a new item containing a switch which can be toggled on and off. `value` is the initial switch state (`True` is "on").
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E67206120636F6C6F7572207377617463682077686963682063616E20626520616C746572656420627920636C69636B696E672069742E206076616C7565602069732074686520696E697469616C20636F6C6F75722E
+		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As Color)
+		  /// Constructs a new item containing a colour swatch which can be altered by clicking it. 
+		  /// `value` is the initial colour.
 		  
 		  mID = ID
 		  Self.Caption = caption
@@ -29,38 +30,26 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 4472617773207468652073776974636820746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420782C207920706F736974696F6E2E
-		Private Sub DrawSwitch(g As Graphics, x As Double, y As Double, style As XUIInspectorStyle)
-		  /// Draws the switch to the passed graphics context at the precomputed x, y position.
+	#tag Method, Flags = &h21, Description = 44726177732074686520636F6C6F7220746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420782C207920706F736974696F6E206F662077696474682060776020616E64206865696768742060686020616E6420757064617465732069747320626F756E64732E
+		Private Sub DrawColorSwatch(g As Graphics, x As Double, y As Double, style As XUIInspectorStyle, w As Double, h As Double)
+		  /// Draws the color to the passed graphics context at the precomputed x, y position 
+		  /// of width `w` and height `h` and updates its bounds.
 		  
 		  g.SaveState
 		  
-		  // Background.
-		  g.DrawingColor = If(Value, style.AccentColor, style.ControlBackgroundColor)
-		  g.FillRoundRectangle(x, y, SWITCH_WIDTH, SWITCH_HEIGHT, SWITCH_HEIGHT, SWITCH_HEIGHT)
+		  // Value.
+		  g.DrawingColor = Value
+		  g.FillRectangle(x, y, w, h)
 		  
-		  // Border (only if toggled off).
-		  If Not Value Then
-		    g.DrawingColor = style.ControlBorderColor
-		    g.DrawRoundRectangle(x, y, SWITCH_WIDTH, SWITCH_HEIGHT, SWITCH_HEIGHT, SWITCH_HEIGHT)
-		  End If
-		  
-		  // Circle.
-		  g.DrawingColor = style.SwitchColor
-		  Var circleX As Double
-		  If Value Then
-		    // Right side of the control.
-		    circleX = x + SWITCH_WIDTH - SWITCH_HEIGHT
-		  Else
-		    // Left side of the control.
-		    circleX = x
-		  End If
-		  g.FillOval(circleX, y, SWITCH_HEIGHT, SWITCH_HEIGHT)
-		  
-		  // Update the hit bounds of the switch.
-		  mSwitchBounds = New Rect(x, y, SWITCH_WIDTH, SWITCH_HEIGHT)
+		  // Border.
+		  g.DrawingColor = Color.Black
+		  g.DrawRectangle(x, y, w, h)
 		  
 		  g.RestoreState
+		  
+		  // Update the hit bounds of the colour swatch.
+		  mSwatchBounds = New Rect(x, y, w, h)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -70,7 +59,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  
-		  Return Max(style.FontSize + (2 * VPADDING), SWITCH_HEIGHT + (2 * VPADDING))
+		  Return Max(style.FontSize + (2 * VPADDING), SwatchHeight(style) + (2 * VPADDING))
 		  
 		End Function
 	#tag EndMethod
@@ -90,7 +79,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the `XUIInspectorItem` interface.
 		  
-		  // There is nothing to do for this type of item.
+		  #Pragma Warning "TODO: Dismiss the colour picker if visible?"
 		End Sub
 	#tag EndMethod
 
@@ -101,22 +90,15 @@ Implements XUIInspectorItem
 		  /// Returns a MouseDownData instance instructing the inspector how to handle the event
 		  /// or Nil if the click didn't happen in this item.
 		  
-		  // This item only responds to single clicks.
-		  If clickType <> XUI.ClickTypes.SingleClick Then Return Nil
-		  
-		  If mSwitchBounds <> Nil And mSwitchBounds.Contains(x, y) Then
-		    // Toggle the switch value.
-		    Value = Not Value
-		    
-		    // Notify a change occurred.
-		    XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, Value)
-		    
-		    // The the inspector a visual change has occurred.
+		  If mBounds <> Nil And Not mBounds.Contains(x, y) THen
+		    // The mouse down did not occur in this item.
+		    Return Nil
+		  Else
+		    // We handle mouse events in MouseUp but we still need to return a MouseDownData instance
+		    // If the click occurred in this item to tell the inspector that we're done.
 		    Return New XUIInspectorMouseDownData
 		  End If
 		  
-		  // The click didn't occur in this item.
-		  Return Nil
 		End Function
 	#tag EndMethod
 
@@ -127,7 +109,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  
-		  // There is nothing to do since there are no visual effects caused by mouse movement in the switch item.
+		  // There is nothing to do since there are no visual effects caused by mouse movement in the colour swatch item.
 		  Return False
 		  
 		End Function
@@ -143,7 +125,7 @@ Implements XUIInspectorItem
 		  #Pragma Unused x
 		  #Pragma Unused y
 		  
-		  // Moving the over the switch item does nothing so we'll just return Nil.
+		  // Moving the over the colour swatch item does nothing so we'll just return Nil.
 		  Return Nil
 		End Function
 	#tag EndMethod
@@ -161,8 +143,7 @@ Implements XUIInspectorItem
 		  // This item only responds to single clicks.
 		  If clickType <> XUI.ClickTypes.SingleClick Then Return Nil
 		  
-		  // We toggle the switch value on mouse down so there's nothing to do here.
-		  Return Nil
+		  #Pragma Warning "TODO"
 		End Function
 	#tag EndMethod
 
@@ -198,7 +179,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the `XUIInspectorItem` interface.
 		  
-		  // Since the switch item doesn't display a popup menu, there's nothing to do.
+		  // Since the colour swatch item doesn't display a popup menu, there's nothing to do.
 		End Sub
 	#tag EndMethod
 
@@ -208,7 +189,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// Part of the XUIInspectorItem interface.
 		  
-		  // Since the switch item doesn't display a popup, there's nothing to do.
+		  // Since the colour swatch item doesn't display a popup, there's nothing to do.
 		  #Pragma Unused index
 		  
 		End Sub
@@ -222,7 +203,7 @@ Implements XUIInspectorItem
 		  ///
 		  /// ```nohighlight
 		  /// |----------------------|
-		  /// | CAPTION       (()  ) |
+		  /// | CAPTION     [      ] |
 		  /// |----------------------|
 		  /// ```
 		  
@@ -245,9 +226,16 @@ Implements XUIInspectorItem
 		  // Draw the right-aligned caption in the vertical centre of the item.
 		  g.DrawingColor = style.TextColor
 		  g.DrawText(Caption, x + HPADDING + Max(0, (CaptionWidth - g.TextWidth(Caption))), captionBaseline, CaptionWidth, True)
+		  Var captionRightX As Double = x + HPADDING + CaptionWidth
 		  
-		  // Draw the switch.
-		  DrawSwitch(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (SWITCH_HEIGHT / 2), style)
+		  // Compute the width and height of the swatch.
+		  Var swatchWidth As Double = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING
+		  
+		  // Cache the swatch height as it's computed.
+		  Var cachedSwatchHeight As Double = SwatchHeight(style)
+		  
+		  // Draw the colour swatch and update its bounds.
+		  DrawColorSwatch(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (cachedSwatchHeight / 2), style, swatchWidth, cachedSwatchHeight)
 		  
 		  g.RestoreState
 		  
@@ -259,14 +247,23 @@ Implements XUIInspectorItem
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 54686520686569676874206F66207468652073776174636820676976656E207468652063757272656E74207374796C652E
+		Private Function SwatchHeight(style As XUIInspectorStyle) As Double
+		  /// The height of the swatch given the current style.
+		  
+		  Return style.FontSize + SWATCH_VPADDING
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
-		An item containing an on-off switch and caption.
+		An item containing a single colour swatch and a caption.
 		
 	#tag EndNote
 
 
-	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C6179206265736964657320746865207377697463682E
+	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636F6C6F7572207377617463682E
 		#tag Getter
 			Get
 			  Return mCaption
@@ -288,7 +285,7 @@ Implements XUIInspectorItem
 		Private mBounds As Rect
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 5468652063617074696F6E20746F20646973706C6179206265736964657320746865207377697463682E
+	#tag Property, Flags = &h21, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636F6C6F7572207377617463682E
 		Private mCaption As String
 	#tag EndProperty
 
@@ -300,15 +297,15 @@ Implements XUIInspectorItem
 		Private mOwner As WeakRef
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F6620746865207377697463682E205573656420666F72206869742D74657374696E672E
-		Private mSwitchBounds As Rect
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686520636F6C6F7572207377617463682E205573656420666F72206869742D74657374696E672E
+		Private mSwatchBounds As Rect
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 546865207377697463682076616C75652E2054727565203D206F6E2C2046616C7365203D206F66662E
-		Private mValue As Boolean
+	#tag Property, Flags = &h21, Description = 5468652073776174636820636F6C6F75722E
+		Private mValue As Color
 	#tag EndProperty
 
-	#tag ComputedProperty, Flags = &h0, Description = 546865207377697463682076616C75652E2054727565203D206F6E2C2046616C7365203D206F66662E
+	#tag ComputedProperty, Flags = &h0, Description = 5468652073776174636820636F6C6F75722E
 		#tag Getter
 			Get
 			  Return mValue
@@ -319,17 +316,14 @@ Implements XUIInspectorItem
 			  mValue = value
 			End Set
 		#tag EndSetter
-		Value As Boolean
+		Value As Color
 	#tag EndComputedProperty
 
 
 	#tag Constant, Name = HPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E74206C65667420616E642072696768742E
 	#tag EndConstant
 
-	#tag Constant, Name = SWITCH_HEIGHT, Type = Double, Dynamic = False, Default = \"16", Scope = Private, Description = 54686520686569676874206F6620746865207377697463682E
-	#tag EndConstant
-
-	#tag Constant, Name = SWITCH_WIDTH, Type = Double, Dynamic = False, Default = \"38", Scope = Private, Description = 546865207769647468206F6620746865207377697463682E
+	#tag Constant, Name = SWATCH_VPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 54686520686569676874206F6620746865207377617463682069732074686520686569676874206F66207468652063617074696F6E20706C757320746869732076616C75652E
 	#tag EndConstant
 
 	#tag Constant, Name = VPADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E742061626F766520616E642062656C6F772E
@@ -389,8 +383,8 @@ Implements XUIInspectorItem
 			Name="Value"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
+			InitialValue="&c000000"
+			Type="Color"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
