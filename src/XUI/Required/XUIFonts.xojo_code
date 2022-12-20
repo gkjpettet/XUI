@@ -29,11 +29,21 @@ Protected Module XUIFonts
 		  ///
 		  /// This is called internally by `AllMonospace()` when returning the list of fonts. 
 		  
+		  Var start As Double = System.Microseconds
+		  
 		  Var fonts() As String = All
+		  
+		  // We need a throwaway graphics context.
+		  Var tmp As New Picture(10, 10)
+		  Var g As Graphics = tmp.Graphics
+		  g.FontSize = 12
 		  
 		  Var monospace() As String
 		  For Each font As String In fonts
-		    If IsMonospaceFont(font) Then monospace.Add(font)
+		    g.FontName = font
+		    If g.TextWidth("abc") = g.TextWidth("XYZ") Then
+		      monospace.Add(font)
+		    End If
 		  Next font
 		  
 		  Return monospace
