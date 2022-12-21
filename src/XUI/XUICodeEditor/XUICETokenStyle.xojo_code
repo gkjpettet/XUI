@@ -64,13 +64,13 @@ Protected Class XUICETokenStyle
 		    
 		    Select Case entry.Key
 		    Case "backgroundColor"
-		      Self.BackgroundColour = XUIColorGroups.FromString(entry.Value)
+		      Self.BackgroundColour = XUIColorGroupExtensions.FromString(entry.Value)
 		      
 		    Case "bold"
 		      Self.Bold = entry.Value
 		      
 		    Case "color"
-		      Self.Colour = XUIColorGroups.FromString(entry.Value)
+		      Self.Colour = XUIColorGroupExtensions.FromString(entry.Value)
 		      
 		    Case "hasBackgroundColor"
 		      Self.HasBackgroundColour = entry.Value

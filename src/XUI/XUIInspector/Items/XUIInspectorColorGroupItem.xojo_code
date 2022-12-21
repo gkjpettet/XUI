@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUIInspectorColorItem
+Protected Class XUIInspectorColorGroupItem
 Implements XUIInspectorItem
 	#tag Method, Flags = &h0, Description = 54686520626F756E6473206F662074686973206974656D2077697468696E2074686520696E73706563746F722E
 		Function Bounds() As Rect
@@ -17,10 +17,10 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E67206120636F6C6F7572207377617463682077686963682063616E20626520616C746572656420627920636C69636B696E672069742E206076616C7565602069732074686520696E697469616C20636F6C6F75722E
-		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As Color)
+	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E67206120636F6C6F7572207377617463682077686963682063616E20626520616C746572656420627920636C69636B696E672069742E206076616C7565602069732074686520696E697469616C20436F6C6F7247726F75702E
+		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As ColorGroup)
 		  /// Constructs a new item containing a colour swatch which can be altered by clicking it. 
-		  /// `value` is the initial colour.
+		  /// `value` is the initial ColorGroup.
 		  
 		  mID = ID
 		  Self.Caption = caption
@@ -30,27 +30,39 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 44726177732074686520636F6C6F7220746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420782C207920706F736974696F6E206F662077696474682060776020616E64206865696768742060686020616E6420757064617465732069747320626F756E64732E
-		Private Sub DrawColorSwatch(g As Graphics, x As Double, y As Double, style As XUIInspectorStyle, w As Double, h As Double)
-		  /// Draws the color to the passed graphics context at the precomputed x, y position 
-		  /// of width `w` and height `h` and updates its bounds.
+	#tag Method, Flags = &h21, Description = 4472617773207468652074776F20636F6C6F757220737761746368657320746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420706F736974696F6E206F662077696474682060776020616E64206865696768742060686020616E64207570646174657320746865697220626F756E64732E
+		Private Sub DrawColorSwatches(g As Graphics, lightSwatchX As Double, y As Double, style As XUIInspectorStyle, w As Double, h As Double)
+		  /// Draws the two colour swatches to the passed graphics context at the precomputed position 
+		  /// of width `w` and height `h` and updates their bounds.
+		  ///
+		  /// `lightSwatchX` is the start X coordinate of the light swatch.
 		  
 		  #Pragma Unused style
 		  
 		  g.SaveState
 		  
-		  // Value.
-		  g.DrawingColor = Value
-		  g.FillRectangle(x, y, w, h)
+		  // Light value.
+		  g.DrawingColor = mValue.Light
+		  g.FillRectangle(lightSwatchX, y, w, h)
 		  
-		  // Border.
+		  // Light value border.
 		  g.DrawingColor = Color.Black
-		  g.DrawRectangle(x, y, w, h)
+		  g.DrawRectangle(lightSwatchX, y, w, h)
+		  
+		  // Dark value.
+		  Var darkSwatchX As Double = lightSwatchX + w + XUIInspector.CONTROL_BORDER_PADDING
+		  g.DrawingColor = mValue.Dark
+		  g.FillRectangle(darkSwatchX, y, w, h)
+		  
+		  // Dark value border.
+		  g.DrawingColor = Color.Black
+		  g.DrawRectangle(darkSwatchX, y, w, h)
 		  
 		  g.RestoreState
 		  
-		  // Update the hit bounds of the colour swatch.
-		  mSwatchBounds = New Rect(x, y, w, h)
+		  // Update the hit bounds of the colour swatches.
+		  mLightSwatchBounds = New Rect(lightSwatchX, y, w, h)
+		  mDarkSwatchBounds = New Rect(darkSwatchX, y, w, h)
 		  
 		End Sub
 	#tag EndMethod
@@ -62,7 +74,6 @@ Implements XUIInspectorItem
 		  /// Part of the XUIInspectorItem interface.
 		  
 		  Return Max(style.FontSize + (2 * VPADDING), SwatchHeight(style) + (2 * VPADDING))
-		  
 		End Function
 	#tag EndMethod
 
@@ -103,7 +114,6 @@ Implements XUIInspectorItem
 		    // If the click occurred in this item to tell the inspector that we're done.
 		    Return New XUIInspectorMouseDownData
 		  End If
-		  
 		End Function
 	#tag EndMethod
 
@@ -156,18 +166,26 @@ Implements XUIInspectorItem
 		  // The item should always have a valid inspector but we'll check.
 		  If Owner = Nil Or Owner.Window = Nil Then Return Nil
 		  
-		  If mSwatchBounds <> Nil And mSwatchBounds.Contains(x, y) Then
+		  If mLightSwatchBounds <> Nil And mLightSwatchBounds.Contains(x, y) Then
 		    If Not mColorPickerVisible Then
 		      Var cp As New XUIColorPicker(Self.Value)
-		      AddHandler cp.ColorChanged, AddressOf PickerColorChanged
 		      AddHandler cp.Closing, AddressOf PickerClosing
+		      mActiveSwatch = ActiveSwatches.Light
+		      mColorPickerVisible = True
+		      cp.ShowModal(Owner.Window)
+		    End If
+		    
+		  ElseIf mDarkSwatchBounds <> Nil And mDarkSwatchBounds.Contains(x, y) Then
+		    If Not mColorPickerVisible Then
+		      Var cp As New XUIColorPicker(Self.Value)
+		      AddHandler cp.Closing, AddressOf PickerClosing
+		      mActiveSwatch = ActiveSwatches.Dark
 		      mColorPickerVisible = True
 		      cp.ShowModal(Owner.Window)
 		    End If
 		  End If
 		  
 		  Return New XUIInspectorMouseUpData(True)
-		  
 		End Function
 	#tag EndMethod
 
@@ -197,30 +215,45 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 44656C65676174652063616C6C6564207768656E207468697320737761746368277320636F6C6F72207069636B657220697320636C6F73696E672E
+	#tag Method, Flags = &h21, Description = 44656C65676174652063616C6C6564207768656E206120636F6C6F7220737761746368277320636F6C6F72207069636B657220697320636C6F73696E672E
 		Private Sub PickerClosing(picker As XUIColorPicker)
-		  /// Delegate called when this swatch's color picker is closing.
+		  /// Delegate called when a color swatch's color picker is closing.
 		  
-		  #Pragma Unused picker
+		  If mActiveSwatch = ActiveSwatches.None Then Return
+		  
+		  Var newColor As Color = picker.CurrentColor
+		  
+		  If mValue = Nil Then
+		    // This isn't supposed to happen but we'll cater for it anyway.
+		    If mActiveSwatch = ActiveSwatches.Dark Then
+		      mValue = New ColorGroup(Color.Black, newColor)
+		    ElseIf mActiveSwatch = ActiveSwatches.Light Then
+		      mValue = New ColorGroup(newColor, Color.Black)
+		    End If
+		  Else
+		    Select Case mActiveSwatch
+		    Case ActiveSwatches.Dark
+		      If mValue.Dark = newColor Then
+		        // No change.
+		        Return
+		      Else
+		        mValue = New ColorGroup(mValue.Light, newColor)
+		      End If
+		      
+		    Case ActiveSwatches.Light
+		      If mValue.Light = newColor Then
+		        // No change.
+		        Return
+		      Else
+		        mValue = New ColorGroup(newColor, mValue.Dark)
+		      End If
+		    End Select
+		  End If
 		  
 		  mColorPickerVisible = False
-		  If Owner <> Nil Then Owner.RedrawImmediately
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 44656C656761746520746861742069732063616C6C6564207768656E207468697320737761746368277320636F6C6F72207069636B6572277320636F6C6F7572206973206368616E6765642E
-		Private Sub PickerColorChanged(picker As XUIColorPicker, newColor As Color)
-		  /// Delegate that is called when this swatch's color picker's colour is changed.
+		  mActiveSwatch = ActiveSwatches.None
+		  XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, mValue)
 		  
-		  #Pragma Unused picker
-		  
-		  // Nothing to do if the colour has not changed.
-		  If Self.Value = newColor Then Return
-		  
-		  Self.Value = newColor
-		  
-		  // Notify a change occurred.
-		  XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, Value)
 		End Sub
 	#tag EndMethod
 
@@ -279,14 +312,15 @@ Implements XUIInspectorItem
 		  g.DrawText(Caption, x + HPADDING + Max(0, (CaptionWidth - g.TextWidth(Caption))), captionBaseline, CaptionWidth, True)
 		  Var captionRightX As Double = x + HPADDING + CaptionWidth
 		  
-		  // Compute the width of the swatch.
-		  Var swatchWidth As Double = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING
+		  // Compute the width of each swatch.
+		  Var swatchWidth As Double = _
+		  (width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING - XUIInspector.CONTROL_BORDER_PADDING) / 2
 		  
 		  // Cache the swatch height as it's computed.
 		  Var cachedSwatchHeight As Double = SwatchHeight(style)
 		  
-		  // Draw the colour swatch and update its bounds.
-		  DrawColorSwatch(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (cachedSwatchHeight / 2), style, swatchWidth, cachedSwatchHeight)
+		  // Draw the colour swatches and update thier bounds.
+		  DrawColorSwatches(g, x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING, y + (h/2) - (cachedSwatchHeight / 2), style, swatchWidth, cachedSwatchHeight)
 		  
 		  g.RestoreState
 		  
@@ -309,12 +343,13 @@ Implements XUIInspectorItem
 
 
 	#tag Note, Name = About
-		An item containing a single colour swatch and a caption.
+		An item containing a two colour swatches and a caption. Used to set ColorGroups for light and dark mode
+		 applications.
 		
 	#tag EndNote
 
 
-	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636F6C6F7572207377617463682E
+	#tag ComputedProperty, Flags = &h0, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636F6C6F75722073776174636865732E
 		#tag Getter
 			Get
 			  Return mCaption
@@ -332,11 +367,15 @@ Implements XUIInspectorItem
 		CaptionWidth As Integer
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 5468652063757272656E746C7920616374697665207377617463682E
+		Private mActiveSwatch As ActiveSwatches = ActiveSwatches.None
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686973206974656D2E
 		Private mBounds As Rect
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636F6C6F7572207377617463682E
+	#tag Property, Flags = &h21, Description = 5468652063617074696F6E20746F20646973706C617920626573696465732074686520636F6C6F75722073776174636865732E
 		Private mCaption As String
 	#tag EndProperty
 
@@ -344,23 +383,27 @@ Implements XUIInspectorItem
 		Private mColorPickerVisible As Boolean = False
 	#tag EndProperty
 
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F6620746865206461726B206D6F646520636F6C6F7572207377617463682E205573656420666F72206869742D74657374696E672E
+		Private mDarkSwatchBounds As Rect
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 5573656420746F206964656E746966792074686973206974656D20696E206E6F74696669636174696F6E732E20596F752073686F756C6420656E7375726520697420697320756E697175652077697468696E2074686520696E73706563746F722E
 		Private mID As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F6620746865206C69676874206D6F646520636F6C6F7572207377617463682E205573656420666F72206869742D74657374696E672E
+		Private mLightSwatchBounds As Rect
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
 		Private mOwner As WeakRef
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686520636F6C6F7572207377617463682E205573656420666F72206869742D74657374696E672E
-		Private mSwatchBounds As Rect
+	#tag Property, Flags = &h21, Description = 5468652076616C7565206173206120436F6C6F7247726F75702E
+		Private mValue As ColorGroup
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 5468652073776174636820636F6C6F75722E
-		Private mValue As Color
-	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h0, Description = 5468652073776174636820636F6C6F75722E
+	#tag ComputedProperty, Flags = &h0, Description = 5468652076616C7565206173206120436F6C6F7247726F75702E
 		#tag Getter
 			Get
 			  Return mValue
@@ -371,7 +414,7 @@ Implements XUIInspectorItem
 			  mValue = value
 			End Set
 		#tag EndSetter
-		Value As Color
+		Value As ColorGroup
 	#tag EndComputedProperty
 
 
@@ -383,6 +426,13 @@ Implements XUIInspectorItem
 
 	#tag Constant, Name = VPADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206974656D277320636F6E74656E742061626F766520616E642062656C6F772E
 	#tag EndConstant
+
+
+	#tag Enum, Name = ActiveSwatches, Type = Integer, Flags = &h21, Description = 5468652074797065206F662063757272656E746C7920616374697665207377617463682E
+		None
+		  Light
+		Dark
+	#tag EndEnum
 
 
 	#tag ViewBehavior
@@ -439,7 +489,7 @@ Implements XUIInspectorItem
 			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
-			Type="Color"
+			Type="ColorGroup"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty

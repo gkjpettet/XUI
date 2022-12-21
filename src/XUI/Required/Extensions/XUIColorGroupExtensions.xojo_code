@@ -1,5 +1,5 @@
 #tag Module
-Protected Module XUIColorGroups
+Protected Module XUIColorGroupExtensions
 	#tag Method, Flags = &h0, Description = 49662060636760206861732061206461726B20636F6C6F757220646566696E65642069742069732072657475726E6564206F746865727769736520746865206C6967687420636F6C6F75722069732072657475726E65642E
 		Function Dark(Extends cg As ColorGroup) As Color
 		  /// If `cg` has a dark colour defined it is returned otherwise the light colour is returned.
@@ -77,6 +77,16 @@ Protected Module XUIColorGroups
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E73206120737472696E6720726570726573656E746174696F6E206F66207468697320636F6C6F722067726F757020696E2074686520666F726D61743A206026684141525247474242203A20266841415252474742426020576865726520746865206C6566742076616C756520697320746865206C696768742076616C756520616E64207468652072696768742076616C756520697320746865206461726B2076616C75652E
+		Function ToString(Extends cg As ColorGroup) As String
+		  /// Returns a string representation of this color group in the format:
+		  /// `&hAARRGGBB : &hAARRGGBB`
+		  /// Where the left value is the light value and the right value is the dark value.
+		  
+		  Return cg.Light.ToString + " : " + cg.Dark.ToString
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 436F6E7665727473206063676020746F206120544F4D4C2076616C75652E
 		Function ToTOML(Extends cg As ColorGroup) As String
 		  /// Converts `cg` to a TOML value.
@@ -99,5 +109,47 @@ Protected Module XUIColorGroups
 	#tag EndNote
 
 
+	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue="-2147483648"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+	#tag EndViewBehavior
 End Module
 #tag EndModule

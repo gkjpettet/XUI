@@ -212,6 +212,9 @@ End
 		  // Full screen checkbox.
 		  miscSection.AddItem(New XUIInspectorCheckBoxItem("misc.fullScreen", "Full Screen", CAPTION_WIDTH, False))
 		  
+		  // Dual color item.
+		  miscSection.AddItem(New XUIInspectorColorGroupItem("misc.dualColor", "Dual Colour", CAPTION_WIDTH, New ColorGroup(Color.Red, Color.Blue)))
+		  
 		End Sub
 	#tag EndEvent
 
@@ -257,6 +260,8 @@ End
 		    Var data As String
 		    If item IsA XUIInspectorDualTextFieldItem Then
 		      data = DictionaryToString(n.Data)
+		    ElseIf n.Data IsA ColorGroup Then
+		      data = ColorGroup(n.Data).ToString
 		    Else
 		      data = n.Data.StringValue
 		    End If

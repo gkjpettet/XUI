@@ -29,8 +29,6 @@ Protected Module XUIFonts
 		  ///
 		  /// This is called internally by `AllMonospace()` when returning the list of fonts. 
 		  
-		  Var start As Double = System.Microseconds
-		  
 		  Var fonts() As String = All
 		  
 		  // We need a throwaway graphics context.

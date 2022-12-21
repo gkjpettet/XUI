@@ -26,7 +26,7 @@ Protected Class XUICETheme
 		    Select Case entry.Key
 		    Case "backgroundColor"
 		      Try
-		        Call XUIColorGroups.FromString(entry.Value)
+		        Call XUIColorGroupExtensions.FromString(entry.Value)
 		      Catch e As RuntimeException
 		        Raise New InvalidArgumentException("`backgroundColor` must be a Xojo hexademical ColorGroup literal " + _
 		        "in the form `&hAARRGGBB` or `&hAARRGGBB, &hAARRGGBB`.")
@@ -42,7 +42,7 @@ Protected Class XUICETheme
 		    Case "color"
 		      #Pragma BreakOnExceptions False
 		      Try
-		        Call XUIColorGroups.FromString(entry.Value)
+		        Call XUIColorGroupExtensions.FromString(entry.Value)
 		      Catch e As RuntimeException
 		        Raise New InvalidArgumentException("`color` must be a Xojo hexademical ColorGroup literal " + _
 		        "in the form `&hAARRGGBB` or `&hAARRGGBB, &hAARRGGBB`.")
@@ -139,7 +139,7 @@ Protected Class XUICETheme
 		  Case TYPE_COLORGROUP
 		    #Pragma BreakOnExceptions False
 		    Try
-		      Call XUIColorGroups.FromString(value)
+		      Call XUIColorGroupExtensions.FromString(value)
 		      Return
 		    Catch e As RuntimeException
 		      Raise New InvalidArgumentException("`" + path + "` is not a ColorGroup string.")
@@ -401,32 +401,32 @@ Protected Class XUICETheme
 		  Var editor As Dictionary = d.Value("editor")
 		  
 		  // Required editor properties.
-		  theme.BackgroundColor = XUIColorGroups.FromString(editor.Value("backgroundColor"))
-		  theme.CaretColor = XUIColorGroups.FromString(editor.Value("caretColor"))
-		  theme.CurrentLineNumberColor = XUIColorGroups.FromString(editor.Value("currentLineNumberColor"))
-		  theme.LineNumberColor = XUIColorGroups.FromString(editor.Value("lineNumberColor"))
-		  theme.SelectionColor = XUIColorGroups.FromString(editor.Value("selectionColor"))
+		  theme.BackgroundColor = XUIColorGroupExtensions.FromString(editor.Value("backgroundColor"))
+		  theme.CaretColor = XUIColorGroupExtensions.FromString(editor.Value("caretColor"))
+		  theme.CurrentLineNumberColor = XUIColorGroupExtensions.FromString(editor.Value("currentLineNumberColor"))
+		  theme.LineNumberColor = XUIColorGroupExtensions.FromString(editor.Value("lineNumberColor"))
+		  theme.SelectionColor = XUIColorGroupExtensions.FromString(editor.Value("selectionColor"))
 		  
 		  // Optional editor properties.
-		  theme.BlockLineColor = XUIColorGroups.FromString(editor.Lookup("blockLineColor", _
+		  theme.BlockLineColor = XUIColorGroupExtensions.FromString(editor.Lookup("blockLineColor", _
 		  New ColorGroup(DEFAULT_BLOCK_LINE_COLOR_LIGHT, DEFAULT_BLOCK_LINE_COLOR_LIGHT)))
 		  theme.CurrentLineHighlightColor = _
-		  XUIColorGroups.FromString(editor.Lookup("currentLineHighlightColor", _
+		  XUIColorGroupExtensions.FromString(editor.Lookup("currentLineHighlightColor", _
 		  New ColorGroup(DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_LIGHT, DEFAULT_CURRENT_LINE_HIGHLIGHT_COLOR_DARK)))
 		  theme.UnmatchedBlockLineColor = _
-		  XUIColorGroups.FromString(editor.Lookup("unmatchedBlockLineColor", _
+		  XUIColorGroupExtensions.FromString(editor.Lookup("unmatchedBlockLineColor", _
 		  New ColorGroup(DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_LIGHT, DEFAULT_UNMATCHED_BLOCK_LINE_COLOR_DARK)))
 		  theme.DebugLineColor = _
-		  XUIColorGroups.FromString(editor.Lookup("debugLineColor", _
+		  XUIColorGroupExtensions.FromString(editor.Lookup("debugLineColor", _
 		  New ColorGroup(DEFAULT_DEBUG_LINE_COLOR_LIGHT, DEFAULT_DEBUG_LINE_COLOR_DARK)))
 		  
 		  // =================
 		  // SCROLLBARS
 		  // =================
 		  Var scrollbars As Dictionary = d.Value("scrollbars")
-		  theme.ScrollbarBackgroundColor = XUIColorGroups.FromString(scrollbars.Value("backgroundColor"))
-		  theme.ScrollbarBorderColor = XUIColorGroups.FromString(scrollbars.Value("borderColor"))
-		  theme.ScrollbarThumbColor = XUIColorGroups.FromString(scrollbars.Value("thumbColor"))
+		  theme.ScrollbarBackgroundColor = XUIColorGroupExtensions.FromString(scrollbars.Value("backgroundColor"))
+		  theme.ScrollbarBorderColor = XUIColorGroupExtensions.FromString(scrollbars.Value("borderColor"))
+		  theme.ScrollbarThumbColor = XUIColorGroupExtensions.FromString(scrollbars.Value("thumbColor"))
 		  
 		  // =================
 		  // DELIMITERS
@@ -436,15 +436,15 @@ Protected Class XUICETheme
 		    Var delim As Dictionary = d.Value("delimiters")
 		    If delim.HasKey("hasBorderColor") Then theme.DelimitersHaveBorder = delim.Value("hasBorderColor")
 		    If delim.HasKey("borderColor") Then
-		      theme.DelimitersBorderColor = XUIColorGroups.FromString(delim.Value("borderColor"))
+		      theme.DelimitersBorderColor = XUIColorGroupExtensions.FromString(delim.Value("borderColor"))
 		    End If
 		    If delim.HasKey("hasFillColor") Then theme.DelimitersHaveFillColor = delim.Value("hasFillColor")
 		    If delim.HasKey("fillColor") Then
-		      theme.DelimitersFillColor = XUIColorGroups.FromString(delim.Value("fillColor"))
+		      theme.DelimitersFillColor = XUIColorGroupExtensions.FromString(delim.Value("fillColor"))
 		    End If
 		    If delim.HasKey("hasUnderlineColor") Then theme.DelimitersHaveUnderline = delim.Value("hasUnderlineColor")
 		    If delim.HasKey("underlineColor") Then
-		      theme.DelimitersUnderlineColor = XUIColorGroups.FromString(delim.Value("underlineColor"))
+		      theme.DelimitersUnderlineColor = XUIColorGroupExtensions.FromString(delim.Value("underlineColor"))
 		    End If
 		  End If
 		  
@@ -455,15 +455,15 @@ Protected Class XUICETheme
 		  Var autocomplete As Dictionary = d.Value("autocomplete")
 		  theme.HasAutocompletePopupBorder = autocomplete.Value("hasPopupBorder")
 		  theme.AutocompletePopupBackgroundColor = _
-		  XUIColorGroups.FromString(autocomplete.Value("popupBackgroundColor"))
+		  XUIColorGroupExtensions.FromString(autocomplete.Value("popupBackgroundColor"))
 		  theme.AutocompletePopupBorderColor = _
-		  XUIColorGroups.FromString(autocomplete.Value("popupBorderColor"))
+		  XUIColorGroupExtensions.FromString(autocomplete.Value("popupBorderColor"))
 		  theme.AutocompleteOptionColor = _
-		  XUIColorGroups.FromString(autocomplete.Value("optionColor"))
+		  XUIColorGroupExtensions.FromString(autocomplete.Value("optionColor"))
 		  theme.SelectedAutocompleteOptionBackgroundColor = _
-		  XUIColorGroups.FromString(autocomplete.Value("selectedOptionBackgroundColor"))
+		  XUIColorGroupExtensions.FromString(autocomplete.Value("selectedOptionBackgroundColor"))
 		  theme.SelectedAutocompleteOptionColor = _
-		  XUIColorGroups.FromString(autocomplete.Value("selectedOptionColor"))
+		  XUIColorGroupExtensions.FromString(autocomplete.Value("selectedOptionColor"))
 		  
 		  // Prefix styles
 		  Var autocompletePrefix As Dictionary = autocomplete.Value("prefix")
