@@ -159,7 +159,6 @@ Implements XUIInspectorItem
 		  If mSwatchBounds <> Nil And mSwatchBounds.Contains(x, y) Then
 		    If Not mColorPickerVisible Then
 		      Var cp As New XUIColorPicker(Self.Value)
-		      AddHandler cp.ColorChanged, AddressOf PickerColorChanged
 		      AddHandler cp.Closing, AddressOf PickerClosing
 		      mColorPickerVisible = True
 		      cp.ShowModal(Owner.Window)
@@ -201,26 +200,16 @@ Implements XUIInspectorItem
 		Private Sub PickerClosing(picker As XUIColorPicker)
 		  /// Delegate called when this swatch's color picker is closing.
 		  
-		  #Pragma Unused picker
-		  
-		  mColorPickerVisible = False
-		  If Owner <> Nil Then Owner.RedrawImmediately
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 44656C656761746520746861742069732063616C6C6564207768656E207468697320737761746368277320636F6C6F72207069636B6572277320636F6C6F7572206973206368616E6765642E
-		Private Sub PickerColorChanged(picker As XUIColorPicker, newColor As Color)
-		  /// Delegate that is called when this swatch's color picker's colour is changed.
-		  
-		  #Pragma Unused picker
-		  
 		  // Nothing to do if the colour has not changed.
-		  If Self.Value = newColor Then Return
+		  If Self.Value = picker.CurrentColor Then Return
 		  
-		  Self.Value = newColor
+		  Self.Value = picker.CurrentColor
 		  
 		  // Notify a change occurred.
 		  XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, Value)
+		  
+		  mColorPickerVisible = False
+		  
 		End Sub
 	#tag EndMethod
 

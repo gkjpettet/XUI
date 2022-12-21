@@ -291,6 +291,8 @@ Implements XUIInspectorItem
 		  /// |----------------------|
 		  /// ```
 		  
+		  #Pragma Warning "TODO: Improve the layout/appearance"
+		  
 		  g.SaveState
 		  
 		  // Cache this item's height.
