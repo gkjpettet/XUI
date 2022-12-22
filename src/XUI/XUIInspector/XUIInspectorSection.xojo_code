@@ -36,7 +36,7 @@ Protected Class XUIInspectorSection
 		Function Height(style As XUIInspectorStyle) As Double
 		  /// Returns the current height of the section, factoring in whether it is collapsed or expanded.
 		  
-		  Var h As Double = HEADER_HEIGHT
+		  Var h As Double = HEADER_HEIGHT + HEADER_BOTTOM_PADDING
 		  
 		  If Expanded Then
 		    For Each item As XUIInspectorItem In mItems
@@ -202,7 +202,7 @@ Protected Class XUIInspectorSection
 		  End If
 		  
 		  // Update `y` to the bottom of the section header.
-		  y = y + HEADER_HEIGHT
+		  y = y + HEADER_HEIGHT + HEADER_BOTTOM_PADDING
 		  
 		  // Draw the items.
 		  y = RenderItems(g, x, y, g.Width, style)
@@ -361,6 +361,9 @@ Protected Class XUIInspectorSection
 	#tag EndConstant
 
 	#tag Constant, Name = DOWN_DISCLOSURE_OFFSET_FROM_BOTTOM, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 546865206E756D626572206F6620706978656C732074686520626F74746F6D206F662074686520646F776E20646973636C6F7375726520776964676574206973206F66667365742066726F6D2074686520626F74746F6D2065646765206F66207468652073656374696F6E206865616465722E
+	#tag EndConstant
+
+	#tag Constant, Name = HEADER_BOTTOM_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616464206265747765656E2074686520626F74746F6D206F66207468652073656374696F6E2068656164657220616E642074686520746F70206F6620746865206669727374206974656D2E
 	#tag EndConstant
 
 	#tag Constant, Name = HEADER_HEIGHT, Type = Double, Dynamic = False, Default = \"26", Scope = Private, Description = 54686520686569676874206F6620612073656374696F6E2773206865616465722E
