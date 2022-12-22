@@ -164,17 +164,28 @@ Protected Class XUIInspectorSection
 		Function Render(g As Graphics, x As Double, y As Double, style As XUIInspectorStyle) As Double
 		  /// Renders this section to `g` with its top-left corner at x, y.
 		  /// Returns the location to draw the next section's top-left corner.
+		  ///
+		  /// Assumes the owning inspector is not Nil.
 		  
 		  g.SaveState
 		  
 		  // Cache the top position so we can compute this section's bounds when we're done.
 		  Var sectionTop As Double = y
 		  
-		  // Header background and border.
+		  // Header background.
 		  g.DrawingColor = style.SectionBackColor
 		  g.FillRectangle(x, y, g.Width, HEADER_HEIGHT)
+		  
+		  // Border.
 		  g.DrawingColor = style.SectionBorderColor
-		  g.DrawRectangle(x, y, g.Width, HEADER_HEIGHT)
+		  If TargetMacOS And Owner.HasVerticalScrollbar And NSScrollViewCanvas.NSScrollerStyle = NSScrollViewCanvas.NSScrollerStyles.Legacy Then
+		    // Don't draw the right border as it looks bad next to the vertical scrollbar on macOS.
+		    g.DrawLine(x, y, x + g.Width, y) // Top.
+		    g.DrawLine(x, y, x, y + HEADER_HEIGHT) // Left.
+		    g.DrawLine(x, y + HEADER_HEIGHT - 1, x + g.Width, y + HEADER_HEIGHT - 1) // Bottom.
+		  Else
+		    g.DrawRectangle(x, y, g.Width, HEADER_HEIGHT)
+		  End If
 		  
 		  // Section name.
 		  g.DrawingColor = style.TextColor

@@ -5,9 +5,13 @@ Inherits NSScrollViewCanvas
 		Function DoCommand(command As String) As Boolean
 		  /// A key command has occurred.
 		  
-		  // Delegate to the item currently in focus.
-		  If ItemWithFocus <> Nil And ItemWithFocus IsA XUIInspectorItemKeyHandler Then
-		    XUIInspectorItemKeyHandler(ItemWithFocus).DoCommand(command)
+		  If command = CmdInsertTab Then
+		    MoveFocusToNextItem
+		  Else
+		    // Delegate to the item currently in focus.
+		    If ItemWithFocus <> Nil And ItemWithFocus IsA XUIInspectorItemKeyHandler Then
+		      XUIInspectorItemKeyHandler(ItemWithFocus).DoCommand(command)
+		    End If
 		  End If
 		  
 		End Function
@@ -298,7 +302,6 @@ Inherits NSScrollViewCanvas
 		  #If TargetMacOS
 		    SetDocumentSize(mBackBuffer.Graphics.Width, mBackBuffer.Graphics.Height)
 		  #EndIf
-		  
 		End Sub
 	#tag EndEvent
 
@@ -384,6 +387,8 @@ Inherits NSScrollViewCanvas
 		  AddHandler mCaretBlinkerTimer.Action, AddressOf CaretBlinkerTimerAction
 		  mCaretBlinkerTimer.Enabled = True
 		  
+		  // We don't support horizontal scrolling.
+		  HasHorizontalScrollbar = False
 		End Sub
 	#tag EndMethod
 
@@ -576,6 +581,15 @@ Inherits NSScrollViewCanvas
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 4D6F7665732074686520666F63757320746F20746865206E657874206974656D20746861742063616E20616363657074207468652074616220666F6375732E
+		Private Sub MoveFocusToNextItem()
+		  /// Moves the focus to the next item that can accept the tab focus.
+		  
+		  #Pragma Warning "TODO"
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 52656275696C64732074686520696E7465726E616C207069637475726520746861742069732072656E646572656420746F2074686520696E73706563746F72277320677261706869637320636F6E746578742E
 		Private Sub RebuildBackBuffer()
 		  /// Rebuilds the internal picture that is rendered to the inspector's graphics context.
@@ -583,7 +597,14 @@ Inherits NSScrollViewCanvas
 		  If Self.Window = Nil Then
 		    Return
 		  Else
-		    mBackBuffer = Self.Window.BitmapForCaching(Me.Width, RequiredHeight)
+		    Var bufferW As Double = Me.Width
+		    #If TargetMacOS Then
+		      // Adjust the width if legacy vertical scrollbars are visible on macOS.
+		      If Self.HasVerticalScrollbar And Self.NSScrollerStyle = NSScrollViewCanvas.NSScrollerStyles.Legacy Then
+		        bufferW = Me.Width - NSScrollViewCanvas.SCROLLBAR_DEPTH
+		      End If
+		    #EndIf
+		    mBackBuffer = Self.Window.BitmapForCaching(bufferW, RequiredHeight)
 		  End If
 		  
 		  // Grab a reference to the back buffer's graphics for brevity.

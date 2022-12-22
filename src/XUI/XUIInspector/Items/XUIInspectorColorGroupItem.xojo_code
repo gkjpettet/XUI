@@ -30,6 +30,16 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D206861732068616E646C6564206265696E672074616262656420746F206F722046616C73652069662074686973206974656D20646F6573206E6F74206163636570742074686520666F637573207669612074686520746162206B65792E
+		Function DidReceiveTabFocus() As Boolean
+		  /// Returns True if this item has handled being tabbed to or False if this item does not accept the focus via the tab key.
+		  
+		  // This item does not accept the focus via the tab key.
+		  Return False
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 4472617773207468652074776F20636F6C6F757220737761746368657320746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420706F736974696F6E206F662077696474682060776020616E64206865696768742060686020616E64207570646174657320746865697220626F756E64732E
 		Private Sub DrawColorSwatches(g As Graphics, lightSwatchX As Double, y As Double, style As XUIInspectorStyle, w As Double, h As Double)
 		  /// Draws the two colour swatches to the passed graphics context at the precomputed position 

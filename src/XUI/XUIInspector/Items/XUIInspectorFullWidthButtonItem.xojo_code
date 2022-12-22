@@ -31,6 +31,16 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D206861732068616E646C6564206265696E672074616262656420746F206F722046616C73652069662074686973206974656D20646F6573206E6F74206163636570742074686520666F637573207669612074686520746162206B65792E
+		Function DidReceiveTabFocus() As Boolean
+		  /// Returns True if this item has handled being tabbed to or False if this item does not accept the focus via the tab key.
+		  
+		  // This item does not accept the focus via the tab key.
+		  Return False
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 54686520686569676874206F662074686973206974656D20676976656E207468652064657369726564207374796C652E
 		Function Height(style As XUIInspectorStyle) As Double
 		  /// The height of this item given the desired style.

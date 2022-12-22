@@ -30,6 +30,16 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D206861732068616E646C6564206265696E672074616262656420746F206F722046616C73652069662074686973206974656D20646F6573206E6F74206163636570742074686520666F637573207669612074686520746162206B65792E
+		Function DidReceiveTabFocus() As Boolean
+		  /// Returns True if this item has handled being tabbed to or False if this item does not accept the focus via the tab key.
+		  
+		  // This item does not accept the focus via the tab key.
+		  Return False
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 44726177732074686520636F6C6F7220746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420782C207920706F736974696F6E206F662077696474682060776020616E64206865696768742060686020616E6420757064617465732069747320626F756E64732E
 		Private Sub DrawColorSwatch(g As Graphics, x As Double, y As Double, style As XUIInspectorStyle, w As Double, h As Double)
 		  /// Draws the color to the passed graphics context at the precomputed x, y position 
