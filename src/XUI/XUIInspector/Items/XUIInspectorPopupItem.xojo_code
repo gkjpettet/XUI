@@ -324,8 +324,10 @@ Implements XUIInspectorItem
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 41207765616B207265666572656E636520746F207468652073656374696F6E2074686973206974656D20697320696E2E
 		Function Section() As XUIInspectorSection
+		  /// A weak reference to the section this item is in.
+		  
 		  If mSection = Nil Or mSection.Value = Nil Then
 		    Return Nil
 		  Else
@@ -335,8 +337,10 @@ Implements XUIInspectorItem
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 5468652073656374696F6E2074686973206974656D2069732077697468696E20746F2E2041207765616B207265666572656E63652077696C6C20626520637265617465642E
 		Sub Section(Assigns section As XUIInspectorSection)
+		  /// The section this item is within to. A weak reference will be created.
+		  
 		  If section = Nil Then
 		    mSection = Nil
 		  Else

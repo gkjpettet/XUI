@@ -57,7 +57,13 @@ Protected Module XUI
 	#tag EndMethod
 
 
-	#tag Enum, Name = ClickTypes, Type = Integer, Flags = &h1
+	#tag Note, Name = About
+		A required module that includes utility methods and enumerations used within the framework.
+		
+	#tag EndNote
+
+
+	#tag Enum, Name = ClickTypes, Type = Integer, Flags = &h1, Description = 526570726573656E74732074686520766172696F7573207479706573206F66206D6F75736520636C69636B732E
 		ContextualClick
 		  DoubleClick
 		  TripleClick
