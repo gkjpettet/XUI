@@ -1,6 +1,6 @@
 #tag Class
 Protected Class XUIInspectorDualTextFieldItem
-Implements XUIInspectorItem,XUIInspectorItemKeyHandler
+Implements XUIInspectorItem,XUIInspectorItemKeyHandler, XUIInspectorItemWithMultipleTabFocusControls
 	#tag Method, Flags = &h0
 		Function Bounds() As Rect
 		  /// The bounds of this item within the inspector.
@@ -19,6 +19,17 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  
 		  mBounds = b
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E732054727565206966207072657373696E672074686520746162206B65792073686F756C64206D6F76652074686520666F63757320746F20616E6F7468657220636F6E74726F6C2077697468696E2074686973206974656D2E
+		Function CanAcceptAnotherTabFocus() As Boolean
+		  /// Returns True if pressing the tab key should move the focus to another control within this item.
+		  ///
+		  /// Part of the `XUIInspectorItemWithMultipleTabFocusControls` interface.
+		  
+		  Return TopHasFocus
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D2069732061626C6520746F206163636570742074686520666F637573207669612074686520746162206B65792E
@@ -52,17 +63,18 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  /// This item has just received the focus via the tab key.
 		  
 		  If Not TopHasFocus And Not BottomHasFocus Then
+		    // If nothing has the focus, give the top text field the focus.
 		    LostFocus
 		    TopHasFocus = True
 		    mTopTextField.SelectAll
 		  ElseIf TopHasFocus Then
 		    LostFocus
-		    TopHasFocus = True
-		    mTopTextField.SelectAll
-		  Else
-		    LostFocus
 		    BottomHasFocus = True
 		    mBottomTextField.SelectAll
+		  ElseIf BottomHasFocus Then
+		    LostFocus
+		    TopHasFocus = True
+		    mTopTextField.SelectAll
 		  End If
 		  
 		End Sub
@@ -568,6 +580,28 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Section() As XUIInspectorSection
+		  If mSection = Nil Or mSection.Value = Nil Then
+		    Return Nil
+		  Else
+		    Return XUIInspectorSection(mSection.Value)
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Section(Assigns section As XUIInspectorSection)
+		  If section = Nil Then
+		    mSection = Nil
+		  Else
+		    mSection = New WeakRef(section)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		An item with two text fields, one above the other.
@@ -657,6 +691,10 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
 		Private mOwner As WeakRef
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722073656374696F6E2074686973206974656D2069732077697468696E2E204D6179206265204E696C2E
+		Private mSection As WeakRef
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 546865207769647468206F66207468652074657874206669656C642E

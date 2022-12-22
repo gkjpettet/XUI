@@ -7,6 +7,7 @@ Protected Class XUIInspectorSection
 		  mItems.Add(item)
 		  
 		  item.Owner = Self.Owner
+		  item.Section = Self
 		End Sub
 	#tag EndMethod
 
@@ -18,6 +19,7 @@ Protected Class XUIInspectorSection
 		  mItems.AddAt(index, item)
 		  
 		  item.Owner = Self.Owner
+		  item.Section = Self
 		End Sub
 	#tag EndMethod
 
@@ -150,6 +152,44 @@ Protected Class XUIInspectorSection
 		  Next item
 		  
 		  // The click did not happen in this section.
+		  Return Nil
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MoveFocusToNextItem(currentItemWithFocus As XUIInspectorItem) As XUIInspectorItem
+		  /// Returns the next item that can receive tab focus given `currentItemWithFocus` or Nil if there
+		  /// is no item in this section after `currentItemWithFocus` that can receive tab focus.
+		  
+		  // If the section is collapsed then none of its items can receive the focus.
+		  If Not Expanded Then Return Nil
+		  
+		  // currentItemWithFocus may not be in this section in which case we return the first item that 
+		  // can receive focus (if any).
+		  Var currentItemIndex As Integer = mItems.IndexOf(currentItemWithFocus)
+		  If currentItemIndex = -1 Then
+		    Return FirstItemThatCanAcceptTabFocus
+		  End If
+		  
+		  // Edge case: The current item contains multiple controls that can accept tab focus
+		  // (such as a dual text field item).
+		  If currentItemWithFocus IsA XUIInspectorItemWithMultipleTabFocusControls Then
+		    If XUIInspectorItemWithMultipleTabFocusControls(currentItemWithFocus).CanAcceptAnotherTabFocus Then
+		      Return currentItemWithFocus
+		    End If
+		  End If
+		  
+		  // currentItemWithFocus is in this section and it is an item that only contains one
+		  // tabbale control.
+		  // Starting from the item after it, return the next valid item.
+		  For i As Integer = currentItemIndex + 1 To mItems.LastIndex
+		    If mItems(i).CanAcceptTabFocus Then
+		      Return mItems(i)
+		    End If
+		  Next i
+		  
+		  // If we've reached here then there are no more items that can receive the tab focus.
 		  Return Nil
 		  
 		End Function

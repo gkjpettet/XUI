@@ -437,6 +437,28 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Section() As XUIInspectorSection
+		  If mSection = Nil Or mSection.Value = Nil Then
+		    Return Nil
+		  Else
+		    Return XUIInspectorSection(mSection.Value)
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Section(Assigns section As XUIInspectorSection)
+		  If section = Nil Then
+		    mSection = Nil
+		  Else
+		    mSection = New WeakRef(section)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		An item containing an editable text field beside a caption.
@@ -492,6 +514,10 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 
 	#tag Property, Flags = &h21, Description = 4F7074696F6E616C20706C616365686F6C64657220666F72207468652074657874206669656C642E
 		Private mPlaceholder As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722073656374696F6E2074686973206974656D2069732077697468696E2E204D6179206265204E696C2E
+		Private mSection As WeakRef
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686973206974656D27732074657874206669656C642E

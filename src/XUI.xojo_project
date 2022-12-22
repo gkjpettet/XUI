@@ -286,6 +286,7 @@ Class=XUIInspectorTextSelection;XUI/XUIInspector/XUIInspectorTextSelection.xojo_
 Folder=Inspector;Demo Windows/UI Controls/Inspector;&h00000000236ADFFF;&h0000000013F79FFF;false
 DesktopWindow=WinInspector;Demo Windows/UI Controls/Inspector/WinInspector.xojo_window;&h000000007420DFFF;&h00000000236ADFFF;false
 Module=XUI;XUI/Required/XUI.xojo_code;&h0000000075C34FFF;&h0000000049AEC7FF;false
+Interface=XUIInspectorItemWithMultipleTabFocusControls;XUI/XUIInspector/Items/XUIInspectorItemWithMultipleTabFocusControls.xojo_code;&h00000000524887FF;&h000000002CB847FF;false
 AppMenuBar=BasicMenuBar
 MajorVersion=2
 MinorVersion=1

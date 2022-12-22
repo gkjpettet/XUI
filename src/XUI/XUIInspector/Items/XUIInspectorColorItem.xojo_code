@@ -303,6 +303,28 @@ Implements XUIInspectorItem
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Section() As XUIInspectorSection
+		  If mSection = Nil Or mSection.Value = Nil Then
+		    Return Nil
+		  Else
+		    Return XUIInspectorSection(mSection.Value)
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Section(Assigns section As XUIInspectorSection)
+		  If section = Nil Then
+		    mSection = Nil
+		  Else
+		    mSection = New WeakRef(section)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 54686520686569676874206F66207468652073776174636820676976656E207468652063757272656E74207374796C652E
 		Private Function SwatchHeight(style As XUIInspectorStyle) As Double
 		  /// The height of the swatch given the current style.
@@ -355,6 +377,10 @@ Implements XUIInspectorItem
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
 		Private mOwner As WeakRef
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722073656374696F6E2074686973206974656D2069732077697468696E2E204D6179206265204E696C2E
+		Private mSection As WeakRef
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520626F756E6473206F662074686520636F6C6F7572207377617463682E205573656420666F72206869742D74657374696E672E

@@ -270,6 +270,28 @@ Implements XUIInspectorItem
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Section() As XUIInspectorSection
+		  If mSection = Nil Or mSection.Value = Nil Then
+		    Return Nil
+		  Else
+		    Return XUIInspectorSection(mSection.Value)
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Section(Assigns section As XUIInspectorSection)
+		  If section = Nil Then
+		    mSection = Nil
+		  Else
+		    mSection = New WeakRef(section)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		Used to display a checkbox with a caption in the inspector.
@@ -313,6 +335,10 @@ Implements XUIInspectorItem
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
 		Private mOwner As WeakRef
+	#tag EndProperty
+
+	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722073656374696F6E2074686973206974656D2069732077697468696E2E204D6179206265204E696C2E
+		Private mSection As WeakRef
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 54686520636865636B626F782076616C75652E2054727565203D20636865636B65642C2046616C7365203D20756E636865636B65642E
