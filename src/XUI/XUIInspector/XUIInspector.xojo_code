@@ -18,6 +18,8 @@ Inherits NSScrollViewCanvas
 		    End If
 		  End If
 		  
+		  // Tell the Xojo framework that we've handled the key.
+		  Return True
 		End Function
 	#tag EndEvent
 
