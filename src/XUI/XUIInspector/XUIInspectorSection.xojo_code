@@ -42,7 +42,7 @@ Protected Class XUIInspectorSection
 		  If Not Expanded Then Return Nil
 		  
 		  For Each item As XUIInspectorItem In mItems
-		    If item.CanAcceptTabFocus Then
+		    If item.CanAcceptTab Then
 		      Return item
 		    End If
 		  Next item
@@ -66,6 +66,27 @@ Protected Class XUIInspectorSection
 		  End If
 		  
 		  Return h
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206C617374206974656D20696E20746869732073656374696F6E20746861742063616E206163636570742074616220666F637573206F72204E696C206966206E6F6E65206172652061626C6520746F2E
+		Function LastItemThatCanAcceptTabFocus() As XUIInspectorItem
+		  /// Returns the last item in this section that can accept tab focus or Nil if none are able to.
+		  
+		  // If this section is not expanded then none of its items will be able to receive the focus.
+		  If Not Expanded Then Return Nil
+		  
+		  Var item As XUIInspectorItem
+		  For i As Integer = mItems.LastIndex DownTo 0
+		    item = mItems(i)
+		    If item.CanAcceptTab Then
+		      Return item
+		    End If
+		  Next i
+		  
+		  // No items in this section can receive tab focus.
+		  Return Nil
 		  
 		End Function
 	#tag EndMethod
@@ -184,7 +205,45 @@ Protected Class XUIInspectorSection
 		  // tabbale control.
 		  // Starting from the item after it, return the next valid item.
 		  For i As Integer = currentItemIndex + 1 To mItems.LastIndex
-		    If mItems(i).CanAcceptTabFocus Then
+		    If mItems(i).CanAcceptTab Then
+		      Return mItems(i)
+		    End If
+		  Next i
+		  
+		  // If we've reached here then there are no more items that can receive the tab focus.
+		  Return Nil
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MoveFocusToPreviousItem(currentItemWithFocus As XUIInspectorItem) As XUIInspectorItem
+		  /// Returns the previous item that can receive tab focus given `currentItemWithFocus` or Nil if there
+		  /// is no item in this section after `currentItemWithFocus` that can receive tab focus.
+		  
+		  // If the section is collapsed then none of its items can receive the focus.
+		  If Not Expanded Then Return Nil
+		  
+		  // `currentItemWithFocus` may not be in this section in which case we return the last item that 
+		  // can receive focus (if any).
+		  Var currentItemIndex As Integer = mItems.IndexOf(currentItemWithFocus)
+		  If currentItemIndex = -1 Then
+		    Return LastItemThatCanAcceptTabFocus
+		  End If
+		  
+		  // Edge case: The current item contains multiple controls that can accept tab focus
+		  // (such as a dual text field item).
+		  If currentItemWithFocus IsA XUIInspectorItemWithMultipleTabFocusControls Then
+		    If XUIInspectorItemWithMultipleTabFocusControls(currentItemWithFocus).CanAcceptBackTab Then
+		      Return currentItemWithFocus
+		    End If
+		  End If
+		  
+		  // `currentItemWithFocus` is in this section and it is an item that only contains one
+		  // tab-able control.
+		  // Starting from the item before it, return the previous valid item.
+		  For i As Integer = currentItemIndex - 1 DownTo 0
+		    If mItems(i).CanAcceptTab Then
 		      Return mItems(i)
 		    End If
 		  Next i

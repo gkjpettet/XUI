@@ -21,8 +21,18 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E732054727565206966207072657373696E672074686520226261636B2074616222206B657920636F6D626F2073686F756C64206D6F76652074686520666F63757320746F20612070726576696F757320636F6E74726F6C2077697468696E2074686973206974656D2E
+		Function CanAcceptBackTab() As Boolean
+		  /// Returns True if pressing the "back tab" key combo should move the focus to a previous control within this item.
+		  ///
+		  /// Part of the `XUIInspectorItemWithMultipleTabFocusControls` interface.
+		  
+		  Return True
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D2069732061626C6520746F206163636570742074686520666F637573207669612074686520746162206B65792E
-		Function CanAcceptTabFocus() As Boolean
+		Function CanAcceptTab() As Boolean
 		  /// Returns True if this item is able to accept the focus via the tab key.
 		  
 		  Return True
@@ -43,6 +53,18 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  Self.Placeholder = placeHolder
 		  
 		  mLastNewlineEvent = System.Microseconds
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 54686973206974656D20686173206A7573742072656365697665642074686520666F63757320766961207468652073686966742D746162206B657920636F6D626F202874686520226261636B2074616222292E
+		Sub DidReceiveBackTab()
+		  /// This item has just received the focus via the shift-tab key combo (the "back tab").
+		  ///
+		  /// Part of the `XUIInspectorItem` interface.
+		  
+		  HasFocus = True
+		  mTextField.SelectAll
+		  
 		End Sub
 	#tag EndMethod
 

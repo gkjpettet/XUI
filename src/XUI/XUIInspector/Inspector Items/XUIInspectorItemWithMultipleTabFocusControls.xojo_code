@@ -6,6 +6,12 @@ Protected Interface XUIInspectorItemWithMultipleTabFocusControls
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E732054727565206966207072657373696E672074686520226261636B2074616222206B657920636F6D626F2073686F756C64206D6F76652074686520666F63757320746F20612070726576696F757320636F6E74726F6C2077697468696E2074686973206974656D2E
+		Function CanAcceptBackTab() As Boolean
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		Items implementing this interface contain more than one control that can accept the focus via the tab key.

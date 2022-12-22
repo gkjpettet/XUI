@@ -7,6 +7,10 @@ Inherits NSScrollViewCanvas
 		  
 		  If command = CmdInsertTab Then
 		    MoveFocusToNextItem
+		    
+		  ElseIf command = CmdInsertBacktab Then
+		    MoveFocusToPreviousItem
+		    
 		  Else
 		    // Delegate to the item currently in focus.
 		    If ItemWithFocus <> Nil And ItemWithFocus IsA XUIInspectorItemKeyHandler Then
@@ -632,6 +636,48 @@ Inherits NSScrollViewCanvas
 		    If result <> Nil Then
 		      ItemWithFocus = result
 		      ItemWithFocus.DidReceiveTabFocus
+		      Return
+		    End If
+		  Next i
+		  
+		  // If we've reached here then there is no item to move the focus to.
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21, Description = 4D6F7665732074686520666F63757320746F207468652070726576696F7573206974656D20746861742063616E20616363657074207468652074616220666F6375732E
+		Private Sub MoveFocusToPreviousItem()
+		  /// Moves the focus to the previous item that can accept the tab focus.
+		  
+		  If ItemWithFocus = Nil Then
+		    // Give the focus to the first item that can accept tab focus.
+		    MoveFocusToFirstItem
+		    Return
+		  End If
+		  
+		  If SectionWithFocus = Nil Then Return
+		  
+		  // Start at the current section and loop backwards through all visible sections
+		  // until we get back to the current section.
+		  
+		  Var currentSectionIndex As Integer = mSections.IndexOf(SectionWithFocus)
+		  If currentSectionIndex < 0 Or currentSectionIndex > mSections.LastIndex Then Return
+		  For i As Integer = currentSectionIndex DownTo 0
+		    Var result As XUIInspectorItem = mSections(i).MoveFocusToPreviousItem(ItemWithFocus)
+		    If result <> Nil Then
+		      ItemWithFocus = result
+		      ItemWithFocus.DidReceiveBackTab
+		      Return
+		    End If
+		  Next i
+		  
+		  // Haven't found an item moving up the inspector that can receive the tab focus.
+		  // Start at the bottom of the inspector, moving up to the current section.
+		  For i As Integer = mSections.LastIndex DownTo currentSectionIndex
+		    Var result As XUIInspectorItem = mSections(i).MoveFocusToPreviousItem(ItemWithFocus)
+		    If result <> Nil Then
+		      ItemWithFocus = result
+		      ItemWithFocus.DidReceiveBackTab
 		      Return
 		    End If
 		  Next i
