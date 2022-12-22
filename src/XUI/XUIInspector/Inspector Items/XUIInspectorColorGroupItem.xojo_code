@@ -203,7 +203,7 @@ Implements XUIInspectorItem
 		  
 		  If mLightSwatchBounds <> Nil And mLightSwatchBounds.Contains(x, y) Then
 		    If Not mColorPickerVisible Then
-		      Var cp As New XUIColorPicker(Self.Value)
+		      Var cp As New XUIColorPicker(Value.Light)
 		      AddHandler cp.Closing, AddressOf PickerClosing
 		      mActiveSwatch = ActiveSwatches.Light
 		      mColorPickerVisible = True
@@ -212,7 +212,7 @@ Implements XUIInspectorItem
 		    
 		  ElseIf mDarkSwatchBounds <> Nil And mDarkSwatchBounds.Contains(x, y) Then
 		    If Not mColorPickerVisible Then
-		      Var cp As New XUIColorPicker(Self.Value)
+		      Var cp As New XUIColorPicker(Value.Dark)
 		      AddHandler cp.Closing, AddressOf PickerClosing
 		      mActiveSwatch = ActiveSwatches.Dark
 		      mColorPickerVisible = True
@@ -254,6 +254,10 @@ Implements XUIInspectorItem
 		Private Sub PickerClosing(picker As XUIColorPicker)
 		  /// Delegate called when a color swatch's color picker is closing.
 		  
+		  RemoveHandler picker.Closing, AddressOf PickerClosing
+		  
+		  mColorPickerVisible = False
+		  
 		  If mActiveSwatch = ActiveSwatches.None Then Return
 		  
 		  Var newColor As Color = picker.CurrentColor
@@ -285,8 +289,6 @@ Implements XUIInspectorItem
 		    End Select
 		  End If
 		  
-		  mColorPickerVisible = False
-		  mActiveSwatch = ActiveSwatches.None
 		  XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, mValue)
 		  
 		End Sub

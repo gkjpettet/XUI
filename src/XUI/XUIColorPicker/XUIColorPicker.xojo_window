@@ -143,7 +143,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
       Tooltip         =   ""
       Top             =   131
       Transparent     =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   321
       Begin DesktopTextField SlidersRGBHexValue
@@ -240,7 +240,7 @@ Begin DesktopWindow XUIColorPicker Implements XUINotificationListener
          Tooltip         =   ""
          Top             =   171
          Transparent     =   False
-         Value           =   2
+         Value           =   0
          Visible         =   True
          Width           =   321
          Begin DesktopTextField SliderRedValue
@@ -1668,7 +1668,7 @@ End
 			  
 			  Update
 			  
-			  RaiseEvent ColorChanged(mCurrentColor)
+			  'RaiseEvent ColorChanged(mCurrentColor)
 			End Set
 		#tag EndSetter
 		CurrentColor As Color

@@ -216,6 +216,10 @@ Implements XUIInspectorItem
 		Private Sub PickerClosing(picker As XUIColorPicker)
 		  /// Delegate called when this swatch's color picker is closing.
 		  
+		  RemoveHandler picker.Closing, AddressOf PickerClosing
+		  
+		  mColorPickerVisible = False
+		  
 		  // Nothing to do if the colour has not changed.
 		  If Self.Value = picker.CurrentColor Then Return
 		  
@@ -223,8 +227,6 @@ Implements XUIInspectorItem
 		  
 		  // Notify a change occurred.
 		  XUINotificationCenter.Send(Self, XUIInspector.NOTIFICATION_ITEM_CHANGED, Value)
-		  
-		  mColorPickerVisible = False
 		  
 		End Sub
 	#tag EndMethod
