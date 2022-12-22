@@ -33,6 +33,7 @@ Begin DemoWindow WinInspector Implements XUINotificationListener
       HasLeftBorder   =   True
       HasRightBorder  =   True
       HasTopBorder    =   True
+      HasVerticalScrollbar=   True
       Height          =   576
       Index           =   -2147483648
       InitialParent   =   ""

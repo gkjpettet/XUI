@@ -26,7 +26,7 @@ Implements XUIInspectorItem
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E67206120636F6C6F7572207377617463682077686963682063616E20626520616C746572656420627920636C69636B696E672069742E206076616C7565602069732074686520696E697469616C20436F6C6F7247726F75702E
-		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As ColorGroup)
+		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As ColorGroup, lightColorLabelText As String = "L", darkColorLabelText As String = "D")
 		  /// Constructs a new item containing a colour swatch which can be altered by clicking it. 
 		  /// `value` is the initial ColorGroup.
 		  
@@ -34,7 +34,8 @@ Implements XUIInspectorItem
 		  Self.Caption = caption
 		  Self.CaptionWidth = captionWidth
 		  mValue = value
-		  
+		  Self.LightColorLabelText = lightColorLabelText
+		  Self.DarkColorLabelText = darkColorLabelText
 		End Sub
 	#tag EndMethod
 
@@ -71,9 +72,9 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 447261772074686520737761746368206C6162656C7320284C20666F72206C6967687420616E64204420666F72206461726B2920746F206067602E20606C69676874596020697320746865205920636F6F7264696E61746520666F7220746865206C69676874206C6162656C20616E6420606461726B596020697320746865205920636F6F7264696E61746520666F7220746865206461726B206C6162656C2E
+	#tag Method, Flags = &h21, Description = 447261772074686520737761746368206C6162656C7320746F206067602E20606C69676874596020697320746865205920636F6F7264696E61746520666F7220746865206C69676874206C6162656C20616E6420606461726B596020697320746865205920636F6F7264696E61746520666F7220746865206461726B206C6162656C2E
 		Private Sub DrawSwatchLabels(x As Double, lightY As Double, darkY As Double, w As Double, h As Double, lightBaseline As Double, darkBaseline As Double, g As Graphics, style As XUIInspectorStyle)
-		  /// Draw the swatch labels (L for light and D for dark) to `g`.
+		  /// Draw the swatch labels to `g`.
 		  /// `lightY` is the Y coordinate for the light label and `darkY` is the Y coordinate for the dark label.
 		  
 		  g.SaveState
@@ -83,12 +84,17 @@ Implements XUIInspectorItem
 		  g.FillRectangle(x, lightY, w, h) // Light.
 		  g.FillRectangle(x, darkY, w, h) // Dark.
 		  
+		  // Borders.
+		  g.DrawingColor = style.ControlBorderColor
+		  g.DrawRectangle(x, lightY, w, h) // Light.
+		  g.DrawRectangle(x, darkY, w, h) // Dark.
+		  
 		  // Captions.
 		  g.DrawingColor = style.TextFieldCaptionTextColor
 		  g.FontName = style.FontName
 		  g.FontSize = style.FontSize
-		  g.DrawText("L", x + SWATCH_CAPTION_INTERNAL_PADDING, lightBaseline) // Light.
-		  g.DrawText("D", x + SWATCH_CAPTION_INTERNAL_PADDING, darkBaseline) // Dark.
+		  g.DrawText(LightColorLabelText, x + SWATCH_CAPTION_INTERNAL_PADDING, lightBaseline) // Light.
+		  g.DrawText(DarkColorLabelText, x + SWATCH_CAPTION_INTERNAL_PADDING, darkBaseline) // Dark.
 		  
 		  g.RestoreState
 		  
@@ -343,7 +349,7 @@ Implements XUIInspectorItem
 		  Var captionBaseline As Double = (g.FontAscent + (singleLineH - g.TextHeight)/2 + y)
 		  
 		  // Compute the width of the widest swatch label.
-		  Var labelW As Double = Max(g.TextWidth("L"), g.TextWidth("D")) + (2 * SWATCH_CAPTION_INTERNAL_PADDING)
+		  Var labelW As Double = Max(g.TextWidth(LightColorLabelText), g.TextWidth(DarkColorLabelText)) + (2 * SWATCH_CAPTION_INTERNAL_PADDING)
 		  
 		  // Draw the right-aligned caption.
 		  g.DrawingColor = style.TextColor
@@ -352,19 +358,19 @@ Implements XUIInspectorItem
 		  Var captionRightX As Double = x + HPADDING + CaptionWidth
 		  
 		  // Compute the width of the swatches.
-		  Var swatchWidth As Double = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING - SWATCH_LABEL_WIDTH
+		  Var swatchWidth As Double = width - XUIInspector.CONTROL_BORDER_PADDING - captionRightX - XUIInspector.CAPTION_CONTROL_PADDING - labelW
 		  
 		  // Compute the desired position and dimensions of the swatches.
-		  Var swatchX As Double = x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING + SWATCH_LABEL_WIDTH
+		  Var swatchX As Double = x + HPADDING + CaptionWidth + XUIInspector.CAPTION_CONTROL_PADDING + labelW
 		  Var topSwatchY As Double = y + ((singleLineH/2) - (swatchH/2))
 		  Var bottomSwatchY As Double = topSwatchY + swatchH + SWATCH_VPADDING
 		  
-		  // Draw the swatch labels.
-		  Var swatchLabelX As Double = swatchX - SWATCH_LABEL_WIDTH
-		  DrawSwatchLabels(swatchLabelX, topSwatchY, bottomSwatchY, labelW, swatchH, captionBaseline, captionBaseline + swatchH + SWATCH_VPADDING, g, style)
-		  
 		  // Draw the swatches and update their bounds.
 		  DrawSwatchesAndSetBounds(g, swatchX, topSwatchY, bottomSwatchY, swatchWidth, swatchH)
+		  
+		  // Draw the swatch labels.
+		  Var swatchLabelX As Double = swatchX - labelW
+		  DrawSwatchLabels(swatchLabelX, topSwatchY, bottomSwatchY, labelW, swatchH, captionBaseline, captionBaseline + swatchH + SWATCH_VPADDING, g, style)
 		  
 		  // Update the item's bounds.
 		  mBounds = New Rect(x, y, width, h)
@@ -432,6 +438,14 @@ Implements XUIInspectorItem
 		CaptionWidth As Integer
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 546865206C6162656C207465787420746F2075736520746F20696E64696361746520746865206461726B20636F6C6F7572207377617463682E
+		DarkColorLabelText As String = "D"
+	#tag EndProperty
+
+	#tag Property, Flags = &h0, Description = 546865206C6162656C207465787420746F2075736520746F20696E64696361746520746865206C6967687420636F6C6F7572207377617463682E
+		LightColorLabelText As String = "L"
+	#tag EndProperty
+
 	#tag Property, Flags = &h21, Description = 5468652063757272656E746C7920616374697665207377617463682E
 		Private mActiveSwatch As ActiveSwatches = ActiveSwatches.None
 	#tag EndProperty
@@ -491,9 +505,6 @@ Implements XUIInspectorItem
 	#tag EndConstant
 
 	#tag Constant, Name = SWATCH_CAPTION_INTERNAL_PADDING, Type = Double, Dynamic = False, Default = \"5", Scope = Private, Description = 546865206E756D626572206F6620706978656C7320746F2070616420746865206C65667420616E64207269676874206F662061207377617463682063617074696F6E2066726F6D2069747320626F72646572732E
-	#tag EndConstant
-
-	#tag Constant, Name = SWATCH_LABEL_WIDTH, Type = Double, Dynamic = False, Default = \"20", Scope = Private, Description = 546865207769647468206F6620746865206C69676874202F206461726B206D6F6465206C6162656C2073686F776E20626573696465206120636F6C6F7572207377617463682E
 	#tag EndConstant
 
 	#tag Constant, Name = SWATCH_VPADDING, Type = Double, Dynamic = False, Default = \"10", Scope = Private, Description = 54686520686569676874206F6620746865207377617463682069732074686520686569676874206F66207468652063617074696F6E20706C757320746869732076616C75652E
