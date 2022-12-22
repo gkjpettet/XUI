@@ -4057,6 +4057,7 @@ Begin DemoWindow WinCodeEditor
          Active          =   False
          AllowAutoDeactivate=   True
          AllowFocus      =   True
+         AllowTabStop    =   True
          BackgroundColor =   &c00000000
          BevelStyle      =   0
          Bold            =   False
@@ -4089,7 +4090,6 @@ Begin DemoWindow WinCodeEditor
          Scope           =   2
          TabIndex        =   33
          TabPanelIndex   =   4
-         TabStop         =   True
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   620
@@ -4107,6 +4107,7 @@ Begin DemoWindow WinCodeEditor
          Active          =   False
          AllowAutoDeactivate=   True
          AllowFocus      =   True
+         AllowTabStop    =   True
          BackgroundColor =   &c00000000
          BevelStyle      =   0
          Bold            =   False
@@ -4139,7 +4140,6 @@ Begin DemoWindow WinCodeEditor
          Scope           =   2
          TabIndex        =   34
          TabPanelIndex   =   4
-         TabStop         =   True
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   620
@@ -4253,6 +4253,7 @@ Begin DemoWindow WinCodeEditor
       HasLeftBorder   =   False
       HasRightBorder  =   True
       HasTopBorder    =   False
+      HasVerticalScrollbar=   True
       Height          =   681
       HighlightCurrentLine=   True
       HighlightDelimitersAroundCaret=   True
@@ -4354,7 +4355,7 @@ End
 		  
 		  Var c As New Clipboard
 		  If Editor.TextSelected Then
-		    c.Text = Editor.CurrentSelection.ToString
+		    c.Text = Editor.CurrentSelectionAsString
 		  Else
 		    c.Text = ""
 		  End If
@@ -4371,7 +4372,7 @@ End
 		  
 		  Var c As New Clipboard
 		  If Editor.TextSelected Then
-		    c.Text = Editor.CurrentSelection.ToString
+		    c.Text = Editor.CurrentSelectionAsString
 		  Else
 		    c.Text = ""
 		  End If

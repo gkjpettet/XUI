@@ -402,7 +402,7 @@ Implements XUINotificationListener
 		    // normally it gets moved on mouse up but in this scenario the mouse has been depressed but not released.
 		    If mLocationUnderMouse = Nil Then Return
 		    CaretPosition = mLocationUnderMouse.CaretPos + 1
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition)
 		  Else
 		    If CaretPosition < mCurrentSelection.Anchor Then
 		      // Adjust the start of the selection.
@@ -976,6 +976,17 @@ Implements XUINotificationListener
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E732074686520636F6E74656E7473206F66207468652063757272656E742073656C656374696F6E2E204D61792072657475726E20616E20656D70747920737472696E672E
+		Function CurrentSelectionAsString() As String
+		  /// Returns the contents of the current selection. May return an empty string.
+		  
+		  If LineManager = Nil Then Return ""
+		  
+		  Return LineManager.SelectionToString(mCurrentSelection)
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 44656C657465732074686520636861726163746572206265666F72652074686520636172657420616E6420696E76616C696461746573207468652063616E7661732E
 		Sub DeleteBackward(allowUndo As Boolean, raiseContentsDidChange As Boolean = True)
 		  /// Deletes the character before the caret and invalidates the canvas.
@@ -1004,7 +1015,7 @@ Implements XUINotificationListener
 		  If CaretPosition = CurrentLine.Start Then
 		    If allowUndo And UndoManager <> Nil  Then
 		      Var action As New XUICEUndoableDelete(Self, CurrentUndoID, "Delete", &u0A, _
-		      New XUICETextSelection(CaretPosition - 1, CaretPosition - 1, CaretPosition, Self))
+		      New XUITextSelection(CaretPosition - 1, CaretPosition - 1, CaretPosition))
 		      UndoManager.Push(action)
 		    End If
 		    
@@ -1037,7 +1048,7 @@ Implements XUINotificationListener
 		    
 		    If allowUndo And UndoManager <> Nil Then
 		      Var action As New XUICEUndoableDelete(Self, CurrentUndoID, "Delete", charToDelete, _
-		      New XUICETextSelection(CaretPosition - 1, CaretPosition - 1, CaretPosition, Self))
+		      New XUITextSelection(CaretPosition - 1, CaretPosition - 1, CaretPosition))
 		      UndoManager.Push(action)
 		    End If
 		    
@@ -1061,7 +1072,7 @@ Implements XUINotificationListener
 		    If allowUndo And UndoManager <> Nil Then
 		      Var action As New XUICEUndoableDelete(Self, CurrentUndoID, "Delete", _
 		      CurrentLine.CharactersFromCaretPos(CaretPosition - 1, 1), _
-		      New XUICETextSelection(CaretPosition - 1, CaretPosition - 1, CaretPosition, Self))
+		      New XUITextSelection(CaretPosition - 1, CaretPosition - 1, CaretPosition))
 		      UndoManager.Push(action)
 		    End If
 		    
@@ -1113,7 +1124,7 @@ Implements XUINotificationListener
 		    If allowUndo And UndoManager <> Nil  Then
 		      Var action As New XUICEUndoableDelete(Self, CurrentUndoID, "Delete", _
 		      CurrentLine.CharactersFromCaretPos(CaretPosition, 1), _
-		      New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition + 1, Self))
+		      New XUITextSelection(CaretPosition, CaretPosition, CaretPosition + 1))
 		      UndoManager.Push(action)
 		    End If
 		    
@@ -1132,7 +1143,7 @@ Implements XUINotificationListener
 		  // ====================================
 		  If allowUndo And UndoManager <> Nil  Then
 		    Var action As New XUICEUndoableDelete(Self, CurrentUndoID, "Delete", &u0A, _
-		    New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition + 1, Self))
+		    New XUITextSelection(CaretPosition, CaretPosition, CaretPosition + 1))
 		    UndoManager.Push(action)
 		  End If
 		  
@@ -1375,7 +1386,7 @@ Implements XUINotificationListener
 		      
 		    ElseIf Not lastChar.IsLetterOrDigit Then
 		      // The last character is punctuation - just select it.
-		      mCurrentSelection = New XUICETextSelection(line.Finish, line.Finish - 1, line.Finish, Self)
+		      mCurrentSelection = New XUITextSelection(line.Finish, line.Finish - 1, line.Finish)
 		      // We will need a full redraw.
 		      NeedsFullRedraw = True
 		      // Move the caret to the penultimate position in the line.
@@ -1412,7 +1423,7 @@ Implements XUINotificationListener
 		  // 4. Double-clicking on a non-alphanumeric character highlights the character.
 		  // ============================================================================
 		  If Not currentChar.IsLetterOrDigit Then
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition + 1, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition + 1)
 		    NeedsFullRedraw = True
 		    Refresh
 		    Return
@@ -1573,7 +1584,7 @@ Implements XUINotificationListener
 		  End If
 		  
 		  // Select the whole line.
-		  mCurrentSelection = New XUICETextSelection(line.Start, line.Start, line.Finish, Self)
+		  mCurrentSelection = New XUITextSelection(line.Start, line.Start, line.Finish)
 		  
 		  // Force a full redraw.
 		  NeedsFullRedraw = True
@@ -2158,7 +2169,7 @@ Implements XUINotificationListener
 		  
 		  If Not TextSelected Then
 		    // Create a new selection that starts, ends and is anchored at the current caret position.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition)
 		  End If
 		  
 		  // Compute the new selection end position.
@@ -2201,7 +2212,7 @@ Implements XUINotificationListener
 		  
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored at the current caret position, starting a character before.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition - 1, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition - 1, CaretPosition)
 		  Else
 		    If CaretPosition = mCurrentSelection.Anchor + 1 Then
 		      // Edge case: We are moving leftwards and will meet the anchor. This is 
@@ -2236,7 +2247,7 @@ Implements XUINotificationListener
 		  
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored at the current caret position, ending at the next character.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition + 1, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition + 1)
 		  Else
 		    If CaretPosition = mCurrentSelection.Anchor - 1 Then
 		      // Edge case: We are moving rightwards and will meet the anchor. Equivalent to having no selection.
@@ -2299,7 +2310,7 @@ Implements XUINotificationListener
 		  If Not TextSelected Then
 		    // Create a new selection that starts at the top of the document, ends at 
 		    // the current caret position and is anchored at the current caret position.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, 0, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, 0, CaretPosition)
 		  End If
 		  
 		  // Always redraw the entire canvas to ensure that old selections are removed.
@@ -2318,7 +2329,7 @@ Implements XUINotificationListener
 		  If Not TextSelected Then
 		    // Create a new selection that starts and is anchored at the current caret 
 		    // position but ends at the end of the document.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, LineManager.LastLine.Finish, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, LineManager.LastLine.Finish)
 		  End If
 		  
 		  // Always redraw the entire canvas to ensure that old selections are removed.
@@ -2373,7 +2384,7 @@ Implements XUINotificationListener
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored and ending at the current caret position
 		    // but starting at the beginning of the current line.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, mCurrentLine.Start, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, mCurrentLine.Start, CaretPosition)
 		  Else
 		    // Get the start position of the line that the selection begins at.
 		    Var selStartLine As XUICELine = LineManager.LineForCaretPos(mCurrentSelection.StartLocation)
@@ -2406,7 +2417,7 @@ Implements XUINotificationListener
 		  
 		  If Not TextSelected Then
 		    // Create a new selection, anchored and starting at the caret and ending at the end of the current line.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, mCurrentLine.Finish, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, mCurrentLine.Finish)
 		  Else
 		    If CaretPosition > mCurrentSelection.Anchor Then
 		      mCurrentSelection.EndLocation = mCurrentLine.Finish
@@ -2432,7 +2443,7 @@ Implements XUINotificationListener
 		  
 		  If Not TextSelected Then
 		    // Create a new selection that starts, ends and is anchored at the current caret position.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition)
 		  End If
 		  
 		  // Compute the new selection start position.
@@ -2476,7 +2487,7 @@ Implements XUINotificationListener
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored at the current caret position, starting at the 
 		    // beginning of the word to the left of the caret. 
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, prevWordStart, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, prevWordStart, CaretPosition)
 		  Else
 		    If prevWordStart = mCurrentSelection.Anchor Then
 		      // Edge case: We are moving leftwards and will meet the anchor. Equivalent to having no selection.
@@ -2512,7 +2523,7 @@ Implements XUINotificationListener
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored and starting at the current caret position 
 		    // and ending at the end of the word boundary.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, nextWordEndPos, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, nextWordEndPos)
 		  Else
 		    If nextWordEndPos > mCurrentSelection.Anchor Then
 		      // Move the end position of the selection to the end of the word.
@@ -2557,7 +2568,7 @@ Implements XUINotificationListener
 		  
 		  If Not TextSelected Then
 		    // Create a new text selection starting, ending and anchored at the caret position.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition)
 		  End If
 		  
 		  // Scroll the page down, moving the caret but not invalidating the canvas yet.
@@ -2579,7 +2590,7 @@ Implements XUINotificationListener
 		  
 		  If Not TextSelected Then
 		    // Create a new text selection starting, ending and anchored at the caret position.
-		    mCurrentSelection = New XUICETextSelection(CaretPosition, CaretPosition, CaretPosition, Self)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition)
 		  End If
 		  
 		  // Scroll the page up, moving the caret but not invalidating the canvas yet.
@@ -3249,7 +3260,7 @@ Implements XUINotificationListener
 		  CurrentUndoID = System.Ticks
 		  
 		  MoveCaretToPos(LineManager.LastLine.Finish, False)
-		  CurrentSelection = New XUICETextSelection(0, 0, CaretPosition, Self)
+		  CurrentSelection = New XUITextSelection(0, 0, CaretPosition)
 		  
 		  If shouldInvalidate Then Refresh
 		  
@@ -3303,7 +3314,7 @@ Implements XUINotificationListener
 		  Var endPos As Integer = mCurrentLine.Start + endCol
 		  
 		  // Select between these positions.
-		  mCurrentSelection = New XUICETextSelection(startPos, startPos, endPos, Self)
+		  mCurrentSelection = New XUITextSelection(startPos, startPos, endPos)
 		  
 		  // Move the caret to the selection's anchor point.
 		  MoveCaretToPos(mCurrentSelection.Anchor)
@@ -3356,7 +3367,7 @@ Implements XUINotificationListener
 		  Var endPos As Integer = mCurrentLine.Start + endCol
 		  
 		  // Select between these positions.
-		  mCurrentSelection = New XUICETextSelection(startPos, startPos, endPos, Self)
+		  mCurrentSelection = New XUITextSelection(startPos, startPos, endPos)
 		  
 		  // Move the caret to the selection's anchor point.
 		  MoveCaretToPos(mCurrentSelection.Anchor)
@@ -3764,7 +3775,7 @@ Implements XUINotificationListener
 			  
 			End Set
 		#tag EndSetter
-		CurrentSelection As XUICETextSelection
+		CurrentSelection As XUITextSelection
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0, Description = 546865204944206F66207468652067726F7570206F6620756E646F20616374696F6E7320746861742061726520636F6E73696465726564206F6E6520226576656E742220666F722074686520707572706F736573206F6620756E646F2E
@@ -4117,7 +4128,7 @@ Implements XUINotificationListener
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865206043757272656E7453656C656374696F6E6020636F6D70757465642070726F70657274792E
-		Private mCurrentSelection As XUICETextSelection
+		Private mCurrentSelection As XUITextSelection
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865206043757272656E74556E646F49446020636F6D70757465642070726F70657274792E
@@ -4555,6 +4566,14 @@ Implements XUINotificationListener
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="HasVerticalScrollbar"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
 			Visible=false

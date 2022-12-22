@@ -72,7 +72,7 @@ Implements XUIUndoableAction
 		  
 		  // Select the inserted text.
 		  mEditor.CurrentSelection = _
-		  New XUICETextSelection(mCaretPos, mCaretPos, mCaretPos + mText.CharacterCount, mEditor)
+		  New XUITextSelection(mCaretPos, mCaretPos, mCaretPos + mText.CharacterCount)
 		  
 		  // Delete the selection (disallowing undo).
 		  mEditor.LineManager.DeleteSelection(False, True, True)

@@ -37,7 +37,7 @@ Inherits XUITextLine
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52657475726E7320746865206368617261637465727320656E636C6F7365642062792074686520706173736564206073656C656374696F6E602E
-		Function CharactersInSelection(selection As XUICETextSelection) As String
+		Function CharactersInSelection(selection As XUITextSelection) As String
 		  /// Returns the characters enclosed by the passed `selection`.
 		  
 		  Var portion As XUICESelectedColumns = selection.SelectedColumnsInLine(Self)
@@ -336,7 +336,7 @@ Inherits XUITextLine
 		          Var tokSelStartX As Double = tokenStartX + (g.TextWidth(charsBeforeSelection))
 		          
 		          Var selectedChars As String = _
-		          CharactersInSelection(New XUICETextSelection(overlap.Left, overlap.Left, overlap.Right, editor))
+		          CharactersInSelection(New XUITextSelection(overlap.Left, overlap.Left, overlap.Right))
 		          g.FillRectangle(tokSelStartX, topLeftY, g.TextWidth(selectedChars), lineH)
 		        End If
 		      End If

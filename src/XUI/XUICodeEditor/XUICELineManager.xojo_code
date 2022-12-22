@@ -118,7 +118,7 @@ Protected Class XUICELineManager
 		  
 		  If allowUndo And Owner.UndoManager <> Nil Then
 		    Var action As New XUICEUndoableDelete(Owner, Owner.CurrentUndoID, "Delete All Lines", _
-		    Contents, New XUICETextSelection(0, 0, 0, Owner))
+		    Contents, New XUITextSelection(0, 0, 0))
 		    Owner.UndoManager.Push(action)
 		  End If
 		  
@@ -191,7 +191,7 @@ Protected Class XUICELineManager
 		  mDidDeleteContiguousLines = False
 		  
 		  // Get the current selection.
-		  Var selection As XUICETextSelection = Owner.CurrentSelection
+		  Var selection As XUITextSelection = Owner.CurrentSelection
 		  
 		  // Quick exit if there's nothing selected.
 		  If selection = Nil Then Return
@@ -288,7 +288,7 @@ Protected Class XUICELineManager
 		  // ====================================================================================
 		  If selection.ContainsLine(startLine) And Not selection.ContainsLine(endLine) Then
 		    // In order to undo, we need to record the text that'll be deleted.
-		    Var deletedText As String = selection.ToString
+		    Var deletedText As String = SelectionToString(selection)
 		    
 		    // Delete the start line and every line up to (but not including) the end line.
 		    Var linesDeleted As Integer
@@ -330,7 +330,7 @@ Protected Class XUICELineManager
 		  // ====================================================================
 		  If Not selection.ContainsLine(startLine) And selection.ContainsLine(endLine) Then
 		    // In order to undo, we need to record the text deleted.
-		    Var deletedText As String = selection.ToString
+		    Var deletedText As String = SelectionToString(selection)
 		    
 		    // Chop the selection from the end of the start line.
 		    startLine.DeleteCharactersFromEnd(startLine.Finish - selection.StartLocation, False)
@@ -365,7 +365,7 @@ Protected Class XUICELineManager
 		  // =====================================================================
 		  If Not selection.ContainsLine(startLine) And Not selection.ContainsLine(endLine) Then
 		    // In order to undo, we need to record the text deleted.
-		    Var deletedText As String = selection.ToString
+		    Var deletedText As String = SelectionToString(selection)
 		    
 		    // Get the non-selected lefthand characters on the start line to preserve.
 		    Var newContents As String = startLine.Left(selection.StartLocation - startLine.Start)
@@ -911,6 +911,26 @@ Protected Class XUICELineManager
 		  If raiseContentsDidChange Then Owner.ContentsDidChange
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E73206073656C656374696F6E60206173206120737472696E672E204D61792072657475726E20616E20656D70747920737472696E672E
+		Function SelectionToString(selection As XUITextSelection) As String
+		  /// Returns `selection` as a string. May return an empty string.
+		  
+		  If selection = Nil Then Return ""
+		  
+		  // Get the start and end line indices.
+		  Var startLineIndex As Integer = LineForCaretPos(selection.StartLocation).Number - 1
+		  Var endLineIndex As Integer = LineForCaretPos(selection.EndLocation).Number - 1
+		  
+		  // Get the contents from each line within the selection.
+		  Var s() As String
+		  For i As Integer = startLineIndex To endLineIndex
+		    s.Add(Lines(i).CharactersInSelection(selection))
+		  Next i
+		  
+		  Return String.FromArray(s, &u0A)
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 52652D746F6B656E69736573206576657279206C696E652E

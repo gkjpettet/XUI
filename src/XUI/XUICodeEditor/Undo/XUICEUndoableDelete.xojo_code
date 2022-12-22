@@ -2,7 +2,7 @@
 Protected Class XUICEUndoableDelete
 Implements XUIUndoableAction
 	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
-		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, deletedText As String, selection As XUICETextSelection)
+		Sub Constructor(editor As XUICodeEditor, id As Integer, description As String, deletedText As String, selection As XUITextSelection)
 		  /// Default constructor.
 		  ///
 		  /// - `editor` is the `XUICodeEditor` to perform this action on.
@@ -100,7 +100,7 @@ Implements XUIUndoableAction
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 546865206F726967696E616C2073656C656374696F6E20636F6E7461696E696E672074686520746578742074686174207761732064656C657465642E
-		Private mSelection As XUICETextSelection
+		Private mSelection As XUITextSelection
 	#tag EndProperty
 
 

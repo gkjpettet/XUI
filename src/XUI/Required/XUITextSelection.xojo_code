@@ -1,22 +1,21 @@
 #tag Class
-Protected Class XUICETextSelection
+Protected Class XUITextSelection
 	#tag Method, Flags = &h0, Description = 52657475726E732061206465657020636C6F6E65206F662074686973206F626A6563742E
-		Function Clone() As XUICETextSelection
+		Function Clone() As XUITextSelection
 		  /// Returns a deep clone of this object.
 		  
-		  Return New XUICETextSelection(Anchor, StartLocation, EndLocation, Owner)
+		  Return New XUITextSelection(Anchor, StartLocation, EndLocation)
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(anchor As Integer, startPos As Integer, endPos As Integer, editor As XUICodeEditor)
+		Sub Constructor(anchor As Integer, startPos As Integer, endPos As Integer)
 		  /// Default constructor.
 		  ///
 		  /// - `anchor` is the 0-based location of the anchor.
 		  /// - `startPos` is the 0-based start position of this selection.
 		  /// - `endPos` is the 0-based end position of this selection.
-		  /// - `editor` is the editor that owns this selection.
 		  ///
 		  /// The anchor marks the position that the selection began. Typically this 
 		  /// will be the caret position when the selection begins but it's not 
@@ -26,7 +25,7 @@ Protected Class XUICETextSelection
 		  Self.Anchor = anchor
 		  Self.StartLocation = startPos
 		  Self.EndLocation = endPos
-		  mOwnerRef = New WeakRef(editor)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -140,29 +139,6 @@ Protected Class XUICETextSelection
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E732074686520746578742073656C656374656420627920746869732073656C656374696F6E20696E20746865206F776E696E6720656469746F722E
-		Function ToString() As String
-		  /// Returns the text selected by this selection in the owning editor.
-		  
-		  If Owner = Nil Or Owner.LineManager = Nil Then Return ""
-		  
-		  Var lm As XUICELineManager = Owner.LineManager
-		  
-		  // Get the start and end line indices.
-		  Var startLineIndex As Integer = lm.LineForCaretPos(StartLocation).Number - 1
-		  Var endLineIndex As Integer = lm.LineForCaretPos(EndLocation).Number - 1
-		  
-		  // Get the contents from each line within the selection.
-		  Var s() As String
-		  For i As Integer = startLineIndex To endLineIndex
-		    s.Add(lm.Lines(i).CharactersInSelection(Self))
-		  Next i
-		  
-		  Return String.FromArray(s, &u0A)
-		  
-		End Function
-	#tag EndMethod
-
 
 	#tag Note, Name = About
 		Represents a selection of text within the code editor.
@@ -186,25 +162,6 @@ Protected Class XUICETextSelection
 			End Get
 		#tag EndGetter
 		Length As Integer
-	#tag EndComputedProperty
-
-	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F20746865204D4345456469746F722074686174206F776E73207468697320746578742073656C656374696F6E2E
-		Private mOwnerRef As WeakRef
-	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h0, Description = 546865204D4345456469746F722074686174206F776E73207468697320746578742073656C656374696F6E2E
-		#tag Getter
-			Get
-			  If mOwnerRef.Value <> Nil Then
-			    Return XUICodeEditor(mOwnerRef.Value)
-			  Else
-			    // This should never happen as a text selection must always be owned.
-			    Return Nil
-			  End If
-			  
-			End Get
-		#tag EndGetter
-		Owner As XUICodeEditor
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 302D626173656420737461727420706F736974696F6E206F6620746869732073656C656374696F6E2E

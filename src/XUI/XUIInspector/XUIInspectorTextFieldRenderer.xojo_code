@@ -153,7 +153,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		      
 		    ElseIf Not lastChar.IsLetterOrDigit Then
 		      // The last character is punctuation - just select it.
-		      mCurrentSelection = New XUIInspectorTextSelection(mCharacters.Count, mCharacters.LastIndex, mCharacters.Count)
+		      mCurrentSelection = New XUITextSelection(mCharacters.Count, mCharacters.LastIndex, mCharacters.Count)
 		      // Move the caret to the penultimate position in the line.
 		      CaretPosition = mCharacters.LastIndex
 		      Return
@@ -183,7 +183,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  // Double-clicking on a non-alphanumeric character highlights the character.
 		  // ============================================================================
 		  If Not currentChar.IsLetterOrDigit Then
-		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, CaretPosition, CaretPosition + 1)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition + 1)
 		    Return
 		  End If
 		  
@@ -306,7 +306,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  
 		  If Not TextSelected Then
 		    // Create a new selection that starts, ends and is anchored at the current caret position.
-		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, CaretPosition, CaretPosition)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition)
 		  End If
 		  
 		  // The selection should end at the end of the line.
@@ -332,7 +332,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored at the current caret position, starting a character before.
-		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, CaretPosition - 1, CaretPosition)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition - 1, CaretPosition)
 		  Else
 		    If CaretPosition = mCurrentSelection.Anchor + 1 Then
 		      // Edge case: We are moving leftwards and will meet the anchor. This is 
@@ -364,7 +364,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored at the current caret position, ending at the next character.
-		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, CaretPosition, CaretPosition + 1)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition + 1)
 		  Else
 		    If CaretPosition = mCurrentSelection.Anchor - 1 Then
 		      // Edge case: We are moving rightwards and will meet the anchor. Equivalent to having no selection.
@@ -422,7 +422,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored and ending at the current caret position
 		    // but starting at the beginning of the line.
-		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, 0, CaretPosition)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, 0, CaretPosition)
 		  Else
 		    // Get the start position the selection begins at.
 		    If CaretPosition > mCurrentSelection.Anchor Then
@@ -452,7 +452,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  
 		  If Not TextSelected Then
 		    // Create a new selection, anchored and starting at the caret and ending at the end of the line.
-		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, CaretPosition, mCharacters.Count)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, mCharacters.Count)
 		  Else
 		    If CaretPosition > mCurrentSelection.Anchor Then
 		      mCurrentSelection.EndLocation = mCharacters.Count
@@ -475,7 +475,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  
 		  If Not TextSelected Then
 		    // Create a new selection that starts, ends and is anchored at the current caret position.
-		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, CaretPosition, CaretPosition)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, CaretPosition, CaretPosition)
 		  End If
 		  
 		  // The selection begins at the beginning of the line.
@@ -503,7 +503,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  If mCurrentSelection = Nil Then
 		    // Create a new selection anchored at the current caret position, starting at the 
 		    // beginning of the word to the left of the caret. 
-		    mCurrentSelection = New XUIInspectorTextSelection(CaretPosition, prevWordStart, CaretPosition)
+		    mCurrentSelection = New XUITextSelection(CaretPosition, prevWordStart, CaretPosition)
 		  Else
 		    If prevWordStart = mCurrentSelection.Anchor Then
 		      // Edge case: We are moving leftwards and will meet the anchor. Equivalent to having no selection.
@@ -785,7 +785,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		Sub SelectAll()
 		  /// Select the entire contents of the text field.
 		  
-		  mCurrentSelection = New XUIInspectorTextSelection(0, 0, mCharacters.Count)
+		  mCurrentSelection = New XUITextSelection(0, 0, mCharacters.Count)
 		End Sub
 	#tag EndMethod
 
@@ -842,7 +842,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  End If
 		  
 		  // Select between these positions.
-		  mCurrentSelection = New XUIInspectorTextSelection(startCol, startCol, endCol)
+		  mCurrentSelection = New XUITextSelection(startCol, startCol, endCol)
 		  
 		  // Move the caret to the selection's end point.
 		  CaretPosition = mCurrentSelection.EndLocation
@@ -885,7 +885,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  endCol = endCol + 1
 		  
 		  // Select between these positions.
-		  mCurrentSelection = New XUIInspectorTextSelection(startCol, startCol, endCol)
+		  mCurrentSelection = New XUITextSelection(startCol, startCol, endCol)
 		  
 		  // Move the caret to the selection's anchor.
 		  CaretPosition = mCurrentSelection.Anchor
@@ -901,7 +901,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  #Pragma Unused y
 		  
 		  // A triple click selects the entire contents.
-		  mCurrentSelection = New XUIInspectorTextSelection(0, mCharacters.Count, mCharacters.Count)
+		  mCurrentSelection = New XUITextSelection(0, mCharacters.Count, mCharacters.Count)
 		  CaretPosition = mCharacters.Count
 		  
 		End Sub
@@ -1026,7 +1026,7 @@ Protected Class XUIInspectorTextFieldRenderer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4261636B696E67206669656C6420666F7220746865206043757272656E7453656C656374696F6E6020636F6D70757465642070726F70657274792E
-		Private mCurrentSelection As XUIInspectorTextSelection
+		Private mCurrentSelection As XUITextSelection
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 49662054727565207468656E20746869732074657874206669656C64206861732074686520666F6375732E
