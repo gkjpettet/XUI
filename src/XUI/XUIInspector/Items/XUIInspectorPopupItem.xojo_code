@@ -21,6 +21,14 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D2069732061626C6520746F206163636570742074686520666F637573207669612074686520746162206B65792E
+		Function CanAcceptTabFocus() As Boolean
+		  /// Returns True if this item is able to accept the focus via the tab key.
+		  
+		  Return False
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20636F6E7461696E696E67206120706F707570206D656E7520616E6420612063617074696F6E2E20606974656D73282960206172652074686520706F707570206D656E75206974656D732E
 		Sub Constructor(ID As String, caption As String, captionWidth As Integer, items() As String)
 		  /// Constructs a new item containing a popup menu and a caption.
@@ -45,14 +53,12 @@ Implements XUIInspectorItem
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D206861732068616E646C6564206265696E672074616262656420746F206F722046616C73652069662074686973206974656D20646F6573206E6F74206163636570742074686520666F637573207669612074686520746162206B65792E
-		Function DidReceiveTabFocus() As Boolean
-		  /// Returns True if this item has handled being tabbed to or False if this item does not accept the focus via the tab key.
+	#tag Method, Flags = &h0, Description = 54686973206974656D20686173206A7573742072656365697665642074686520666F637573207669612074686520746162206B65792E
+		Sub DidReceiveTabFocus()
+		  /// This item has just received the focus via the tab key.
 		  
-		  // This item does not accept the focus via the tab key.
-		  Return False
-		  
-		End Function
+		  // Nothing to do since this item can't accept the focus via the tab key.
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44726177732074686520706F70757020626F7820746F2074686520636F6E74657874206067602E

@@ -581,11 +581,38 @@ Inherits NSScrollViewCanvas
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 4D6F7665732074686520666F63757320746F207468652066697273742076697369626C65206974656D20696E2074686520696E73706563746F7220746861742063616E206163636570742074616220666F6375732E
+		Private Sub MoveFocusToFirstItem()
+		  /// Moves the focus to the first visible item in the inspector that can accept tab focus.
+		  
+		  For Each section As XUIInspectorSection In mSections
+		    Var item As XUIInspectorItem = section.FirstItemThatCanAcceptTabFocus
+		    If item <> Nil Then
+		      // Found the first item in this section that can accept tab focus.
+		      ItemWithFocus = item
+		      ItemWithFocus.DidReceiveTabFocus
+		      Return
+		    End If
+		  Next section
+		  
+		  // If we get here then there are no visible items that can receive the tab focus.
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 4D6F7665732074686520666F63757320746F20746865206E657874206974656D20746861742063616E20616363657074207468652074616220666F6375732E
 		Private Sub MoveFocusToNextItem()
 		  /// Moves the focus to the next item that can accept the tab focus.
 		  
 		  #Pragma Warning "TODO"
+		  
+		  If ItemWithFocus = Nil Then
+		    // Give the focus to the first item that can accept tab focus.
+		    MoveFocusToFirstItem
+		    Return
+		  End If
+		  
+		  // Find the next visible item that can receive tab focus.
 		  
 		End Sub
 	#tag EndMethod
@@ -1010,6 +1037,14 @@ Inherits NSScrollViewCanvas
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="HasVerticalScrollbar"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true

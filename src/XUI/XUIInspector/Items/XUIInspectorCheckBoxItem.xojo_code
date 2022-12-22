@@ -17,6 +17,14 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D2069732061626C6520746F206163636570742074686520666F637573207669612074686520746162206B65792E
+		Function CanAcceptTabFocus() As Boolean
+		  /// Returns True if this item is able to accept the focus via the tab key.
+		  
+		  Return False
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E657720636865636B626F78206974656D2E206063617074696F6E576964746860206973207468652064657369726564207769647468206F66207468652063617074696F6E20616E64206076616C7565602069732074686520696E697469616C20636865636B626F782073746174652E
 		Sub Constructor(ID As String, caption As String, captionWidth As Integer, value As Boolean)
 		  /// Constructs a new checkbox item. `captionWidth` is the desired width of the caption and `value` is the initial checkbox state.
@@ -29,14 +37,12 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E7320547275652069662074686973206974656D206861732068616E646C6564206265696E672074616262656420746F206F722046616C73652069662074686973206974656D20646F6573206E6F74206163636570742074686520666F637573207669612074686520746162206B65792E
-		Function DidReceiveTabFocus() As Boolean
-		  /// Returns True if this item has handled being tabbed to or False if this item does not accept the focus via the tab key.
+	#tag Method, Flags = &h0, Description = 54686973206974656D20686173206A7573742072656365697665642074686520666F637573207669612074686520746162206B65792E
+		Sub DidReceiveTabFocus()
+		  /// This item has just received the focus via the tab key.
 		  
-		  // This item does not accept the focus via the tab key.
-		  Return False
-		  
-		End Function
+		  // Nothing to do since this item can't accept the focus via the tab key.
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44726177732074686520636865636B626F7820746F207468652070617373656420677261706869637320636F6E746578742061742074686520707265636F6D707574656420782C207920706F736974696F6E2E

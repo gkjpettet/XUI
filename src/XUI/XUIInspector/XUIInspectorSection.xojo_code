@@ -32,6 +32,25 @@ Protected Class XUIInspectorSection
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206669727374206974656D20696E20746869732073656374696F6E20746861742063616E206163636570742074616220666F637573206F72204E696C206966206E6F6E65206172652061626C6520746F2E
+		Function FirstItemThatCanAcceptTabFocus() As XUIInspectorItem
+		  /// Returns the first item in this section that can accept tab focus or Nil if none are able to.
+		  
+		  // If this section is not expanded then none of its items will be able to receive the focus.
+		  If Not Expanded Then Return Nil
+		  
+		  For Each item As XUIInspectorItem In mItems
+		    If item.CanAcceptTabFocus Then
+		      Return item
+		    End If
+		  Next item
+		  
+		  // No items in this section can receive tab focus.
+		  Return Nil
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52657475726E73207468652063757272656E7420686569676874206F66207468652073656374696F6E2C20666163746F72696E6720696E207768657468657220697420697320636F6C6C6170736564206F7220657870616E6465642E
 		Function Height(style As XUIInspectorStyle) As Double
 		  /// Returns the current height of the section, factoring in whether it is collapsed or expanded.
