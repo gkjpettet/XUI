@@ -880,6 +880,10 @@ Inherits NSScrollViewCanvas
 		CaretVisible As Boolean = False
 	#tag EndProperty
 
+	#tag Property, Flags = &h0, Description = 4172626974726172792064617461206173736F6369617465642077697468207468697320696E73706563746F722E
+		Data As Variant
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0, Description = 49662054727565207468656E2074686520696E73706563746F7220686173206120626F74746F6D20626F726465722E
 		#tag Getter
 			Get
