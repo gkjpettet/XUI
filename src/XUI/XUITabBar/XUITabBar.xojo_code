@@ -61,6 +61,9 @@ Inherits DesktopCanvas
 		      
 		      If Not ValidTabIndex(mMouseDownIndex) Then Return
 		      
+		      // Should we disallow dragging the first tab?
+		      If FirstTabIsFixed And mMouseDownIndex = 0 Then Return
+		      
 		      Var startedDragging As Boolean = False
 		      If Not mIsDraggingTab Then
 		        // Have just started dragging. Compute the offset from the selected tab's left edge that the
@@ -82,7 +85,10 @@ Inherits DesktopCanvas
 		        ScrollPosX = ScrollPosX - DRAG_SCROLL_THRESHOLD
 		      End If
 		      
-		      If ValidTabIndex(mDragIndex) And mDragIndex <> mSelectedTabIndex Then
+		      If FirstTabIsFixed And mDragIndex = 0 Then
+		        // Disallow dragging another tab into the first tab's position.
+		        Refresh
+		      ElseIf ValidTabIndex(mDragIndex) And mDragIndex <> mSelectedTabIndex Then
 		        SwapTabs(mSelectedTabIndex, mDragIndex, False)
 		        mSelectedTabIndex = mDragIndex
 		        Refresh
@@ -609,6 +615,10 @@ Inherits DesktopCanvas
 		DraggingTabLeftEdgeXOffset As Integer
 	#tag EndComputedProperty
 
+	#tag Property, Flags = &h0, Description = 49662054727565207468656E20746865206669727374207461622028696E64657820302920697320666978656420616E642063616E6E6F74206265206472616767656420746F2061206E657720706F736974696F6E2E
+		FirstTabIsFixed As Boolean = False
+	#tag EndProperty
+
 	#tag Property, Flags = &h0, Description = 547275652069662074686520746162206261722073686F756C6420647261772061206C65667420626F72646572206F6E20746865206C6566742D6D6F7374207461622E
 		HasLeftBorder As Boolean = False
 	#tag EndProperty
@@ -1104,22 +1114,6 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AllowFocus"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AllowTabs"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Transparent"
 			Visible=true
 			Group="Behavior"
@@ -1240,14 +1234,6 @@ Inherits DesktopCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TabPanelIndex"
-			Visible=false
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="LeftMenuButtonIcon"
 			Visible=false
 			Group="Behavior"
@@ -1268,6 +1254,38 @@ Inherits DesktopCanvas
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FirstTabIsFixed"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowFocus"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowTabs"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabPanelIndex"
+			Visible=false
+			Group="Position"
+			InitialValue="0"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

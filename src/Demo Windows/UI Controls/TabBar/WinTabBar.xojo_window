@@ -34,6 +34,7 @@ Begin DemoWindow WinTabBar
       Backdrop        =   0
       DraggingTabLeftEdgeXOffset=   0
       Enabled         =   True
+      FirstTabIsFixed =   False
       HasLeftBorder   =   False
       HasLeftMenuButton=   False
       HasRightBorder  =   False
@@ -773,6 +774,36 @@ Begin DemoWindow WinTabBar
       Visible         =   True
       Width           =   72
    End
+   Begin DesktopCheckBox CheckBoxFirstTabIsFixed
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "First Tab Is Fixed"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   560
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   2
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   130
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   185
+   End
 End
 #tag EndDesktopWindow
 
@@ -798,17 +829,17 @@ End
 
 	#tag MenuHandler
 		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
-			If TabBar.TabCount > 1 And TabBar.SelectedTabIndex <> - 1 Then
-			// Remove the currently selected tab.
-			TabBar.RemoveTabAt(TabBar.SelectedTabIndex)
-			Else
-			// "Close" the demo window.
-			ResetTabs
-			Self.Hide
-			End If
-			
-			Return True
-			
+		  If TabBar.TabCount > 1 And TabBar.SelectedTabIndex <> - 1 Then
+		    // Remove the currently selected tab.
+		    TabBar.RemoveTabAt(TabBar.SelectedTabIndex)
+		  Else
+		    // "Close" the demo window.
+		    ResetTabs
+		    Self.Hide
+		  End If
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
@@ -1064,6 +1095,15 @@ End
 		  TabBar.Style = style
 		  
 		  Echo("Switched to the " + style.Name + " style.")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBoxFirstTabIsFixed
+	#tag Event
+		Sub ValueChanged()
+		  TabBar.FirstTabIsFixed = Me.Value
+		  
+		  Echo(If(Me.Value, "Enabled", "Disabled") + " fixed first tab.")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
