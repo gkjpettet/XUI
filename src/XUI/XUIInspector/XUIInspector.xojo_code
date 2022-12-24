@@ -740,6 +740,17 @@ Inherits NSScrollViewCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52656D6F76657320616C6C2073656374696F6E732066726F6D2074686520696E73706563746F722E
+		Sub RemoveAllSections()
+		  /// Removes all sections from the inspector.
+		  
+		  mSections.RemoveAll
+		  
+		  RedrawImmediately
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 52656D6F766573206073656374696F6E602028696620666F756E64292066726F6D207468697320696E73706563746F722E
 		Sub RemoveSection(section As XUIInspectorSection)
 		  /// Removes `section` (if found) from this inspector.
@@ -1124,38 +1135,6 @@ Inherits NSScrollViewCanvas
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="HasVerticalScrollbar"
-			Visible=false
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Index"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType="String"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="InitialParent"
 			Visible=false
 			Group="Position"
@@ -1164,26 +1143,18 @@ Inherits NSScrollViewCanvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Left"
+			Name="AutoDeactivate"
 			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Top"
-			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType="Integer"
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="300"
+			InitialValue="100"
 			Type="Integer"
 			EditorType="Integer"
 		#tag EndViewProperty
@@ -1191,7 +1162,7 @@ Inherits NSScrollViewCanvas
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="500"
+			InitialValue="100"
 			Type="Integer"
 			EditorType="Integer"
 		#tag EndViewProperty
@@ -1244,22 +1215,6 @@ Inherits NSScrollViewCanvas
 			EditorType="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TabPanelIndex"
-			Visible=false
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AutoDeactivate"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Enabled"
 			Visible=true
 			Group="Appearance"
@@ -1282,6 +1237,62 @@ Inherits NSScrollViewCanvas
 			InitialValue="True"
 			Type="Boolean"
 			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TabPanelIndex"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasVerticalScrollbar"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasTopBorder"
