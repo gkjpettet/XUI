@@ -377,6 +377,25 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E73206120544F4D4C20726570726573656E746174696F6E206F662074686973206974656D2E
+		Function ToTOML() As String
+		  /// Returns a TOML representation of this item.
+		  ///
+		  /// Part of the `XUIInspectorItem` interface.
+		  
+		  Var d As New Dictionary
+		  
+		  d.Value("caption") = Caption
+		  d.Value("captionWidth") = CaptionWidth
+		  d.Value("items") = mItems
+		  d.Value("data") = mData
+		  d.Value("id") = mID
+		  
+		  Return tomlkit.GenerateTOML(d)
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		An item containing a popup menu and caption.

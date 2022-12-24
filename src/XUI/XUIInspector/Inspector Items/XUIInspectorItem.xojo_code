@@ -126,6 +126,12 @@ Protected Interface XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E73206120544F4D4C20726570726573656E746174696F6E206F662074686973206974656D2E
+		Function ToTOML() As String
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About
 		A class interface that all inspector items must implement.
