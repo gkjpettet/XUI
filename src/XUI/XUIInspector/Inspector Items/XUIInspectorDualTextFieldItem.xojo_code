@@ -657,27 +657,6 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 52657475726E73206120544F4D4C20726570726573656E746174696F6E206F662074686973206974656D2E
-		Function ToTOML() As String
-		  /// Returns a TOML representation of this item.
-		  ///
-		  /// Part of the `XUIInspectorItem` interface.
-		  
-		  Var d As New Dictionary
-		  
-		  d.Value("caption") = Caption
-		  d.Value("captionWidth") = CaptionWidth
-		  d.Value("data") = mData
-		  d.Value("bottomCaption") = BottomCaption
-		  d.Value("bottomPlaceholder") = BottomPlaceholder
-		  d.Value("topCaption") = TopCaption
-		  d.Value("topPlaceholder") = TopPlaceholder
-		  d.Value("id") = mID
-		  
-		  Return TOMLKit.GenerateTOML(d)
-		End Function
-	#tag EndMethod
-
 
 	#tag Note, Name = About
 		An item with two text fields, one above the other.
@@ -685,8 +664,8 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 	#tag EndNote
 
 
-	#tag Property, Flags = &h21, Description = 54686520626F74746F6D20746578746669656C6427732063617074696F6E2E
-		Private BottomCaption As String
+	#tag Property, Flags = &h0, Description = 54686520626F74746F6D20746578746669656C6427732063617074696F6E2E
+		BottomCaption As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 49662054727565207468656E2074686520626F74746F6D2074657874206669656C64206861732074686520666F6375732E
@@ -793,8 +772,8 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 		Private mTopTextFieldBounds As Rect
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 54686520746F7020746578746669656C6427732063617074696F6E2E
-		Private TopCaption As String
+	#tag Property, Flags = &h0, Description = 54686520746F7020746578746669656C6427732063617074696F6E2E
+		TopCaption As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 49662054727565207468656E2074686520746F702074657874206669656C64206861732074686520666F6375732E

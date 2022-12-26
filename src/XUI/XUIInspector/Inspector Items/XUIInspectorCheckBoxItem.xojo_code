@@ -102,6 +102,25 @@ Implements XUIInspectorItem
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0, Description = 52657475726E732061206E657720636865636B626F78206974656D2066726F6D206120544F4D4C20737472696E672E
+		Function FromTOML(toml As String) As XUIInspectorCheckBoxItem
+		  /// Returns a new checkbox item from a TOML string.
+		  
+		  Var d As Dictionary = TOMLKit.ParseTOML(toml)
+		  
+		  Try
+		    Var caption As String = d.Value("caption")
+		    Var captionWidth As Integer = d.Value("captionWidth")
+		    Var value As Boolean = d.Value("value")
+		    Var id As String = d.Value("id")
+		    Return New XUIInspectorCheckBoxItem(id, caption, captionWidth, value)
+		  Catch KeyNotFoundException
+		    Raise New InvalidArgumentException("Cannot create new checkbox item. Invalid TOML.")
+		  End Try
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0, Description = 54686520686569676874206F662074686973206974656D20676976656E207468652064657369726564207374796C652E
 		Function Height(style As XUIInspectorStyle) As Double
 		  /// The height of this item given the desired style.
@@ -321,25 +340,6 @@ Implements XUIInspectorItem
 		  End If
 		  
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0, Description = 52657475726E73206120544F4D4C20726570726573656E746174696F6E206F662074686973206974656D2E
-		Function ToTOML() As String
-		  /// Returns a TOML representation of this item.
-		  ///
-		  /// Part of the `XUIInspectorItem` interface.
-		  
-		  Var d As New Dictionary
-		  
-		  d.Value("caption") = Caption
-		  d.Value("captionWidth") = CaptionWidth
-		  d.Value("value") = Value
-		  d.Value("data") = mData
-		  d.Value("id") = mID
-		  
-		  Return TOMLKit.GenerateTOML(d)
-		  
-		End Function
 	#tag EndMethod
 
 
