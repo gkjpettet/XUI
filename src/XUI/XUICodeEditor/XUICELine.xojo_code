@@ -40,7 +40,7 @@ Inherits XUITextLine
 		Function CharactersInSelection(selection As XUITextSelection) As String
 		  /// Returns the characters enclosed by the passed `selection`.
 		  
-		  Var portion As XUICESelectedColumns = selection.SelectedColumnsInLine(Self)
+		  Var portion As XUISelectedColumns = selection.SelectedColumnsInLine(Self)
 		  
 		  If portion = Nil Then
 		    Return ""
@@ -264,7 +264,7 @@ Inherits XUITextLine
 		  // ===================================
 		  // TEXT SELECTION
 		  // ===================================
-		  Var selectedColumns As XUICESelectedColumns
+		  Var selectedColumns As XUISelectedColumns
 		  If editor.CurrentSelection <> Nil Then
 		    selectedColumns = editor.CurrentSelection.SelectedColumnsInLine(Self)
 		    DrawSelection(selectedColumns, g, topLeftX, topLeftY, lineH, gutterWidth)
@@ -503,7 +503,7 @@ Inherits XUITextLine
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 4472617773207468652073656C656374656420636F6C756D6E732077697468696E2074686973206C696E652E
-		Private Sub DrawSelection(selectedColumns As XUICESelectedColumns, g As Graphics, topLeftX As Double, topLeftY As Double, lineH As Double, gutterWidth As Double)
+		Private Sub DrawSelection(selectedColumns As XUISelectedColumns, g As Graphics, topLeftX As Double, topLeftY As Double, lineH As Double, gutterWidth As Double)
 		  /// Draws the selected columns within this line.
 		  
 		  Var editor As XUICodeEditor = LineManager.Owner
@@ -867,7 +867,7 @@ Inherits XUITextLine
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52657475726E7320612060506169726020636F6E7461696E696E672074686520666972737420616E64206C61737420636F6C756D6E73206F662074686520746F6B656E20636F6E7461696E6564206279207468652073656C656374696F6E206F7220604E696C602069662074686520746F6B656E206973206E6F742073656C65637465642E
-		Private Function TokenSelectionOverlap(t As XUICELineToken, selection As XUICESelectedColumns) As Pair
+		Private Function TokenSelectionOverlap(t As XUICELineToken, selection As XUISelectedColumns) As Pair
 		  /// Returns a `Pair` containing the first and last columns of the token 
 		  /// contained by the selection or `Nil` if the token is not selected.
 		  ///

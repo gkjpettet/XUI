@@ -73,7 +73,7 @@ Protected Class XUITextSelection
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 4966205B6C696E655D2069732077686F6C6C79206F7220706172746C7920636F6E7461696E65642077697468696E20746869732073656C656374696F6E207468656E2072657475726E732074686520636F6C756D6E732073656C6563746564206F72204E696C2E
-		Function SelectedColumnsInLine(line As XUICELine) As XUICESelectedColumns
+		Function SelectedColumnsInLine(line As XUICELine) As XUISelectedColumns
 		  /// If `line` is wholly or partly contained within this selection then 
 		  /// returns the columns selected or Nil.
 		  ///
@@ -89,9 +89,9 @@ Protected Class XUITextSelection
 		  // Does this selection wholly contain the passed line?
 		  If ContainsLine(line) Then
 		    If Self.EndLocation > line.Finish Then
-		      Return New XUICESelectedColumns(selectionBeginsBeforeLine, 0, True)
+		      Return New XUISelectedColumns(selectionBeginsBeforeLine, 0, True)
 		    Else
-		      Return New XUICESelectedColumns(selectionBeginsBeforeLine, 0, False, line.Length)
+		      Return New XUISelectedColumns(selectionBeginsBeforeLine, 0, False, line.Length)
 		    End If
 		  End If
 		  
@@ -117,7 +117,7 @@ Protected Class XUITextSelection
 		  
 		  // Edge case 3: The selection continues beyond the end of this line.
 		  If Self.EndLocation > line.Finish Then
-		    Return New XUICESelectedColumns(selectionBeginsBeforeLine, startPos - line.Start, True)
+		    Return New XUISelectedColumns(selectionBeginsBeforeLine, startPos - line.Start, True)
 		  End If
 		  
 		  // Find the last position within this line that is still in the selection.
@@ -133,7 +133,7 @@ Protected Class XUITextSelection
 		  Next i
 		  
 		  // Convert the absolute start and end positions to line columns.
-		  Return New XUICESelectedColumns(selectionBeginsBeforeLine, _
+		  Return New XUISelectedColumns(selectionBeginsBeforeLine, _
 		  startPos - line.Start, False, endPos - line.Start)
 		  
 		End Function

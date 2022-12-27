@@ -1,5 +1,5 @@
 #tag Class
-Protected Class XUICESelectedColumns
+Protected Class XUISelectedColumns
 	#tag Method, Flags = &h0, Description = 44656661756C7420636F6E7374727563746F722E
 		Sub Constructor(selectionBeginsBeforeLine As Boolean, start As Integer, selectionEndsAfterLine As Boolean, finish As Integer = -1)
 		  /// Default constructor.
@@ -20,7 +20,7 @@ Protected Class XUICESelectedColumns
 
 
 	#tag Note, Name = About
-		Represents the start and end columns contained by a text selection within the code editor.
+		Represents the start and end columns contained by a text selection.
 		
 	#tag EndNote
 
