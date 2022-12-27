@@ -55,10 +55,10 @@ Protected Class XUIInspectorTextFieldRenderer
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E657720696E73706563746F722074657874206669656C642072656E64657265722E
-		Sub Constructor(owner As XUIInspector, placeholder As String = "", caption As String = "")
+		Sub Constructor(owningItem As XUIInspectorItem, placeholder As String = "", caption As String = "")
 		  /// Constructs a new inspector text field renderer.
 		  
-		  Self.Owner = owner
+		  mOwningItem = New WeakRef(owningItem)
 		  Self.Placeholder = placeholder
 		  Self.Caption = caption
 		End Sub
@@ -555,14 +555,14 @@ Protected Class XUIInspectorTextFieldRenderer
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
-		Function Owner() As XUIInspector
-		  /// A weak reference to the inspector this item belongs to.
+	#tag Method, Flags = &h0, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F72206974656D20746869732072656E64657265722062656C6F6E677320746F2E
+		Function OwningItem() As XUIInspectorItem
+		  /// A weak reference to the inspector item this renderer belongs to.
 		  
-		  If mOwner = Nil Or mOwner.Value = Nil Then
+		  If mOwningItem = Nil Or mOwningItem.Value = Nil Then
 		    Return Nil
 		  Else
-		    Return XUIInspector(mOwner.Value)
+		    Return XUIInspectorItem(mOwningItem.Value)
 		  End If
 		  
 		End Function
@@ -654,7 +654,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		Sub Render(g As Graphics, x As Double, y As Double, width As Double, height As Double, style As XUIInspectorStyle, hasFocus As Boolean)
 		  /// Render this text field to `g` at `x, y` with the specified `width` and `height`.
 		  
-		  If Owner = Nil Or Owner.Window = Nil Then Return
+		  If OwningItem = Nil Or OwningItem.Owner.Window = Nil Then Return
 		  
 		  g.SaveState
 		  
@@ -672,7 +672,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  Var bufferH As Double = Max(g.TextHeight + g.FontAscent, height)
 		  
 		  // Create the buffer.
-		  mBuffer = Owner.Window.BitmapForCaching(bufferW, bufferH)
+		  mBuffer = OwningItem.Owner.Window.BitmapForCaching(bufferW, bufferH)
 		  
 		  // Brevity.
 		  Var bufferG As Graphics = mBuffer.Graphics
@@ -703,7 +703,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  End If
 		  bufferG.DrawText(textToDraw, HPADDING, baseline)
 		  
-		  If hasFocus And Owner.CaretVisible Then
+		  If hasFocus And OwningItem.Owner.CaretVisible Then
 		    PaintCaret(style)
 		  End If
 		  
@@ -1033,8 +1033,8 @@ Protected Class XUIInspectorTextFieldRenderer
 		Private mHasFocus As Boolean = False
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520585549496E73706563746F72207768696368206F776E7320746869732074657874206669656C642E204D6179206265204E696C2E
-		Private mOwner As WeakRef
+	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F72206974656D20746869732072656E64657265722062656C6F6E677320746F2E
+		Private mOwningItem As WeakRef
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 5468652058207363726F6C6C206F66667365742E203020697320626173656C696E652E20506F7369746976652076616C75657320696E646963617465207363726F6C6C696E6720746F207468652072696768742E
@@ -1044,30 +1044,6 @@ Protected Class XUIInspectorTextFieldRenderer
 	#tag Property, Flags = &h21, Description = 436163686564207265666572656E636520746F20746865206C617374207374796C65207573656420696E20746865206052656E64657260206D6574686F642E
 		Private mStyle As XUIInspectorStyle
 	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h0, Description = 41207765616B207265666572656E636520746F20746865206F776E696E6720696E73706563746F722E204D6179206265204E696C206966206E6F742079657420616464656420746F20616E20696E73706563746F722E
-		#tag Getter
-			Get
-			  If mOwner = Nil Or mOwner.Value = Nil Then
-			    Return Nil
-			  Else
-			    Return XUIInspector(mOwner.Value)
-			  End If
-			  
-			End Get
-		#tag EndGetter
-		#tag Setter
-			Set
-			  If value = Nil Then
-			    mOwner = Nil
-			  Else
-			    mOwner = New WeakRef(value)
-			  End If
-			  
-			End Set
-		#tag EndSetter
-		Owner As XUIInspector
-	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0, Description = 4F7074696F6E616C20706C616365686F6C64657220746578742E
 		Placeholder As String

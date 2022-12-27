@@ -305,18 +305,6 @@ Protected Class XUIInspectorItemPopupMenu
 			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Anchor"
-			Visible=false
-			Group="Behavior"
-			InitialValue="XUIInspectorItemPopupMenu.Anchors.Left"
-			Type="XUIInspectorItemPopupMenu.Anchors"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - Left"
-				"1 - Right"
-			#tag EndEnumValues
-		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
 #tag EndClass

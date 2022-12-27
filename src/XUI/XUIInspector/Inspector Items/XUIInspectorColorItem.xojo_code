@@ -217,26 +217,13 @@ Implements XUIInspectorItem
 		Function Owner() As XUIInspector
 		  /// A weak reference to the inspector this item belongs to.
 		  
-		  If mOwner = Nil Or mOwner.Value = Nil Then
+		  If Section = Nil Then
 		    Return Nil
 		  Else
-		    Return XUIInspector(mOwner.Value)
+		    Return Section.Owner
 		  End If
 		  
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0, Description = 54686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E2041207765616B207265666572656E63652077696C6C20626520637265617465642E
-		Sub Owner(Assigns inspector As XUIInspector)
-		  /// The inspector this item belongs to. A weak reference will be created.
-		  
-		  If inspector = Nil Then
-		    mOwner = Nil
-		  Else
-		    mOwner = New WeakRef(inspector)
-		  End If
-		  
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 44656C65676174652063616C6C6564207768656E207468697320737761746368277320636F6C6F72207069636B657220697320636C6F73696E672E
@@ -410,10 +397,6 @@ Implements XUIInspectorItem
 
 	#tag Property, Flags = &h21, Description = 5573656420746F206964656E746966792074686973206974656D20696E206E6F74696669636174696F6E732E20596F752073686F756C6420656E7375726520697420697320756E697175652077697468696E2074686520696E73706563746F722E
 		Private mID As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
-		Private mOwner As WeakRef
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722073656374696F6E2074686973206974656D2069732077697468696E2E204D6179206265204E696C2E

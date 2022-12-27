@@ -48,7 +48,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  Self.Caption = caption
 		  Self.CaptionWidth = captionWidth
 		  
-		  mTextField = New XUIInspectorTextFieldRenderer(Nil)
+		  mTextField = New XUIInspectorTextFieldRenderer(Self)
 		  
 		  Self.Placeholder = placeHolder
 		  
@@ -344,35 +344,17 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
 		Function Owner() As XUIInspector
 		  /// A weak reference to the inspector this item belongs to.
-		  ///
-		  /// Part of the XUIInspectorItem interface.
 		  
-		  If mOwner = Nil Or mOwner.Value = Nil Then
+		  If Section = Nil Then
 		    Return Nil
 		  Else
-		    Return XUIInspector(mOwner.Value)
+		    Return Section.Owner
 		  End If
 		  
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Owner(Assigns inspector As XUIInspector)
-		  /// The inspector this item belongs to. A weak reference will be created.
-		  ///
-		  /// Part of the XUIInspectorItem interface.
-		  
-		  If inspector = Nil Then
-		    mOwner = Nil
-		  Else
-		    mOwner = New WeakRef(inspector)
-		  End If
-		  
-		  mTextField.Owner = Self.Owner
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -553,10 +535,6 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 
 	#tag Property, Flags = &h21, Description = 5768656E20746865206C617374206E65776C696E6520696E73657274696F6E206576656E74207761732068616E646C65642E
 		Private mLastNewlineEvent As Double
-	#tag EndProperty
-
-	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
-		Private mOwner As WeakRef
 	#tag EndProperty
 
 	#tag Property, Flags = &h21, Description = 4F7074696F6E616C20706C616365686F6C64657220666F72207468652074657874206669656C642E

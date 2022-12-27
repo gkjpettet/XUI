@@ -6,7 +6,6 @@ Protected Class XUIInspectorSection
 		  
 		  mItems.Add(item)
 		  
-		  item.Owner = Self.Owner
 		  item.Section = Self
 		End Sub
 	#tag EndMethod
@@ -18,7 +17,6 @@ Protected Class XUIInspectorSection
 		  
 		  mItems.AddAt(index, item)
 		  
-		  item.Owner = Self.Owner
 		  item.Section = Self
 		End Sub
 	#tag EndMethod
@@ -260,7 +258,7 @@ Protected Class XUIInspectorSection
 		  
 		  Var index As Integer = mItems.IndexOf(item)
 		  If index <> -1 Then
-		    mItems(index).Owner = Nil
+		    mItems(index).Section = Nil
 		    mItems.RemoveAt(index)
 		  End If
 		  
@@ -272,7 +270,7 @@ Protected Class XUIInspectorSection
 		  /// Removes the item at `index`.
 		  /// Raises an `OutOfBoundsException` if `index` in invalid.
 		  
-		  mItems(index).Owner = Nil
+		  mItems(index).Section = Nil
 		  mItems.RemoveAt(index)
 		  
 		End Sub

@@ -66,8 +66,8 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 		  Self.TopCaption = topCaption
 		  Self.BottomCaption = bottomCaption
 		  
-		  mTopTextField = New XUIInspectorTextFieldRenderer(Nil, topPlaceHolder)
-		  mBottomTextField = New XUIInspectorTextFieldRenderer(Nil, bottomPlaceHolder)
+		  mTopTextField = New XUIInspectorTextFieldRenderer(Self, topPlaceHolder)
+		  mBottomTextField = New XUIInspectorTextFieldRenderer(Self, bottomPlaceHolder)
 		  
 		  mLastNewlineEvent = System.Microseconds
 		End Sub
@@ -475,36 +475,17 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
+	#tag Method, Flags = &h0, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
 		Function Owner() As XUIInspector
 		  /// A weak reference to the inspector this item belongs to.
-		  ///
-		  /// Part of the XUIInspectorItem interface.
 		  
-		  If mOwner = Nil Or mOwner.Value = Nil Then
+		  If Section = Nil Then
 		    Return Nil
 		  Else
-		    Return XUIInspector(mOwner.Value)
+		    Return Section.Owner
 		  End If
 		  
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Owner(Assigns inspector As XUIInspector)
-		  /// The inspector this item belongs to. A weak reference will be created.
-		  ///
-		  /// Part of the XUIInspectorItem interface.
-		  
-		  If inspector = Nil Then
-		    mOwner = Nil
-		  Else
-		    mOwner = New WeakRef(inspector)
-		  End If
-		  
-		  mTopTextField.Owner = Self.Owner
-		  mBottomTextField.Owner = Self.Owner
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -748,10 +729,6 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 		Private mMaxTextFieldCaptionWidth As Double
 	#tag EndProperty
 
-	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722074686973206974656D2062656C6F6E677320746F2E
-		Private mOwner As WeakRef
-	#tag EndProperty
-
 	#tag Property, Flags = &h21, Description = 41207765616B207265666572656E636520746F2074686520696E73706563746F722073656374696F6E2074686973206974656D2069732077697468696E2E204D6179206265204E696C2E
 		Private mSection As WeakRef
 	#tag EndProperty
@@ -889,6 +866,22 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BottomPlaceholder"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BottomCaption"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TopCaption"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
