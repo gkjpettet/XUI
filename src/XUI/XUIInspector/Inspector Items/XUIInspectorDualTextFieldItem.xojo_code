@@ -56,7 +56,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D20776974682074776F206564697461626C652074657874206669656C64732E20456163682074657874206669656C642063616E206861766520616E206F7074696F6E616C2066697865642063617074696F6E2062657369646520697420616E64206F7074696F6E616C20706C616365686F6C64657220746578742E
-		Sub Constructor(id As String, caption As String, captionWidth As Integer, topCaption As String = "", bottomCaption As String = "", topPlaceHolder As String = "", bottomPlaceHolder As String = "")
+		Sub Constructor(id As String, caption As String, captionWidth As Integer, topCaption As String = "", bottomCaption As String = "", topContents As String = "", bottomContents As String = "", topPlaceHolder As String = "", bottomPlaceHolder As String = "")
 		  /// Constructs a new item with two editable text fields.
 		  /// Each text field can have an optional fixed caption beside it and optional placeholder text.
 		  
@@ -66,8 +66,11 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler,XUIInspectorItemWithMulti
 		  Self.TopCaption = topCaption
 		  Self.BottomCaption = bottomCaption
 		  
-		  mTopTextField = New XUIInspectorTextFieldRenderer(Self, topPlaceHolder)
-		  mBottomTextField = New XUIInspectorTextFieldRenderer(Self, bottomPlaceHolder)
+		  mTopTextField = New XUIInspectorTextFieldRenderer(Self, topPlaceHolder, topCaption)
+		  mBottomTextField = New XUIInspectorTextFieldRenderer(Self, bottomPlaceHolder, bottomCaption)
+		  
+		  mTopTextField.Contents = topContents
+		  mBottomTextField.Contents = bottomContents
 		  
 		  mLastNewlineEvent = System.Microseconds
 		End Sub

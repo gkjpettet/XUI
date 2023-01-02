@@ -190,7 +190,7 @@ End
 		  frameSection.AddItem(New XUIInspectorPopupItem("frame.type", "Type", CAPTION_WIDTH, Array("Document", "Movable Modal", "Modal Dialog")))
 		  
 		  // Title.
-		  frameSection.AddItem(New XUIInspectorTextFieldItem("frame.title", "Title", CAPTION_WIDTH, "Enter a title"))
+		  frameSection.AddItem(New XUIInspectorTextFieldItem("frame.title", "Title", CAPTION_WIDTH, "", "Enter a title"))
 		  
 		  // Resizeable.
 		  frameSection.AddItem(New XUIInspectorSwitchItem("frame.resizeable", "Resizeable", CAPTION_WIDTH, True))
@@ -208,7 +208,7 @@ End
 		  miscSection.AddItem(New XUIInspectorColorItem("misc.backgroundColor", "Background Colour", CAPTION_WIDTH, Color.Purple))
 		  
 		  // Position dual text field.
-		  miscSection.AddItem(New XUIInspectorDualTextFieldItem("misc.position", "Position", CAPTION_WIDTH, "X", "Y", "X placeholder", "Y placeholder"))
+		  miscSection.AddItem(New XUIInspectorDualTextFieldItem("misc.position", "Position", CAPTION_WIDTH, "X", "Y", "", "", "X placeholder", "Y placeholder"))
 		  
 		  // Full screen checkbox.
 		  miscSection.AddItem(New XUIInspectorCheckBoxItem("misc.fullScreen", "Full Screen", CAPTION_WIDTH, False))

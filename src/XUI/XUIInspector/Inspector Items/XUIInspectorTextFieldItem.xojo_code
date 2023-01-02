@@ -40,7 +40,7 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0, Description = 436F6E737472756374732061206E6577206974656D207769746820616E206564697461626C652074657874206669656C642E205468652074657874206669656C642063616E20686176652061206F7074696F6E616C20706C616365686F6C64657220746578742E
-		Sub Constructor(id As String, caption As String, captionWidth As Integer, placeHolder As String = "")
+		Sub Constructor(id As String, caption As String, captionWidth As Integer, initialContents As String = "", placeHolder As String = "")
 		  /// Constructs a new item with an editable text field.
 		  /// The text field can have a optional placeholder text.
 		  
@@ -48,7 +48,9 @@ Implements XUIInspectorItem,XUIInspectorItemKeyHandler
 		  Self.Caption = caption
 		  Self.CaptionWidth = captionWidth
 		  
-		  mTextField = New XUIInspectorTextFieldRenderer(Self)
+		  mTextField = New XUIInspectorTextFieldRenderer(Self, placeHolder, caption)
+		  
+		  mTextField.Contents = initialContents
 		  
 		  Self.Placeholder = placeHolder
 		  
