@@ -511,7 +511,7 @@ Implements XUINotificationListener
 		    Return
 		  End If
 		  
-		  // Ignore newlines when parsing is not to occur on newlines. Tags shouldn't contain them.
+		  // Ignore newlines as tags shouldn't contain them.
 		  If char = &u0A Then Return
 		  
 		  If range <> Nil And TargetMacOS Then
@@ -558,6 +558,16 @@ Implements XUINotificationListener
 		  Next trigger
 		  
 		  Return False
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 52657475726E7320746865206C696E6573206F66207465787420696E207468652063616E7661732E20596F752073686F756C6420636F6E7369646572207468697320617272617920726561642D6F6E6C79206173206D6F64696679696E672069747320636F6E74656E7473206D6179206861766520756E64657369726564207369646520656666656374732E
+		Function Lines() As XUITagCanvasLine()
+		  /// Returns the lines of text in the canvas.
+		  /// You should consider this array read-only as modifying its contents may have undesired side effects.
+		  
+		  Return mLines
 		  
 		End Function
 	#tag EndMethod
@@ -787,6 +797,16 @@ Implements XUINotificationListener
 		  
 		  ScrollPosY = ScrollPosY - (linesToScroll * LineHeight)
 		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 536574732074686520636F6E74656E7473206F6620746865207461672063616E76617320746F206073602C20636C656172696E6720616E79206578697374696E67207465787420616E6420746167732066697273742E2057696C6C20747269676765722070617273696E672E
+		Sub SetContents(s As String)
+		  /// Sets the contents of the tag canvas to `s`, clearing any existing text and tags first. Will trigger parsing.
+		  
+		  Clear
+		  InsertString(s)
 		  
 		End Sub
 	#tag EndMethod
