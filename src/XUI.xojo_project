@@ -86,6 +86,7 @@ Class=XUITextLine;XUI/Required/XUITextLine.xojo_code;&h000000007F00C7FF;&h000000
 Folder=XUI Utilities;XUI/XUI Utilities;&h000000004E966FFF;&h00000000569647FF;false
 Module=MarkdownKit;XUI/XUI Utilities/MarkdownKit.xojo_code;&h000000002F26BFFF;&h000000004E966FFF;false
 Module=TOMLKit;XUI/XUI Utilities/TOMLKit.xojo_code;&h00000000350517FF;&h000000004E966FFF;false
+Class=XUIPreferences;XUI/XUI Utilities/XUIPreferences.xojo_code;&h00000000762AD7FF;&h000000004E966FFF;false
 Class=XUIStopWatch;XUI/XUI Utilities/XUIStopWatch.xojo_code;&h0000000060BE97FF;&h000000004E966FFF;false
 Interface=MKRenderer;XUI/XUI Utilities/MarkdownKit/MKRenderer.xojo_code;&h000000004D3B8FFF;&h000000002F26BFFF;false
 Class=MKInlineHTMLScanner;XUI/XUI Utilities/MarkdownKit/MKInlineHTMLScanner.xojo_code;&h0000000057A67FFF;&h000000002F26BFFF;false
