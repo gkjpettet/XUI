@@ -95,8 +95,10 @@ Inherits DesktopTextInputCanvas
 		    Return
 		  End If
 		  
+		  Var vpadding As Integer =  2 * Owner.Renderer.AutocompleteOptionVerticalPadding
 		  Var lineH As Integer = Owner.Renderer.AutocompleteOptionHeight
-		  If (SelectedIndex * lineH) < ScrollPosY Or (SelectedIndex * lineH) > Self.Height Then
+		  If (SelectedIndex * lineH) <= ScrollPosY Or _
+		     (SelectedIndex * lineH) + (SelectedIndex * vpadding) >= Self.Height Then
 		    ScrollPosY = SelectedIndex * lineH
 		  End If
 		  

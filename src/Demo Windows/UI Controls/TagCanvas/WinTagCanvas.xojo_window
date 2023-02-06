@@ -594,16 +594,20 @@ End
 		  InfoCountryCodes.Text = ""
 		  InfoEmail.Text = ""
 		  InfoSuperHeroes.Text = ""
+		  
+		  CountryCodesAutocompleteEngine.AddOption("France 12", New XUITagData("France 12"))
+		  CountryCodesAutocompleteEngine.AddOption("France 34", New XUITagData("France 34"))
+		  CountryCodesAutocompleteEngine.AddOption("France 56", New XUITagData("France 56"))
 		End Sub
 	#tag EndEvent
 
 
 	#tag MenuHandler
 		Function FileCloseWindow() As Boolean Handles FileCloseWindow.Action
-			Self.Hide
-			
-			Return True
-			
+		  Self.Hide
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
@@ -753,7 +757,7 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events CountryCodesTagCanvas
-	#tag Event
+	#tag Event , Description = 54686520636F6E74726F6C206973206F70656E696E672E
 		Sub Opening()
 		  // Assign our custom country codes parselet.
 		  Me.Parselet = New CountryCodesParselet
@@ -803,7 +807,7 @@ End
 		  
 		End Sub
 	#tag EndEvent
-	#tag Event
+	#tag Event , Description = 54686520636F6E74726F6C206973206F70656E696E672E
 		Sub Opening()
 		  // Assign our custom country codes parselet.
 		  Me.Parselet = New XUIEmailTagParselet
@@ -838,7 +842,7 @@ End
 		  
 		End Sub
 	#tag EndEvent
-	#tag Event
+	#tag Event , Description = 54686520636F6E74726F6C206973206F70656E696E672E
 		Sub Opening()
 		  // Assign a basic parselet that will accept any input.
 		  Me.Parselet = New XUIDefaultTagParselet
