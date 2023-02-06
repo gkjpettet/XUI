@@ -205,6 +205,13 @@ Protected Class XUIPreferences
 	#tag EndMethod
 
 
+	#tag Note, Name = About
+		Used to save and load preferences to/from disk. Data is saved in TOML format.
+		The lookup operator has been overridden to allow preferences to be looked up with the "dot" operator.
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0, Description = 49662054727565207468656E20616E79206368616E676573206D61646520746F2074686520707265666572656E6365732077696C6C206265206175746F6D61746963616C6C79207772697474656E20746F206469736B2E
 		AutoSave As Boolean = False
 	#tag EndProperty
