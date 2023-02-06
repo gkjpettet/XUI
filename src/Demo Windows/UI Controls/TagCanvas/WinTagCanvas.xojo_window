@@ -595,9 +595,6 @@ End
 		  InfoEmail.Text = ""
 		  InfoSuperHeroes.Text = ""
 		  
-		  CountryCodesAutocompleteEngine.AddOption("France 12", New XUITagData("France 12"))
-		  CountryCodesAutocompleteEngine.AddOption("France 34", New XUITagData("France 34"))
-		  CountryCodesAutocompleteEngine.AddOption("France 56", New XUITagData("France 56"))
 		End Sub
 	#tag EndEvent
 
