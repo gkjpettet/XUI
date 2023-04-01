@@ -5,7 +5,7 @@ The XUI framework is a collection of user interface classes and helper modules f
 ## Getting Started
 
 1. Install the `TextInputCanvas` plugin into the Xojo plugins folder. This can be found in the `plugins` folder in your download. You can read more about this [on this page][plugin]. If the IDE is running whilst you do this, you will need to restart it.
-2. Open the `XUI.xojo_project` file within the `src` folder in your download. This is the full [demo application][demo] available on the XUI website. It should provide you with a good overview of the framework's capabilities.
+2. Open the `XUI.xojo_project` file within the `src` folder in your download. This is a full demo that should provide you with a good overview of the framework's capabilities.
 
 ## Using XUI in your own projects
 
@@ -15,8 +15,6 @@ Every method and property is documented with an IDE description so you'll get he
 
 For comprehensive documentation on every component, please [read the documentation][docs].
 
-If you need any assistance then contact us at **contact@xui.software**.
-
 [plugin]: https://xui.software/textinputcanvas
 [demo]: https://xui.software/products/xui-desktop/demo/
-[docs]: https://docs.xui.software
+[docs]: https://gkjpettet.github.io/XUI/
