@@ -1,0 +1,5009 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../XUITag/">
+      
+      
+        <link rel="next" href="../XUITagCanvasLine/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+    
+    
+      
+        <title>XUITagCanvas - XUI Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0d440cfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/xuidocs.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#description" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="XUI Documentation" class="md-header__button md-logo" aria-label="XUI Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            XUI Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              XUITagCanvas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="XUI Documentation" class="md-nav__button md-logo" aria-label="XUI Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    XUI Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          XUI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          XUI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIDotLabel/" class="md-nav__link">
+        XUIDotLabel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIImageButton/" class="md-nav__link">
+        XUIImageButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUITextButton/" class="md-nav__link">
+        XUITextButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+          Required
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Required
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/NSScrollViewCanvas/" class="md-nav__link">
+        NSScrollViewCanvas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUIApp/" class="md-nav__link">
+        XUIApp
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUISelectedColumns/" class="md-nav__link">
+        XUISelectedColumns
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUISemanticVersion/" class="md-nav__link">
+        XUISemanticVersion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUITextLine/" class="md-nav__link">
+        XUITextLine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUITextSelection/" class="md-nav__link">
+        XUITextSelection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_7" id="__nav_2_4_7_label" tabindex="0">
+          AppKit
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          AppKit
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/AppKit/AppKit/" class="md-nav__link">
+        AppKit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_8" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_8" id="__nav_2_4_8_label" tabindex="0">
+          Extensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_8">
+          <span class="md-nav__icon md-icon"></span>
+          Extensions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_8_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_8_1" id="__nav_2_4_8_1_label" tabindex="0">
+          XUIColorExtensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_8_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          XUIColorExtensions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/Extensions/XUIColorExtensions/XUIColorExtensions/" class="md-nav__link">
+        XUIColorExtensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_8_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_8_2" id="__nav_2_4_8_2_label" tabindex="0">
+          XUIColorGroupExtensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_8_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          XUIColorGroupExtensions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/Extensions/XUIColorGroupExtensions/XUIColorGroupExtensions/" class="md-nav__link">
+        XUIColorGroupExtensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_8_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_8_3" id="__nav_2_4_8_3_label" tabindex="0">
+          XUIDesktopDisplayExtensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_8_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_8_3">
+          <span class="md-nav__icon md-icon"></span>
+          XUIDesktopDisplayExtensions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/Extensions/XUIDesktopDisplayExtensions/XUIDesktopDisplayExtensions/" class="md-nav__link">
+        XUIDesktopDisplayExtensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_8_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_8_4" id="__nav_2_4_8_4_label" tabindex="0">
+          XUIDesktopWindowExtensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_8_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_8_4">
+          <span class="md-nav__icon md-icon"></span>
+          XUIDesktopWindowExtensions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/Extensions/XUIDesktopWindowExtensions/XUIDesktopWindowExtensions/" class="md-nav__link">
+        XUIDesktopWindowExtensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_8_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_8_5" id="__nav_2_4_8_5_label" tabindex="0">
+          XUIPictureExtensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_8_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_8_5">
+          <span class="md-nav__icon md-icon"></span>
+          XUIPictureExtensions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/Extensions/XUIPictureExtensions/XUIPictureExtensions/" class="md-nav__link">
+        XUIPictureExtensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_8_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_8_6" id="__nav_2_4_8_6_label" tabindex="0">
+          XUIRectExtensions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_8_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_8_6">
+          <span class="md-nav__icon md-icon"></span>
+          XUIRectExtensions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/Extensions/XUIRectExtensions/XUIRectExtensions/" class="md-nav__link">
+        XUIRectExtensions
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_9" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_9" id="__nav_2_4_9_label" tabindex="0">
+          FileKit
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_9">
+          <span class="md-nav__icon md-icon"></span>
+          FileKit
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/FileKit/FileKit/" class="md-nav__link">
+        FileKit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_10" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_10" id="__nav_2_4_10_label" tabindex="0">
+          NotificationCenter
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_10">
+          <span class="md-nav__icon md-icon"></span>
+          NotificationCenter
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/NotificationCenter/XUINotification/" class="md-nav__link">
+        XUINotification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/NotificationCenter/XUINotificationListener/" class="md-nav__link">
+        XUINotificationListener
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_10_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_10_3" id="__nav_2_4_10_3_label" tabindex="0">
+          XUINotificationCenter
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_10_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_10_3">
+          <span class="md-nav__icon md-icon"></span>
+          XUINotificationCenter
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/NotificationCenter/XUINotificationCenter/XUINotificationCenter/" class="md-nav__link">
+        XUINotificationCenter
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_11" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_11" id="__nav_2_4_11_label" tabindex="0">
+          XUI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_11">
+          <span class="md-nav__icon md-icon"></span>
+          XUI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUI/XUI/" class="md-nav__link">
+        XUI
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_12" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_12" id="__nav_2_4_12_label" tabindex="0">
+          XUIColors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_12">
+          <span class="md-nav__icon md-icon"></span>
+          XUIColors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUIColors/XUIColors/" class="md-nav__link">
+        XUIColors
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_13" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_13" id="__nav_2_4_13_label" tabindex="0">
+          XUIDictionary
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_13">
+          <span class="md-nav__icon md-icon"></span>
+          XUIDictionary
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUIDictionary/XUIDictionary/" class="md-nav__link">
+        XUIDictionary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUIDictionary/XUIDictionaryIterator/" class="md-nav__link">
+        XUIDictionaryIterator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_14" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_14" id="__nav_2_4_14_label" tabindex="0">
+          XUIFonts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_14_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_14">
+          <span class="md-nav__icon md-icon"></span>
+          XUIFonts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUIFonts/XUIFonts/" class="md-nav__link">
+        XUIFonts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_15" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_15" id="__nav_2_4_15_label" tabindex="0">
+          XUIMaths
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_15_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_15">
+          <span class="md-nav__icon md-icon"></span>
+          XUIMaths
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUIMaths/XUIMaths/" class="md-nav__link">
+        XUIMaths
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_16" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_16" id="__nav_2_4_16_label" tabindex="0">
+          XUIStrings
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_16_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_16">
+          <span class="md-nav__icon md-icon"></span>
+          XUIStrings
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Required/XUIStrings/XUIStrings/" class="md-nav__link">
+        XUIStrings
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          XUI Utilities
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          XUI Utilities
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/XUIPreferences/" class="md-nav__link">
+        XUIPreferences
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/XUIStopWatch/" class="md-nav__link">
+        XUIStopWatch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+          MarkdownKit
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          MarkdownKit
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKATXHeadingBlock/" class="md-nav__link">
+        MKATXHeadingBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKAbstractEmphasis/" class="md-nav__link">
+        MKAbstractEmphasis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKAbstractList/" class="md-nav__link">
+        MKAbstractList
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKBlock/" class="md-nav__link">
+        MKBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKBlockQuote/" class="md-nav__link">
+        MKBlockQuote
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKCharacter/" class="md-nav__link">
+        MKCharacter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKCodeSpan/" class="md-nav__link">
+        MKCodeSpan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKDelimiterStackNode/" class="md-nav__link">
+        MKDelimiterStackNode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKDocument/" class="md-nav__link">
+        MKDocument
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKEdgeCase/" class="md-nav__link">
+        MKEdgeCase
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKEmphasis/" class="md-nav__link">
+        MKEmphasis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKException/" class="md-nav__link">
+        MKException
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKFencedCodeBlock/" class="md-nav__link">
+        MKFencedCodeBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKHTMLBlock/" class="md-nav__link">
+        MKHTMLBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKHTMLBlockScanner/" class="md-nav__link">
+        MKHTMLBlockScanner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKHTMLRenderer/" class="md-nav__link">
+        MKHTMLRenderer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKIndentedCodeBlock/" class="md-nav__link">
+        MKIndentedCodeBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKInlineHTML/" class="md-nav__link">
+        MKInlineHTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKInlineHTMLScanner/" class="md-nav__link">
+        MKInlineHTMLScanner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKInlineImage/" class="md-nav__link">
+        MKInlineImage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKInlineLink/" class="md-nav__link">
+        MKInlineLink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKInlineLinkData/" class="md-nav__link">
+        MKInlineLinkData
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKInlineScanner/" class="md-nav__link">
+        MKInlineScanner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKInlineText/" class="md-nav__link">
+        MKInlineText
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKLinkDestination/" class="md-nav__link">
+        MKLinkDestination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKLinkLabel/" class="md-nav__link">
+        MKLinkLabel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKLinkReferenceDefinition/" class="md-nav__link">
+        MKLinkReferenceDefinition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKLinkScanner/" class="md-nav__link">
+        MKLinkScanner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKLinkTitle/" class="md-nav__link">
+        MKLinkTitle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKLinkTitleBlock/" class="md-nav__link">
+        MKLinkTitleBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKListBlock/" class="md-nav__link">
+        MKListBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKListData/" class="md-nav__link">
+        MKListData
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKListItemBlock/" class="md-nav__link">
+        MKListItemBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKParagraphBlock/" class="md-nav__link">
+        MKParagraphBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKParser/" class="md-nav__link">
+        MKParser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKRenderer/" class="md-nav__link">
+        MKRenderer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKSetextHeadingBlock/" class="md-nav__link">
+        MKSetextHeadingBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKSoftBreak/" class="md-nav__link">
+        MKSoftBreak
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKStrongEmphasis/" class="md-nav__link">
+        MKStrongEmphasis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKTextBlock/" class="md-nav__link">
+        MKTextBlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MKThematicBreak/" class="md-nav__link">
+        MKThematicBreak
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/MarkdownKit/MarkdownKit/" class="md-nav__link">
+        MarkdownKit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+          TOMLKit
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          TOMLKit
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/TOMLKit/TKException/" class="md-nav__link">
+        TKException
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/TOMLKit/TKGenerator/" class="md-nav__link">
+        TKGenerator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/TOMLKit/TKInlineDictionary/" class="md-nav__link">
+        TKInlineDictionary
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/TOMLKit/TKLocalDateTime/" class="md-nav__link">
+        TKLocalDateTime
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/TOMLKit/TKLocalTime/" class="md-nav__link">
+        TKLocalTime
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/TOMLKit/TKParser/" class="md-nav__link">
+        TKParser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUI%20Utilities/TOMLKit/TOMLKit/" class="md-nav__link">
+        TOMLKit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          XUICodeEditor
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          XUICodeEditor
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICECaretData/" class="md-nav__link">
+        XUICECaretData
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICEDelimiter/" class="md-nav__link">
+        XUICEDelimiter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICELine/" class="md-nav__link">
+        XUICELine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICELineManager/" class="md-nav__link">
+        XUICELineManager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICELineToken/" class="md-nav__link">
+        XUICELineToken
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICELocation/" class="md-nav__link">
+        XUICELocation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICETheme/" class="md-nav__link">
+        XUICETheme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICETokenStyle/" class="md-nav__link">
+        XUICETokenStyle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/XUICodeEditor/" class="md-nav__link">
+        XUICodeEditor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_10" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6_10" id="__nav_2_6_10_label" tabindex="0">
+          Code Editor Autocompletion
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6_10">
+          <span class="md-nav__icon md-icon"></span>
+          Code Editor Autocompletion
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Autocompletion/XUICEAutocompleteData/" class="md-nav__link">
+        XUICEAutocompleteData
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Autocompletion/XUICEAutocompleteOption/" class="md-nav__link">
+        XUICEAutocompleteOption
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Autocompletion/XUICodeEditorAutocompletePopup/" class="md-nav__link">
+        XUICodeEditorAutocompletePopup
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_11" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6_11" id="__nav_2_6_11_label" tabindex="0">
+          Code Editor Formatters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6_11">
+          <span class="md-nav__icon md-icon"></span>
+          Code Editor Formatters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Formatters/XUICEAbstractFormatter/" class="md-nav__link">
+        XUICEAbstractFormatter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Formatters/XUICEFormatter/" class="md-nav__link">
+        XUICEFormatter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Formatters/XUICEMarkdownFormatter/" class="md-nav__link">
+        XUICEMarkdownFormatter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Formatters/XUICEObjoScriptFormatter/" class="md-nav__link">
+        XUICEObjoScriptFormatter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Formatters/XUICETextFormatter/" class="md-nav__link">
+        XUICETextFormatter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Formatters/XUICEWrenFormatter/" class="md-nav__link">
+        XUICEWrenFormatter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Formatters/XUICEXojoFormatter/" class="md-nav__link">
+        XUICEXojoFormatter
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_12" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6_12" id="__nav_2_6_12_label" tabindex="0">
+          Code Editor Undo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6_12">
+          <span class="md-nav__icon md-icon"></span>
+          Code Editor Undo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Undo/XUICEUndoableDelete/" class="md-nav__link">
+        XUICEUndoableDelete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Undo/XUICEUndoableInsertLine/" class="md-nav__link">
+        XUICEUndoableInsertLine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Undo/XUICEUndoableInsertLineBreak/" class="md-nav__link">
+        XUICEUndoableInsertLineBreak
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Undo/XUICEUndoableInsertText/" class="md-nav__link">
+        XUICEUndoableInsertText
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUICodeEditor/Code%20Editor%20Undo/XUICEUndoableReplaceLineContents/" class="md-nav__link">
+        XUICEUndoableReplaceLineContents
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          XUIColorPicker
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          XUIColorPicker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorPicker/XUIColorPicker/" class="md-nav__link">
+        XUIColorPicker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7_2" id="__nav_2_7_2_label" tabindex="0">
+          ColorPicker Components
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_7_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          ColorPicker Components
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorPicker/ColorPicker%20Components/XUIColorComponentSlider/" class="md-nav__link">
+        XUIColorComponentSlider
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorPicker/ColorPicker%20Components/XUIColorPickerColorDot/" class="md-nav__link">
+        XUIColorPickerColorDot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorPicker/ColorPicker%20Components/XUIColorPickerColorDotCanvas/" class="md-nav__link">
+        XUIColorPickerColorDotCanvas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorPicker/ColorPicker%20Components/XUIColorPickerSwatchCanvas/" class="md-nav__link">
+        XUIColorPickerSwatchCanvas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+          XUIColorSwatch
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          XUIColorSwatch
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorSwatch/XUIColorSwatch/" class="md-nav__link">
+        XUIColorSwatch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8_2" id="__nav_2_8_2_label" tabindex="0">
+          ColorSwatch Renderers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_8_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          ColorSwatch Renderers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorSwatch/ColorSwatch%20Renderers/XUIColorSwatchRenderer/" class="md-nav__link">
+        XUIColorSwatchRenderer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorSwatch/ColorSwatch%20Renderers/XUIColorSwatchRendererGnome/" class="md-nav__link">
+        XUIColorSwatchRendererGnome
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorSwatch/ColorSwatch%20Renderers/XUIColorSwatchRendererMacOS/" class="md-nav__link">
+        XUIColorSwatchRendererMacOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIColorSwatch/ColorSwatch%20Renderers/XUIColorSwatchRendererWindows11/" class="md-nav__link">
+        XUIColorSwatchRendererWindows11
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+          XUIInspector
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          XUIInspector
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/XUIInspector/" class="md-nav__link">
+        XUIInspector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/XUIInspectorSection/" class="md-nav__link">
+        XUIInspectorSection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/XUIInspectorStyle/" class="md-nav__link">
+        XUIInspectorStyle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/XUIInspectorTextFieldRenderer/" class="md-nav__link">
+        XUIInspectorTextFieldRenderer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9_5" id="__nav_2_9_5_label" tabindex="0">
+          Inspector Items
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_9_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9_5">
+          <span class="md-nav__icon md-icon"></span>
+          Inspector Items
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorCheckBoxItem/" class="md-nav__link">
+        XUIInspectorCheckBoxItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorColorGroupItem/" class="md-nav__link">
+        XUIInspectorColorGroupItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorColorItem/" class="md-nav__link">
+        XUIInspectorColorItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorDualTextFieldItem/" class="md-nav__link">
+        XUIInspectorDualTextFieldItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorFullWidthButtonItem/" class="md-nav__link">
+        XUIInspectorFullWidthButtonItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorItem/" class="md-nav__link">
+        XUIInspectorItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorItemKeyHandler/" class="md-nav__link">
+        XUIInspectorItemKeyHandler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorItemWithMultipleTabFocusControls/" class="md-nav__link">
+        XUIInspectorItemWithMultipleTabFocusControls
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorPopupItem/" class="md-nav__link">
+        XUIInspectorPopupItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorSwitchItem/" class="md-nav__link">
+        XUIInspectorSwitchItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Items/XUIInspectorTextFieldItem/" class="md-nav__link">
+        XUIInspectorTextFieldItem
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9_6" id="__nav_2_9_6_label" tabindex="0">
+          Inspector Misc
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_9_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_9_6">
+          <span class="md-nav__icon md-icon"></span>
+          Inspector Misc
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Misc/XUIInspectorItemPopupMenu/" class="md-nav__link">
+        XUIInspectorItemPopupMenu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Misc/XUIInspectorMouseDownData/" class="md-nav__link">
+        XUIInspectorMouseDownData
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Misc/XUIInspectorMouseMoveData/" class="md-nav__link">
+        XUIInspectorMouseMoveData
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIInspector/Inspector%20Misc/XUIInspectorMouseUpData/" class="md-nav__link">
+        XUIInspectorMouseUpData
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+          XUISourceList
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_10">
+          <span class="md-nav__icon md-icon"></span>
+          XUISourceList
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUISourceList/XUISourceList/" class="md-nav__link">
+        XUISourceList
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUISourceList/XUISourceListItem/" class="md-nav__link">
+        XUISourceListItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUISourceList/XUISourceListStyle/" class="md-nav__link">
+        XUISourceListStyle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_10_4" id="__nav_2_10_4_label" tabindex="0">
+          SourceList Renderers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_10_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_10_4">
+          <span class="md-nav__icon md-icon"></span>
+          SourceList Renderers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUISourceList/SourceList%20Renderers/XUISourceListRenderer/" class="md-nav__link">
+        XUISourceListRenderer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUISourceList/SourceList%20Renderers/XUISourceListRendererMonterey/" class="md-nav__link">
+        XUISourceListRendererMonterey
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUISourceList/SourceList%20Renderers/XUISourceListRendererWindows11/" class="md-nav__link">
+        XUISourceListRendererWindows11
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_11" id="__nav_2_11_label" tabindex="0">
+          XUITabBar
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          XUITabBar
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUITabBar/XUITabBar/" class="md-nav__link">
+        XUITabBar
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUITabBar/XUITabBarItem/" class="md-nav__link">
+        XUITabBarItem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUITabBar/XUITabBarStyle/" class="md-nav__link">
+        XUITabBarStyle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_11_4" id="__nav_2_11_4_label" tabindex="0">
+          Tab Bar Renderers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_11_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_11_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tab Bar Renderers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUITabBar/Tab%20Bar%20Renderers/XUITabBarRenderer/" class="md-nav__link">
+        XUITabBarRenderer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUITabBar/Tab%20Bar%20Renderers/XUITabBarRendererEdge/" class="md-nav__link">
+        XUITabBarRendererEdge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUITabBar/Tab%20Bar%20Renderers/XUITabBarRendererSafari/" class="md-nav__link">
+        XUITabBarRendererSafari
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_12" id="__nav_2_12_label" tabindex="0">
+          XUITagCanvas
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          XUITagCanvas
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XUITag/" class="md-nav__link">
+        XUITag
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          XUITagCanvas
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        XUITagCanvas
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    Events
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    Constants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property-descriptions" class="md-nav__link">
+    Property Descriptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-descriptions" class="md-nav__link">
+    Method Descriptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-descriptions" class="md-nav__link">
+    Event Descriptions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XUITagCanvasLine/" class="md-nav__link">
+        XUITagCanvasLine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XUITagCanvasStyle/" class="md-nav__link">
+        XUITagCanvasStyle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XUITagData/" class="md-nav__link">
+        XUITagData
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_12_6" id="__nav_2_12_6_label" tabindex="0">
+          TagCanvas Autocompletion
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_12_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12_6">
+          <span class="md-nav__icon md-icon"></span>
+          TagCanvas Autocompletion
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Autocompletion/XUITagAutocompleteData/" class="md-nav__link">
+        XUITagAutocompleteData
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Autocompletion/XUITagAutocompleteOption/" class="md-nav__link">
+        XUITagAutocompleteOption
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Autocompletion/XUITagCanvasAutocompletePopup/" class="md-nav__link">
+        XUITagCanvasAutocompletePopup
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_12_7" id="__nav_2_12_7_label" tabindex="0">
+          TagCanvas Parselets
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_12_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12_7">
+          <span class="md-nav__icon md-icon"></span>
+          TagCanvas Parselets
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Parselets/XUIDefaultTagParselet/" class="md-nav__link">
+        XUIDefaultTagParselet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Parselets/XUIEmailTagParselet/" class="md-nav__link">
+        XUIEmailTagParselet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Parselets/XUITagParselet/" class="md-nav__link">
+        XUITagParselet
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12_8" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_12_8" id="__nav_2_12_8_label" tabindex="0">
+          TagCanvas Renderers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_12_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_12_8">
+          <span class="md-nav__icon md-icon"></span>
+          TagCanvas Renderers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Renderers/XUITagCanvasRenderer/" class="md-nav__link">
+        XUITagCanvasRenderer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Renderers/XUITagCanvasRendererMonterey/" class="md-nav__link">
+        XUITagCanvasRendererMonterey
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TagCanvas%20Renderers/XUITagCanvasRendererWindows11/" class="md-nav__link">
+        XUITagCanvasRendererWindows11
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+          XUIUndo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_13">
+          <span class="md-nav__icon md-icon"></span>
+          XUIUndo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIUndo/XUIUndoManager/" class="md-nav__link">
+        XUIUndoManager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XUIUndo/XUIUndoableAction/" class="md-nav__link">
+        XUIUndoableAction
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    Events
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    Constants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property-descriptions" class="md-nav__link">
+    Property Descriptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-descriptions" class="md-nav__link">
+    Method Descriptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-descriptions" class="md-nav__link">
+    Event Descriptions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>XUITagCanvas</h1>
+
+<p><strong>Inherits</strong> <code>DesktopTextInputCanvas</code></p>
+<p><strong>Implements</strong> <code>XUINotificationListener</code></p>
+<h2 id="description">Description</h2>
+<p><code>XUITagCanvas</code> is a really useful, highly customisable and good looking UI control for accepting and
+presenting "tags".</p>
+<p>You will most likely have seen examples of this type of control in the address field of email 
+clients or perhaps in the search fields of applications such as the Finder on macOS.</p>
+<p>The <code>XUITagCanvas</code> is a fully functioning <code>DesktopTextInputCanvas</code> subclass so you can type freely
+into it. </p>
+<p>The control supports autocompletion of tags using a flexible "parselet" system. What does this mean? 
+Well, let's say you want to replicate the functionality commonly seen in the "To:" field of an email
+client (where if the user types a valid email address a tag is created or if the user types a known
+contact's name into the field a tag is created). This is natively supported with the included 
+<code>XUIEmailTagParselet</code> and an example is provided in the demo app of how easy this is to implement.</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="center">Read-Only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="#AllowAutocomplete">AllowAutocomplete</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#AutocompleteData">AutocompleteData</a></td>
+<td align="left"><code>XUITagAutocompleteData</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#CaretBlinkPeriod">CaretBlinkPeriod</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#CaretLineNumber">CaretLineNumber</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center">&#10004;</td>
+</tr>
+<tr>
+<td align="left"><a href="#CaretXCoordinate">CaretXCoordinate</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center">&#10004;</td>
+</tr>
+<tr>
+<td align="left"><a href="#CurrentLine">CurrentLine</a></td>
+<td align="left"><code>XUITagCanvasLine</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#HasBorder">HasBorder</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#HasFocus">HasFocus</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center">&#10004;</td>
+</tr>
+<tr>
+<td align="left"><a href="#LineHeight">LineHeight</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center">&#10004;</td>
+</tr>
+<tr>
+<td align="left"><a href="#mAutocompletePopup">mAutocompletePopup</a></td>
+<td align="left"><code>XUITagCanvasAutocompletePopup</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mBuffer">mBuffer</a></td>
+<td align="left"><code>Picture</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mCaretBlinker">mCaretBlinker</a></td>
+<td align="left"><code>Timer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mCaretVisible">mCaretVisible</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mCurrentLine">mCurrentLine</a></td>
+<td align="left"><code>XUITagCanvasLine</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mHasBorder">mHasBorder</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mHasFocus">mHasFocus</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#MinimumAutocompletionLength">MinimumAutocompletionLength</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mLastClickWasContextual">mLastClickWasContextual</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mLastPaintHeight">mLastPaintHeight</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mLastPaintWidth">mLastPaintWidth</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mLineHeight">mLineHeight</a></td>
+<td align="left"><code>Double</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mLines()">mLines()</a></td>
+<td align="left"><code>XUITagCanvasLine</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mMinimumAutocompletionLength">mMinimumAutocompletionLength</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mReadOnly">mReadOnly</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mRequiredBufferWidth">mRequiredBufferWidth</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mScrollPosX">mScrollPosX</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mScrollPosY">mScrollPosY</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mStyle">mStyle</a></td>
+<td align="left"><code>XUITagCanvasStyle</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mSuppressAutocompletePopup">mSuppressAutocompletePopup</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#mTriggers()">mTriggers()</a></td>
+<td align="left"><code>String</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#Multiline">Multiline</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#Parselet">Parselet</a></td>
+<td align="left"><code>XUITagParselet</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ParseOnComma">ParseOnComma</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ParseOnReturn">ParseOnReturn</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ParseOnTab">ParseOnTab</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ParseTriggers">ParseTriggers</a></td>
+<td align="left"><code>String</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ReadOnly">ReadOnly</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#Renderer">Renderer</a></td>
+<td align="left"><code>XUITagCanvasRenderer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ScrollPosX">ScrollPosX</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ScrollPosY">ScrollPosY</a></td>
+<td align="left"><code>Integer</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#Style">Style</a></td>
+<td align="left"><code>XUITagCanvasStyle</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left"><a href="#TagsHaveWidget">TagsHaveWidget</a></td>
+<td align="left"><code>Boolean</code></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods">Methods</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Parameters</th>
+<th align="left">Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="#AcceptCurrentAutocompleteOption">AcceptCurrentAutocompleteOption</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#AddTag-XUITag">AddTag</a></td>
+<td align="left">tag As <code>XUITag</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#CaretBlinkerAction-Timer">CaretBlinkerAction</a></td>
+<td align="left">caretBlinker As <code>Timer</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#Clear">Clear</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ComputeBufferWidth">ComputeBufferWidth</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#Constructor">Constructor</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#FetchAutocompleteData">FetchAutocompleteData</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#HandleDeleteBackwards">HandleDeleteBackwards</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#HandleEscKey">HandleEscKey</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#HideAutocompletePopup-Boolean">HideAutocompletePopup</a></td>
+<td align="left">shouldSetFocus As <code>Boolean</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#InsertCharacter-String-TextRange">InsertCharacter</a></td>
+<td align="left">char As <code>String</code>, range As <code>TextRange</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#InsertString-String">InsertString</a></td>
+<td align="left">s As <code>String</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#IsTrigger-String-Boolean">IsTrigger</a></td>
+<td align="left">char As <code>String</code></td>
+<td align="left"><code>Boolean</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#Lines-XUITagCanvasLine()">Lines</a></td>
+<td align="left"></td>
+<td align="left"><code>XUITagCanvasLine()</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#LineWidth-XUITagCanvasLine-Double">LineWidth</a></td>
+<td align="left">line As <code>XUITagCanvasLine</code></td>
+<td align="left"><code>Double</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#MaxVisibleLines-Double-Integer">MaxVisibleLines</a></td>
+<td align="left">lineHeight As <code>Double</code></td>
+<td align="left"><code>Integer</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#NotificationReceived-XUINotification">NotificationReceived</a></td>
+<td align="left">n As <code>XUINotification</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#PaintCaret-Graphics">PaintCaret</a></td>
+<td align="left">g As <code>Graphics</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#Parse-Boolean">Parse</a></td>
+<td align="left"></td>
+<td align="left"><code>Boolean</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#RebuildBuffer">RebuildBuffer</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#RegisterForNotifications">RegisterForNotifications</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#RemoveTagInstance-XUITag">RemoveTagInstance</a></td>
+<td align="left">tag As <code>XUITag</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ScrollDown-Integer">ScrollDown</a></td>
+<td align="left">linesToScroll As <code>Integer</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ScrollToCaret">ScrollToCaret</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ScrollUp-Integer">ScrollUp</a></td>
+<td align="left">linesToScroll As <code>Integer</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#SetContents-String">SetContents</a></td>
+<td align="left">s As <code>String</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#ShowAutocompletePopup">ShowAutocompletePopup</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#TagAtXY-Integer-Integer-XUITag">TagAtXY</a></td>
+<td align="left">x As <code>Integer</code>, y As <code>Integer</code></td>
+<td align="left"><code>XUITag</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#UpdateLayout">UpdateLayout</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#XYAtCaretPos-Double-Double">XYAtCaretPos</a></td>
+<td align="left">x As <code>Double</code>, y As <code>Double</code></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="events">Events</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Parameters</th>
+<th align="left">Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="#AddedTag-XUITag">AddedTag</a></td>
+<td align="left">tag As <code>XUITag</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#AutocompleteDataForPrefix-String-XUITagAutocompleteData">AutocompleteDataForPrefix</a></td>
+<td align="left">prefix As <code>String</code></td>
+<td align="left"><code>XUITagAutocompleteData</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#ClickedTag-XUITag-Boolean">ClickedTag</a></td>
+<td align="left">tag As <code>XUITag</code>, isContextualClick As <code>Boolean</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#Opening">Opening</a></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a href="#RemovedTag-XUITag-Boolean">RemovedTag</a></td>
+<td align="left">tag As <code>XUITag</code>, viaWidget As <code>Boolean</code></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="constants">Constants</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="#LEFT_PADDING">LEFT_PADDING</a></td>
+<td align="left"><code>Double</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#LEFT_SCROLL_PADDING">LEFT_SCROLL_PADDING</a></td>
+<td align="left"><code>Double</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#POPUP_PADDING">POPUP_PADDING</a></td>
+<td align="left"><code>Double</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#RIGHT_SCROLL_PADDING">RIGHT_SCROLL_PADDING</a></td>
+<td align="left"><code>Double</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#TYPING_SPEED_TICKS">TYPING_SPEED_TICKS</a></td>
+<td align="left"><code>Double</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#UNDO_EVENT_BLOCK_SECONDS">UNDO_EVENT_BLOCK_SECONDS</a></td>
+<td align="left"><code>Double</code></td>
+</tr>
+<tr>
+<td align="left"><a href="#VSCROLL_SENSITIVITY">VSCROLL_SENSITIVITY</a></td>
+<td align="left"><code>Double</code></td>
+</tr>
+</tbody>
+</table>
+<div class="member">
+<p><span id="LEFT_PADDING" class="member-description">LEFT_PADDING As Double<span class="private-member"></span></span>
+The number of pixels to pad content from the left edge of the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="LEFT_SCROLL_PADDING" class="member-description">LEFT_SCROLL_PADDING As Double<span class="private-member"></span></span>
+The number of pixels to pad left when scrolling leftwards.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="POPUP_PADDING" class="member-description">POPUP_PADDING As Double<span class="private-member"></span></span>
+The number of pixels between the autocomplete popup and the edge of the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="RIGHT_SCROLL_PADDING" class="member-description">RIGHT_SCROLL_PADDING As Double<span class="private-member"></span></span>
+Fudge factor for padding the right of lines when horizontal scrolling.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="TYPING_SPEED_TICKS" class="member-description">TYPING_SPEED_TICKS As Double<span class="private-member"></span></span>
+The number of ticks between keystrokes to still be considered as actively typing.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="UNDO_EVENT_BLOCK_SECONDS" class="member-description">UNDO_EVENT_BLOCK_SECONDS As Double<span class="private-member"></span></span>
+The number of seconds within which undoable action will be grouped together as a single undoable action.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="VSCROLL_SENSITIVITY" class="member-description">VSCROLL_SENSITIVITY As Double<span class="private-member"></span></span>
+Higher number = more lines scrolled when quickly scrolling vertically. Values between 1 - 3 work well.</p>
+</div>
+<hr />
+
+<h2 id="property-descriptions">Property Descriptions</h2>
+<div class="member">
+<p><span id="AllowAutocomplete" class="member-description">AllowAutocomplete As Boolean</span></p>
+<p>True if the tag canvas supports autocomplete.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="AutocompleteData" class="member-description">AutocompleteData As XUITagAutocompleteData</span></p>
+<p>The autocomplete options for the unparsed text. May be Nil.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="CaretBlinkPeriod" class="member-description">CaretBlinkPeriod As Integer</span></p>
+<p>The interval (in ms) between caret blinks.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="CaretLineNumber" class="member-description">CaretLineNumber As Integer<span class="private-member"></span></span></p>
+<p>The number of the line the caret is currently on.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="CaretXCoordinate" class="member-description">CaretXCoordinate As Integer<span class="private-member"></span></span></p>
+<p>The absolute X coordinate of the caret at its current position (computed and expensive).</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="CurrentLine" class="member-description">CurrentLine As XUITagCanvasLine</span></p>
+<p>The line that the caret is currently on.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="HasBorder" class="member-description">HasBorder As Boolean</span></p>
+<p>True if a border should be drawn around the control.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="HasFocus" class="member-description">HasFocus As Boolean</span></p>
+<p>Returns True if this tag canvas currently has the focus.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="LineHeight" class="member-description">LineHeight As Integer</span></p>
+<p>The height (in pixels) of a line.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mAutocompletePopup" class="member-description">mAutocompletePopup As XUITagCanvasAutocompletePopup<span class="private-member"></span></span></p>
+<p>This tag canvas' autocomplete popup control.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mBuffer" class="member-description">mBuffer As Picture<span class="private-member"></span></span></p>
+<p>The buffer we draw the contents to and then blit to the screen each frame.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mCaretBlinker" class="member-description">mCaretBlinker As Timer<span class="private-member"></span></span></p>
+<p>The timer responsible for blinking the caret.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mCaretVisible" class="member-description">mCaretVisible As Boolean<span class="private-member"></span></span></p>
+<p>True if the caret has blinked visible, False if not.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mCurrentLine" class="member-description">mCurrentLine As XUITagCanvasLine<span class="private-member"></span></span></p>
+<p>Backing field for the <code>CurrentLine</code> computed property.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mHasBorder" class="member-description">mHasBorder As Boolean<span class="private-member"></span></span></p>
+<p>True if a border should be drawn around the control.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mHasFocus" class="member-description">mHasFocus As Boolean<span class="private-member"></span></span></p>
+<p>Backing field for the <code>HasFocus</code> computed property.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="MinimumAutocompletionLength" class="member-description">MinimumAutocompletionLength As Integer</span></p>
+<p>The minimum number of characters required before autocompletion is offered. Must be &gt;= 2.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mLastClickWasContextual" class="member-description">mLastClickWasContextual As Boolean<span class="private-member"></span></span></p>
+<p>True if the mouse click that just occurred in the <code>MouseDown</code> event was a contextual click.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mLastPaintHeight" class="member-description">mLastPaintHeight As Integer<span class="private-member"></span></span></p>
+<p>The height of the canvas at the beginning of the last <code>Paint</code> event.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mLastPaintWidth" class="member-description">mLastPaintWidth As Integer<span class="private-member"></span></span></p>
+<p>The width of the canvas at the beginning of the last <code>Paint</code> event.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mLineHeight" class="member-description">mLineHeight As Double<span class="private-member"></span></span></p>
+<p>Internal cache of the current line height.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mLines()" class="member-description">mLines() As XUITagCanvasLine<span class="private-member"></span></span></p>
+<p>The lines in this canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mMinimumAutocompletionLength" class="member-description">mMinimumAutocompletionLength As Integer<span class="private-member"></span></span></p>
+<p>The minimum number of characters required before autocompletion is offered. Backs the <code>MinimumAutocompletionLength</code> computed property.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mReadOnly" class="member-description">mReadOnly As Boolean<span class="private-member"></span></span></p>
+<p>Backing store for the <code>ReadOnly</code> computed property.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mRequiredBufferWidth" class="member-description">mRequiredBufferWidth As Integer<span class="private-member"></span></span></p>
+<p>The width the buffer should be. Set in <code>ComputeBufferWidth</code>.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mScrollPosX" class="member-description">mScrollPosX As Integer<span class="private-member"></span></span></p>
+<p>The horizontal scroll offset. 0 is baseline. Positive indicates scrolling to the right. Backs the <code>ScrollPosX</code> computed property.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mScrollPosY" class="member-description">mScrollPosY As Integer<span class="private-member"></span></span></p>
+<p>The vetical scroll offset. 0 is baseline. Positive indicates scrolling down. Backs the <code>ScrollPosY</code> computed property.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mStyle" class="member-description">mStyle As XUITagCanvasStyle<span class="private-member"></span></span></p>
+<p>The colour style to use for the tag canvas and tags.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mSuppressAutocompletePopup" class="member-description">mSuppressAutocompletePopup As Boolean<span class="private-member"></span></span></p>
+<p>If True then the autocomplete popup is suppressed even if there is autocomplete data available. Set after the user has cancelled autocomplete.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="mTriggers()" class="member-description">mTriggers() As String<span class="private-member"></span></span></p>
+<p>Additional characters that trigger tag parsing. Set with the <code>ParseTriggers</code> computed property.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Multiline" class="member-description">Multiline As Boolean</span></p>
+<p>If True then tags will wrap to new lines.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Parselet" class="member-description">Parselet As XUITagParselet</span></p>
+<p>The parselet to use to parse text entered in the tag canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ParseOnComma" class="member-description">ParseOnComma As Boolean</span></p>
+<p>If True then the comma key triggers the parsing of any contiguous text not yet parsed as a tag.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ParseOnReturn" class="member-description">ParseOnReturn As Boolean</span></p>
+<p>If True then the return key triggers the parsing of any contiguous text not yet parsed as a tag.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ParseOnTab" class="member-description">ParseOnTab As Boolean</span></p>
+<p>If True then the tag key triggers the parsing of any contiguous text not yet parsed as a tag.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ParseTriggers" class="member-description">ParseTriggers As String</span></p>
+<p>A comma delimited list of characters that will trigger tag parsing. Return, tab and comma characters are stipulated by the <code>ParseOn...</code> properties.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ReadOnly" class="member-description">ReadOnly As Boolean</span></p>
+<p>If True then the canvas is read-only (i.e. not editable).</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Renderer" class="member-description">Renderer As XUITagCanvasRenderer</span></p>
+<p>The renderer to use to draw the tags in the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ScrollPosX" class="member-description">ScrollPosX As Integer<span class="private-member"></span></span></p>
+<p>The horizontal scroll offset. 0 is baseline. Positive indicates scrolling to the right. Refreshes the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ScrollPosY" class="member-description">ScrollPosY As Integer<span class="private-member"></span></span></p>
+<p>The vertical scroll offset. 0 is baseline. Positive indicates scrolling down. Refreshes the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Style" class="member-description">Style As XUITagCanvasStyle</span></p>
+<p>The colour style to use for the tag canvas and tags.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="TagsHaveWidget" class="member-description">TagsHaveWidget As Boolean</span></p>
+<p>If True then tags will be drawn with a clickable dingus.</p>
+</div>
+<hr />
+
+<h2 id="method-descriptions">Method Descriptions</h2>
+<div class="member">
+<p><span id="AcceptCurrentAutocompleteOption" class="member-description">AcceptCurrentAutocompleteOption()</span></p>
+<p>Accepts the currently selected option in the autocomplete popup.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="AddTag-XUITag" class="member-description">AddTag(tag As XUITag)</span></p>
+<p>Adds <code>tag</code> to the end of the current line, clearing any unparsed text. Refreshes the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="CaretBlinkerAction-Timer" class="member-description">CaretBlinkerAction(caretBlinker As Timer)<span class="private-member"></span></span></p>
+<p>Toggles the visibility of the caret. Called by <code>mCaretBlinker.Action</code>.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Clear" class="member-description">Clear()</span></p>
+<p>Clears the contents of the tag canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ComputeBufferWidth" class="member-description">ComputeBufferWidth()<span class="private-member"></span></span></p>
+<p>Computes the width of the buffer. Sets <code>mRequiredBufferWidth</code>.</p>
+<p>The buffer will always be at least as wide as the tag canvas' current width.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Constructor" class="member-description">Constructor()</span></p>
+<p>Default constructor.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="FetchAutocompleteData" class="member-description">FetchAutocompleteData()<span class="private-member"></span></span></p>
+<p>Requests autocomplete data for the unparsed text immediately in front of the caret.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="HandleDeleteBackwards" class="member-description">HandleDeleteBackwards()<span class="private-member"></span></span></p>
+<p>Deletes the character or tag immediately in front of the caret.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="HandleEscKey" class="member-description">HandleEscKey()<span class="private-member"></span></span></p>
+<p>Handles the pressing of the Esc key.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="HideAutocompletePopup-Boolean" class="member-description">HideAutocompletePopup(shouldSetFocus As Boolean)<span class="private-member"></span></span></p>
+<p>Hides the autocomplete popup.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="InsertCharacter-String-TextRange" class="member-description">InsertCharacter(char As String, range As TextRange)<span class="private-member"></span></span></p>
+<p>Inserts a single character at the current caret position.</p>
+<p>Assumes <code>char</code> is only one character.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="InsertString-String" class="member-description">InsertString(s As String)</span></p>
+<p>Inserts text of arbitrary length at the current caret position.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="IsTrigger-String-Boolean" class="member-description">IsTrigger(char As String) As Boolean<span class="private-member"></span></span></p>
+<p>True if <code>char</code> is a trigger character.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Lines-XUITagCanvasLine()" class="member-description">Lines() As XUITagCanvasLine()</span></p>
+<p>Returns the lines of text in the canvas.
+You should consider this array read-only as modifying its contents may have undesired side effects.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="LineWidth-XUITagCanvasLine-Double" class="member-description">LineWidth(line As XUITagCanvasLine) As Double<span class="private-member"></span></span></p>
+<p>Returns the total width of the specified line (including its contents and all padding).</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="MaxVisibleLines-Double-Integer" class="member-description">MaxVisibleLines(lineHeight As Double) As Integer<span class="private-member"></span></span></p>
+<p>The maximum number of lines that are visible in the canvas.</p>
+<p>Will never be more than the maximum number of lines in existence.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="NotificationReceived-XUINotification" class="member-description">NotificationReceived(n As XUINotification)</span></p>
+<p>A notification has been received from the Notification Center.</p>
+<p>Part of the <code>XUINotificationListener</code> interface.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="PaintCaret-Graphics" class="member-description">PaintCaret(g As Graphics)<span class="private-member"></span></span></p>
+<p>Paints the caret at the end of the current line.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Parse-Boolean" class="member-description">Parse() As Boolean<span class="private-member"></span></span></p>
+<p>Attempts to parse the unparsed text on the current line into a tag. Returns False if unable.
+Refreshes the canvas if successful.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="RebuildBuffer" class="member-description">RebuildBuffer()<span class="private-member"></span></span></p>
+<p>Rebuilds the entire buffer by drawing all visible content to it.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="RegisterForNotifications" class="member-description">RegisterForNotifications()<span class="private-member"></span></span></p>
+<p>Registers the canvas for desired notifications.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="RemoveTagInstance-XUITag" class="member-description">RemoveTagInstance(tag As XUITag)</span></p>
+<p>Removes <code>tag</code> from the tag canvas. Refreshes the canvas but does not raise the <code>RemovedTag</code> event.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ScrollDown-Integer" class="member-description">ScrollDown(linesToScroll As Integer)<span class="private-member"></span></span></p>
+<p>Scrolls the canvas down <code>linesToScroll</code> lines.  Refreshes the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ScrollToCaret" class="member-description">ScrollToCaret()<span class="private-member"></span></span></p>
+<p>Scrolls the canvas (if necessary) to the caret. Refreshes the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ScrollUp-Integer" class="member-description">ScrollUp(linesToScroll As Integer)<span class="private-member"></span></span></p>
+<p>Scrolls the canvas up <code>linesToScroll</code> lines. Refreshes the canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="SetContents-String" class="member-description">SetContents(s As String)</span></p>
+<p>Sets the contents of the tag canvas to <code>s</code>, clearing any existing text and tags first. Will trigger parsing.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ShowAutocompletePopup" class="member-description">ShowAutocompletePopup()<span class="private-member"></span></span></p>
+<p>Shows the autocomplete popup at the caret position.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="TagAtXY-Integer-Integer-XUITag" class="member-description">TagAtXY(x As Integer, y As Integer) As XUITag</span></p>
+<p>Returns the tag at <code>(x, y)</code> or Nil if there isn't one.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="UpdateLayout" class="member-description">UpdateLayout()<span class="private-member"></span></span></p>
+<p>This method forces a deep redraw of all tags, re-computing the line they should be on.
+Does not refresh the canvas.</p>
+<p>Expensive but is called whenever the canvas is resized.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="XYAtCaretPos-Double-Double" class="member-description">XYAtCaretPos(x As Double, y As Double)<span class="private-member"></span></span></p>
+<p>Computes (ByRef) the canvas x, y coordinates at the current caret position.
+<code>y</code> is the top of the caret.</p>
+</div>
+<hr />
+
+<h2 id="event-descriptions">Event Descriptions</h2>
+<div class="member">
+<p><span id="AddedTag-XUITag" class="member-description">AddedTag(tag As XUITag)</span>
+Added <code>tag</code> to the tag canvas.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="AutocompleteDataForPrefix-String-XUITagAutocompleteData" class="member-description">AutocompleteDataForPrefix(prefix As String) As XUITagAutocompleteData</span>
+The tag canvas is asking for autocompletion options for the specified <code>prefix</code>. You should return Nil if there are none.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="ClickedTag-XUITag-Boolean" class="member-description">ClickedTag(tag As XUITag, isContextualClick As Boolean)</span>
+A tag has been clicked.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="Opening" class="member-description">Opening()</span>
+The control is opening.</p>
+</div>
+<hr />
+<div class="member">
+<p><span id="RemovedTag-XUITag-Boolean" class="member-description">RemovedTag(tag As XUITag, viaWidget As Boolean)</span>
+A tag has been removed from the tag canvas. If <code>viaDingus</code> is True then the tag was removed because the dingus was clicked.</p>
+</div>
+<hr />
+
+<!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member--><!--/.member-->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Made with <a href="https://xui.software">xuidocs</a>
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      
+        <script src="../../../js/1-rainbow.js"></script>
+      
+        <script src="../../../js/2-rainbow-generic.js"></script>
+      
+        <script src="../../../js/2-rainbow-java.js"></script>
+      
+        <script src="../../../js/2-rainbow-json.js"></script>
+      
+        <script src="../../../js/2-rainbow-python.js"></script>
+      
+        <script src="../../../js/2-rainbow-xojo.js"></script>
+      
+        <script src="../../../js/xuidocs.js"></script>
+      
+    
+  </body>
+</html>
