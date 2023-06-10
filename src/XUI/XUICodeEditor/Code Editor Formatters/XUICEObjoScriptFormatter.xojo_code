@@ -2,43 +2,31 @@
 Protected Class XUICEObjoScriptFormatter
 Inherits XUICEAbstractFormatter
 Implements XUICEFormatter
-	#tag Method, Flags = &h21
+	#tag Method, Flags = &h21, Description = 417474656D70747320746F20616464206120636F6D6D656E7420626567696E6E696E672066726F6D207468652063757272656E7420706F736974696F6E2E2052657475726E732054727565206966207375636365737366756C2E
 		Private Function AddComment() As Boolean
 		  /// Attempts to add a comment beginning from the current position. Returns True if successful.
 		  ///
 		  /// Assumes the pointer is yet to consume the opening delimiter.
 		  ///
-		  /// Comments start with `//` and end at the end of the line:
+		  /// Comments start with `#` and end at the end of the line:
 		  ///
 		  /// ```objo
-		  /// // This is comment.
-		  /// var age = 40 // This is also a comment.
+		  /// # This is comment.
+		  /// var age = 40 # This is also a comment.
 		  /// ```
 		  
-		  Var peekChar As String = Peek
+		  If Peek <> "#" Then Return False
 		  
-		  Var isComment As Boolean = False
-		  If peekChar = "/" Then
-		    If Peek(2) = "/" Then
-		      isComment = True
-		    End If
-		  Else
-		    Return False
-		  End If
+		  // Advance to the end of the line.
+		  mCurrent = mLine.Characters.LastIndex + 1
 		  
-		  If Not isComment Then
-		    Return False
-		  Else
-		    // Advance to the end of the line.
-		    mCurrent = mLine.Characters.LastIndex + 1
-		    
-		    mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_COMMENT))
-		    
-		    // Advance past the line end.
-		    Advance(1)
-		    
-		    Return True
-		  End If
+		  mLine.Tokens.Add(MakeGenericToken(XUICELineToken.TYPE_COMMENT))
+		  
+		  // Advance past the line end.
+		  Advance(1)
+		  
+		  Return True
+		  
 		  
 		End Function
 	#tag EndMethod
@@ -364,6 +352,7 @@ Implements XUICEFormatter
 		  d.Value("class")       = Nil
 		  d.Value("continue")    = Nil
 		  d.Value("constructor") = Nil
+		  d.Value("do")          = Nil
 		  d.Value("else")        = Nil
 		  d.Value("exit")        = Nil
 		  d.Value("export")      = Nil
@@ -376,6 +365,7 @@ Implements XUICEFormatter
 		  d.Value("import")      = Nil
 		  d.Value("in")          = Nil
 		  d.Value("is")          = Nil
+		  d.Value("loop")        = Nil
 		  d.Value("not")         = Nil
 		  d.Value("nothing")     = Nil
 		  d.Value("or")          = Nil
@@ -386,6 +376,7 @@ Implements XUICEFormatter
 		  d.Value("then")        = Nil
 		  d.Value("this")        = Nil
 		  d.Value("true")        = Nil
+		  d.Value("until")       = Nil
 		  d.Value("var")         = Nil
 		  d.Value("while")       = Nil
 		  d.Value("xor")         = Nil
@@ -853,12 +844,6 @@ Implements XUICEFormatter
 
 	#tag Constant, Name = TOKEN_ESCAPE, Type = String, Dynamic = False, Default = \"escape", Scope = Public, Description = 5573656420666F72206573636170652073657175656E6365732E
 	#tag EndConstant
-
-
-	#tag Enum, Name = CommentTypes, Type = Integer, Flags = &h21, Description = 5573656420696E7465726E616C6C792E2054686520646966666572656E74207479706573206F6620737570706F7274656420636F6D6D656E74732E
-		Block
-		SingleLine
-	#tag EndEnum
 
 
 	#tag ViewBehavior
