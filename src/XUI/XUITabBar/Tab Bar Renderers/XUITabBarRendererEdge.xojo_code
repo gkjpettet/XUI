@@ -636,7 +636,7 @@ Implements XUITabBarRenderer
 		  Var w As Double = TabWidthExcludingCaption(tab)  + g.TextWidth(tab.Caption)
 		  
 		  // Ensure the tab is between the min and max widths.
-		  Return XUIMaths.Clamp(w, MIN_TAB_WIDTH, MAX_TAB_WIDTH)
+		  Return Maths.Clamp(w, MIN_TAB_WIDTH, MAX_TAB_WIDTH)
 		  
 		End Function
 	#tag EndMethod

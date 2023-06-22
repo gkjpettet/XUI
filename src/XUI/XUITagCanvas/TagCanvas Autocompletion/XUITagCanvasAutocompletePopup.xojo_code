@@ -98,7 +98,7 @@ Inherits DesktopTextInputCanvas
 		  Var vpadding As Integer =  2 * Owner.Renderer.AutocompleteOptionVerticalPadding
 		  Var lineH As Integer = Owner.Renderer.AutocompleteOptionHeight
 		  If (SelectedIndex * lineH) <= ScrollPosY Or _
-		     (SelectedIndex * lineH) + (SelectedIndex * vpadding) >= Self.Height Then
+		    (SelectedIndex * lineH) + (SelectedIndex * vpadding) >= Self.Height Then
 		    ScrollPosY = SelectedIndex * lineH
 		  End If
 		  
@@ -180,7 +180,7 @@ Inherits DesktopTextInputCanvas
 			  End If
 			  
 			  // Set the value of ScrollPosY, not exceeding the maximum value.
-			  mScrollPosY = XUIMaths.Clamp(value, 0, maxScrollPosY)
+			  mScrollPosY = Maths.Clamp(value, 0, maxScrollPosY)
 			  
 			  Refresh
 			  
@@ -200,7 +200,7 @@ Inherits DesktopTextInputCanvas
 			  If Owner.AutocompleteData = Nil Or Owner.AutocompleteData.Options.Count = 0 Then
 			    value = -1
 			  Else
-			    value = XUIMaths.Clamp(value, 0, Owner.AutocompleteData.Options.LastIndex)
+			    value = Maths.Clamp(value, 0, Owner.AutocompleteData.Options.LastIndex)
 			  End If
 			  
 			  mSelectedIndex = value

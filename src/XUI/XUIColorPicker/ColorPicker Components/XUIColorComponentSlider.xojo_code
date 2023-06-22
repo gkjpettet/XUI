@@ -130,11 +130,11 @@ Inherits DesktopCanvas
 		  Select Case ComponentType
 		  Case ComponentTypes.Alpha, ComponentTypes.Red, ComponentTypes.Green, ComponentTypes.Blue
 		    // These component types are integers 0 - 255.
-		    Return XUIMaths.Clamp((ComponentValue / 255) * graphicsWidth, 0, graphicsWidth - scrubberDiameter - 1)
+		    Return Maths.Clamp((ComponentValue / 255) * graphicsWidth, 0, graphicsWidth - scrubberDiameter - 1)
 		    
 		  Else
 		    // All other component types are doubles 0 - 1.0.
-		    Return XUIMaths.Clamp(ComponentValue * graphicsWidth, 0, graphicsWidth - scrubberDiameter - 1)
+		    Return Maths.Clamp(ComponentValue * graphicsWidth, 0, graphicsWidth - scrubberDiameter - 1)
 		  End Select
 		  
 		End Function
@@ -535,17 +535,17 @@ Inherits DesktopCanvas
 			  // Clamp the value as required.
 			  If ComponentType = ComponentTypes.Alpha Then
 			    // Alpha is always an integer value between 0 - 255.
-			    Var i As Integer = XUIMaths.Clamp(value, 0, 255)
+			    Var i As Integer = Maths.Clamp(value, 0, 255)
 			    mComponentValue = i
 			  Else
 			    Select Case ColorMode
 			    Case ColorModes.RGB
 			      // Only allow integer values between 0 - 255.
-			      Var i As Integer = XUIMaths.Clamp(value, 0, 255)
+			      Var i As Integer = Maths.Clamp(value, 0, 255)
 			      mComponentValue = i
 			    Case ColorModes.HSV, ColorModes.CMY
 			      // Only allow double values between 0 - 1.0.
-			      mComponentValue = XUIMaths.Clamp(value, 0, 1.0)
+			      mComponentValue = Maths.Clamp(value, 0, 1.0)
 			    End Select
 			  End If
 			  

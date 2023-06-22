@@ -739,7 +739,7 @@ Implements XUINotificationListener
 		  
 		  // The maximum number of lines we can ever scroll down is the number of 
 		  // lines that are visible on the screen. However, we will never scroll past the last line.
-		  linesToScroll = XUIMaths.Clamp(linesToScroll, 0, linesVisible)
+		  linesToScroll = Maths.Clamp(linesToScroll, 0, linesVisible)
 		  
 		  ScrollPosY = ScrollPosY + (linesToScroll * LineHeight)
 		  
@@ -762,7 +762,7 @@ Implements XUINotificationListener
 		  ElseIf x - mScrollPosX + RIGHT_SCROLL_PADDING > Self.Width Then
 		    // Scroll right.
 		    Var widthDiff As Double = mRequiredBufferWidth - Self.Width
-		    ScrollPosX = XUIMaths.Clamp(mScrollPosX + x - Self.Width + RIGHT_SCROLL_PADDING, 0, widthDiff)
+		    ScrollPosX = Maths.Clamp(mScrollPosX + x - Self.Width + RIGHT_SCROLL_PADDING, 0, widthDiff)
 		    
 		  ElseIf x < mScrollPosX Then
 		    // Scroll left.
@@ -793,7 +793,7 @@ Implements XUINotificationListener
 		  
 		  // The maximum number of lines we can ever scroll up is the number of lines 
 		  // that are visible on the screen. However, we will never scroll past the first line.
-		  linesToScroll = XUIMaths.Clamp(linesToScroll, 0, linesVisible)
+		  linesToScroll = Maths.Clamp(linesToScroll, 0, linesVisible)
 		  
 		  ScrollPosY = ScrollPosY - (linesToScroll * LineHeight)
 		  
@@ -1276,7 +1276,7 @@ Implements XUINotificationListener
 			  End If
 			  
 			  // Set the value of ScrollPosX, not exceeding the maximum value.
-			  mScrollPosX = XUIMaths.Clamp(value, 0, maxScrollPosX)
+			  mScrollPosX = Maths.Clamp(value, 0, maxScrollPosX)
 			  
 			  Refresh
 			  
@@ -1310,7 +1310,7 @@ Implements XUINotificationListener
 			  End If
 			  
 			  // Set the value of ScrollPosY, not exceeding the maximum value.
-			  mScrollPosY = XUIMaths.Clamp(value, 0, maxScrollPosY)
+			  mScrollPosY = Maths.Clamp(value, 0, maxScrollPosY)
 			  
 			  Refresh
 			  

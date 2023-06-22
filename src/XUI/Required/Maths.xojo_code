@@ -1,5 +1,5 @@
 #tag Module
-Protected Module XUIMaths
+Protected Module Maths
 	#tag Method, Flags = &h21, Description = 4173736572747320746861742060636F6E646974696F6E6020697320547275652C206F74686572776973652072616973657320616E20657863657074696F6E2E
 		Private Sub Assert(condition As Boolean, message As String = "")
 		  /// Asserts that `condition` is True, otherwise raises an exception.

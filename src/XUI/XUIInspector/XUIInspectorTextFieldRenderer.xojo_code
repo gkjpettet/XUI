@@ -949,7 +949,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		  /// The width in pixels from the start of the line to `column`. Does not accoutn for any horizontal padding.
 		  /// Assumes `g` is the context that will be drawn to and that the font properties have already been set.
 		  
-		  column = XUIMaths.Clamp(column, 0, mCharacters.Count)
+		  column = Maths.Clamp(column, 0, mCharacters.Count)
 		  
 		  If column = 0 Then Return 0
 		  
@@ -979,7 +979,7 @@ Protected Class XUIInspectorTextFieldRenderer
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mCaretPosition = XUIMaths.Clamp(value, 0, mCharacters.Count)
+			  mCaretPosition = Maths.Clamp(value, 0, mCharacters.Count)
 			  
 			  ScrollToCaret(mCachedVisibleWidth)
 			End Set

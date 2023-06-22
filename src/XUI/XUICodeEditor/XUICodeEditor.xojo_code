@@ -627,7 +627,7 @@ Implements XUINotificationListener
 		    // In order to see all of the lowest most line to be visible, we need to increase `ScrollY_` a bit.
 		    Var y As Integer = ScrollY_ + (mLineHeight * 2)
 		    mFirstVisibleLine = Floor(y / mLineHeight)
-		    mFirstVisibleLine = XUIMaths.Clamp(mFirstVisibleLine, 1, LineManager.LineCount)
+		    mFirstVisibleLine = Maths.Clamp(mFirstVisibleLine, 1, LineManager.LineCount)
 		    NeedsFullRedraw = True
 		  Else
 		    mFirstVisibleLine = 1
@@ -2106,7 +2106,7 @@ Implements XUINotificationListener
 		  /// If `newPos` > last valid caret position then the caret is moved to the end of the text.
 		  
 		  // Clamp the new position to a valid range.
-		  newPos = XUIMaths.Clamp(newPos, 0, LineManager.LastLine.Finish)
+		  newPos = Maths.Clamp(newPos, 0, LineManager.LastLine.Finish)
 		  
 		  // Set the new caret position.
 		  CaretPosition = newPos
@@ -2784,7 +2784,7 @@ Implements XUINotificationListener
 		  // Compute the X coordinate of the left of the thumb.
 		  Var minX As Integer = SCROLLBAR_THUMB_PADDING
 		  Var maxX As Integer = g.Width - thumbW - SCROLLBAR_THUMB_PADDING
-		  Var thumbX As Integer = XUIMaths.Clamp((ScrollPosX / maxScrollPosX) * (maxX - minX), minX, maxX)
+		  Var thumbX As Integer = Maths.Clamp((ScrollPosX / maxScrollPosX) * (maxX - minX), minX, maxX)
 		  
 		  // Compute the thumb Y position.
 		  Var thumbY As Double = (g.Height / 2) - (HORIZONTAL_SCROLLBAR_THUMB_HEIGHT / 2)
@@ -3016,7 +3016,7 @@ Implements XUINotificationListener
 		  // The maximum number of lines we can ever scroll down is the number of 
 		  // lines that are visible on the screen. However, we will never scroll 
 		  // past the last line.
-		  linesToScroll = XUIMaths.Clamp(linesToScroll, 0, linesVisible)
+		  linesToScroll = Maths.Clamp(linesToScroll, 0, linesVisible)
 		  
 		  If moveCaret Then
 		    // Move the caret down by the same number of lines, to the same 
@@ -3141,7 +3141,7 @@ Implements XUINotificationListener
 		    ElseIf caretX - mScrollPosX + RIGHT_SCROLL_PADDING > Self.Width Then
 		      // Scroll right.
 		      Var widthDiff As Double = mCachedRequiredBufferWidth - Self.Width
-		      ScrollPosX = XUIMaths.Clamp(mScrollPosX + caretX - Self.Width + RIGHT_SCROLL_PADDING, 0, widthDiff)
+		      ScrollPosX = Maths.Clamp(mScrollPosX + caretX - Self.Width + RIGHT_SCROLL_PADDING, 0, widthDiff)
 		    ElseIf caretX < mScrollPosX Then
 		      // Scroll left.
 		      ScrollPosX = Max(caretX - LEFT_SCROLL_PADDING, 0)
@@ -3160,7 +3160,7 @@ Implements XUINotificationListener
 		      Else
 		        mScrollPosY = CaretLineNumber * mLineHeight
 		      End If
-		      mScrollPosY = XUIMaths.Clamp(mScrollPosY, 0, (LineManager.LineCount * mLineHeight) - mLineHeight)
+		      mScrollPosY = Maths.Clamp(mScrollPosY, 0, (LineManager.LineCount * mLineHeight) - mLineHeight)
 		    End If
 		    
 		    // Scroll.
@@ -3186,7 +3186,7 @@ Implements XUINotificationListener
 		    ElseIf x - mScrollPosX + RIGHT_SCROLL_PADDING > Self.Width Then
 		      // Scroll right.
 		      Var widthDiff As Double = mCachedRequiredBufferWidth - Self.Width
-		      ScrollPosX = XUIMaths.Clamp(mScrollPosX + x - Self.Width + RIGHT_SCROLL_PADDING, 0, widthDiff)
+		      ScrollPosX = Maths.Clamp(mScrollPosX + x - Self.Width + RIGHT_SCROLL_PADDING, 0, widthDiff)
 		    ElseIf x < mScrollPosX Then
 		      // Scroll left.
 		      ScrollPosX = Max(x - LEFT_SCROLL_PADDING, 0)
@@ -3236,7 +3236,7 @@ Implements XUINotificationListener
 		  // The maximum number of lines we can ever scroll up is the number of lines 
 		  // that are visible on the screen. However, we will never scroll past 
 		  // the first line.
-		  linesToScroll = XUIMaths.Clamp(linesToScroll, 0, linesVisible)
+		  linesToScroll = Maths.Clamp(linesToScroll, 0, linesVisible)
 		  
 		  If moveCaret Then
 		    // Move the caret up by the same number of lines, to the same column position.
@@ -3802,7 +3802,7 @@ Implements XUINotificationListener
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mDebuggingLine = XUIMaths.Clamp(value, 0, Self.LineManager.LineCount)
+			  mDebuggingLine = Maths.Clamp(value, 0, Self.LineManager.LineCount)
 			  NeedsFullRedraw = True
 			End Set
 		#tag EndSetter
@@ -3861,7 +3861,7 @@ Implements XUINotificationListener
 		#tag EndGetter
 		#tag Setter
 			Set
-			  mFirstVisibleLine = XUIMaths.Clamp(value, 1, LineManager.LineCount)
+			  mFirstVisibleLine = Maths.Clamp(value, 1, LineManager.LineCount)
 			  NeedsFullRedraw = True
 			  
 			End Set
@@ -4389,7 +4389,7 @@ Implements XUINotificationListener
 			  Var maxScrollPosX As Integer = Max(mCachedRequiredBufferWidth - Self.Width, 0)
 			  
 			  // Set the value of ScrollPosX, not exceeding the maximum value.
-			  mScrollPosX = XUIMaths.Clamp(value, 0, maxScrollPosX)
+			  mScrollPosX = Maths.Clamp(value, 0, maxScrollPosX)
 			  
 			End Set
 		#tag EndSetter

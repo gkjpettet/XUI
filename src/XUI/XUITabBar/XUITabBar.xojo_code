@@ -893,7 +893,7 @@ Inherits DesktopCanvas
 			  Var maxScrollPosX As Integer = Max((Renderer.BufferWidth / mScaleX) - Self.Width, 0)
 			  
 			  // Set the value of ScrollPosX, not exceeding the maximum value.
-			  mScrollPosX = XUIMaths.Clamp(value, 0, maxScrollPosX)
+			  mScrollPosX = Maths.Clamp(value, 0, maxScrollPosX)
 			  
 			  Refresh
 			End Set

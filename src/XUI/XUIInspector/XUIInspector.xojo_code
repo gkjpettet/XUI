@@ -448,12 +448,12 @@ Inherits NSScrollViewCanvas
 		    // AnchorX is the desired left edge X position.
 		    x = mPopup.AnchorX
 		    // Clamp `x` to make sure it fits in the inspector's current bounds.
-		    x = XUIMaths.Clamp(x, 0, g.Width - popupW)
+		    x = Maths.Clamp(x, 0, g.Width - popupW)
 		  Else
 		    // AnchorX is the desired right edge X position.
 		    x = mPopup.AnchorX - popupW
 		    // Clamp `x` to make sure it fits in the inspector's current bounds.
-		    x = XUIMaths.Clamp(x, 0, g.Width)
+		    x = Maths.Clamp(x, 0, g.Width)
 		  End If
 		  
 		  // ========================
@@ -471,7 +471,7 @@ Inherits NSScrollViewCanvas
 		    y = mPopup.Owner.Bounds.Center.Y - (popupH / 2)
 		  End If
 		  // Clamp y to a valid position.
-		  y = XUIMaths.Clamp(y, 0, g.Height)
+		  y = Maths.Clamp(y, 0, g.Height)
 		  
 		  // Asisgn the bounds.
 		  mPopup.Bounds = New Rect(x, y, popupW, popupH)
@@ -1087,7 +1087,7 @@ Inherits NSScrollViewCanvas
 			  // Compute the maximum vertical scroll offset.
 			  Var maxScrollY As Integer = Max(mCachedRequiredHeight - Self.Height, 0)
 			  
-			  mScrollOffsetY = XUIMaths.Clamp(value, 0, maxScrollY)
+			  mScrollOffsetY = Maths.Clamp(value, 0, maxScrollY)
 			End Set
 		#tag EndSetter
 		ScrollOffsetY As Integer
