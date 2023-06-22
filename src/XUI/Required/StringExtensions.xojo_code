@@ -1,13 +1,13 @@
 #tag Module
-Protected Module XUIStrings
+Protected Module StringExtensions
 	#tag Method, Flags = &h21, Description = 52657475726E732074686520556E69636F64652063617465676F727920666F722061206C6174696E31206368617261637465722E
-		Private Function CategoryForLatin1(codePoint As Integer) As XUIStrings.UnicodeCategories
+		Private Function CategoryForLatin1(codePoint As Integer) As StringExtensions.UnicodeCategories
 		  /// Returns the Unicode category for a latin1 character.
 		  ///
 		  ///
 		  /// Assumes that `codePoint` is within the range &u0000 and &u00FF.
 		  
-		  Static latin1Categories() As XUIStrings.UnicodeCategories = Array(_
+		  Static latin1Categories() As StringExtensions.UnicodeCategories = Array(_
 		  UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, _
 		  UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, _
 		  UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, UnicodeCategories.Control, _
@@ -80,7 +80,7 @@ Protected Module XUIStrings
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 436865636B7320696620607563602062656C6F6E677320746F20746865206C65747465722063617465676F72792E
-		Private Function CheckLetter(uc As XUIStrings.UnicodeCategories) As Boolean
+		Private Function CheckLetter(uc As StringExtensions.UnicodeCategories) As Boolean
 		  /// Checks if `uc` belongs to the letter category.
 		  
 		  Select Case uc
@@ -96,7 +96,7 @@ Protected Module XUIStrings
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 436865636B7320696620607563602062656C6F6E677320746F20746865206C6574746572206F722064696769742063617465676F726965732E
-		Private Function CheckLetterOrDigit(uc As XUIStrings.UnicodeCategories) As Boolean
+		Private Function CheckLetterOrDigit(uc As StringExtensions.UnicodeCategories) As Boolean
 		  /// Checks if `uc` belongs to the letter or digit categories.
 		  
 		  Select Case uc
@@ -194,7 +194,7 @@ Protected Module XUIStrings
 	#tag EndMethod
 
 	#tag Method, Flags = &h21, Description = 52657475726E732074686520556E69636F64652063617465676F727920666F7220556E69636F64652063686172616374657273203C3D202668303066662E
-		Private Function GetLatin1UnicodeCharacter(character As String) As XUIStrings.UnicodeCategories
+		Private Function GetLatin1UnicodeCharacter(character As String) As StringExtensions.UnicodeCategories
 		  /// Returns the Unicode category for Unicode characters <= &h00ff.
 		  ///
 		  /// Assumes that `character` is one character long.
@@ -210,7 +210,7 @@ Protected Module XUIStrings
 	#tag EndMethod
 
 	#tag Method, Flags = &h1, Description = 52657475726E732074686520556E69636F64652063617465676F72792074686174206073602062656C6F6E677320746F2E
-		Protected Function GetUnicodeCategory(s As String) As XUIStrings.UnicodeCategories
+		Protected Function GetUnicodeCategory(s As String) As StringExtensions.UnicodeCategories
 		  /// Returns the Unicode category that `s` belongs to.
 		  ///
 		  /// If `s` is empty or is more than one character in length then 
