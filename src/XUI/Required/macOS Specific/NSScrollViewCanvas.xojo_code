@@ -656,6 +656,14 @@ Inherits DesktopTextInputCanvas
 			Type="Integer"
 			EditorType="Integer"
 		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasVerticalScrollbar"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
 #tag EndClass
