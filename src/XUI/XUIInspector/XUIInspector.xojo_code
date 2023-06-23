@@ -409,6 +409,62 @@ Inherits NSScrollViewCanvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21, Description = 52657475726E7320746865206E756D626572206F66207469636B7320746861742074776F20636C69636B73206D757374206F636375722077697468696E20746F20626520636F6E73696465726564206120646F75626C6520636C69636B2E
+		Private Function GetDoubleClickTimeTicks() As Integer
+		  /// Returns the number of ticks that two clicks must occur within to be considered a double click.
+		  
+		  // Choose a reasonable default in case any of the declares fail.
+		  Const DEFAULT_TICKS = 30 // 30 ticks = 500ms
+		  
+		  Var doubleClickTime As Integer
+		  
+		  #If TargetMacOS
+		    Const CocoaLib As String = "Cocoa.framework"
+		    Declare Function NSClassFromString Lib CocoaLib(aClassName As CFStringRef) As Ptr
+		    Declare Function doubleClickInterval Lib CocoaLib Selector "doubleClickInterval" (aClass As Ptr) As Double
+		    Try
+		      Var RefToClass As Ptr = NSClassFromString("NSEvent")
+		      doubleClickTime = doubleClickInterval(RefToClass) * 60
+		    Catch err As ObjCException
+		      doubleClickTime = DEFAULT_TICKS
+		    End Try
+		  #EndIf
+		  
+		  #If TargetWindows Then
+		    Try
+		      Declare Function GetDoubleClickTime Lib "User32.DLL" () As Integer
+		      doubleClickTime = GetDoubleClickTime()
+		      // `doubleClickTime` now holds the number of milliseconds - convert to ticks.
+		      doubleClickTime = doubleClickTime / 1000.0 * 60
+		    Catch e
+		      doubleClickTime = DEFAULT_TICKS
+		    End Try
+		  #EndIf
+		  
+		  #If TargetLinux Then
+		    Const libname = "libgtk-3"
+		    Soft Declare Function gtk_settings_get_default Lib libname () As Ptr
+		    Soft Declare Sub g_object_get Lib libname (Obj As Ptr, first_property_name As CString, ByRef doubleClicktime As Integer, Null As Integer)
+		    If Not system.IsFunctionAvailable ("gtk_settings_get_default", libname) Then
+		      doubleClickTime = DEFAULT_TICKS
+		    Else
+		      Var gtkSettings As Ptr = gtk_settings_get_default()
+		      g_object_get (gtkSettings, "gtk-double-click-time", doubleClickTime, 0)
+		      // `doubleClickTime` now holds the number of milliseconds - convert to ticks.
+		      doubleClickTime = doubleClickTime / 1000.0 * 60
+		    End If
+		  #EndIf
+		  
+		  // Catch any other platforms.
+		  If doubleClickTime <= 0 Then
+		    doubleClickTime = DEFAULT_TICKS
+		  End If
+		  
+		  Return doubleClickTime
+		  
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21, Description = 536574732060706F7075704D656E756020746F206265207468652063757272656E746C792061637469766520706F707570206D656E7520696E2074686520696E73706563746F722E2048616E646C657320636C6F73696E6720616E206578697374696E6720706F707570206D656E752028696620616E79292E20526564726177732074686520696E73706563746F722E
 		Private Sub HandleNewPopupMenu(popupMenu As XUIInspectorItemPopupMenu)
 		  /// Sets `popupMenu` to be the currently active popup menu in the inspector.
@@ -534,7 +590,7 @@ Inherits NSScrollViewCanvas
 		  currentClickTicks = System.Ticks
 		  
 		  // Did the two clicks happen close enough together in time?
-		  If (currentClickTicks - mLastClickTicks) <= XUI.GetDoubleClickTimeTicks Then
+		  If (currentClickTicks - mLastClickTicks) <= GetDoubleClickTimeTicks Then
 		    // Did they happen close enough together in space?
 		    If Abs(x - mLastMouseUpX) <= SPACE_DELTA And Abs(y - mLastMouseUpY) <= SPACE_DELTA Then
 		      // A double click has occurred.
@@ -563,7 +619,7 @@ Inherits NSScrollViewCanvas
 		    Var doubleClickTime, currentClickTicks As Integer
 		    Var result As Boolean = False
 		    
-		    doubleClickTime = XUI.GetDoubleClickTimeTicks
+		    doubleClickTime = GetDoubleClickTimeTicks
 		    currentClickTicks = System.Ticks
 		    
 		    // Did the three clicks happen close enough together in time?
