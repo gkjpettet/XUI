@@ -196,7 +196,7 @@ Protected Module MarkdownKit
 		  #Pragma StackOverflowChecking False
 		  #Pragma DisableBoundsChecking
 		  
-		  Var tmp() As Text = s.ToText.Split
+		  Var tmp() As String = s.Characters
 		  Var chars() As MKCharacter
 		  Var tmpLastIndex As Integer = tmp.LastIndex
 		  

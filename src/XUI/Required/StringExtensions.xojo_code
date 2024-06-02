@@ -54,27 +54,21 @@ Protected Module StringExtensions
 		  /// It's at least 4x faster to use `Text` to split into characters and then iterate over that array
 		  /// than to use the native `String.Characters()` method that returns an `Iterable`.
 		  
-		  // Get the characters as a Text array.
-		  Var tmp() As Text = s.ToText.Split
-		  
-		  // Now convert each character to a string and add it to our return array.
-		  Var chars() As String
-		  chars.ResizeTo(tmp.LastIndex)
-		  For i As Integer = 0 To tmp.LastIndex
-		    chars(i) = tmp(i)
-		  Next i
-		  
-		  Return chars
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0, Description = 52657475726E7320746865206E756D626572206F66206368617261637465727320696E207468652070617373656420737472696E672028696E636C7564696E67206D756C7469627974652063686172616374657273292E
-		Function CharacterCount(Extends s As String) As Integer
-		  /// Returns the number of characters in the passed string (including multibyte characters).
-		  
-		  Var t As Text = s.ToText
-		  Return t.Length
+		  #If XojoVersion >= 2024.02 Then
+		    Return s.Characters
+		  #Else
+		    // Get the characters as a Text array.
+		    Var tmp() As Text = s.ToText.Split
+		    
+		    // Now convert each character to a string and add it to our return array.
+		    Var chars() As String
+		    chars.ResizeTo(tmp.LastIndex)
+		    For i As Integer = 0 To tmp.LastIndex
+		      chars(i) = tmp(i)
+		    Next i
+		    
+		    Return chars
+		  #EndIf
 		  
 		End Function
 	#tag EndMethod
@@ -777,8 +771,17 @@ Protected Module StringExtensions
 		Function LeftCharacters(Extends s As String, count As Integer) As String
 		  /// Returns `count` left-most characters from `s`.
 		  
-		  Var t As Text = s.ToText
-		  Return t.Left(count)
+		  #If XojoVersion >= 2024.02 Then
+		    Var chars() As String = s.Characters
+		    Var tmp() As String
+		    For i As Integer = 0 To count - 1
+		      tmp.Add(chars(i))
+		    Next i
+		    Return String.FromArray(tmp, "")
+		  #Else
+		    Var t As Text = s.ToText
+		    Return t.Left(count)
+		  #EndIf
 		End Function
 	#tag EndMethod
 
@@ -800,10 +803,21 @@ Protected Module StringExtensions
 
 	#tag Method, Flags = &h0, Description = 52657475726E7320616C6C206F662074686520636861726163746572732066726F6D206073746172746020746F2074686520656E64206F66206073602E2054686520737461727420706F736974696F6E2069732061207A65726F2D62617365642E
 		Function MiddleCharacters(Extends s As String, start As Integer) As String
-		  /// Returns all of the characters from `start` to the end of `s`. The start position is a zero-based.
+		  /// Returns all of the characters from `start` to the end of `s`. 
+		  /// The start position is a zero-based.
 		  
-		  Var t As Text = s.ToText
-		  Return t.Mid(start)
+		  #If XojoVersion >= 2024.02 Then
+		    Var chars() As String = s.Characters
+		    Var tmp() As String
+		    Var limit As Integer = s.CharacterCount - 1
+		    For i As Integer = start To limit
+		      tmp.Add(chars(i))
+		    Next i
+		    Return String.FromArray(tmp, "")
+		  #Else
+		    Var t As Text = s.ToText
+		    Return t.Mid(start)
+		  #EndIf
 		End Function
 	#tag EndMethod
 
@@ -811,8 +825,52 @@ Protected Module StringExtensions
 		Function MiddleCharacters(Extends s As String, start As Integer, count As Integer) As String
 		  /// Returns `count` characters from `s`. Handles multibyte characters like emoji.
 		  
-		  Var t As Text = s.ToText
-		  Return t.Mid(start, count)
+		  #If XojoVersion >= 2024.02 Then
+		    Var chars() As String = s.Characters
+		    Var tmp() As String
+		    For i As Integer = start To start + count - 1
+		      tmp.Add(chars(i))
+		    Next i
+		    Return String.FromArray(tmp, "")
+		  #Else
+		    Var t As Text = s.ToText
+		    Return t.Mid(start, count)
+		  #EndIf
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 50616473207468652070617373656420737472696E6720746F20746865206C65667420776974682060636861726020746865207370656369666965642060636F756E7460206E756D626572206F662074696D65732E
+		Function PadLeft(Extends s As String, count As Integer, char As String) As String
+		  /// Pads the passed string to the left with `char` the specified `count` number of times.
+		  
+		  // Quick escape?
+		  If count <= 0 Then Return s
+		  
+		  Var padding() As String
+		  For i As Integer = 1 To count
+		    padding.Add(char)
+		  Next i
+		  
+		  Return String.FromArray(padding, "") + s
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0, Description = 50616473207468652070617373656420737472696E6720746F20746865206C65667420776974682060636861726020746865207370656369666965642060636F756E7460206E756D626572206F662074696D65732E
+		Function PadLeft(s As String, count As Integer, char As String) As String
+		  /// Pads the passed string to the left with `char` the specified `count` number of times.
+		  
+		  // Quick escape?
+		  If count <= 0 Then Return s
+		  
+		  Var padding() As String
+		  For i As Integer = 1 To count
+		    padding.Add(char)
+		  Next i
+		  
+		  Return String.FromArray(padding, "") + s
+		  
 		End Function
 	#tag EndMethod
 
@@ -833,8 +891,19 @@ Protected Module StringExtensions
 		Function RightCharacters(Extends s As String, count As Integer) As String
 		  /// Returns `count` right-most characters from `s`.
 		  
-		  Var t As Text = s.ToText
-		  Return t.Right(count)
+		  #If XojoVersion >= 2024.02 Then
+		    Var chars() As String = s.Characters
+		    Var tmp() As String
+		    Var limit As Integer = chars.LastIndex - count + 1
+		    For i As Integer = chars.LastIndex DownTo limit
+		      tmp.AddAt(0, chars(i))
+		    Next i
+		    Return String.FromArray(tmp, "")
+		  #Else
+		    Var t As Text = s.ToText
+		    Return t.Right(count)
+		  #EndIf
+		  
 		End Function
 	#tag EndMethod
 
