@@ -10,6 +10,7 @@ Begin DemoWindow WinSourceList
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
+   HasTitleBar     =   True
    Height          =   500
    ImplicitInstance=   True
    MacProcID       =   0
@@ -73,7 +74,7 @@ Begin DemoWindow WinSourceList
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   0
+      SelectedRowIndex=   -1
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
@@ -102,7 +103,7 @@ Begin DemoWindow WinSourceList
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      SelectedRowIndex=   0
+      SelectedRowIndex=   -1
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
@@ -574,6 +575,11 @@ End
 		  Var vips As New XUISourceListItem("VIPs", IconSourceListVIPs, 0, Nil, True)
 		  vips.AddChild(New XUISourceListItem("Peter Parker", IconSourceListVIPs))
 		  vips.AddChild(New XUISourceListItem("Tony Stark", IconSourceListVIPs))
+		  
+		  For i As Integer = 1 To 20
+		    vips.AddChild(New XUISourceListItem("Item " + i.ToString, IconSourceListVIPs))
+		  Next i
+		  
 		  favourites.AddChild(vips, False)
 		  vips.Expanded = True
 		  
@@ -774,6 +780,14 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
+		Name="HasTitleBar"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Name"
 		Visible=true
 		Group="ID"
@@ -862,8 +876,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty

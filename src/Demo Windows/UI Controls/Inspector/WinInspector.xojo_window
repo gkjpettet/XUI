@@ -10,6 +10,7 @@ Begin DemoWindow WinInspector Implements XUINotificationListener
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
+   HasTitleBar     =   True
    Height          =   616
    ImplicitInstance=   True
    MacProcID       =   0
@@ -25,6 +26,7 @@ Begin DemoWindow WinInspector Implements XUINotificationListener
    Visible         =   False
    Width           =   822
    Begin XUIInspector Inspector
+      AllowFocusRing  =   False
       AllowInertialScrolling=   True
       AutoDeactivate  =   True
       CaretVisible    =   False
@@ -294,6 +296,14 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
+		Name="HasTitleBar"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Name"
 		Visible=true
 		Group="ID"
@@ -382,8 +392,7 @@ End
 			"6 - Rounded Window"
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
-			"9 - Metal Window"
-			"11 - Modeless Dialog"
+			"9 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
