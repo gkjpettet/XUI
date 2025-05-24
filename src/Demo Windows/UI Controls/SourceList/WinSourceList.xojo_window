@@ -576,10 +576,6 @@ End
 		  vips.AddChild(New XUISourceListItem("Peter Parker", IconSourceListVIPs))
 		  vips.AddChild(New XUISourceListItem("Tony Stark", IconSourceListVIPs))
 		  
-		  For i As Integer = 1 To 30
-		    vips.AddChild(New XUISourceListItem("Item " + i.ToString, IconSourceListVIPs))
-		  Next i
-		  
 		  favourites.AddChild(vips, False)
 		  vips.Expanded = True
 		  
