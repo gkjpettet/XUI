@@ -131,45 +131,6 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21, Description = 496E7465726E616C206D6574686F6420666F7220706879736963616C6C7920616464696E6720616E206974656D20746F2074686520736F75726365206C6973742E
-		Private Sub AddToSourceList(item As XUISourceListItem)
-		  /// Internal method for physically adding an item to the source list.
-		  
-		  // Silently fail if `item` is Nil.
-		  If item = Nil Then Return
-		  
-		  SourceList.AddExpandableRow("")
-		  
-		  If item.Expanded Then
-		    SourceList.RowExpandedAt(SourceList.LastAddedRowIndex) = True
-		    'ExpandRow(SourceList.LastAddedRowIndex)
-		  End If
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21, Description = 496E7465726E616C206D6574686F64732E2041637475616C6C7920657870616E64732060726F776020696E20746865206C697374626F782E2043616C6C6564206279206052656275696C6428296020616E642060416464546F536F757263654C6973742829602E
-		Private Sub ExpandRow(row As Integer)
-		  /// Internal methods. Actually expands `row` in the listbox. Called by `Rebuild()` and `AddToSourceList()`.
-		  
-		  // Get the item at the requested row.
-		  Var item As XUISourceListItem = ItemAtRowIndex(row)
-		  
-		  // Silently fail if there is no item at the requested row.
-		  If item = Nil Then Return
-		  
-		  // Mark this row as expanded but don't rebuild.
-		  item.Expanded = True
-		  
-		  // Display this item's children.
-		  Var childrenLastIndex As Integer = item.ChildCount - 1
-		  For i As Integer = 0 To childrenLastIndex
-		    AddToSourceList(item.ChildAtIndex(i))
-		  Next i
-		  
-		End Sub
-	#tag EndMethod
-
 	#tag Method, Flags = &h21, Description = 54686520757365722068617320636C69636B656420606974656D6020696E2074686520736F75726365206C697374207768696C737420686F6C64696E6720646F776E20746865207368696674206B65792E
 		Private Sub HandleContiguousRowClick(item As XUISourceListItem, x As Integer, y As Integer)
 		  /// The user has clicked `item` in the source list whilst holding down the shift key.
@@ -386,7 +347,6 @@ End
 		    SourceList.RowTagAt(SourceList.LastAddedRowIndex) = section
 		    
 		    If section.Expanded Then
-		      'ExpandRow(SourceList.LastAddedRowIndex)
 		      SourceList.RowExpandedAt(SourceList.LastAddedRowIndex) = True
 		    End If
 		    
