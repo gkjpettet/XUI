@@ -138,9 +138,12 @@ End
 		  // Silently fail if `item` is Nil.
 		  If item = Nil Then Return
 		  
-		  SourceList.AddRow("")
+		  SourceList.AddExpandableRow("")
 		  
-		  If item.Expanded Then ExpandRow(SourceList.LastAddedRowIndex)
+		  If item.Expanded Then
+		    SourceList.RowExpandedAt(SourceList.LastAddedRowIndex) = True
+		    'ExpandRow(SourceList.LastAddedRowIndex)
+		  End If
 		  
 		End Sub
 	#tag EndMethod
@@ -379,9 +382,13 @@ End
 		  
 		  For Each section As XUISourceListItem In mSections
 		    
-		    SourceList.AddRow("")
+		    SourceList.AddExpandableRow("")
+		    SourceList.RowTagAt(SourceList.LastAddedRowIndex) = section
 		    
-		    If section.Expanded Then ExpandRow(SourceList.LastAddedRowIndex)
+		    If section.Expanded Then
+		      'ExpandRow(SourceList.LastAddedRowIndex)
+		      SourceList.RowExpandedAt(SourceList.LastAddedRowIndex) = True
+		    End If
 		    
 		  Next section
 		  
@@ -730,11 +737,13 @@ End
 		    StoppedDragging
 		    If item.Expanded Then
 		      item.Expanded = False
+		      SourceList.RowExpandedAt(row) = False
 		      Refresh
 		      RaiseEvent CollapsedItem(item)
 		      Return True
 		    Else
 		      item.Expanded = True
+		      SourceList.RowExpandedAt(row) = True
 		      Refresh
 		      RaiseEvent ExpandedItem(item)
 		      Return True
@@ -776,7 +785,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Opening()
-		  Me.AllowExpandableRows = False
+		  Me.AllowExpandableRows = True
 		  Me.AllowFocusRing = False
 		  Me.AllowRowDragging = True
 		  Me.AllowRowReordering = True
@@ -832,8 +841,12 @@ End
 		  If droppedOnRow And dropItem.CanAcceptChildren Then
 		    // Make sure that the section where we're dropping the selected items is the same as the selected item's 
 		    // section since we don't allow dragging items from one section to another.
-		    If dropItem.IsSection And mSelectedItems(0).Section <> dropItem Then Return False
-		    If dropItem.Section <> mSelectedItems(0).Section Then Return False
+		    If dropItem.IsSection And mSelectedItems(0).Section <> dropItem Then
+		      Return False
+		    End If
+		    If dropItem.Section <> mSelectedItems(0).Section Then
+		      Return False
+		    End If
 		    
 		    // Move the selected items to their new destination.
 		    For Each selectedItem As XUISourceListItem In mSelectedItems
@@ -929,6 +942,34 @@ End
 		  
 		  Return False
 		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub RowExpanded(row As Integer)
+		  Var item As XUISourceListItem = SourceList.RowTagAt(row)
+		  
+		  // Display this item's children.
+		  Var childrenLastIndex As Integer = item.ChildCount - 1
+		  For i As Integer = 0 To childrenLastIndex
+		    SourceList.AddExpandableRow("")
+		    SourceList.RowTagAt(SourceList.LastAddedRowIndex) = item.ChildAtIndex(i)
+		    If item.Expanded Then
+		      SourceList.RowExpandedAt(SourceList.LastAddedRowIndex) = True
+		    End If
+		  Next i
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function PaintDisclosureWidget(g As Graphics, row As Integer, ByRef x As Integer, ByRef y As Integer, ByRef width As Integer, ByRef height As Integer) As Boolean
+		  #Pragma Unused g
+		  #Pragma Unused row
+		  #Pragma Unused x
+		  #Pragma Unused y
+		  #Pragma Unused width
+		  #Pragma Unused height
+		  
+		  // Prevent Xojo from drawing the disclosure widget.
+		  Return True
 		End Function
 	#tag EndEvent
 #tag EndEvents

@@ -320,7 +320,7 @@ Begin DemoWindow WinSourceList
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin DesktopLabel LabelDummyData1
+   Begin DesktopLabel LabelEventLog
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
@@ -576,7 +576,7 @@ End
 		  vips.AddChild(New XUISourceListItem("Peter Parker", IconSourceListVIPs))
 		  vips.AddChild(New XUISourceListItem("Tony Stark", IconSourceListVIPs))
 		  
-		  For i As Integer = 1 To 20
+		  For i As Integer = 1 To 30
 		    vips.AddChild(New XUISourceListItem("Item " + i.ToString, IconSourceListVIPs))
 		  Next i
 		  
